@@ -1,9 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ======================================================================================================================
-# The MIT License (MIT)
-# ======================================================================================================================
-# Copyright (c) 2016 [Marco Aurélio Prado - marco.pdsv@gmail.com]
+# Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import unittest
 from flask_bombril.utils import get_test_suite_from_test_cases
