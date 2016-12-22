@@ -1,0 +1,26 @@
+$btn-border: 1px;
+$btn-padding: 6px 12px;
+$btn-padding-lg: 10px 16px;
+$btn-padding-sm: 5px 10px;
+$btn-padding-xs: 1px 5px;
+
+a.btn-wrap {
+  border: $btn-border;
+  padding: $btn-padding;
+
+  &.btn-lg {
+    padding: $btn-padding-lg;
+  }
+
+  &.btn-sm {
+    padding: $btn-padding-sm;
+  }
+
+  &.btn-xs {
+    padding: $btn-padding-xs;
+  }
+}
+
+html, body {
+  height: 100%;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "flask-bone",
+  "homepage": "https://github.com/marcoprado17/flask-bone",
+  "authors": [
+    "marcoprado17 <marco.pdsv@gmail.com>"
+  ],
+  "description": "Pycharm project bone for large Flask web applications",
+  "main": "",
+  "keywords": [
+    "pycharm",
+    "flask",
+    "large",
+    "web",
+    "apps"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

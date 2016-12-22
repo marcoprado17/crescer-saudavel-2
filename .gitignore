@@ -1,0 +1,11 @@
+.vagrant/
+bower_components/
+*.pyc
+configs/instance/
+node_modules/
+/logs/*
+!/logs/.gitkeep
+/scripts/server_setups/export_db_info_result.txt
+.idea/
+playground/
+portuguese_brazil_dic/
