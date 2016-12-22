@@ -72,7 +72,10 @@ def create_app():
     #
     # Wrappers
     #
-
+    from wrappers.base import base_blueprint
+    app.register_blueprint(base_blueprint, url_prefix="/base")
+    from wrappers.admin_base import admin_base_blueprint
+    app.register_blueprint(admin_base_blueprint, url_prefix="/admin-base")
     #
     # Macros
     #
