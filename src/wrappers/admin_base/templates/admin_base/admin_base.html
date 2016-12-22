@@ -3,7 +3,9 @@
     Admin | {% block subtitle %}{% endblock %}
 {% endblock %}
 {% block body %}
-    <p>admin body</p>
-    {% block content %}
-    {% endblock %}
+    <div class="__admin_base__">
+        <p>admin body</p>
+        {% block content %}
+        {% endblock %}
+    </div>
 {% endblock %}
