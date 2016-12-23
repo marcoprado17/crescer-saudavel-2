@@ -17,7 +17,6 @@ gulp.task("watch", function () {
     gulp.watch("src/**/*.html", ["refresh_page"]);
     gulp.watch("build/static/**/*.css", ["refresh_page"]);
     gulp.watch("build/static/**/*.js", ["refresh_page"]);
-    gulp.watch("build/static/**/*.html", ["refresh_page"]);
     gulp.watch("src/**/*.py", function () {
         delay(750);
         runSequence("refresh_page");
@@ -28,7 +27,9 @@ gulp.task("make_css_bundle", function () {
     return gulp.src([
         "bower_components/bootstrap/dist/css/bootstrap.css",
         "src/front_bombril/utils.scss",
-        "src/blueprints/wrappers/base/static/scss/base.scss",
+        "src/wrappers/base/static/scss/base.scss",
+        "src/wrappers/admin_base/static/scss/admin_base.scss",
+        "src/wrappers/customer_base/static/scss/customer_base.scss",
         "src/**/*.scss"
     ])
         .pipe(concat("bundle.css"))

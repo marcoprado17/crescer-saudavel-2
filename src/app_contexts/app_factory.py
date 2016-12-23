@@ -7,7 +7,7 @@ import sys
 
 if sys.version_info.major < 3:
     reload(sys)
-sys.setdefaultencoding('utf8')
+sys.setdefaultencoding("utf8")
 
 from flask import Flask, redirect, request, url_for
 
@@ -23,7 +23,7 @@ from flask_bombril.log import log_request
 def __create_app(configs):
     static_folder = None
     for config in configs:
-        if hasattr(config, 'STATIC_FOLDER'):
+        if hasattr(config, "STATIC_FOLDER"):
             static_folder = config.STATIC_FOLDER
 
     app = Flask(__name__, instance_relative_config=True, static_folder=static_folder)
@@ -64,11 +64,25 @@ def create_app():
     #
     # Routers
     #
+    from routers.admin_attended_cities import admin_attended_cities_blueprint
+    app.register_blueprint(admin_attended_cities_blueprint, url_prefix="/admin/cidades-atendidas")
+    from routers.admin_blog import admin_blog_blueprint
+    app.register_blueprint(admin_blog_blueprint, url_prefix="/admin/blog")
+    from routers.admin_content import admin_content_blueprint
+    app.register_blueprint(admin_content_blueprint, url_prefix="/admin/conteudo")
+    from routers.admin_customers import admin_customers_blueprint
+    app.register_blueprint(admin_customers_blueprint, url_prefix="/admin/clientes")
+    from routers.admin_home import admin_home_blueprint
+    app.register_blueprint(admin_home_blueprint, url_prefix="/admin/home")
+    from routers.admin_images import admin_images_blueprint
+    app.register_blueprint(admin_images_blueprint, url_prefix="/admin/images")
+    from routers.admin_orders import admin_orders_blueprint
+    app.register_blueprint(admin_orders_blueprint, url_prefix="/admin/pedidos")
+    from routers.admin_products import admin_products_blueprint
+    app.register_blueprint(admin_products_blueprint, url_prefix="/admin/produtos")
     if app.config["DEBUG"]:
         from routers.debug import debug_blueprint
         app.register_blueprint(debug_blueprint, url_prefix="/debug")
-    from routers.admin_home import admin_home_blueprint
-    app.register_blueprint(admin_home_blueprint, url_prefix="/admin/home")
     #
     # Wrappers
     #
@@ -96,14 +110,24 @@ def create_app():
     # ==================================================================================================================
     from flask_bombril.jinja_filters import assert_defined, assert_callable, call, if_filter, is_static, is_toast, \
         get_level
-    app.jinja_env.filters['assert_defined'] = assert_defined
-    app.jinja_env.filters['assert_callable'] = assert_callable
-    app.jinja_env.filters['call'] = call
-    app.jinja_env.filters['if'] = if_filter
-    app.jinja_env.filters['is_static'] = is_static
-    app.jinja_env.filters['is_toast'] = is_toast
-    app.jinja_env.filters['get_level'] = get_level
+    app.jinja_env.filters["assert_defined"] = assert_defined
+    app.jinja_env.filters["assert_callable"] = assert_callable
+    app.jinja_env.filters["call"] = call
+    app.jinja_env.filters["if"] = if_filter
+    app.jinja_env.filters["is_static"] = is_static
+    app.jinja_env.filters["is_toast"] = is_toast
+    app.jinja_env.filters["get_level"] = get_level
 
+    # ==================================================================================================================
+    #
+    #
+    #
+    #
+    # Registering jinja tests
+    # ==================================================================================================================
+    from flask_bombril.jinja_tests import is_list, is_dict
+    app.jinja_env.tests["list"] = is_list
+    app.jinja_env.tests["dict"] = is_dict
     # ==================================================================================================================
     #
     #
@@ -112,11 +136,13 @@ def create_app():
     # Registering app context_processors
     # ==================================================================================================================
     from r import R
+    from components.data_providers import admin_navbar_data_provider
 
     @app.context_processor
     def _():
         return dict(
             R=R,
+            get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data()
         )
 
     # ==================================================================================================================
@@ -129,12 +155,12 @@ def create_app():
     import logging
     from logging.handlers import TimedRotatingFileHandler
     handler = TimedRotatingFileHandler(
-        filename=app.config['LOGGING_FILENAME'],
-        when=app.config['LOGGING_WHEN'],
-        interval=app.config['LOGGING_INTERVAL'],
-        backupCount=app.config['LOGGING_BACKUP_COUNT']
+        filename=app.config["LOGGING_FILENAME"],
+        when=app.config["LOGGING_WHEN"],
+        interval=app.config["LOGGING_INTERVAL"],
+        backupCount=app.config["LOGGING_BACKUP_COUNT"]
     )
-    formatter = logging.Formatter(app.config['LOGGING_FORMAT'])
+    formatter = logging.Formatter(app.config["LOGGING_FORMAT"])
     handler.setFormatter(formatter)
     app.logger.addHandler(handler)
 

@@ -1,0 +1,66 @@
+{% set data = get_components_admin_navbar_data|assert_defined|assert_callable|call %}
+{% import "macros/admin_navbar.html" as admin_navbar with context %}
+<nav class="__components__ __navbar__ navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">{{ R.string.admin_dashboard }}</span>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {{
+                        admin_navbar.simple_navbar_item(
+                            id=R.id.ADMIN_NAVBAR_HOME,
+                            endpoint="admin_home.index",
+                            text=R.string.home
+                        )
+                }}
+                {{
+                        admin_navbar.complex_navbar_item(
+                            id=R.id.ADMIN_NAVBAR_PRODUCTS,
+                            text=R.string.products,
+                            subitems = [
+                                [
+                                    {
+                                        "endpoint": "admin_products.add_product",
+                                        "text": R.string.add_new_product
+                                    },
+                                    {
+                                        "endpoint": "admin_products.products",
+                                        "text": R.string.view_edit_remove_products
+                                    }
+                                ],
+                                [
+                                    {
+                                        "endpoint": "admin_products.add_product_category",
+                                        "text": R.string.add_new_category
+                                    },
+                                    {
+                                        "endpoint": "admin_products.product_categories",
+                                        "text": R.string.view_edit_remove_categories
+                                    }
+                                ],
+                                [
+                                    {
+                                        "endpoint": "admin_products.add_product_subcategory",
+                                        "text": R.string.add_new_subcategory
+                                    },
+                                    {
+                                        "endpoint": "admin_products.product_subcategories",
+                                        "text": R.string.view_edit_remove_subcategories
+                                    }
+                                ],
+                            ]
+                        )
+                }}
+            </ul>
+        </div>
+    </div>
+</nav>

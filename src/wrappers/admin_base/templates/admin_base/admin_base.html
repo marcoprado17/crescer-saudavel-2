@@ -1,10 +1,10 @@
 {% extends "base/base.html" %}
 {% block title %}
-    Admin | {% block subtitle %}{% endblock %}
+    {{ R.string.admin }} | {% block subtitle %}{% endblock %}
 {% endblock %}
 {% block body %}
     <div class="__admin_base__">
-        <p>admin body</p>
+        {% include "components/admin_navbar.html" %}
         {% block content %}
         {% endblock %}
     </div>
