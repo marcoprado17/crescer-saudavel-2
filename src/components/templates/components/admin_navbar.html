@@ -16,49 +16,131 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 {{
-                        admin_navbar.simple_navbar_item(
-                            id=R.id.ADMIN_NAVBAR_HOME,
-                            endpoint="admin_home.index",
-                            text=R.string.home
-                        )
+                    admin_navbar.simple_navbar_item(
+                        id=R.id.ADMIN_NAVBAR_HOME,
+                        endpoint="admin_home.index",
+                        text=R.string.home
+                    )
                 }}
                 {{
-                        admin_navbar.complex_navbar_item(
-                            id=R.id.ADMIN_NAVBAR_PRODUCTS,
-                            text=R.string.products,
-                            subitems = [
-                                [
-                                    {
-                                        "endpoint": "admin_products.add_product",
-                                        "text": R.string.add_new_product
-                                    },
-                                    {
-                                        "endpoint": "admin_products.products",
-                                        "text": R.string.view_edit_remove_products
-                                    }
-                                ],
-                                [
-                                    {
-                                        "endpoint": "admin_products.add_product_category",
-                                        "text": R.string.add_new_category
-                                    },
-                                    {
-                                        "endpoint": "admin_products.product_categories",
-                                        "text": R.string.view_edit_remove_categories
-                                    }
-                                ],
-                                [
-                                    {
-                                        "endpoint": "admin_products.add_product_subcategory",
-                                        "text": R.string.add_new_subcategory
-                                    },
-                                    {
-                                        "endpoint": "admin_products.product_subcategories",
-                                        "text": R.string.view_edit_remove_subcategories
-                                    }
-                                ],
-                            ]
-                        )
+                    admin_navbar.complex_navbar_item(
+                        id=R.id.ADMIN_NAVBAR_PRODUCTS,
+                        text=R.string.products,
+                        subitems = [
+                            [
+                                {
+                                    "endpoint": "admin_products.add_product",
+                                    "text": R.string.add_new_product
+                                },
+                                {
+                                    "endpoint": "admin_products.index",
+                                    "text": R.string.view_edit_remove_products
+                                }
+                            ],
+                            [
+                                {
+                                    "endpoint": "admin_products.add_category",
+                                    "text": R.string.add_new_category
+                                },
+                                {
+                                    "endpoint": "admin_products.categories",
+                                    "text": R.string.view_edit_remove_categories
+                                }
+                            ],
+                            [
+                                {
+                                    "endpoint": "admin_products.add_subcategory",
+                                    "text": R.string.add_new_subcategory
+                                },
+                                {
+                                    "endpoint": "admin_products.subcategories",
+                                    "text": R.string.view_edit_remove_subcategories
+                                }
+                            ],
+                        ]
+                    )
+                }}
+                {{
+                    admin_navbar.simple_navbar_item(
+                        id=R.id.ADMIN_NAVBAR_ORDERS,
+                        endpoint="admin_orders.index",
+                        text=R.string.orders
+                    )
+                }}
+                {{
+                    admin_navbar.complex_navbar_item(
+                        id=R.id.ADMIN_NAVBAR_BLOG,
+                        text=R.string.blog,
+                        subitems = [
+                            {
+                                "endpoint": "admin_blog.add_post",
+                                "text": R.string.add_new_post
+                            },
+                            {
+                                "endpoint": "admin_blog.posts",
+                                "text": R.string.view_edit_remove_posts
+                            }
+                        ]
+                    )
+                }}
+                {{
+                    admin_navbar.simple_navbar_item(
+                        id=R.id.ADMIN_NAVBAR_CUSTOMERS,
+                        endpoint="admin_customers.index",
+                        text=R.string.customers
+                    )
+                }}
+                {{
+                    admin_navbar.complex_navbar_item(
+                        id=R.id.ADMIN_NAVBAR_IMAGES,
+                        text=R.string.images,
+                        subitems = [
+                            {
+                                "endpoint": "admin_images.add_image",
+                                "text": R.string.add_new_image
+                            },
+                            {
+                                "endpoint": "admin_images.index",
+                                "text": R.string.view_remove_images
+                            }
+                        ]
+                    )
+                }}
+                {{
+                    admin_navbar.complex_navbar_item(
+                        id=R.id.ADMIN_NAVBAR_CONTENT,
+                        text=R.string.content,
+                        subitems = [
+                            {
+                                "endpoint": "admin_content.contact",
+                                "text": R.string.contact
+                            },
+                            {
+                                "endpoint": "admin_content.about_us",
+                                "text": R.string.about_us
+                            },
+                            {
+                                "endpoint": "admin_content.faq",
+                                "text": R.string.faq
+                            }
+                        ]
+                    )
+                }}
+                {{
+                    admin_navbar.complex_navbar_item(
+                        id=R.id.ADMIN_NAVBAR_ATTENDED_CITIES,
+                        text=R.string.attended_cities,
+                        subitems = [
+                            {
+                                "endpoint": "admin_attended_cities.add_city",
+                                "text": R.string.add_new_city
+                            },
+                            {
+                                "endpoint": "admin_attended_cities.index",
+                                "text": R.string.view_remove_cities
+                            }
+                        ]
+                    )
                 }}
             </ul>
         </div>

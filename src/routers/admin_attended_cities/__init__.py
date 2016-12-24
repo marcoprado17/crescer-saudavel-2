@@ -6,3 +6,5 @@
 from flask import Blueprint
 
 admin_attended_cities_blueprint = Blueprint("admin_attended_cities", __name__, static_folder="static", template_folder="templates")
+
+import views

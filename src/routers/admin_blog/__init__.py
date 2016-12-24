@@ -6,3 +6,5 @@
 from flask import Blueprint
 
 admin_blog_blueprint = Blueprint("admin_blog", __name__, static_folder="static", template_folder="templates")
+
+import views

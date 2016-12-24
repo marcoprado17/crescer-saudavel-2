@@ -6,31 +6,31 @@
 from routers.admin_products import admin_products_blueprint
 
 
+@admin_products_blueprint.route("/")
+def index():
+    return "Produtos."
+
+
 @admin_products_blueprint.route("/adicionar-produto")
 def add_product():
     return "Adicionar novo produto."
 
 
-@admin_products_blueprint.route("/produtos")
-def products():
-    return "Produtos."
-
-
-@admin_products_blueprint.route("/adicionar-categoria-de-produto")
-def add_product_category():
-    return "Adicionar nova categoria de produto."
-
-
 @admin_products_blueprint.route("/categorias-de-produto")
-def product_categories():
+def categories():
     return "Categorias de produto."
 
 
-@admin_products_blueprint.route("/adicionar-subcategoria-de-produto")
-def add_product_subcategory():
-    return "Adicionar nova subcategoria de produto."
+@admin_products_blueprint.route("/adicionar-categoria-de-produto")
+def add_category():
+    return "Adicionar nova categoria de produto."
 
 
 @admin_products_blueprint.route("/subcategorias-de-produto")
-def product_subcategories():
+def subcategories():
     return "Subcategorias de produto."
+
+
+@admin_products_blueprint.route("/adicionar-subcategoria-de-produto")
+def add_subcategory():
+    return "Adicionar nova subcategoria de produto."

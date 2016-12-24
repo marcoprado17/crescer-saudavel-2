@@ -1,10 +1,11 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ======================================================================================================================
-# Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
+# Created at 24/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from flask import Blueprint
+from routers.admin_customers import admin_customers_blueprint
 
-admin_content_blueprint = Blueprint("admin_content", __name__, static_folder="static", template_folder="templates")
 
-import views
+@admin_customers_blueprint.route("/")
+def index():
+    return "Clientes."
