@@ -11,6 +11,8 @@ from length import TestCase as LengthTestCase
 from required import TestCase as RequiredTestCase
 from unique import TestCaseInvalidInputs as UniqueTestCaseInvalidInputs
 from unique import TestCaseValidInputs as UniqueTestCaseValidInputs
+from has_file_part import TestCase as HasFilePartTestCase
+from allowed_file_format import TestCase as AllowedFileFormatTestCase
 
 test_suite = get_test_suite_from_test_cases([
     EmailFormatTestCase,
@@ -18,7 +20,9 @@ test_suite = get_test_suite_from_test_cases([
     LengthTestCase,
     RequiredTestCase,
     UniqueTestCaseInvalidInputs,
-    UniqueTestCaseValidInputs
+    UniqueTestCaseValidInputs,
+    HasFilePartTestCase,
+    AllowedFileFormatTestCase
 ])
 
 if __name__ == "__main__":

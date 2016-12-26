@@ -20,6 +20,9 @@ class Resources:
             self.toast = "toast"
             self.category_separator = "-"
             self.test_file_name = "test_file_name"
+            self.png = "png"
+            self.jpg = "jpg"
+            self.jpeg = "jpeg"
 
         class __Validators:
             def __init__(self):
@@ -34,8 +37,9 @@ class Resources:
                 self.field_length_range = "O campo deve possuir entre %(min_length)d e %(max_length)d caracteres."
                 self.invalid_field_name = "Invalid field name '%(field_name)s'."
                 self.field_must_be_equal_to = "Este campo precisa ser igual ao campo %(other_name)s."
-                self.always_error = "Essa mensagem de erro sempre será lançada para esse campo"
-                self.file_part_not_found = "Arquivo não encontrado"
+                self.always_error = "Essa mensagem de erro sempre será lançada para esse campo."
+                self.file_part_not_found = "Arquivo não encontrado."
+                self.invalid_file_extension = "Formato de arquivo inválido."
 
     class __Ids:
         def __init__(self):
