@@ -1,0 +1,59 @@
+{% macro render_errors(errors) %}
+    {% if errors|length > 0 %}
+        {% for error in errors %}
+            <span class="help-block">{{ error|safe }}</span>
+        {% endfor %}
+    {% endif %}
+{%- endmacro %}
+
+{% macro string_field(field, explicit_label=False, max_length=None) %}
+    {% if max_length == None %}
+        {% set max_length=R.dimen.default_string_field_max_length %}
+    {% endif %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <label for="{{ field.id }}">{{ field.label }}</label>
+        {% endif %}
+        <input id="{{ field.id }}" name="{{ field.name }}" type="text"
+               class="form-control" placeholder="{{ field.label.text|if(not explicit_label) }}"
+               maxlength="{{ max_length }}"
+               value="{{ field.data|if(field.data) }}">
+        {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
+{% macro password_field(field, explicit_label=False, max_length=None) %}
+    {% if max_length == None %}
+        {% set max_length=R.dimen.default_password_field_max_length %}
+    {% endif %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <label for="{{ field.id }}">{{ field.label }}</label>
+        {% endif %}
+        <input id="{{ field.id }}" name="{{ field.name }}" type="password" class="form-control"
+               placeholder="{{ field.label.text|if(not explicit_label) }}" maxlength="{{ max_length }}">
+        {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
+{% macro file_field(field, label=False, auxiliar_text=None) %}
+    <div class="form-group">
+        {% if label %}
+             <label for="{{ field.id }}">{{ field.label }}</label>
+        {% endif %}
+        <input type="file" class="filestyle" data-buttonText="{{ R.string.find_file }}" data-iconName="">
+        {% if auxiliar_text %}
+            <p class="help-block">{{ auxiliar_text }}</p>
+        {% endif %}
+    </div>
+{%- endmacro %}
+
+{% macro submit(field) %}
+    <input type="submit" class="btn btn-default" value="{{ field.label.text }}">
+{%- endmacro %}
+
+{% macro readonly_text_input(text) %}
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="{{ text }}" readonly>
+    </div>
+{%- endmacro %}

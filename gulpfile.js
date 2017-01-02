@@ -41,6 +41,7 @@ gulp.task("make_js_bundle", function () {
     return gulp.src([
         "bower_components/jquery/dist/jquery.js",
         "bower_components/bootstrap/dist/js/bootstrap.js",
+        "bower_components/bootstrap-filestyle/src/bootstrap-filestyle.js",
         "src/front_bombril/utils.js",
         "src/**/*.js"
     ])

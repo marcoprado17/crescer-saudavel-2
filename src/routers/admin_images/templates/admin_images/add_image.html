@@ -1,0 +1,21 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "macros/form_fields.html" as form_fields with context %}
+{% block subtitle %}
+    {{ R.string.add_image }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_images__ __add_image__ container hidden">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ R.string.add_image }}</div>
+            <div class="panel-body">
+                <form action="{{ url_for("admin_images.add_image") }}" method="post">
+                    {{ data.form.csrf_token }}
+                    {{ form_fields.file_field(field=data.form.image) }}
+                    {{ form_fields.submit(field=data.form.submit) }}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}
