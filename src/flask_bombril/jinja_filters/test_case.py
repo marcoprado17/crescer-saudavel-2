@@ -90,58 +90,58 @@ class TestCase(BaseTestCase):
         self.assertEqual(if_filter(value=value, condition=condition, else_value=else_value), else_value)
 
     def test_is_static(self):
-        value = "static-warning"
+        value = R.string.get_message_category(R.string.static, R.string.warning)
         self.assertTrue(is_static(value))
 
-        value = "static-info"
+        value = R.string.get_message_category(R.string.static, R.string.info)
         self.assertTrue(is_static(value))
 
-        value = "static-success"
+        value = R.string.get_message_category(R.string.static, R.string.success)
         self.assertTrue(is_static(value))
 
-        value = "static-error"
+        value = R.string.get_message_category(R.string.static, R.string.error)
         self.assertTrue(is_static(value))
 
-        value = "toast-warning"
+        value = R.string.get_message_category(R.string.toast, R.string.warning)
         self.assertFalse(is_static(value))
 
-        value = "toast-info"
+        value = R.string.get_message_category(R.string.toast, R.string.info)
         self.assertFalse(is_static(value))
 
     def test_is_toast(self):
-        value = "static-warning"
+        value = R.string.get_message_category(R.string.static, R.string.warning)
         self.assertFalse(is_toast(value))
 
-        value = "static-info"
+        value = R.string.get_message_category(R.string.static, R.string.info)
         self.assertFalse(is_toast(value))
 
-        value = "static-success"
+        value = R.string.get_message_category(R.string.static, R.string.success)
         self.assertFalse(is_toast(value))
 
-        value = "static-error"
+        value = R.string.get_message_category(R.string.static, R.string.error)
         self.assertFalse(is_toast(value))
 
-        value = "toast-warning"
+        value = R.string.get_message_category(R.string.toast, R.string.warning)
         self.assertTrue(is_toast(value))
 
-        value = "toast-info"
+        value = R.string.get_message_category(R.string.toast, R.string.info)
         self.assertTrue(is_toast(value))
 
     def test_get_level(self):
-        value = "static-warning"
-        self.assertEqual(get_level(value), "warning")
+        value = R.string.get_message_category(R.string.static, R.string.warning)
+        self.assertEqual(get_level(value), R.string.warning)
 
-        value = "static-info"
-        self.assertEqual(get_level(value), "info")
+        value = R.string.get_message_category(R.string.static, R.string.info)
+        self.assertEqual(get_level(value), R.string.info)
 
-        value = "static-success"
-        self.assertEqual(get_level(value), "success")
+        value = R.string.get_message_category(R.string.static, R.string.success)
+        self.assertEqual(get_level(value), R.string.success)
 
-        value = "static-error"
-        self.assertEqual(get_level(value), "error")
+        value = R.string.get_message_category(R.string.static, R.string.error)
+        self.assertEqual(get_level(value), R.string.error)
 
-        value = "toast-warning"
-        self.assertEqual(get_level(value), "warning")
+        value = R.string.get_message_category(R.string.toast, R.string.warning)
+        self.assertEqual(get_level(value), R.string.warning)
 
-        value = "toast-info"
-        self.assertEqual(get_level(value), "info")
+        value = R.string.get_message_category(R.string.toast, R.string.info)
+        self.assertEqual(get_level(value), R.string.info)
