@@ -81,7 +81,7 @@ class TestCase(BaseTestCase):
             form = MockForm()
             self.assertFalse(form.validate_on_submit())
             self.assertEqual(len(form.file.errors), 1)
-            self.assertEqual(form.file.errors[0], R.string.validators.file_part_not_found)
+            self.assertEqual(form.file.errors[0], R.string.file_part_not_found)
 
     def test_invalid_input_custom_message(self):
         with app.test_client() as c:

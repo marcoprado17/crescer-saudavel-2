@@ -29,15 +29,15 @@ class Length(object):
             if message is None:
                 if self.max == -1:
                     message = gettext.ngettext(
-                        R.string.validators.field_min_length_singular,
-                        R.string.validators.field_min_length_plural,
+                        R.string.field_min_length_singular,
+                        R.string.field_min_length_plural,
                         self.min) % dict(min_length=self.min)
                 elif self.min == -1:
                     message = gettext.ngettext(
-                        R.string.validators.field_max_length_singular,
-                        R.string.validators.field_max_length_plural,
+                        R.string.field_max_length_singular,
+                        R.string.field_max_length_plural,
                         self.max) % dict(max_length=self.max)
                 else:
-                    message = R.string.validators.field_length_range % dict(min_length=self.min, max_length=self.max)
+                    message = R.string.field_length_range % dict(min_length=self.min, max_length=self.max)
 
             raise_with_stop(self, message=message)

@@ -35,7 +35,7 @@ class TestCase(BaseTestCase):
             form = MockForm()
             self.assertFalse(form.validate_on_submit())
             self.assertEqual(len(form.field.errors), 1)
-            self.assertEqual(form.field.errors[0], R.string.validators.required_field)
+            self.assertEqual(form.field.errors[0], R.string.required_field)
 
             c.post("/", data=dict(
                 field=None
@@ -43,7 +43,7 @@ class TestCase(BaseTestCase):
             form = MockForm()
             self.assertFalse(form.validate_on_submit())
             self.assertEqual(len(form.field.errors), 1)
-            self.assertEqual(form.field.errors[0], R.string.validators.required_field)
+            self.assertEqual(form.field.errors[0], R.string.required_field)
 
     def test_stop_true(self):
         with app.test_client() as c:

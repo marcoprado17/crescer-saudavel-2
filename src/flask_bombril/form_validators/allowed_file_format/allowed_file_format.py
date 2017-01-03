@@ -9,7 +9,7 @@ from flask_bombril.r import R
 
 
 class AllowedFileFormat(object):
-    def __init__(self, input_file_name, allowed_extensions, message=R.string.validators.invalid_file_extension,
+    def __init__(self, input_file_name, allowed_extensions, message=R.string.invalid_file_extension,
                  stop=True):
         self.input_file_name = input_file_name
         self.allowed_extensions = allowed_extensions

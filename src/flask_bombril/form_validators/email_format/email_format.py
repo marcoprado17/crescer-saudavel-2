@@ -12,7 +12,7 @@ from flask_bombril.form_validators.utils import raise_with_stop
 
 class EmailFormat(Regexp):
     def __init__(self, stop=True):
-        self.message = R.string.validators.invalid_email_format
+        self.message = R.string.invalid_email_format
         self.stop = stop
         self.validate_hostname = HostnameValidation(
             require_tld=True,

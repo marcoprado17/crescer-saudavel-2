@@ -3,62 +3,58 @@
 # ======================================================================================================================
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from enum import Enum, unique
 
 
-class Resources:
-    def __init__(self):
-        self.string = self.__Strings()
-        self.id = self.__Ids()
-        self.dimen = self.__Dimens()
+class Resources(object):
+    # noinspection PyPep8Naming
+    class string(object):
+        test_message = "Mensagem de teste"
+        test_message_2 = "Mensagem de teste 2"
 
-    class __Strings:
-        def __init__(self):
-            self.validators = self.__Validators()
-            self.test_message = "Mensagem de teste"
-            self.test_message_2 = "Mensagem de teste 2"
+        static = "static"
+        toast = "toast"
+        category_separator = "-"
+        success = "success"
+        info = "info"
+        warning = "warning"
+        error = "error"
 
-            self.static = "static"
-            self.toast = "toast"
-            self.category_separator = "-"
-            self.success = "success"
-            self.info = "info"
-            self.warning = "warning"
-            self.error = "error"
+        test_file_name = "test_file_name"
+        png = "png"
+        jpg = "jpg"
+        jpeg = "jpeg"
+        and_word = "e"
+        comma = ","
 
-            self.test_file_name = "test_file_name"
-            self.png = "png"
-            self.jpg = "jpg"
-            self.jpeg = "jpeg"
-            self.and_word = "e"
-            self.comma = ","
+        @staticmethod
+        def get_message_category(type, level):
+            return type + Resources.string.category_separator + level
 
-        def get_message_category(self, type, level):
-            return type + self.category_separator + level
+        # validators
+        required_field = "Campo obrigatório."
+        invalid_email_format = "Formato de email inválido."
+        email_already_registered = "Email já cadastrado."
+        unique_field = "Valor já registrado."
+        field_min_length_singular = "O campo deve possuir no mínimo %(min_length)d caracter."
+        field_min_length_plural = "O campo deve possuir no mínimo %(min_length)d caracteres."
+        field_max_length_singular = "O campo deve possuir no máximo %(max_length)d caracter."
+        field_max_length_plural = "O campo deve possuir no máximo %(max_length)d caracteres."
+        field_length_range = "O campo deve possuir entre %(min_length)d e %(max_length)d caracteres."
+        invalid_field_name = "Invalid field name '%(field_name)s'."
+        field_must_be_equal_to = "Este campo precisa ser igual ao campo %(other_name)s."
+        always_error = "Essa mensagem de erro sempre será lançada para esse campo."
+        file_part_not_found = "Arquivo não encontrado."
+        invalid_file_extension = "Formato de arquivo inválido."
 
-        class __Validators:
-            def __init__(self):
-                self.required_field = "Campo obrigatório."
-                self.invalid_email_format = "Formato de email inválido."
-                self.email_already_registered = "Email já cadastrado."
-                self.unique_field = "Valor já registrado."
-                self.field_min_length_singular = "O campo deve possuir no mínimo %(min_length)d caracter."
-                self.field_min_length_plural = "O campo deve possuir no mínimo %(min_length)d caracteres."
-                self.field_max_length_singular = "O campo deve possuir no máximo %(max_length)d caracter."
-                self.field_max_length_plural = "O campo deve possuir no máximo %(max_length)d caracteres."
-                self.field_length_range = "O campo deve possuir entre %(min_length)d e %(max_length)d caracteres."
-                self.invalid_field_name = "Invalid field name '%(field_name)s'."
-                self.field_must_be_equal_to = "Este campo precisa ser igual ao campo %(other_name)s."
-                self.always_error = "Essa mensagem de erro sempre será lançada para esse campo."
-                self.file_part_not_found = "Arquivo não encontrado."
-                self.invalid_file_extension = "Formato de arquivo inválido."
+    # noinspection PyPep8Naming
+    @unique
+    class id(Enum):
+        EXAMPLE = 1
 
-    class __Ids:
-        def __init__(self):
-            self.example = "example"
-
-    class __Dimens:
-        def __init__(self):
-            self.test_int = 42
-            self.test_int_2 = 17
+    # noinspection PyPep8Naming
+    class dimen(object):
+        test_int = 42
+        test_int_2 = 17
 
 R = Resources()

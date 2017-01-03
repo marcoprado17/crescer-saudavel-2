@@ -9,7 +9,6 @@ from flask_bombril.utils import stringfy_list
 
 
 class Resources(object):
-
     # noinspection PyPep8Naming
     class string(object):
         and_word = "e"
@@ -83,17 +82,18 @@ class Resources(object):
     @unique
     class id(Enum):
         # Admin navbar
-        ADMIN_NAVBAR_HOME                       = 1
-        ADMIN_NAVBAR_PRODUCTS                   = 2
-        ADMIN_NAVBAR_ORDERS                     = 3
-        ADMIN_NAVBAR_BLOG                       = 4
-        ADMIN_NAVBAR_CUSTOMERS                  = 5
-        ADMIN_NAVBAR_IMAGES                     = 6
-        ADMIN_NAVBAR_CONTENT                    = 7
-        ADMIN_NAVBAR_ATTENDED_CITIES            = 8
+        ADMIN_NAVBAR_HOME = 1
+        ADMIN_NAVBAR_PRODUCTS = 2
+        ADMIN_NAVBAR_ORDERS = 3
+        ADMIN_NAVBAR_BLOG = 4
+        ADMIN_NAVBAR_CUSTOMERS = 5
+        ADMIN_NAVBAR_IMAGES = 6
+        ADMIN_NAVBAR_CONTENT = 7
+        ADMIN_NAVBAR_ATTENDED_CITIES = 8
 
     # noinspection PyPep8Naming
     class dimen(object):
         example = 42
+
 
 R = Resources()

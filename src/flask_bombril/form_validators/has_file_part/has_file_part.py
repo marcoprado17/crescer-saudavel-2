@@ -9,7 +9,7 @@ from flask_bombril.r import R
 
 
 class HasFilePart(object):
-    def __init__(self, input_file_name, message=R.string.validators.file_part_not_found, stop=True):
+    def __init__(self, input_file_name, message=R.string.file_part_not_found, stop=True):
         self.input_file_name = input_file_name
         self.message = message
         self.stop = stop

@@ -82,7 +82,7 @@ class TestCase(BaseTestCase):
             form = MockFormMin1MaxNone()
             self.assertFalse(form.validate_on_submit())
             self.assertEqual(len(form.field.errors), 1)
-            self.assertEqual(form.field.errors[0], R.string.validators.field_min_length_singular % dict(min_length=1))
+            self.assertEqual(form.field.errors[0], R.string.field_min_length_singular % dict(min_length=1))
 
             c.post("/", data=dict(
                 field=""
@@ -90,7 +90,7 @@ class TestCase(BaseTestCase):
             form = MockFormMin1MaxNone()
             self.assertFalse(form.validate_on_submit())
             self.assertEqual(len(form.field.errors), 1)
-            self.assertEqual(form.field.errors[0], R.string.validators.field_min_length_singular % dict(min_length=1))
+            self.assertEqual(form.field.errors[0], R.string.field_min_length_singular % dict(min_length=1))
 
             c.post("/", data=dict(
                 field="aa"
@@ -98,7 +98,7 @@ class TestCase(BaseTestCase):
             form = MockFormMin3MaxNone()
             self.assertFalse(form.validate_on_submit())
             self.assertEqual(len(form.field.errors), 1)
-            self.assertEqual(form.field.errors[0], R.string.validators.field_min_length_plural % dict(min_length=3))
+            self.assertEqual(form.field.errors[0], R.string.field_min_length_plural % dict(min_length=3))
 
     def test_valid_length_min_none_max_defined(self):
         with app.test_client() as c:
@@ -122,7 +122,7 @@ class TestCase(BaseTestCase):
             form = MockFormMinNoneMax1()
             self.assertFalse(form.validate_on_submit())
             self.assertEqual(len(form.field.errors), 1)
-            self.assertEqual(form.field.errors[0], R.string.validators.field_max_length_singular % dict(max_length=1))
+            self.assertEqual(form.field.errors[0], R.string.field_max_length_singular % dict(max_length=1))
 
             c.post("/", data=dict(
                 field="aaaaaaa"
@@ -130,7 +130,7 @@ class TestCase(BaseTestCase):
             form = MockFormMinNoneMax6()
             self.assertFalse(form.validate_on_submit())
             self.assertEqual(len(form.field.errors), 1)
-            self.assertEqual(form.field.errors[0], R.string.validators.field_max_length_plural % dict(max_length=6))
+            self.assertEqual(form.field.errors[0], R.string.field_max_length_plural % dict(max_length=6))
 
     def test_valid_lengths_min_defined_max_defined(self):
         with app.test_client() as c:
@@ -160,7 +160,7 @@ class TestCase(BaseTestCase):
             form = MockFormMin3Max6()
             self.assertFalse(form.validate_on_submit())
             self.assertEqual(len(form.field.errors), 1)
-            self.assertEqual(form.field.errors[0], R.string.validators.field_length_range %
+            self.assertEqual(form.field.errors[0], R.string.field_length_range %
                              dict(min_length=3, max_length=6))
 
     def test_invalid_length_min_defined_max_defined_with_custom_message(self):

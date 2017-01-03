@@ -38,7 +38,7 @@ class TestCaseInvalidInputs(BaseTestCase):
                 form = MockForm()
                 self.assertFalse(form.validate_on_submit())
                 self.assertEqual(len(form.email.errors), 1)
-                self.assertEqual(form.email.errors[0], R.string.validators.unique_field)
+                self.assertEqual(form.email.errors[0], R.string.unique_field)
 
     def test_fail_custom_message(self):
         with app.app_context():
@@ -49,7 +49,7 @@ class TestCaseInvalidInputs(BaseTestCase):
                 form = MockFormCustomMessage()
                 self.assertFalse(form.validate_on_submit())
                 self.assertEqual(len(form.email.errors), 1)
-                self.assertEqual(form.email.errors[0], R.string.validators.email_already_registered)
+                self.assertEqual(form.email.errors[0], R.string.email_already_registered)
 
     def test_fail_custom_callable_message(self):
         with app.app_context():
@@ -60,7 +60,7 @@ class TestCaseInvalidInputs(BaseTestCase):
                 form = MockFormCustomCallableMessage()
                 self.assertFalse(form.validate_on_submit())
                 self.assertEqual(len(form.email.errors), 1)
-                self.assertEqual(form.email.errors[0], R.string.validators.email_already_registered)
+                self.assertEqual(form.email.errors[0], R.string.email_already_registered)
 
     def test_stop_true(self):
         with app.app_context():

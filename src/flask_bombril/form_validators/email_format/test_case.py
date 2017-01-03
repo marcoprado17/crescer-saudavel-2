@@ -67,7 +67,7 @@ class TestCase(BaseTestCase):
                 form = MockForm()
                 self.assertFalse(form.validate_on_submit())
                 self.assertEqual(len(form.email.errors), 1)
-                self.assertEqual(form.email.errors[0], R.string.validators.invalid_email_format)
+                self.assertEqual(form.email.errors[0], R.string.invalid_email_format)
 
             for email in invalid_emails:
                 assert_invalid_email(email)

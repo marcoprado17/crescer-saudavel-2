@@ -17,7 +17,7 @@ class AlwaysError(object):
         pass
 
     def __call__(self, form, field):
-        raise ValidationError(R.string.validators.always_error)
+        raise ValidationError(R.string.always_error)
 
 
 def raise_with_stop(validator, message=None):

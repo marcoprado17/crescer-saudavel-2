@@ -8,7 +8,7 @@ from flask_bombril.form_validators.utils import raise_with_stop
 
 
 class Unique(object):
-    def __init__(self, model, field, message=R.string.validators.unique_field, stop=True):
+    def __init__(self, model, field, message=R.string.unique_field, stop=True):
         self.message = message
         self.model = model
         self.field = field

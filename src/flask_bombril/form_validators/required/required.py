@@ -9,5 +9,5 @@ from flask_bombril.r import R
 
 class Required(InputRequired):
     def __init__(self):
-        self.message = R.string.validators.required_field
+        self.message = R.string.required_field
         super(Required, self).__init__(message=self.message)

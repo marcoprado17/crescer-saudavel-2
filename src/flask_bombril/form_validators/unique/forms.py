@@ -24,7 +24,7 @@ class MockFormCustomMessage(FlaskForm):
         Unique(
             model=TestUser,
             field=TestUser.email,
-            message=R.string.validators.email_already_registered
+            message=R.string.email_already_registered
         )
     ])
 
@@ -34,7 +34,7 @@ class MockFormCustomCallableMessage(FlaskForm):
         Unique(
             model=TestUser,
             field=TestUser.email,
-            message=lambda: R.string.validators.email_already_registered
+            message=lambda: R.string.email_already_registered
         )
     ])
 
