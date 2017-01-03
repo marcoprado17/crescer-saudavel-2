@@ -95,6 +95,8 @@ def create_app():
     #
     from macros import macros_blueprint
     app.register_blueprint(macros_blueprint)
+    from flask_bombril.macros import flask_bombril_macros_blueprint
+    app.register_blueprint(flask_bombril_macros_blueprint)
     #
     # Email
     #
