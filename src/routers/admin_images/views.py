@@ -29,7 +29,7 @@ def add_image():
         if upload_image_form.validate_on_submit():
             image = request.files[upload_image_form.image.name]
             filename = secure_filename(image.filename)
-            image.save(os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER'], filename))
+            image.save(os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], filename))
             flash(R.string.image_sent_successfully(filename), bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
 
         return render_template("admin_images/add_image.html", data=admin_add_image_data_provider.get_data(upload_image_form=upload_image_form))

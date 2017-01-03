@@ -47,6 +47,13 @@ class Resources(object):
         file_part_not_found = "Arquivo não encontrado."
         invalid_file_extension = "Formato de arquivo inválido."
 
+        a = "a"
+        b = "b"
+        c = "c"
+        d = "d"
+
+        page_arg_name = "pagina"
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -56,5 +63,6 @@ class Resources(object):
     class dimen(object):
         test_int = 42
         test_int_2 = 17
+        min_page = 1
 
 R = Resources()

@@ -1,29 +1,27 @@
 {% set data = get_components_admin_navbar_data|assert_defined|assert_callable|call %}
 {% import "macros/admin_navbar.html" as admin_navbar with context %}
-<nav class="__components__ __navbar__ navbar navbar-default">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <span class="navbar-brand">{{ R.string.admin_dashboard }}</span>
-        </div>
+<div class="__components__ __navbar__">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand">{{ R.string.admin_dashboard }}</span>
+            </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                {{
-                    admin_navbar.simple_navbar_item(
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    {{ admin_navbar.simple_navbar_item(
                         id=R.id.ADMIN_NAVBAR_HOME,
                         endpoint="admin_home.index",
                         text=R.string.home
-                    )
-                }}
-                {{
-                    admin_navbar.complex_navbar_item(
+                    ) }}
+                    {{ admin_navbar.complex_navbar_item(
                         id=R.id.ADMIN_NAVBAR_PRODUCTS,
                         text=R.string.products,
                         subitems = [
@@ -58,17 +56,13 @@
                                 }
                             ],
                         ]
-                    )
-                }}
-                {{
-                    admin_navbar.simple_navbar_item(
+                    ) }}
+                    {{ admin_navbar.simple_navbar_item(
                         id=R.id.ADMIN_NAVBAR_ORDERS,
                         endpoint="admin_orders.index",
                         text=R.string.orders
-                    )
-                }}
-                {{
-                    admin_navbar.complex_navbar_item(
+                    ) }}
+                    {{ admin_navbar.complex_navbar_item(
                         id=R.id.ADMIN_NAVBAR_BLOG,
                         text=R.string.blog,
                         subitems = [
@@ -81,17 +75,13 @@
                                 "text": R.string.view_edit_remove_posts
                             }
                         ]
-                    )
-                }}
-                {{
-                    admin_navbar.simple_navbar_item(
+                    ) }}
+                    {{ admin_navbar.simple_navbar_item(
                         id=R.id.ADMIN_NAVBAR_CUSTOMERS,
                         endpoint="admin_customers.index",
                         text=R.string.customers
-                    )
-                }}
-                {{
-                    admin_navbar.complex_navbar_item(
+                    ) }}
+                    {{ admin_navbar.complex_navbar_item(
                         id=R.id.ADMIN_NAVBAR_IMAGES,
                         text=R.string.images,
                         subitems = [
@@ -104,10 +94,8 @@
                                 "text": R.string.view_remove_images
                             }
                         ]
-                    )
-                }}
-                {{
-                    admin_navbar.complex_navbar_item(
+                    ) }}
+                    {{ admin_navbar.complex_navbar_item(
                         id=R.id.ADMIN_NAVBAR_CONTENT,
                         text=R.string.content,
                         subitems = [
@@ -124,10 +112,8 @@
                                 "text": R.string.faq
                             }
                         ]
-                    )
-                }}
-                {{
-                    admin_navbar.complex_navbar_item(
+                    ) }}
+                    {{ admin_navbar.complex_navbar_item(
                         id=R.id.ADMIN_NAVBAR_ATTENDED_CITIES,
                         text=R.string.attended_cities,
                         subitems = [
@@ -140,9 +126,9 @@
                                 "text": R.string.view_remove_cities
                             }
                         ]
-                    )
-                }}
-            </ul>
+                    ) }}
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>

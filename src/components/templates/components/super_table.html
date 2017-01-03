@@ -1,0 +1,67 @@
+<div class="__components__ __super_table__">
+    {% if data.filter_data %}
+        <p>Filtro</p>
+    {% elif data.n_items == 1 %}
+        <p>1 item encontrado</p>
+    {% elif data.n_items > 1 %}
+        <p>{{ data.n_items }} items encontrados</p>
+    {% endif %}
+
+    {% if data.paginator_data.pages|length > 1 %}
+        {% with data=data.paginator_data %}
+            {% include "components/paginator.html" %}
+        {% endwith %}
+    {% endif %}
+
+    <div class="table-responsive {{ 'without-bottom-paginator'|if(data.paginator_data.pages|length <= 1) }}">
+        <table id="{{ data.table_data.id|if(data.table_data.id) }}" class="table table-hover">
+            <thead>
+            <tr>
+                {% for col in data.table_data.cols %}
+                    <th id="{{ col.id }}" class="{{ 'min-width'|if(col.id==R.string.action_col_id) }}">
+                        {% if col.title %}
+                            {{ col.title }}
+                        {% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in data.table_data.rows %}
+                {% set row_idx = loop.index0 %}
+                <tr id="row-{{ row_idx }}">
+                    {% for col in data.table_data.cols %}
+                        {% set col_idx = loop.index0 %}
+                        {% set item_data = row[col_idx] %}
+                        <td id="col-{{ col.id }}-row-{{ row_idx }}">
+                            {% if col.type == R.id.COL_TYPE_IMAGE %}
+                                <img src="{{ item_data }}">
+                            {% elif col.type == R.id.COL_TYPE_TEXT %}
+                                {{ item_data }}
+                            {% elif col.type == R.id.COL_TYPE_ACTION %}
+                                {% if col.expandable %}
+
+                                {% else %}
+                                    {% for action in item_data %}
+                                        {% if action.type == R.id.ACTION_TYPE_BUTTON %}
+                                            <button class="btn btn-default {{ action.classes }}" {{ action.meta_data|xmlattr }}>
+                                                {{ action.text }}
+                                            </button>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if data.paginator_data.pages|length > 1 %}
+        {% with data=data.paginator_data %}
+            {% include "components/paginator.html" %}
+        {% endwith %}
+    {% endif %}
+</div>

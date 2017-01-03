@@ -54,6 +54,20 @@ class Resources(object):
         find_image = "Procurar imagem"
         upload_image_auxiliar_text = "Os formatos de imagem aceitos são: " + stringfy_list(allowed_image_extensions)
 
+        images_table_id = "images-table"
+        image_col_id = "image"
+        image_name_col_id = "image-name"
+        action_col_id = "action"
+
+        remove_class = "remove"
+        image_name_meta_data_key = "data-image-name"
+
+        # Args name
+        page_arg_name = "pagina"
+
+        name = "Nome"
+        remove = "Remover"
+
         @staticmethod
         def image_sent_successfully(image_name):
             return "A imagem '%s' foi enviada com sucesso." % image_name
@@ -65,35 +79,36 @@ class Resources(object):
                 invalid_format_string += "O único formato aceito é " + allowed_extensions[0] + "."
             else:
                 invalid_format_string += "Os formatos aceitos são: "
-                invalid_format_string += stringfy_list(allowed_extensions)
+                invalid_format_string += stringfy_list(allowed_extensions) + "."
             return invalid_format_string
 
-        @staticmethod
-        def invalid_format(allowed_extensions):
-            invalid_format_string = "Formato de arquivo inválido. "
-            if len(allowed_extensions) == 1:
-                invalid_format_string += "O único formato aceito é " + allowed_extensions[0] + "."
-            else:
-                invalid_format_string += "Os formatos aceitos são: "
-                invalid_format_string += stringfy_list(allowed_extensions)
-            return invalid_format_string
+
 
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
         # Admin navbar
-        ADMIN_NAVBAR_HOME = 1
-        ADMIN_NAVBAR_PRODUCTS = 2
-        ADMIN_NAVBAR_ORDERS = 3
-        ADMIN_NAVBAR_BLOG = 4
-        ADMIN_NAVBAR_CUSTOMERS = 5
-        ADMIN_NAVBAR_IMAGES = 6
-        ADMIN_NAVBAR_CONTENT = 7
-        ADMIN_NAVBAR_ATTENDED_CITIES = 8
+        ADMIN_NAVBAR_HOME =                     1
+        ADMIN_NAVBAR_PRODUCTS =                 2
+        ADMIN_NAVBAR_ORDERS =                   3
+        ADMIN_NAVBAR_BLOG =                     4
+        ADMIN_NAVBAR_CUSTOMERS =                5
+        ADMIN_NAVBAR_IMAGES =                   6
+        ADMIN_NAVBAR_CONTENT =                  7
+        ADMIN_NAVBAR_ATTENDED_CITIES =          8
+
+        # Super table column types
+        COL_TYPE_IMAGE =                        9
+        COL_TYPE_TEXT =                         10
+        COL_TYPE_ACTION =                       11
+
+        # Super table action element types
+        ACTION_TYPE_BUTTON =                    12
 
     # noinspection PyPep8Naming
     class dimen(object):
         example = 42
+        min_page = 1
 
 
 R = Resources()

@@ -22,4 +22,9 @@ MAIL_USERNAME = 'crescer.saudavel.suporte@gmail.com'
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
 
-UPLOADED_IMAGES_FOLDER = "/vagrant/build/static/uploaded_img"
+UPLOADED_IMAGES_FOLDER = "uploaded_img"
+UPLOADED_IMAGES_FOLDER_FULL_PATH = "/vagrant/build/static/uploaded_img"
+
+DEFAULT_PER_PAGE = 20
+
+PAGINATOR_SIZE = 5
