@@ -16,13 +16,24 @@ class Resources:
             self.validators = self.__Validators()
             self.test_message = "Mensagem de teste"
             self.test_message_2 = "Mensagem de teste 2"
+
             self.static = "static"
             self.toast = "toast"
             self.category_separator = "-"
+            self.success = "success"
+            self.info = "info"
+            self.warning = "warning"
+            self.error = "error"
+
             self.test_file_name = "test_file_name"
             self.png = "png"
             self.jpg = "jpg"
             self.jpeg = "jpeg"
+            self.and_word = "e"
+            self.comma = ","
+
+        def get_message_category(self, type, level):
+            return type + self.category_separator + level
 
         class __Validators:
             def __init__(self):

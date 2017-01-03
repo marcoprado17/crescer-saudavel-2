@@ -21,3 +21,5 @@ MAIL_PORT = 465
 MAIL_USERNAME = 'crescer.saudavel.suporte@gmail.com'
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
+
+UPLOADED_IMAGES_FOLDER = "/vagrant/build/static/uploaded_img"

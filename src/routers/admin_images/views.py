@@ -3,10 +3,15 @@
 # ======================================================================================================================
 # Created at 24/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from flask import render_template
+import os
 
+from flask import render_template, request, flash, current_app
+from werkzeug.utils import secure_filename
+from r import R
+from flask_bombril import R as bombril_R
 from routers.admin_images import admin_images_blueprint
 from routers.admin_images.data_providers import admin_images_data_provider, admin_add_image_data_provider
+from routers.admin_images.forms import UploadImageForm
 
 
 @admin_images_blueprint.route("/")
@@ -14,6 +19,17 @@ def index():
     return render_template("admin_images/index.html", data=admin_images_data_provider.get_data())
 
 
-@admin_images_blueprint.route("/adicionar-imagem")
+@admin_images_blueprint.route("/adicionar-imagem", methods=["GET", "POST"])
 def add_image():
-    return render_template("admin_images/add_image.html", data=admin_add_image_data_provider.get_data())
+    if request.method == "GET":
+        return render_template("admin_images/add_image.html", data=admin_add_image_data_provider.get_data())
+    else:
+        upload_image_form = UploadImageForm()
+
+        if upload_image_form.validate_on_submit():
+            image = request.files[upload_image_form.image.name]
+            filename = secure_filename(image.filename)
+            image.save(os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER'], filename))
+            flash(R.string.image_sent_successfully(filename), bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+
+        return render_template("admin_images/add_image.html", data=admin_add_image_data_provider.get_data(upload_image_form=upload_image_form))

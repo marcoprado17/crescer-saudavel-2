@@ -12,13 +12,12 @@ from r import R
 
 
 class UploadImageForm(FlaskForm):
-    allowed_extensions = [R.string.png, R.string.jpg, R.string.jpeg]
     image = FileField(label=R.string.image, validators=[
         HasFilePart(input_file_name="image", message=R.string.no_file_selected),
         AllowedFileFormat(
             input_file_name="image",
-            allowed_extensions=allowed_extensions,
-            message=R.string.invalid_format(allowed_extensions)
+            allowed_extensions=R.string.allowed_image_extensions,
+            message=R.string.invalid_format(R.string.allowed_image_extensions)
         )
     ])
     submit = SubmitField(label=R.string.upload)

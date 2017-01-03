@@ -5,6 +5,8 @@
 # ======================================================================================================================
 from enum import Enum, unique
 
+from flask_bombril.utils import stringfy_list
+
 
 class Resources(object):
 
@@ -45,13 +47,17 @@ class Resources(object):
         # Admin image
         no_file_selected = "Nenhum arquivo foi selecionado."
         image = "Imagem"
-        upload = "Upload"
+        upload = "Enviar"
         add_image = "Adicionar imagem"
-        png = "png"
-        jpg = "jpg"
-        jpeg = "jpeg"
+        allowed_image_extensions = ["png", "jpg", "jpeg"]
+        image_sent_failure = "Ocorreu um erro no envio da imagem %(image_name)s."
 
-        find_file = "Encontrar arquivo"
+        find_image = "Procurar imagem"
+        upload_image_auxiliar_text = "Os formatos de imagem aceitos são: " + stringfy_list(allowed_image_extensions)
+
+        @staticmethod
+        def image_sent_successfully(image_name):
+            return "A imagem '%s' foi enviada com sucesso." % image_name
 
         @staticmethod
         def invalid_format(allowed_extensions):
@@ -60,19 +66,18 @@ class Resources(object):
                 invalid_format_string += "O único formato aceito é " + allowed_extensions[0] + "."
             else:
                 invalid_format_string += "Os formatos aceitos são: "
-                allowed_extensions_string = ""
-                first_idx = 0
-                last_idx = len(allowed_extensions)-1
-                for idx, extension in enumerate(allowed_extensions):
-                    if idx == first_idx:
-                        allowed_extensions_string = extension
-                    elif idx == last_idx:
-                        allowed_extensions_string += " " + R.string.and_word + " " + extension + "."
-                    else:
-                        allowed_extensions_string += R.string.comma + " " + extension
-                invalid_format_string += allowed_extensions_string
+                invalid_format_string += stringfy_list(allowed_extensions)
             return invalid_format_string
 
+        @staticmethod
+        def invalid_format(allowed_extensions):
+            invalid_format_string = "Formato de arquivo inválido. "
+            if len(allowed_extensions) == 1:
+                invalid_format_string += "O único formato aceito é " + allowed_extensions[0] + "."
+            else:
+                invalid_format_string += "Os formatos aceitos são: "
+                invalid_format_string += stringfy_list(allowed_extensions)
+            return invalid_format_string
 
     # noinspection PyPep8Naming
     @unique

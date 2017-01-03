@@ -10,6 +10,7 @@ var rename = require("gulp-rename");
 var uglify = require("gulp-uglify");
 var runSequence = require("run-sequence");
 var replace = require("gulp-replace");
+var mkdirp = require('mkdirp');
 
 gulp.task("watch", function () {
     gulp.watch("src/**/*.scss", ["make_css_bundle"]);
@@ -57,7 +58,7 @@ gulp.task("build", function (callback) {
     runSequence(
         "delete_old_build",
         ["copy_html_files_to_build_dir", "copy_py_files_to_build_dir", "make_css_bundle", "make_js_bundle"],
-        ["minify_css_bundle", "minify_js_bundle"],
+        ["minify_css_bundle", "minify_js_bundle", "create_uploaded_img_dir"],
         callback);
 });
 
@@ -77,6 +78,10 @@ gulp.task("copy_html_files_to_build_dir", function () {
 gulp.task("copy_py_files_to_build_dir", function () {
     return gulp.src(["src/**/*.py"])
         .pipe(gulp.dest("build"));
+});
+
+gulp.task("create_uploaded_img_dir", function () {
+    mkdirp("build/static/uploaded_img")
 });
 
 gulp.task("minify_css_bundle", function () {

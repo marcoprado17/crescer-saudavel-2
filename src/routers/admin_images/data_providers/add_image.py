@@ -7,12 +7,12 @@ from routers.admin_images.forms import UploadImageForm
 
 
 class AdminAddImageDataProvider(object):
-    def get_data(self, form=None):
-        if not form:
-            form = UploadImageForm()
+    def get_data(self, upload_image_form=None):
+        if not upload_image_form:
+            upload_image_form = UploadImageForm()
 
         return dict(
-            form=form
+            upload_image_form=upload_image_form
         )
 
 admin_add_image_data_provider = AdminAddImageDataProvider()

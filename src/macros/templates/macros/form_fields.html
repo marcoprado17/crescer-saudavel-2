@@ -37,15 +37,18 @@
 {%- endmacro %}
 
 {% macro file_field(field, label=False, auxiliar_text=None) %}
-    <div class="form-group">
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }} {{ 'zero-margin-bottom'|if(auxiliar_text) }}">
         {% if label %}
-             <label for="{{ field.id }}">{{ field.label }}</label>
+            <label for="{{ field.id }}">{{ field.label }}</label>
         {% endif %}
-        <input type="file" class="filestyle" data-buttonText="{{ R.string.find_file }}" data-iconName="">
-        {% if auxiliar_text %}
-            <p class="help-block">{{ auxiliar_text }}</p>
-        {% endif %}
+        <input type="file" class="filestyle" name="{{ field.name }}" id="{{ field.id }}" data-icon="false" data-buttonText="{{ R.string.find_image }}">
+        {{ render_errors(field.errors) }}
     </div>
+    {% if auxiliar_text %}
+        <div class="form-group auxiliar-text">
+            <span class="help-block">{{ auxiliar_text }}</span>
+        </div>
+    {% endif %}
 {%- endmacro %}
 
 {% macro submit(field) %}

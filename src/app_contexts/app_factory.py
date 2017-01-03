@@ -75,7 +75,7 @@ def create_app():
     from routers.admin_home import admin_home_blueprint
     app.register_blueprint(admin_home_blueprint, url_prefix="/admin/home")
     from routers.admin_images import admin_images_blueprint
-    app.register_blueprint(admin_images_blueprint, url_prefix="/admin/images")
+    app.register_blueprint(admin_images_blueprint, url_prefix="/admin/imagens")
     from routers.admin_orders import admin_orders_blueprint
     app.register_blueprint(admin_orders_blueprint, url_prefix="/admin/pedidos")
     from routers.admin_products import admin_products_blueprint
@@ -136,12 +136,14 @@ def create_app():
     # Registering app context_processors
     # ==================================================================================================================
     from r import R
+    from flask_bombril import R as bombril_R
     from components.data_providers import admin_navbar_data_provider
 
     @app.context_processor
     def _():
         return dict(
             R=R,
+            bombril_R=bombril_R,
             get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data()
         )
 

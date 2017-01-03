@@ -4,6 +4,10 @@ $btn-padding-lg: 10px 16px;
 $btn-padding-sm: 5px 10px;
 $btn-padding-xs: 1px 5px;
 
+$screen-sm-width: 480px;
+$screen-md-width: 780px;
+$screen-lg-width: 1280px;
+
 a.btn-wrap {
   border: $btn-border;
   padding: $btn-padding;
@@ -23,4 +27,8 @@ a.btn-wrap {
 
 html, body {
   height: 100%;
+}
+
+.zero-margin-bottom {
+  margin-bottom: 0;
 }
