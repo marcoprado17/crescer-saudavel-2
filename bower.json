@@ -23,6 +23,7 @@
   ],
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "bootstrap-filestyle": "git+https://github.com/markusslima/bootstrap-filestyle#^1.2.1"
+    "bootstrap-filestyle": "git+https://github.com/markusslima/bootstrap-filestyle#^1.2.1",
+    "toastr": "^2.1.3"
   }
 }

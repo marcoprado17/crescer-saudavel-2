@@ -42,7 +42,8 @@ class AdminImagesDataProvider(object):
                         text=R.string.remove,
                         classes=R.string.remove_class,
                         meta_data={
-                            R.string.image_name_meta_data_key: image_name
+                            R.string.image_name_meta_data_key: image_name,
+                            R.string.remove_image_url_meta_data_key: url_for("admin_images.remove_image", image_name=image_name)
                         }
                     )
                 ]

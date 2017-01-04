@@ -19,6 +19,16 @@ def index():
     return render_template("admin_images/index.html", data=admin_images_data_provider.get_data())
 
 
+@admin_images_blueprint.route("/remover-imagem/<string:image_name>")
+def remove_image(image_name):
+    file_path = os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], image_name)
+
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+    return "", 204
+
+
 @admin_images_blueprint.route("/adicionar-imagem", methods=["GET", "POST"])
 def add_image():
     if request.method == "GET":

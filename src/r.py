@@ -60,6 +60,7 @@ class Resources(object):
         action_col_id = "action"
 
         remove_class = "remove"
+        remove_image_url_meta_data_key = "data-remove-image-url"
         image_name_meta_data_key = "data-image-name"
 
         # Args name
@@ -67,6 +68,10 @@ class Resources(object):
 
         name = "Nome"
         remove = "Remover"
+        removing = "Removendo..."
+        image_removed = "Imagem removida"
+        remove_image_error = 'Ocorreu uma falha ao remover a imagem "{0}". Tente novamente.'
+        no_items_found = "Nenhum item foi encontrado."
 
         @staticmethod
         def image_sent_successfully(image_name):
@@ -82,6 +87,12 @@ class Resources(object):
                 invalid_format_string += stringfy_list(allowed_extensions) + "."
             return invalid_format_string
 
+        @staticmethod
+        def n_items_found(n_items):
+            if n_items == 1:
+                return str(n_items) + " item encontrado."
+            else:
+                return str(n_items) + " items encontrados."
 
 
     # noinspection PyPep8Naming
