@@ -39,15 +39,15 @@
                 },
                 success: function () {
                     to_activate_button.addClass("hidden");
-                    to_activate_button.html("{{ R.string.to_activate }}");
-                    to_activate_button.prop("disabled", false);
                     disable_button.removeClass("hidden");
                     setBoolTdValue(col, row, true);
                 },
                 error: function () {
-                    to_activate_button.prop("disabled", false);
-                    to_activate_button.html("{{ R.string.to_activate }}");
                     throwErrorOpToast("{{ R.string.activate_product_category_error }}".f(category_name));
+                },
+                complete: function() {
+                    to_activate_button.html("{{ R.string.to_activate }}");
+                    to_activate_button.prop("disabled", false);
                 }
             })
         });
@@ -70,15 +70,15 @@
                 },
                 success: function () {
                     disable_button.addClass("hidden");
-                    disable_button.html("{{ R.string.disable }}");
-                    disable_button.prop("disabled", false);
                     to_activate_button.removeClass("hidden");
                     setBoolTdValue(col, row, false);
                 },
                 error: function () {
-                    disable_button.prop("disabled", false);
-                    disable_button.html("{{ R.string.disable }}");
                     throwErrorOpToast("{{ R.string.disable_product_category_error }}".f(category_name));
+                },
+                complete: function() {
+                    disable_button.html("{{ R.string.disable }}");
+                    disable_button.prop("disabled", false);
                 }
             })
         })
