@@ -4,9 +4,13 @@
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import os
+import random
 import shutil
+import string
 
 from flask import render_template, redirect, url_for, current_app
+
+from models.product_category import ProductCategory
 from routers.debug import debug_blueprint
 from extensions import db
 
@@ -42,3 +46,16 @@ def restart_db():
 def restart_db_implementation():
     db.drop_all()
     db.create_all()
+
+    for i in range(0, 100):
+        db.session.add(get_random_product_category())
+        db.session.commit()
+
+def get_random_product_category():
+    return ProductCategory(
+        name=get_random_string(random.randint(4, 8)),
+        active=random.choice([True, False])
+    )
+
+def get_random_string(size):
+    return ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(size))

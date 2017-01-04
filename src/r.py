@@ -54,7 +54,7 @@ class Resources(object):
         find_image = "Procurar imagem"
         upload_image_auxiliar_text = "Os formatos de imagem aceitos são: " + stringfy_list(allowed_image_extensions)
 
-        images_table_id = "images-table"
+        images_table_id = "images"
         image_col_id = "image"
         image_name_col_id = "image-name"
         action_col_id = "action"
@@ -64,7 +64,9 @@ class Resources(object):
         image_name_meta_data_key = "data-image-name"
 
         # Args name
-        page_arg_name = "pagina"
+        page_arg_name = "page"
+        category_active_arg_name = "active"
+        sort_method_arg_name = "sort-method"
 
         name = "Nome"
         remove = "Remover"
@@ -77,7 +79,35 @@ class Resources(object):
         add_product_category = "Adicionar nova categoria de produto"
         add = "Adicionar"
         active_in_female = "Ativa"
+        inactive_in_female = "Inativa"
         product_category_name = "Nome da categoria de produto"
+        product_categories = "Categorias de produto"
+        product_categories_table_id = "product-categories"
+        product_category_name_col_id = "product-category-name"
+        product_category_active_col_id = "product-category-active"
+        category = "Categoria"
+        edit = "Editar"
+        edit_class = "edit"
+        href_meta_data_key = "data-href"
+        category_name_meta_data_key = "data-category-name"
+        to_activate = "Ativar"
+        disable = "Desativar"
+        hidden_class = "hidden"
+        disable_class = "disable"
+        to_activate_class = "to-activate"
+        to_activate_btn_id_meta_data_key = "data-to-activate-btn-id"
+        disable_btn_id_meta_data_key = "data-disable-btn-id"
+        category_status = "Status da categoria"
+        filter = "Filtrar"
+        select_field = "SelectField"
+        submit_field = "SubmitField"
+        disable_product_category_url_meta_data_key = "data-disable-product-category-url"
+        to_activate_product_category_url_meta_data_key = "data-to-activate-product-category-url"
+        activating = "Ativando..."
+        activate_product_category_error = 'Ocorreu uma falha ao ativar a categoria de produto "{0}". Tente novamente.'
+        disable_product_category_error = 'Ocorreu uma falha ao desativar a categoria de produto "{0}". Tente novamente.'
+        disabling = "Desativando..."
+        row_meta_data_key = "data-row"
 
         @staticmethod
         def image_sent_successfully(image_name):
@@ -104,6 +134,13 @@ class Resources(object):
             else:
                 return str(n_items) + " items encontrados."
 
+        @staticmethod
+        def disable_category_button_id(category_id):
+            return "disable-category-"+str(category_id)+"-btn"
+
+        @staticmethod
+        def to_activate_category_button_id(category_id):
+            return "to-activate-category-"+str(category_id)+"-btn"
 
     # noinspection PyPep8Naming
     @unique
@@ -122,9 +159,10 @@ class Resources(object):
         COL_TYPE_IMAGE =                        9
         COL_TYPE_TEXT =                         10
         COL_TYPE_ACTION =                       11
+        COL_TYPE_BOOL =                         12
 
         # Super table action element types
-        ACTION_TYPE_BUTTON =                    12
+        ACTION_TYPE_BUTTON =                    13
 
     # noinspection PyPep8Naming
     class dimen(object):

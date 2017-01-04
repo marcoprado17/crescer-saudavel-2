@@ -24,8 +24,6 @@ $(document).ready(function () {
             siblingsTotalOuterHeight += sibling.outerHeight(true)
         }
     });
-    console.log("parentHeight:" + parentHeight);
-    console.log("siblingsTotalOuterHeight:" + siblingsTotalOuterHeight);
     var verticalFluidHeight = (parentHeight-siblingsTotalOuterHeight)/2;
     verticalFluids.each(function(){
         var verticalFluid = $(this);
@@ -36,7 +34,7 @@ $(document).ready(function () {
 function setAjaxButtonHandlers(data) {
     var button = data.button;
     var url = data.url;
-    var type = data.type;
+    var method = data.method;
     var request_data = data.request_data;
     var minResponseTime = data.minResponseTime;
     var confirmMessage = data.confirmMessage;
@@ -60,7 +58,7 @@ function setAjaxButtonHandlers(data) {
         button.clickTime = (new Date()).getTime();
         $.ajax({
             url: url,
-            type: type,
+            method: method,
             data: request_data,
             dataType: dataType,
             async: true,

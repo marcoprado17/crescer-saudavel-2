@@ -3,5 +3,15 @@
 # ======================================================================================================================
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from add_category import admin_add_product_category_data_provider
-from categories import admin_product_categories_data_provider
+import ast
+from flask_bombril.utils import get_url_arg
+
+def get_boolean_url_arg(arg_name, default):
+    assert isinstance(default, bool)
+    try:
+        arg = get_url_arg(arg_name)
+        arg = ast.literal_eval(arg)
+        assert isinstance(arg, bool)
+        return arg
+    except:
+        return default

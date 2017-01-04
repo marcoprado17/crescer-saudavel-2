@@ -1,6 +1,25 @@
 <div class="__components__ __super_table__">
     {% if data.filter_data %}
-        <p>Filtro</p>
+        <div class="jumbotron">
+            <form action="{{ url_for(request.endpoint) }}" method=get>
+                <input name="{{ R.string.sort_method_query_arg_name }}" hidden>
+                {% for field in data.filter_data.filter_form %}
+                    {% if field.type == R.string.select_field %}
+                        <div class="filter-item">
+                            <div class="form-group">
+                                {{ field.label }}:
+                                {{ field(class_="form-control") }}
+                            </div>
+                        </div>
+                    {% elif field.type == R.string.submit_field %}
+                        <div class="filter-item">
+                            {{ field(class_="btn btn-default") }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <p>{{ R.string.n_items_found(n_items=data.n_items) }}</p>
+            </form>
+        </div>
     {% elif data.n_items > 0 %}
         <p>{{ R.string.n_items_found(n_items=data.n_items) }}</p>
     {% endif %}
@@ -37,13 +56,19 @@
                                     <img src="{{ item_data }}">
                                 {% elif col.type == R.id.COL_TYPE_TEXT %}
                                     {{ item_data }}
+                                {% elif col.type == R.id.COL_TYPE_BOOL %}
+                                    <div class="bool-container {{ 'true'|if(item_data, 'false') }}">
+                                        <span class="glyphicon glyphicon-ok true" aria-hidden="true"></span>
+                                        <span class="glyphicon glyphicon-remove false" aria-hidden="true"></span>
+                                    </div>
                                 {% elif col.type == R.id.COL_TYPE_ACTION %}
                                     {% if col.expandable %}
 
                                     {% else %}
                                         {% for action in item_data %}
                                             {% if action.type == R.id.ACTION_TYPE_BUTTON %}
-                                                <button class="btn btn-default {{ action.classes }}" {{ action.meta_data|xmlattr }}>
+                                                <button id="{{ action.id|if(action.id, '') }}"
+                                                        class="btn btn-default {{ action.classes }}" {{ action.meta_data|xmlattr }}>
                                                     {{ action.text }}
                                                 </button>
                                             {% endif %}

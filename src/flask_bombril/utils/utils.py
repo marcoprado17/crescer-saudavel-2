@@ -6,6 +6,7 @@
 import unittest
 import math
 from unittest import TestSuite
+from flask import request
 
 from flask_bombril.r import R
 
@@ -46,3 +47,28 @@ def slice_items(items, page, per_page):
     first = (page-1)*per_page
     last = min(first+per_page, len(items)+1)
     return items[first:last]
+
+
+def get_url_args():
+    request_args = {}
+    if request.args and len(request.args) > 0:
+        request_args = request.args
+    request_view_args = {}
+    if request.view_args and len(request.view_args) > 0:
+        request_view_args = request.view_args
+    url_args = dict(request_view_args, **request_args)
+    for key, val in url_args.iteritems():
+        url_args[key] = val[0]
+    return url_args
+
+def get_url_arg(arg_name):
+    url_args = get_url_args()
+    if arg_name in url_args:
+        return url_args[arg_name]
+    else:
+        return None
+
+def get_page_range(curr_page, per_page, min_page):
+    first = (curr_page - min_page) * per_page
+    last_plus_one = first + per_page
+    return (first, last_plus_one)

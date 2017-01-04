@@ -4,7 +4,7 @@
 # Created at 03/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask import request, url_for, current_app
-
+from flask_bombril.utils import get_url_args
 from r import R
 
 
@@ -74,7 +74,7 @@ class PaginatorDataProvider(object):
 
     def get_href(self, page):
         endpoint = request.endpoint
-        url_args = dict(request.args, **request.view_args)
+        url_args = get_url_args()
         url_args[R.string.page_arg_name] = page
         return url_for(endpoint, **url_args)
 

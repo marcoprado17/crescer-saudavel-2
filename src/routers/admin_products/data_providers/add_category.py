@@ -15,4 +15,4 @@ class AddProductCategoryDataProvider(object):
             add_product_category_form = add_product_category_form
         )
 
-add_product_category_data_provider = AddProductCategoryDataProvider()
+admin_add_product_category_data_provider = AddProductCategoryDataProvider()

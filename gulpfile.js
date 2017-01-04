@@ -59,7 +59,7 @@ gulp.task("refresh_page", shell.task([
 gulp.task("build", function (callback) {
     runSequence(
         "delete_old_build",
-        ["copy_html_files_to_build_dir", "copy_py_files_to_build_dir", "make_css_bundle", "make_js_bundle"],
+        ["copy_html_files_to_build_dir", "copy_py_files_to_build_dir", "make_css_bundle", "make_js_bundle", "copy_bootstrap_fonts_to_build_dir"],
         ["minify_css_bundle", "minify_js_bundle", "create_uploaded_img_dir"],
         callback);
 });
@@ -84,6 +84,11 @@ gulp.task("copy_py_files_to_build_dir", function () {
 
 gulp.task("create_uploaded_img_dir", function () {
     mkdirp("build/static/uploaded_img")
+});
+
+gulp.task("copy_bootstrap_fonts_to_build_dir", function () {
+    return gulp.src(["bower_components/bootstrap/dist/fonts/*"])
+        .pipe(gulp.dest("build/static/fonts"));
 });
 
 gulp.task("minify_css_bundle", function () {
