@@ -1,0 +1,24 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block subtitle %}
+    {{ R.string.add_product_category }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_products__ __add_category__ container hidden">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ R.string.add_product_category }}</div>
+            <div class="panel-body">
+                {{ messages.flash() }}
+                <form action="{{ url_for("admin_products.add_category") }}" method="post" enctype=multipart/form-data>
+                    {{ data.add_product_category_form.csrf_token }}
+                    {{ form_fields.string_field(field=data.add_product_category_form.category_name) }}
+                    {{ form_fields.boolean_field(field=data.add_product_category_form.active) }}
+                    {{ form_fields.submit(field=data.add_product_category_form.submit) }}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}

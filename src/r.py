@@ -47,7 +47,7 @@ class Resources(object):
         no_file_selected = "Nenhum arquivo foi selecionado."
         image = "Imagem"
         upload = "Enviar"
-        add_image = "Adicionar imagem"
+        add_image = "Adicionar nova imagem"
         allowed_image_extensions = ["png", "jpg", "jpeg"]
         image_sent_failure = "Ocorreu um erro no envio da imagem %(image_name)s."
 
@@ -73,9 +73,19 @@ class Resources(object):
         remove_image_error = 'Ocorreu uma falha ao remover a imagem "{0}". Tente novamente.'
         no_items_found = "Nenhum item foi encontrado."
 
+        # Admin products
+        add_product_category = "Adicionar nova categoria de produto"
+        add = "Adicionar"
+        active_in_female = "Ativa"
+        product_category_name = "Nome da categoria de produto"
+
         @staticmethod
         def image_sent_successfully(image_name):
-            return "A imagem '%s' foi enviada com sucesso." % image_name
+            return 'A imagem "%s" foi enviada com sucesso.' % image_name
+
+        @staticmethod
+        def product_category_sent_successfully(category_name):
+            return 'A categoria de produto "%s" foi adicionada com sucesso.' % category_name
 
         @staticmethod
         def invalid_format(allowed_extensions):
@@ -120,6 +130,8 @@ class Resources(object):
     class dimen(object):
         example = 42
         min_page = 1
+        product_category_max_length = 48
+        default_string_field_max_length = 4096
 
 
 R = Resources()

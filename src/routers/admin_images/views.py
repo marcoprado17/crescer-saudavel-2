@@ -5,7 +5,7 @@
 # ======================================================================================================================
 import os
 
-from flask import render_template, request, flash, current_app
+from flask import render_template, request, flash, current_app, redirect, url_for
 from werkzeug.utils import secure_filename
 from r import R
 from flask_bombril import R as bombril_R
@@ -41,5 +41,6 @@ def add_image():
             filename = secure_filename(image.filename)
             image.save(os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], filename))
             flash(R.string.image_sent_successfully(filename), bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
-
-        return render_template("admin_images/add_image.html", data=admin_add_image_data_provider.get_data(upload_image_form=upload_image_form))
+            return redirect(url_for("admin_images.add_image"))
+        else:
+            return render_template("admin_images/add_image.html", data=admin_add_image_data_provider.get_data(upload_image_form=upload_image_form))
