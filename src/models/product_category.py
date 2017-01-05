@@ -3,6 +3,7 @@
 # ======================================================================================================================
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from sqlalchemy import asc
 from sqlalchemy.orm import relationship
 from proj_exceptions import InvalidIdError
 from extensions import db
@@ -55,3 +56,15 @@ class ProductCategory(db.Model):
         product_category.active = edit_product_category_form.active.data
         db.session.add(product_category)
         db.session.commit()
+
+    @staticmethod
+    def get_choices(include_all):
+        choices = []
+
+        if include_all:
+            choices.append((str(0), R.string.all))
+
+        for category in ProductCategory.query.order_by(asc(ProductCategory.name)).all():
+            choices.append((str(category.id), category.name))
+
+        return choices

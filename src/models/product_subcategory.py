@@ -16,3 +16,13 @@ class ProductSubcategory(db.Model):
     category_id = db.Column(db.Integer, ForeignKey("product_category.id"))
     category = relationship("ProductCategory", back_populates="subcategories")
     products = relationship("Product", order_by=Product.title, back_populates="subcategory")
+
+    @staticmethod
+    def create_from_form(add_product_subcategory_form):
+        product_subcategory = ProductSubcategory(
+            name=add_product_subcategory_form.subcategory_name.data,
+            active=add_product_subcategory_form.active.data,
+            category_id=int(add_product_subcategory_form.category.data)
+        )
+        db.session.add(product_subcategory)
+        db.session.commit()

@@ -77,11 +77,13 @@ class Resources(object):
 
         # Admin products
         add_product_category = "Adicionar nova categoria de produto"
+        add_product_subcategory = "Adicionar nova subcategoria de produto"
         edit_product_category = "Editar categoria de produto"
         add = "Adicionar"
         active_in_female = "Ativa"
         inactive_in_female = "Inativa"
         product_category_name = "Nome da categoria de produto"
+        product_subcategory_name = "Nome da subcategoria de produto"
         product_categories = "Categorias de produto"
         product_categories_table_id = "product-categories"
         product_category_name_col_id = "product-category-name"
@@ -109,6 +111,7 @@ class Resources(object):
         disable_product_category_error = 'Ocorreu uma falha ao desativar a categoria de produto "{0}". Tente novamente.'
         disabling = "Desativando..."
         row_meta_data_key = "data-row"
+        all = "Todas"
 
         @staticmethod
         def image_sent_successfully(image_name):
@@ -117,6 +120,10 @@ class Resources(object):
         @staticmethod
         def product_category_sent_successfully(category_name):
             return 'A categoria de produto "%s" foi adicionada com sucesso.' % category_name
+
+        @staticmethod
+        def product_subcategory_sent_successfully(subcategory_name):
+            return 'A subcategoria de produto "%s" foi adicionada com sucesso.' % subcategory_name
 
         @staticmethod
         def invalid_format(allowed_extensions):
@@ -174,6 +181,7 @@ class Resources(object):
         example = 42
         min_page = 1
         product_category_max_length = 48
+        product_subcategory_max_length = 48
         default_string_field_max_length = 4096
 
 

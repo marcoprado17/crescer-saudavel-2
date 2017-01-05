@@ -1,3 +1,4 @@
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
 <div class="__components__ __super_table__">
     {% if data.filter_data %}
         <div class="jumbotron">
@@ -6,14 +7,11 @@
                 {% for field in data.filter_data.filter_form %}
                     {% if field.type == R.string.select_field %}
                         <div class="filter-item">
-                            <div class="form-group">
-                                {{ field.label }}:
-                                {{ field(class_="form-control") }}
-                            </div>
+                            {{ form_fields.select_field(field=field, explicit_label=True) }}
                         </div>
                     {% elif field.type == R.string.submit_field %}
                         <div class="filter-item">
-                            {{ field(class_="btn btn-default") }}
+                            {{ form_fields.submit(field=field) }}
                         </div>
                     {% endif %}
                 {% endfor %}

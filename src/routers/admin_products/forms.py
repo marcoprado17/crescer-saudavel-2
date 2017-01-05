@@ -7,15 +7,22 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, SelectField
 from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import Required
+from models.product_category import ProductCategory
 from r import R
 
-
+# ======================================================================================================================
+#
+#
+# Product Category
+#
+#
+# ======================================================================================================================
 class ProductCategoryForm(FlaskForm):
     category_name = StringField(label=R.string.product_category_name, validators=[
         Required(),
         Length(max_length=R.dimen.product_category_max_length)
     ])
-    active = BooleanField(label=R.string.active_in_female)
+    active = BooleanField(label=R.string.active_in_female, default=True)
 
 
 class AddProductCategoryForm(ProductCategoryForm):
@@ -29,7 +36,6 @@ class EditProductCategoryForm(ProductCategoryForm):
         self.category_name.data = product_category.name
         self.active.data = product_category.active
 
-
 class ProductCategoryFilterForm(FlaskForm):
     active = SelectField(
         label=R.string.category_status,
@@ -39,3 +45,35 @@ class ProductCategoryFilterForm(FlaskForm):
 
     def set_values(self, active):
         self.active.data = str(active)
+
+# ======================================================================================================================
+#
+#
+# Product Subcategory
+#
+#
+# ======================================================================================================================
+class ProductSubcategoryForm(FlaskForm):
+    category = SelectField(
+        label=R.string.category
+    )
+    subcategory_name = StringField(label=R.string.product_subcategory_name, validators=[
+        Required(),
+        Length(max_length=R.dimen.product_subcategory_max_length)
+    ])
+    active = BooleanField(label=R.string.active_in_female, default=True)
+
+    def __init__(self, **kwargs):
+        super(ProductSubcategoryForm, self).__init__(**kwargs)
+        self.category.choices=ProductCategory.get_choices(include_all=False)
+
+
+class AddProductSubcategoryForm(ProductSubcategoryForm):
+    submit = SubmitField(label=R.string.add)
+
+
+class EditProductSubcategoryForm(ProductSubcategoryForm):
+    submit = SubmitField(label=R.string.edit)
+
+    def set_values(self, product_subcategory):
+        pass

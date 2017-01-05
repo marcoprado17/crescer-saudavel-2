@@ -6,12 +6,14 @@
 import random
 
 from models.product_category import ProductCategory
+from models.product_subcategory import ProductSubcategory
 from r import R
 from routers.admin_products import admin_products_blueprint
 from flask import render_template, request, flash, redirect, url_for
 from data_providers import admin_add_product_category_data_provider, admin_product_categories_data_provider
+from routers.admin_products.data_providers.add_subcategory import admin_add_product_subcategory_data_provider
 from routers.admin_products.data_providers.edit_category import admin_edit_product_category_data_provider
-from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm
+from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -63,7 +65,8 @@ def edit_category(category_id):
         edit_product_category_form = EditProductCategoryForm()
 
         if edit_product_category_form.validate_on_submit():
-            ProductCategory.update_from_form(product_category=product_category, edit_product_category_form=edit_product_category_form)
+            ProductCategory.update_from_form(product_category=product_category,
+                                             edit_product_category_form=edit_product_category_form)
             flash(R.string.product_category_successful_edited(product_category.name),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.categories"))
@@ -90,6 +93,20 @@ def subcategories():
     return "Subcategorias de produto."
 
 
-@admin_products_blueprint.route("/adicionar-subcategoria-de-produto")
+@admin_products_blueprint.route("/adicionar-subcategoria-de-produto", methods=["GET", "POST"])
 def add_subcategory():
-    return "Adicionar nova subcategoria de produto."
+    if request.method == "GET":
+        return render_template("admin_products/add_subcategory.html",
+                               data=admin_add_product_subcategory_data_provider.get_data())
+
+    else:
+        add_product_subcategory_form = AddProductSubcategoryForm()
+
+        if add_product_subcategory_form.validate_on_submit():
+            ProductSubcategory.create_from_form(add_product_subcategory_form=add_product_subcategory_form)
+            flash(R.string.product_subcategory_sent_successfully(add_product_subcategory_form.subcategory_name.data),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+            return redirect(url_for("admin_products.add_subcategory"))
+
+        return render_template("admin_products/add_subcategory.html",
+                               data=admin_add_product_subcategory_data_provider.get_data(add_product_subcategory_form=add_product_subcategory_form))
