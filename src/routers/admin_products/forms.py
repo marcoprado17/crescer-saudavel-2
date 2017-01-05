@@ -54,7 +54,7 @@ class ProductCategoryFilterForm(FlaskForm):
 #
 # ======================================================================================================================
 class ProductSubcategoryForm(FlaskForm):
-    category = SelectField(
+    category_id = SelectField(
         label=R.string.category
     )
     subcategory_name = StringField(label=R.string.product_subcategory_name, validators=[
@@ -65,7 +65,7 @@ class ProductSubcategoryForm(FlaskForm):
 
     def __init__(self, **kwargs):
         super(ProductSubcategoryForm, self).__init__(**kwargs)
-        self.category.choices=ProductCategory.get_choices(include_all=False)
+        self.category_id.choices=ProductCategory.get_choices(include_all=False)
 
 
 class AddProductSubcategoryForm(ProductSubcategoryForm):
@@ -76,7 +76,9 @@ class EditProductSubcategoryForm(ProductSubcategoryForm):
     submit = SubmitField(label=R.string.edit)
 
     def set_values(self, product_subcategory):
-        pass
+        self.category_id.data = str(product_subcategory.category_id)
+        self.subcategory_name.data = product_subcategory.name
+        self.active.data = product_subcategory.active
 
 
 class ProductSubcategoryFilterForm(FlaskForm):

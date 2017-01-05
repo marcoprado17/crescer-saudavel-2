@@ -81,6 +81,7 @@ class Resources(object):
         add_product_category = "Adicionar nova categoria de produto"
         add_product_subcategory = "Adicionar nova subcategoria de produto"
         edit_product_category = "Editar categoria de produto"
+        edit_product_subcategory = "Editar subcategoria de produto"
         add = "Adicionar"
         active_in_female = "Ativa"
         inactive_in_female = "Inativa"
@@ -174,6 +175,10 @@ class Resources(object):
         @staticmethod
         def product_category_successful_edited(category_name):
             return 'A categoria de produto "%s" foi editada com sucesso.' % category_name
+
+        @staticmethod
+        def product_subcategory_successful_edited(subcategory_name):
+            return 'A subcategoria de produto "%s" foi editada com sucesso.' % subcategory_name
 
     # noinspection PyPep8Naming
     @unique

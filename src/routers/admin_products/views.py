@@ -13,8 +13,10 @@ from flask import render_template, request, flash, redirect, url_for
 from data_providers import admin_add_product_category_data_provider, admin_product_categories_data_provider
 from routers.admin_products.data_providers.add_subcategory import admin_add_product_subcategory_data_provider
 from routers.admin_products.data_providers.edit_category import admin_edit_product_category_data_provider
+from routers.admin_products.data_providers.edit_subcategory import admin_edit_product_subcategory_data_provider
 from routers.admin_products.data_providers.subcategories import admin_product_subcategories_data_provider
-from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm
+from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm, \
+    EditProductSubcategoryForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -61,7 +63,7 @@ def edit_category(category_id):
     if request.method == "GET":
         return render_template("admin_products/edit_category.html",
                                data=admin_edit_product_category_data_provider.get_data_when_get(
-                                   product_category=product_category))
+                                   product_subcategory=product_category))
     else:
         edit_product_category_form = EditProductCategoryForm()
 
@@ -117,7 +119,27 @@ def add_subcategory():
 
 @admin_products_blueprint.route("/editar-subcategoria-de-produto/<int:subcategory_id>", methods=["GET", "POST"])
 def edit_subcategory(subcategory_id):
-    return "Editar subcategoria de produto, id=" + str(subcategory_id)
+    product_subcategory = ProductSubcategory.get(subcategory_id=subcategory_id)
+    if not product_subcategory:
+        return "", 404
+
+    if request.method == "GET":
+        return render_template("admin_products/edit_subcategory.html",
+                               data=admin_edit_product_subcategory_data_provider.get_data_when_get(
+                                   product_subcategory=product_subcategory))
+    else:
+        edit_product_subcategory_form = EditProductSubcategoryForm()
+
+        if edit_product_subcategory_form.validate_on_submit():
+            ProductSubcategory.update_from_form(product_subcategory=product_subcategory,
+                                                edit_product_subcategory_form=edit_product_subcategory_form)
+            flash(R.string.product_subcategory_successful_edited(product_subcategory.name),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+            return redirect(url_for("admin_products.subcategories"))
+        else:
+            return render_template("admin_products/edit_subcategory.html",
+                                   data=admin_edit_product_subcategory_data_provider.get_data_when_post(
+                                       edit_product_subcategory_form=edit_product_subcategory_form))
 
 
 @admin_products_blueprint.route("/desabilitar-subcategoria-de-produto/<int:subcategory_id>", methods=["POST"])

@@ -23,10 +23,14 @@ class ProductSubcategory(db.Model):
         product_subcategory = ProductSubcategory(
             name=add_product_subcategory_form.subcategory_name.data,
             active=add_product_subcategory_form.active.data,
-            category_id=int(add_product_subcategory_form.category.data)
+            category_id=int(add_product_subcategory_form.category_id.data)
         )
         db.session.add(product_subcategory)
         db.session.commit()
+
+    @staticmethod
+    def get(subcategory_id):
+        return ProductSubcategory.query.filter_by(id=subcategory_id).one_or_none()
 
     @staticmethod
     def disable(subcategory_id):
@@ -44,4 +48,12 @@ class ProductSubcategory(db.Model):
             raise InvalidIdError
         subcategory.active = True
         db.session.add(subcategory)
+        db.session.commit()
+
+    @staticmethod
+    def update_from_form(product_subcategory, edit_product_subcategory_form):
+        product_subcategory.name = edit_product_subcategory_form.subcategory_name.data,
+        product_subcategory.active = edit_product_subcategory_form.active.data
+        product_subcategory.category_id = edit_product_subcategory_form.category_id.data
+        db.session.add(product_subcategory)
         db.session.commit()
