@@ -1,0 +1,16 @@
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+<div class="__components__ __product_category_panel_form__">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ data.title }}</div>
+        <div class="panel-body">
+            {{ messages.flash() }}
+            <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
+                {{ data.product_category_form.csrf_token }}
+                {{ form_fields.string_field(field=data.product_category_form.category_name) }}
+                {{ form_fields.boolean_field(field=data.product_category_form.active) }}
+                {{ form_fields.submit(field=data.product_category_form.submit) }}
+            </form>
+        </div>
+    </div>
+</div>

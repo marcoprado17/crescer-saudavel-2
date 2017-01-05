@@ -10,13 +10,25 @@ from flask_bombril.form_validators import Required
 from r import R
 
 
-class AddProductCategoryForm(FlaskForm):
+class ProductCategoryForm(FlaskForm):
     category_name = StringField(label=R.string.product_category_name, validators=[
         Required(),
         Length(max_length=R.dimen.product_category_max_length)
     ])
     active = BooleanField(label=R.string.active_in_female)
+
+
+class AddProductCategoryForm(ProductCategoryForm):
     submit = SubmitField(label=R.string.add)
+
+
+class EditProductCategoryForm(ProductCategoryForm):
+    submit = SubmitField(label=R.string.edit)
+
+    def set_values(self, product_category):
+        self.category_name.data = product_category.name
+        self.active.data = product_category.active
+
 
 class ProductCategoryFilterForm(FlaskForm):
     active = SelectField(

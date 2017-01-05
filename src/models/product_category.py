@@ -19,13 +19,17 @@ class ProductCategory(db.Model):
     products = relationship("Product", order_by=Product.title, back_populates="category")
 
     @staticmethod
-    def add_from_form(add_product_category_form):
+    def create_from_form(add_product_category_form):
         product_category = ProductCategory(
             name=add_product_category_form.category_name.data,
             active=add_product_category_form.active.data
         )
         db.session.add(product_category)
         db.session.commit()
+
+    @staticmethod
+    def get(category_id):
+        return ProductCategory.query.filter_by(id=category_id).one_or_none()
 
     @staticmethod
     def disable(category_id):
@@ -43,4 +47,11 @@ class ProductCategory(db.Model):
             raise InvalidIdError
         category.active = True
         db.session.add(category)
+        db.session.commit()
+
+    @staticmethod
+    def update_from_form(product_category, edit_product_category_form):
+        product_category.name = edit_product_category_form.category_name.data,
+        product_category.active = edit_product_category_form.active.data
+        db.session.add(product_category)
         db.session.commit()

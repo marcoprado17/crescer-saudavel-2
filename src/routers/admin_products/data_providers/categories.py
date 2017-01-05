@@ -9,7 +9,7 @@ from flask import current_app
 from flask import url_for
 from sqlalchemy import asc
 
-from build.flask_bombril.utils import n_pages
+from flask_bombril.utils import n_pages
 from components.data_providers.paginator import paginator_data_provider
 from flask_bombril.utils import get_page_range
 from flask_bombril.url_args import get_valid_page
@@ -21,7 +21,7 @@ from routers.admin_products.forms import ProductCategoryFilterForm
 
 class AdminProductCategoriesDataProvider(object):
     def get_data(self):
-        active = get_boolean_url_arg(R.string.category_active_arg_name, False)
+        active = get_boolean_url_arg(R.string.category_active_arg_name, True)
 
         self.q = ProductCategory.query
         self.q = self.q.filter(ProductCategory.active == active)

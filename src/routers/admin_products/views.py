@@ -10,7 +10,8 @@ from r import R
 from routers.admin_products import admin_products_blueprint
 from flask import render_template, request, flash, redirect, url_for
 from data_providers import admin_add_product_category_data_provider, admin_product_categories_data_provider
-from routers.admin_products.forms import AddProductCategoryForm
+from routers.admin_products.data_providers.edit_category import admin_edit_product_category_data_provider
+from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -32,22 +33,44 @@ def categories():
 @admin_products_blueprint.route("/adicionar-categoria-de-produto", methods=["GET", "POST"])
 def add_category():
     if request.method == "GET":
-        return render_template("admin_products/add_category.html", data=admin_add_product_category_data_provider.get_data())
+        return render_template("admin_products/add_category.html",
+                               data=admin_add_product_category_data_provider.get_data())
     else:
         add_product_category_form = AddProductCategoryForm()
 
         if add_product_category_form.validate_on_submit():
-            ProductCategory.add_from_form(add_product_category_form=add_product_category_form)
-            flash(R.string.product_category_sent_successfully(add_product_category_form.category_name.data), bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+            ProductCategory.create_from_form(add_product_category_form=add_product_category_form)
+            flash(R.string.product_category_sent_successfully(add_product_category_form.category_name.data),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_category"))
         else:
-            return render_template("admin_products/add_category.html", data=admin_add_product_category_data_provider.get_data(
-                add_product_category_form=add_product_category_form))
+            return render_template("admin_products/add_category.html",
+                                   data=admin_add_product_category_data_provider.get_data(
+                                       add_product_category_form=add_product_category_form))
 
 
-@admin_products_blueprint.route("/editar-categoria-de-produto/<int:category_id>")
+@admin_products_blueprint.route("/editar-categoria-de-produto/<int:category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
-    return "Editando categoria de produto, id=" + str(category_id)
+    product_category = ProductCategory.get(category_id=category_id)
+    if not product_category:
+        return "", 404
+
+    if request.method == "GET":
+        return render_template("admin_products/edit_category.html",
+                               data=admin_edit_product_category_data_provider.get_data_when_get(
+                                   product_category=product_category))
+    else:
+        edit_product_category_form = EditProductCategoryForm()
+
+        if edit_product_category_form.validate_on_submit():
+            ProductCategory.update_from_form(product_category=product_category, edit_product_category_form=edit_product_category_form)
+            flash(R.string.product_category_successful_edited(product_category.name),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+            return redirect(url_for("admin_products.categories"))
+        else:
+            return render_template("admin_products/add_category.html",
+                                   data=admin_edit_product_category_data_provider.get_data_when_post(
+                                       edit_product_category_form=edit_product_category_form))
 
 
 @admin_products_blueprint.route("/desabilitar-categoria-de-produto/<int:category_id>", methods=["POST"])

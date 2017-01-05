@@ -77,6 +77,7 @@ class Resources(object):
 
         # Admin products
         add_product_category = "Adicionar nova categoria de produto"
+        edit_product_category = "Editar categoria de produto"
         add = "Adicionar"
         active_in_female = "Ativa"
         inactive_in_female = "Inativa"
@@ -141,6 +142,10 @@ class Resources(object):
         @staticmethod
         def to_activate_category_button_id(category_id):
             return "to-activate-category-"+str(category_id)+"-btn"
+
+        @staticmethod
+        def product_category_successful_edited(category_name):
+            return 'A categoria de produto "%s" foi editada com sucesso.' % category_name
 
     # noinspection PyPep8Naming
     @unique
