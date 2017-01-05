@@ -7,13 +7,14 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from extensions import db
 from models.product import Product
+from proj_exceptions import InvalidIdError
 
 
 class ProductSubcategory(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     active = db.Column(db.Boolean, default=True, nullable=False)
     name = db.Column(db.String(64))
-    category_id = db.Column(db.Integer, ForeignKey("product_category.id"))
+    category_id = db.Column(db.Integer, ForeignKey("product_category.id"), nullable=False)
     category = relationship("ProductCategory", back_populates="subcategories")
     products = relationship("Product", order_by=Product.title, back_populates="subcategory")
 
@@ -25,4 +26,22 @@ class ProductSubcategory(db.Model):
             category_id=int(add_product_subcategory_form.category.data)
         )
         db.session.add(product_subcategory)
+        db.session.commit()
+
+    @staticmethod
+    def disable(subcategory_id):
+        subcategory = ProductSubcategory.query.filter_by(id=subcategory_id).one_or_none()
+        if not subcategory:
+            raise InvalidIdError
+        subcategory.active = False
+        db.session.add(subcategory)
+        db.session.commit()
+
+    @staticmethod
+    def activate(subcategory_id):
+        subcategory = ProductSubcategory.query.filter_by(id=subcategory_id).one_or_none()
+        if not subcategory:
+            raise InvalidIdError
+        subcategory.active = True
+        db.session.add(subcategory)
         db.session.commit()

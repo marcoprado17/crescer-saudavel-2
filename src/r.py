@@ -66,7 +66,9 @@ class Resources(object):
         # Args name
         page_arg_name = "page"
         category_active_arg_name = "active"
-        sort_method_arg_name = "sort-method"
+        sort_method_arg_name = "sort_method"
+        subcategory_active_arg_name = "active"
+        category_id_arg_name = "category_id"
 
         name = "Nome"
         remove = "Remover"
@@ -86,13 +88,18 @@ class Resources(object):
         product_subcategory_name = "Nome da subcategoria de produto"
         product_categories = "Categorias de produto"
         product_categories_table_id = "product-categories"
+        product_subcategories_table_id = "product-subcategories"
         product_category_name_col_id = "product-category-name"
         product_category_active_col_id = "product-category-active"
+        product_subcategory_name_col_id = "product-subcategory-name"
+        product_subcategory_active_col_id = "product-subcategory-active"
         category = "Categoria"
+        subcategory = "Subcategoria"
         edit = "Editar"
         edit_class = "edit"
         href_meta_data_key = "data-href"
         category_name_meta_data_key = "data-category-name"
+        subcategory_name_meta_data_key = "data-subcategory-name"
         to_activate = "Ativar"
         disable = "Desativar"
         hidden_class = "hidden"
@@ -101,17 +108,23 @@ class Resources(object):
         to_activate_btn_id_meta_data_key = "data-to-activate-btn-id"
         disable_btn_id_meta_data_key = "data-disable-btn-id"
         category_status = "Status da categoria"
+        subcategory_status = "Status da subcategoria"
         filter = "Filtrar"
         select_field = "SelectField"
         submit_field = "SubmitField"
         disable_product_category_url_meta_data_key = "data-disable-product-category-url"
+        disable_product_subcategory_url_meta_data_key = "data-disable-product-subcategory-url"
         to_activate_product_category_url_meta_data_key = "data-to-activate-product-category-url"
+        to_activate_product_subcategory_url_meta_data_key = "data-to-activate-product-subcategory-url"
         activating = "Ativando..."
         activate_product_category_error = 'Ocorreu uma falha ao ativar a categoria de produto "{0}". Tente novamente.'
+        activate_product_subcategory_error = 'Ocorreu uma falha ao ativar a subcategoria de produto "{0}". Tente novamente.'
         disable_product_category_error = 'Ocorreu uma falha ao desativar a categoria de produto "{0}". Tente novamente.'
+        disable_product_subcategory_error = 'Ocorreu uma falha ao desativar a subcategoria de produto "{0}". Tente novamente.'
         disabling = "Desativando..."
         row_meta_data_key = "data-row"
         all = "Todas"
+        product_subcategories = "Subcategorias de produto"
 
         @staticmethod
         def image_sent_successfully(image_name):
@@ -147,8 +160,16 @@ class Resources(object):
             return "disable-category-"+str(category_id)+"-btn"
 
         @staticmethod
+        def disable_subcategory_button_id(subcategory_id):
+            return "disable-subcategory-" + str(subcategory_id) + "-btn"
+
+        @staticmethod
         def to_activate_category_button_id(category_id):
             return "to-activate-category-"+str(category_id)+"-btn"
+
+        @staticmethod
+        def to_activate_subcategory_button_id(subcategory_id):
+            return "to-activate-subcategory-" + str(subcategory_id) + "-btn"
 
         @staticmethod
         def product_category_successful_edited(category_name):

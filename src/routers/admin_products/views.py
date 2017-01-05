@@ -13,6 +13,7 @@ from flask import render_template, request, flash, redirect, url_for
 from data_providers import admin_add_product_category_data_provider, admin_product_categories_data_provider
 from routers.admin_products.data_providers.add_subcategory import admin_add_product_subcategory_data_provider
 from routers.admin_products.data_providers.edit_category import admin_edit_product_category_data_provider
+from routers.admin_products.data_providers.subcategories import admin_product_subcategories_data_provider
 from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm
 from flask_bombril.r import R as bombril_R
 
@@ -90,7 +91,8 @@ def to_activate_category(category_id):
 
 @admin_products_blueprint.route("/subcategorias-de-produto")
 def subcategories():
-    return "Subcategorias de produto."
+    return render_template("admin_products/subcategories.html",
+                           data=admin_product_subcategories_data_provider.get_data())
 
 
 @admin_products_blueprint.route("/adicionar-subcategoria-de-produto", methods=["GET", "POST"])
@@ -109,4 +111,22 @@ def add_subcategory():
             return redirect(url_for("admin_products.add_subcategory"))
 
         return render_template("admin_products/add_subcategory.html",
-                               data=admin_add_product_subcategory_data_provider.get_data(add_product_subcategory_form=add_product_subcategory_form))
+                               data=admin_add_product_subcategory_data_provider.get_data(
+                                   add_product_subcategory_form=add_product_subcategory_form))
+
+
+@admin_products_blueprint.route("/editar-subcategoria-de-produto/<int:subcategory_id>", methods=["GET", "POST"])
+def edit_subcategory(subcategory_id):
+    return "Editar subcategoria de produto, id=" + str(subcategory_id)
+
+
+@admin_products_blueprint.route("/desabilitar-subcategoria-de-produto/<int:subcategory_id>", methods=["POST"])
+def disable_subcategory(subcategory_id):
+    ProductSubcategory.disable(subcategory_id=subcategory_id)
+    return "", 200
+
+
+@admin_products_blueprint.route("/ativar-subcategoria-de-produto/<int:subcategory_id>", methods=["POST"])
+def to_activate_subcategory(subcategory_id):
+    ProductSubcategory.activate(subcategory_id=subcategory_id)
+    return "", 200

@@ -77,3 +77,22 @@ class EditProductSubcategoryForm(ProductSubcategoryForm):
 
     def set_values(self, product_subcategory):
         pass
+
+
+class ProductSubcategoryFilterForm(FlaskForm):
+    category_id = SelectField(
+        label=R.string.category
+    )
+    active = SelectField(
+        label=R.string.subcategory_status,
+        choices=[(str(True), R.string.active_in_female), (str(False), R.string.inactive_in_female)]
+    )
+    filter = SubmitField(label=R.string.filter)
+
+    def __init__(self, **kwargs):
+        super(ProductSubcategoryFilterForm, self).__init__(**kwargs)
+        self.category_id.choices=ProductCategory.get_choices(include_all=True)
+
+    def set_values(self, category_id, active):
+        self.category_id.data = str(category_id)
+        self.active.data = str(active)

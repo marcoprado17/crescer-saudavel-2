@@ -26,6 +26,8 @@
         {% with data=data.paginator_data %}
             {% include "components/paginator.html" %}
         {% endwith %}
+    {% else %}
+        <div class="filter-table-space"></div>
     {% endif %}
 
     {% if data.table_data.rows|length > 0 %}

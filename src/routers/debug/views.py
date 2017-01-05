@@ -11,6 +11,7 @@ import string
 from flask import render_template, redirect, url_for, current_app
 
 from models.product_category import ProductCategory
+from models.product_subcategory import ProductSubcategory
 from routers.debug import debug_blueprint
 from extensions import db
 
@@ -47,8 +48,12 @@ def restart_db_implementation():
     db.drop_all()
     db.create_all()
 
-    for i in range(0, 100):
+    for i in range(0, 50):
         db.session.add(get_random_product_category())
+        db.session.commit()
+
+    for i in range(0, 300):
+        db.session.add(get_random_product_subcategory())
         db.session.commit()
 
 def get_random_product_category():
@@ -56,6 +61,16 @@ def get_random_product_category():
         name=get_random_string(random.randint(4, 8)),
         active=random.choice([True, False])
     )
+
+def get_random_product_subcategory():
+    return ProductSubcategory(
+        name=get_random_string(random.randint(4, 8)),
+        active=random.choice([True, False]),
+        category_id = get_random_valid_product_category_id()
+    )
+
+def get_random_valid_product_category_id():
+    return random.choice(ProductCategory.query.with_entities(ProductCategory.id).all())
 
 def get_random_string(size):
     return ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(size))

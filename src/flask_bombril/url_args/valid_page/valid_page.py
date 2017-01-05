@@ -3,13 +3,14 @@
 # ======================================================================================================================
 # Created at 03/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from flask import request
+from flask_bombril.utils import get_url_arg
 from flask_bombril.utils import n_pages
 from flask_bombril.r import R
 
+
 def get_valid_page(page_arg_name, per_page, n_items):
     try:
-        curr_page = int(request.args.get(page_arg_name))
+        curr_page = int(get_url_arg(page_arg_name))
         assert curr_page >= R.dimen.min_page
     except:
         curr_page = R.dimen.min_page
