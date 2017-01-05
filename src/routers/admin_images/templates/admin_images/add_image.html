@@ -10,7 +10,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">{{ R.string.add_image }}</div>
             <div class="panel-body">
-                {{ messages.flash() }}
+                {{ messages.flash_static() }}
                 <form action="{{ url_for("admin_images.add_image") }}" method="post" enctype=multipart/form-data>
                     {{ data.upload_image_form.csrf_token }}
                     {{ form_fields.file_field(field=data.upload_image_form.image, auxiliar_text=R.string.upload_image_auxiliar_text) }}

@@ -1,5 +1,6 @@
 {% extends "admin_base/admin_base.html" %}
 {% import "flask_bombril_macros/utils.html" as utils with context %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
 {% block subtitle %}
     {{ R.string.images }}
 {% endblock %}
@@ -13,6 +14,7 @@
 {% endblock %}
 {% block script %}
     <script>
+        {{ messages.flash_toast() }}
         $(".{0}".f("{{ R.string.edit_class }}")).each(function() {
             var button = $(this);
             var href = button.attr("{{ R.string.href_meta_data_key }}");

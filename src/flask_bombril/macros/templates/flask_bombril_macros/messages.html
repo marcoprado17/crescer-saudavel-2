@@ -22,10 +22,26 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro flash() %}
+{% macro flash_static() %}
     {% for category, message in get_flashed_messages(with_categories=true) %}
         {% if category|is_static %}
             {{ alert(message=message, level=category|get_level, dismissible=True) }}
+        {% endif %}
+    {% endfor %}
+{%- endmacro %}
+
+{% macro toast(message, level) %}
+    {% if level == bombril_R.string.success %}
+        throwSuccessOpToast("{{ message }}")
+    {% elif level == bombril_R.string.error %}
+        throwErrorOpToast("{{ message }}")
+    {% endif %}
+{%- endmacro %}
+
+{% macro flash_toast() %}
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+        {% if category|is_toast %}
+            {{ toast(message=message, level=category|get_level) }}
         {% endif %}
     {% endfor %}
 {%- endmacro %}

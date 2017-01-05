@@ -4,7 +4,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">{{ data.title }}</div>
         <div class="panel-body">
-            {{ messages.flash() }}
+            {{ messages.flash_static() }}
             <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
                 {{ data.product_subcategory_form.csrf_token }}
                 {{ form_fields.select_field(field=data.product_subcategory_form.category, explicit_label=True) }}

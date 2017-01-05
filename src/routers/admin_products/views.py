@@ -71,7 +71,7 @@ def edit_category(category_id):
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.categories"))
         else:
-            return render_template("admin_products/add_category.html",
+            return render_template("admin_products/edit_category.html",
                                    data=admin_edit_product_category_data_provider.get_data_when_post(
                                        edit_product_category_form=edit_product_category_form))
 
