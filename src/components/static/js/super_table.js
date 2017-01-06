@@ -15,3 +15,13 @@ function setBoolTdValue(col, row, value) {
          boolContainer.removeClass("true");
      }
 }
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+$('select.sort-method').on('change', function () {
+    select = $(this);
+    $('form.filter input.sort-method').attr("value", select.val());
+    $("form.filter input[type='submit']").click();
+});

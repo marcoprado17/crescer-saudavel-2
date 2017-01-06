@@ -8,14 +8,14 @@ from flask_bombril.utils import n_pages
 from flask_bombril.r import R
 
 
-def get_valid_page(page_arg_name, per_page, n_items):
+def get_valid_page(page_arg_name, per_page, n_items, min_page=R.dimen.min_page):
     try:
         curr_page = int(get_url_arg(page_arg_name))
-        assert curr_page >= R.dimen.min_page
+        assert curr_page >= min_page
     except:
-        curr_page = R.dimen.min_page
+        curr_page = min_page
     max_valid_page = n_pages(per_page=per_page, n_items=n_items)
-    min_valid_page = R.dimen.min_page
+    min_valid_page = min_page
     page = curr_page
     page = max(page, min_valid_page)
     page = min(page, max_valid_page)

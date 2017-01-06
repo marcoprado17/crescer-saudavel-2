@@ -45,7 +45,7 @@
         {% if explicit_label %}
             {{ field.label }}
         {% endif %}
-        {{ field(class_="form-control" + " " + classes) }}
+        {{ field(class_="form-control" + " " + classes + " " + field.classes|if(field.classes)) }}
         {{ render_errors(field.errors) }}
     </div>
 {%- endmacro %}

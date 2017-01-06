@@ -33,32 +33,30 @@ class TestCase(BaseTestCase):
 
     def test_get_valid_model_id(self):
         with app.test_client() as c:
-            c.get("/")
-
-            request.args = dict(arg_name="0")
+            c.get("/?" + "arg_name="+"0")
             self.assertEqual("default", get_valid_model_id(model=TestValidModelId, arg_name="arg_name", include_zero=False,
                                                    default="default"))
 
-            request.args = dict(arg_name="0")
+            c.get("/?" + "arg_name=" + "0")
             self.assertEqual(0,
                              get_valid_model_id(model=TestValidModelId, arg_name="arg_name", include_zero=True,
                                                 default="default"))
 
-            request.args = dict(arg_name="1")
+            c.get("/?" + "arg_name=" + "1")
             self.assertEqual(1, get_valid_model_id(model=TestValidModelId, arg_name="arg_name", include_zero=False, default=1))
 
-            request.args = dict(arg_name="2")
+            c.get("/?" + "arg_name=" + "2")
             self.assertEqual(2, get_valid_model_id(model=TestValidModelId, arg_name="arg_name", include_zero=False,
                                                    default=1))
 
-            request.args = dict(arg_name="3")
+            c.get("/?" + "arg_name=" + "3")
             self.assertEqual(3, get_valid_model_id(model=TestValidModelId, arg_name="arg_name", include_zero=False,
                                                    default=1))
 
-            request.args = dict(arg_name="4")
+            c.get("/?" + "arg_name=" + "4")
             self.assertEqual(1, get_valid_model_id(model=TestValidModelId, arg_name="arg_name", include_zero=False,
                                                    default=1))
 
-            request.args = dict(arg_name="42")
+            c.get("/?" + "arg_name=" + "42")
             self.assertEqual(None, get_valid_model_id(model=TestValidModelId, arg_name="arg_name", include_zero=False,
                                                    default=None))

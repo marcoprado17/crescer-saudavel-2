@@ -61,7 +61,7 @@ class ProductSubcategory(db.Model):
         db.session.commit()
 
     @staticmethod
-    def get_choices(include_all, include_none):
+    def get_choices(include_all=False, include_none=False):
         assert not(include_all and include_none)
 
         choices = []

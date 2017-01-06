@@ -10,6 +10,7 @@ from flask import current_app
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, SelectField, IntegerField, TextAreaField
 
+from flask_bombril.form_fields import SelectFieldWithClasses
 from flask_bombril.form_validators import MarkdownValidator
 from flask_bombril.form_validators import NotNegativeInteger
 from flask_bombril.form_validators import Price
@@ -153,7 +154,7 @@ class ProductForm(FlaskForm):
         label=R.string.subcategory
     )
     price = StringField(
-        label=R.string.price,
+        label=R.string.price_in_real,
         validators=[
             Required(),
             Price(),
@@ -255,3 +256,40 @@ class EditProductForm(ProductForm):
     #     self.category_id.data = str(product_subcategory.category_id)
     #     self.subcategory_name.data = product_subcategory.name
     #     self.active.data = product_subcategory.active
+
+
+class ProductFilterForm(FlaskForm):
+    category_id = SelectField(
+        label=R.string.category
+    )
+    subcategory_id = SelectFieldWithClasses(
+        label=R.string.subcategory,
+        classes="dynamic"
+    )
+    active = SelectField(
+        label=R.string.subcategory_status,
+        choices=[(str(True), R.string.active_in_female), (str(False), R.string.inactive_in_female)]
+    )
+    filter = SubmitField(label=R.string.filter)
+
+    def __init__(self, **kwargs):
+        super(ProductFilterForm, self).__init__(**kwargs)
+        self.category_id.choices = ProductCategory.get_choices(include_all=True)
+        self.subcategory_id.choices = ProductSubcategory.get_choices(include_all=True)
+        dependent_choices = {}
+        dependent_choices[str(0)] = [(str(0), R.string.all)]
+        for category in ProductCategory.get_all():
+            choices = []
+            choices.append((str(0), R.string.all))
+            for subcategory in category.subcategories:
+                choices.append((str(subcategory.id), subcategory.name))
+            dependent_choices[str(category.id)] = choices
+        self.subcategory_id.render_kw = dict(
+            depends_on="category_id",
+            dependent_choices=json.dumps(dependent_choices)
+        )
+
+    def set_values(self, category_id, subcategory_id, active):
+        self.category_id.data = str(category_id)
+        self.subcategory_id.data = str(subcategory_id)
+        self.active.data = str(active)

@@ -56,9 +56,11 @@ def get_url_args():
     request_view_args = {}
     if request.view_args and len(request.view_args) > 0:
         request_view_args = request.view_args
-    url_args = dict(request_view_args, **request_args)
-    for key, val in url_args.iteritems():
-        url_args[key] = val[0]
+    url_args = {}
+    for key, val in request_args.iteritems():
+        url_args[key] = val
+    for key, val in request_view_args.iteritems():
+        url_args[key] = val
     return url_args
 
 def get_url_arg(arg_name):

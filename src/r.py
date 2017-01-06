@@ -54,10 +54,12 @@ class Resources(object):
         find_image = "Procurar imagem"
         upload_image_auxiliar_text = "Os formatos de imagem aceitos são: " + stringfy_list(allowed_image_extensions)
 
-        images_table_id = "images"
+        images_table_id = "images-table"
+        products_table_id = "products-table"
         image_col_id = "image"
         image_name_col_id = "image-name"
         action_col_id = "action"
+
 
         remove_class = "remove"
         remove_image_url_meta_data_key = "data-remove-image-url"
@@ -69,6 +71,7 @@ class Resources(object):
         sort_method_arg_name = "sort_method"
         subcategory_active_arg_name = "active"
         category_id_arg_name = "category_id"
+        subcategory_id_arg_name = "subcategory_id"
 
         name = "Nome"
         remove = "Remover"
@@ -89,10 +92,12 @@ class Resources(object):
         product_category_name = "Nome da categoria de produto"
         product_subcategory_name = "Nome da subcategoria de produto"
         product_categories = "Categorias de produto"
-        product_categories_table_id = "product-categories"
-        product_subcategories_table_id = "product-subcategories"
+        product_categories_table_id = "product-categories-table"
+        product_subcategories_table_id = "product-subcategories-table"
         product_category_name_col_id = "product-category-name"
         product_category_active_col_id = "product-category-active"
+        product_active_col_id = "product-active-col"
+        product_title_col_id = "product-title-col"
         product_subcategory_name_col_id = "product-subcategory-name"
         product_subcategory_active_col_id = "product-subcategory-active"
         category = "Categoria"
@@ -113,6 +118,7 @@ class Resources(object):
         subcategory_status = "Status da subcategoria"
         filter = "Filtrar"
         select_field = "SelectField"
+        select_field_with_classes = "SelectFieldWithClasses"
         submit_field = "SubmitField"
         disable_product_category_url_meta_data_key = "data-disable-product-category-url"
         disable_product_subcategory_url_meta_data_key = "data-disable-product-subcategory-url"
@@ -148,6 +154,25 @@ class Resources(object):
         markdown_preview_error = "Ocorreu uma falha na tradução do texto Markdown. Tente novamente."
         tab_title_example = "Ex.: Informação nutricional"
         active = "Ativo"
+        product_category_col_id = "product-category-col"
+        product_price_col_id = "product-price-col"
+        price_in_real = "Preço em R$"
+        product_stock_col_id = "product-stock-col"
+        in_stock = "Em estoque"
+        product_min_stock_col_id = "product-min-stock-col"
+        min_stock = "Mín. Estoque"
+        min_stock_tooltip = "Quando o estoque do produto atingir o valor estabelecido em mín. estoque, o produto não será mais disponibilizado para venda na loja virtual."
+        product_sales_number_col_id = "product-sales-number-col"
+        sales = "Vendas"
+        empty_symbol = "-"
+        sort_method_label = "Ordenar por:"
+
+        lowest_price = "Menor preço"
+        higher_price = "Maior preço"
+        lowest_stock = "Menor estoque"
+        higher_stock = "Maior estoque"
+        best_seller = "Mais vendido"
+        less_sold = "Menos vendido"
 
         tab_content_example = \
 """An h1 header
@@ -281,13 +306,22 @@ Content Cell | Content Cell"""
         ADMIN_NAVBAR_ATTENDED_CITIES =          8
 
         # Super table column types
-        COL_TYPE_IMAGE =                        9
-        COL_TYPE_TEXT =                         10
-        COL_TYPE_ACTION =                       11
-        COL_TYPE_BOOL =                         12
+        COL_TYPE_IMAGE =                        101
+        COL_TYPE_TEXT =                         102
+        COL_TYPE_ACTION =                       103
+        COL_TYPE_BOOL =                         104
 
         # Super table action element types
-        ACTION_TYPE_BUTTON =                    13
+        ACTION_TYPE_BUTTON =                    201
+
+        # Sort methods
+        SORT_METHOD_TITLE =                     301
+        SORT_METHOD_LOWEST_PRICE =              302
+        SORT_METHOD_HIGHER_PRICE =              303
+        SORT_METHOD_LOWEST_STOCK =              304
+        SORT_METHOD_HIGHER_STOCK =              305
+        SORT_METHOD_BEST_SELLER =               306
+        SORT_METHOD_LESS_SOLD =                 307
 
     # noinspection PyPep8Naming
     class dimen(object):

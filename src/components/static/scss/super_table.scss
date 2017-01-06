@@ -12,7 +12,7 @@
   }
 
   .jumbotron {
-    margin-bottom: 0;
+    margin-bottom: 20px;
     padding-top: 12px !important;
     padding-bottom: 12px !important;
     padding-right: 16px !important;
@@ -68,7 +68,20 @@
     }
   }
 
-  .filter-table-space {
-    height: 24px;
+  .form-group.sort-method {
+    float: right;
+    display: flex;
+    margin-top: 0;
+    margin-left: auto;
+
+    label {
+      width: 150px;
+      margin-top: 7px;
+      margin-left: 12px;
+    }
+  }
+
+  .pagination {
+    margin-top: 0;
   }
 }

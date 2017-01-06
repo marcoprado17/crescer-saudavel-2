@@ -1,0 +1,19 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/utils.html" as utils with context %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block subtitle %}
+    {{ R.string.products }}
+{% endblock %}
+{% block content %}
+    <div class="__admin_products__ __categories__ container">
+        {{ utils.page_header(R.string.products) }}
+        {% with data=data %}
+            {% include "components/super_table.html" %}
+        {% endwith %}
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        init_dynamic_selects();
+    </script>
+{% endblock %}

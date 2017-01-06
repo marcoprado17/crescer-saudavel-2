@@ -16,6 +16,7 @@ from routers.admin_products.data_providers.add_product import admin_add_product_
 from routers.admin_products.data_providers.add_subcategory import admin_add_product_subcategory_data_provider
 from routers.admin_products.data_providers.edit_category import admin_edit_product_category_data_provider
 from routers.admin_products.data_providers.edit_subcategory import admin_edit_product_subcategory_data_provider
+from routers.admin_products.data_providers.index import admin_products_data_provider
 from routers.admin_products.data_providers.subcategories import admin_product_subcategories_data_provider
 from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm, \
     EditProductSubcategoryForm, AddProductForm
@@ -24,7 +25,7 @@ from flask_bombril.r import R as bombril_R
 
 @admin_products_blueprint.route("/")
 def index():
-    return "Produtos."
+    return render_template("admin_products/index.html", data=admin_products_data_provider.get_data())
 
 
 @admin_products_blueprint.route("/adicionar-produto", methods=["GET", "POST"])

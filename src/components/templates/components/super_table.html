@@ -1,11 +1,12 @@
 {% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+{% import "flask_bombril_macros/tooltip.html" as tooltip with context %}
 <div class="__components__ __super_table__">
     {% if data.filter_data %}
         <div class="jumbotron">
-            <form action="{{ url_for(request.endpoint) }}" method=get>
-                <input name="{{ R.string.sort_method_query_arg_name }}" hidden>
+            <form class="filter" action="{{ url_for(request.endpoint) }}" method=get>
+                <input class="sort-method" name="{{ R.string.sort_method_arg_name }}" hidden>
                 {% for field in data.filter_data.filter_form %}
-                    {% if field.type == R.string.select_field %}
+                    {% if field.type == R.string.select_field or field.type == R.string.select_field_with_classes %}
                         <div class="filter-item">
                             {{ form_fields.select_field(field=field, explicit_label=True) }}
                         </div>
@@ -22,15 +23,22 @@
         <p>{{ R.string.n_items_found(n_items=data.n_items) }}</p>
     {% endif %}
 
-    {% if data.paginator_data.pages|length > 1 %}
+    {% if data.table_data.rows|length > 0 %}
         {% with data=data.paginator_data %}
             {% include "components/paginator.html" %}
         {% endwith %}
-    {% else %}
-        <div class="filter-table-space"></div>
-    {% endif %}
+        {% if data.table_data.rows|length > 0 and data.sort_methods and data.sort_methods|length > 0 %}
+            <div class="form-group sort-method">
+                <label for="select-sort-method">{{ R.string.sort_method_label }}</label>
+                <select id="select-sort-method" name="{{ data.sort_method_query_arg_name }}"
+                        class="form-control sort-method">
+                    {% for sort_method in data.sort_methods %}
+                        <option value="{{ sort_method.value }}" {{ 'selected'|if(sort_method.selected) }}>{{ sort_method.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
 
-    {% if data.table_data.rows|length > 0 %}
         <div class="table-responsive {{ 'without-bottom-paginator'|if(data.paginator_data.pages|length <= 1) }}">
             <table id="{{ data.table_data.id|if(data.table_data.id) }}" class="table table-hover">
                 <thead>
@@ -39,6 +47,9 @@
                         <th id="{{ col.id }}" class="{{ 'min-width'|if(col.id==R.string.action_col_id) }}">
                             {% if col.title %}
                                 {{ col.title }}
+                                {% if col.tooltip %}
+                                    {{ tooltip.info(col.tooltip) }}
+                                {% endif %}
                             {% endif %}
                         </th>
                     {% endfor %}
@@ -82,13 +93,11 @@
                 </tbody>
             </table>
         </div>
-    {% else %}
-        <p>{{ R.string.no_items_found }}</p>
-    {% endif %}
 
-    {% if data.paginator_data.pages|length > 1 %}
         {% with data=data.paginator_data %}
             {% include "components/paginator.html" %}
         {% endwith %}
+    {% else %}
+        <p>{{ R.string.no_items_found }}</p>
     {% endif %}
 </div>
