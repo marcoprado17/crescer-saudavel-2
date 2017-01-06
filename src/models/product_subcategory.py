@@ -4,10 +4,12 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from sqlalchemy import ForeignKey
+from sqlalchemy import asc
 from sqlalchemy.orm import relationship
 from extensions import db
 from models.product import Product
 from proj_exceptions import InvalidIdError
+from r import R
 
 
 class ProductSubcategory(db.Model):
@@ -57,3 +59,19 @@ class ProductSubcategory(db.Model):
         product_subcategory.category_id = edit_product_subcategory_form.category_id.data
         db.session.add(product_subcategory)
         db.session.commit()
+
+    @staticmethod
+    def get_choices(include_all, include_none):
+        assert not(include_all and include_none)
+
+        choices = []
+
+        if include_all:
+            choices.append((str(0), R.string.all))
+        if include_none:
+            choices.append((str(0), R.string.none_in_female))
+
+        for subcategory in ProductSubcategory.query.order_by(asc(ProductSubcategory.name)).all():
+            choices.append((str(subcategory.id), subcategory.name))
+
+        return choices

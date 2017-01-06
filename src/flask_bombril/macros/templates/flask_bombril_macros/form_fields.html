@@ -6,7 +6,7 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro string_field(field, explicit_label=False, max_length=None) %}
+{% macro string_field(field, explicit_label=False, max_length=None, placeholder="") %}
     {% if max_length == None %}
         {% set max_length=R.dimen.default_string_field_max_length %}
     {% endif %}
@@ -15,9 +15,21 @@
             <label for="{{ field.id }}">{{ field.label }}</label>
         {% endif %}
         <input id="{{ field.id }}" name="{{ field.name }}" type="text"
-               class="form-control" placeholder="{{ field.label.text|if(not explicit_label) }}"
+               class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
                maxlength="{{ max_length }}"
                value="{{ field.data|if(field.data) }}">
+        {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
+{% macro integer_field(field, explicit_label=False, placeholder="") %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <label for="{{ field.id }}">{{ field.label }}</label>
+        {% endif %}
+        <input id="{{ field.id }}" name="{{ field.name }}" type="number"
+               class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
+               value="{{ field.data|if(field.data or field.data == 0) }}">
         {{ render_errors(field.errors) }}
     </div>
 {%- endmacro %}
@@ -28,12 +40,13 @@
     </div>
 {%- endmacro %}
 
-{% macro select_field(field, explicit_label=False) %}
-    <div class="form-group">
+{% macro select_field(field, explicit_label=False, classes="") %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
-            {{ field.label }}:
+            {{ field.label }}
         {% endif %}
-        {{ field(class_="form-control") }}
+        {{ field(class_="form-control" + " " + classes) }}
+        {{ render_errors(field.errors) }}
     </div>
 {%- endmacro %}
 

@@ -83,6 +83,8 @@ def create_app():
     if app.config["DEBUG"]:
         from routers.debug import debug_blueprint
         app.register_blueprint(debug_blueprint, url_prefix="/debug")
+    from routers.admin_utils import admin_utils_blueprint
+    app.register_blueprint(admin_utils_blueprint, url_prefix="/admin/utils")
     #
     # Wrappers
     #

@@ -80,6 +80,7 @@ class Resources(object):
         # Admin products
         add_product_category = "Adicionar nova categoria de produto"
         add_product_subcategory = "Adicionar nova subcategoria de produto"
+        add_product = "Adicionar novo produto"
         edit_product_category = "Editar categoria de produto"
         edit_product_subcategory = "Editar subcategoria de produto"
         add = "Adicionar"
@@ -126,10 +127,84 @@ class Resources(object):
         row_meta_data_key = "data-row"
         all = "Todas"
         product_subcategories = "Subcategorias de produto"
+        title = "Título"
+        dynamic_class = "dynamic"
+        none_in_female = "Nenhuma"
+        price = "Preço"
+        stock_quantity = "Quantia no estoque"
+        stop_sell_when_stock_low_than = "Parar de vender quando o estoque estiver abaixo de"
+        summary = "Resumo"
+        product_title_example = "Ex.: Papinha de maça - 500g"
+        product_price_example = "Ex.: 8,80"
+        product_stock_quantity_example = "Ex.: 42"
+        product_stop_sell_stock_quantity_example = "Ex.: 5"
+        product_summary_example = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
+        markdown = "Markdown"
+        example = "Exemplo"
+        preview = "Pré-visualização"
+        markdown_href = "https://dwoond.github.io/O-basico-de-Markdown/"
+        close = "Fechar"
+        loading = "Carregando..."
+        markdown_preview_error = "Ocorreu uma falha na tradução do texto Markdown. Tente novamente."
+        tab_title_example = "Ex.: Informação nutricional"
+        active = "Ativo"
+
+        tab_content_example = \
+"""An h1 header
+============
+
+Paragraphs are separated by a blank line.
+
+2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
+look like:
+
+  * this one
+  * that one
+  * the other one
+
+Note that --- not considering the asterisk --- the actual text
+content starts at 4-columns in.
+
+> Block quotes are
+> written like so.
+>
+> They can span multiple paragraphs,
+> if you like.
+
+Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
+in chapters 12--14"). Three dots ... will be converted to an ellipsis.
+Unicode is supported. ☺
+
+
+
+An h2 header
+------------
+
+Here's a numbered list:
+
+ 1. first item
+ 2. second item
+ 3. third item
+
+Note again how the actual text starts at 4 columns in (4 characters
+from the left side). Here's a code sample:
+
+    # Let me re-iterate ...
+    for i in 1 .. 10 { do-something(i) }
+
+First Header | Second Header
+------------ | -------------
+Content Cell | Content Cell
+Content Cell | Content Cell"""
+
 
         @staticmethod
         def image_sent_successfully(image_name):
             return 'A imagem "%s" foi enviada com sucesso.' % image_name
+
+        @staticmethod
+        def product_sent_successfully(title):
+            return 'O produto "%s" foi adicionado com sucesso.' % title
 
         @staticmethod
         def product_category_sent_successfully(category_name):
@@ -180,6 +255,18 @@ class Resources(object):
         def product_subcategory_successful_edited(subcategory_name):
             return 'A subcategoria de produto "%s" foi editada com sucesso.' % subcategory_name
 
+        @staticmethod
+        def n_image(n):
+            return "%sº Imagem" % str(n)
+
+        @staticmethod
+        def n_tab_title(n):
+            return "Título da %sº aba" % str(n)
+
+        @staticmethod
+        def n_tab_content(n):
+            return "Conteúdo da %sº aba" % str(n)
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -209,6 +296,8 @@ class Resources(object):
         product_category_max_length = 48
         product_subcategory_max_length = 48
         default_string_field_max_length = 4096
+        tab_title_max_length = 48
+        product_title_max_length = 96
 
 
 R = Resources()

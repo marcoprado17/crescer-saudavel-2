@@ -54,6 +54,10 @@ class Resources(object):
 
         page_arg_name = "pagina"
 
+        invalid_price_format = "Formato de preço inválido. Exemplos de preços válidos: 0,00 | 0,80 | 0.75 | 18,30"
+        invalid_not_negative_integer = "O valor fornecido deve ser um inteiro não negativo."
+        invalid_markdown_format = "Formatação Markdown inválida."
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):

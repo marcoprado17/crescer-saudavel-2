@@ -33,6 +33,10 @@ class ProductCategory(db.Model):
         return ProductCategory.query.filter_by(id=category_id).one_or_none()
 
     @staticmethod
+    def get_all():
+        return ProductCategory.query.all()
+
+    @staticmethod
     def disable(category_id):
         category = ProductCategory.query.filter_by(id=category_id).one_or_none()
         if not category:

@@ -1,0 +1,21 @@
+.__components__.__markdown_textarea__ {
+  $btn-space: 6px;
+
+  textarea {
+    margin-bottom: 12px;
+  }
+
+  .bottom-part {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  a.markdown {
+    margin-left: auto;
+  }
+
+  button.preview {
+    margin-left: $btn-space;
+    margin-right: $btn-space;
+  }
+}
