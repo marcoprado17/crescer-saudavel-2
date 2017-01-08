@@ -70,6 +70,5 @@ class Resources(object):
         test_int = 42
         test_int_2 = 17
         min_page = 1
-        default_string_field_max_length = 4096
 
 R = Resources()
