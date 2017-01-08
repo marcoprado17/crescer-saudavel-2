@@ -44,7 +44,7 @@
                 <thead>
                 <tr>
                     {% for col in data.table_data.cols %}
-                        <th id="{{ col.id }}" class="{{ 'min-width'|if(col.id==R.string.action_col_id) }}">
+                        <th id="{{ col.id }}" class="{{ 'min-width action'|if(col.id==R.string.action_col_id) }}">
                             {% if col.title %}
                                 {{ col.title }}
                                 {% if col.tooltip %}
