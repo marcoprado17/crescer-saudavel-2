@@ -7,7 +7,7 @@
             {{ messages.flash_static() }}
             <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
                 {{ data.product_category_form.csrf_token }}
-                {{ form_fields.string_field(field=data.product_category_form.category_name) }}
+                {{ form_fields.string_field(field=data.product_category_form.category_name, explicit_label=True) }}
                 {{ form_fields.boolean_field(field=data.product_category_form.active) }}
                 {{ form_fields.submit(field=data.product_category_form.submit) }}
             </form>
