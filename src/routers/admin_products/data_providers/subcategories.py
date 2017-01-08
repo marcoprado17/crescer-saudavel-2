@@ -56,9 +56,9 @@ class AdminProductSubcategoriesDataProvider(object):
         for idx, subcategory in enumerate(self.q.slice(
                 *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()):
             rows.append([
+                subcategory.active,
                 subcategory.category.name,
                 subcategory.name,
-                subcategory.active,
                 [
                     dict(
                         type=R.id.ACTION_TYPE_BUTTON,
@@ -104,6 +104,11 @@ class AdminProductSubcategoriesDataProvider(object):
             id=R.string.product_subcategories_table_id,
             cols=[
                 dict(
+                    id=R.string.product_subcategory_active_col_id,
+                    title=R.string.active_in_female,
+                    type=R.id.COL_TYPE_BOOL
+                ),
+                dict(
                     id=R.string.product_category_name_col_id,
                     title=R.string.category,
                     type=R.id.COL_TYPE_TEXT
@@ -113,11 +118,7 @@ class AdminProductSubcategoriesDataProvider(object):
                     title=R.string.subcategory,
                     type=R.id.COL_TYPE_TEXT
                 ),
-                dict(
-                    id=R.string.product_subcategory_active_col_id,
-                    title=R.string.active_in_female,
-                    type=R.id.COL_TYPE_BOOL
-                ),
+
                 dict(
                     id=R.string.action_col_id,
                     type=R.id.COL_TYPE_ACTION,
