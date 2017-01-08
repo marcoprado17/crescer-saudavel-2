@@ -21,9 +21,9 @@ function setTextTdValue(col, row_idx, value) {
 }
 
 function initSuperTable() {
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
+    initTooltips();
 
+    $(document).ready(function () {
         select = $('select.sort-method');
         $('form.filter input.sort-method').attr("value", select.val());
     });

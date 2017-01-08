@@ -166,11 +166,15 @@ class ProductForm(FlaskForm):
             NotNegativeInteger(),
         ])
     min_stock = IntegerField(
-        label=R.string.stop_sell_when_stock_low_than,
+        label=R.string.min_stock,
         validators=[
             Required(),
             NotNegativeInteger(),
-        ])
+        ],
+        render_kw=dict(
+            tooltip=R.string.min_stock_tooltip
+        )
+    )
     summary = TextAreaField(
         label=R.string.summary,
         validators=[

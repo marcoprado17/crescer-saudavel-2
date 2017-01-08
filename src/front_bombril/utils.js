@@ -162,6 +162,13 @@ function throwErrorOpToast(message) {
     toastr.error(message);
 }
 
+function initTooltips(){
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+}
+
+
 function initDynamicSelects() {
     $("select.dynamic").each(function () {
         var dependent_select = $(this);
