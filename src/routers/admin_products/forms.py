@@ -183,11 +183,15 @@ class ProductForm(FlaskForm):
         ]
     )
     price = StringField(
-        label=R.string.price_in_real,
+        label=R.string.price,
         validators=[
             Required(),
             Price(),
-        ])
+        ],
+        render_kw=dict(
+            tooltip=R.string.price_in_real
+        )
+    )
     stock = IntegerField(
         label=R.string.stock_quantity,
         validators=[

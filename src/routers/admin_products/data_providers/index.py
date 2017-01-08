@@ -190,8 +190,9 @@ class AdminProductsDataProvider:
                 ),
                 dict(
                     id=R.string.product_price_col_id,
-                    title=R.string.price_in_real,
-                    type=R.id.COL_TYPE_TEXT
+                    title=R.string.price,
+                    type=R.id.COL_TYPE_TEXT,
+                    tooltip=R.string.price_in_real
                 ),
                 dict(
                     id=R.string.product_stock_col_id,
