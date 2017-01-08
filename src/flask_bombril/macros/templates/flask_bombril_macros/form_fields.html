@@ -8,10 +8,7 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro string_field(field, explicit_label=False, max_length=None, placeholder="") %}
-    {% if max_length == None %}
-        {% set max_length=R.dimen.default_string_field_max_length %}
-    {% endif %}
+{% macro string_field(field, explicit_label=False, placeholder="") %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
             <div class="label-container">
@@ -81,10 +78,7 @@
     </div>
 {%- endmacro %}
 
-{% macro password_field(field, explicit_label=False, max_length=None) %}
-    {% if max_length == None %}
-        {% set max_length=R.dimen.default_password_field_max_length %}
-    {% endif %}
+{% macro password_field(field, explicit_label=False) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
             <div class="label-container">
@@ -103,12 +97,12 @@
     </div>
 {%- endmacro %}
 
-{% macro file_field(field, label=False, auxiliar_text=None) %}
+{% macro file_field(field, button_text=None, label=False, auxiliar_text=None) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }} {{ 'zero-margin-bottom'|if(auxiliar_text) }}">
         {% if label %}
             <label for="{{ field.id }}">{{ field.label }}</label>
         {% endif %}
-        <input type="file" class="filestyle" name="{{ field.name }}" id="{{ field.id }}" data-icon="false" data-buttonText="{{ R.string.find_image }}">
+        <input type="file" class="filestyle" name="{{ field.name }}" id="{{ field.id }}" data-icon="false" data-buttonText="{{ button_text|if(button_text, bombril_R.string.find_file) }}">
         {{ render_errors(field.errors) }}
     </div>
     {% if auxiliar_text %}

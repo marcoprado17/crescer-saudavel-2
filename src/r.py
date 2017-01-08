@@ -376,7 +376,7 @@ Content Cell | Content Cell"""
         min_page = 1
         product_category_max_length = 48
         product_subcategory_max_length = 48
-        default_string_field_max_length = 4096
+
         tab_title_max_length = 48
         product_title_max_length = 96
 

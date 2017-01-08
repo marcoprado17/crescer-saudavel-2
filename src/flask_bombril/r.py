@@ -58,6 +58,8 @@ class Resources(object):
         invalid_not_negative_integer = "O valor fornecido deve ser um inteiro não negativo."
         invalid_markdown_format = "Formatação Markdown inválida."
 
+        find_file = "Procurar arquivo"
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -68,5 +70,6 @@ class Resources(object):
         test_int = 42
         test_int_2 = 17
         min_page = 1
+        default_string_field_max_length = 4096
 
 R = Resources()
