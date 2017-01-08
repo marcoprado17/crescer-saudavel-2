@@ -16,11 +16,12 @@ from data_providers import admin_add_product_category_data_provider, admin_produ
 from routers.admin_products.data_providers.add_product import admin_add_product_data_provider
 from routers.admin_products.data_providers.add_subcategory import admin_add_product_subcategory_data_provider
 from routers.admin_products.data_providers.edit_category import admin_edit_product_category_data_provider
+from routers.admin_products.data_providers.edit_product import admin_edit_product_data_provider
 from routers.admin_products.data_providers.edit_subcategory import admin_edit_product_subcategory_data_provider
 from routers.admin_products.data_providers.index import admin_products_data_provider
 from routers.admin_products.data_providers.subcategories import admin_product_subcategories_data_provider
 from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm, \
-    EditProductSubcategoryForm, AddProductForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm
+    EditProductSubcategoryForm, AddProductForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm, EditProductForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -37,7 +38,7 @@ def add_product():
         add_product_form = AddProductForm()
 
         if add_product_form.validate_on_submit():
-            Product.create_from_form(add_product_form=add_product_form)
+            Product.create_from_form(product_form=add_product_form)
             flash(R.string.product_sent_successfully(add_product_form.title.data),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_product"))
@@ -48,7 +49,27 @@ def add_product():
 
 @admin_products_blueprint.route("/editar-produto/<int:product_id>", methods=["GET", "POST"])
 def edit_product(product_id):
-    return "Editar produto, id = " + str(product_id)
+    product = Product.get(product_id=product_id)
+    if not product:
+        return "", 404
+
+    if request.method == "GET":
+        return render_template("admin_products/edit_product.html",
+                               data=admin_edit_product_data_provider.get_data_when_get(
+                                   product=product))
+    else:
+        edit_product_form = EditProductForm()
+
+        if edit_product_form.validate_on_submit():
+            product.update_from_form(product=product,
+                                     product_form=edit_product_form)
+            flash(R.string.product_successful_edited(product.title),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+            return redirect(url_for("admin_products.index"))
+        else:
+            return render_template("admin_products/edit_product.html",
+                                   data=admin_edit_product_data_provider.get_data_when_post(
+                                       edit_product_form=edit_product_form))
 
 
 @admin_products_blueprint.route("/desabilitar-produto/<int:product_id>", methods=["POST"])

@@ -60,49 +60,63 @@ class Product(db.Model):
     tab_10_content = db.Column(db.UnicodeText)
 
     @staticmethod
-    def create_from_form(add_product_form):
-        product = Product(
-            title=add_product_form.title.data,
-            active=add_product_form.active.data,
-            category_id=int(add_product_form.category_id.data),
-            subcategory_id=int(add_product_form.subcategory_id.data) if int(add_product_form.subcategory_id.data) != 0 else None,
-            price=Decimal(add_product_form.price.data.replace(',', '.')),
-            stock=int(add_product_form.stock.data),
-            min_stock=int(add_product_form.min_stock.data),
-            summary=add_product_form.summary.data,
+    def get_attrs_from_form(product_form):
+        return dict(
+            title=product_form.title.data,
+            active=product_form.active.data,
+            category_id=int(product_form.category_id.data),
+            subcategory_id=int(product_form.subcategory_id.data) if int(product_form.subcategory_id.data) != 0 else None,
+            price=Decimal(product_form.price.data.replace(',', '.')),
+            stock=int(product_form.stock.data),
+            min_stock=int(product_form.min_stock.data),
+            summary=product_form.summary.data,
 
-            image_1=add_product_form.image_1.data,
-            image_2=add_product_form.image_2.data,
-            image_3=add_product_form.image_3.data,
-            image_4=add_product_form.image_4.data,
-            image_5=add_product_form.image_5.data,
-            image_6=add_product_form.image_6.data,
-            image_7=add_product_form.image_7.data,
-            image_8=add_product_form.image_8.data,
-            image_9=add_product_form.image_9.data,
-            image_10=add_product_form.image_10.data,
+            image_1=product_form.image_1.data,
+            image_2=product_form.image_2.data,
+            image_3=product_form.image_3.data,
+            image_4=product_form.image_4.data,
+            image_5=product_form.image_5.data,
+            image_6=product_form.image_6.data,
+            image_7=product_form.image_7.data,
+            image_8=product_form.image_8.data,
+            image_9=product_form.image_9.data,
+            image_10=product_form.image_10.data,
 
-            tab_1_title=add_product_form.tab_1_title.data,
-            tab_1_content=add_product_form.tab_1_content.data,
-            tab_2_title=add_product_form.tab_2_title.data,
-            tab_2_content=add_product_form.tab_2_content.data,
-            tab_3_title=add_product_form.tab_3_title.data,
-            tab_3_content=add_product_form.tab_3_content.data,
-            tab_4_title=add_product_form.tab_4_title.data,
-            tab_4_content=add_product_form.tab_4_content.data,
-            tab_5_title=add_product_form.tab_5_title.data,
-            tab_5_content=add_product_form.tab_5_content.data,
-            tab_6_title=add_product_form.tab_6_title.data,
-            tab_6_content=add_product_form.tab_6_content.data,
-            tab_7_title=add_product_form.tab_7_title.data,
-            tab_7_content=add_product_form.tab_7_content.data,
-            tab_8_title=add_product_form.tab_8_title.data,
-            tab_8_content=add_product_form.tab_8_content.data,
-            tab_9_title=add_product_form.tab_9_title.data,
-            tab_9_content=add_product_form.tab_9_content.data,
-            tab_10_title=add_product_form.tab_10_title.data,
-            tab_10_content=add_product_form.tab_10_content.data,
+            tab_1_title=product_form.tab_1_title.data,
+            tab_1_content=product_form.tab_1_content.data,
+            tab_2_title=product_form.tab_2_title.data,
+            tab_2_content=product_form.tab_2_content.data,
+            tab_3_title=product_form.tab_3_title.data,
+            tab_3_content=product_form.tab_3_content.data,
+            tab_4_title=product_form.tab_4_title.data,
+            tab_4_content=product_form.tab_4_content.data,
+            tab_5_title=product_form.tab_5_title.data,
+            tab_5_content=product_form.tab_5_content.data,
+            tab_6_title=product_form.tab_6_title.data,
+            tab_6_content=product_form.tab_6_content.data,
+            tab_7_title=product_form.tab_7_title.data,
+            tab_7_content=product_form.tab_7_content.data,
+            tab_8_title=product_form.tab_8_title.data,
+            tab_8_content=product_form.tab_8_content.data,
+            tab_9_title=product_form.tab_9_title.data,
+            tab_9_content=product_form.tab_9_content.data,
+            tab_10_title=product_form.tab_10_title.data,
+            tab_10_content=product_form.tab_10_content.data
         )
+
+    @staticmethod
+    def create_from_form(product_form):
+        product = Product(
+            **Product.get_attrs_from_form(product_form)
+        )
+        db.session.add(product)
+        db.session.commit()
+
+    @staticmethod
+    def update_from_form(product, product_form):
+        attrs_dict = Product.get_attrs_from_form(product_form)
+        for key, val in attrs_dict.iteritems():
+            setattr(product, key, val)
         db.session.add(product)
         db.session.commit()
 
@@ -144,3 +158,7 @@ class Product(db.Model):
         db.session.add(product)
         db.session.commit()
         return product.stock
+
+    @staticmethod
+    def get(product_id):
+        return Product.query.filter_by(id=product_id).one_or_none()

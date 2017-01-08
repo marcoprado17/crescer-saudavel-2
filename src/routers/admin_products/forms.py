@@ -252,10 +252,47 @@ class AddProductForm(ProductForm):
 class EditProductForm(ProductForm):
     submit = SubmitField(label=R.string.edit)
 
-    # def set_values(self, product_subcategory):
-    #     self.category_id.data = str(product_subcategory.category_id)
-    #     self.subcategory_name.data = product_subcategory.name
-    #     self.active.data = product_subcategory.active
+    def set_values(self, product):
+        self.title.data = product.title
+        self.active.data = product.active
+        self.category_id.data = str(product.category_id)
+        self.subcategory_id.data = str(product.subcategory_id)
+        self.price.data = str(product.price).replace(".", ",")
+        self.stock.data = product.stock
+        self.min_stock.data = product.min_stock
+        self.summary.data = product.summary
+
+        self.image_1.data = product.image_1
+        self.image_2.data = product.image_2
+        self.image_3.data = product.image_3
+        self.image_4.data = product.image_4
+        self.image_5.data = product.image_5
+        self.image_6.data = product.image_6
+        self.image_7.data = product.image_7
+        self.image_8.data = product.image_8
+        self.image_9.data = product.image_9
+        self.image_10.data = product.image_10
+
+        self.tab_1_title.data = product.tab_1_title
+        self.tab_1_content.data = product.tab_1_content
+        self.tab_2_title.data = product.tab_2_title
+        self.tab_2_content.data = product.tab_2_content
+        self.tab_3_title.data = product.tab_3_title
+        self.tab_3_content.data = product.tab_3_content
+        self.tab_4_title.data = product.tab_4_title
+        self.tab_4_content.data = product.tab_4_content
+        self.tab_5_title.data = product.tab_5_title
+        self.tab_5_content.data = product.tab_5_content
+        self.tab_6_title.data = product.tab_6_title
+        self.tab_6_content.data = product.tab_6_content
+        self.tab_7_title.data = product.tab_7_title
+        self.tab_7_content.data = product.tab_7_content
+        self.tab_8_title.data = product.tab_8_title
+        self.tab_8_content.data = product.tab_8_content
+        self.tab_9_title.data = product.tab_9_title
+        self.tab_9_content.data = product.tab_9_content
+        self.tab_10_title.data = product.tab_10_title
+        self.tab_10_content.data = product.tab_10_content
 
 
 class ProductFilterForm(FlaskForm):

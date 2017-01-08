@@ -19,6 +19,6 @@ class MarkdownValidator(object):
             self.message = self.message()
 
         try:
-            print markdown.markdown(field.data)
+            markdown.markdown(field.data)
         except Exception:
             raise_with_stop(self)

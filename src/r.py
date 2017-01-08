@@ -86,6 +86,7 @@ class Resources(object):
         add_product = "Adicionar novo produto"
         edit_product_category = "Editar categoria de produto"
         edit_product_subcategory = "Editar subcategoria de produto"
+        edit_product = "Editar produto"
         add = "Adicionar"
         active_in_female = "Ativa"
         inactive_in_female = "Inativa"
@@ -188,6 +189,7 @@ class Resources(object):
         example_42 = "Ex.: 42"
         updating = "Atualizando..."
         adding = "Adicionando..."
+
 
         tab_content_example = \
 """An h1 header
@@ -313,6 +315,10 @@ Content Cell | Content Cell"""
         @staticmethod
         def product_category_successful_edited(category_name):
             return 'A categoria de produto "%s" foi editada com sucesso.' % category_name
+
+        @staticmethod
+        def product_successful_edited(product_title):
+            return 'O produto "%s" foi editado com sucesso.' % product_title
 
         @staticmethod
         def product_subcategory_successful_edited(subcategory_name):

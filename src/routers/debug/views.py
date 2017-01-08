@@ -162,7 +162,7 @@ images_key_list = [
 def get_random_images_dic():
     images_key_list_copy = list(images_key_list)
     dic = {images_key_list_copy.pop(0): get_random_image_name()}
-    for i in range(0, 9):
+    for i in range(0, random.choice(range(0, 10))):
         dic[images_key_list_copy.pop(random.randint(0, len(images_key_list_copy)-1))] = get_random_image_name()
     return dic
 
