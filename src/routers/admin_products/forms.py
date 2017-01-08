@@ -29,11 +29,20 @@ from r import R
 #
 # ======================================================================================================================
 class ProductCategoryForm(FlaskForm):
-    category_name = StringField(label=R.string.product_category_name, validators=[
-        Required(),
-        Length(max_length=R.dimen.product_category_max_length)
-    ])
-    active = BooleanField(label=R.string.active_in_female, default=True)
+    category_name = StringField(
+        label=R.string.product_category_name,
+        validators=[
+            Required(),
+            Length(max_length=R.dimen.product_category_max_length)
+        ]
+    )
+    active = BooleanField(
+        label=R.string.active_in_female,
+        default=True,
+        validators=[
+            Required()
+        ]
+    )
 
 
 class AddProductCategoryForm(ProductCategoryForm):
@@ -68,13 +77,22 @@ class ProductCategoryFilterForm(FlaskForm):
 # ======================================================================================================================
 class ProductSubcategoryForm(FlaskForm):
     category_id = SelectField(
-        label=R.string.category
+        label=R.string.category,
+        validators=[
+            Required()
+        ]
     )
     subcategory_name = StringField(label=R.string.product_subcategory_name, validators=[
         Required(),
         Length(max_length=R.dimen.product_subcategory_max_length)
     ])
-    active = BooleanField(label=R.string.active_in_female, default=True)
+    active = BooleanField(
+        label=R.string.active_in_female,
+        default=True,
+        validators=[
+            Required()
+        ]
+    )
 
     def __init__(self, **kwargs):
         super(ProductSubcategoryForm, self).__init__(**kwargs)
@@ -145,13 +163,24 @@ class ProductForm(FlaskForm):
             Required(),
             Length(max_length=R.dimen.product_title_max_length)
         ])
-    active = BooleanField(label=R.string.active, default=True)
+    active = BooleanField(
+        label=R.string.active,
+        default=True,
+        validators=[
+            Required()
+        ]
+    )
     category_id = SelectField(
         label=R.string.category,
-        validators=[Required()]
+        validators=[
+            Required()
+        ]
     )
     subcategory_id = SelectField(
-        label=R.string.subcategory
+        label=R.string.subcategory,
+        validators=[
+            Required()
+        ]
     )
     price = StringField(
         label=R.string.price_in_real,
@@ -182,7 +211,12 @@ class ProductForm(FlaskForm):
             MarkdownValidator()
         ])
 
-    image_1 = SelectField(label=R.string.n_image(1),validators=[Required()])
+    image_1 = SelectField(
+        label=R.string.n_image(1),
+        validators=[
+            Required()
+        ]
+    )
     image_2 = SelectField(label=R.string.n_image(2))
     image_3 = SelectField(label=R.string.n_image(3))
     image_4 = SelectField(label=R.string.n_image(4))
