@@ -4,6 +4,7 @@
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import random
+import json
 
 from models.product import Product
 from models.product_category import ProductCategory
@@ -19,7 +20,7 @@ from routers.admin_products.data_providers.edit_subcategory import admin_edit_pr
 from routers.admin_products.data_providers.index import admin_products_data_provider
 from routers.admin_products.data_providers.subcategories import admin_product_subcategories_data_provider
 from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm, \
-    EditProductSubcategoryForm, AddProductForm
+    EditProductSubcategoryForm, AddProductForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -43,6 +44,62 @@ def add_product():
         else:
             return render_template("admin_products/add_product.html",
                                    data=admin_add_product_data_provider.get_data(add_product_form=add_product_form))
+
+
+@admin_products_blueprint.route("/editar-produto/<int:product_id>", methods=["GET", "POST"])
+def edit_product(product_id):
+    return "Editar produto, id = " + str(product_id)
+
+
+@admin_products_blueprint.route("/desabilitar-produto/<int:product_id>", methods=["POST"])
+def disable_product(product_id):
+    Product.set_active_value(product_id=product_id, active=False)
+    return "", 200
+
+
+@admin_products_blueprint.route("/ativar-produto/<int:product_id>", methods=["POST"])
+def to_activate_product(product_id):
+    Product.set_active_value(product_id=product_id, active=True)
+    return "", 200
+
+
+@admin_products_blueprint.route("/aumentar-estoque-do-produto/<int:product_id>", methods=["GET","POST"])
+def product_stock_addition(product_id):
+    add_to_stock_form = AddToStockForm()
+    if add_to_stock_form.validate_on_submit():
+        try:
+            new_stock_value=Product.add_to_stock(product_id=product_id, value=add_to_stock_form.value.data)
+            return json.dumps(dict(new_stock_value=new_stock_value)), 200
+        except:
+            return "", 500
+    else:
+        return "", 400
+
+
+@admin_products_blueprint.route("/diminuir-estoque-do-produto/<int:product_id>", methods=["POST"])
+def product_stock_removal(product_id):
+    remove_from_stock_form = RemoveFromStockForm()
+    if remove_from_stock_form.validate_on_submit():
+        try:
+            new_stock_value = Product.remove_from_stock(product_id=product_id, value=remove_from_stock_form.value.data)
+            return json.dumps(dict(new_stock_value=new_stock_value)), 200
+        except:
+            return "", 500
+    else:
+        return "", 400
+
+
+@admin_products_blueprint.route("/atualizar-estoque-do-produto/<int:product_id>", methods=["POST"])
+def product_stock_update(product_id):
+    update_stock_form = UpdateStockForm()
+    if update_stock_form.validate_on_submit():
+        try:
+            new_stock_value = Product.update_stock(product_id=product_id, value=update_stock_form.value.data)
+            return json.dumps(dict(new_stock_value=new_stock_value)), 200
+        except:
+            return "", 500
+    else:
+        return "", 400
 
 
 @admin_products_blueprint.route("/categorias-de-produto")

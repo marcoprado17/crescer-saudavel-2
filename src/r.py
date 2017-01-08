@@ -89,6 +89,7 @@ class Resources(object):
         add = "Adicionar"
         active_in_female = "Ativa"
         inactive_in_female = "Inativa"
+        inactive = "Inativo"
         product_category_name = "Nome da categoria de produto"
         product_subcategory_name = "Nome da subcategoria de produto"
         product_categories = "Categorias de produto"
@@ -103,14 +104,21 @@ class Resources(object):
         category = "Categoria"
         subcategory = "Subcategoria"
         edit = "Editar"
+        add_to_stock = "Adicionar ao estoque"
+        remove_from_stock = "Remover do estoque"
+        update_stock = "Atualizar estoque"
         edit_class = "edit"
         href_meta_data_key = "data-href"
         category_name_meta_data_key = "data-category-name"
         subcategory_name_meta_data_key = "data-subcategory-name"
+        product_title_meta_data_key = "data-product-title"
         to_activate = "Ativar"
         disable = "Desativar"
         hidden_class = "hidden"
         disable_class = "disable"
+        add_to_stock_class = "add-to-stock"
+        remove_from_stock_class = "remove-from-stock"
+        update_stock_class = "update-stock"
         to_activate_class = "to-activate"
         to_activate_btn_id_meta_data_key = "data-to-activate-btn-id"
         disable_btn_id_meta_data_key = "data-disable-btn-id"
@@ -122,8 +130,10 @@ class Resources(object):
         submit_field = "SubmitField"
         disable_product_category_url_meta_data_key = "data-disable-product-category-url"
         disable_product_subcategory_url_meta_data_key = "data-disable-product-subcategory-url"
+        disable_product_url_meta_data_key = "data-disable-product-url"
         to_activate_product_category_url_meta_data_key = "data-to-activate-product-category-url"
         to_activate_product_subcategory_url_meta_data_key = "data-to-activate-product-subcategory-url"
+        to_activate_product_url_meta_data_key = "data-to-activate-product-url"
         activating = "Ativando..."
         activate_product_category_error = 'Ocorreu uma falha ao ativar a categoria de produto "{0}". Tente novamente.'
         activate_product_subcategory_error = 'Ocorreu uma falha ao ativar a subcategoria de produto "{0}". Tente novamente.'
@@ -164,7 +174,7 @@ class Resources(object):
         min_stock_tooltip = "Quando o estoque do produto atingir o valor estabelecido em mín. estoque, o produto não será mais disponibilizado para venda na loja virtual."
         product_sales_number_col_id = "product-sales-number-col"
         sales = "Vendas"
-        empty_symbol = "-"
+        empty_subcategory_symbol = "Nenhuma"
         sort_method_label = "Ordenar por:"
 
         lowest_price = "Menor preço"
@@ -173,6 +183,11 @@ class Resources(object):
         higher_stock = "Maior estoque"
         best_seller = "Mais vendido"
         less_sold = "Menos vendido"
+
+        product_status = "Status do produto"
+        example_42 = "Ex.: 42"
+        updating = "Atualizando..."
+        adding = "Adicionando..."
 
         tab_content_example = \
 """An h1 header
@@ -222,6 +237,21 @@ First Header | Second Header
 Content Cell | Content Cell
 Content Cell | Content Cell"""
 
+        @staticmethod
+        def to_activate_product_error(product_title):
+            return 'Ocorreu uma falha ao ativar o produto "%s". Tente novamente.' % product_title
+
+        @staticmethod
+        def disable_product_error(product_title):
+            return 'Ocorreu uma falha ao desativar o produto "%s". Tente novamente.' % product_title
+
+        @staticmethod
+        def stock_change_error(product_title):
+            return 'Ocorreu uma falha alterar o estoque do produto "%s". Tente novamente.' % product_title
+
+        @staticmethod
+        def stock_change_invalid_form_error(product_title):
+            return 'Formulário inválido. Não foi possível alterar o estoque do produto "%s". Tente novamente.' % product_title
 
         @staticmethod
         def image_sent_successfully(image_name):
@@ -261,12 +291,20 @@ Content Cell | Content Cell"""
             return "disable-category-"+str(category_id)+"-btn"
 
         @staticmethod
+        def disable_product_button_id(product_id):
+            return "disable-product-" + str(product_id) + "-btn"
+
+        @staticmethod
         def disable_subcategory_button_id(subcategory_id):
             return "disable-subcategory-" + str(subcategory_id) + "-btn"
 
         @staticmethod
         def to_activate_category_button_id(category_id):
             return "to-activate-category-"+str(category_id)+"-btn"
+
+        @staticmethod
+        def to_activate_product_button_id(product_id):
+            return "to-activate-product-" + str(product_id) + "-btn"
 
         @staticmethod
         def to_activate_subcategory_button_id(subcategory_id):
@@ -313,6 +351,9 @@ Content Cell | Content Cell"""
 
         # Super table action element types
         ACTION_TYPE_BUTTON =                    201
+        ACTION_TYPE_LINK_BUTTON =               202
+        ACTION_TYPE_INT_WITH_BUTTON =           203
+        ACTION_TYPE_ACTIVATE_DISABLE_BUTTON =   204
 
         # Sort methods
         SORT_METHOD_TITLE =                     301

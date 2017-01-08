@@ -267,8 +267,8 @@ class ProductFilterForm(FlaskForm):
         classes="dynamic"
     )
     active = SelectField(
-        label=R.string.subcategory_status,
-        choices=[(str(True), R.string.active_in_female), (str(False), R.string.inactive_in_female)]
+        label=R.string.product_status,
+        choices=[(str(True), R.string.active), (str(False), R.string.inactive)]
     )
     filter = SubmitField(label=R.string.filter)
 
@@ -293,3 +293,36 @@ class ProductFilterForm(FlaskForm):
         self.category_id.data = str(category_id)
         self.subcategory_id.data = str(subcategory_id)
         self.active.data = str(active)
+
+
+class AddToStockForm(FlaskForm):
+    value = IntegerField(
+        label=R.string.example_42,
+        validators=[
+            Required(),
+            NotNegativeInteger(),
+        ]
+    )
+    submit = SubmitField(label=R.string.add_to_stock)
+
+
+class RemoveFromStockForm(FlaskForm):
+    value = IntegerField(
+        label=R.string.example_42,
+        validators=[
+            Required(),
+            NotNegativeInteger(),
+        ]
+    )
+    submit = SubmitField(label=R.string.remove_from_stock)
+
+
+class UpdateStockForm(FlaskForm):
+    value = IntegerField(
+        label=R.string.example_42,
+        validators=[
+            Required(),
+            NotNegativeInteger(),
+        ]
+    )
+    submit = SubmitField(label=R.string.update_stock)

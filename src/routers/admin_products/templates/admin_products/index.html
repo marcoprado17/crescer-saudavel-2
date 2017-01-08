@@ -5,7 +5,7 @@
     {{ R.string.products }}
 {% endblock %}
 {% block content %}
-    <div class="__admin_products__ __categories__ container">
+    <div class="__admin_products__ __index__ container">
         {{ utils.page_header(R.string.products) }}
         {% with data=data %}
             {% include "components/super_table.html" %}
@@ -14,6 +14,15 @@
 {% endblock %}
 {% block script %}
     <script>
-        init_dynamic_selects();
+        initSuperTable();
+        initIntWithButtonAction($("form.{0}".f("{{ R.string.add_to_stock_class }}")), function (row_idx, dataAsObject) {
+            setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
+        });
+        initIntWithButtonAction($("form.{0}".f("{{ R.string.remove_from_stock_class }}")), function (row_idx, dataAsObject) {
+            setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
+        });
+        initIntWithButtonAction($("form.{0}".f("{{ R.string.update_stock_class }}")), function (row_idx, dataAsObject) {
+            setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
+        });
     </script>
 {% endblock %}

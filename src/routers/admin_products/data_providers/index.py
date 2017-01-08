@@ -20,7 +20,7 @@ from models.product import Product
 from models.product_category import ProductCategory
 from models.product_subcategory import ProductSubcategory
 from r import R
-from routers.admin_products.forms import ProductFilterForm
+from routers.admin_products.forms import ProductFilterForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm
 
 
 class AdminProductsDataProvider:
@@ -104,13 +104,65 @@ class AdminProductsDataProvider:
             rows.append([
                 product.active,
                 product.category.name,
-                product.subcategory.name if product.subcategory else R.string.empty_symbol,
+                product.subcategory.name if product.subcategory else R.string.empty_subcategory_symbol,
                 product.title,
                 str(product.price).replace(".", ","),
                 product.stock,
                 product.min_stock,
                 product.sales_number,
-                []
+                [
+                    dict(
+                        type=R.id.ACTION_TYPE_LINK_BUTTON,
+                        text=R.string.edit,
+                        classes=R.string.edit_class,
+                        href=url_for("admin_products.edit_product", product_id=product.id),
+                    ),
+                    dict(
+                        type=R.id.ACTION_TYPE_INT_WITH_BUTTON,
+                        form=AddToStockForm(),
+                        classes=R.string.add_to_stock_class,
+                        text=R.string.add_to_stock,
+                        doing_text=R.string.adding,
+                        url=url_for("admin_products.product_stock_addition", product_id=product.id),
+                        error_4xx_msg=R.string.stock_change_invalid_form_error(product.title),
+                        error_5xx_msg=R.string.stock_change_error(product.title)
+                    ),
+                    dict(
+                        type=R.id.ACTION_TYPE_INT_WITH_BUTTON,
+                        form=RemoveFromStockForm(),
+                        classes=R.string.remove_from_stock_class,
+                        text=R.string.remove_from_stock,
+                        doing_text=R.string.removing,
+                        url=url_for("admin_products.product_stock_removal", product_id=product.id),
+                        error_4xx_msg=R.string.stock_change_invalid_form_error(product.title),
+                        error_5xx_msg=R.string.stock_change_error(product.title)
+                    ),
+                    dict(
+                        type=R.id.ACTION_TYPE_INT_WITH_BUTTON,
+                        form=UpdateStockForm(),
+                        classes=R.string.update_stock_class,
+                        text=R.string.update_stock,
+                        doing_text=R.string.updating,
+                        url=url_for("admin_products.product_stock_update", product_id=product.id),
+                        error_4xx_msg=R.string.stock_change_invalid_form_error(product.title),
+                        error_5xx_msg=R.string.stock_change_error(product.title)
+                    ),
+                    dict(
+                        type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
+                        active=product.active,
+                        to_activate_text=R.string.to_activate,
+                        activating_text=R.string.activating,
+                        active_col=R.string.product_active_col_id,
+                        to_activate_url=url_for(
+                            "admin_products.to_activate_product", product_id=product.id),
+                        error_to_activate_msg=R.string.to_activate_product_error(product.title),
+                        disable_text=R.string.disable,
+                        disabling_text=R.string.disabling,
+                        disable_url = url_for(
+                                "admin_products.disable_product", product_id=product.id),
+                        error_disable_msg=R.string.disable_product_error(product.title)
+                    ),
+                ]
             ])
 
         return dict(

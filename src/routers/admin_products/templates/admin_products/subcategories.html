@@ -5,7 +5,7 @@
     {{ R.string.product_subcategories }}
 {% endblock %}
 {% block content %}
-    <div class="__admin_products__ __categories__ container">
+    <div class="__admin_products__ __subcategories__ container">
         {{ utils.page_header(R.string.product_subcategories) }}
         {% with data=data %}
             {% include "components/super_table.html" %}

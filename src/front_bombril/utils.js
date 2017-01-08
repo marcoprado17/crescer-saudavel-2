@@ -12,7 +12,8 @@ String.prototype.format = String.prototype.f = function () {
     return s;
 };
 
-$(document).ready(function () {
+function initVerticalFluid() {
+    $(document).ready(function () {
     var siblingsTotalOuterHeight = 0;
     var verticalFluids = $(".vertical-fluid");
     var verticalFluid = verticalFluids.first();
@@ -30,12 +31,21 @@ $(document).ready(function () {
         verticalFluid.height(verticalFluidHeight);
     });
 });
+}
+
+function getDataAsObject(data){
+    try{
+        return JSON.parse(data)
+    }catch(e){
+        return null
+    }
+}
+
 
 function setAjaxButtonHandlers(data) {
     var button = data.button;
     var url = data.url;
     var method = data.method;
-    var contentType = data.contentType;
     var minResponseTime = data.minResponseTime;
     var confirmMessage = data.confirmMessage;
     var onClick = data.onClick;
@@ -44,11 +54,6 @@ function setAjaxButtonHandlers(data) {
     var complete = data.complete;
 
     button.click(function (event) {
-        if(typeof request_data == "function"){
-            console.log("function type");
-            request_data = request_data();
-            console.log(request_data);
-        }
         if (confirmMessage) {
             var c = confirm(confirmMessage);
             if (!c) {
@@ -64,13 +69,13 @@ function setAjaxButtonHandlers(data) {
             url: url,
             method: method,
             data: requestData,
-            contentType: contentType,
+            contentType:'application/json;charset=UTF-8',
             async: true,
             success: function (data) {
                 var postReturnTime = (new Date()).getTime();
                 var delay = minResponseTime - (postReturnTime - button.clickTime);
                 setTimeout(function () {
-                    success(data);
+                    success(getDataAsObject(data));
                     if (complete) {
                         complete();
                     }
@@ -80,7 +85,61 @@ function setAjaxButtonHandlers(data) {
                 var postReturnTime = (new Date()).getTime();
                 var delay = minResponseTime - (postReturnTime - button.clickTime);
                 setTimeout(function () {
-                    error(jqXHR.status);
+                    error(jqXHR.status, getDataAsObject(jqXHR.responseText));
+                    if (complete) {
+                        complete();
+                    }
+                }, delay);
+            }
+        });
+        return true;
+    });
+}
+
+function setAjaxFormHandlers(data) {
+    var form = data.form;
+    var minResponseTime = data.minResponseTime;
+    var confirmMessage = data.confirmMessage;
+    var onSubmit = data.onSubmit;
+    var success = data.success;
+    var error = data.error;
+    var complete = data.complete;
+
+    var submit=form.find("button[type='submit']");
+
+    form.submit(function (event) {
+        event.preventDefault();
+        if (confirmMessage) {
+            var c = confirm(confirmMessage);
+            if (!c) {
+                return false;
+            }
+        }
+        if (!minResponseTime) {
+            minResponseTime = 0;
+        }
+        onSubmit();
+        form.clickTime = (new Date()).getTime();
+        $.ajax({
+            url: form.attr("action"),
+            method: form.attr("method"),
+            data: form.serialize(),
+            async: true,
+            success: function (data) {
+                var postReturnTime = (new Date()).getTime();
+                var delay = minResponseTime - (postReturnTime - form.clickTime);
+                setTimeout(function () {
+                    success(getDataAsObject(data));
+                    if (complete) {
+                        complete();
+                    }
+                }, delay);
+            },
+            error: function (jqXHR) {
+                var postReturnTime = (new Date()).getTime();
+                var delay = minResponseTime - (postReturnTime - form.clickTime);
+                setTimeout(function () {
+                    error(jqXHR.status, getDataAsObject(jqXHR.responseText));
                     if (complete) {
                         complete();
                     }
@@ -103,7 +162,7 @@ function throwErrorOpToast(message) {
     toastr.error(message);
 }
 
-function init_dynamic_selects() {
+function initDynamicSelects() {
     $("select.dynamic").each(function () {
         var dependent_select = $(this);
         var determinant_select = $("#{0}".f(dependent_select.attr("depends_on")));

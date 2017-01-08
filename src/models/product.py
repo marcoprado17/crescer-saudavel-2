@@ -9,6 +9,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
 from extensions import db
+from proj_exceptions import InvalidIdError
 from r import R
 
 
@@ -104,3 +105,42 @@ class Product(db.Model):
         )
         db.session.add(product)
         db.session.commit()
+
+    @staticmethod
+    def set_active_value(product_id, active):
+        product = Product.query.filter_by(id=product_id).one_or_none()
+        if not product:
+            raise InvalidIdError
+        product.active = active
+        db.session.add(product)
+        db.session.commit()
+
+    @staticmethod
+    def add_to_stock(product_id, value):
+        product = Product.query.filter_by(id=product_id).one_or_none()
+        if not product:
+            raise InvalidIdError
+        product.stock += value
+        db.session.add(product)
+        db.session.commit()
+        return product.stock
+
+    @staticmethod
+    def remove_from_stock(product_id, value):
+        product = Product.query.filter_by(id=product_id).one_or_none()
+        if not product:
+            raise InvalidIdError
+        product.stock = max(product.stock - value, 0)
+        db.session.add(product)
+        db.session.commit()
+        return product.stock
+
+    @staticmethod
+    def update_stock(product_id, value):
+        product = Product.query.filter_by(id=product_id).one_or_none()
+        if not product:
+            raise InvalidIdError
+        product.stock = value
+        db.session.add(product)
+        db.session.commit()
+        return product.stock

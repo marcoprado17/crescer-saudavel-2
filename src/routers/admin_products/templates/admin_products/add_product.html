@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
     <div class="vertical-fluid"></div>
-    <div class="__admin_products__ __add_subcategory__ container hidden">
+    <div class="__admin_products__ __add_product__ container hidden">
         {% with data=dict(
             title=R.string.add_product,
             product_form=data.add_product_form
@@ -16,6 +16,6 @@
 {% endblock %}
 {% block script %}
     <script>
-        init_dynamic_selects();
+        initDynamicSelects();
     </script>
 {% endblock %}
