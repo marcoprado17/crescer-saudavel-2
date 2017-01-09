@@ -174,13 +174,13 @@ def edit_category(category_id):
 
 @admin_products_blueprint.route("/desabilitar-categoria-de-produto/<int:category_id>", methods=["POST"])
 def disable_category(category_id):
-    ProductCategory.disable(category_id=category_id)
+    ProductCategory.set_active_value(category_id=category_id, active=False)
     return "", 200
 
 
 @admin_products_blueprint.route("/ativar-categoria-de-produto/<int:category_id>", methods=["POST"])
 def to_activate_category(category_id):
-    ProductCategory.activate(category_id=category_id)
+    ProductCategory.set_active_value(category_id=category_id, active=True)
     return "", 200
 
 
@@ -237,11 +237,11 @@ def edit_subcategory(subcategory_id):
 
 @admin_products_blueprint.route("/desabilitar-subcategoria-de-produto/<int:subcategory_id>", methods=["POST"])
 def disable_subcategory(subcategory_id):
-    ProductSubcategory.disable(subcategory_id=subcategory_id)
+    ProductSubcategory.set_active_value(subcategory_id=subcategory_id, active=False)
     return "", 200
 
 
 @admin_products_blueprint.route("/ativar-subcategoria-de-produto/<int:subcategory_id>", methods=["POST"])
 def to_activate_subcategory(subcategory_id):
-    ProductSubcategory.activate(subcategory_id=subcategory_id)
+    ProductSubcategory.set_active_value(subcategory_id=subcategory_id, active=True)
     return "", 200

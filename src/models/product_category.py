@@ -37,21 +37,12 @@ class ProductCategory(db.Model):
         return ProductCategory.query.all()
 
     @staticmethod
-    def disable(category_id):
-        category = ProductCategory.query.filter_by(id=category_id).one_or_none()
-        if not category:
+    def set_active_value(category_id, active):
+        product_category = ProductCategory.query.filter_by(id=category_id).one_or_none()
+        if not product_category:
             raise InvalidIdError
-        category.active = False
-        db.session.add(category)
-        db.session.commit()
-
-    @staticmethod
-    def activate(category_id):
-        category = ProductCategory.query.filter_by(id=category_id).one_or_none()
-        if not category:
-            raise InvalidIdError
-        category.active = True
-        db.session.add(category)
+        product_category.active = active
+        db.session.add(product_category)
         db.session.commit()
 
     @staticmethod

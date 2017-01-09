@@ -35,21 +35,12 @@ class ProductSubcategory(db.Model):
         return ProductSubcategory.query.filter_by(id=subcategory_id).one_or_none()
 
     @staticmethod
-    def disable(subcategory_id):
-        subcategory = ProductSubcategory.query.filter_by(id=subcategory_id).one_or_none()
-        if not subcategory:
+    def set_active_value(subcategory_id, active):
+        product_subcategory = ProductSubcategory.query.filter_by(id=subcategory_id).one_or_none()
+        if not product_subcategory:
             raise InvalidIdError
-        subcategory.active = False
-        db.session.add(subcategory)
-        db.session.commit()
-
-    @staticmethod
-    def activate(subcategory_id):
-        subcategory = ProductSubcategory.query.filter_by(id=subcategory_id).one_or_none()
-        if not subcategory:
-            raise InvalidIdError
-        subcategory.active = True
-        db.session.add(subcategory)
+        product_subcategory.active = active
+        db.session.add(product_subcategory)
         db.session.commit()
 
     @staticmethod
