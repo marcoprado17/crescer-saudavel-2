@@ -58,13 +58,10 @@ class AdminProductCategoriesDataProvider(object):
                 category.name,
                 [
                     dict(
-                        type=R.id.ACTION_TYPE_BUTTON,
+                        type=R.id.ACTION_TYPE_LINK_BUTTON,
                         text=R.string.edit,
                         classes=R.string.edit_class,
-                        meta_data={
-                            R.string.href_meta_data_key: url_for("admin_products.edit_category",
-                                                                 category_id=category.id),
-                        }
+                        href=url_for("admin_products.edit_category", category_id=category.id)
                     ),
                     dict(
                         type=R.id.ACTION_TYPE_BUTTON,

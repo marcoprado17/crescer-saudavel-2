@@ -15,14 +15,6 @@
 {% block script %}
     <script>
         {{ messages.flash_toast() }}
-        $(".{0}".f("{{ R.string.edit_class }}")).each(function() {
-            var button = $(this);
-            var href = button.attr("{{ R.string.href_meta_data_key }}");
-            button.click(function (){
-                location.href = href;
-            })
-        });
-
         $(".{0}".f("{{ R.string.to_activate_class }}")).each(function() {
             var to_activate_button = $(this);
             var disable_button = $("#{0}".f(to_activate_button.attr("{{ R.string.disable_btn_id_meta_data_key }}")));

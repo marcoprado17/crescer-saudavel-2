@@ -38,10 +38,7 @@ class ProductCategoryForm(FlaskForm):
     )
     active = BooleanField(
         label=R.string.active_in_female,
-        default=True,
-        validators=[
-            Required()
-        ]
+        default=True
     )
 
 
@@ -88,10 +85,7 @@ class ProductSubcategoryForm(FlaskForm):
     ])
     active = BooleanField(
         label=R.string.active_in_female,
-        default=True,
-        validators=[
-            Required()
-        ]
+        default=True
     )
 
     def __init__(self, **kwargs):
@@ -165,10 +159,7 @@ class ProductForm(FlaskForm):
         ])
     active = BooleanField(
         label=R.string.active,
-        default=True,
-        validators=[
-            Required()
-        ]
+        default=True
     )
     category_id = SelectField(
         label=R.string.category,
