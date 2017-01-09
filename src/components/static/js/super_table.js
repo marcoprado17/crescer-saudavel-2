@@ -33,32 +33,28 @@ function initSuperTable() {
 }
 
 function initActionActivateDisableButtons(){
-    $(".super-table button.to-activate").each(function () {
-        var to_activate_button = $(this);
-        var row_idx = to_activate_button.parent().attr("data-row-idx");
-        var disable_button = $("#disable-btn-{0}".f(row_idx));
-        var url = to_activate_button.attr("data-url");
-        var error_msg = to_activate_button.attr("data-error-msg");
-        var col = to_activate_button.parent().attr("data-active-col-id");
-        var to_activate_text = to_activate_button.attr("data-to-activate-text");
-        var activating_text = to_activate_button.attr("data-activating-text");
+    $(".super-table form.to-activate").each(function () {
+        var to_activate_form = $(this);
+        var disable_form = to_activate_form.siblings();
+        var to_activate_button = to_activate_form.find("button");
+        var row_idx = to_activate_form.parent().attr("data-row-idx");
+        var error_msg = to_activate_form.attr("data-error-msg");
+        var col = to_activate_form.parent().attr("data-active-col-id");
+        var to_activate_text = to_activate_form.attr("data-to-activate-text");
+        var activating_text = to_activate_form.attr("data-activating-text");
 
-        to_activate_button.html(to_activate_text);
-
-        setAjaxButtonHandlers({
-            button: to_activate_button,
-            url: url,
-            method: "post",
+        setAjaxFormHandlers({
+            form: to_activate_form,
             minResponseTime: DEFAULT_RESPONSE_TIME,
-            onClick: function () {
-                console.log("onClick");
+            onSubmit: function () {
+                console.log("onSubmit");
                 to_activate_button.html(activating_text);
                 to_activate_button.prop("disabled", true);
             },
             success: function () {
                 console.log("success");
-                to_activate_button.addClass("hidden");
-                disable_button.removeClass("hidden");
+                to_activate_form.addClass("hidden");
+                disable_form.removeClass("hidden");
                 setBoolTdValue(col, row_idx, true);
             },
             error: function () {
@@ -71,33 +67,28 @@ function initActionActivateDisableButtons(){
                 to_activate_button.prop("disabled", false);
             }
         });
-
     });
 
-    $(".super-table button.disable").each(function () {
-        var disable_button = $(this);
-        var row_idx = disable_button.parent().attr("data-row-idx");
-        var to_activate_button = $("#to-activate-btn-{0}".f(row_idx));
-        var url = disable_button.attr("data-url");
-        var error_msg = disable_button.attr("data-error-msg");
-        var col = disable_button.parent().attr("data-active-col-id");
-        var disable_text = disable_button.attr("data-disable-text");
-        var disabling_text = disable_button.attr("data-disabling-text");
+    $(".super-table form.disable").each(function () {
+        var disable_form = $(this);
+        var to_activate_form = disable_form.siblings();
+        var disable_button = disable_form.find("button");
+        var row_idx = disable_form.parent().attr("data-row-idx");
+        var error_msg = disable_form.attr("data-error-msg");
+        var col = disable_form.parent().attr("data-active-col-id");
+        var disable_text = disable_form.attr("data-disable-text");
+        var disabling_text = disable_form.attr("data-disabling-text");
 
-        disable_button.html(disable_text);
-
-        setAjaxButtonHandlers({
-            button: disable_button,
-            url: url,
-            method: "post",
+        setAjaxFormHandlers({
+            form: disable_form,
             minResponseTime: DEFAULT_RESPONSE_TIME,
-            onClick: function () {
+            onSubmit: function () {
                 disable_button.html(disabling_text);
                 disable_button.prop("disabled", true);
             },
             success: function () {
-                disable_button.addClass("hidden");
-                to_activate_button.removeClass("hidden");
+                disable_form.addClass("hidden");
+                to_activate_form.removeClass("hidden");
                 setBoolTdValue(col, row_idx, false);
             },
             error: function () {

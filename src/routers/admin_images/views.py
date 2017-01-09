@@ -12,6 +12,8 @@ from flask_bombril import R as bombril_R
 from routers.admin_images import admin_images_blueprint
 from routers.admin_images.data_providers import admin_images_data_provider, admin_add_image_data_provider
 from routers.admin_images.forms import UploadImageForm
+from wrappers.base.decorators import valid_form
+from wrappers.base.forms import SubmitForm
 
 
 @admin_images_blueprint.route("/")
@@ -19,7 +21,8 @@ def index():
     return render_template("admin_images/index.html", data=admin_images_data_provider.get_data())
 
 
-@admin_images_blueprint.route("/remover-imagem/<string:image_name>")
+@admin_images_blueprint.route("/remover-imagem/<string:image_name>", methods=["POST"])
+@valid_form(FormClass=SubmitForm)
 def remove_image(image_name):
     file_path = os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], image_name)
 

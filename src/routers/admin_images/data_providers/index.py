@@ -11,6 +11,7 @@ from components.data_providers.paginator import paginator_data_provider
 from flask_bombril.utils import n_pages, slice_items
 from flask_bombril.url_args import get_valid_page
 from r import R
+from wrappers.base.forms import SubmitForm
 
 
 class AdminImagesDataProvider(object):
@@ -40,10 +41,11 @@ class AdminImagesDataProvider(object):
                     dict(
                         type=R.id.ACTION_TYPE_BUTTON,
                         text=R.string.remove,
-                        classes=R.string.remove_class,
+                        form=SubmitForm(),
+                        url=url_for("admin_images.remove_image", image_name=image_name),
+                        classes="remove",
                         meta_data={
-                            R.string.image_name_meta_data_key: image_name,
-                            R.string.remove_image_url_meta_data_key: url_for("admin_images.remove_image", image_name=image_name)
+                            "image-name": image_name
                         }
                     )
                 ]

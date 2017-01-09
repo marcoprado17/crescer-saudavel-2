@@ -13,15 +13,14 @@
 {% endblock %}
 {% block script %}
     <script>
-        $("button.{0}".f("{{ R.string.remove_class }}")).each(function(){
-            var button = $(this);
-            var url = button.attr("{{ R.string.remove_image_url_meta_data_key }}");
-            var image_name = button.attr("{{ R.string.image_name_meta_data_key }}");
-            setAjaxButtonHandlers({
-                button: button,
-                url: url,
+        $("form.remove").each(function(){
+            var form = $(this);
+            var button = form.find("button");
+            var image_name = form.attr("image-name");
+            setAjaxFormHandlers({
+                form: form,
                 minResponseTime: DEFAULT_RESPONSE_TIME,
-                onClick: function () {
+                onSubmit: function () {
                     button.html("{{ R.string.removing }}");
                     button.prop("disabled", true);
                 },

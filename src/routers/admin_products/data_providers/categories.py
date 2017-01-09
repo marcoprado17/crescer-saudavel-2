@@ -17,6 +17,7 @@ from flask_bombril.url_args import get_boolean_url_arg
 from models.product_category import ProductCategory
 from r import R
 from routers.admin_products.forms import ProductCategoryFilterForm
+from wrappers.base.forms import SubmitForm
 
 
 class AdminProductCategoriesDataProvider(object):
@@ -66,6 +67,7 @@ class AdminProductCategoriesDataProvider(object):
                     dict(
                         type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
                         active=category.active,
+                        form=SubmitForm(),
                         active_col_id=R.string.product_category_active_col_id,
                         to_activate_url=url_for(
                             "admin_products.to_activate_category", category_id=category.id),

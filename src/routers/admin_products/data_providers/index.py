@@ -21,6 +21,7 @@ from models.product_category import ProductCategory
 from models.product_subcategory import ProductSubcategory
 from r import R
 from routers.admin_products.forms import ProductFilterForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm
+from wrappers.base.forms import SubmitForm
 
 
 class AdminProductsDataProvider:
@@ -150,6 +151,7 @@ class AdminProductsDataProvider:
                     dict(
                         type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
                         active=product.active,
+                        form=SubmitForm(),
                         active_col_id=R.string.product_active_col_id,
                         to_activate_url=url_for(
                             "admin_products.to_activate_product", product_id=product.id),
