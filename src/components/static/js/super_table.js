@@ -3,7 +3,12 @@
  */
 
 function setBoolTdValue(col, row_idx, value) {
+    console.log("setBoolTdValue");
+    console.log("col: " + col);
+    console.log("row_idx: " + row_idx);
+    console.log("value: " + value);
     var td = $("#col-{0}-row-{1}".f(col, row_idx));
+    console.log(td);
     var boolContainer = td.find(".bool-container");
     if (value) {
         boolContainer.removeClass("false");
@@ -22,25 +27,19 @@ function setTextTdValue(col, row_idx, value) {
 
 function initSuperTable() {
     initTooltips();
+    initDynamicSelects();
+    initSuperTableSortMethod();
+    initActionActivateDisableButtons();
+}
 
-    $(document).ready(function () {
-        select = $('select.sort-method');
-        $('form.filter input.sort-method').attr("value", select.val());
-    });
-
-    $('select.sort-method').on('change', function () {
-        select = $(this);
-        $('form.filter input.sort-method').attr("value", select.val());
-        $("form.filter input[type='submit']").click();
-    });
-
-    $("button.to-activate").each(function () {
+function initActionActivateDisableButtons(){
+    $(".super-table button.to-activate").each(function () {
         var to_activate_button = $(this);
-        var row_idx = to_activate_button.attr("data-row-idx");
+        var row_idx = to_activate_button.parent().attr("data-row-idx");
         var disable_button = $("#disable-btn-{0}".f(row_idx));
         var url = to_activate_button.attr("data-url");
         var error_msg = to_activate_button.attr("data-error-msg");
-        var col = to_activate_button.attr("data-active-col");
+        var col = to_activate_button.parent().attr("data-active-col-id");
         var to_activate_text = to_activate_button.attr("data-to-activate-text");
         var activating_text = to_activate_button.attr("data-activating-text");
 
@@ -52,33 +51,36 @@ function initSuperTable() {
             method: "post",
             minResponseTime: DEFAULT_RESPONSE_TIME,
             onClick: function () {
+                console.log("onClick");
                 to_activate_button.html(activating_text);
                 to_activate_button.prop("disabled", true);
             },
             success: function () {
+                console.log("success");
                 to_activate_button.addClass("hidden");
                 disable_button.removeClass("hidden");
                 setBoolTdValue(col, row_idx, true);
             },
             error: function () {
+                console.log("error");
                 throwErrorOpToast(error_msg);
             },
             complete: function () {
+                console.log("complete");
                 to_activate_button.html(to_activate_text);
                 to_activate_button.prop("disabled", false);
             }
-        })
+        });
 
-        initDynamicSelects();
     });
 
-    $("button.disable").each(function () {
+    $(".super-table button.disable").each(function () {
         var disable_button = $(this);
-        var row_idx = disable_button.attr("data-row-idx");
+        var row_idx = disable_button.parent().attr("data-row-idx");
         var to_activate_button = $("#to-activate-btn-{0}".f(row_idx));
         var url = disable_button.attr("data-url");
         var error_msg = disable_button.attr("data-error-msg");
-        var col = disable_button.attr("data-active-col");
+        var col = disable_button.parent().attr("data-active-col-id");
         var disable_text = disable_button.attr("data-disable-text");
         var disabling_text = disable_button.attr("data-disabling-text");
 
@@ -106,6 +108,19 @@ function initSuperTable() {
                 disable_button.prop("disabled", false);
             }
         })
+    });
+}
+
+function initSuperTableSortMethod(){
+    $(document).ready(function () {
+        select = $('select.sort-method');
+        $('form.filter input.sort-method').attr("value", select.val());
+    });
+
+    $('select.sort-method').on('change', function () {
+        select = $(this);
+        $('form.filter input.sort-method').attr("value", select.val());
+        $("form.filter input[type='submit']").click();
     });
 }
 

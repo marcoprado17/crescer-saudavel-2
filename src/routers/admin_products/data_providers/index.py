@@ -150,14 +150,10 @@ class AdminProductsDataProvider:
                     dict(
                         type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
                         active=product.active,
-                        to_activate_text=R.string.to_activate,
-                        activating_text=R.string.activating,
-                        active_col=R.string.product_active_col_id,
+                        active_col_id=R.string.product_active_col_id,
                         to_activate_url=url_for(
                             "admin_products.to_activate_product", product_id=product.id),
                         error_to_activate_msg=R.string.to_activate_product_error(product.title),
-                        disable_text=R.string.disable,
-                        disabling_text=R.string.disabling,
                         disable_url = url_for(
                                 "admin_products.disable_product", product_id=product.id),
                         error_disable_msg=R.string.disable_product_error(product.title)

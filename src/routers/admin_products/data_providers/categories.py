@@ -64,32 +64,15 @@ class AdminProductCategoriesDataProvider(object):
                         href=url_for("admin_products.edit_category", category_id=category.id)
                     ),
                     dict(
-                        type=R.id.ACTION_TYPE_BUTTON,
-                        text=R.string.disable,
-                        classes=R.string.disable_class + " " + (R.string.hidden_class if not category.active else ""),
-                        id=R.string.disable_category_button_id(category.id),
-                        meta_data={
-                            R.string.to_activate_btn_id_meta_data_key: R.string.to_activate_category_button_id(
-                                category.id),
-                            R.string.disable_product_category_url_meta_data_key: url_for(
-                                "admin_products.disable_category", category_id=category.id),
-                            R.string.category_name_meta_data_key: category.name,
-                            R.string.row_meta_data_key: idx
-                        }
-                    ),
-                    dict(
-                        type=R.id.ACTION_TYPE_BUTTON,
-                        text=R.string.to_activate,
-                        classes=R.string.to_activate_class + " " + (R.string.hidden_class if category.active else ""),
-                        id=R.string.to_activate_category_button_id(category.id),
-                        meta_data={
-                            R.string.disable_btn_id_meta_data_key: R.string.disable_category_button_id(
-                                category.id),
-                            R.string.to_activate_product_category_url_meta_data_key: url_for(
-                                "admin_products.to_activate_category", category_id=category.id),
-                            R.string.category_name_meta_data_key: category.name,
-                            R.string.row_meta_data_key: idx
-                        }
+                        type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
+                        active=category.active,
+                        active_col_id=R.string.product_category_active_col_id,
+                        to_activate_url=url_for(
+                            "admin_products.to_activate_category", category_id=category.id),
+                        error_to_activate_msg=R.string.to_activate_product_category_error(category.name),
+                        disable_url=url_for(
+                            "admin_products.disable_category", category_id=category.id),
+                        error_disable_msg=R.string.disable_product_category_error(category.name)
                     )
                 ]
             ])

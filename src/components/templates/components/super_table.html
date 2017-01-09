@@ -4,7 +4,9 @@
     {% if data.filter_data %}
         <div class="jumbotron">
             <form class="filter" action="{{ url_for(request.endpoint) }}" method=get>
-                <input class="sort-method" name="{{ R.string.sort_method_arg_name }}" hidden>
+                {% if data.table_data.rows|length > 0 and data.sort_methods and data.sort_methods|length > 0 %}
+                    <input class="sort-method" name="{{ R.string.sort_method_arg_name }}" hidden>
+                {% endif %}
                 {% for field in data.filter_data.filter_form %}
                     {% if field.type == R.string.select_field or field.type == R.string.select_field_with_classes %}
                         <div class="filter-item">
@@ -40,7 +42,7 @@
         {% endif %}
 
         <div class="table-responsive {{ 'without-bottom-paginator'|if(data.paginator_data.pages|length <= 1) }}">
-            <table id="{{ data.table_data.id|if(data.table_data.id) }}" class="table table-hover">
+            <table id="{{ data.table_data.id|if(data.table_data.id) }}" class="table table-hover super-table">
                 <thead>
                 <tr>
                     {% for col in data.table_data.cols %}
@@ -80,10 +82,10 @@
                                             {% for action in item_data %}
                                                 {% if action.type == R.id.ACTION_TYPE_BUTTON %}
                                                     <button
-                                                        id="{{ action.id|if(action.id, '') }}"
-                                                        class="btn btn-default {{ action.classes }} type-button"
-                                                        type="button"
-                                                        {{ {
+                                                            id="{{ action.id|if(action.id, '') }}"
+                                                            class="btn btn-default {{ action.classes }} type-button"
+                                                            type="button"
+                                                            {{ {
                                                             "data-row-idx": row_idx
                                                         }|xmlattr }}>
                                                         {{ action.text }}
@@ -91,10 +93,10 @@
                                                 {% elif action.type == R.id.ACTION_TYPE_LINK_BUTTON %}
                                                     <a href="{{ action.href }}">
                                                         <button
-                                                            id="{{ action.id|if(action.id, '') }}"
-                                                            class="btn btn-default {{ action.classes }} type-link-button"
-                                                            type="button"
-                                                            {{ {
+                                                                id="{{ action.id|if(action.id, '') }}"
+                                                                class="btn btn-default {{ action.classes }} type-link-button"
+                                                                type="button"
+                                                                {{ {
                                                                 "data-row-idx": row_idx
                                                             }|xmlattr }}>
                                                             {{ action.text }}
@@ -102,11 +104,11 @@
                                                     </a>
                                                 {% elif action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON %}
                                                     <form
-                                                        action="{{ action.url }}"
-                                                        method="post"
-                                                        enctype=multipart/form-data
-                                                        class="input-group int-with-button {{ action.classes }}"
-                                                        {{ {
+                                                            action="{{ action.url }}"
+                                                            method="post"
+                                                            enctype=multipart/form-data
+                                                            class="input-group int-with-button {{ action.classes }}"
+                                                            {{ {
                                                             "data-error-4xx-msg": action.error_4xx_msg,
                                                             "data-error-5xx-msg": action.error_5xx_msg,
                                                             "data-row-idx": row_idx
@@ -118,10 +120,10 @@
                                                                placeholder="{{ action.form.value.label.text }}">
                                                         <span class="input-group-btn">
                                                             <button
-                                                                class="btn btn-default"
-                                                                type="submit"
-                                                                name="{{ action.form.submit.name }}"
-                                                                {{ {
+                                                                    class="btn btn-default"
+                                                                    type="submit"
+                                                                    name="{{ action.form.submit.name }}"
+                                                                    {{ {
                                                                     "data-text": action.text,
                                                                     "data-doing-text": action.doing_text
                                                                 }|xmlattr }}>
@@ -130,34 +132,37 @@
                                                         </span>
                                                     </form>
                                                 {% elif action.type == R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON %}
-                                                    <button
-                                                        id="to-activate-btn-{{ row_idx }}"
-                                                        class="btn btn-default to-activate {{ 'hidden'|if(action.active) }} activate-disable"
-                                                        type="button"
-                                                        {{ {
-                                                            "data-url": action.to_activate_url,
-                                                            "data-error-msg": action.error_to_activate_msg,
-                                                            "data-active-col": action.active_col,
-                                                            "data-row-idx": row_idx,
-                                                            "data-to-activate-text": action.to_activate_text,
-                                                            "data-activating-text": action.activating_text,
-                                                        }|xmlattr }}>
-                                                        {{ action.to_activate_text }}
-                                                    </button>
-                                                    <button
-                                                        id="disable-btn-{{ row_idx }}"
-                                                        class="btn btn-default disable {{ 'hidden'|if(not action.active) }} activate-disable"
-                                                        type="button"
-                                                        {{ {
-                                                            "data-url": action.disable_url,
-                                                            "data-error-msg": action.error_disable_msg,
-                                                            "data-active-col": action.active_col,
-                                                            "data-row-idx": row_idx,
-                                                            "data-disable-text": action.disable_text,
-                                                            "data-disabling-text": action.disabling_text,
-                                                        }|xmlattr }}>
-                                                        {{ action.disable_text }}
-                                                    </button>
+                                                    <div
+                                                            class="action-type-activate-disable-button-container"
+                                                            {{ {
+                                                                "data-active-col-id": action.active_col_id,
+                                                                "data-row-idx": row_idx,
+                                                            }|xmlattr }}>
+                                                        <button
+                                                                id="to-activate-btn-{{ row_idx }}"
+                                                                class="btn btn-default to-activate {{ 'hidden'|if(action.active) }} activate-disable"
+                                                                type="button"
+                                                                {{ {
+                                                                "data-url": action.to_activate_url,
+                                                                "data-error-msg": action.error_to_activate_msg,
+                                                                "data-to-activate-text": R.string.to_activate,
+                                                                "data-activating-text": R.string.activating,
+                                                            }|xmlattr }}>
+                                                            {{ action.to_activate_text }}
+                                                        </button>
+                                                        <button
+                                                                id="disable-btn-{{ row_idx }}"
+                                                                class="btn btn-default disable {{ 'hidden'|if(not action.active) }} activate-disable"
+                                                                type="button"
+                                                                {{ {
+                                                                "data-url": action.disable_url,
+                                                                "data-error-msg": action.error_disable_msg,
+                                                                "data-disable-text": R.string.disable,
+                                                                "data-disabling-text": R.string.disabling,
+                                                            }|xmlattr }}>
+                                                            {{ action.disable_text }}
+                                                        </button>
+                                                    </div>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>

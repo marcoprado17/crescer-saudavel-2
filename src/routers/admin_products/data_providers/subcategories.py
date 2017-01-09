@@ -67,32 +67,15 @@ class AdminProductSubcategoriesDataProvider(object):
                         href=url_for("admin_products.edit_subcategory", subcategory_id=subcategory.id)
                     ),
                     dict(
-                        type=R.id.ACTION_TYPE_BUTTON,
-                        text=R.string.disable,
-                        classes=R.string.disable_class + " " + (R.string.hidden_class if not subcategory.active else ""),
-                        id=R.string.disable_subcategory_button_id(subcategory.id),
-                        meta_data={
-                            R.string.to_activate_btn_id_meta_data_key: R.string.to_activate_subcategory_button_id(
-                                subcategory.id),
-                            R.string.disable_product_subcategory_url_meta_data_key: url_for(
-                                "admin_products.disable_subcategory", subcategory_id=subcategory.id),
-                            R.string.subcategory_name_meta_data_key: subcategory.name,
-                            R.string.row_meta_data_key: idx
-                        }
-                    ),
-                    dict(
-                        type=R.id.ACTION_TYPE_BUTTON,
-                        text=R.string.to_activate,
-                        classes=R.string.to_activate_class + " " + (R.string.hidden_class if subcategory.active else ""),
-                        id=R.string.to_activate_subcategory_button_id(subcategory.id),
-                        meta_data={
-                            R.string.disable_btn_id_meta_data_key: R.string.disable_subcategory_button_id(
-                                subcategory.id),
-                            R.string.to_activate_product_subcategory_url_meta_data_key: url_for(
-                                "admin_products.to_activate_subcategory", subcategory_id=subcategory.id),
-                            R.string.subcategory_name_meta_data_key: subcategory.name,
-                            R.string.row_meta_data_key: idx
-                        }
+                        type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
+                        active=subcategory.active,
+                        active_col_id=R.string.product_subcategory_active_col_id,
+                        to_activate_url=url_for(
+                            "admin_products.to_activate_subcategory", subcategory_id=subcategory.id),
+                        error_to_activate_msg=R.string.to_activate_product_subcategory_error(subcategory.name),
+                        disable_url=url_for(
+                            "admin_products.disable_subcategory", subcategory_id=subcategory.id),
+                        error_disable_msg=R.string.disable_product_subcategory_error(subcategory.name)
                     )
                 ]
             ])

@@ -248,6 +248,30 @@ Content Cell | Content Cell"""
             return 'Ocorreu uma falha ao desativar o produto "%s". Tente novamente.' % product_title
 
         @staticmethod
+        def to_activate_product_category_error(category_name):
+            return 'Ocorreu uma falha ao ativar a categoria de produto "%s". Tente novamente.' % category_name
+
+        @staticmethod
+        def disable_product_category_error(category_name):
+            return 'Ocorreu uma falha ao desativar a categoria de produto "%s". Tente novamente.' % category_name
+
+        @staticmethod
+        def to_activate_product_subcategory_error(subcategory_name):
+            return 'Ocorreu uma falha ao ativar a subcategoria de produto "%s". Tente novamente.' % subcategory_name
+
+        @staticmethod
+        def disable_product_subcategory_error(subcategory_name):
+            return 'Ocorreu uma falha ao desativar a subcategoria de produto "%s". Tente novamente.' % subcategory_name
+
+        @staticmethod
+        def to_activate_product_error(product_title):
+            return 'Ocorreu uma falha ao ativar o produto "%s". Tente novamente.' % product_title
+
+        @staticmethod
+        def disable_product_error(product_title):
+            return 'Ocorreu uma falha ao desativar o produto "%s". Tente novamente.' % product_title
+
+        @staticmethod
         def stock_change_error(product_title):
             return 'Ocorreu uma falha alterar o estoque do produto "%s". Tente novamente.' % product_title
 
@@ -287,30 +311,6 @@ Content Cell | Content Cell"""
                 return str(n_items) + " item encontrado."
             else:
                 return str(n_items) + " items encontrados."
-
-        @staticmethod
-        def disable_category_button_id(category_id):
-            return "disable-category-"+str(category_id)+"-btn"
-
-        @staticmethod
-        def disable_product_button_id(product_id):
-            return "disable-product-" + str(product_id) + "-btn"
-
-        @staticmethod
-        def disable_subcategory_button_id(subcategory_id):
-            return "disable-subcategory-" + str(subcategory_id) + "-btn"
-
-        @staticmethod
-        def to_activate_category_button_id(category_id):
-            return "to-activate-category-"+str(category_id)+"-btn"
-
-        @staticmethod
-        def to_activate_product_button_id(product_id):
-            return "to-activate-product-" + str(product_id) + "-btn"
-
-        @staticmethod
-        def to_activate_subcategory_button_id(subcategory_id):
-            return "to-activate-subcategory-" + str(subcategory_id) + "-btn"
 
         @staticmethod
         def product_category_successful_edited(category_name):

@@ -15,66 +15,6 @@
 {% block script %}
     <script>
         {{ messages.flash_toast() }}
-        $(".{0}".f("{{ R.string.to_activate_class }}")).each(function() {
-            var to_activate_button = $(this);
-            var disable_button = $("#{0}".f(to_activate_button.attr("{{ R.string.disable_btn_id_meta_data_key }}")));
-            var url = to_activate_button.attr("{{ R.string.to_activate_product_category_url_meta_data_key }}");
-            var category_name = to_activate_button.attr("{{ R.string.category_name_meta_data_key }}");
-            var col = "{{ R.string.product_category_active_col_id }}";
-            var row = to_activate_button.attr("{{ R.string.row_meta_data_key }}");
-            setAjaxButtonHandlers({
-                button: to_activate_button,
-                url: url,
-                method: "post",
-                minResponseTime: DEFAULT_RESPONSE_TIME,
-                onClick: function () {
-                    to_activate_button.html("{{ R.string.activating }}");
-                    to_activate_button.prop("disabled", true);
-                },
-                success: function () {
-                    to_activate_button.addClass("hidden");
-                    disable_button.removeClass("hidden");
-                    setBoolTdValue(col, row, true);
-                },
-                error: function () {
-                    throwErrorOpToast("{{ R.string.activate_product_category_error }}".f(category_name));
-                },
-                complete: function() {
-                    to_activate_button.html("{{ R.string.to_activate }}");
-                    to_activate_button.prop("disabled", false);
-                }
-            })
-        });
-
-        $(".{0}".f("{{ R.string.disable_class }}")).each(function() {
-            var disable_button = $(this);
-            var to_activate_button = $("#{0}".f(disable_button.attr("{{ R.string.to_activate_btn_id_meta_data_key }}")));
-            var url = disable_button.attr("{{ R.string.disable_product_category_url_meta_data_key }}");
-            var category_name = disable_button.attr("{{ R.string.category_name_meta_data_key }}");
-            var col = "{{ R.string.product_category_active_col_id }}";
-            var row = to_activate_button.attr("{{ R.string.row_meta_data_key }}");
-            setAjaxButtonHandlers({
-                button: disable_button,
-                url: url,
-                method: "post",
-                minResponseTime: DEFAULT_RESPONSE_TIME,
-                onClick: function () {
-                    disable_button.html("{{ R.string.disabling }}");
-                    disable_button.prop("disabled", true);
-                },
-                success: function () {
-                    disable_button.addClass("hidden");
-                    to_activate_button.removeClass("hidden");
-                    setBoolTdValue(col, row, false);
-                },
-                error: function () {
-                    throwErrorOpToast("{{ R.string.disable_product_category_error }}".f(category_name));
-                },
-                complete: function() {
-                    disable_button.html("{{ R.string.disable }}");
-                    disable_button.prop("disabled", false);
-                }
-            })
-        })
+        initSuperTable();
     </script>
 {% endblock %}
