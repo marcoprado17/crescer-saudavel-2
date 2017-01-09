@@ -68,13 +68,19 @@ class AdminProductCategoriesDataProvider(object):
                         type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
                         active=category.active,
                         form=SubmitForm(),
-                        active_col_id=R.string.product_category_active_col_id,
+                        meta_data={
+                            "data-active-col-id": R.string.product_category_active_col_id
+                        },
                         to_activate_url=url_for(
                             "admin_products.to_activate_category", category_id=category.id),
-                        error_to_activate_msg=R.string.to_activate_product_category_error(category.name),
+                        to_activate_meta_data={
+                            "data-error-msg": R.string.to_activate_product_category_error(category.name),
+                        },
                         disable_url=url_for(
                             "admin_products.disable_category", category_id=category.id),
-                        error_disable_msg=R.string.disable_product_category_error(category.name)
+                        disable_meta_data={
+                            "data-error-msg": R.string.disable_product_category_error(category.name),
+                        }
                     )
                 ]
             ])

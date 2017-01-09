@@ -1,5 +1,6 @@
 {% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
 {% import "flask_bombril_macros/tooltip.html" as tooltip with context %}
+{% import "flask_bombril_macros/actions.html" as macro_actions with context %}
 <div class="__components__ __super_table__">
     {% if data.filter_data %}
         <div class="jumbotron">
@@ -81,99 +82,24 @@
                                         <div class="actions-container">
                                             {% for action in item_data %}
                                                 {% if action.type == R.id.ACTION_TYPE_BUTTON %}
-                                                    <form
-                                                        action="{{ action.url }}"
-                                                        method="post"
-                                                        enctype=multipart/form-data
-                                                        class="{{ action.classes|if(action.classes) }}"
-                                                        {{ action.meta_data|xmlattr }}
-                                                        {{ {
-                                                            "data-row-idx": row_idx
-                                                        }|xmlattr }}>
-                                                        {{ action.form.csrf_token }}
-                                                        <button class="btn btn-default" type="submit">
-                                                            {{ action.text }}
-                                                        </button>
-                                                    </form>
+                                                    {{ macro_actions.button(
+                                                        action=action,
+                                                        additional_meta_data={"data-row-idx": row_idx})
+                                                    }}
                                                 {% elif action.type == R.id.ACTION_TYPE_LINK_BUTTON %}
-                                                    <a href="{{ action.href }}">
-                                                        <button
-                                                                id="{{ action.id|if(action.id, '') }}"
-                                                                class="btn btn-default {{ action.classes }} type-link-button"
-                                                                type="button"
-                                                                {{ {
-                                                                "data-row-idx": row_idx
-                                                            }|xmlattr }}>
-                                                            {{ action.text }}
-                                                        </button>
-                                                    </a>
+                                                    {{ macro_actions.link_button(action=action) }}
                                                 {% elif action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON %}
-                                                    <form
-                                                            action="{{ action.url }}"
-                                                            method="post"
-                                                            enctype=multipart/form-data
-                                                            class="input-group int-with-button {{ action.classes }}"
-                                                            {{ {
-                                                            "data-error-4xx-msg": action.error_4xx_msg,
-                                                            "data-error-5xx-msg": action.error_5xx_msg,
-                                                            "data-row-idx": row_idx
-                                                        }|xmlattr }}>
-                                                        {{ action.form.csrf_token }}
-                                                        <input type="number"
-                                                               name="{{ action.form.value.name }}"
-                                                               class="form-control"
-                                                               placeholder="{{ action.form.value.label.text }}">
-                                                        <span class="input-group-btn">
-                                                            <button
-                                                                    class="btn btn-default"
-                                                                    type="submit"
-                                                                    name="{{ action.form.submit.name }}"
-                                                                    {{ {
-                                                                    "data-text": action.text,
-                                                                    "data-doing-text": action.doing_text
-                                                                }|xmlattr }}>
-                                                                {{ action.text }}
-                                                            </button>
-                                                        </span>
-                                                    </form>
+                                                    {{ macro_actions.int_with_button(
+                                                        action=action,
+                                                        additional_meta_data={"data-row-idx": row_idx})
+                                                    }}
                                                 {% elif action.type == R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON %}
-                                                    <div
-                                                        class="action-type-activate-disable-button-container"
-                                                        {{ {
-                                                            "data-active-col-id": action.active_col_id,
+                                                    {{ macro_actions.activate_disable_button(
+                                                        action=action,
+                                                        additional_meta_data={
                                                             "data-row-idx": row_idx,
-                                                        }|xmlattr }}>
-                                                        <form
-                                                            action="{{ action.to_activate_url }}"
-                                                            method="post"
-                                                            enctype=multipart/form-data
-                                                            class="to-activate {{ 'hidden'|if(action.active) }}"
-                                                            {{ {
-                                                                "data-error-msg": action.error_to_activate_msg,
-                                                                "data-to-activate-text": R.string.to_activate,
-                                                                "data-activating-text": R.string.activating,
-                                                            }|xmlattr }}>
-                                                            {{ action.form.csrf_token }}
-                                                            <button class="btn btn-default activate-disable" type="submit">
-                                                                {{ R.string.to_activate }}
-                                                            </button>
-                                                        </form>
-                                                        <form
-                                                            action="{{ action.disable_url }}"
-                                                            method="post"
-                                                            enctype=multipart/form-data
-                                                            class="disable {{ 'hidden'|if(not action.active) }}"
-                                                            {{ {
-                                                                "data-error-msg": action.error_disable_msg,
-                                                                "data-disable-text": R.string.disable,
-                                                                "data-disabling-text": R.string.disabling,
-                                                            }|xmlattr }}>
-                                                            {{ action.form.csrf_token }}
-                                                            <button class="btn btn-default activate-disable" type="submit">
-                                                                {{ R.string.disable }}
-                                                            </button>
-                                                        </form>
-                                                    </div>
+                                                        })
+                                                    }}
                                                 {% endif %}
                                             {% endfor %}
                                         </div>

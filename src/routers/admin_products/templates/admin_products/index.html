@@ -15,13 +15,13 @@
 {% block script %}
     <script>
         initSuperTable();
-        initIntWithButtonAction($("form.{0}".f("{{ R.string.add_to_stock_class }}")), function (row_idx, dataAsObject) {
+        initIntWithButtonAction($("form.add-stock"), function (row_idx, dataAsObject) {
             setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
         });
-        initIntWithButtonAction($("form.{0}".f("{{ R.string.remove_from_stock_class }}")), function (row_idx, dataAsObject) {
+        initIntWithButtonAction($("form.remove-from-stock"), function (row_idx, dataAsObject) {
             setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
         });
-        initIntWithButtonAction($("form.{0}".f("{{ R.string.update_stock_class }}")), function (row_idx, dataAsObject) {
+        initIntWithButtonAction($("form.update-stock"), function (row_idx, dataAsObject) {
             setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
         });
     </script>

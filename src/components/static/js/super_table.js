@@ -120,13 +120,11 @@ function initIntWithButtonAction(forms, onSuccess) {
         var form = $(this);
         var input = form.find("input[type='number']");
         var submit_button = form.find("button");
-        var text = submit_button.attr("data-text");
-        var doing_text = submit_button.attr("data-doing-text");
+        var text = form.attr("data-text");
+        var doing_text = form.attr("data-doing-text");
         var error_4xx_msg = form.attr("data-error-4xx-msg");
         var error_5xx_msg = form.attr("data-error-5xx-msg");
         var row_idx = form.attr("data-row-idx");
-
-        submit_button.html(text);
 
         setAjaxFormHandlers({
             form: form,
@@ -141,6 +139,7 @@ function initIntWithButtonAction(forms, onSuccess) {
                 onSuccess(row_idx, dataAsObject);
             },
             error: function (status) {
+                console.log("error");
                 if (Math.floor(status / 100) == 4) {
                     throwErrorOpToast(error_4xx_msg);
                 }

@@ -34,17 +34,19 @@
                                         data-dismiss="modal">{{ R.string.close }}</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             {% endif %}
 
             {% if data.has_preview %}
                 <button type="button" class="btn btn-default preview markdown" data-toggle="modal"
-                        data-target="#preview-modal-{{ data.field.id }}" data-textarea="#{{ data.field.id }}"
-                        data-url="{{ url_for('admin_utils.markdown_parse') }}"
-                        data-loading-message="{{ R.string.loading }}"
-                        data-error-message="{{ R.string.markdown_preview_error }}">{{ R.string.preview }}</button>
+                    data-url="{{ url_for('admin_utils.markdown_parse') }}"
+                    data-target="#preview-modal-{{ data.field.id }}" data-textarea="#{{ data.field.id }}"
+                    data-loading-message="{{ R.string.loading }}"
+                    data-error-message="{{ R.string.markdown_preview_error }}"
+                >
+                    {{ R.string.preview }}
+                </button>
                 <div id="preview-modal-{{ data.field.id }}" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">

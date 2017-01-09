@@ -121,44 +121,56 @@ class AdminProductsDataProvider:
                     dict(
                         type=R.id.ACTION_TYPE_INT_WITH_BUTTON,
                         form=AddToStockForm(),
-                        classes=R.string.add_to_stock_class,
-                        text=R.string.add_to_stock,
-                        doing_text=R.string.adding,
+                        classes="add-stock",
                         url=url_for("admin_products.product_stock_addition", product_id=product.id),
-                        error_4xx_msg=R.string.stock_change_invalid_form_error(product.title),
-                        error_5xx_msg=R.string.stock_change_error(product.title)
+                        meta_data = {
+                            "data-text": R.string.add_to_stock,
+                            "data-doing-text": R.string.adding,
+                            "data-error-4xx-msg": R.string.stock_change_invalid_form_error(product.title),
+                            "data-error-5xx-msg": R.string.stock_change_error(product.title)
+                        },
                     ),
                     dict(
                         type=R.id.ACTION_TYPE_INT_WITH_BUTTON,
                         form=RemoveFromStockForm(),
-                        classes=R.string.remove_from_stock_class,
-                        text=R.string.remove_from_stock,
-                        doing_text=R.string.removing,
+                        classes="remove-from-stock",
                         url=url_for("admin_products.product_stock_removal", product_id=product.id),
-                        error_4xx_msg=R.string.stock_change_invalid_form_error(product.title),
-                        error_5xx_msg=R.string.stock_change_error(product.title)
+                        meta_data = {
+                            "data-text": R.string.remove_from_stock,
+                            "data-doing-text": R.string.removing,
+                            "data-error-4xx-msg": R.string.stock_change_invalid_form_error(product.title),
+                            "data-error-5xx-msg": R.string.stock_change_error(product.title)
+                        }
                     ),
                     dict(
                         type=R.id.ACTION_TYPE_INT_WITH_BUTTON,
                         form=UpdateStockForm(),
-                        classes=R.string.update_stock_class,
-                        text=R.string.update_stock,
-                        doing_text=R.string.updating,
+                        classes="update-stock",
                         url=url_for("admin_products.product_stock_update", product_id=product.id),
-                        error_4xx_msg=R.string.stock_change_invalid_form_error(product.title),
-                        error_5xx_msg=R.string.stock_change_error(product.title)
+                        meta_data = {
+                            "data-text": R.string.update_stock,
+                            "data-doing-text": R.string.updating,
+                            "data-error-4xx-msg": R.string.stock_change_invalid_form_error(product.title),
+                            "data-error-5xx-msg": R.string.stock_change_error(product.title)
+                        }
                     ),
                     dict(
                         type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
                         active=product.active,
                         form=SubmitForm(),
-                        active_col_id=R.string.product_active_col_id,
+                        meta_data= {
+                            "data-active-col-id": R.string.product_active_col_id
+                        },
                         to_activate_url=url_for(
                             "admin_products.to_activate_product", product_id=product.id),
-                        error_to_activate_msg=R.string.to_activate_product_error(product.title),
+                        to_activate_meta_data={
+                            "data-error-msg": R.string.to_activate_product_error(product.title),
+                        },
                         disable_url = url_for(
                                 "admin_products.disable_product", product_id=product.id),
-                        error_disable_msg=R.string.disable_product_error(product.title)
+                        disable_meta_data= {
+                            "data-error-msg": R.string.disable_product_error(product.title),
+                        }
                     ),
                 ]
             ])

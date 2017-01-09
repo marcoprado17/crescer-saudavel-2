@@ -4,7 +4,7 @@
   $btn-width: $submit-btn-width+$text-input-width;
 
   .actions-container {
-    button.type-link-button, button.type-button, button.activate-disable {
+    button.type-link-button, button.type-button, button.type-activate-disable {
       width: $btn-width;
     }
 
