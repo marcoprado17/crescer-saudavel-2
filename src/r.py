@@ -3,6 +3,8 @@
 # ======================================================================================================================
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from decimal import Decimal
+
 from enum import Enum, unique
 
 from flask_bombril.utils import stringfy_list
@@ -72,6 +74,7 @@ class Resources(object):
         subcategory_active_arg_name = "active"
         category_id_arg_name = "category_id"
         subcategory_id_arg_name = "subcategory_id"
+        order_status_id_arg_name = "status"
 
         name = "Nome"
         remove = "Remover"
@@ -125,6 +128,7 @@ class Resources(object):
         disable_btn_id_meta_data_key = "data-disable-btn-id"
         category_status = "Status da categoria"
         subcategory_status = "Status da subcategoria"
+        order_status = "Status do pedido"
         filter = "Filtrar"
         select_field = "SelectField"
         select_field_with_classes = "SelectFieldWithClasses"
@@ -143,6 +147,7 @@ class Resources(object):
         disabling = "Desativando..."
         row_meta_data_key = "data-row"
         all = "Todas"
+        any = "Qualquer"
         product_subcategories = "Subcategorias de produto"
         title = "Título"
         dynamic_class = "dynamic"
@@ -189,6 +194,33 @@ class Resources(object):
         example_42 = "Ex.: 42"
         updating = "Atualizando..."
         adding = "Adicionando..."
+
+        client_email = "Email do cliente"
+        newest = "Mais recente"
+        older = "Mais antigo"
+
+        paid = "Pago"
+        sent = "Enviado"
+        delivered = "Entregue"
+
+        client = "Cliente"
+        order_products_price_tooltip = "Preço total dos produtos (sem frete) em R$"
+        status = "Status"
+        paid_date = "Data do pagamento"
+        paid_date_tooltip = "Data em que o pedido foi pago pelo cliente."
+        sent_date = "Data do envio"
+        sent_date_tooltip = "Data em que o pedido foi marcado como enviado."
+        delivered_date = "Data da entrega"
+        delivered_date_tooltip = "Data em que o pedido foi marcado como entregue."
+        id = "Id"
+        details = "Detalhes"
+        subtotal = "Subtotal"
+        freight = "Frete"
+        total = "Total"
+        mark_as_sent = "Marcar como enviado"
+        unmark_as_sent = "Desmarcar como enviado"
+        mark_as_delivered = "Marcar como entregue"
+        unmark_as_delivered = "Desmarcar como entregue"
 
 
         tab_content_example = \
@@ -339,6 +371,8 @@ Content Cell | Content Cell"""
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
+        DEFAULT =                               0
+
         # Admin navbar
         ADMIN_NAVBAR_HOME =                     1
         ADMIN_NAVBAR_PRODUCTS =                 2
@@ -369,16 +403,42 @@ Content Cell | Content Cell"""
         SORT_METHOD_HIGHER_STOCK =              305
         SORT_METHOD_BEST_SELLER =               306
         SORT_METHOD_LESS_SOLD =                 307
+        SORT_METHOD_CLIENT_EMAIL =              308
+        SORT_METHOD_LOWER_TOTAL_PRICE =         309
+        SORT_METHOD_HIGHER_TOTAL_PRICE =        310
+        SORT_METHOD_NEWEST =                    311
+        SORT_METHOD_OLDER =                     312
+
+
+        # Order status
+        ORDER_STATUS_ANY =                      400
+        ORDER_STATUS_PAID =                     401
+        ORDER_STATUS_SENT =                     402
+        ORDER_STATUS_DELIVERED =                403
+
 
     # noinspection PyPep8Naming
     class dimen(object):
         example = 42
         min_page = 1
-        product_category_max_length = 48
-        product_subcategory_max_length = 48
 
+        product_category_name_max_length = 48
+        product_subcategory_name_max_length = 48
         tab_title_max_length = 48
         product_title_max_length = 96
+        email_max_length = 256
+        password_max_length = 32
+        first_name_max_length = 256
+        last_name_max_length = 256
+        address_max_length = 256
+        address_complement_max_length = 32
+        cep_max_length = 9
+        tel_max_length = 15
+        state_name_max_length = 32
+        city_name_max_length = 32
+        datetime_important_chars_size = 16
+
+        freight = Decimal("5.00")
 
 
 R = Resources()

@@ -1,17 +1,27 @@
 {% macro button(action, additional_meta_data=None) %}
-    <form
-            action="{{ action.url }}"
-            method="post"
-            enctype=multipart/form-data
-            class="{{ action.classes|if(action.classes) }}"
+    {% if action.form %}
+        <form
+                action="{{ action.url }}"
+                method="post"
+                enctype=multipart/form-data
+                class="{{ action.classes|if(action.classes) }}"
+                {% if action.meta_data %}{{ action.meta_data|xmlattr }}{% endif %}
+                {% if additional_meta_data %}{{ additional_meta_data|xmlattr }}{% endif %}
+        >
+            {{ action.form.csrf_token }}
+            <button class="btn btn-default" type="submit">
+                {{ action.text }}
+            </button>
+        </form>
+    {% else %}
+        <button class="btn btn-default {{ action.classes|if(action.classes) }}" type="button"
             {% if action.meta_data %}{{ action.meta_data|xmlattr }}{% endif %}
             {% if additional_meta_data %}{{ additional_meta_data|xmlattr }}{% endif %}
-    >
-        {{ action.form.csrf_token }}
-        <button class="btn btn-default" type="submit">
+        >
             {{ action.text }}
         </button>
-    </form>
+    {% endif %}
+
 {%- endmacro %}
 
 {% macro link_button(action, additional_meta_data=None) %}
@@ -51,8 +61,8 @@
 
 {% macro activate_disable_button(action, additional_meta_data) %}
     <div
-        {% if action.meta_data %}{{ action.meta_data|xmlattr }}{% endif %}
-        {% if additional_meta_data %}{{ additional_meta_data|xmlattr }}{% endif %}
+            {% if action.meta_data %}{{ action.meta_data|xmlattr }}{% endif %}
+            {% if additional_meta_data %}{{ additional_meta_data|xmlattr }}{% endif %}
     >
         <form
                 action="{{ action.to_activate_url }}"

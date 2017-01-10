@@ -16,7 +16,7 @@ from r import R
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(R.dimen.product_title_max_length), nullable=False)
-    active = db.Column(db.Boolean, default=True, nullable=False)
+    active = db.Column(db.Boolean, default=False, nullable=False)
     category_id = db.Column(db.Integer, ForeignKey("product_category.id"), nullable=False)
     category = relationship("ProductCategory", back_populates="products")
     subcategory_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
@@ -162,3 +162,8 @@ class Product(db.Model):
     @staticmethod
     def get(product_id):
         return Product.query.filter_by(id=product_id).one_or_none()
+
+    def get_price(self, n_units):
+        assert isinstance(n_units, int)
+        assert n_units >= 0
+        return self.price*Decimal(str(n_units))

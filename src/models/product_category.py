@@ -14,7 +14,7 @@ from r import R
 
 class ProductCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(R.dimen.product_category_max_length))
+    name = db.Column(db.String(R.dimen.product_category_name_max_length))
     active = db.Column(db.Boolean, default=False, nullable=False)
     subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="category")
     products = relationship("Product", order_by=Product.title, back_populates="category")

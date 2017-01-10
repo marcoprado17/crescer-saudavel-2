@@ -33,7 +33,7 @@ class ProductCategoryForm(FlaskForm):
         label=R.string.product_category_name,
         validators=[
             Required(),
-            Length(max_length=R.dimen.product_category_max_length)
+            Length(max_length=R.dimen.product_category_name_max_length)
         ]
     )
     active = BooleanField(
@@ -81,7 +81,7 @@ class ProductSubcategoryForm(FlaskForm):
     )
     subcategory_name = StringField(label=R.string.product_subcategory_name, validators=[
         Required(),
-        Length(max_length=R.dimen.product_subcategory_max_length)
+        Length(max_length=R.dimen.product_subcategory_name_max_length)
     ])
     active = BooleanField(
         label=R.string.active_in_female,
