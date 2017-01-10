@@ -66,9 +66,9 @@ class AdminOrdersDataProvider(object):
                 order.client_email,
                 str(order.products_total_price),
                 order.get_status_as_string(),
-                str(order.paid_datetime)[0:R.dimen.datetime_important_chars_size],
-                str(order.sent_datetime)[0:R.dimen.datetime_important_chars_size] if order.sent_datetime else "",
-                str(order.delivered_datetime)[0:R.dimen.datetime_important_chars_size] if order.delivered_datetime else "",
+                order.get_formatted_paid_datetime(),
+                order.get_formatted_sent_datetime() if order.sent_datetime else "",
+                order.get_formatted_delivered_datetime() if order.delivered_datetime else "",
                 [
                     dict(
                         type=R.id.ACTION_TYPE_BUTTON,
@@ -131,50 +131,71 @@ class AdminOrdersDataProvider(object):
 
     def get_actions(self, order):
         if order.status == R.id.ORDER_STATUS_PAID:
-            return [self.mark_as_sent_action(order)]
+            return [
+                self.mark_as_sent_action(order, False),
+                self.unmark_as_sent_action(order, True),
+                self.mark_as_delivered_action(order, True),
+                self.unmark_as_delivered_action(order, True)
+            ]
         elif order.status == R.id.ORDER_STATUS_SENT:
-            return [self.unmark_as_sent_action(order), self.mark_as_delivered_action(order)]
+            return [
+                self.mark_as_sent_action(order, True),
+                self.unmark_as_sent_action(order, False),
+                self.mark_as_delivered_action(order, False),
+                self.unmark_as_delivered_action(order, True)
+            ]
         elif order.status == R.id.ORDER_STATUS_DELIVERED:
-            return [self.unmark_as_delivered_action(order)]
+            return [
+                self.mark_as_sent_action(order, True),
+                self.unmark_as_sent_action(order, True),
+                self.mark_as_delivered_action(order, True),
+                self.unmark_as_delivered_action(order, False)
+            ]
 
-    @staticmethod
-    def mark_as_sent_action(order):
+    def mark_as_sent_action(self, order, hidden):
         return dict(
             type=R.id.ACTION_TYPE_BUTTON,
             text=R.string.mark_as_sent,
             form=SubmitForm(),
             url=url_for("admin_orders.mark_as_sent", order_id=order.id),
-            classes="mark-as-sent",
+            classes="mark-as-sent " + ("hidden" if hidden else ""),
+            meta_data = self.get_meta_data(order)
         )
 
-    @staticmethod
-    def unmark_as_sent_action(order):
+    def unmark_as_sent_action(self, order, hidden):
         return dict(
             type=R.id.ACTION_TYPE_BUTTON,
             text=R.string.unmark_as_sent,
             form=SubmitForm(),
             url=url_for("admin_orders.unmark_as_sent", order_id=order.id),
-            classes="unmark-as-sent",
+            classes="unmark-as-sent " + ("hidden" if hidden else ""),
+            meta_data = self.get_meta_data(order)
         )
 
-    @staticmethod
-    def mark_as_delivered_action(order):
+    def mark_as_delivered_action(self, order, hidden):
         return dict(
             type=R.id.ACTION_TYPE_BUTTON,
             text=R.string.mark_as_delivered,
             form=SubmitForm(),
             url=url_for("admin_orders.mark_as_delivered", order_id=order.id),
-            classes="mark-as-delivered",
+            classes="mark-as-delivered " + ("hidden" if hidden else ""),
+            meta_data = self.get_meta_data(order)
         )
 
-    @staticmethod
-    def unmark_as_delivered_action(order):
+    def unmark_as_delivered_action(self, order, hidden):
         return dict(
             type=R.id.ACTION_TYPE_BUTTON,
             text=R.string.unmark_as_delivered,
             form=SubmitForm(),
             url=url_for("admin_orders.unmark_as_delivered", order_id=order.id),
-            classes="unmark-as-delivered",
+            classes="unmark-as-delivered " + ("hidden" if hidden else ""),
+            meta_data = self.get_meta_data(order)
         )
+
+    def get_meta_data(self, order):
+        return {
+            "data-order-id": str(order.id),
+            "data-email": order.client_email
+        }
 
 admin_orders_data_provider = AdminOrdersDataProvider()

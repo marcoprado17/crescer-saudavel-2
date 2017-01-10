@@ -221,6 +221,11 @@ class Resources(object):
         unmark_as_sent = "Desmarcar como enviado"
         mark_as_delivered = "Marcar como entregue"
         unmark_as_delivered = "Desmarcar como entregue"
+        checking = "Marcando..."
+        unchecking = "Desmarcando..."
+        order_status_change_error = "Não foi possivel alterar o status do pedido #{0}. Tente novamente."
+        mark_as_sent_confirmation = 'Você tem certeza que deseja marcar o pedido como enviado? Um email será automaticamente enviado para: {0}.'
+
 
 
         tab_content_example = \

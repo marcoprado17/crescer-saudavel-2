@@ -61,9 +61,38 @@ class Order(db.Model):
     def get_status_as_string(self):
         return self.order_status_as_string_by_id[self.status]
 
+    def get_formatted_paid_datetime(self):
+        if self.paid_datetime == None:
+            return ""
+        return str(self.paid_datetime)[0:R.dimen.datetime_important_chars_size]
+
+    def get_formatted_sent_datetime(self):
+        if self.sent_datetime == None:
+            return ""
+        return str(self.sent_datetime)[0:R.dimen.datetime_important_chars_size]
+
+    def get_formatted_delivered_datetime(self):
+        if self.delivered_datetime == None:
+            return ""
+        return str(self.delivered_datetime)[0:R.dimen.datetime_important_chars_size]
+
     @staticmethod
     def get_choices():
         choices = []
         for order_status_id in Order.order_status_ids:
             choices.append((str(order_status_id.value), Order.order_status_as_string_by_id[order_status_id]))
         return choices
+
+    @staticmethod
+    def get(order_id):
+        return Order.query.filter_by(id=order_id).one_or_none()
+
+    @staticmethod
+    def update(order_id, **kw):
+        order = Order.get(order_id)
+        assert order != None
+        for key, val in kw.iteritems():
+            setattr(order, key, val)
+        db.session.add(order)
+        db.session.commit()
+        return order
