@@ -204,7 +204,7 @@ class Resources(object):
         delivered = "Entregue"
 
         client = "Cliente"
-        order_products_price_tooltip = "Preço total dos produtos (sem frete) em R$"
+        order_products_price_tooltip = "Preço total dos produtos em R$"
         status = "Status"
         paid_date = "Data do pagamento"
         paid_date_tooltip = "Data em que o pedido foi pago pelo cliente."

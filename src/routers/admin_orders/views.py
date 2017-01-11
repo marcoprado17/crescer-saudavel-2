@@ -37,6 +37,7 @@ def mark_as_sent(order_id):
     ), 200
 
 @admin_orders_blueprint.route("/desmarcar-como-enviado/<int:order_id>", methods=["POST"])
+@valid_form(FormClass=SubmitForm)
 def unmark_as_sent(order_id):
     order = Order.update(
         order_id,
@@ -51,6 +52,7 @@ def unmark_as_sent(order_id):
     ), 200
 
 @admin_orders_blueprint.route("/marcar-como-entregue/<int:order_id>", methods=["POST"])
+@valid_form(FormClass=SubmitForm)
 def mark_as_delivered(order_id):
     order = Order.update(
         order_id,
@@ -65,6 +67,7 @@ def mark_as_delivered(order_id):
     ), 200
 
 @admin_orders_blueprint.route("/desmarcar-como-entregue/<int:order_id>", methods=["POST"])
+@valid_form(FormClass=SubmitForm)
 def unmark_as_delivered(order_id):
     order = Order.update(
         order_id,
