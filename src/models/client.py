@@ -11,6 +11,7 @@ from sqlalchemy.orm import relationship
 from extensions import db, bcrypt
 from models.order import Order
 from r import R
+from routers.admin_clients.forms import ClientForm
 
 
 class Client(db.Model):
@@ -59,3 +60,17 @@ class Client(db.Model):
 
     def is_anonymous(self):
         return False
+
+    def get_form(self, include_undefined_in_choices=False):
+        client_form = ClientForm()
+        client_form.set_state_choices(include_undefined=include_undefined_in_choices)
+        client_form.set_city_choices(include_undefined=include_undefined_in_choices)
+        client_form.set_values(self)
+        return client_form
+
+    def get_freight(self):
+        return R.dimen.freight
+
+    @staticmethod
+    def get(client_email):
+        return Client.query.filter_by(email=client_email).one_or_none()

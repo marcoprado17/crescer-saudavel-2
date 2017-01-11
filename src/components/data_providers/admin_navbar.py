@@ -12,7 +12,7 @@ class AdminNavbarDataProvider(object):
         admin_attended_cities=R.id.ADMIN_NAVBAR_ATTENDED_CITIES,
         admin_blog=R.id.ADMIN_NAVBAR_BLOG,
         admin_content=R.id.ADMIN_NAVBAR_CONTENT,
-        admin_customers=R.id.ADMIN_NAVBAR_CUSTOMERS,
+        admin_clients=R.id.ADMIN_NAVBAR_CLIENTS,
         admin_home=R.id.ADMIN_NAVBAR_HOME,
         admin_images=R.id.ADMIN_NAVBAR_IMAGES,
         admin_orders=R.id.ADMIN_NAVBAR_ORDERS,

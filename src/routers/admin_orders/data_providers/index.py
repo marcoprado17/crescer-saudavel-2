@@ -32,12 +32,15 @@ class AdminOrdersDataProvider(object):
 
         n_orders = self.q.count()
 
-        self.per_page = current_app.config["DEFAULT_PER_PAGE"]
+        self.per_page = current_app.config["ORDERS_TABLE_PER_PAGE"]
         self.curr_page = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=self.per_page,
                                         n_items=n_orders)
 
         filter_form = AdminOrderFilterForm()
         filter_form.set_values(order_status_id=order_status_id)
+
+        self.orders_in_page = self.q.slice(
+                *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()
 
         return dict(
             n_items=n_orders,
@@ -54,13 +57,14 @@ class AdminOrdersDataProvider(object):
                 sort_method_ids=Order.sort_method_ids,
                 sort_method_names=Order.sort_method_names
             ),
-            table_data=self.get_table_data()
+            table_data=self.get_table_data(),
+            orders_in_page=self.orders_in_page
         )
+
 
     def get_table_data(self):
         rows = []
-        for idx, order in enumerate(self.q.slice(
-                *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()):
+        for idx, order in enumerate(self.orders_in_page):
             rows.append([
                 "#" + str(order.id),
                 order.client_email,
@@ -73,7 +77,11 @@ class AdminOrdersDataProvider(object):
                     dict(
                         type=R.id.ACTION_TYPE_BUTTON,
                         text=R.string.details,
-                        classes="details"
+                        classes="details",
+                        meta_data = {
+                            "data-toggle": "modal",
+                            "data-target": "#modal-" + str(idx)
+                        }
                     )
                 ] + self.get_actions(order)
             ])

@@ -70,8 +70,8 @@ def create_app():
     app.register_blueprint(admin_blog_blueprint, url_prefix="/admin/blog")
     from routers.admin_content import admin_content_blueprint
     app.register_blueprint(admin_content_blueprint, url_prefix="/admin/conteudo")
-    from routers.admin_customers import admin_customers_blueprint
-    app.register_blueprint(admin_customers_blueprint, url_prefix="/admin/clientes")
+    from routers.admin_clients import admin_clients_blueprint
+    app.register_blueprint(admin_clients_blueprint, url_prefix="/admin/clientes")
     from routers.admin_home import admin_home_blueprint
     app.register_blueprint(admin_home_blueprint, url_prefix="/admin/home")
     from routers.admin_images import admin_images_blueprint

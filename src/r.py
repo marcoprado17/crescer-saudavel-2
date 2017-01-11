@@ -225,8 +225,24 @@ class Resources(object):
         unchecking = "Desmarcando..."
         order_status_change_error = "Não foi possivel alterar o status do pedido #{0}. Tente novamente."
         mark_as_sent_confirmation = 'Você tem certeza que deseja marcar o pedido como enviado? Um email será automaticamente enviado para: {0}.'
-
-
+        email = "Email"
+        email_confirmed = "Email confirmado"
+        first_name = "Nome"
+        last_name = "Sobrenome"
+        state = "Estado"
+        city = "Cidade"
+        address = "Endereço"
+        number = "Número"
+        complement = "Complemento"
+        cep = "CEP"
+        telephone = "Telefone"
+        undefined_masculine = "Indefinido"
+        undefined_feminine = "Indefinida"
+        products_of_order = "Produtos do pedido"
+        quantity = "Quantia"
+        subtotal_tooltip = "Valor do produto multiplicado por sua quantia (em R$)"
+        product_price_tooltip = "Valor do produto em R$"
+        order_total_value = "Valor total do pedido"
 
         tab_content_example = \
 """An h1 header
@@ -373,6 +389,14 @@ Content Cell | Content Cell"""
         def n_tab_content(n):
             return "Conteúdo da %sº aba" % str(n)
 
+        @staticmethod
+        def order_details_modal_title(order_id):
+            return "Detalhes do pedido #"+ str(order_id)
+
+        @staticmethod
+        def price_with_rs(price):
+            return "R$ " + str(price)
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -383,7 +407,7 @@ Content Cell | Content Cell"""
         ADMIN_NAVBAR_PRODUCTS =                 2
         ADMIN_NAVBAR_ORDERS =                   3
         ADMIN_NAVBAR_BLOG =                     4
-        ADMIN_NAVBAR_CUSTOMERS =                5
+        ADMIN_NAVBAR_CLIENTS =                  5
         ADMIN_NAVBAR_IMAGES =                   6
         ADMIN_NAVBAR_CONTENT =                  7
         ADMIN_NAVBAR_ATTENDED_CITIES =          8

@@ -4,4 +4,21 @@
       width: 190px;
     }
   }
+
+  .modal .page-header {
+    margin-top: 0;
+    h4 {
+      margin-bottom: 0;
+    }
+  }
+
+  #total-table {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .table-responsive {
+    margin-bottom: 0 !important;
+  }
 }

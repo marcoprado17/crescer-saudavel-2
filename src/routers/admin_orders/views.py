@@ -18,7 +18,10 @@ from wrappers.base.forms import SubmitForm
 
 @admin_orders_blueprint.route("/")
 def index():
-    return render_template("admin_orders/index.html", data=admin_orders_data_provider.get_data())
+    print "start: " + str(datetime.now())
+    data = admin_orders_data_provider.get_data()
+    print "end: " + str(datetime.now())
+    return render_template("admin_orders/index.html", data=data)
 
 
 @admin_orders_blueprint.route("/marcar-como-enviado/<int:order_id>", methods=["POST"])

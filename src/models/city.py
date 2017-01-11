@@ -4,6 +4,7 @@
 # Created at 10/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from sqlalchemy import ForeignKey
+from sqlalchemy import asc
 from sqlalchemy.orm import relationship
 from extensions import db
 from r import R
@@ -15,3 +16,13 @@ class City(db.Model):
     active = db.Column(db.Boolean, default=False, nullable=False)
     state_id = db.Column(db.Integer, ForeignKey("state.id"), nullable=False)
     state = relationship("State", back_populates="cities")
+
+
+    @staticmethod
+    def get_choices(include_undefined):
+        choices = []
+        if include_undefined:
+            choices.append((str(0), R.string.undefined_feminine))
+        for city in City.query.order_by(asc(City.name)).all():
+            choices.append((str(city.id), city.name))
+        return choices

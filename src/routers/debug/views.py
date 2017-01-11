@@ -85,6 +85,18 @@ def create_products():
     for i in range(0, 300):
         db.session.add(get_random_product())
         print "Product " + str(i) + " created."
+    db.session.add(Product(
+        title = "0000000000 São José dos Campos",
+        active = True,
+        category_id = 1,
+        subcategory_id = 1,
+        price = Decimal("1.00"),
+        stock = 1,
+        min_stock = 1,
+        summary = 1,
+        sales_number = 1,
+        image_1 = get_random_image_name()
+    ))
     db.session.commit()
 
 
@@ -138,14 +150,23 @@ def create_orders():
 
 def get_random_order():
     status = random.choice(Order.order_status_ids)
-    kw = get_order_datetimes(status)
-    for key, val in get_products_data().iteritems():
-        kw[key]=val
     return Order(
-        client_email=get_valid_client_email(),
+        client_email=get_valid_client_email(address_defined=True),
         status=status,
-        **kw
+        quantity_by_product_id=get_quantity_by_product_id(),
+        **get_order_datetimes(status)
     )
+
+def get_quantity_by_product_id():
+    quantity_by_product_id = {}
+    n_products = random.randint(1, 10)
+    products = Product.query.all()
+    random.shuffle(products)
+    chosen_products = products[0:n_products]
+    for product in chosen_products:
+        quantity = random.randint(1, 20)
+        quantity_by_product_id[product.id] = quantity
+    return quantity_by_product_id
 
 datetime_1 = datetime.datetime.now()-datetime.timedelta(days=90)
 datetime_2 = datetime.datetime.now()-datetime.timedelta(days=60)
@@ -168,38 +189,6 @@ def get_random_datetime(start, end):
     int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
     random_second = random.randrange(int_delta)
     return start + datetime.timedelta(seconds=random_second)
-
-
-def get_products_data():
-    n_products = random.randint(1, 10)
-    products = Product.query.all()
-    random.shuffle(products)
-    chosen_products = products[0:n_products]
-    product_rows = []
-    total = Decimal("0")
-    for product in chosen_products:
-        n_units = random.randint(1, 20)
-        subtotal = product.get_price(n_units=n_units)
-        total += subtotal
-        product_rows.append([
-            product.title,
-            str(n_units),
-            str(subtotal).replace(".", ",")
-        ])
-    return dict(
-        products_total_price = total,
-        products_table_as_json = dict(
-            rows = product_rows
-        ),
-        total_table_as_json = dict(
-            rows = [
-                [R.string.subtotal, str(total)],
-                [R.string.freight, str(R.dimen.freight)],
-                [R.string.total, str(total+R.dimen.freight)]
-            ]
-        )
-    )
-
 
 def get_random_client():
     email_confirmed = random.uniform(0, 1) < 0.7
@@ -291,8 +280,11 @@ def get_random_product():
     )
 
 
-def get_valid_client_email():
-    return random.choice(Client.query.with_entities(Client.email).all())
+def get_valid_client_email(address_defined):
+    q = Client.query
+    if address_defined:
+        q = q.filter(Client.address != None)
+    return random.choice(q.with_entities(Client.email).all())
 
 
 def get_random_valid_product_category_id():

@@ -19,18 +19,22 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <p>{{ R.string.n_items_found(n_items=data.n_items) }}</p>
+                {% if data.n_items %}
+                    <p>{{ R.string.n_items_found(n_items=data.n_items) }}</p>
+                {% endif %}
             </form>
         </div>
-    {% elif data.n_items > 0 %}
+    {% elif data.n_items and data.n_items > 0 %}
         <p>{{ R.string.n_items_found(n_items=data.n_items) }}</p>
     {% endif %}
 
     {% if data.table_data.rows|length > 0 %}
-        {% with data=data.paginator_data %}
-            {% include "components/paginator.html" %}
-        {% endwith %}
-        {% if data.table_data.rows|length > 0 and data.sort_methods and data.sort_methods|length > 0 %}
+        {% if data.paginator_data %}
+            {% with data=data.paginator_data %}
+                {% include "components/paginator.html" %}
+            {% endwith %}
+        {% endif %}
+        {% if data.sort_methods and data.sort_methods|length > 0 %}
             <div class="form-group sort-method">
                 <label for="select-sort-method">{{ R.string.sort_method_label }}</label>
                 <select id="select-sort-method" name="{{ data.sort_method_query_arg_name }}"
@@ -42,22 +46,25 @@
             </div>
         {% endif %}
 
-        <div class="table-responsive {{ 'without-bottom-paginator'|if(data.paginator_data.pages|length <= 1) }}">
-            <table id="{{ data.table_data.id|if(data.table_data.id) }}" class="table table-hover super-table">
-                <thead>
-                <tr>
-                    {% for col in data.table_data.cols %}
-                        <th id="{{ col.id }}" class="{{ 'min-width action'|if(col.id==R.string.action_col_id) }}">
-                            {% if col.title %}
-                                {{ col.title }}
-                                {% if col.tooltip %}
-                                    {{ tooltip.info(col.tooltip) }}
+        <div class="table-responsive {{ 'without-bottom-paginator'|if(not(data.paginator_data) or data.paginator_data.pages|length <= 1) }}">
+            <table id="{{ data.table_data.id|if(data.table_data.id) }}"
+                   class="table table-hover super-table {{ 'table-bordered'|if(data.table_data.bordered) }}">
+                {% if not data.table_data.no_head %}
+                    <thead>
+                    <tr>
+                        {% for col in data.table_data.cols %}
+                            <th id="{{ col.id }}" class="{{ 'min-width action'|if(col.id==R.string.action_col_id) }}">
+                                {% if col.title %}
+                                    {{ col.title }}
+                                    {% if col.tooltip %}
+                                        {{ tooltip.info(col.tooltip) }}
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        </th>
-                    {% endfor %}
-                </tr>
-                </thead>
+                            </th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                {% endif %}
                 <tbody>
                 {% for row in data.table_data.rows %}
                     {% set row_idx = loop.index0 %}
@@ -66,40 +73,37 @@
                             {% set col_idx = loop.index0 %}
                             {% set item_data = row[col_idx] %}
                             <td id="col-{{ col.id }}-row-{{ row_idx }}">
-                                {% if col.type == R.id.COL_TYPE_IMAGE %}
+                                {% if col.type == R.id.COL_TYPE_IMAGE or col.type == R.id.COL_TYPE_IMAGE.value %}
                                     <img src="{{ item_data }}">
-                                {% elif col.type == R.id.COL_TYPE_TEXT %}
+                                {% elif col.type == R.id.COL_TYPE_TEXT or col.type == R.id.COL_TYPE_TEXT.value %}
                                     {{ item_data }}
-                                {% elif col.type == R.id.COL_TYPE_BOOL %}
+                                {% elif col.type == R.id.COL_TYPE_BOOL or col.type == R.id.COL_TYPE_BOOL.value %}
                                     <div class="bool-container {{ 'true'|if(item_data, 'false') }}">
                                         <span class="glyphicon glyphicon-ok true" aria-hidden="true"></span>
                                         <span class="glyphicon glyphicon-remove false" aria-hidden="true"></span>
                                     </div>
-                                {% elif col.type == R.id.COL_TYPE_ACTION %}
+                                {% elif col.type == R.id.COL_TYPE_ACTION or col.type == R.id.COL_TYPE_ACTION.value %}
                                     {% if col.expandable %}
 
                                     {% else %}
                                         <div class="actions-container">
                                             {% for action in item_data %}
-                                                {% if action.type == R.id.ACTION_TYPE_BUTTON %}
+                                                {% if action.type == R.id.ACTION_TYPE_BUTTON or action.type == R.id.ACTION_TYPE_BUTTON.value %}
                                                     {{ macro_actions.button(
                                                         action=action,
-                                                        additional_meta_data={"data-row-idx": row_idx})
-                                                    }}
-                                                {% elif action.type == R.id.ACTION_TYPE_LINK_BUTTON %}
+                                                        additional_meta_data={"data-row-idx": row_idx}) }}
+                                                {% elif action.type == R.id.ACTION_TYPE_LINK_BUTTON or action.type == R.id.ACTION_TYPE_LINK_BUTTON.value %}
                                                     {{ macro_actions.link_button(action=action) }}
-                                                {% elif action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON %}
+                                                {% elif action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON or action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON.value %}
                                                     {{ macro_actions.int_with_button(
                                                         action=action,
-                                                        additional_meta_data={"data-row-idx": row_idx})
-                                                    }}
-                                                {% elif action.type == R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON %}
+                                                        additional_meta_data={"data-row-idx": row_idx}) }}
+                                                {% elif action.type == R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON or action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON.value %}
                                                     {{ macro_actions.activate_disable_button(
                                                         action=action,
                                                         additional_meta_data={
                                                             "data-row-idx": row_idx,
-                                                        })
-                                                    }}
+                                                        }) }}
                                                 {% endif %}
                                             {% endfor %}
                                         </div>
@@ -113,9 +117,11 @@
             </table>
         </div>
 
-        {% with data=data.paginator_data %}
-            {% include "components/paginator.html" %}
-        {% endwith %}
+        {% if data.paginator_data %}
+            {% with data=data.paginator_data %}
+                {% include "components/paginator.html" %}
+            {% endwith %}
+        {% endif %}
     {% else %}
         <p>{{ R.string.no_items_found }}</p>
     {% endif %}

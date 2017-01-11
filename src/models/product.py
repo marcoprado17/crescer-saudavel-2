@@ -163,7 +163,10 @@ class Product(db.Model):
     def get(product_id):
         return Product.query.filter_by(id=product_id).one_or_none()
 
-    def get_price(self, n_units):
+    def get_price(self, n_units=1):
         assert isinstance(n_units, int)
         assert n_units >= 0
-        return self.price*Decimal(str(n_units))
+        return self.price * Decimal(str(n_units))
+
+    def get_formatted_price(self, n_units=1):
+        return str(self.get_price(n_units=n_units)).replace(".", ",")

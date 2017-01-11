@@ -5,6 +5,6 @@
 # ======================================================================================================================
 from flask import Blueprint
 
-admin_customers_blueprint = Blueprint("admin_customers", __name__, static_folder="static", template_folder="templates")
+admin_clients_blueprint = Blueprint("admin_clients", __name__, static_folder="static", template_folder="templates")
 
 import views

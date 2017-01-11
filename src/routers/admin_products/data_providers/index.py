@@ -107,7 +107,7 @@ class AdminProductsDataProvider:
                 product.category.name,
                 product.subcategory.name if product.subcategory else R.string.empty_subcategory_symbol,
                 product.title,
-                str(product.price).replace(".", ","),
+                product.get_formatted_price(),
                 product.stock,
                 product.min_stock,
                 product.sales_number,

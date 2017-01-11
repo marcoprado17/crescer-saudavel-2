@@ -8,7 +8,7 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro string_field(field, explicit_label=False, placeholder="") %}
+{% macro string_field(field, explicit_label=False, placeholder="", readonly=False) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
             <div class="label-container">
@@ -24,12 +24,12 @@
         <input id="{{ field.id }}" name="{{ field.name }}" type="text"
                class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
                maxlength="{{ max_length }}"
-               value="{{ field.data|if(field.data) }}">
+               value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }}>
         {{ render_errors(field.errors) }}
     </div>
 {%- endmacro %}
 
-{% macro integer_field(field, explicit_label=False, placeholder="") %}
+{% macro integer_field(field, explicit_label=False, placeholder="", readonly=False) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
             <div class="label-container">
@@ -44,16 +44,16 @@
         {% endif %}
         <input id="{{ field.id }}" name="{{ field.name }}" type="number"
                class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
-               value="{{ field.data|if(field.data or field.data == 0) }}">
+               value="{{ field.data|if(field.data or field.data == 0) }}" {{ "readonly"|if(readonly) }}>
         {{ render_errors(field.errors) }}
     </div>
 {%- endmacro %}
 
-{% macro boolean_field(field) %}
+{% macro boolean_field(field, readonly=False) %}
     <div class="checkbox">
         <div class="label-container">
             <label>
-                <input id="{{ field.id }}" name="{{ field.name }}" type="checkbox" {{ "checked"|if(field.data) }}>
+                <input id="{{ field.id }}" name="{{ field.name }}" type="checkbox" {{ "checked"|if(field.data) }} {{ "disabled"|if(readonly) }}>
                 {{ field.label.text }}
             </label>
             {% if field.render_kw and field.render_kw.tooltip %}
@@ -63,7 +63,7 @@
     </div>
 {%- endmacro %}
 
-{% macro select_field(field, explicit_label=False, classes="") %}
+{% macro select_field(field, explicit_label=False, classes="", readonly=False) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
             <div class="label-container">
@@ -73,7 +73,11 @@
                 {% endif %}
             </div>
         {% endif %}
-        {{ field(class_="form-control" + " " + classes + " " + field.classes|if(field.classes)) }}
+        {% if readonly %}
+            {{ field(class_="form-control" + " " + classes + " " + field.classes|if(field.classes), disabled="disabled")}}
+        {% else %}
+            {{ field(class_="form-control" + " " + classes + " " + field.classes|if(field.classes))}}
+        {% endif %}
         {{ render_errors(field.errors) }}
     </div>
 {%- endmacro %}
