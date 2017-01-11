@@ -27,6 +27,8 @@ def index():
 @admin_orders_blueprint.route("/marcar-como-enviado/<int:order_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def mark_as_sent(order_id):
+    order = Order.get(order_id)
+    assert order != None and order.status == R.id.ORDER_STATUS_PAID
     order = Order.update(
         order_id,
         status = R.id.ORDER_STATUS_SENT,
@@ -42,6 +44,8 @@ def mark_as_sent(order_id):
 @admin_orders_blueprint.route("/desmarcar-como-enviado/<int:order_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def unmark_as_sent(order_id):
+    order = Order.get(order_id)
+    assert order != None and order.status == R.id.ORDER_STATUS_SENT
     order = Order.update(
         order_id,
         status=R.id.ORDER_STATUS_PAID,
@@ -57,6 +61,8 @@ def unmark_as_sent(order_id):
 @admin_orders_blueprint.route("/marcar-como-entregue/<int:order_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def mark_as_delivered(order_id):
+    order = Order.get(order_id)
+    assert order != None and order.status == R.id.ORDER_STATUS_SENT
     order = Order.update(
         order_id,
         status=R.id.ORDER_STATUS_DELIVERED,
@@ -72,6 +78,8 @@ def mark_as_delivered(order_id):
 @admin_orders_blueprint.route("/desmarcar-como-entregue/<int:order_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def unmark_as_delivered(order_id):
+    order = Order.get(order_id)
+    assert order != None and order.status == R.id.ORDER_STATUS_DELIVERED
     order = Order.update(
         order_id,
         status=R.id.ORDER_STATUS_SENT,
