@@ -90,7 +90,7 @@ class AdminOrdersDataProvider(object):
             id="orders-table",
             cols=[
                 dict(
-                    id="client-email",
+                    id="order-id",
                     title=R.string.id,
                     type=R.id.COL_TYPE_TEXT
                 ),

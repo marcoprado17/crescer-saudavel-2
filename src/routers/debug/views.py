@@ -211,6 +211,7 @@ def get_random_client():
         email=(get_random_string(random.randint(4, 8)) + "@" + get_random_string(random.randint(4, 8)) + ".com")[0:R.dimen.email_max_length],
         password=get_random_string(random.randint(6, 32))[0:R.dimen.password_max_length],
         email_confirmed=email_confirmed,
+        register_datetime = get_random_datetime(datetime_1, datetime_4),
         **address_fields
     )
 

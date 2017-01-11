@@ -69,19 +69,13 @@ class Order(db.Model):
         return self.order_status_as_string_by_id[self.status]
 
     def get_formatted_paid_datetime(self):
-        if self.paid_datetime == None:
-            return ""
-        return str(self.paid_datetime)[0:R.dimen.datetime_important_chars_size]
+        return R.string.formatted_datetime(self.paid_datetime)
 
     def get_formatted_sent_datetime(self):
-        if self.sent_datetime == None:
-            return ""
-        return str(self.sent_datetime)[0:R.dimen.datetime_important_chars_size]
+        return R.string.formatted_datetime(self.sent_datetime)
 
     def get_formatted_delivered_datetime(self):
-        if self.delivered_datetime == None:
-            return ""
-        return str(self.delivered_datetime)[0:R.dimen.datetime_important_chars_size]
+        return R.string.formatted_datetime(self.delivered_datetime)
 
     @staticmethod
     def get_choices():

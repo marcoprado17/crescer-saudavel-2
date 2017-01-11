@@ -19,10 +19,13 @@ class City(db.Model):
 
 
     @staticmethod
-    def get_choices(include_undefined):
+    def get_choices(include_undefined=False, include_all=False):
+        assert not(include_undefined and include_all)
         choices = []
         if include_undefined:
             choices.append((str(0), R.string.undefined_feminine))
+        if include_all:
+            choices.append((str(0), R.string.all))
         for city in City.query.order_by(asc(City.name)).all():
             choices.append((str(city.id), city.name))
         return choices

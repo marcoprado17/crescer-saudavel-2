@@ -5,9 +5,10 @@
 # ======================================================================================================================
 from flask import current_app
 from sqlalchemy import ForeignKey
+from sqlalchemy import asc
+from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
-
 from extensions import db, bcrypt
 from models.order import Order
 from r import R
@@ -19,6 +20,7 @@ class Client(db.Model):
     _password = db.Column(db.Text, nullable=False)
     email_confirmed = db.Column(db.Boolean, default=False, nullable=False)
     authenticated = db.Column(db.Boolean, default=False, nullable=False)
+    register_datetime = db.Column(db.DateTime, nullable=False)
 
     orders = relationship("Order", order_by=Order.paid_datetime, back_populates="client")
 
@@ -33,6 +35,25 @@ class Client(db.Model):
     address_complement = db.Column(db.String(R.dimen.address_complement_max_length))
     cep = db.Column(db.String(R.dimen.cep_max_length))
     tel = db.Column(db.String(R.dimen.tel_max_length))
+
+    sort_method_ids = [
+        R.id.SORT_METHOD_CLIENT_NAME,
+        R.id.SORT_METHOD_CLIENT_EMAIL,
+        R.id.SORT_METHOD_NEWEST,
+        R.id.SORT_METHOD_OLDER
+    ]
+    sort_method_names = [
+        R.string.client_name,
+        R.string.client_email,
+        R.string.newest_register,
+        R.string.older_register
+    ]
+    sort_method_by_id = {
+        R.id.SORT_METHOD_CLIENT_NAME: asc(first_name),
+        R.id.SORT_METHOD_CLIENT_EMAIL: asc(email),
+        R.id.SORT_METHOD_NEWEST: desc(register_datetime),
+        R.id.SORT_METHOD_OLDER: asc(register_datetime)
+    }
 
     @hybrid_property
     def password(self):
@@ -74,3 +95,6 @@ class Client(db.Model):
     @staticmethod
     def get(client_email):
         return Client.query.filter_by(email=client_email).one_or_none()
+
+    def get_formatted_register_datetime(self):
+        return R.string.formatted_datetime(self.register_datetime)

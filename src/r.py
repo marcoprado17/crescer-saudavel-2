@@ -75,6 +75,8 @@ class Resources(object):
         category_id_arg_name = "category_id"
         subcategory_id_arg_name = "subcategory_id"
         order_status_id_arg_name = "status"
+        state_id_arg_name = "state_id"
+        city_id_arg_name = "city_id"
 
         name = "Nome"
         remove = "Remover"
@@ -147,6 +149,7 @@ class Resources(object):
         disabling = "Desativando..."
         row_meta_data_key = "data-row"
         all = "Todas"
+        all_in_masculine = "Todos"
         any = "Qualquer"
         product_subcategories = "Subcategorias de produto"
         title = "Título"
@@ -196,8 +199,11 @@ class Resources(object):
         adding = "Adicionando..."
 
         client_email = "Email do cliente"
+        client_name = "Nome do cliente"
         newest = "Mais recente"
         older = "Mais antigo"
+        newest_register = "Cadastro mais recente"
+        older_register = "Cadastro mais antigo"
 
         paid = "Pago"
         sent = "Enviado"
@@ -243,6 +249,8 @@ class Resources(object):
         subtotal_tooltip = "Valor do produto multiplicado por sua quantia (em R$)"
         product_price_tooltip = "Valor do produto em R$"
         order_total_value = "Valor total do pedido"
+        register_date = "Data de cadastro"
+        clients = "Clientes"
 
         tab_content_example = \
 """An h1 header
@@ -397,6 +405,12 @@ Content Cell | Content Cell"""
         def price_with_rs(price):
             return "R$ " + str(price).replace(".", ",")
 
+        @staticmethod
+        def formatted_datetime(datetime):
+            if datetime == None:
+                return ""
+            return str(datetime)[0:R.dimen.datetime_important_chars_size]
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -437,7 +451,7 @@ Content Cell | Content Cell"""
         SORT_METHOD_HIGHER_TOTAL_PRICE =        310
         SORT_METHOD_NEWEST =                    311
         SORT_METHOD_OLDER =                     312
-
+        SORT_METHOD_CLIENT_NAME =               313
 
         # Order status
         ORDER_STATUS_ANY =                      400

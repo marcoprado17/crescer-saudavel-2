@@ -17,10 +17,17 @@ class State(db.Model):
     cities = relationship("City", order_by=City.name, back_populates="state")
 
     @staticmethod
-    def get_choices(include_undefined=False):
+    def get_choices(include_undefined=False, include_all=False):
+        assert not(include_undefined and include_all)
         choices = []
         if include_undefined:
             choices.append((str(0), R.string.undefined_masculine))
+        if include_all:
+            choices.append((str(0), R.string.all_in_masculine))
         for state in State.query.order_by(asc(State.name)).all():
             choices.append((str(state.id), state.name))
         return choices
+
+    @staticmethod
+    def get_all():
+        return State.query.all()
