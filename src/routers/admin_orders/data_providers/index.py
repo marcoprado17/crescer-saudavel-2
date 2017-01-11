@@ -68,7 +68,7 @@ class AdminOrdersDataProvider(object):
             rows.append([
                 "#" + str(order.id),
                 order.client_email,
-                str(order.products_total_price),
+                order.get_formatted_products_total_price(),
                 order.get_status_as_string(),
                 order.get_formatted_paid_datetime(),
                 order.get_formatted_sent_datetime() if order.sent_datetime else "",

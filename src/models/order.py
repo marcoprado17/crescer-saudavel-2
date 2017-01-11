@@ -177,3 +177,6 @@ class Order(db.Model):
                 ]
             )
         )
+
+    def get_formatted_products_total_price(self):
+        return str(self.products_total_price).replace(".", ",")

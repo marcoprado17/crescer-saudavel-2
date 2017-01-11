@@ -149,7 +149,7 @@ def create_orders():
 
 
 def get_random_order():
-    status = random.choice(Order.order_status_ids)
+    status = random.choice(filter(lambda order_status_id: order_status_id != R.id.ORDER_STATUS_ANY, Order.order_status_ids))
     return Order(
         client_email=get_valid_client_email(address_defined=True),
         status=status,

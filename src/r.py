@@ -395,7 +395,7 @@ Content Cell | Content Cell"""
 
         @staticmethod
         def price_with_rs(price):
-            return "R$ " + str(price)
+            return "R$ " + str(price).replace(".", ",")
 
     # noinspection PyPep8Naming
     @unique
