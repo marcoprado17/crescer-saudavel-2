@@ -123,7 +123,7 @@ class Order(db.Model):
                 cols=[
                     dict(
                         id="product-title",
-                        title=R.string.title,
+                        title=R.string.product,
                         type=R.id.COL_TYPE_TEXT
                     ),
                     dict(

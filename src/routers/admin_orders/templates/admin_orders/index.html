@@ -7,7 +7,7 @@
 {% block content %}
     <div class="__admin_orders__ __index__ container">
         {% for order in data.orders_in_page %}
-            <div id="modal-{{ loop.index0 }}" class="modal fade" role="dialog">
+            <div id="modal-{{ loop.index0 }}" class="modal fade details" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -19,7 +19,7 @@
                                 <h4>{{ R.string.client }}</h4>
                             </div>
                             {% with client_form=order.client.get_form(include_undefined_in_choices=True), readonly=True %}
-                                {% include "components/client_form.html" %}
+                                {% include "components/client_panel_form.html" %}
                             {% endwith %}
                             <div class="page-header">
                                 <h4>{{ R.string.products_of_order }}</h4>

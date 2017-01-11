@@ -10,7 +10,6 @@ from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from extensions import db, bcrypt
-from models.order import Order
 from r import R
 from routers.admin_clients.forms import ClientForm
 
@@ -22,7 +21,7 @@ class Client(db.Model):
     authenticated = db.Column(db.Boolean, default=False, nullable=False)
     register_datetime = db.Column(db.DateTime, nullable=False)
 
-    orders = relationship("Order", order_by=Order.paid_datetime, back_populates="client")
+    orders = relationship("Order", order_by="desc(Order.paid_datetime)", back_populates="client")
 
     first_name = db.Column(db.String(R.dimen.first_name_max_length))
     last_name = db.Column(db.String(R.dimen.last_name_max_length))

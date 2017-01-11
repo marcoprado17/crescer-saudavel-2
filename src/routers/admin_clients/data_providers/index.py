@@ -37,7 +37,7 @@ class AdminClientsDataProvider(object):
 
         n_orders = self.q.count()
 
-        self.per_page = current_app.config["DEFAULT_PER_PAGE"]
+        self.per_page = current_app.config["CLIENTS_TABLE_PER_PAGE"]
         self.curr_page = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=self.per_page,
                                         n_items=n_orders)
 

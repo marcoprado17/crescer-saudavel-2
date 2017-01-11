@@ -2,4 +2,23 @@ $to-activate-disable-button-min-width: 120px;
 
 .__admin_base__ {
   height: 100%;
+
+  .modal .page-header {
+    margin-top: 0;
+    h4 {
+      margin-bottom: 0;
+    }
+  }
+
+  .modal.details {
+    #total-table {
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .table-responsive {
+      margin-bottom: 0 !important;
+    }
+  }
 }

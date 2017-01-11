@@ -251,6 +251,10 @@ class Resources(object):
         order_total_value = "Valor total do pedido"
         register_date = "Data de cadastro"
         clients = "Clientes"
+        orders_of_client = "Pedidos do cliente"
+        no_orders_registered = "Nenhum pedido cadastrado."
+        product = "Produto"
+        client_data = "Dados do cliente"
 
         tab_content_example = \
 """An h1 header
@@ -410,6 +414,21 @@ Content Cell | Content Cell"""
             if datetime == None:
                 return ""
             return str(datetime)[0:R.dimen.datetime_important_chars_size]
+
+        @staticmethod
+        def client_details_modal_title(client_first_name):
+            if client_first_name:
+                return "Detalhes do cliente " + str(client_first_name)
+            else:
+                return "Detalhes do cliente"
+
+        @staticmethod
+        def order_panel_title(order_id):
+            return "Pedido #" + str(order_id)
+
+        @staticmethod
+        def get_formatted_date(paid_datetime):
+            return str(paid_datetime)[0:10]
 
     # noinspection PyPep8Naming
     @unique
