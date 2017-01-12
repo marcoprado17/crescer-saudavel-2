@@ -18,9 +18,7 @@ from wrappers.base.forms import SubmitForm
 
 @admin_orders_blueprint.route("/")
 def index():
-    print "start: " + str(datetime.now())
     data = admin_orders_data_provider.get_data()
-    print "end: " + str(datetime.now())
     return render_template("admin_orders/index.html", data=data)
 
 

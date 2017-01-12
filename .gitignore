@@ -10,3 +10,4 @@ node_modules/
 playground/
 portuguese_brazil_dic/
 /debug_images/
+!/configs/instance/unit_test_app_config.py

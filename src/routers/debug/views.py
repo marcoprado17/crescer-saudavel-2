@@ -104,12 +104,35 @@ def create_states():
     db.session.add(State(name="SP", active=True))
     db.session.add(State(name="RJ", active=True))
     db.session.add(State(name="MG", active=True))
+    db.session.add(State(name="GO", active=True))
+
+    db.session.add(State(name="AC", active=True))
+    db.session.add(State(name="AL", active=True))
+    db.session.add(State(name="AP", active=True))
+    db.session.add(State(name="AM", active=True))
+    db.session.add(State(name="BA", active=True))
+    db.session.add(State(name="CE", active=True))
+    db.session.add(State(name="DF", active=True))
+    db.session.add(State(name="ES", active=True))
+    db.session.add(State(name="MA", active=True))
+    db.session.add(State(name="MT", active=True))
+    db.session.add(State(name="MS", active=True))
+    db.session.add(State(name="PA", active=True))
+    db.session.add(State(name="PB", active=True))
     db.session.add(State(name="PR", active=True))
-    db.session.add(State(name="GO", active=False))
+    db.session.add(State(name="PE", active=True))
+    db.session.add(State(name="PI", active=True))
+    db.session.add(State(name="RN", active=True))
+    db.session.add(State(name="RS", active=True))
+    db.session.add(State(name="RO", active=True))
+    db.session.add(State(name="RR", active=True))
+    db.session.add(State(name="SC", active=True))
+    db.session.add(State(name="SE", active=True))
+    db.session.add(State(name="TO", active=True))
 
     db.session.commit()
 
-    print "Stated created."
+    print "States created."
 
 
 def create_cities():
