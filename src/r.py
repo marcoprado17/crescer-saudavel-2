@@ -257,6 +257,7 @@ class Resources(object):
         product = "Produto"
         client_data = "Dados do cliente"
         city_name = "Nome da cidade"
+        edit_city = "Editar cidade"
 
         tab_content_example = \
 """An h1 header
@@ -398,6 +399,10 @@ Content Cell | Content Cell"""
         @staticmethod
         def product_successful_edited(product_title):
             return 'O produto "%s" foi editado com sucesso.' % product_title
+
+        @staticmethod
+        def city_successful_edited(city_name):
+            return 'A cidade "%s" foi editada com sucesso.' % city_name
 
         @staticmethod
         def product_subcategory_successful_edited(subcategory_name):

@@ -52,3 +52,11 @@ class City(db.Model):
         db.session.add(city)
         db.session.commit()
         return city
+
+    @staticmethod
+    def update_from_form(city, edit_city_form):
+        city.name = edit_city_form.city_name.data
+        city.active = edit_city_form.active.data
+        city.state_id = edit_city_form.state_id.data
+        db.session.add(city)
+        db.session.commit()

@@ -7,7 +7,7 @@
     <div class="__admin_attended_cities__ __add_city__ container hidden">
         {% with data=dict(
             title=R.string.add_new_city,
-            add_city_form=data.add_city_form
+            city_form=data.add_city_form
         )%}
             {% include "components/city_panel_form.html" %}
         {% endwith %}
