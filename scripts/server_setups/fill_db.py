@@ -31,7 +31,6 @@ def fill_db():
         create_product_categories()
         create_product_subcategories()
         create_products()
-        create_states()
         create_cities()
         create_clients()
         create_orders()
@@ -70,57 +69,26 @@ def create_products():
     db.session.commit()
 
 
-def create_states():
-    db.session.add(State(name="SP", active=True))
-    db.session.add(State(name="RJ", active=True))
-    db.session.add(State(name="MG", active=True))
-    db.session.add(State(name="GO", active=True))
-
-    db.session.add(State(name="AC", active=True))
-    db.session.add(State(name="AL", active=True))
-    db.session.add(State(name="AP", active=True))
-    db.session.add(State(name="AM", active=True))
-    db.session.add(State(name="BA", active=True))
-    db.session.add(State(name="CE", active=True))
-    db.session.add(State(name="DF", active=True))
-    db.session.add(State(name="ES", active=True))
-    db.session.add(State(name="MA", active=True))
-    db.session.add(State(name="MT", active=True))
-    db.session.add(State(name="MS", active=True))
-    db.session.add(State(name="PA", active=True))
-    db.session.add(State(name="PB", active=True))
-    db.session.add(State(name="PR", active=True))
-    db.session.add(State(name="PE", active=True))
-    db.session.add(State(name="PI", active=True))
-    db.session.add(State(name="RN", active=True))
-    db.session.add(State(name="RS", active=True))
-    db.session.add(State(name="RO", active=True))
-    db.session.add(State(name="RR", active=True))
-    db.session.add(State(name="SC", active=True))
-    db.session.add(State(name="SE", active=True))
-    db.session.add(State(name="TO", active=True))
-
-    db.session.commit()
-
-    print "States created."
-
-
 def create_cities():
-    db.session.add(City(state_id=1, name="São José dos Campos", active=True))
-    db.session.add(City(state_id=1, name="Jacareí", active=True))
-    db.session.add(City(state_id=1, name="Santo André", active=True))
-    db.session.add(City(state_id=1, name="São Paulo", active=False))
-    db.session.add(City(state_id=1, name="São Bernardo do Campo", active=False))
+    sp_id = State.query.filter(State.name == "SP").one_or_none().id
+    db.session.add(City(state_id=sp_id, name="São José dos Campos", active=True))
+    db.session.add(City(state_id=sp_id, name="Jacareí", active=True))
+    db.session.add(City(state_id=sp_id, name="Santo André", active=True))
+    db.session.add(City(state_id=sp_id, name="São Paulo", active=False))
+    db.session.add(City(state_id=sp_id, name="São Bernardo do Campo", active=False))
 
-    db.session.add(City(state_id=2, name="Rio de Janeiro", active=True))
+    rj_id = State.query.filter(State.name == "RJ").one_or_none().id
+    db.session.add(City(state_id=rj_id, name="Rio de Janeiro", active=True))
 
-    db.session.add(City(state_id=3, name="Belo Horizonte", active=True))
-    db.session.add(City(state_id=3, name="Juiz de Fora", active=True))
-    db.session.add(City(state_id=3, name="Contagem", active=False))
+    mg_id = State.query.filter(State.name == "MG").one_or_none().id
+    db.session.add(City(state_id=mg_id, name="Belo Horizonte", active=True))
+    db.session.add(City(state_id=mg_id, name="Juiz de Fora", active=True))
+    db.session.add(City(state_id=mg_id, name="Contagem", active=False))
 
-    db.session.add(City(state_id=5, name="Goiânia", active=True))
-    db.session.add(City(state_id=5, name="Anápolis", active=True))
-    db.session.add(City(state_id=5, name="Trindade", active=False))
+    go_id = State.query.filter(State.name == "GO").one_or_none().id
+    db.session.add(City(state_id=go_id, name="Goiânia", active=True))
+    db.session.add(City(state_id=go_id, name="Anápolis", active=True))
+    db.session.add(City(state_id=go_id, name="Trindade", active=False))
 
     db.session.commit()
 

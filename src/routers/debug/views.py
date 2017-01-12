@@ -136,21 +136,25 @@ def create_states():
 
 
 def create_cities():
-    db.session.add(City(state_id=1, name="São José dos Campos", active=True))
-    db.session.add(City(state_id=1, name="Jacareí", active=True))
-    db.session.add(City(state_id=1, name="Santo André", active=True))
-    db.session.add(City(state_id=1, name="São Paulo", active=False))
-    db.session.add(City(state_id=1, name="São Bernardo do Campo", active=False))
+    sp_id = State.query.filter(State.name == "SP").one_or_none().id
+    db.session.add(City(state_id=sp_id, name="São José dos Campos", active=True))
+    db.session.add(City(state_id=sp_id, name="Jacareí", active=True))
+    db.session.add(City(state_id=sp_id, name="Santo André", active=True))
+    db.session.add(City(state_id=sp_id, name="São Paulo", active=False))
+    db.session.add(City(state_id=sp_id, name="São Bernardo do Campo", active=False))
 
-    db.session.add(City(state_id=2, name="Rio de Janeiro", active=True))
+    rj_id = State.query.filter(State.name == "RJ").one_or_none().id
+    db.session.add(City(state_id=rj_id, name="Rio de Janeiro", active=True))
 
-    db.session.add(City(state_id=3, name="Belo Horizonte", active=True))
-    db.session.add(City(state_id=3, name="Juiz de Fora", active=True))
-    db.session.add(City(state_id=3, name="Contagem", active=False))
+    mg_id = State.query.filter(State.name == "MG").one_or_none().id
+    db.session.add(City(state_id=mg_id, name="Belo Horizonte", active=True))
+    db.session.add(City(state_id=mg_id, name="Juiz de Fora", active=True))
+    db.session.add(City(state_id=mg_id, name="Contagem", active=False))
 
-    db.session.add(City(state_id=5, name="Goiânia", active=True))
-    db.session.add(City(state_id=5, name="Anápolis", active=True))
-    db.session.add(City(state_id=5, name="Trindade", active=False))
+    go_id = State.query.filter(State.name == "GO").one_or_none().id
+    db.session.add(City(state_id=go_id, name="Goiânia", active=True))
+    db.session.add(City(state_id=go_id, name="Anápolis", active=True))
+    db.session.add(City(state_id=go_id, name="Trindade", active=False))
 
     db.session.commit()
 
