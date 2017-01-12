@@ -1,0 +1,29 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/utils.html" as utils with context %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block subtitle %}
+    {{ R.string.products }}
+{% endblock %}
+{% block content %}
+    <div class="__admin_products__ __index__ container">
+        {{ utils.page_header(R.string.products) }}
+        {% with data=data %}
+            {% include "components/super_table.html" %}
+        {% endwith %}
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        {{ messages.flash_toast() }}
+        initSuperTable();
+        initIntWithButtonAction($("form.add-stock"), function (row_idx, dataAsObject) {
+            setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
+        });
+        initIntWithButtonAction($("form.remove-from-stock"), function (row_idx, dataAsObject) {
+            setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
+        });
+        initIntWithButtonAction($("form.update-stock"), function (row_idx, dataAsObject) {
+            setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
+        });
+    </script>
+{% endblock %}
