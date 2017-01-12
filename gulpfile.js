@@ -11,6 +11,7 @@ var uglify = require("gulp-uglify");
 var runSequence = require("run-sequence");
 var replace = require("gulp-replace");
 var mkdirp = require('mkdirp');
+var insert = require('gulp-insert');
 
 gulp.task("watch", function () {
     gulp.watch("src/**/*.scss", ["make_css_bundle"]);
@@ -61,6 +62,7 @@ gulp.task("build", function (callback) {
         "delete_old_build",
         ["copy_html_files_to_build_dir", "copy_py_files_to_build_dir", "make_css_bundle", "make_js_bundle", "copy_bootstrap_fonts_to_build_dir"],
         ["minify_css_bundle", "minify_js_bundle", "create_uploaded_img_dir"],
+        ["append_sys_path_to_build_init"],
         callback);
 });
 
@@ -79,6 +81,12 @@ gulp.task("copy_html_files_to_build_dir", function () {
 
 gulp.task("copy_py_files_to_build_dir", function () {
     return gulp.src(["src/**/*.py"])
+        .pipe(gulp.dest("build"));
+});
+
+gulp.task("append_sys_path_to_build_init", function () {
+    return gulp.src(["build/__init__.py"])
+        .pipe(insert.append('import sys\nsys.path.append("/vagrant")\nsys.path.append("/vagrant/build")\n'))
         .pipe(gulp.dest("build"));
 });
 

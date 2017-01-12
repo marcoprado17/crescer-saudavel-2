@@ -1,15 +1,20 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ======================================================================================================================
-# Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
+# Created at 12/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import os
 import random
-import shutil
 import datetime
 import string
+import sys
+
+sys.path.append("/vagrant")
+sys.path.append("/vagrant/build")
+
+from app_contexts.app import app
 from decimal import Decimal
-from flask import render_template, redirect, url_for, current_app
+from flask import current_app
 from models.city import City
 from models.client import Client
 from models.order import Order
@@ -18,53 +23,17 @@ from models.product_category import ProductCategory
 from models.product_subcategory import ProductSubcategory
 from models.state import State
 from r import R
-from routers.debug import debug_blueprint
 from extensions import db
 
 
-@debug_blueprint.route("/test")
-def test():
-    return render_template("debug/test.html")
-
-
-@debug_blueprint.route("/reiniciar-imagens")
-def restart_images():
-    restart_images_implementation()
-    return redirect(url_for("admin_home.index"))
-
-
-def restart_images_implementation():
-    src_folder_path = "/vagrant/debug_images"
-    destiny_folder_path = current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH']
-
-    for file_name in os.listdir(destiny_folder_path):
-        file_path = os.path.join(destiny_folder_path, file_name)
-        if os.path.exists(file_path):
-            os.remove(file_path)
-
-    for file_name in os.listdir(src_folder_path):
-        file_path = os.path.join(src_folder_path, file_name)
-        if os.path.exists(file_path):
-            shutil.copy(file_path, destiny_folder_path)
-
-
-@debug_blueprint.route("/reiniciar-db")
-def restart_db():
-    restart_db_implementation()
-    return redirect(url_for("admin_home.index"))
-
-
-def restart_db_implementation():
-    db.drop_all()
-    db.create_all()
-
-    create_product_categories()
-    create_product_subcategories()
-    create_products()
-    create_states()
-    create_cities()
-    create_clients()
-    create_orders()
+def fill_db():
+    with app.app_context():
+        create_product_categories()
+        create_product_subcategories()
+        create_products()
+        create_cities()
+        create_clients()
+        create_orders()
 
 
 def create_product_categories():
@@ -98,41 +67,6 @@ def create_products():
         image_1 = get_random_image_name()
     ))
     db.session.commit()
-
-
-def create_states():
-    db.session.add(State(name="SP", active=True))
-    db.session.add(State(name="RJ", active=True))
-    db.session.add(State(name="MG", active=True))
-    db.session.add(State(name="GO", active=True))
-
-    db.session.add(State(name="AC", active=True))
-    db.session.add(State(name="AL", active=True))
-    db.session.add(State(name="AP", active=True))
-    db.session.add(State(name="AM", active=True))
-    db.session.add(State(name="BA", active=True))
-    db.session.add(State(name="CE", active=True))
-    db.session.add(State(name="DF", active=True))
-    db.session.add(State(name="ES", active=True))
-    db.session.add(State(name="MA", active=True))
-    db.session.add(State(name="MT", active=True))
-    db.session.add(State(name="MS", active=True))
-    db.session.add(State(name="PA", active=True))
-    db.session.add(State(name="PB", active=True))
-    db.session.add(State(name="PR", active=True))
-    db.session.add(State(name="PE", active=True))
-    db.session.add(State(name="PI", active=True))
-    db.session.add(State(name="RN", active=True))
-    db.session.add(State(name="RS", active=True))
-    db.session.add(State(name="RO", active=True))
-    db.session.add(State(name="RR", active=True))
-    db.session.add(State(name="SC", active=True))
-    db.session.add(State(name="SE", active=True))
-    db.session.add(State(name="TO", active=True))
-
-    db.session.commit()
-
-    print "States created."
 
 
 def create_cities():
@@ -394,3 +328,6 @@ def get_random_images_dic():
 
 def get_random_image_name():
     return random.choice(os.listdir(current_app.config["UPLOADED_IMAGES_FOLDER_FULL_PATH"]))
+
+if __name__ == "__main__":
+    fill_db()

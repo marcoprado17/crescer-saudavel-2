@@ -15,7 +15,7 @@ class Resources(object):
     class string(object):
         and_word = "e"
         comma = ","
-        temp_error_html = "Ocorreu um erro inesperado em nossos servidores, nossa equipe técnica resolverá o problema assim que possível. Clique <a href=%(home_page_href)s>aqui</a> para voltar à pagina inicial."
+        temp_error_html = "Ocorreu um erro inesperado em nossos servidores, nossa equipe técnica resolverá o problema assim que possível. Clique <a href=%(home_page_href)s>aqui</a> para voltar para a página inicial."
 
         admin = "Admin"
 

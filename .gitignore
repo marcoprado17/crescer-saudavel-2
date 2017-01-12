@@ -1,7 +1,6 @@
 .vagrant/
 bower_components/
 *.pyc
-configs/instance/
 node_modules/
 /logs/*
 !/logs/.gitkeep
@@ -10,4 +9,6 @@ node_modules/
 playground/
 portuguese_brazil_dic/
 /debug_images/
-/build
+/configs/instance/instance_app_config.py
+/configs/instance/db_info.py
+build/
