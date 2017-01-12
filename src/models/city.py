@@ -17,7 +17,6 @@ class City(db.Model):
     state_id = db.Column(db.Integer, ForeignKey("state.id"), nullable=False)
     state = relationship("State", back_populates="cities")
 
-
     @staticmethod
     def get_choices(include_undefined=False, include_all=False):
         assert not(include_undefined and include_all)
@@ -29,3 +28,13 @@ class City(db.Model):
         for city in City.query.order_by(asc(City.name)).all():
             choices.append((str(city.id), city.name))
         return choices
+
+    @staticmethod
+    def create_from_form(add_city_form):
+        city = City(
+            name=add_city_form.city_name.data,
+            active=add_city_form.active.data,
+            state_id=int(add_city_form.state_id.data)
+        )
+        db.session.add(city)
+        db.session.commit()

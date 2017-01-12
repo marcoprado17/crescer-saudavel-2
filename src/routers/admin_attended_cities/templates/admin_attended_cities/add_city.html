@@ -1,0 +1,22 @@
+{% extends "admin_base/admin_base.html" %}
+{% block subtitle %}
+    {{ R.string.add_new_city }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_attended_cities__ __add_city__ container hidden">
+        {% with data=dict(
+            title=R.string.add_new_city,
+            add_city_form=data.add_city_form
+        )%}
+            {% include "components/city_panel_form.html" %}
+        {% endwith %}
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}
+{% block script %}
+    <script>
+        initVerticalFluid();
+        initTooltips();
+    </script>
+{% endblock %}

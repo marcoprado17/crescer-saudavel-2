@@ -3,7 +3,18 @@
 # ======================================================================================================================
 # Created at 24/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import url_for
+
+from models.city import City
+from r import R
 from routers.admin_attended_cities import admin_attended_cities_blueprint
+from routers.admin_attended_cities.data_providers.add_city import admin_add_city_data_provider
+from routers.admin_attended_cities.forms import AddCityForm
+from flask_bombril.r import R as bombril_R
 
 
 @admin_attended_cities_blueprint.route("/")
@@ -11,6 +22,20 @@ def index():
     return "Cidades atendidas."
 
 
-@admin_attended_cities_blueprint.route("/adiciona-cidade")
+@admin_attended_cities_blueprint.route("/adiciona-cidade", methods=["GET", "POST"])
 def add_city():
-    return "Adicionar nova cidade."
+    if request.method == "GET":
+        return render_template("admin_attended_cities/add_city.html", data=admin_add_city_data_provider.get_data())
+
+    else:
+        add_city_form = AddCityForm()
+
+        if add_city_form.validate_on_submit():
+            City.create_from_form(add_city_form=add_city_form)
+            flash(R.string.city_sent_successfully(add_city_form.city_name.data),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+            return redirect(url_for("admin_attended_cities.add_city"))
+
+        return render_template("admin_attended_cities/add_city.html",
+                               data=admin_add_city_data_provider.get_data(
+                                   add_city_form=add_city_form))

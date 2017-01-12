@@ -16,7 +16,7 @@
                         </div>
                         <div class="modal-body example">
                             <div class="page-header">
-                                <h4>{{ R.string.client }}</h4>
+                                <h4>{{ R.string.client_data }}</h4>
                             </div>
                             {% with client_form=order.client.get_form(include_undefined_in_choices=True), readonly=True %}
                                 {% include "components/client_panel_form.html" %}

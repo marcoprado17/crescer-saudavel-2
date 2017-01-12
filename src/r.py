@@ -255,6 +255,7 @@ class Resources(object):
         no_orders_registered = "Nenhum pedido cadastrado."
         product = "Produto"
         client_data = "Dados do cliente"
+        city_name = "Nome da cidade"
 
         tab_content_example = \
 """An h1 header
@@ -351,6 +352,10 @@ Content Cell | Content Cell"""
         @staticmethod
         def product_sent_successfully(title):
             return 'O produto "%s" foi adicionado com sucesso.' % title
+
+        @staticmethod
+        def city_sent_successfully(city_name):
+            return 'A cidade "%s" foi adicionada com sucesso.' % city_name
 
         @staticmethod
         def product_category_sent_successfully(category_name):
