@@ -19,7 +19,7 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                {% if data.n_items %}
+                {% if data.n_items or data.n_items == 0 %}
                     <p>{{ R.string.n_items_found(n_items=data.n_items) }}</p>
                 {% endif %}
             </form>

@@ -38,3 +38,17 @@ class City(db.Model):
         )
         db.session.add(city)
         db.session.commit()
+
+    @staticmethod
+    def get(city_id):
+        return City.query.filter_by(id=city_id).one_or_none()
+
+    @staticmethod
+    def update(city_id, **kw):
+        city = City.get(city_id)
+        assert city != None
+        for key, val in kw.iteritems():
+            setattr(city, key, val)
+        db.session.add(city)
+        db.session.commit()
+        return city

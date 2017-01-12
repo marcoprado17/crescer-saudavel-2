@@ -77,6 +77,7 @@ class Resources(object):
         order_status_id_arg_name = "status"
         state_id_arg_name = "state_id"
         city_id_arg_name = "city_id"
+        active_arg_name = "active"
 
         name = "Nome"
         remove = "Remover"
@@ -334,8 +335,16 @@ Content Cell | Content Cell"""
             return 'Ocorreu uma falha ao ativar o produto "%s". Tente novamente.' % product_title
 
         @staticmethod
+        def to_activate_city_error(city_name):
+            return 'Ocorreu uma falha ao ativar a cidade "%s". Tente novamente.' % city_name
+
+        @staticmethod
         def disable_product_error(product_title):
             return 'Ocorreu uma falha ao desativar o produto "%s". Tente novamente.' % product_title
+
+        @staticmethod
+        def disable_city_error(city_name):
+            return 'Ocorreu uma falha ao desativar a cidade "%s". Tente novamente.' % city_name
 
         @staticmethod
         def stock_change_error(product_title):

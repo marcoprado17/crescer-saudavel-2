@@ -44,3 +44,21 @@ class EditCityForm(CityForm):
         self.state_id.data = str(city.state_id)
         self.city_name.data = city.name
         self.active.data = city.active
+
+class CityFilterForm(FlaskForm):
+    state_id = SelectField(
+        label=R.string.state
+    )
+    active = SelectField(
+        label=R.string.status,
+        choices=[(str(True), R.string.active_in_female), (str(False), R.string.inactive_in_female)]
+    )
+    filter = SubmitField(label=R.string.filter)
+
+    def __init__(self, **kwargs):
+        super(CityFilterForm, self).__init__(**kwargs)
+        self.state_id.choices = State.get_choices(include_all=True)
+
+    def set_values(self, state_id, active):
+        self.state_id.data = str(state_id)
+        self.active.data = str(active)
