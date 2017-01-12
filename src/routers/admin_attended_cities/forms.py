@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 11/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from flask.ext.wtf import FlaskForm
+from flask_wtf import FlaskForm
 from wtforms import SelectField, StringField, BooleanField, SubmitField
 
 from flask_bombril.form_validators import Length
