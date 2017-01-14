@@ -1,0 +1,22 @@
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+<div class="__components__ __product_section_form__">
+    <div class="page-header first">
+        <h2>
+            <small>{{ data.title }}</small>
+        </h2>
+    </div>
+    <form action="{{ data.url }}" method="post" enctype=multipart/form-data>
+        {{ data.blog_section_form.csrf_token }}
+        {{ form_fields.boolean_field(field=data.blog_section_form.active) }}
+        {{ form_fields.string_field(field=data.blog_section_form.name, explicit_label=True) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_fields.select_field(field=data.blog_section_form.post_1_id, explicit_label=True) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_fields.select_field(field=data.blog_section_form.post_2_id, explicit_label=True) }}
+            </div>
+        </div>
+        {{ form_fields.submit(field=data.blog_section_form.submit) }}
+    </form>
+</div>

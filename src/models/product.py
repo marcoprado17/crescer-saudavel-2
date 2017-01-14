@@ -11,6 +11,7 @@ from sqlalchemy.orm import relationship
 from extensions import db
 from proj_exceptions import InvalidIdError
 from r import R
+from wrappers.base.utils import parse_markdown
 
 
 class Product(db.Model):
@@ -69,7 +70,7 @@ class Product(db.Model):
             price=Decimal(product_form.price.data.replace(',', '.')),
             stock=int(product_form.stock.data),
             min_stock=int(product_form.min_stock.data),
-            summary=product_form.summary.data,
+            summary=parse_markdown(product_form.summary.data),
 
             image_1=product_form.image_1.data,
             image_2=product_form.image_2.data,
@@ -83,25 +84,25 @@ class Product(db.Model):
             image_10=product_form.image_10.data,
 
             tab_1_title=product_form.tab_1_title.data,
-            tab_1_content=product_form.tab_1_content.data,
+            tab_1_content=parse_markdown(product_form.tab_1_content.data),
             tab_2_title=product_form.tab_2_title.data,
-            tab_2_content=product_form.tab_2_content.data,
+            tab_2_content=parse_markdown(product_form.tab_2_content.data),
             tab_3_title=product_form.tab_3_title.data,
-            tab_3_content=product_form.tab_3_content.data,
+            tab_3_content=parse_markdown(product_form.tab_3_content.data),
             tab_4_title=product_form.tab_4_title.data,
-            tab_4_content=product_form.tab_4_content.data,
+            tab_4_content=parse_markdown(product_form.tab_4_content.data),
             tab_5_title=product_form.tab_5_title.data,
-            tab_5_content=product_form.tab_5_content.data,
+            tab_5_content=parse_markdown(product_form.tab_5_content.data),
             tab_6_title=product_form.tab_6_title.data,
-            tab_6_content=product_form.tab_6_content.data,
+            tab_6_content=parse_markdown(product_form.tab_6_content.data),
             tab_7_title=product_form.tab_7_title.data,
-            tab_7_content=product_form.tab_7_content.data,
+            tab_7_content=parse_markdown(product_form.tab_7_content.data),
             tab_8_title=product_form.tab_8_title.data,
-            tab_8_content=product_form.tab_8_content.data,
+            tab_8_content=parse_markdown(product_form.tab_8_content.data),
             tab_9_title=product_form.tab_9_title.data,
-            tab_9_content=product_form.tab_9_content.data,
+            tab_9_content=parse_markdown(product_form.tab_9_content.data),
             tab_10_title=product_form.tab_10_title.data,
-            tab_10_content=product_form.tab_10_content.data
+            tab_10_content=parse_markdown(product_form.tab_10_content.data)
         )
 
     @staticmethod
@@ -170,3 +171,14 @@ class Product(db.Model):
 
     def get_formatted_price(self, n_units=1):
         return str(self.get_price(n_units=n_units)).replace(".", ",")
+
+    @staticmethod
+    def get_choices(include_none=False):
+        product_choices = []
+        if include_none:
+            product_choices = [(str(0), R.string.none_in_masculine)]
+
+        for id_title in Product.query.with_entities(Product.id, Product.title).all():
+            product_choices.append((str(id_title[0]), id_title[1]))
+
+        return product_choices

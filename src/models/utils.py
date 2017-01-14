@@ -1,20 +1,18 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ======================================================================================================================
-# Created at 12/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
+# Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import os
 import random
-import datetime
 import string
-import sys
-
-sys.path.append("/vagrant")
-sys.path.append("/vagrant/build")
-
-from app_contexts.app import app
 from decimal import Decimal
+
+import datetime
 from flask import current_app
+
+from extensions import db
+from models.blog_post import BlogPost
 from models.city import City
 from models.client import Client
 from models.order import Order
@@ -23,53 +21,161 @@ from models.product_category import ProductCategory
 from models.product_subcategory import ProductSubcategory
 from models.state import State
 from r import R
-from extensions import db
+from wrappers.base.utils import parse_markdown
 
 
-def fill_db():
-    with app.app_context():
-        create_product_categories()
-        create_product_subcategories()
-        create_products()
-        create_cities()
-        create_clients()
-        create_orders()
+def create_states():
+    db.session.add(State(name="SP", active=True))
+    db.session.add(State(name="RJ", active=True))
+    db.session.add(State(name="MG", active=True))
+    db.session.add(State(name="GO", active=True))
+    db.session.add(State(name="AC", active=True))
+    db.session.add(State(name="AL", active=True))
+    db.session.add(State(name="AP", active=True))
+    db.session.add(State(name="AM", active=True))
+    db.session.add(State(name="BA", active=True))
+    db.session.add(State(name="CE", active=True))
+    db.session.add(State(name="DF", active=True))
+    db.session.add(State(name="ES", active=True))
+    db.session.add(State(name="MA", active=True))
+    db.session.add(State(name="MT", active=True))
+    db.session.add(State(name="MS", active=True))
+    db.session.add(State(name="PA", active=True))
+    db.session.add(State(name="PB", active=True))
+    db.session.add(State(name="PR", active=True))
+    db.session.add(State(name="PE", active=True))
+    db.session.add(State(name="PI", active=True))
+    db.session.add(State(name="RN", active=True))
+    db.session.add(State(name="RS", active=True))
+    db.session.add(State(name="RO", active=True))
+    db.session.add(State(name="RR", active=True))
+    db.session.add(State(name="SC", active=True))
+    db.session.add(State(name="SE", active=True))
+    db.session.add(State(name="TO", active=True))
+    db.session.commit()
+    print "States created."
 
 
-def create_product_categories():
+def create_product_category_example():
+    product_category = ProductCategory(
+        name = "Exemplo - Frutas",
+        active = False,
+    )
+    db.session.add(product_category)
+    db.session.commit()
+    return product_category
+
+def create_product_example(category_id):
+    product = Product(
+        title = "Exemplo - Banana orgânica 100g",
+        active = False,
+        category_id = category_id,
+        price = Decimal("9.90"),
+        stock = 100,
+        min_stock = 10,
+        summary = parse_markdown(
+"""
+Exemplo - A papinha de banana orgânica é saborosa, com uma textura muito agradável para os babys.
+Além disso, possui o beneficio de acalmar o estômago e ajudar na digestão.
+"""),
+        sales_number = 32,
+
+        image_1 = "banana_example_1.jpg",
+        image_2 = "banana_example_2.jpg",
+        image_3 = "banana_example_3.jpg",
+
+        tab_1_title = "Preparação",
+        tab_1_content = parse_markdown(
+"""
+#### Produto Congelado:
+1. Retirar o rótulo e a tampa
+2. Aquecer em microondas por 01 minuto ou em banho maria por 15 minutos, mexendo de vez em quando.
+3. Verifique a temperatura. Antes de consumir, misturar uniformemente o conteúdo.
+
+#### Produto descongelado (em refrigeração por 12 horas):
+1. Retirar o rótulo e a tampa
+2. Aquecer em microondas por 01 minuto ou em banho maria por 10 minutos mexendo de vez em quando.
+3. Verifique a temperatura. Antes de consumir, misturar uniformemente o conteúdo.
+
+"""),
+
+        tab_2_title = "Ingredientes",
+        tab_2_content = parse_markdown(
+"""
+\* Para uma porção de **100g**
+
+Ingrediente     | Quantidade
+--------------- | ----------
+Banana orgânica | 75g
+Água            | 20ml
+Açúcar mascavo  | 5g
+"""),
+        tab_3_title="Informações nutricionais",
+        tab_3_content = parse_markdown(
+"""
+\* Para uma porção de **100g**
+
+Tipo de nutriente  | Quantidade
+------------------ | ----------
+Carboidrato        | 22g
+Proteínas          | 1,2g
+Gorduras totais    | 0g
+Gorduras saturadas | 0g
+Gorduras trans     | 0g
+Fibra alimentar    | 1,9g
+
+    Valor energético: 94 kcal
+"""),
+        tab_4_title="Benefícios",
+        tab_4_content= parse_markdown(
+"""
+* Rica em potássio, perfeita para baixar a pressão arterial.
+* Ricas em fibras, a inclusão de bananas nas dietas ajuda a normalizar o trânsito intestinal, permitindo melhorar os
+problemas de constipação sem o uso de laxantes.
+* A banana acalma o estômago e ajuda na digestão.
+"""),
+        tab_5_title="Conservação",
+        tab_5_content= parse_markdown(
+"""
+Conservar este produto congelado até o seu uso. Após Aberto e descongelado, consumir em até 12 horas.
+Nenhum produto após o descongelamento poderá ser recongelado.
+""")
+    )
+    db.session.add(product)
+    db.session.commit()
+    return product
+
+def create_blog_post_example():
+    blog_post = BlogPost(
+        title = "Exemplo - Papinha é coisa séria"
+    )
+    db.session.add(blog_post)
+    db.session.commit()
+    return blog_post
+
+
+def create_random_product_categories():
     for i in range(0, 25):
         db.session.add(get_random_product_category())
         print "Product category " + str(i) + " created."
     db.session.commit()
 
 
-def create_product_subcategories():
+def create_random_product_subcategories():
     for i in range(0, 150):
         db.session.add(get_random_product_subcategory())
         print "Product subcategory " + str(i) + " created."
     db.session.commit()
 
 
-def create_products():
+def create_random_products():
     for i in range(0, 300):
         db.session.add(get_random_product())
         print "Product " + str(i) + " created."
-    db.session.add(Product(
-        title = "0000000000 São José dos Campos",
-        active = True,
-        category_id = 1,
-        subcategory_id = 1,
-        price = Decimal("1.00"),
-        stock = 1,
-        min_stock = 1,
-        summary = 1,
-        sales_number = 1,
-        image_1 = get_random_image_name()
-    ))
     db.session.commit()
 
 
-def create_cities():
+def create_specif_cities():
     sp_id = State.query.filter(State.name == "SP").one_or_none().id
     db.session.add(City(state_id=sp_id, name="São José dos Campos", active=True))
     db.session.add(City(state_id=sp_id, name="Jacareí", active=True))
@@ -95,14 +201,14 @@ def create_cities():
     print "Cities created."
 
 
-def create_clients():
+def create_random_clients():
     for i in range(0, 300):
         db.session.add(get_random_client())
         print "Client " + str(i) + " created."
     db.session.commit()
 
 
-def create_orders():
+def create_random_orders():
     for i in range(0, 300):
         db.session.add(get_random_order())
         print "Order " + str(i) + " created."
@@ -329,5 +435,3 @@ def get_random_images_dic():
 def get_random_image_name():
     return random.choice(os.listdir(current_app.config["UPLOADED_IMAGES_FOLDER_FULL_PATH"]))
 
-if __name__ == "__main__":
-    fill_db()

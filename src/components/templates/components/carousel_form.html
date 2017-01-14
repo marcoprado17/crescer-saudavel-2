@@ -1,0 +1,14 @@
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+<div class="__components__ __carousel_form__">
+    <div class="page-header first">
+            <h2><small>{{ data.title }}</small></h2>
+    </div>
+    <form action="{{ data.url }}" method="post" enctype=multipart/form-data>
+        {{ data.carousel_form.csrf_token }}
+        {{ form_fields.boolean_field(field=data.carousel_form.active) }}
+        {{ form_fields.string_field(field=data.carousel_form.title, explicit_label=True) }}
+        {{ form_fields.string_field(field=data.carousel_form.subtitle, explicit_label=True) }}
+        {{ form_fields.select_field(field=data.carousel_form.image, explicit_label=True) }}
+        {{ form_fields.submit(field=data.carousel_form.submit) }}
+    </form>
+</div>

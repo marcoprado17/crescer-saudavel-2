@@ -1,0 +1,126 @@
+{% extends "admin_base/admin_base.html" %}
+{% block subtitle %}
+    {{ R.string.edit_home_content }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_content__ __home__ container hidden">
+        <div class="page-header">
+            <h1>{{ R.string.edit_home_content }}</h1>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {######################################################################################################}
+                {# Carousel                                                                                           #}
+                {######################################################################################################}
+                <div class="page-header first">
+                    <h1><small>{{ R.string.carousel }}</small></h1>
+                </div>
+
+                <div class="right-indent">
+                    {% with data=dict(
+                        title=R.string.get_carousel_n(1),
+                        carousel_form=data.carousel_1_form
+                    )%}
+                        {% include "components/carousel_form.html" %}
+                    {% endwith %}
+
+                    {% with data=dict(
+                        title=R.string.get_carousel_n(2),
+                        carousel_form=data.carousel_2_form
+                    )%}
+                        {% include "components/carousel_form.html" %}
+                    {% endwith %}
+
+                    {% with data=dict(
+                        title=R.string.get_carousel_n(3),
+                        carousel_form=data.carousel_3_form
+                    )%}
+                        {% include "components/carousel_form.html" %}
+                    {% endwith %}
+                </div>
+
+                {######################################################################################################}
+                {# Product section                                                                                    #}
+                {######################################################################################################}
+                <div class="page-header first">
+                    <h1><small>{{ R.string.product_sections }}</small></h1>
+                </div>
+
+                <div class="right-indent">
+                    {% with data=dict(
+                        title=R.string.get_section_n(1),
+                        product_section_form=data.product_section_1_form
+                    )%}
+                        {% include "components/product_section_form.html" %}
+                    {% endwith %}
+
+                    {% with data=dict(
+                        title=R.string.get_section_n(2),
+                        product_section_form=data.product_section_2_form
+                    )%}
+                        {% include "components/product_section_form.html" %}
+                    {% endwith %}
+
+                    {% with data=dict(
+                        title=R.string.get_section_n(3),
+                        product_section_form=data.product_section_3_form
+                    )%}
+                        {% include "components/product_section_form.html" %}
+                    {% endwith %}
+
+                    {% with data=dict(
+                        title=R.string.get_section_n(4),
+                        product_section_form=data.product_section_4_form
+                    )%}
+                        {% include "components/product_section_form.html" %}
+                    {% endwith %}
+
+                    {% with data=dict(
+                        title=R.string.get_section_n(5),
+                        product_section_form=data.product_section_5_form
+                    )%}
+                        {% include "components/product_section_form.html" %}
+                    {% endwith %}
+                </div>
+
+                {######################################################################################################}
+                {# Blog section                                                                                       #}
+                {######################################################################################################}
+                <div class="page-header first">
+                    <h1><small>{{ R.string.blog_sections }}</small></h1>
+                </div>
+
+                <div class="right-indent">
+                    {% with data=dict(
+                        title=R.string.get_section_n(1),
+                        blog_section_form=data.blog_section_1_form
+                    )%}
+                        {% include "components/blog_section_form.html" %}
+                    {% endwith %}
+
+                    {% with data=dict(
+                        title=R.string.get_section_n(2),
+                        blog_section_form=data.blog_section_2_form
+                    )%}
+                        {% include "components/blog_section_form.html" %}
+                    {% endwith %}
+
+                    {% with data=dict(
+                        title=R.string.get_section_n(3),
+                        blog_section_form=data.blog_section_3_form
+                    )%}
+                        {% include "components/blog_section_form.html" %}
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}
+{% block script %}
+    <script>
+        initVerticalFluid();
+        initTooltips();
+    </script>
+{% endblock %}

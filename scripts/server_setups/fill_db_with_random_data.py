@@ -5,24 +5,23 @@
 # ======================================================================================================================
 import sys
 
+from models.utils import create_random_product_categories, create_random_products, create_specif_cities, create_random_clients, create_random_orders, \
+    create_random_product_subcategories
+
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
 
 from app_contexts.app import app
-from extensions import db
-from models.utils import create_states, create_product_category_example, create_product_example, \
-    create_blog_post_example
 
 
-def restart_db():
+def fill_db_with_random_data():
     with app.app_context():
-        db.drop_all()
-        db.create_all()
-        create_states()
-        product_category_example = create_product_category_example()
-        create_product_example(product_category_example.id)
-        create_blog_post_example()
-        print "Db restarted."
+        create_random_product_categories()
+        create_random_product_subcategories()
+        create_random_products()
+        create_specif_cities()
+        create_random_clients()
+        create_random_orders()
 
 if __name__ == "__main__":
-    restart_db()
+    fill_db_with_random_data()

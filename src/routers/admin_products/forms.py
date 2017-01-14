@@ -28,6 +28,9 @@ from r import R
 #
 #
 # ======================================================================================================================
+from wrappers.base.utils import get_image_choices
+
+
 class ProductCategoryForm(FlaskForm):
     category_name = StringField(
         label=R.string.product_category_name,
@@ -260,22 +263,19 @@ class ProductForm(FlaskForm):
             dependent_choices=json.dumps(dependent_choices)
         )
 
-        images_name = os.listdir(current_app.config["UPLOADED_IMAGES_FOLDER_FULL_PATH"])
-        images_name.sort()
-        image_choices = []
-        for image_name in images_name:
-            image_choices.append((image_name, image_name))
-        self.image_1.choices = image_choices
-        image_choices = [("", R.string.none_in_female)] + image_choices
-        self.image_2.choices = image_choices
-        self.image_3.choices = image_choices
-        self.image_4.choices = image_choices
-        self.image_5.choices = image_choices
-        self.image_6.choices = image_choices
-        self.image_7.choices = image_choices
-        self.image_8.choices = image_choices
-        self.image_9.choices = image_choices
-        self.image_10.choices = image_choices
+        image_choices_without_none = get_image_choices(include_none=False)
+        image_choices_with_none = get_image_choices(include_none=True)
+
+        self.image_1.choices = image_choices_without_none
+        self.image_2.choices = image_choices_with_none
+        self.image_3.choices = image_choices_with_none
+        self.image_4.choices = image_choices_with_none
+        self.image_5.choices = image_choices_with_none
+        self.image_6.choices = image_choices_with_none
+        self.image_7.choices = image_choices_with_none
+        self.image_8.choices = image_choices_with_none
+        self.image_9.choices = image_choices_with_none
+        self.image_10.choices = image_choices_with_none
 
 
 class AddProductForm(ProductForm):

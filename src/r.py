@@ -13,6 +13,8 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        none_in_masculine = "Nenhum"
+
         and_word = "e"
         comma = ","
         temp_error_html = "Ocorreu um erro inesperado em nossos servidores, nossa equipe técnica resolverá o problema assim que possível. Clique <a href=%(home_page_href)s>aqui</a> para voltar para a página inicial."
@@ -80,6 +82,7 @@ class Resources(object):
         active_arg_name = "active"
 
         name = "Nome"
+        section_name = "Nome de seção"
         remove = "Remover"
         removing = "Removendo..."
         image_removed = "Imagem removida"
@@ -154,6 +157,7 @@ class Resources(object):
         any = "Qualquer"
         product_subcategories = "Subcategorias de produto"
         title = "Título"
+        subtitle = "Subtítulo"
         dynamic_class = "dynamic"
         none_in_female = "Nenhuma"
         price = "Preço"
@@ -258,6 +262,11 @@ class Resources(object):
         client_data = "Dados do cliente"
         city_name = "Nome da cidade"
         edit_city = "Editar cidade"
+        save = "Salvar"
+        edit_home_content = 'Editar conteúdo da página "Home"'
+        carousel = "Carousel"
+        product_sections = "Seções de produto"
+        blog_sections = "Seções do blog"
 
         tab_content_example = \
 """An h1 header
@@ -449,6 +458,22 @@ Content Cell | Content Cell"""
         def get_formatted_date(paid_datetime):
             return str(paid_datetime)[0:10]
 
+        @staticmethod
+        def get_product_n(n):
+            return "Produto " + str(n)
+
+        @staticmethod
+        def get_post_n(n):
+            return "Post " + str(n)
+
+        @staticmethod
+        def get_carousel_n(n):
+            return "Carousel " + str(n)
+
+        @staticmethod
+        def get_section_n(n):
+            return "Seção " + str(n)
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -518,6 +543,11 @@ Content Cell | Content Cell"""
         state_name_max_length = 32
         city_name_max_length = 32
         datetime_important_chars_size = 16
+        carousel_title_max_length = 64
+        carousel_subtitle_max_length = 128
+        product_section_name_max_length = 32
+        blog_post_title_max_length = 128
+        blog_section_name_max_length = 32
 
         freight = Decimal("5.00")
 
