@@ -263,8 +263,9 @@ class Resources(object):
         city_name = "Nome da cidade"
         edit_city = "Editar cidade"
         save = "Salvar"
+        saving = "Salvando..."
         edit_home_content = 'Editar conteúdo da página "Home"'
-        carousel = "Carousel"
+        carousel = "Carrossel"
         product_sections = "Seções de produto"
         blog_sections = "Seções do blog"
 
@@ -468,11 +469,35 @@ Content Cell | Content Cell"""
 
         @staticmethod
         def get_carousel_n(n):
-            return "Carousel " + str(n)
+            return "Carrossel " + str(n)
 
         @staticmethod
         def get_section_n(n):
             return "Seção " + str(n)
+
+        @staticmethod
+        def get_save_carousel_error_msg(carousel_number):
+            return "Não foi possível salvar os novos dados do carrossel %s. Verifique os valores e tente novamente." % carousel_number
+
+        @staticmethod
+        def get_save_carousel_success_msg(carousel_number):
+            return "Os dados do carrossel %s foram atualizados com sucesso." % carousel_number
+
+        @staticmethod
+        def get_save_product_section_error_msg(product_section_number):
+            return "Não foi possível salvar os novos dados da seção de produtos %s. Verifique os valores e tente novamente." % product_section_number
+
+        @staticmethod
+        def get_save_product_section_success_msg(product_section_number):
+            return "Os dados da seção de produto %s foram atualizados com sucesso." % product_section_number
+
+        @staticmethod
+        def get_save_blog_section_error_msg(blog_section_number):
+            return "Não foi possível salvar os novos dados da seção de blog %s. Verifique os valores e tente novamente." % blog_section_number
+
+        @staticmethod
+        def get_save_blog_section_success_msg(blog_section_number):
+            return "Os dados da seção de blog %s foram atualizados com sucesso." % blog_section_number
 
     # noinspection PyPep8Naming
     @unique

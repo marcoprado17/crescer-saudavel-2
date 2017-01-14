@@ -178,7 +178,7 @@ class Product(db.Model):
         if include_none:
             product_choices = [(str(0), R.string.none_in_masculine)]
 
-        for id_title in Product.query.with_entities(Product.id, Product.title).all():
+        for id_title in Product.query.order_by(Product.title).with_entities(Product.id, Product.title).all():
             product_choices.append((str(id_title[0]), id_title[1]))
 
         return product_choices

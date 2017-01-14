@@ -2,10 +2,14 @@
 <div class="__components__ __product_section_form__">
     <div class="page-header first">
         <h2>
-            <small>{{ data.title }}</small>
+            <small>{{ R.string.get_section_n(data.blog_section_number) }}</small>
         </h2>
     </div>
-    <form action="{{ data.url }}" method="post" enctype=multipart/form-data>
+    <form action="{{ url_for("admin_content.save_blog_section", blog_section_number=data.blog_section_number) }}"
+          method="post" enctype=multipart/form-data class="save"
+          data-save-text="{{ R.string.save }}" data-saving-text="{{ R.string.saving }}"
+          data-error-msg="{{ R.string.get_save_blog_section_error_msg(data.blog_section_number) }}"
+          data-success-msg="{{ R.string.get_save_blog_section_success_msg(data.blog_section_number) }}">
         {{ data.blog_section_form.csrf_token }}
         {{ form_fields.boolean_field(field=data.blog_section_form.active) }}
         {{ form_fields.string_field(field=data.blog_section_form.name, explicit_label=True) }}

@@ -11,7 +11,7 @@ sys.path.append("/vagrant/build")
 from app_contexts.app import app
 from extensions import db
 from models.utils import create_states, create_product_category_example, create_product_example, \
-    create_blog_post_example
+    create_blog_post_example, create_home_content
 
 
 def restart_db():
@@ -20,8 +20,9 @@ def restart_db():
         db.create_all()
         create_states()
         product_category_example = create_product_category_example()
-        create_product_example(product_category_example.id)
-        create_blog_post_example()
+        product_example = create_product_example(product_category_example.id)
+        blog_post_example = create_blog_post_example()
+        create_home_content(product_example_id=product_example.id, blog_post_example_id=blog_post_example.id)
         print "Db restarted."
 
 if __name__ == "__main__":

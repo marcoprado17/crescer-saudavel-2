@@ -6,6 +6,7 @@
 from sqlalchemy import ForeignKey
 from extensions import db
 from r import R
+from wrappers.base.utils import safe_id
 
 
 class HomeContent(db.Model):
@@ -144,17 +145,17 @@ class HomeContent(db.Model):
     blog_section_1_active = db.Column(db.Boolean, nullable=False)
     blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length), nullable=False)
     blog_section_1_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"), nullable=False)
-    blog_section_1_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"), nullable=False)
+    blog_section_1_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
 
     blog_section_2_active = db.Column(db.Boolean, nullable=False)
     blog_section_2_name = db.Column(db.String(R.dimen.blog_section_name_max_length), nullable=False)
     blog_section_2_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"), nullable=False)
-    blog_section_2_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"), nullable=False)
+    blog_section_2_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
 
     blog_section_3_active = db.Column(db.Boolean, nullable=False)
     blog_section_3_name = db.Column(db.String(R.dimen.blog_section_name_max_length), nullable=False)
     blog_section_3_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"), nullable=False)
-    blog_section_3_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"), nullable=False)
+    blog_section_3_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
 
     @staticmethod
     def get():
@@ -198,25 +199,25 @@ class HomeContent(db.Model):
         home_content.product_section_1_active = product_section_form.active.data
         home_content.product_section_1_name = product_section_form.name.data
         home_content.product_section_1_product_1_id = product_section_form.product_1_id.data
-        home_content.product_section_1_product_2_id = product_section_form.product_2_id.data
-        home_content.product_section_1_product_3_id = product_section_form.product_3_id.data
-        home_content.product_section_1_product_4_id = product_section_form.product_4_id.data
-        home_content.product_section_1_product_5_id = product_section_form.product_5_id.data
-        home_content.product_section_1_product_6_id = product_section_form.product_6_id.data
-        home_content.product_section_1_product_7_id = product_section_form.product_7_id.data
-        home_content.product_section_1_product_8_id = product_section_form.product_8_id.data
-        home_content.product_section_1_product_9_id = product_section_form.product_9_id.data
-        home_content.product_section_1_product_10_id = product_section_form.product_10_id.data
-        home_content.product_section_1_product_11_id = product_section_form.product_11_id.data
-        home_content.product_section_1_product_12_id = product_section_form.product_12_id.data
-        home_content.product_section_1_product_13_id = product_section_form.product_13_id.data
-        home_content.product_section_1_product_14_id = product_section_form.product_14_id.data
-        home_content.product_section_1_product_15_id = product_section_form.product_15_id.data
-        home_content.product_section_1_product_16_id = product_section_form.product_16_id.data
-        home_content.product_section_1_product_17_id = product_section_form.product_17_id.data
-        home_content.product_section_1_product_18_id = product_section_form.product_18_id.data
-        home_content.product_section_1_product_19_id = product_section_form.product_19_id.data
-        home_content.product_section_1_product_20_id = product_section_form.product_20_id.data
+        home_content.product_section_1_product_2_id = safe_id(product_section_form.product_2_id.data)
+        home_content.product_section_1_product_3_id = safe_id(product_section_form.product_3_id.data)
+        home_content.product_section_1_product_4_id = safe_id(product_section_form.product_4_id.data)
+        home_content.product_section_1_product_5_id = safe_id(product_section_form.product_5_id.data)
+        home_content.product_section_1_product_6_id = safe_id(product_section_form.product_6_id.data)
+        home_content.product_section_1_product_7_id = safe_id(product_section_form.product_7_id.data)
+        home_content.product_section_1_product_8_id = safe_id(product_section_form.product_8_id.data)
+        home_content.product_section_1_product_9_id = safe_id(product_section_form.product_9_id.data)
+        home_content.product_section_1_product_10_id = safe_id(product_section_form.product_10_id.data)
+        home_content.product_section_1_product_11_id = safe_id(product_section_form.product_11_id.data)
+        home_content.product_section_1_product_12_id = safe_id(product_section_form.product_12_id.data)
+        home_content.product_section_1_product_13_id = safe_id(product_section_form.product_13_id.data)
+        home_content.product_section_1_product_14_id = safe_id(product_section_form.product_14_id.data)
+        home_content.product_section_1_product_15_id = safe_id(product_section_form.product_15_id.data)
+        home_content.product_section_1_product_16_id = safe_id(product_section_form.product_16_id.data)
+        home_content.product_section_1_product_17_id = safe_id(product_section_form.product_17_id.data)
+        home_content.product_section_1_product_18_id = safe_id(product_section_form.product_18_id.data)
+        home_content.product_section_1_product_19_id = safe_id(product_section_form.product_19_id.data)
+        home_content.product_section_1_product_20_id = safe_id(product_section_form.product_20_id.data)
         db.session.add(home_content)
         db.session.commit()
 
@@ -226,25 +227,25 @@ class HomeContent(db.Model):
         home_content.product_section_2_active = product_section_form.active.data
         home_content.product_section_2_name = product_section_form.name.data
         home_content.product_section_2_product_1_id = product_section_form.product_1_id.data
-        home_content.product_section_2_product_2_id = product_section_form.product_2_id.data
-        home_content.product_section_2_product_3_id = product_section_form.product_3_id.data
-        home_content.product_section_2_product_4_id = product_section_form.product_4_id.data
-        home_content.product_section_2_product_5_id = product_section_form.product_5_id.data
-        home_content.product_section_2_product_6_id = product_section_form.product_6_id.data
-        home_content.product_section_2_product_7_id = product_section_form.product_7_id.data
-        home_content.product_section_2_product_8_id = product_section_form.product_8_id.data
-        home_content.product_section_2_product_9_id = product_section_form.product_9_id.data
-        home_content.product_section_2_product_10_id = product_section_form.product_10_id.data
-        home_content.product_section_2_product_11_id = product_section_form.product_11_id.data
-        home_content.product_section_2_product_12_id = product_section_form.product_12_id.data
-        home_content.product_section_2_product_13_id = product_section_form.product_13_id.data
-        home_content.product_section_2_product_14_id = product_section_form.product_14_id.data
-        home_content.product_section_2_product_15_id = product_section_form.product_15_id.data
-        home_content.product_section_2_product_16_id = product_section_form.product_16_id.data
-        home_content.product_section_2_product_17_id = product_section_form.product_17_id.data
-        home_content.product_section_2_product_18_id = product_section_form.product_18_id.data
-        home_content.product_section_2_product_19_id = product_section_form.product_19_id.data
-        home_content.product_section_2_product_20_id = product_section_form.product_20_id.data
+        home_content.product_section_2_product_2_id = safe_id(product_section_form.product_2_id.data)
+        home_content.product_section_2_product_3_id = safe_id(product_section_form.product_3_id.data)
+        home_content.product_section_2_product_4_id = safe_id(product_section_form.product_4_id.data)
+        home_content.product_section_2_product_5_id = safe_id(product_section_form.product_5_id.data)
+        home_content.product_section_2_product_6_id = safe_id(product_section_form.product_6_id.data)
+        home_content.product_section_2_product_7_id = safe_id(product_section_form.product_7_id.data)
+        home_content.product_section_2_product_8_id = safe_id(product_section_form.product_8_id.data)
+        home_content.product_section_2_product_9_id = safe_id(product_section_form.product_9_id.data)
+        home_content.product_section_2_product_10_id = safe_id(product_section_form.product_10_id.data)
+        home_content.product_section_2_product_11_id = safe_id(product_section_form.product_11_id.data)
+        home_content.product_section_2_product_12_id = safe_id(product_section_form.product_12_id.data)
+        home_content.product_section_2_product_13_id = safe_id(product_section_form.product_13_id.data)
+        home_content.product_section_2_product_14_id = safe_id(product_section_form.product_14_id.data)
+        home_content.product_section_2_product_15_id = safe_id(product_section_form.product_15_id.data)
+        home_content.product_section_2_product_16_id = safe_id(product_section_form.product_16_id.data)
+        home_content.product_section_2_product_17_id = safe_id(product_section_form.product_17_id.data)
+        home_content.product_section_2_product_18_id = safe_id(product_section_form.product_18_id.data)
+        home_content.product_section_2_product_19_id = safe_id(product_section_form.product_19_id.data)
+        home_content.product_section_2_product_20_id = safe_id(product_section_form.product_20_id.data)
         db.session.add(home_content)
         db.session.commit()
 
@@ -254,25 +255,25 @@ class HomeContent(db.Model):
         home_content.product_section_3_active = product_section_form.active.data
         home_content.product_section_3_name = product_section_form.name.data
         home_content.product_section_3_product_1_id = product_section_form.product_1_id.data
-        home_content.product_section_3_product_2_id = product_section_form.product_2_id.data
-        home_content.product_section_3_product_3_id = product_section_form.product_3_id.data
-        home_content.product_section_3_product_4_id = product_section_form.product_4_id.data
-        home_content.product_section_3_product_5_id = product_section_form.product_5_id.data
-        home_content.product_section_3_product_6_id = product_section_form.product_6_id.data
-        home_content.product_section_3_product_7_id = product_section_form.product_7_id.data
-        home_content.product_section_3_product_8_id = product_section_form.product_8_id.data
-        home_content.product_section_3_product_9_id = product_section_form.product_9_id.data
-        home_content.product_section_3_product_10_id = product_section_form.product_10_id.data
-        home_content.product_section_3_product_11_id = product_section_form.product_11_id.data
-        home_content.product_section_3_product_12_id = product_section_form.product_12_id.data
-        home_content.product_section_3_product_13_id = product_section_form.product_13_id.data
-        home_content.product_section_3_product_14_id = product_section_form.product_14_id.data
-        home_content.product_section_3_product_15_id = product_section_form.product_15_id.data
-        home_content.product_section_3_product_16_id = product_section_form.product_16_id.data
-        home_content.product_section_3_product_17_id = product_section_form.product_17_id.data
-        home_content.product_section_3_product_18_id = product_section_form.product_18_id.data
-        home_content.product_section_3_product_19_id = product_section_form.product_19_id.data
-        home_content.product_section_3_product_20_id = product_section_form.product_20_id.data
+        home_content.product_section_3_product_2_id = safe_id(product_section_form.product_2_id.data)
+        home_content.product_section_3_product_3_id = safe_id(product_section_form.product_3_id.data)
+        home_content.product_section_3_product_4_id = safe_id(product_section_form.product_4_id.data)
+        home_content.product_section_3_product_5_id = safe_id(product_section_form.product_5_id.data)
+        home_content.product_section_3_product_6_id = safe_id(product_section_form.product_6_id.data)
+        home_content.product_section_3_product_7_id = safe_id(product_section_form.product_7_id.data)
+        home_content.product_section_3_product_8_id = safe_id(product_section_form.product_8_id.data)
+        home_content.product_section_3_product_9_id = safe_id(product_section_form.product_9_id.data)
+        home_content.product_section_3_product_10_id = safe_id(product_section_form.product_10_id.data)
+        home_content.product_section_3_product_11_id = safe_id(product_section_form.product_11_id.data)
+        home_content.product_section_3_product_12_id = safe_id(product_section_form.product_12_id.data)
+        home_content.product_section_3_product_13_id = safe_id(product_section_form.product_13_id.data)
+        home_content.product_section_3_product_14_id = safe_id(product_section_form.product_14_id.data)
+        home_content.product_section_3_product_15_id = safe_id(product_section_form.product_15_id.data)
+        home_content.product_section_3_product_16_id = safe_id(product_section_form.product_16_id.data)
+        home_content.product_section_3_product_17_id = safe_id(product_section_form.product_17_id.data)
+        home_content.product_section_3_product_18_id = safe_id(product_section_form.product_18_id.data)
+        home_content.product_section_3_product_19_id = safe_id(product_section_form.product_19_id.data)
+        home_content.product_section_3_product_20_id = safe_id(product_section_form.product_20_id.data)
         db.session.add(home_content)
         db.session.commit()
 
@@ -282,25 +283,25 @@ class HomeContent(db.Model):
         home_content.product_section_4_active = product_section_form.active.data
         home_content.product_section_4_name = product_section_form.name.data
         home_content.product_section_4_product_1_id = product_section_form.product_1_id.data
-        home_content.product_section_4_product_2_id = product_section_form.product_2_id.data
-        home_content.product_section_4_product_3_id = product_section_form.product_3_id.data
-        home_content.product_section_4_product_4_id = product_section_form.product_4_id.data
-        home_content.product_section_4_product_5_id = product_section_form.product_5_id.data
-        home_content.product_section_4_product_6_id = product_section_form.product_6_id.data
-        home_content.product_section_4_product_7_id = product_section_form.product_7_id.data
-        home_content.product_section_4_product_8_id = product_section_form.product_8_id.data
-        home_content.product_section_4_product_9_id = product_section_form.product_9_id.data
-        home_content.product_section_4_product_10_id = product_section_form.product_10_id.data
-        home_content.product_section_4_product_11_id = product_section_form.product_11_id.data
-        home_content.product_section_4_product_12_id = product_section_form.product_12_id.data
-        home_content.product_section_4_product_13_id = product_section_form.product_13_id.data
-        home_content.product_section_4_product_14_id = product_section_form.product_14_id.data
-        home_content.product_section_4_product_15_id = product_section_form.product_15_id.data
-        home_content.product_section_4_product_16_id = product_section_form.product_16_id.data
-        home_content.product_section_4_product_17_id = product_section_form.product_17_id.data
-        home_content.product_section_4_product_18_id = product_section_form.product_18_id.data
-        home_content.product_section_4_product_19_id = product_section_form.product_19_id.data
-        home_content.product_section_4_product_20_id = product_section_form.product_20_id.data
+        home_content.product_section_4_product_2_id = safe_id(product_section_form.product_2_id.data)
+        home_content.product_section_4_product_3_id = safe_id(product_section_form.product_3_id.data)
+        home_content.product_section_4_product_4_id = safe_id(product_section_form.product_4_id.data)
+        home_content.product_section_4_product_5_id = safe_id(product_section_form.product_5_id.data)
+        home_content.product_section_4_product_6_id = safe_id(product_section_form.product_6_id.data)
+        home_content.product_section_4_product_7_id = safe_id(product_section_form.product_7_id.data)
+        home_content.product_section_4_product_8_id = safe_id(product_section_form.product_8_id.data)
+        home_content.product_section_4_product_9_id = safe_id(product_section_form.product_9_id.data)
+        home_content.product_section_4_product_10_id = safe_id(product_section_form.product_10_id.data)
+        home_content.product_section_4_product_11_id = safe_id(product_section_form.product_11_id.data)
+        home_content.product_section_4_product_12_id = safe_id(product_section_form.product_12_id.data)
+        home_content.product_section_4_product_13_id = safe_id(product_section_form.product_13_id.data)
+        home_content.product_section_4_product_14_id = safe_id(product_section_form.product_14_id.data)
+        home_content.product_section_4_product_15_id = safe_id(product_section_form.product_15_id.data)
+        home_content.product_section_4_product_16_id = safe_id(product_section_form.product_16_id.data)
+        home_content.product_section_4_product_17_id = safe_id(product_section_form.product_17_id.data)
+        home_content.product_section_4_product_18_id = safe_id(product_section_form.product_18_id.data)
+        home_content.product_section_4_product_19_id = safe_id(product_section_form.product_19_id.data)
+        home_content.product_section_4_product_20_id = safe_id(product_section_form.product_20_id.data)
         db.session.add(home_content)
         db.session.commit()
 
@@ -310,24 +311,54 @@ class HomeContent(db.Model):
         home_content.product_section_5_active = product_section_form.active.data
         home_content.product_section_5_name = product_section_form.name.data
         home_content.product_section_5_product_1_id = product_section_form.product_1_id.data
-        home_content.product_section_5_product_2_id = product_section_form.product_2_id.data
-        home_content.product_section_5_product_3_id = product_section_form.product_3_id.data
-        home_content.product_section_5_product_4_id = product_section_form.product_4_id.data
-        home_content.product_section_5_product_5_id = product_section_form.product_5_id.data
-        home_content.product_section_5_product_6_id = product_section_form.product_6_id.data
-        home_content.product_section_5_product_7_id = product_section_form.product_7_id.data
-        home_content.product_section_5_product_8_id = product_section_form.product_8_id.data
-        home_content.product_section_5_product_9_id = product_section_form.product_9_id.data
-        home_content.product_section_5_product_10_id = product_section_form.product_10_id.data
-        home_content.product_section_5_product_11_id = product_section_form.product_11_id.data
-        home_content.product_section_5_product_12_id = product_section_form.product_12_id.data
-        home_content.product_section_5_product_13_id = product_section_form.product_13_id.data
-        home_content.product_section_5_product_14_id = product_section_form.product_14_id.data
-        home_content.product_section_5_product_15_id = product_section_form.product_15_id.data
-        home_content.product_section_5_product_16_id = product_section_form.product_16_id.data
-        home_content.product_section_5_product_17_id = product_section_form.product_17_id.data
-        home_content.product_section_5_product_18_id = product_section_form.product_18_id.data
-        home_content.product_section_5_product_19_id = product_section_form.product_19_id.data
-        home_content.product_section_5_product_20_id = product_section_form.product_20_id.data
+        home_content.product_section_5_product_2_id = safe_id(product_section_form.product_2_id.data)
+        home_content.product_section_5_product_3_id = safe_id(product_section_form.product_3_id.data)
+        home_content.product_section_5_product_4_id = safe_id(product_section_form.product_4_id.data)
+        home_content.product_section_5_product_5_id = safe_id(product_section_form.product_5_id.data)
+        home_content.product_section_5_product_6_id = safe_id(product_section_form.product_6_id.data)
+        home_content.product_section_5_product_7_id = safe_id(product_section_form.product_7_id.data)
+        home_content.product_section_5_product_8_id = safe_id(product_section_form.product_8_id.data)
+        home_content.product_section_5_product_9_id = safe_id(product_section_form.product_9_id.data)
+        home_content.product_section_5_product_10_id = safe_id(product_section_form.product_10_id.data)
+        home_content.product_section_5_product_11_id = safe_id(product_section_form.product_11_id.data)
+        home_content.product_section_5_product_12_id = safe_id(product_section_form.product_12_id.data)
+        home_content.product_section_5_product_13_id = safe_id(product_section_form.product_13_id.data)
+        home_content.product_section_5_product_14_id = safe_id(product_section_form.product_14_id.data)
+        home_content.product_section_5_product_15_id = safe_id(product_section_form.product_15_id.data)
+        home_content.product_section_5_product_16_id = safe_id(product_section_form.product_16_id.data)
+        home_content.product_section_5_product_17_id = safe_id(product_section_form.product_17_id.data)
+        home_content.product_section_5_product_18_id = safe_id(product_section_form.product_18_id.data)
+        home_content.product_section_5_product_19_id = safe_id(product_section_form.product_19_id.data)
+        home_content.product_section_5_product_20_id = safe_id(product_section_form.product_20_id.data)
+        db.session.add(home_content)
+        db.session.commit()
+
+    @staticmethod
+    def set_blog_section_1_values_from_form(blog_section_form):
+        home_content = HomeContent.get()
+        home_content.blog_section_1_active = blog_section_form.active.data
+        home_content.blog_section_1_name = blog_section_form.name.data
+        home_content.blog_section_1_post_1_id = blog_section_form.post_1_id.data
+        home_content.blog_section_1_post_2_id = safe_id(blog_section_form.post_2_id.data)
+        db.session.add(home_content)
+        db.session.commit()
+
+    @staticmethod
+    def set_blog_section_2_values_from_form(blog_section_form):
+        home_content = HomeContent.get()
+        home_content.blog_section_2_active = blog_section_form.active.data
+        home_content.blog_section_2_name = blog_section_form.name.data
+        home_content.blog_section_2_post_1_id = blog_section_form.post_1_id.data
+        home_content.blog_section_2_post_2_id = safe_id(blog_section_form.post_2_id.data)
+        db.session.add(home_content)
+        db.session.commit()
+
+    @staticmethod
+    def set_blog_section_3_values_from_form(blog_section_form):
+        home_content = HomeContent.get()
+        home_content.blog_section_3_active = blog_section_form.active.data
+        home_content.blog_section_3_name = blog_section_form.name.data
+        home_content.blog_section_3_post_1_id = blog_section_form.post_1_id.data
+        home_content.blog_section_3_post_2_id = safe_id(blog_section_form.post_2_id.data)
         db.session.add(home_content)
         db.session.commit()

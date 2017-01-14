@@ -96,6 +96,7 @@ function setAjaxButtonHandlers(data) {
     });
 }
 
+
 function setAjaxFormHandlers(data) {
     var form = data.form;
     var minResponseTime = data.minResponseTime;
@@ -150,17 +151,20 @@ function setAjaxFormHandlers(data) {
     });
 }
 
+
 function throwSuccessOpToast(message) {
     toastr.options.closeButton = false;
     toastr.options.timeOut = SUCCESS_TOAST_TIME_OUT;
     toastr.success(message);
 }
 
+
 function throwErrorOpToast(message) {
     toastr.options.closeButton = true;
     toastr.options.timeOut = ERROR_TOAST_TIME_OUT;
     toastr.error(message);
 }
+
 
 function initTooltips(){
     $(document).ready(function () {
@@ -200,4 +204,68 @@ function initDynamicSelects() {
             });
         });
     })
+}
+
+
+function clearErrors(form) {
+    form.find("span.error").remove();
+    form.find(".has-error").removeClass("has-error");
+}
+
+
+function showFormErrors(form, errors){
+    clearErrors(form);
+    for(var key in errors){
+        if(errors.hasOwnProperty(key)){
+            input = form.find("input[name='{0}']".f(key));
+            select = form.find("select[name='{0}']".f(key));
+            arrayOfErrors = errors[key];
+            if(input.length == 1) {
+                input.parent().addClass("has-error");
+                for(var i = 0; i < arrayOfErrors.length; i++){
+                    input.after("<span class='help-block error'>{0}</span>".f(arrayOfErrors[i]))
+                }
+            }
+            else if(select.length == 1) {
+                select.parent().addClass("has-error");
+                for(var i = 0; i < arrayOfErrors.length; i++){
+                    select.after("<span class='help-block error'>{0}</span>".f(arrayOfErrors[i]))
+                }
+            }
+        }
+    }
+}
+
+function initSaveForms() {
+    $("form.save").each(function(){
+        var form = $(this);
+        var submit_input = form.find("input[type='submit']");
+        var save_text = form.attr("data-save-text");
+        var saving_text = form.attr("data-saving-text");
+        var error_msg = form.attr("data-error-msg");
+        var success_msg = form.attr("data-success-msg");
+
+        setAjaxFormHandlers({
+            form: form,
+            minResponseTime: 800,
+            onSubmit: function () {
+                submit_input.val(saving_text);
+                submit_input.prop("disabled", true);
+            },
+            success: function () {
+                clearErrors(form);
+                throwSuccessOpToast(success_msg)
+            },
+            error: function (status, dataAsObject) {
+                if(status == 400){
+                    showFormErrors(form, dataAsObject.errors);
+                }
+                throwErrorOpToast(error_msg)
+            },
+            complete: function () {
+                submit_input.val(save_text);
+                submit_input.prop("disabled", false);
+            }
+        })
+    });
 }

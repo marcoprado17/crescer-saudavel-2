@@ -17,7 +17,7 @@ class BlogPost(db.Model):
         if include_none:
             blog_post_choices = [(str(0), R.string.none_in_masculine)]
 
-        for id_title in BlogPost.query.with_entities(BlogPost.id, BlogPost.title).all():
+        for id_title in BlogPost.query.order_by(BlogPost.title).with_entities(BlogPost.id, BlogPost.title).all():
             blog_post_choices.append((str(id_title[0]), id_title[1]))
 
         return blog_post_choices

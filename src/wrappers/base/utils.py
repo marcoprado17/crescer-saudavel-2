@@ -20,7 +20,16 @@ def get_image_choices(include_none=False):
         image_choices = [("", R.string.none_in_female)] + image_choices
     return image_choices
 
+
 def parse_markdown(markdown_text):
     markdown_html = markdown.markdown(markdown_text, extensions=['markdown.extensions.tables'])
     markdown_html = markdown_html.replace("<table>", "<table class='table'>")
     return markdown_html
+
+
+def safe_id(element_id):
+    if isinstance(element_id, basestring) and element_id == "0":
+        return None
+    if isinstance(element_id, int) and element_id == 0:
+        return None
+    return element_id

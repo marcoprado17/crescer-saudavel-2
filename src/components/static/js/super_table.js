@@ -134,12 +134,9 @@ function initIntWithButtonAction(forms, onSuccess) {
                 submit_button.prop("disabled", true);
             },
             success: function (dataAsObject) {
-                submit_button.html(text);
-                submit_button.prop("disabled", false);
                 onSuccess(row_idx, dataAsObject);
             },
             error: function (status) {
-                console.log("error");
                 if (Math.floor(status / 100) == 4) {
                     throwErrorOpToast(error_4xx_msg);
                 }

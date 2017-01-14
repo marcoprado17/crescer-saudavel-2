@@ -9,7 +9,7 @@ import shutil
 from flask import render_template, redirect, url_for, current_app
 from models.utils import create_states, create_product_category_example, create_product_example, \
     create_blog_post_example, create_random_product_categories, create_random_product_subcategories, \
-    create_random_products, create_specif_cities, create_random_clients, create_random_orders
+    create_random_products, create_specif_cities, create_random_clients, create_random_orders, create_home_content
 from routers.debug import debug_blueprint
 from extensions import db
 
@@ -59,5 +59,6 @@ def restart_db_implementation():
     create_random_orders()
 
     product_category_example = create_product_category_example()
-    create_product_example(product_category_example.id)
-    create_blog_post_example()
+    product_example = create_product_example(product_category_example.id)
+    blog_post_example = create_blog_post_example()
+    create_home_content(product_example_id=product_example.id, blog_post_example_id=blog_post_example.id)
