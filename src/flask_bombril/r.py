@@ -46,6 +46,7 @@ class Resources(object):
         always_error = "Essa mensagem de erro sempre será lançada para esse campo."
         file_part_not_found = "Arquivo não encontrado."
         invalid_file_extension = "Formato de arquivo inválido."
+        invalid_phone_format = "Formato de telefone inválido."
 
         a = "a"
         b = "b"

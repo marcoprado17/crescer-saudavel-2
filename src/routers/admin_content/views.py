@@ -5,8 +5,11 @@
 # ======================================================================================================================
 from flask import json
 from flask import render_template
+from flask import request
+
 from models.home_content import HomeContent
 from routers.admin_content import admin_content_blueprint
+from routers.admin_content.data_providers.contact import admin_contact_data_provider
 from routers.admin_content.data_providers.home import admin_content_home_data_provider
 from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm
 
@@ -77,9 +80,13 @@ def save_blog_section(blog_section_number):
         return json.dumps(dict(errors=blog_section_form.errors)), 400
 
 
-@admin_content_blueprint.route("/contato")
+@admin_content_blueprint.route("/contato", methods=["GET", "POST"])
 def contact():
-    return "Contato."
+    if request.method=="GET":
+        return render_template("admin_content/contact.html", data=admin_contact_data_provider.get_data())
+    else:
+        # TODO: Implement
+        return "", 200
 
 
 @admin_content_blueprint.route("/sobre-nos")

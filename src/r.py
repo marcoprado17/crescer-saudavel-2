@@ -268,6 +268,16 @@ class Resources(object):
         carousel = "Carrossel"
         product_sections = "Seções de produto"
         blog_sections = "Seções do blog"
+        edit_contact_information = "Editar informações de contato"
+        main_info = "Principais informações"
+        social_networks = "Redes sociais"
+        link = "Link"
+        tel_tooltip = "Formatos de telefone aceitos: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX."
+        facebook = "Facebook"
+        twitter = "Twitter"
+        google_plus = "Google+"
+        pintrest = "Pintrest"
+        youtube = "Youtube"
 
         tab_content_example = \
 """An h1 header
@@ -499,6 +509,7 @@ Content Cell | Content Cell"""
         def get_save_blog_section_success_msg(blog_section_number):
             return "Os dados da seção de blog %s foram atualizados com sucesso." % blog_section_number
 
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -573,6 +584,7 @@ Content Cell | Content Cell"""
         product_section_name_max_length = 32
         blog_post_title_max_length = 128
         blog_section_name_max_length = 32
+        contact_address_max_length = 96
 
         freight = Decimal("5.00")
 

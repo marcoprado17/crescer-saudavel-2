@@ -3,10 +3,12 @@
 # ======================================================================================================================
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, SelectField, SubmitField
+from wtforms.fields.html5 import TelField
 
+from flask_bombril.form_validators import EmailFormat
+from flask_bombril.form_validators.phone_fomat.phone_format import PhoneFormat
 from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import Required
 from models.blog_post import BlogPost
@@ -280,3 +282,68 @@ class BlogSectionForm(FlaskForm):
             self.name.data = home_content.blog_section_3_name
             self.post_1_id.data = str(home_content.blog_section_3_post_1_id)
             self.post_2_id.data = str(home_content.blog_section_3_post_2_id)
+
+
+class ContactForm(FlaskForm):
+    address = StringField(
+        label=R.string.address,
+        validators=[
+            Required(),
+            Length(max_length=R.dimen.contact_address_max_length)
+        ])
+    tel = TelField(
+        label=R.string.telephone,
+        validators=[
+            Required(),
+            PhoneFormat()
+        ]
+    )
+    email = StringField(
+        label=R.string.email,
+        validators=[
+            Required(),
+            EmailFormat()
+        ]
+    )
+
+    facebook_active = BooleanField(
+        label=R.string.active,
+        default=False
+    )
+    facebook_link = StringField(
+        label=R.string.link
+    )
+
+    googleplus_active = BooleanField(
+        label=R.string.active,
+        default=False
+    )
+    googleplus_link = StringField(
+        label=R.string.link
+    )
+
+    twitter_active = BooleanField(
+        label=R.string.active,
+        default=False
+    )
+    twitter_link = StringField(
+        label=R.string.link
+    )
+
+    youtube_active = BooleanField(
+        label=R.string.active,
+        default=False
+    )
+    youtube_link = StringField(
+        label=R.string.link
+    )
+
+    pintrest_active = BooleanField(
+        label=R.string.active,
+        default=False
+    )
+    pintrest_link = StringField(
+        label=R.string.link
+    )
+
+    submit = SubmitField(label=R.string.save)

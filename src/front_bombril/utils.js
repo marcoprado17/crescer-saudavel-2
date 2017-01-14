@@ -269,3 +269,47 @@ function initSaveForms() {
         })
     });
 }
+
+function initAllTelInput(){
+    $("input[type='tel']").each(function(){
+        input = $(this);
+        input.keypress(function (e) {
+            if(e.keyCode == 13)
+                return true;
+            var chr = String.fromCharCode(e.which);
+            if ("0123456789".indexOf(chr) < 0)
+                return false;
+            input_length = input.val().length;
+            if(input_length == 0){
+                input.val("(")
+            }
+            else if(input_length == 3){
+                input.val(input.val()+") ")
+            }
+            else if(input_length == 9) {
+                input.val(input.val()+"-")
+            }
+            else if(input_length == 14 && input.val()[10] != "-") {
+                old_tel = input.val();
+                sub_1 = old_tel.substring(0, 9);
+                sub_2 = old_tel.substring(11);
+                input.val(sub_1+old_tel[10]+"-"+sub_2)
+            }
+        });
+
+        input.keyup(function () {
+            input_length = input.val().length;
+            if(input_length >= 11 && input_length < 15 && input.val()[10] == "-") {
+                old_tel = input.val();
+                sub_1 = old_tel.substring(0, 9);
+                sub_2 = old_tel.substring(11);
+                input.val(sub_1+"-"+old_tel[9]+sub_2);
+            }
+            else if(input_length == 10 && input.val()[9] != "-") {
+                old_tel = input.val();
+                sub_1 = old_tel.substring(0, 9);
+                input.val(sub_1+"-"+old_tel[9]);
+            }
+        });
+    });
+}

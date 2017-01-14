@@ -29,6 +29,26 @@
     </div>
 {%- endmacro %}
 
+{% macro string_field(field, explicit_label=False, placeholder="", readonly=False) %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <div class="label-container">
+                <label for="{{ field.id }}">{{ field.label }}</label>
+                {% if field.flags.required %}
+                    {{ tooltip.asterisk(bombril_R.string.required_field) }}
+                {% endif %}
+                {% if field.render_kw and field.render_kw.tooltip %}
+                    {{ tooltip.info(field.render_kw.tooltip) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        <input id="{{ field.id }}" name="{{ field.name }}" type="text"
+               class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
+               value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }}>
+        {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
 {% macro integer_field(field, explicit_label=False, placeholder="", readonly=False) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
@@ -46,6 +66,28 @@
                class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
                value="{{ field.data|if(field.data or field.data == 0) }}" {{ "readonly"|if(readonly) }}>
         {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
+{% macro tel_field(field, explicit_label=False, readonly=False) %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <div class="label-container">
+                <label for="{{ field.id }}">{{ field.label }}</label>
+                {% if field.flags.required %}
+                    {{ tooltip.asterisk(bombril_R.string.required_field) }}
+                {% endif %}
+                {% if field.render_kw and field.render_kw.tooltip %}
+                    {{ tooltip.info(field.render_kw.tooltip) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        <input id="{{ field.id }}" name="{{ field.name }}" type="tel" maxlength="15"
+               class="form-control" value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }}>
+        {{ render_errors(field.errors) }}
+    </div>
+    <div class="form-group auxiliar-text">
+        <span class="help-block">{{ R.string.tel_tooltip }}</span>
     </div>
 {%- endmacro %}
 
