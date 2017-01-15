@@ -46,7 +46,6 @@ gulp.task("make_js_bundle", function () {
         "bower_components/bootstrap/dist/js/bootstrap.js",
         "bower_components/bootstrap-filestyle/src/bootstrap-filestyle.js",
         "bower_components/toastr/toastr.js",
-        "bower_components/bootstrap-formhelpers/js/bootstrap-formhelpers-phone.js",
         "src/front_bombril/utils.js",
         "src/**/*.js"
     ])

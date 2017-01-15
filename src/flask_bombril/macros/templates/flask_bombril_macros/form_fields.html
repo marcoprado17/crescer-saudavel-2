@@ -82,7 +82,7 @@
                 {% endif %}
             </div>
         {% endif %}
-        <input id="{{ field.id }}" name="{{ field.name }}" type="tel" maxlength="15"
+        <input id="{{ field.id }}" name="{{ field.name }}" type="tel" maxlength="{{ R.dimen.tel_max_length }}"
                class="form-control" value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }}>
         {{ render_errors(field.errors) }}
     </div>

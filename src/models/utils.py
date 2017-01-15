@@ -15,6 +15,7 @@ from extensions import db
 from models.blog_post import BlogPost
 from models.city import City
 from models.client import Client
+from models.contact import Contact
 from models.home_content import HomeContent
 from models.order import Order
 from models.product import Product
@@ -112,6 +113,24 @@ def create_home_content(product_example_id, blog_post_example_id):
     return home_content
 
 
+def create_contact():
+    contact = Contact(
+        address="R. Vinte e Sete de Julho, 231 - São José dos Campos - SP",
+        tel="(12) 2341-8725",
+        email="contato@crescersaudavel.com",
+        facebook_active=True,
+        facebook_link="#",
+        youtube_active=True,
+        youtube_link="#",
+        twitter_active=True,
+        twitter_link="#"
+    )
+    db.session.add(contact)
+    db.session.commit()
+    print "Contact created."
+    return contact
+
+
 def create_product_category_example():
     product_category = ProductCategory(
         name="Exemplo - Frutas",
@@ -154,7 +173,6 @@ def create_product_example(category_id):
             1. Retirar o rótulo e a tampa
             2. Aquecer em microondas por 01 minuto ou em banho maria por 10 minutos mexendo de vez em quando.
             3. Verifique a temperatura. Antes de consumir, misturar uniformemente o conteúdo.
-
             """),
 
         tab_2_title="Ingredientes",

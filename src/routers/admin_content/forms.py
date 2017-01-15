@@ -14,7 +14,7 @@ from flask_bombril.form_validators import Required
 from models.blog_post import BlogPost
 from models.product import Product
 from r import R
-from wrappers.base.utils import get_image_choices
+from wrappers.base.utils import get_image_choices, safe_string
 
 
 class CarouselForm(FlaskForm):
@@ -295,14 +295,16 @@ class ContactForm(FlaskForm):
         label=R.string.telephone,
         validators=[
             Required(),
-            PhoneFormat()
+            PhoneFormat(),
+            Length(max_length=R.dimen.tel_max_length)
         ]
     )
     email = StringField(
         label=R.string.email,
         validators=[
             Required(),
-            EmailFormat()
+            EmailFormat(),
+            Length(max_length=R.dimen.email_max_length)
         ]
     )
 
@@ -347,3 +349,23 @@ class ContactForm(FlaskForm):
     )
 
     submit = SubmitField(label=R.string.save)
+
+    def set_values(self, contact):
+        self.address.data = contact.address
+        self.tel.data = contact.tel
+        self.email.data = contact.email
+
+        self.facebook_active.data = contact.facebook_active
+        self.facebook_link.data = safe_string(contact.facebook_link)
+
+        self.googleplus_active.data = contact.googleplus_active
+        self.googleplus_link.data = safe_string(contact.googleplus_link)
+
+        self.twitter_active.data = contact.twitter_active
+        self.twitter_link.data = safe_string(contact.twitter_link)
+
+        self.youtube_active.data = contact.youtube_active
+        self.youtube_link.data = safe_string(contact.youtube_link)
+
+        self.pintrest_active.data = contact.pintrest_active
+        self.pintrest_link.data = safe_string(contact.pintrest_link)

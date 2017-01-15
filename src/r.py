@@ -278,6 +278,8 @@ class Resources(object):
         google_plus = "Google+"
         pintrest = "Pintrest"
         youtube = "Youtube"
+        save_contact_error_msg = "Não foi possível salvar os novos dados de contato. Verifique os valores e tente novamente."
+        save_contact_success_msg = "Os dados de contato foram atualizados com sucesso."
 
         tab_content_example = \
 """An h1 header

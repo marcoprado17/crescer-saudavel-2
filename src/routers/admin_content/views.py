@@ -7,11 +7,12 @@ from flask import json
 from flask import render_template
 from flask import request
 
+from models.contact import Contact
 from models.home_content import HomeContent
 from routers.admin_content import admin_content_blueprint
 from routers.admin_content.data_providers.contact import admin_contact_data_provider
 from routers.admin_content.data_providers.home import admin_content_home_data_provider
-from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm
+from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm, ContactForm
 
 
 @admin_content_blueprint.route("/home")
@@ -85,8 +86,13 @@ def contact():
     if request.method=="GET":
         return render_template("admin_content/contact.html", data=admin_contact_data_provider.get_data())
     else:
-        # TODO: Implement
-        return "", 200
+        contact_form = ContactForm()
+
+        if contact_form.validate_on_submit():
+            Contact.set_values_from_form(contact_form)
+            return "", 200
+        else:
+            return json.dumps(dict(errors=contact_form.errors)), 400
 
 
 @admin_content_blueprint.route("/sobre-nos")

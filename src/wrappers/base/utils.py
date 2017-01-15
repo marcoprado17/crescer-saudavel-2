@@ -33,3 +33,8 @@ def safe_id(element_id):
     if isinstance(element_id, int) and element_id == 0:
         return None
     return element_id
+
+def safe_string(s):
+    if s == None or not isinstance(s, basestring):
+        return ""
+    return s
