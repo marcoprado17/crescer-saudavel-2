@@ -139,6 +139,7 @@ class Resources(object):
         to_activate_btn_id_meta_data_key = "data-to-activate-btn-id"
         disable_btn_id_meta_data_key = "data-disable-btn-id"
         category_status = "Status da categoria"
+        blog_posts_status = "Status do post"
         subcategory_status = "Status da subcategoria"
         order_status = "Status do pedido"
         filter = "Filtrar"
@@ -297,6 +298,7 @@ class Resources(object):
         footer = "Rodapé"
         date = "Data"
         default_datetime_format = "%d/%m/%Y"
+        posts = "Posts"
 
         tab_content_example = \
 """An h1 header
@@ -453,6 +455,14 @@ Content Cell | Content Cell"""
         @staticmethod
         def disable_product_error(product_title):
             return 'Ocorreu uma falha ao desativar o produto "%s". Tente novamente.' % product_title
+
+        @staticmethod
+        def to_activate_post_error(post_title):
+            return 'Ocorreu uma falha ao ativar o post "%s". Tente novamente.' % post_title
+
+        @staticmethod
+        def disable_post_error(post_title):
+            return 'Ocorreu uma falha ao desativar o post "%s". Tente novamente.' % post_title
 
         @staticmethod
         def to_activate_product_category_error(category_name):

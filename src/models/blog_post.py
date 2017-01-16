@@ -49,3 +49,17 @@ class BlogPost(db.Model):
 
     def get_formatted_datetime(self):
         return self.datetime.strftime(R.string.default_datetime_format)
+
+    @staticmethod
+    def get(blog_post_id):
+        return BlogPost.query.filter_by(id=blog_post_id).one_or_none()
+
+    @staticmethod
+    def update(blog_post_id, **kw):
+        blog_post_id = BlogPost.get(blog_post_id)
+        assert blog_post_id != None
+        for key, val in kw.iteritems():
+            setattr(blog_post_id, key, val)
+        db.session.add(blog_post_id)
+        db.session.commit()
+        return blog_post_id

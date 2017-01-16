@@ -332,6 +332,24 @@ def create_random_orders():
     db.session.commit()
 
 
+def create_random_blog_posts():
+    for i in range(0, 300):
+        db.session.add(get_random_blog_post())
+        print "Blog post " + str(i) + " created."
+    db.session.commit()
+
+
+def get_random_blog_post():
+    return BlogPost(
+        active=random.choice([True, False]),
+        title=get_random_phrase((3,8), (3, 6)),
+        datetime=get_random_datetime(datetime_1, datetime_2),
+        thumbnail=get_random_image_name(),
+        summary=get_random_phrase((3,8), (16, 30)),
+        content=get_random_phrase((3,8), (50, 150))
+    )
+
+
 def get_random_order():
     status = random.choice(
         filter(lambda order_status_id: order_status_id != R.id.ORDER_STATUS_ANY, Order.order_status_ids))

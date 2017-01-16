@@ -74,3 +74,14 @@ class EditBlogPostForm(BlogPostForm):
         self.thumbnail.data = blog_post.thumbnail
         self.summary.data = blog_post.summary
         self.content.data = blog_post.content
+
+
+class BlogPostFilterForm(FlaskForm):
+    active = SelectField(
+        label=R.string.blog_posts_status,
+        choices=[(str(True), R.string.active), (str(False), R.string.inactive)]
+    )
+    filter = SubmitField(label=R.string.filter)
+
+    def set_values(self, active):
+        self.active.data = str(active)
