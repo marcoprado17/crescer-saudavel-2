@@ -7,12 +7,14 @@ from flask import json
 from flask import render_template
 from flask import request
 
+from models.about_us import AboutUs
 from models.contact import Contact
 from models.home_content import HomeContent
 from routers.admin_content import admin_content_blueprint
+from routers.admin_content.data_providers.about_us import admin_about_us_data_provider
 from routers.admin_content.data_providers.contact import admin_contact_data_provider
 from routers.admin_content.data_providers.home import admin_content_home_data_provider
-from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm, ContactForm
+from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm, ContactForm, AboutUsForm
 
 
 @admin_content_blueprint.route("/home")
@@ -95,9 +97,18 @@ def contact():
             return json.dumps(dict(errors=contact_form.errors)), 400
 
 
-@admin_content_blueprint.route("/sobre-nos")
+@admin_content_blueprint.route("/sobre-nos", methods=["GET", "POST"])
 def about_us():
-    return "Sobre-nós."
+    if request.method=="GET":
+        return render_template("admin_content/about_us.html", data=admin_about_us_data_provider.get_data())
+    else:
+        about_us_form = AboutUsForm()
+
+        if about_us_form.validate_on_submit():
+            AboutUs.set_values_from_form(about_us_form)
+            return "", 200
+        else:
+            return json.dumps(dict(errors=about_us_form.errors)), 400
 
 
 @admin_content_blueprint.route("/faq")

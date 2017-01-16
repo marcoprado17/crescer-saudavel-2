@@ -280,8 +280,59 @@ class Resources(object):
         youtube = "Youtube"
         save_contact_error_msg = "Não foi possível salvar os novos dados de contato. Verifique os valores e tente novamente."
         save_contact_success_msg = "Os dados de contato foram atualizados com sucesso."
+        save_about_us_error_msg = 'Não foi possível salvar os novos dados da página "Sobre nós". Verifique os valores e tente novamente.'
+        save_about_us_success_msg = 'Os dados da página "Sobre nós" foram atualizados com sucesso.'
+        edit_about_us_page_content = 'Editar conteúdo da página "Sobre nós"'
 
         tab_content_example = \
+"""An h1 header
+============
+
+Paragraphs are separated by a blank line.
+
+2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
+look like:
+
+  * this one
+  * that one
+  * the other one
+
+Note that --- not considering the asterisk --- the actual text
+content starts at 4-columns in.
+
+> Block quotes are
+> written like so.
+>
+> They can span multiple paragraphs,
+> if you like.
+
+Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
+in chapters 12--14"). Three dots ... will be converted to an ellipsis.
+Unicode is supported.
+
+
+
+An h2 header
+------------
+
+Here's a numbered list:
+
+ 1. first item
+ 2. second item
+ 3. third item
+
+Note again how the actual text starts at 4 columns in (4 characters
+from the left side). Here's a code sample:
+
+    # Let me re-iterate ...
+    for i in 1 .. 10 { do-something(i) }
+
+First Header | Second Header
+------------ | -------------
+Content Cell | Content Cell
+Content Cell | Content Cell"""
+
+        about_us_content_example = \
 """An h1 header
 ============
 

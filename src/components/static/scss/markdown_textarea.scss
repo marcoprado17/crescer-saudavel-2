@@ -3,6 +3,8 @@
 
   textarea {
     margin-bottom: 12px;
+    max-width: 100%;
+    font-family: "Lucida Console", Monaco, monospace !important;
   }
 
   .bottom-part {
@@ -17,5 +19,10 @@
   button.preview {
     margin-left: $btn-space;
     margin-right: $btn-space;
+  }
+
+  .modal-body.example {
+    font-family: "Lucida Console", Monaco, monospace;
+    white-space: pre-wrap;
   }
 }

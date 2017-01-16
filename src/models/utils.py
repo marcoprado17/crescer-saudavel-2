@@ -12,6 +12,7 @@ import datetime
 from flask import current_app
 
 from extensions import db
+from models.about_us import AboutUs
 from models.blog_post import BlogPost
 from models.city import City
 from models.client import Client
@@ -129,6 +130,35 @@ def create_contact():
     db.session.commit()
     print "Contact created."
     return contact
+
+
+def create_about_us():
+    about_us = AboutUs(
+        content = \
+"""
+Lorem ipsum dolor sit amet, vitae in etiam. Dignissim rutrum, phasellus arcu nibh hendrerit vel ridiculus eget, eget
+sit. Feugiat scelerisque risus. Fusce sit quis massa, wisi eu mauris curabitur. Et turpis in lectus neque, wisi eget,
+turpis in sed elementum, donec sed, nisl non odio eget. Magna maecenas aliquam, posuere viverra ante, turpis ipsum
+sociis vel porta. Mauris varius velit morbi non blandit sem, in tincidunt, ligula luctus orci condimentum risus ipsum,
+lacus lacus luctus. Lacinia parturient pellentesque duis. Dolor scelerisque odio eu pede at, integer vitae nunc tenetur
+wisi, dui cubilia tempor ullamcorper.
+
+Tempor eu fusce, sodales proin gravida cras felis libero, tempor eu mauris vestibulum. Penatibus dapibus egestas risus
+wisi quis, in eleifend, ornare nec, elit quis, nibh integer curabitur metus. Id dictum vivamus, ac urna temporibus nibh
+nullam. Nunc faucibus. Vitae id, posuere consectetuer ut lobortis vehicula vulputate purus, morbi curabitur, ultricies
+odio cum et quisque velit ut, tincidunt nulla auctor faucibus in tristique. Est etiam, donec sit aliquam duis, sed
+tortor suspendisse et habitasse odio vivamus. Libero ligula pede amet vestibulum, nunc leo, pede id duis rutrum. Quam
+lacinia justo ac, consequat nisl et et donec pharetra ornare, leo dapibus, eu nulla, amet mauris donec lectus voluptas
+elementum turpis. Quisque justo pretium neque eros pede, quisque pede, elit hendrerit quam fusce pharetra diam,
+pellentesque phasellus reiciendis congue euismod, irure in id pretium porttitor sagittis nihil. Felis lorem velit nisl
+velit sed ipsum, imperdiet morbi, volutpat leo litora curabitur tellus pharetra at, adipiscing congue duis id aliquam
+mauris varius, nulla fusce faucibus ac.
+"""
+    )
+    db.session.add(about_us)
+    db.session.commit()
+    print "AboutUs created."
+    return about_us
 
 
 def create_product_category_example():

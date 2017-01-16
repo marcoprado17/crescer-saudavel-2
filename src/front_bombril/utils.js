@@ -219,6 +219,7 @@ function showFormErrors(form, errors){
         if(errors.hasOwnProperty(key)){
             input = form.find("input[name='{0}']".f(key));
             select = form.find("select[name='{0}']".f(key));
+            textarea = form.find("textarea[name='{0}']".f(key));
             arrayOfErrors = errors[key];
             if(input.length == 1) {
                 input.parent().addClass("has-error");
@@ -230,6 +231,12 @@ function showFormErrors(form, errors){
                 select.parent().addClass("has-error");
                 for(var i = 0; i < arrayOfErrors.length; i++){
                     select.after("<span class='help-block error'>{0}</span>".f(arrayOfErrors[i]))
+                }
+            }
+            else if(textarea.length == 1) {
+                textarea.parent().addClass("has-error");
+                for(var i = 0; i < arrayOfErrors.length; i++){
+                    textarea.after("<span class='help-block error'>{0}</span>".f(arrayOfErrors[i]))
                 }
             }
         }

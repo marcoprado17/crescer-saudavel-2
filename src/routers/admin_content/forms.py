@@ -4,9 +4,10 @@
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, StringField, SelectField, SubmitField
+from wtforms import BooleanField, StringField, SelectField, SubmitField, TextAreaField
 from wtforms.fields.html5 import TelField
 
+from flask_bombril.form_validators import MarkdownValidator
 from flask_bombril.form_validators import EmailFormat
 from flask_bombril.form_validators.phone_fomat.phone_format import PhoneFormat
 from flask_bombril.form_validators import Length
@@ -369,3 +370,17 @@ class ContactForm(FlaskForm):
 
         self.pintrest_active.data = contact.pintrest_active
         self.pintrest_link.data = safe_string(contact.pintrest_link)
+
+
+class AboutUsForm(FlaskForm):
+    content = TextAreaField(
+        label=R.string.content,
+        validators=[
+            Required(),
+            MarkdownValidator()
+        ]
+    )
+    submit = SubmitField(label=R.string.save)
+
+    def set_values(self, about_us):
+        self.content.data = about_us.content

@@ -1,4 +1,4 @@
-.__components__.__product_panel_form__ {
+.__admin_content__.__abou_us__ {
   .panel {
     width: $panel-lg-width;
     margin-left: auto;
@@ -7,11 +7,5 @@
 
   input[type="submit"] {
     float: right;
-  }
-
-  @media screen and (max-width: $screen-sm-width) {
-    .panel {
-      width: 90%;
-    }
   }
 }
