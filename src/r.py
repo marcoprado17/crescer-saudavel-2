@@ -299,6 +299,7 @@ class Resources(object):
         date = "Data"
         default_datetime_format = "%d/%m/%Y"
         posts = "Posts"
+        edit_post = "Editar post"
 
         tab_content_example = \
 """An h1 header
@@ -548,6 +549,10 @@ Content Cell | Content Cell"""
         @staticmethod
         def product_successful_edited(product_title):
             return 'O produto "%s" foi editado com sucesso.' % product_title
+
+        @staticmethod
+        def post_successful_edited(post_title):
+            return 'O post "%s" foi editado com sucesso.' % post_title
 
         @staticmethod
         def city_successful_edited(city_name):

@@ -47,6 +47,14 @@ class BlogPost(db.Model):
         db.session.add(blog_post)
         db.session.commit()
 
+    @staticmethod
+    def update_from_form(blog_post, blog_post_form):
+        attrs_dict = BlogPost.get_attrs_from_form(blog_post_form)
+        for key, val in attrs_dict.iteritems():
+            setattr(blog_post, key, val)
+        db.session.add(blog_post)
+        db.session.commit()
+
     def get_formatted_datetime(self):
         return self.datetime.strftime(R.string.default_datetime_format)
 

@@ -69,7 +69,7 @@ class EditBlogPostForm(BlogPostForm):
 
     def set_values(self, blog_post):
         self.active.data = blog_post.active
-        self.datetime.data = blog_post.get_formatted_datetime()
+        self.datetime.data = blog_post.datetime
         self.title.data = blog_post.title
         self.thumbnail.data = blog_post.thumbnail
         self.summary.data = blog_post.summary
