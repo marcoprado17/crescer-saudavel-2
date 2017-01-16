@@ -16,7 +16,7 @@ function initAllMarkdownTextArea(){
             url: url,
             method: "post",
             contentType: 'application/json;charset=UTF-8',
-            minResponseTime: 800,
+            minResponseTime: 900,
             onClick: function () {
                 modal_body.html(loading_message);
                 return JSON.stringify({"markdown_text": textarea.val()}, null, '\t')

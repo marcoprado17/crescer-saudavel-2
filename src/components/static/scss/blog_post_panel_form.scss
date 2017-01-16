@@ -1,0 +1,11 @@
+.__components__.__blog_post_panel_form__ {
+  .panel {
+    width: $panel-lg-width;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  input[type="submit"] {
+    float: right;
+  }
+}

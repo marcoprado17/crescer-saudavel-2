@@ -16,6 +16,8 @@ class Resources(object):
         footer_lower_text = "Crescer saudável - CNPJ 01.517.384/0001-87 -  © 2016 - 2017 "
         lower_text = "Texto inferior"
         edit_footer = "Editar rodapé"
+        thumbnail = "Thumbnail"
+        thumbnail_tooltip = "Imagem principal do post em questão"
 
         none_in_masculine = "Nenhum"
 
@@ -293,6 +295,7 @@ class Resources(object):
         edit_about_us_page_content = 'Editar conteúdo da página "Sobre nós"'
         edit_faq_page_content = 'Editar conteúdo da página "FAQ"'
         footer = "Rodapé"
+        date = "Data"
 
         tab_content_example = \
 """An h1 header
@@ -383,6 +386,64 @@ eget sem euismod, lobortis lectus vel.
     Eros vehicula justo platea adipiscing pulvinar, donec accumsan, metus metus
 metus, integer sed est. Non dignissim felis cras tortor.
 """
+
+        blog_post_summary_example = \
+"""
+Lorem ipsum dolor sit amet, vitae in etiam. Dignissim rutrum, phasellus arcu nibh hendrerit vel ridiculus eget, eget
+sit. Feugiat scelerisque risus. Fusce sit quis massa, wisi eu mauris curabitur. Et turpis in lectus neque, wisi eget,
+turpis in sed elementum, donec sed, nisl non odio eget. Magna maecenas aliquam, posuere viverra ante, turpis ipsum
+sociis vel porta. Mauris varius velit morbi non blandit sem, in tincidunt, ligula luctus orci condimentum risus ipsum,
+lacus lacus luctus. Lacinia parturient pellentesque duis. Dolor scelerisque odio eu pede at, integer vitae nunc tenetur
+wisi, dui cubilia tempor ullamcorper.
+"""
+
+        blog_post_content_example = \
+"""An h1 header
+============
+
+Paragraphs are separated by a blank line.
+
+2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
+look like:
+
+  * this one
+  * that one
+  * the other one
+
+Note that --- not considering the asterisk --- the actual text
+content starts at 4-columns in.
+
+> Block quotes are
+> written like so.
+>
+> They can span multiple paragraphs,
+> if you like.
+
+Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
+in chapters 12--14"). Three dots ... will be converted to an ellipsis.
+Unicode is supported.
+
+
+
+An h2 header
+------------
+
+Here's a numbered list:
+
+ 1. first item
+ 2. second item
+ 3. third item
+
+Note again how the actual text starts at 4 columns in (4 characters
+from the left side). Here's a code sample:
+
+    # Let me re-iterate ...
+    for i in 1 .. 10 { do-something(i) }
+
+First Header | Second Header
+------------ | -------------
+Content Cell | Content Cell
+Content Cell | Content Cell"""
 
         @staticmethod
         def to_activate_product_error(product_title):

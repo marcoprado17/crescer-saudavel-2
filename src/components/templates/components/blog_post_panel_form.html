@@ -1,0 +1,34 @@
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+<div class="__components__ __blog_post_panel_form__">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ data.title }}</div>
+        <div class="panel-body">
+            {{ messages.flash_static() }}
+            <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
+                {{ data.blog_post_form.csrf_token }}
+                {{ form_fields.boolean_field(field=data.blog_post_form.active) }}
+{#                {{ form_fields.date_field(field=data.blog_post_form.date, explicit_label=True) }}#}
+                {{ form_fields.string_field(field=data.blog_post_form.title, explicit_label=True) }}
+                {{ form_fields.select_field(field=data.blog_post_form.thumbnail, explicit_label=True) }}
+                {% with data=dict(
+                    field=data.blog_post_form.summary,
+                    explicit_label=True,
+                    example=R.string.blog_post_summary_example,
+                    has_preview=True
+                )%}
+                    {% include "components/markdown_textarea.html" %}
+                {% endwith %}
+                {% with data=dict(
+                    field=data.blog_post_form.content,
+                    explicit_label=True,
+                    example=R.string.blog_post_content_example,
+                    has_preview=True
+                )%}
+                    {% include "components/markdown_textarea.html" %}
+                {% endwith %}
+                {{ form_fields.submit(field=data.blog_post_form.submit) }}
+            </form>
+        </div>
+    </div>
+</div>
