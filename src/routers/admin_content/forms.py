@@ -384,3 +384,17 @@ class AboutUsForm(FlaskForm):
 
     def set_values(self, about_us):
         self.content.data = about_us.content
+
+
+class FaqForm(FlaskForm):
+    content = TextAreaField(
+        label=R.string.content,
+        validators=[
+            Required(),
+            MarkdownValidator()
+        ]
+    )
+    submit = SubmitField(label=R.string.save)
+
+    def set_values(self, faq):
+        self.content.data = faq.content

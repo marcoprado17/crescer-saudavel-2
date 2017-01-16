@@ -282,7 +282,10 @@ class Resources(object):
         save_contact_success_msg = "Os dados de contato foram atualizados com sucesso."
         save_about_us_error_msg = 'Não foi possível salvar os novos dados da página "Sobre nós". Verifique os valores e tente novamente.'
         save_about_us_success_msg = 'Os dados da página "Sobre nós" foram atualizados com sucesso.'
+        save_faq_error_msg = 'Não foi possível salvar os novos dados da página "FAQ". Verifique os valores e tente novamente.'
+        save_faq_success_msg = 'Os dados da página "FAQ" foram atualizados com sucesso.'
         edit_about_us_page_content = 'Editar conteúdo da página "Sobre nós"'
+        edit_faq_page_content = 'Editar conteúdo da página "FAQ"'
 
         tab_content_example = \
 """An h1 header
@@ -333,52 +336,46 @@ Content Cell | Content Cell
 Content Cell | Content Cell"""
 
         about_us_content_example = \
-"""An h1 header
-============
+"""
+Lorem ipsum dolor sit amet, vitae in etiam. Dignissim rutrum, phasellus arcu nibh hendrerit vel ridiculus eget, eget
+sit. Feugiat scelerisque risus. Fusce sit quis massa, wisi eu mauris curabitur. Et turpis in lectus neque, wisi eget,
+turpis in sed elementum, donec sed, nisl non odio eget. Magna maecenas aliquam, posuere viverra ante, turpis ipsum
+sociis vel porta. Mauris varius velit morbi non blandit sem, in tincidunt, ligula luctus orci condimentum risus ipsum,
+lacus lacus luctus. Lacinia parturient pellentesque duis. Dolor scelerisque odio eu pede at, integer vitae nunc tenetur
+wisi, dui cubilia tempor ullamcorper.
 
-Paragraphs are separated by a blank line.
+Tempor eu fusce, sodales proin gravida cras felis libero, tempor eu mauris vestibulum. Penatibus dapibus egestas risus
+wisi quis, in eleifend, ornare nec, elit quis, nibh integer curabitur metus. Id dictum vivamus, ac urna temporibus nibh
+nullam. Nunc faucibus. Vitae id, posuere consectetuer ut lobortis vehicula vulputate purus, morbi curabitur, ultricies
+odio cum et quisque velit ut, tincidunt nulla auctor faucibus in tristique. Est etiam, donec sit aliquam duis, sed
+tortor suspendisse et habitasse odio vivamus. Libero ligula pede amet vestibulum, nunc leo, pede id duis rutrum. Quam
+lacinia justo ac, consequat nisl et et donec pharetra ornare, leo dapibus, eu nulla, amet mauris donec lectus voluptas
+elementum turpis. Quisque justo pretium neque eros pede, quisque pede, elit hendrerit quam fusce pharetra diam,
+pellentesque phasellus reiciendis congue euismod, irure in id pretium porttitor sagittis nihil. Felis lorem velit nisl
+velit sed ipsum, imperdiet morbi, volutpat leo litora curabitur tellus pharetra at, adipiscing congue duis id aliquam
+mauris varius, nulla fusce faucibus ac.
+"""
 
-2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
-look like:
+        faq_content_example = \
+"""
+1. **Pergunta 1?**
 
-  * this one
-  * that one
-  * the other one
+    Lorem ipsum dolor sit amet, non hac elit quam, et turpis scelerisque vivamus.
 
-Note that --- not considering the asterisk --- the actual text
-content starts at 4-columns in.
+2. **Pergunta 2?**
 
-> Block quotes are
-> written like so.
->
-> They can span multiple paragraphs,
-> if you like.
+    Lorem ipsum dolor sit amet, non hac elit quam, et turpis scelerisque vivamus. Ut neque lectus diam et,
+curabitur est platea nisl nec nulla.
 
-Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
-in chapters 12--14"). Three dots ... will be converted to an ellipsis.
-Unicode is supported.
+    Sagittis non arcu dis, neque non aliquet autem cupidatat, at nulla neque nulla aliquet, mi turpis ipsum faucibus,
+habitasse sodales urna. Congue convallis a pellentesque pretium non, rutrum sollicitudin vestibulum quam iaculis,
+eget sem euismod, lobortis lectus vel.
 
+3. **Pergunta 3?**
 
-
-An h2 header
-------------
-
-Here's a numbered list:
-
- 1. first item
- 2. second item
- 3. third item
-
-Note again how the actual text starts at 4 columns in (4 characters
-from the left side). Here's a code sample:
-
-    # Let me re-iterate ...
-    for i in 1 .. 10 { do-something(i) }
-
-First Header | Second Header
------------- | -------------
-Content Cell | Content Cell
-Content Cell | Content Cell"""
+    Eros vehicula justo platea adipiscing pulvinar, donec accumsan, metus metus
+metus, integer sed est. Non dignissim felis cras tortor.
+"""
 
         @staticmethod
         def to_activate_product_error(product_title):
