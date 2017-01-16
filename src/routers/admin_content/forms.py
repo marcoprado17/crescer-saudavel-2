@@ -398,3 +398,17 @@ class FaqForm(FlaskForm):
 
     def set_values(self, faq):
         self.content.data = faq.content
+
+
+class FooterForm(FlaskForm):
+    lower_text = StringField(
+        label=R.string.lower_text,
+        validators=[
+            Required(),
+            Length(max_length=R.dimen.footer_lower_text_max_length)
+        ]
+    )
+    submit = SubmitField(label=R.string.save)
+
+    def set_values(self, footer):
+        self.lower_text.data = footer.lower_text

@@ -18,6 +18,7 @@ from models.city import City
 from models.client import Client
 from models.contact import Contact
 from models.faq import Faq
+from models.footer import Footer
 from models.home_content import HomeContent
 from models.order import Order
 from models.product import Product
@@ -151,6 +152,16 @@ def create_faq():
     db.session.commit()
     print "Faq created."
     return faq
+
+
+def create_footer():
+    footer = Footer(
+        lower_text = R.string.footer_lower_text
+    )
+    db.session.add(footer)
+    db.session.commit()
+    print "Footer created."
+    return footer
 
 
 def create_product_category_example():

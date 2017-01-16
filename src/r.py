@@ -13,6 +13,10 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        footer_lower_text = "Crescer saudável - CNPJ 01.517.384/0001-87 -  © 2016 - 2017 "
+        lower_text = "Texto inferior"
+        edit_footer = "Editar rodapé"
+
         none_in_masculine = "Nenhum"
 
         and_word = "e"
@@ -284,8 +288,11 @@ class Resources(object):
         save_about_us_success_msg = 'Os dados da página "Sobre nós" foram atualizados com sucesso.'
         save_faq_error_msg = 'Não foi possível salvar os novos dados da página "FAQ". Verifique os valores e tente novamente.'
         save_faq_success_msg = 'Os dados da página "FAQ" foram atualizados com sucesso.'
+        save_footer_error_msg = 'Não foi possível salvar os novos dados do rodapé. Verifique os valores e tente novamente.'
+        save_footer_success_msg = 'Os dados do rodapé foram atualizados com sucesso.'
         edit_about_us_page_content = 'Editar conteúdo da página "Sobre nós"'
         edit_faq_page_content = 'Editar conteúdo da página "FAQ"'
+        footer = "Rodapé"
 
         tab_content_example = \
 """An h1 header
@@ -635,6 +642,7 @@ metus, integer sed est. Non dignissim felis cras tortor.
         blog_post_title_max_length = 128
         blog_section_name_max_length = 32
         contact_address_max_length = 96
+        footer_lower_text_max_length = 256
 
         freight = Decimal("5.00")
 
