@@ -112,6 +112,9 @@
         {% if explicit_label %}
             <div class="label-container">
                 {{ field.label }}
+                {% if field.flags.required %}
+                    {{ tooltip.asterisk(bombril_R.string.required_field) }}
+                {% endif %}
                 {% if field.render_kw and field.render_kw.tooltip %}
                     {{ tooltip.info(field.render_kw.tooltip) }}
                 {% endif %}
