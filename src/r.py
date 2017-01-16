@@ -296,6 +296,7 @@ class Resources(object):
         edit_faq_page_content = 'Editar conteúdo da página "FAQ"'
         footer = "Rodapé"
         date = "Data"
+        default_datetime_format = "%d/%m/%Y"
 
         tab_content_example = \
 """An h1 header
@@ -626,6 +627,10 @@ Content Cell | Content Cell"""
         @staticmethod
         def get_save_blog_section_success_msg(blog_section_number):
             return "Os dados da seção de blog %s foram atualizados com sucesso." % blog_section_number
+
+        @staticmethod
+        def blog_post_sent_successfully(blog_post_title):
+            return 'O post "%s" foi adicionado com sucesso.' % blog_post_title
 
 
     # noinspection PyPep8Naming

@@ -258,7 +258,12 @@ def create_product_example(category_id):
 
 def create_blog_post_example():
     blog_post = BlogPost(
-        title="Exemplo - Papinha é coisa séria"
+        active=False,
+        title="Exemplo - Papinha é coisa séria",
+        datetime=get_random_datetime(datetime_1, datetime_2),
+        thumbnail="blog_post_thumbnail_default.jpg",
+        summary=R.string.blog_post_summary_example,
+        content=R.string.blog_post_content_example
     )
     db.session.add(blog_post)
     db.session.commit()

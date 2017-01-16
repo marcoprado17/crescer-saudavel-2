@@ -23,13 +23,12 @@
         {% endif %}
         <input id="{{ field.id }}" name="{{ field.name }}" type="text"
                class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
-               maxlength="{{ max_length }}"
                value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }}>
         {{ render_errors(field.errors) }}
     </div>
 {%- endmacro %}
 
-{% macro string_field(field, explicit_label=False, placeholder="", readonly=False) %}
+{% macro date_field(field, explicit_label=False) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
             <div class="label-container">
@@ -42,9 +41,12 @@
                 {% endif %}
             </div>
         {% endif %}
-        <input id="{{ field.id }}" name="{{ field.name }}" type="text"
-               class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
-               value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }}>
+        <div class='input-group date datetimepicker'>
+            <input id="{{ field.id }}" name="{{ field.name }}" type='text' class="form-control" data-date-as-string="{{ field.data|if(field.data) }}"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
         {{ render_errors(field.errors) }}
     </div>
 {%- endmacro %}

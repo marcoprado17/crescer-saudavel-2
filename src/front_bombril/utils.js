@@ -33,6 +33,24 @@ function initVerticalFluid() {
 });
 }
 
+
+function initAllDateTimePickers(){
+    $(".datetimepicker").each(function(){
+        dateAsString = $(this).find("input").attr("data-date-as-string");
+        console.log(dateAsString);
+        date = new Date(dateAsString);
+        if(dateAsString == ""){
+            date = new Date();
+        }
+        $(this).datetimepicker({
+            locale: "pt-br",
+            format: "DD/MM/YYYY"
+        });
+        $(this).data("DateTimePicker").date(moment(date));
+    });
+}
+
+
 function getDataAsObject(data){
     try{
         return JSON.parse(data)

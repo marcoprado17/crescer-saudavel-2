@@ -4,7 +4,7 @@
 # Created at 16/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask_wtf import FlaskForm
-from wtforms import DateField, StringField, BooleanField, SelectField, TextAreaField, SubmitField
+from wtforms import StringField, BooleanField, SelectField, TextAreaField, SubmitField, DateTimeField
 from flask_bombril.form_validators import MarkdownValidator
 from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import Required
@@ -17,8 +17,9 @@ class BlogPostForm(FlaskForm):
         label=R.string.active,
         default=True
     )
-    date = DateField(
+    datetime = DateTimeField(
         label = R.string.date,
+        format=R.string.default_datetime_format,
         validators= [
             Required()
         ]
@@ -68,7 +69,7 @@ class EditBlogPostForm(BlogPostForm):
 
     def set_values(self, blog_post):
         self.active.data = blog_post.active
-        self.date.data = blog_post.date
+        self.datetime.data = blog_post.get_formatted_datetime()
         self.title.data = blog_post.title
         self.thumbnail.data = blog_post.thumbnail
         self.summary.data = blog_post.summary

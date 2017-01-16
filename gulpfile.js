@@ -28,6 +28,7 @@ gulp.task("watch", function () {
 gulp.task("make_css_bundle", function () {
     return gulp.src([
         "bower_components/bootstrap/dist/css/bootstrap.css",
+        "bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css",
         "bower_components/toastr/toastr.css",
         "src/front_bombril/utils.scss",
         "src/wrappers/base/static/scss/base.scss",
@@ -43,7 +44,9 @@ gulp.task("make_css_bundle", function () {
 gulp.task("make_js_bundle", function () {
     return gulp.src([
         "bower_components/jquery/dist/jquery.js",
+        "bower_components/moment/min/moment-with-locales.js",
         "bower_components/bootstrap/dist/js/bootstrap.js",
+        "bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js",
         "bower_components/bootstrap-filestyle/src/bootstrap-filestyle.js",
         "bower_components/toastr/toastr.js",
         "src/front_bombril/utils.js",

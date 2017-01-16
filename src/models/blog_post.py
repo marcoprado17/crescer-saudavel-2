@@ -11,7 +11,7 @@ class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     active = db.Column(db.Boolean, default=False, nullable=False)
     title = db.Column(db.String(R.dimen.blog_post_title_max_length), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    datetime = db.Column(db.DateTime, nullable=False)
     thumbnail = db.Column(db.Text, nullable=False)
     summary = db.Column(db.UnicodeText, nullable=False)
     content = db.Column(db.UnicodeText, nullable=False)
@@ -32,7 +32,7 @@ class BlogPost(db.Model):
     def get_attrs_from_form(blog_post_form):
         return dict(
             active=blog_post_form.active.data,
-            date=blog_post_form.date.data,
+            datetime=blog_post_form.datetime.data,
             title = blog_post_form.title.data,
             thumbnail = blog_post_form.thumbnail.data,
             summary = blog_post_form.summary.data,
@@ -46,3 +46,6 @@ class BlogPost(db.Model):
         )
         db.session.add(blog_post)
         db.session.commit()
+
+    def get_formatted_datetime(self):
+        return self.datetime.strftime(R.string.default_datetime_format)
