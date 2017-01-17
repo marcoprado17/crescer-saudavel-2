@@ -64,7 +64,7 @@ gulp.task("build", function (callback) {
     runSequence(
         "delete_old_build",
         ["copy_html_files_to_build_dir", "copy_py_files_to_build_dir", "make_css_bundle", "make_js_bundle", "copy_bootstrap_fonts_to_build_dir"],
-        ["minify_css_bundle", "minify_js_bundle", "create_uploaded_img_dir"],
+        ["minify_css_bundle", "minify_js_bundle", "create_imgs_dir"],
         ["append_sys_path_to_build_init"],
         callback);
 });
@@ -93,8 +93,8 @@ gulp.task("append_sys_path_to_build_init", function () {
         .pipe(gulp.dest("build"));
 });
 
-gulp.task("create_uploaded_img_dir", function () {
-    mkdirp("build/static/uploaded_img")
+gulp.task("create_imgs_dir", function () {
+    mkdirp("build/static/imgs")
 });
 
 gulp.task("copy_bootstrap_fonts_to_build_dir", function () {
