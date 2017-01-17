@@ -3,6 +3,10 @@ $to-activate-disable-button-min-width: 120px;
 .__admin_base__ {
   height: 100%;
 
+  .right-indent {
+    margin-left: 26px;
+  }
+
   .modal .page-header {
     margin-top: 0;
     h4 {
@@ -28,9 +32,30 @@ $to-activate-disable-button-min-width: 120px;
     }
   }
 
-  @media screen and (min-width: 1024px) {
+  .panel {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (min-width: 992px) {
     .modal-dialog.large {
       width: 900px;
+    }
+
+    .panel.large {
+      width: 800px;
+    }
+  }
+
+  @media screen and (min-width: 480px) {
+    .panel.med {
+      width: 400px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .panel {
+      width: 90%;
     }
   }
 }
