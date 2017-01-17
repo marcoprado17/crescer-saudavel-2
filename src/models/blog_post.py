@@ -15,7 +15,7 @@ class BlogPost(db.Model):
     thumbnail = db.Column(db.Text, nullable=False)
     summary = db.Column(db.UnicodeText, nullable=False)
     content = db.Column(db.UnicodeText, nullable=False)
-
+    editable = db.Column(db.Boolean, default=True, nullable=False)
 
     @staticmethod
     def get_choices(include_none=False):
@@ -49,6 +49,7 @@ class BlogPost(db.Model):
 
     @staticmethod
     def update_from_form(blog_post, blog_post_form):
+        assert blog_post.editable
         attrs_dict = BlogPost.get_attrs_from_form(blog_post_form)
         for key, val in attrs_dict.iteritems():
             setattr(blog_post, key, val)
@@ -64,10 +65,11 @@ class BlogPost(db.Model):
 
     @staticmethod
     def update(blog_post_id, **kw):
-        blog_post_id = BlogPost.get(blog_post_id)
-        assert blog_post_id != None
+        blog_post = BlogPost.get(blog_post_id)
+        assert blog_post != None
+        assert blog_post.editable
         for key, val in kw.iteritems():
-            setattr(blog_post_id, key, val)
-        db.session.add(blog_post_id)
+            setattr(blog_post, key, val)
+        db.session.add(blog_post)
         db.session.commit()
-        return blog_post_id
+        return blog_post

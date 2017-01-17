@@ -168,6 +168,7 @@ def create_product_category_example():
     product_category = ProductCategory(
         name="Exemplo - Frutas",
         active=False,
+        editable=False
     )
     db.session.add(product_category)
     db.session.commit()
@@ -189,6 +190,7 @@ def create_product_example(category_id):
             Além disso, possui o beneficio de acalmar o estômago e ajudar na digestão.
             """),
         sales_number=32,
+        editable=False,
 
         image_1="banana_example_1.jpg",
         image_2="banana_example_2.jpg",
@@ -263,7 +265,8 @@ def create_blog_post_example():
         datetime=get_random_datetime(datetime_1, datetime_2),
         thumbnail="blog_post_thumbnail_default.jpg",
         summary=R.string.blog_post_summary_example,
-        content=R.string.blog_post_content_example
+        content=R.string.blog_post_content_example,
+        editable=False
     )
     db.session.add(blog_post)
     db.session.commit()

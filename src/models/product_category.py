@@ -18,6 +18,7 @@ class ProductCategory(db.Model):
     active = db.Column(db.Boolean, default=False, nullable=False)
     subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="category")
     products = relationship("Product", order_by=Product.title, back_populates="category")
+    editable = db.Column(db.Boolean, default=True, nullable=False)
 
     @staticmethod
     def create_from_form(add_product_category_form):
@@ -37,20 +38,23 @@ class ProductCategory(db.Model):
         return ProductCategory.query.all()
 
     @staticmethod
-    def set_active_value(category_id, active):
-        product_category = ProductCategory.query.filter_by(id=category_id).one_or_none()
-        if not product_category:
-            raise InvalidIdError
-        product_category.active = active
-        db.session.add(product_category)
-        db.session.commit()
-
-    @staticmethod
     def update_from_form(product_category, edit_product_category_form):
+        assert product_category.editable
         product_category.name = edit_product_category_form.category_name.data,
         product_category.active = edit_product_category_form.active.data
         db.session.add(product_category)
         db.session.commit()
+
+    @staticmethod
+    def update(product_category_id, **kw):
+        product_category = ProductCategory.get(product_category_id)
+        assert product_category != None
+        assert product_category.editable
+        for key, val in kw.iteritems():
+            setattr(product_category, key, val)
+        db.session.add(product_category)
+        db.session.commit()
+        return product_category
 
     @staticmethod
     def get_choices(include_all):

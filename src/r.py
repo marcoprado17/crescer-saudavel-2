@@ -647,6 +647,18 @@ Content Cell | Content Cell"""
         def blog_post_sent_successfully(blog_post_title):
             return 'O post "%s" foi adicionado com sucesso.' % blog_post_title
 
+        @staticmethod
+        def post_not_editable(post_title):
+            return 'O post "%s" não pode ser editado.' % post_title
+
+        @staticmethod
+        def product_category_not_editable(product_category_name):
+            return 'A categoria de produto "%s" não pode ser editada.' % product_category_name
+
+        @staticmethod
+        def product_not_editable(product_title):
+            return 'O produto "%s" não pode ser editado.' % product_title
+
 
     # noinspection PyPep8Naming
     @unique

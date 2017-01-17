@@ -60,6 +60,11 @@ def edit_product(product_id):
                                data=admin_edit_product_data_provider.get_data_when_get(
                                    product=product))
     else:
+        if not product.editable:
+            flash(R.string.product_not_editable(product.title),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
+            return redirect(url_for("admin_products.index"))
+
         edit_product_form = EditProductForm()
 
         if edit_product_form.validate_on_submit():
@@ -77,13 +82,13 @@ def edit_product(product_id):
 @admin_products_blueprint.route("/desabilitar-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def disable_product(product_id):
-    Product.set_active_value(product_id=product_id, active=False)
+    Product.update(product_id=product_id, active=False)
     return "", 200
 
 @admin_products_blueprint.route("/ativar-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def to_activate_product(product_id):
-    Product.set_active_value(product_id=product_id, active=True)
+    Product.update(product_id=product_id, active=True)
     return "", 200
 
 
@@ -152,6 +157,11 @@ def edit_category(category_id):
                                data=admin_edit_product_category_data_provider.get_data_when_get(
                                    product_category=product_category))
     else:
+        if not product_category.editable:
+            flash(R.string.product_category_not_editable(product_category.name),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
+            return redirect(url_for("admin_products.categories"))
+
         edit_product_category_form = EditProductCategoryForm()
 
         if edit_product_category_form.validate_on_submit():
@@ -169,14 +179,14 @@ def edit_category(category_id):
 @admin_products_blueprint.route("/desabilitar-categoria-de-produto/<int:category_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def disable_category(category_id):
-    ProductCategory.set_active_value(category_id=category_id, active=False)
+    ProductCategory.update(product_category_id=category_id, active=False)
     return "", 200
 
 
 @admin_products_blueprint.route("/ativar-categoria-de-produto/<int:category_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def to_activate_category(category_id):
-    ProductCategory.set_active_value(category_id=category_id, active=True)
+    ProductCategory.update(product_category_id=category_id, active=True)
     return "", 200
 
 

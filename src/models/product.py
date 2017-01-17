@@ -27,6 +27,7 @@ class Product(db.Model):
     min_stock = db.Column(db.Integer, nullable=False)
     summary = db.Column(db.UnicodeText, nullable=False)
     sales_number = db.Column(db.Integer, default=0)
+    editable = db.Column(db.Boolean, default=True, nullable=False)
 
     image_1 = db.Column(db.Text, nullable=False)
     image_2 = db.Column(db.Text)
@@ -122,19 +123,21 @@ class Product(db.Model):
         db.session.commit()
 
     @staticmethod
-    def set_active_value(product_id, active):
-        product = Product.query.filter_by(id=product_id).one_or_none()
-        if not product:
-            raise InvalidIdError
-        product.active = active
+    def update(product_id, **kw):
+        product = Product.get(product_id)
+        assert product != None
+        assert product.editable
+        for key, val in kw.iteritems():
+            setattr(product, key, val)
         db.session.add(product)
         db.session.commit()
+        return product
 
     @staticmethod
     def add_to_stock(product_id, value):
-        product = Product.query.filter_by(id=product_id).one_or_none()
-        if not product:
-            raise InvalidIdError
+        product = Product.get(product_id)
+        assert product != None
+        assert product.editable
         product.stock += value
         db.session.add(product)
         db.session.commit()
@@ -142,9 +145,9 @@ class Product(db.Model):
 
     @staticmethod
     def remove_from_stock(product_id, value):
-        product = Product.query.filter_by(id=product_id).one_or_none()
-        if not product:
-            raise InvalidIdError
+        product = Product.get(product_id)
+        assert product != None
+        assert product.editable
         product.stock = max(product.stock - value, 0)
         db.session.add(product)
         db.session.commit()
@@ -152,9 +155,9 @@ class Product(db.Model):
 
     @staticmethod
     def update_stock(product_id, value):
-        product = Product.query.filter_by(id=product_id).one_or_none()
-        if not product:
-            raise InvalidIdError
+        product = Product.get(product_id)
+        assert product != None
+        assert product.editable
         product.stock = value
         db.session.add(product)
         db.session.commit()
