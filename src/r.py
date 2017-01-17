@@ -730,6 +730,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
                 "***" + "\n" + \
                 R.string.product_example_tab_5_content + "\n"
 
+        @staticmethod
+        def get_tab_n_active(n):
+            return "%sº aba ativa" % n
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):

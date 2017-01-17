@@ -40,24 +40,34 @@ class Product(db.Model):
     image_9 = db.Column(db.Text)
     image_10 = db.Column(db.Text)
 
+    tab_1_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_1_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_1_content = db.Column(db.UnicodeText)
+    tab_2_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_2_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_2_content = db.Column(db.UnicodeText)
+    tab_3_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_3_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_3_content = db.Column(db.UnicodeText)
+    tab_4_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_4_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_4_content = db.Column(db.UnicodeText)
+    tab_5_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_5_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_5_content = db.Column(db.UnicodeText)
+    tab_6_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_6_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_6_content = db.Column(db.UnicodeText)
+    tab_7_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_7_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_7_content = db.Column(db.UnicodeText)
+    tab_8_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_8_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_8_content = db.Column(db.UnicodeText)
+    tab_9_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_9_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_9_content = db.Column(db.UnicodeText)
+    tab_10_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_10_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_10_content = db.Column(db.UnicodeText)
 
@@ -84,24 +94,34 @@ class Product(db.Model):
             image_9=product_form.image_9.data,
             image_10=product_form.image_10.data,
 
+            tab_1_active=product_form.tab_1_active.data,
             tab_1_title=product_form.tab_1_title.data,
             tab_1_content=parse_markdown(product_form.tab_1_content.data),
+            tab_2_active=product_form.tab_2_active.data,
             tab_2_title=product_form.tab_2_title.data,
             tab_2_content=parse_markdown(product_form.tab_2_content.data),
+            tab_3_active=product_form.tab_3_active.data,
             tab_3_title=product_form.tab_3_title.data,
             tab_3_content=parse_markdown(product_form.tab_3_content.data),
+            tab_4_active=product_form.tab_4_active.data,
             tab_4_title=product_form.tab_4_title.data,
             tab_4_content=parse_markdown(product_form.tab_4_content.data),
+            tab_5_active=product_form.tab_5_active.data,
             tab_5_title=product_form.tab_5_title.data,
             tab_5_content=parse_markdown(product_form.tab_5_content.data),
+            tab_6_active=product_form.tab_6_active.data,
             tab_6_title=product_form.tab_6_title.data,
             tab_6_content=parse_markdown(product_form.tab_6_content.data),
+            tab_7_active=product_form.tab_7_active.data,
             tab_7_title=product_form.tab_7_title.data,
             tab_7_content=parse_markdown(product_form.tab_7_content.data),
+            tab_8_active=product_form.tab_8_active.data,
             tab_8_title=product_form.tab_8_title.data,
             tab_8_content=parse_markdown(product_form.tab_8_content.data),
+            tab_9_active=product_form.tab_9_active.data,
             tab_9_title=product_form.tab_9_title.data,
             tab_9_content=parse_markdown(product_form.tab_9_content.data),
+            tab_10_active=product_form.tab_10_active.data,
             tab_10_title=product_form.tab_10_title.data,
             tab_10_content=parse_markdown(product_form.tab_10_content.data)
         )
