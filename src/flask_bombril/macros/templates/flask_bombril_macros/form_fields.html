@@ -164,7 +164,9 @@
 {%- endmacro %}
 
 {% macro submit(field) %}
-    <input type="submit" class="btn btn-default" value="{{ field.label.text }}">
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" value="{{ field.label.text }}">
+    </div>
 {%- endmacro %}
 
 {% macro readonly_text_input(text) %}

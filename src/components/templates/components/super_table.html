@@ -48,7 +48,7 @@
 
         <div class="table-responsive {{ 'without-bottom-paginator'|if(not(data.paginator_data) or data.paginator_data.pages|length <= 1) }}">
             <table id="{{ data.table_data.id|if(data.table_data.id) }}"
-                   class="table table-hover super-table {{ 'table-bordered'|if(data.table_data.bordered) }}">
+                   class="table table-hover super-table {{ 'table-bordered'|if(data.table_data.bordered) }} {{ data.table_data.classes|if(data.table_data.classes) }}">
                 {% if not data.table_data.no_head %}
                     <thead>
                     <tr>

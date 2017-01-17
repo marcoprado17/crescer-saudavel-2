@@ -5,114 +5,96 @@
 {% block content %}
     <div class="vertical-fluid"></div>
     <div class="__admin_content__ __home__ container hidden">
-        <div class="page-header">
-            <h1>{{ R.string.edit_home_content }}</h1>
-        </div>
         <div class="panel panel-default large">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ R.string.edit_home_content }}</h3>
+            </div>
             <div class="panel-body">
                 {######################################################################################################}
                 {# Carousel                                                                                           #}
                 {######################################################################################################}
-                <div class="page-header">
-                    <h1><small>{{ R.string.carousel }}</small></h1>
-                </div>
+                {% with data=dict(
+                    carousel_number=1,
+                    carousel_form=data.carousel_1_form
+                )%}
+                    {% include "components/carousel_form.html" %}
+                {% endwith %}
 
-                <div class="right-indent">
-                    {% with data=dict(
-                        carousel_number=1,
-                        carousel_form=data.carousel_1_form
-                    )%}
-                        {% include "components/carousel_form.html" %}
-                    {% endwith %}
+                {% with data=dict(
+                    carousel_number=2,
+                    carousel_form=data.carousel_2_form
+                )%}
+                    {% include "components/carousel_form.html" %}
+                {% endwith %}
 
-                    {% with data=dict(
-                        carousel_number=2,
-                        carousel_form=data.carousel_2_form
-                    )%}
-                        {% include "components/carousel_form.html" %}
-                    {% endwith %}
-
-                    {% with data=dict(
-                        carousel_number=3,
-                        carousel_form=data.carousel_3_form
-                    )%}
-                        {% include "components/carousel_form.html" %}
-                    {% endwith %}
-                </div>
+                {% with data=dict(
+                    carousel_number=3,
+                    carousel_form=data.carousel_3_form
+                )%}
+                    {% include "components/carousel_form.html" %}
+                {% endwith %}
 
                 {######################################################################################################}
                 {# Product section                                                                                    #}
                 {######################################################################################################}
-                <div class="page-header">
-                    <h1><small>{{ R.string.product_sections }}</small></h1>
-                </div>
+                {% with data=dict(
+                    product_section_number=1,
+                    product_section_form=data.product_section_1_form
+                )%}
+                    {% include "components/product_section_form.html" %}
+                {% endwith %}
 
-                <div class="right-indent">
-                    {% with data=dict(
-                        product_section_number=1,
-                        product_section_form=data.product_section_1_form
-                    )%}
-                        {% include "components/product_section_form.html" %}
-                    {% endwith %}
+                {% with data=dict(
+                    product_section_number=2,
+                    product_section_form=data.product_section_2_form
+                )%}
+                    {% include "components/product_section_form.html" %}
+                {% endwith %}
 
-                    {% with data=dict(
-                        product_section_number=2,
-                        product_section_form=data.product_section_2_form
-                    )%}
-                        {% include "components/product_section_form.html" %}
-                    {% endwith %}
+                {% with data=dict(
+                    product_section_number=3,
+                    product_section_form=data.product_section_3_form
+                )%}
+                    {% include "components/product_section_form.html" %}
+                {% endwith %}
 
-                    {% with data=dict(
-                        product_section_number=3,
-                        product_section_form=data.product_section_3_form
-                    )%}
-                        {% include "components/product_section_form.html" %}
-                    {% endwith %}
+                {% with data=dict(
+                    product_section_number=4,
+                    product_section_form=data.product_section_4_form
+                )%}
+                    {% include "components/product_section_form.html" %}
+                {% endwith %}
 
-                    {% with data=dict(
-                        product_section_number=4,
-                        product_section_form=data.product_section_4_form
-                    )%}
-                        {% include "components/product_section_form.html" %}
-                    {% endwith %}
-
-                    {% with data=dict(
-                        product_section_number=5,
-                        product_section_form=data.product_section_5_form
-                    )%}
-                        {% include "components/product_section_form.html" %}
-                    {% endwith %}
-                </div>
+                {% with data=dict(
+                    product_section_number=5,
+                    product_section_form=data.product_section_5_form
+                )%}
+                    {% include "components/product_section_form.html" %}
+                {% endwith %}
 
                 {######################################################################################################}
                 {# Blog section                                                                                       #}
                 {######################################################################################################}
-                <div class="page-header">
-                    <h1><small>{{ R.string.blog_sections }}</small></h1>
-                </div>
+                {% with data=dict(
+                    blog_section_number=1,
+                    blog_section_form=data.blog_section_1_form
+                )%}
+                    {% include "components/blog_section_form.html" %}
+                {% endwith %}
 
-                <div class="right-indent">
-                    {% with data=dict(
-                        blog_section_number=1,
-                        blog_section_form=data.blog_section_1_form
-                    )%}
-                        {% include "components/blog_section_form.html" %}
-                    {% endwith %}
+                {% with data=dict(
+                    blog_section_number=2,
+                    blog_section_form=data.blog_section_2_form
+                )%}
+                    {% include "components/blog_section_form.html" %}
+                {% endwith %}
 
-                    {% with data=dict(
-                        blog_section_number=2,
-                        blog_section_form=data.blog_section_2_form
-                    )%}
-                        {% include "components/blog_section_form.html" %}
-                    {% endwith %}
-
-                    {% with data=dict(
-                        blog_section_number=3,
-                        blog_section_form=data.blog_section_3_form
-                    )%}
-                        {% include "components/blog_section_form.html" %}
-                    {% endwith %}
-                </div>
+                {% with data=dict(
+                    blog_section_number=3,
+                    blog_section_form=data.blog_section_3_form
+                )%}
+                    {% include "components/blog_section_form.html" %}
+                {% endwith %}
             </div>
         </div>
     </div>

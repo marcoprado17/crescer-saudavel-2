@@ -660,8 +660,12 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
             return "Carrossel " + str(n)
 
         @staticmethod
-        def get_section_n(n):
-            return "Seção " + str(n)
+        def get_product_section_n(n):
+            return "Seção de produto " + str(n)
+
+        @staticmethod
+        def get_blog_section_n(n):
+            return "Seção de blog " + str(n)
 
         @staticmethod
         def get_save_carousel_error_msg(carousel_number):

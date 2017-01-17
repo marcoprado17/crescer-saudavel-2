@@ -15,24 +15,20 @@
                             <h4 class="modal-title">{{ R.string.order_details_modal_title(order.id) }}</h4>
                         </div>
                         <div class="modal-body example">
-                            <div class="page-header">
-                                <h4>{{ R.string.client_data }}</h4>
-                            </div>
                             {% with client_form=order.client.get_form(include_undefined_in_choices=True), readonly=True %}
                                 {% include "components/client_panel_form.html" %}
                             {% endwith %}
-                            <div class="page-header">
-                                <h4>{{ R.string.products_of_order }}</h4>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">{{ R.string.products_of_order }}</div>
+                                <div class="panel-body">
+                                    {% with data=order.get_products_table_data() %}
+                                        {% include "components/super_table.html" %}
+                                    {% endwith %}
+                                    {% with data=order.get_total_table_data() %}
+                                        {% include "components/super_table.html" %}
+                                    {% endwith %}
+                                </div>
                             </div>
-                            {% with data=order.get_products_table_data() %}
-                                {% include "components/super_table.html" %}
-                            {% endwith %}
-                            <div class="page-header">
-                                <h4>{{ R.string.order_total_value }}</h4>
-                            </div>
-                            {% with data=order.get_total_table_data() %}
-                                {% include "components/super_table.html" %}
-                            {% endwith %}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default"

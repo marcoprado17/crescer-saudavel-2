@@ -7,72 +7,51 @@
 {% block content %}
     <div class="vertical-fluid"></div>
     <div class="__admin_content__ __contact__ container hidden">
-        <div class="page-header">
-            <h1>{{ R.string.edit_contact_information }}</h1>
-        </div>
         <div class="panel panel-default large">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ R.string.edit_contact_information }}</h3>
+            </div>
             <div class="panel-body">
                 <form action="{{ url_for("admin_content.contact") }}" method="post" enctype=multipart/form-data
                       class="save"
                       data-save-text="{{ R.string.save }}" data-saving-text="{{ R.string.saving }}"
                       data-error-msg="{{ R.string.save_contact_error_msg }}"
                       data-success-msg="{{ R.string.save_contact_success_msg }}">
-                    <div class="page-header">
-                        <h1>
-                            <small>{{ R.string.main_info }}</small>
-                        </h1>
-                    </div>
                     {{ data.contact_form.csrf_token }}
                     {{ form_fields.string_field(field=data.contact_form.address, explicit_label=True) }}
                     {{ form_fields.tel_field(field=data.contact_form.tel, explicit_label=True) }}
                     {{ form_fields.string_field(field=data.contact_form.email, explicit_label=True) }}
-                    <div class="page-header">
-                        <h1>
-                            <small>{{ R.string.social_networks }}</small>
-                        </h1>
-                    </div>
-                    <div class="right-indent">
-                        <div class="page-header">
-                            <h2>
-                                <small>{{ R.string.facebook }}</small>
-                            </h2>
-                        </div>
-                        {{ form_fields.boolean_field(field=data.contact_form.facebook_active) }}
-                        {{ form_fields.string_field(field=data.contact_form.facebook_link, explicit_label=True) }}
 
-                        <div class="page-header">
-                            <h2>
-                                <small>{{ R.string.youtube }}</small>
-                            </h2>
-                        </div>
-                        {{ form_fields.boolean_field(field=data.contact_form.youtube_active) }}
-                        {{ form_fields.string_field(field=data.contact_form.youtube_link, explicit_label=True) }}
+                    {% with title = R.string.facebook %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.facebook_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.facebook_link, explicit_label=True) }}
 
-                        <div class="page-header">
-                            <h2>
-                                <small>{{ R.string.twitter }}</small>
-                            </h2>
-                        </div>
-                        {{ form_fields.boolean_field(field=data.contact_form.twitter_active) }}
-                        {{ form_fields.string_field(field=data.contact_form.twitter_link, explicit_label=True) }}
+                    {% with title = R.string.youtube %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.youtube_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.youtube_link, explicit_label=True) }}
 
-                        <div class="page-header">
-                            <h2>
-                                <small>{{ R.string.google_plus }}</small>
-                            </h2>
-                        </div>
-                        {{ form_fields.boolean_field(field=data.contact_form.googleplus_active) }}
-                        {{ form_fields.string_field(field=data.contact_form.googleplus_link, explicit_label=True) }}
+                    {% with title = R.string.twitter %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.twitter_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.twitter_link, explicit_label=True) }}
 
-                        <div class="page-header">
-                            <h2>
-                                <small>{{ R.string.pintrest }}</small>
-                            </h2>
-                        </div>
-                        {{ form_fields.boolean_field(field=data.contact_form.pintrest_active) }}
-                        {{ form_fields.string_field(field=data.contact_form.pintrest_link, explicit_label=True) }}
-                    </div>
-                    {{ form_fields.submit(field=data.contact_form.submit) }}
+                    {% with title = R.string.google_plus %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.googleplus_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.googleplus_link, explicit_label=True) }}
+
+                    {% with title = R.string.pintrest %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.pintrest_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.pintrest_link, explicit_label=True) }}
+                {{ form_fields.submit(field=data.contact_form.submit) }}
                 </form>
             </div>
         </div>

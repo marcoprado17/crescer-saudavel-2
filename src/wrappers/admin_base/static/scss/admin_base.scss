@@ -26,6 +26,11 @@ $to-activate-disable-button-min-width: 120px;
     }
   }
 
+  .products-total-table {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
   .panel {
     .page-header {
       margin-top: 25px;
@@ -56,6 +61,12 @@ $to-activate-disable-button-min-width: 120px;
   @media screen and (max-width: 480px) {
     .panel {
       width: 90%;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .products-total-table {
+      border: 1px solid #ddd !important;
     }
   }
 }

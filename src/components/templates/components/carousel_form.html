@@ -1,8 +1,8 @@
 {% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
 <div class="__components__ __carousel_form__">
-    <div class="page-header first">
-        <h2><small>{{ R.string.get_carousel_n(data.carousel_number) }}</small></h2>
-    </div>
+    {% with title = R.string.get_carousel_n(data.carousel_number) %}
+        {% include "components/panel_section_separator.html" %}
+    {% endwith %}
     <form action="{{ url_for("admin_content.save_carousel", carousel_number=data.carousel_number) }}" method="post" enctype=multipart/form-data class="save"
     data-save-text="{{ R.string.save }}" data-saving-text="{{ R.string.saving }}"
     data-error-msg="{{ R.string.get_save_carousel_error_msg(data.carousel_number) }}"

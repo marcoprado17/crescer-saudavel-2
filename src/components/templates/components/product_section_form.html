@@ -1,10 +1,8 @@
 {% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
 <div class="__components__ __product_section_form__">
-    <div class="page-header first">
-        <h2>
-            <small>{{ R.string.get_section_n(data.product_section_number) }}</small>
-        </h2>
-    </div>
+    {% with title = R.string.get_product_section_n(data.product_section_number) %}
+        {% include "components/panel_section_separator.html" %}
+    {% endwith %}
     <form action="{{ url_for("admin_content.save_product_section", product_section_number=data.product_section_number) }}"
           method="post" enctype=multipart/form-data class="save"
           data-save-text="{{ R.string.save }}" data-saving-text="{{ R.string.saving }}"

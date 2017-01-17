@@ -15,23 +15,15 @@
                             <h4 class="modal-title">{{ R.string.client_details_modal_title(client.first_name) }}</h4>
                         </div>
                         <div class="modal-body example">
-                            <div class="page-header">
-                                <h4>{{ R.string.client_data }}</h4>
-                            </div>
                             {% with client_form=client.get_form(include_undefined_in_choices=True), readonly=True %}
                                 {% include "components/client_panel_form.html" %}
                             {% endwith %}
-                            <div class="page-header">
-                                <h4>{{ R.string.orders_of_client }}</h4>
-                            </div>
                             {% if client.orders and client.orders|length > 0 %}
                                 {% for order in client.orders %}
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                {{ R.string.order_panel_title(order.id) }}
-                                                <span class="date">{{ R.string.get_formatted_date(order.paid_datetime) }}</span>
-                                            </h4>
+                                            {{ R.string.order_panel_title(order.id) }}
+                                            <span class="date">{{ R.string.get_formatted_date(order.paid_datetime) }}</span>
                                         </div>
                                         <div class="panel-body">
                                             {% with data=order.get_products_table_data() %}

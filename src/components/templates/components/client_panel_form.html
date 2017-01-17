@@ -1,5 +1,6 @@
 {% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
 <div class="panel panel-default">
+    <div class="panel-heading">{{ R.string.client_data }}</div>
     <div class="panel-body">
         {{ form_fields.string_field(field=client_form.email, explicit_label=True, readonly=readonly) }}
         {{ form_fields.boolean_field(field=client_form.email_confirmed, readonly=readonly) }}

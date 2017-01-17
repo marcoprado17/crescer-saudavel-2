@@ -8,9 +8,15 @@
             <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
                 {{ data.blog_post_form.csrf_token }}
                 {{ form_fields.boolean_field(field=data.blog_post_form.active) }}
-                {{ form_fields.date_field(field=data.blog_post_form.datetime, explicit_label=True) }}
                 {{ form_fields.string_field(field=data.blog_post_form.title, explicit_label=True) }}
-                {{ form_fields.select_field(field=data.blog_post_form.thumbnail, explicit_label=True) }}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ form_fields.date_field(field=data.blog_post_form.datetime, explicit_label=True) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_fields.select_field(field=data.blog_post_form.thumbnail, explicit_label=True) }}
+                    </div>
+                </div>
                 {% with data=dict(
                     field=data.blog_post_form.summary,
                     explicit_label=True,

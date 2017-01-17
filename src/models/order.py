@@ -155,6 +155,7 @@ class Order(db.Model):
             table_data=dict(
                 no_head = True,
                 bordered = True,
+                classes="products-total-table",
                 id="total-table",
                 cols=[
                     dict(
