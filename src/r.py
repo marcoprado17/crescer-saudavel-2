@@ -300,15 +300,33 @@ class Resources(object):
         default_datetime_format = "%d/%m/%Y"
         posts = "Posts"
         edit_post = "Editar post"
+        product_category_example = "Ex.: Frutas"
+        product_subcategory_example = "Ex.: Frutas vermelhas"
+        product_category = "Categoria de produto"
+        address_example = "R. Vinte e Sete de Julho, 231 - São José dos Campos - SP"
+        tel_example = "(11) 2352-2458"
+        email_example = "contato@crescersaudavel.com"
+        blog_post_title_example = "Ex.: Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
+
 
         blog_example_title = "Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
         blog_example_thumbnail = "post_exemplo_bebe_comendo.jpg"
         product_category_example_name = "Frutas"
+        carousel_title_example = "Ex.: Conheça nossa loja física"
+        carousel_subtitle_example = "Ex.: Localização: " + address_example
+        product_section_name_example = "Ex.: Novidades"
+        blog_section_name_example = "Ex.: Posts mais recentes"
+        address_placeholder = "Ex.: " + address_example
+        tel_placeholder = "Ex.: " + tel_example
+        email_placeholder = "Ex.: " + email_example
+        link_placeholder = "Ex.: https://www.google.com.br"
+        footer_lower_text_placeholder = "Ex.: " + footer_lower_text
+        city_placeholder = "Ex.: São José dos Campos"
 
         product_example_title = "Banana orgânica 100g"
-        product_example_image_1 = "banana_example_1.jpg"
-        product_example_image_2 = "banana_example_2.jpg"
-        product_example_image_3 = "banana_example_3.jpg"
+        product_example_image_1 = "banana_exemplo_1.jpg"
+        product_example_image_2 = "banana_exemplo_2.jpg"
+        product_example_image_3 = "banana_exemplo_3.jpg"
         product_example_summary = \
 """A papinha de banana orgânica é saborosa, com uma textura muito agradável para os babys.
 Além disso, possui o beneficio de acalmar o estômago e ajudar na digestão.
@@ -490,7 +508,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
 >"É importante fazer a introdução correta de cada alimento para evitar processos alérgicos, de intolerância e até mesmo reações adversas no corpo do bebê. No final, até os três anos, a criança já deve ter conhecido de todos os alimentos." *Karin Honorato*
 
-[Fonte](http://g1.globo.com/minas-gerais/noticia/2015/02/nutricionista-fala-sobre-introducao-dos-alimentos-nas-papinhas-dos-bebes.html)
+[fonte](http://g1.globo.com/minas-gerais/noticia/2015/02/nutricionista-fala-sobre-introducao-dos-alimentos-nas-papinhas-dos-bebes.html)
 """
 
         @staticmethod

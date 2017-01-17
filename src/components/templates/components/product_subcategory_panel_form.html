@@ -9,9 +9,9 @@
             {{ messages.flash_static() }}
             <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
                 {{ data.product_subcategory_form.csrf_token }}
-                {{ form_fields.select_field(field=data.product_subcategory_form.category_id, explicit_label=True) }}
-                {{ form_fields.string_field(field=data.product_subcategory_form.subcategory_name, explicit_label=True) }}
                 {{ form_fields.boolean_field(field=data.product_subcategory_form.active) }}
+                {{ form_fields.select_field(field=data.product_subcategory_form.category_id, explicit_label=True) }}
+                {{ form_fields.string_field(field=data.product_subcategory_form.subcategory_name, explicit_label=True, placeholder=R.string.product_subcategory_example) }}
                 {{ form_fields.submit(field=data.product_subcategory_form.submit) }}
             </form>
         </div>

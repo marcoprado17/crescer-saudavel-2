@@ -71,7 +71,7 @@
     </div>
 {%- endmacro %}
 
-{% macro tel_field(field, explicit_label=False, readonly=False) %}
+{% macro tel_field(field, explicit_label=False, readonly=False, placeholder="") %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
             <div class="label-container">
@@ -85,7 +85,7 @@
             </div>
         {% endif %}
         <input id="{{ field.id }}" name="{{ field.name }}" type="tel" maxlength="{{ R.dimen.tel_max_length }}"
-               class="form-control" value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }}>
+               class="form-control" value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }} placeholder="{{ placeholder }}">
         {{ render_errors(field.errors) }}
     </div>
     <div class="form-group auxiliar-text">

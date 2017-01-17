@@ -66,17 +66,17 @@ def create_home_content(product_example_id, blog_post_example_id):
         carousel_item_1_active=True,
         carousel_item_1_title="Título do carrossel 1",
         carousel_item_1_subtitle="Subtítulo do carrossel 1",
-        carousel_item_1_image="carousel_default.jpg",
+        carousel_item_1_image="carrossel_padrao.jpg",
 
         carousel_item_2_active=True,
         carousel_item_2_title="Título do carrossel 2",
         carousel_item_2_subtitle="Subtítulo do carrossel 2",
-        carousel_item_2_image="carousel_default.jpg",
+        carousel_item_2_image="carrossel_padrao.jpg",
 
         carousel_item_3_active=True,
         carousel_item_3_title="Título do carrossel 3",
         carousel_item_3_subtitle="Subtítulo do carrossel 3",
-        carousel_item_3_image="carousel_default.jpg",
+        carousel_item_3_image="carrossel_padrao.jpg",
 
         product_section_1_active=True,
         product_section_1_name="Seção de produtos 1",
@@ -118,9 +118,9 @@ def create_home_content(product_example_id, blog_post_example_id):
 
 def create_contact():
     contact = Contact(
-        address="R. Vinte e Sete de Julho, 231 - São José dos Campos - SP",
-        tel="(12) 2341-8725",
-        email="contato@crescersaudavel.com",
+        address=R.string.address_example,
+        tel=R.string.tel_example,
+        email=R.string.email_example,
         facebook_active=True,
         facebook_link="#",
         youtube_active=True,

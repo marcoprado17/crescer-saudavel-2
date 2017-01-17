@@ -18,39 +18,39 @@
                       data-error-msg="{{ R.string.save_contact_error_msg }}"
                       data-success-msg="{{ R.string.save_contact_success_msg }}">
                     {{ data.contact_form.csrf_token }}
-                    {{ form_fields.string_field(field=data.contact_form.address, explicit_label=True) }}
-                    {{ form_fields.tel_field(field=data.contact_form.tel, explicit_label=True) }}
-                    {{ form_fields.string_field(field=data.contact_form.email, explicit_label=True) }}
+                    {{ form_fields.string_field(field=data.contact_form.address, explicit_label=True, placeholder=R.string.address_placeholder) }}
+                    {{ form_fields.tel_field(field=data.contact_form.tel, explicit_label=True, placeholder=R.string.tel_placeholder) }}
+                    {{ form_fields.string_field(field=data.contact_form.email, explicit_label=True, placeholder=R.string.email_placeholder) }}
 
                     {% with title = R.string.facebook %}
                         {% include "components/panel_section_separator.html" %}
                     {% endwith %}
                     {{ form_fields.boolean_field(field=data.contact_form.facebook_active) }}
-                    {{ form_fields.string_field(field=data.contact_form.facebook_link, explicit_label=True) }}
+                    {{ form_fields.string_field(field=data.contact_form.facebook_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
 
                     {% with title = R.string.youtube %}
                         {% include "components/panel_section_separator.html" %}
                     {% endwith %}
                     {{ form_fields.boolean_field(field=data.contact_form.youtube_active) }}
-                    {{ form_fields.string_field(field=data.contact_form.youtube_link, explicit_label=True) }}
+                    {{ form_fields.string_field(field=data.contact_form.youtube_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
 
                     {% with title = R.string.twitter %}
                         {% include "components/panel_section_separator.html" %}
                     {% endwith %}
                     {{ form_fields.boolean_field(field=data.contact_form.twitter_active) }}
-                    {{ form_fields.string_field(field=data.contact_form.twitter_link, explicit_label=True) }}
+                    {{ form_fields.string_field(field=data.contact_form.twitter_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
 
                     {% with title = R.string.google_plus %}
                         {% include "components/panel_section_separator.html" %}
                     {% endwith %}
                     {{ form_fields.boolean_field(field=data.contact_form.googleplus_active) }}
-                    {{ form_fields.string_field(field=data.contact_form.googleplus_link, explicit_label=True) }}
+                    {{ form_fields.string_field(field=data.contact_form.googleplus_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
 
                     {% with title = R.string.pintrest %}
                         {% include "components/panel_section_separator.html" %}
                     {% endwith %}
                     {{ form_fields.boolean_field(field=data.contact_form.pintrest_active) }}
-                    {{ form_fields.string_field(field=data.contact_form.pintrest_link, explicit_label=True) }}
+                    {{ form_fields.string_field(field=data.contact_form.pintrest_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
                 {{ form_fields.submit(field=data.contact_form.submit) }}
                 </form>
             </div>
