@@ -19,7 +19,9 @@
                                 {% include "components/client_panel_form.html" %}
                             {% endwith %}
                             <div class="panel panel-default">
-                                <div class="panel-heading">{{ R.string.products_of_order }}</div>
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{ R.string.products_of_order }}</h3>
+                                </div>
                                 <div class="panel-body">
                                     {% with data=order.get_products_table_data() %}
                                         {% include "components/super_table.html" %}

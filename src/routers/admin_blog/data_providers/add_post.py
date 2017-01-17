@@ -11,9 +11,6 @@ class AddBlogPostDataProvider(object):
         if not add_blog_post_form:
             add_blog_post_form = AddBlogPostForm()
 
-        print add_blog_post_form.datetime.data
-        print type(add_blog_post_form.datetime.data)
-
         return dict(
             add_blog_post_form = add_blog_post_form
         )

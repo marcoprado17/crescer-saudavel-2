@@ -2,7 +2,9 @@
 {% import "flask_bombril_macros/messages.html" as messages with context %}
 <div class="__components__ __product_subcategory_panel_form__">
     <div class="panel panel-default med">
-        <div class="panel-heading">{{ data.title }}</div>
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ data.title }}</h3>
+        </div>
         <div class="panel-body">
             {{ messages.flash_static() }}
             <form action="{{ request.url }}" method="post" enctype=multipart/form-data>

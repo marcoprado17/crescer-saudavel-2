@@ -8,7 +8,9 @@
     <div class="vertical-fluid"></div>
     <div class="__admin_images__ __add_image__ container hidden">
         <div class="panel panel-default med">
-            <div class="panel-heading">{{ R.string.add_image }}</div>
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ R.string.add_image }}</h3>
+            </div>
             <div class="panel-body">
                 {{ messages.flash_static() }}
                 <form action="{{ url_for("admin_images.add_image") }}" method="post" enctype=multipart/form-data>

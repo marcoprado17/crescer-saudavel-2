@@ -22,8 +22,12 @@
                                 {% for order in client.orders %}
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            {{ R.string.order_panel_title(order.id) }}
-                                            <span class="date">{{ R.string.get_formatted_date(order.paid_datetime) }}</span>
+                                            <h3 class="panel-title">
+                                                {{ R.string.order_panel_title(order.id) }}
+                                                <span class="date">
+                                                    {{ R.string.get_formatted_date(order.paid_datetime) }}
+                                                </span>
+                                            </h3>
                                         </div>
                                         <div class="panel-body">
                                             {% with data=order.get_products_table_data() %}
@@ -38,15 +42,6 @@
                             {% else %}
                                 <p>{{ R.string.no_orders_registered }}</p>
                             {% endif %}
-                            {#                            {% with data=order.get_products_table_data() %}#}
-                            {#                                {% include "components/super_table.html" %}#}
-                            {#                            {% endwith %}#}
-                            {#                            <div class="page-header">#}
-                            {#                                <h4>{{ R.string.order_total_value }}</h4>#}
-                            {#                            </div>#}
-                            {#                            {% with data=order.get_total_table_data() %}#}
-                            {#                                {% include "components/super_table.html" %}#}
-                            {#                            {% endwith %}#}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default"
