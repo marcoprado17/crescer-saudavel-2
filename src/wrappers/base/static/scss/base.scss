@@ -6,4 +6,18 @@ $panel-lg-width: 800px;
     font-size: 8px;
     top: -4px;
   }
+
+  .markdown-parsed-container {
+    .table {
+      width: auto !important;
+    }
+
+    p.image-container {
+      text-align: center;
+    }
+
+    img {
+      max-width: 90%;
+    }
+  }
 }

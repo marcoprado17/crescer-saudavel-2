@@ -23,7 +23,8 @@ def get_image_choices(include_none=False):
 
 def parse_markdown(markdown_text):
     markdown_html = markdown.markdown(markdown_text, extensions=['markdown.extensions.tables'])
-    markdown_html = markdown_html.replace("<table>", "<table class='table'>")
+    markdown_html = markdown_html.replace("<table>", "<table class='table table-bordered table-condensed'>")
+    markdown_html = markdown_html.replace("<p><img", "<p class='image-container'><img")
     return markdown_html
 
 

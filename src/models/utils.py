@@ -166,7 +166,7 @@ def create_footer():
 
 def create_product_category_example():
     product_category = ProductCategory(
-        name="Exemplo - Frutas",
+        name=R.string.product_category_example_name,
         active=False,
         editable=False
     )
@@ -178,79 +178,30 @@ def create_product_category_example():
 
 def create_product_example(category_id):
     product = Product(
-        title="Exemplo - Banana orgânica 100g",
+        title=R.string.product_example_title,
         active=False,
         category_id=category_id,
-        price=Decimal("9.90"),
-        stock=100,
-        min_stock=10,
-        summary=parse_markdown(
-            """
-            Exemplo - A papinha de banana orgânica é saborosa, com uma textura muito agradável para os babys.
-            Além disso, possui o beneficio de acalmar o estômago e ajudar na digestão.
-            """),
-        sales_number=32,
+        price=R.dimen.product_example_price,
+        stock=R.dimen.product_example_stock,
+        min_stock=R.dimen.product_example_min_stock,
+        summary=parse_markdown(R.string.product_example_summary),
+        sales_number=R.dimen.product_example_sales_number,
         editable=False,
 
-        image_1="banana_example_1.jpg",
-        image_2="banana_example_2.jpg",
-        image_3="banana_example_3.jpg",
+        image_1=R.string.product_example_image_1,
+        image_2=R.string.product_example_image_2,
+        image_3=R.string.product_example_image_3,
 
-        tab_1_title="Preparação",
-        tab_1_content=parse_markdown(
-            """
-            #### Produto Congelado:
-            1. Retirar o rótulo e a tampa
-            2. Aquecer em microondas por 01 minuto ou em banho maria por 15 minutos, mexendo de vez em quando.
-            3. Verifique a temperatura. Antes de consumir, misturar uniformemente o conteúdo.
-
-            #### Produto descongelado (em refrigeração por 12 horas):
-            1. Retirar o rótulo e a tampa
-            2. Aquecer em microondas por 01 minuto ou em banho maria por 10 minutos mexendo de vez em quando.
-            3. Verifique a temperatura. Antes de consumir, misturar uniformemente o conteúdo.
-            """),
-
-        tab_2_title="Ingredientes",
-        tab_2_content=parse_markdown(
-            """
-            \* Para uma porção de **100g**
-
-            Ingrediente     | Quantidade
-            --------------- | ----------
-            Banana orgânica | 75g
-            Água            | 20ml
-            Açúcar mascavo  | 5g
-            """),
-        tab_3_title="Informações nutricionais",
-        tab_3_content=parse_markdown(
-            """
-            \* Para uma porção de **100g**
-
-            Tipo de nutriente  | Quantidade
-            ------------------ | ----------
-            Carboidrato        | 22g
-            Proteínas          | 1,2g
-            Gorduras totais    | 0g
-            Gorduras saturadas | 0g
-            Gorduras trans     | 0g
-            Fibra alimentar    | 1,9g
-
-                Valor energético: 94 kcal
-            """),
-        tab_4_title="Benefícios",
-        tab_4_content=parse_markdown(
-            """
-            * Rica em potássio, perfeita para baixar a pressão arterial.
-            * Ricas em fibras, a inclusão de bananas nas dietas ajuda a normalizar o trânsito intestinal, permitindo melhorar os
-            problemas de constipação sem o uso de laxantes.
-            * A banana acalma o estômago e ajuda na digestão.
-            """),
-        tab_5_title="Conservação",
-        tab_5_content=parse_markdown(
-            """
-            Conservar este produto congelado até o seu uso. Após Aberto e descongelado, consumir em até 12 horas.
-            Nenhum produto após o descongelamento poderá ser recongelado.
-            """)
+        tab_1_title=R.string.product_example_tab_1_title,
+        tab_1_content=parse_markdown(R.string.product_example_tab_1_content),
+        tab_2_title=R.string.product_example_tab_2_title,
+        tab_2_content=parse_markdown(R.string.product_example_tab_2_content),
+        tab_3_title=R.string.product_example_tab_3_title,
+        tab_3_content=parse_markdown(R.string.product_example_tab_3_content),
+        tab_4_title=R.string.product_example_tab_4_title,
+        tab_4_content=parse_markdown(R.string.product_example_tab_4_content),
+        tab_5_title=R.string.product_example_tab_5_title,
+        tab_5_content=parse_markdown(R.string.product_example_tab_5_content)
     )
     db.session.add(product)
     db.session.commit()
@@ -261,9 +212,9 @@ def create_product_example(category_id):
 def create_blog_post_example():
     blog_post = BlogPost(
         active=False,
-        title="Exemplo - Papinha é coisa séria",
+        title=R.string.blog_example_title,
         datetime=get_random_datetime(datetime_1, datetime_2),
-        thumbnail="blog_post_thumbnail_default.jpg",
+        thumbnail=R.string.blog_example_thumbnail,
         summary=R.string.blog_post_summary_example,
         content=R.string.blog_post_content_example,
         editable=False

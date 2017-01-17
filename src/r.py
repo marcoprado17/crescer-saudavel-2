@@ -175,7 +175,6 @@ class Resources(object):
         product_price_example = "Ex.: 8,80"
         product_stock_quantity_example = "Ex.: 42"
         product_stop_sell_stock_quantity_example = "Ex.: 5"
-        product_summary_example = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
         markdown = "Markdown"
         example = "Exemplo"
         preview = "Pré-visualização"
@@ -301,6 +300,64 @@ class Resources(object):
         posts = "Posts"
         edit_post = "Editar post"
 
+        blog_example_title = "Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
+        blog_example_thumbnail = "post_exemplo_bebe_comendo.jpg"
+        product_category_example_name = "Frutas"
+
+        product_example_title = "Banana orgânica 100g"
+        product_example_image_1 = "banana_example_1.jpg"
+        product_example_image_2 = "banana_example_2.jpg"
+        product_example_image_3 = "banana_example_3.jpg"
+        product_example_summary = \
+"""A papinha de banana orgânica é saborosa, com uma textura muito agradável para os babys.
+Além disso, possui o beneficio de acalmar o estômago e ajudar na digestão.
+"""
+        product_example_tab_1_title = "Preparação"
+        product_example_tab_1_content = \
+"""#### Produto Congelado:
+1. Retirar o rótulo e a tampa.
+2. Aquecer em microondas por 01 minuto ou em banho maria por 15 minutos, mexendo de vez em quando.
+3. Verifique a temperatura. Antes de consumir, misturar uniformemente o conteúdo.
+
+#### Produto descongelado (em refrigeração por 12 horas):
+1. Retirar o rótulo e a tampa.
+2. Aquecer em microondas por 01 minuto ou em banho maria por 10 minutos mexendo de vez em quando.
+3. Verifique a temperatura. Antes de consumir, misturar uniformemente o conteúdo."""
+        product_example_tab_2_title = "Ingredientes"
+        product_example_tab_2_content = \
+"""\* Para uma porção de **100g**
+
+Ingrediente     | Quantidade
+--------------- | ----------
+Banana orgânica | 75g
+Água            | 20ml
+Açúcar mascavo  | 5g"""
+        product_example_tab_3_title = "Informação nutricional"
+        product_example_tab_3_content = \
+"""\* Para uma porção de **100g**
+
+Tipo de nutriente  | Quantidade
+------------------ | ----------
+Carboidrato        | 87g
+Proteínas          | 9,2g
+Gorduras totais    | 0g
+Gorduras saturadas | 0g
+Gorduras trans     | 0g
+Fibra alimentar    | 3,8g
+
+Valor energético: 94 kcal"""
+        product_example_tab_4_title = "Benefícios"
+        product_example_tab_4_content = \
+"""* Rica em potássio, perfeita para baixar a pressão arterial.
+* Ricas em fibras, a inclusão de bananas nas dietas ajuda a normalizar o trânsito intestinal, permitindo melhorar os
+problemas de constipação sem o uso de laxantes.
+* A banana acalma o estômago e ajuda na digestão."""
+        product_example_tab_5_title = "Conservação"
+        product_example_tab_5_content = \
+""" Conservar este produto congelado até o seu uso. Após Aberto e descongelado, consumir em até 12 horas.
+Nenhum produto após o descongelamento poderá ser recongelado."""
+
+
         tab_content_example = \
 """An h1 header
 ============
@@ -351,23 +408,9 @@ Content Cell | Content Cell"""
 
         about_us_content_example = \
 """
-Lorem ipsum dolor sit amet, vitae in etiam. Dignissim rutrum, phasellus arcu nibh hendrerit vel ridiculus eget, eget
-sit. Feugiat scelerisque risus. Fusce sit quis massa, wisi eu mauris curabitur. Et turpis in lectus neque, wisi eget,
-turpis in sed elementum, donec sed, nisl non odio eget. Magna maecenas aliquam, posuere viverra ante, turpis ipsum
-sociis vel porta. Mauris varius velit morbi non blandit sem, in tincidunt, ligula luctus orci condimentum risus ipsum,
-lacus lacus luctus. Lacinia parturient pellentesque duis. Dolor scelerisque odio eu pede at, integer vitae nunc tenetur
-wisi, dui cubilia tempor ullamcorper.
+Lorem ipsum dolor sit amet, vitae in etiam. Dignissim rutrum, phasellus arcu nibh hendrerit vel ridiculus eget, eget sit. Feugiat scelerisque risus. Fusce sit quis massa, wisi eu mauris curabitur. Et turpis in lectus neque, wisi eget, turpis in sed elementum, donec sed, nisl non odio eget. Magna maecenas aliquam, posuere viverra ante, turpis ipsum sociis vel porta. Mauris varius velit morbi non blandit sem, in tincidunt, ligula luctus orci condimentum risus ipsum, lacus lacus luctus. Lacinia parturient pellentesque duis. Dolor scelerisque odio eu pede at, integer vitae nunc tenetur wisi, dui cubilia tempor ullamcorper.
 
-Tempor eu fusce, sodales proin gravida cras felis libero, tempor eu mauris vestibulum. Penatibus dapibus egestas risus
-wisi quis, in eleifend, ornare nec, elit quis, nibh integer curabitur metus. Id dictum vivamus, ac urna temporibus nibh
-nullam. Nunc faucibus. Vitae id, posuere consectetuer ut lobortis vehicula vulputate purus, morbi curabitur, ultricies
-odio cum et quisque velit ut, tincidunt nulla auctor faucibus in tristique. Est etiam, donec sit aliquam duis, sed
-tortor suspendisse et habitasse odio vivamus. Libero ligula pede amet vestibulum, nunc leo, pede id duis rutrum. Quam
-lacinia justo ac, consequat nisl et et donec pharetra ornare, leo dapibus, eu nulla, amet mauris donec lectus voluptas
-elementum turpis. Quisque justo pretium neque eros pede, quisque pede, elit hendrerit quam fusce pharetra diam,
-pellentesque phasellus reiciendis congue euismod, irure in id pretium porttitor sagittis nihil. Felis lorem velit nisl
-velit sed ipsum, imperdiet morbi, volutpat leo litora curabitur tellus pharetra at, adipiscing congue duis id aliquam
-mauris varius, nulla fusce faucibus ac.
+Tempor eu fusce, sodales proin gravida cras felis libero, tempor eu mauris vestibulum. Penatibus dapibus egestas risus wisi quis, in eleifend, ornare nec, elit quis, nibh integer curabitur metus. Id dictum vivamus, ac urna temporibus nibh nullam. Nunc faucibus. Vitae id, posuere consectetuer ut lobortis vehicula vulputate purus, morbi curabitur, ultricies odio cum et quisque velit ut, tincidunt nulla auctor faucibus in tristique. Est etiam, donec sit aliquam duis, sed tortor suspendisse et habitasse odio vivamus. Libero ligula pede amet vestibulum, nunc leo, pede id duis rutrum. Quam lacinia justo ac, consequat nisl et et donec pharetra ornare, leo dapibus, eu nulla, amet mauris donec lectus voluptas elementum turpis. Quisque justo pretium neque eros pede, quisque pede, elit hendrerit quam fusce pharetra diam, pellentesque phasellus reiciendis congue euismod, irure in id pretium porttitor sagittis nihil. Felis lorem velit nisl velit sed ipsum, imperdiet morbi, volutpat leo litora curabitur tellus pharetra at, adipiscing congue duis id aliquam mauris varius, nulla fusce faucibus ac.
 """
 
         faq_content_example = \
@@ -381,7 +424,7 @@ mauris varius, nulla fusce faucibus ac.
     Lorem ipsum dolor sit amet, non hac elit quam, et turpis scelerisque vivamus. Ut neque lectus diam et,
 curabitur est platea nisl nec nulla.
 
-    Sagittis non arcu dis, neque non aliquet autem cupidatat, at nulla neque nulla aliquet, mi turpis ipsum faucibus,
+    Sagittis non arcu dis, neque non [link](https://www.google.com) aliquet autem cupidatat, at nulla neque nulla aliquet, mi turpis ipsum faucibus,
 habitasse sodales urna. Congue convallis a pellentesque pretium non, rutrum sollicitudin vestibulum quam iaculis,
 eget sem euismod, lobortis lectus vel.
 
@@ -393,61 +436,61 @@ metus, integer sed est. Non dignissim felis cras tortor.
 
         blog_post_summary_example = \
 """
-Lorem ipsum dolor sit amet, vitae in etiam. Dignissim rutrum, phasellus arcu nibh hendrerit vel ridiculus eget, eget
-sit. Feugiat scelerisque risus. Fusce sit quis massa, wisi eu mauris curabitur. Et turpis in lectus neque, wisi eget,
-turpis in sed elementum, donec sed, nisl non odio eget. Magna maecenas aliquam, posuere viverra ante, turpis ipsum
-sociis vel porta. Mauris varius velit morbi non blandit sem, in tincidunt, ligula luctus orci condimentum risus ipsum,
-lacus lacus luctus. Lacinia parturient pellentesque duis. Dolor scelerisque odio eu pede at, integer vitae nunc tenetur
-wisi, dui cubilia tempor ullamcorper.
+A nutricionista *Karin Honorato*, dá dicas sobre a introdução dos alimentos nas papinhas dos bebês. Ela destaca os cuidados para que esta introdução seja feita de forma a beneficiar toda a vida da criança.
 """
 
         blog_post_content_example = \
-"""An h1 header
-============
+"""
+A melhor idade para o bebê começar a comer as papinhas salgadas é a partir do sexto mês, conforme a nutricionista Karin afirma que o ponto mais importante neste momento, é a introdução de um alimento de cada vez. Desta forma, é possível observar se o bebê tem alguma reação ou mudança no intestino. Ela indica que cada alimento deve ser dado por dois ou três dias seguidos.
 
-Paragraphs are separated by a blank line.
+###Ordem dos alimentos
+***
+O primeiro tipo de alimento para uma papinha é o tubérculo ou raiz, como batata, batata doce, inhame e cará. A mandioca só pode ser introduzida a partir do nono mês, destaca. Ela recomenda fazer um purê, com o leite que o bebê já consome.
 
-2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
-look like:
+![Batata doce](https://abrilboaforma.files.wordpress.com/2016/10/batata-doce-emagrece.jpg?quality=85&strip=all&w=680&h=453&crop=1 "Batata doce")
 
-  * this one
-  * that one
-  * the other one
+Depois de introduzido o tubérculo, é hora de acrescentar um legume. Pode ser: chuchu, abóbora, abobrinha, cenoura, tomate, vagem e até jiló. Quanto ao jiló, que tem um sabor mais amargo, Karin afirma que é importante as crianças conhecerem todos os alimentos e sabores.
 
-Note that --- not considering the asterisk --- the actual text
-content starts at 4-columns in.
+![Abóbora](/static/uploaded_img/post_exemplo_abobora.jpg "Abóbora")
 
-> Block quotes are
-> written like so.
->
-> They can span multiple paragraphs,
-> if you like.
+Os próximos alimentos a serem introduzidos, conforme a nutricionista, são as verduras: brócolis, couve, almeirão. Neste caso, as folhas devem ser acrescentadas no fim do preparo, ficando no fogo por no máximo oito minutos. A verdura deve ser batida no liquidificador com parte do caldo da sopa.
 
-Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
-in chapters 12--14"). Three dots ... will be converted to an ellipsis.
-Unicode is supported.
+####Lista (ordenada) dos alimentos:
+1. Tubérculo ou raiz, como batata, batata doce, inhame e cará.
+2. Legume, como chuchu, abóbora, abobrinha, cenoura, tomate, vagem e até jiló.
+3. Verduras, com brócolis e couve, almeirão.
+4. Carnes, como frango sem pele, patinho acém ou músculos (moídos ou cozidos).
 
+####Lista (não ordenada) dos alimentos:
+* Tubérculo ou raiz, como batata, batata doce, inhame e cará.
+* Legume, como chuchu, abóbora, abobrinha, cenoura, tomate, vagem e até jiló.
+* Verduras, com brócolis e couve, almeirão.
+* Carnes, como frango sem pele, patinho acém ou músculos (moídos ou cozidos).
 
+####Tabela dos alimentos:
+Ordem | Alimento
+- | -
+1° | Tubérculos
+2° | Legumes
+3° | Verduras
+4° | Carnes
 
-An h2 header
-------------
+###Cuidados
+***
+Karin alerta que **apenas as verduras e as carnes podem ser processadas no liquidificador. Os demais alimentos devem ser amassados.** No inicio, os alimentos devem ser mais “amassadinhos” e, com o tempo, é indicado deixar uns pedacinhos maiores. Desta forma, o bebê exercita a musculatura tanto para mastigação quanto para a fala, diz.
 
-Here's a numbered list:
+Na hora da introdução das carnes, Karin indica o frango sem pele e a carne de boi (patinho, acém ou músculo, moídos ou cozidos). A carne, como dito anteriormente deve ser processada no liquidificador. A partir do sétimo mês, alguns pedaços desfiados podem ser introduzidos.
 
- 1. first item
- 2. second item
- 3. third item
+As leguminosas como feijão, arroz, ervilha e lentilha são os próximos alimentos a serem incorporados à alimentação do bebê. Primeiro deve ser dado só o caldo. Depois, o alimento processado, e após o oitavo mês, ele pode já conseguir mastigar uns “grãozinhos”, explica.
 
-Note again how the actual text starts at 4 columns in (4 characters
-from the left side). Here's a code sample:
+Depois de introduzir todos estes tipos de alimentos, o bebê já vai ter um cardápio variado. Karin destaca ainda os temperos, que aguçam o paladar da criança. Ela recomenda uma pitadinha de sal, um fio de azeite, cebola e algumas ervinhas.
 
-    # Let me re-iterate ...
-    for i in 1 .. 10 { do-something(i) }
+A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, aipo e ovo, assim como a mandioca, Karin recomenda a introdução a partir do nono mês. Os peixes, ela recomenda entre 1 ano e meio e dois anos e os frutos do mar só a partir dos dois anos.
 
-First Header | Second Header
------------- | -------------
-Content Cell | Content Cell
-Content Cell | Content Cell"""
+>"É importante fazer a introdução correta de cada alimento para evitar processos alérgicos, de intolerância e até mesmo reações adversas no corpo do bebê. No final, até os três anos, a criança já deve ter conhecido de todos os alimentos." *Karin Honorato*
+
+[Fonte](http://g1.globo.com/minas-gerais/noticia/2015/02/nutricionista-fala-sobre-introducao-dos-alimentos-nas-papinhas-dos-bebes.html)
+"""
 
         @staticmethod
         def to_activate_product_error(product_title):
@@ -659,6 +702,28 @@ Content Cell | Content Cell"""
         def product_not_editable(product_title):
             return 'O produto "%s" não pode ser editado.' % product_title
 
+        @staticmethod
+        def get_product_summary_example():
+            return R.string.product_example_summary
+
+        @staticmethod
+        def get_product_tab_content_example():
+            return \
+                "###" + R.string.product_example_tab_1_title + "\n" + \
+                "***" + "\n" + \
+                R.string.product_example_tab_1_content + "\n\n" \
+                "###" + R.string.product_example_tab_2_title + "\n" + \
+                "***" + "\n" + \
+                R.string.product_example_tab_2_content + "\n\n" \
+                "###" + R.string.product_example_tab_3_title + "\n" + \
+                "***" + "\n" + \
+                R.string.product_example_tab_3_content + "\n\n" \
+                "###" + R.string.product_example_tab_4_title + "\n" + \
+                "***" + "\n" + \
+                R.string.product_example_tab_4_content + "\n\n" \
+                "###" + R.string.product_example_tab_5_title + "\n" + \
+                "***" + "\n" + \
+                R.string.product_example_tab_5_content + "\n"
 
     # noinspection PyPep8Naming
     @unique
@@ -738,6 +803,11 @@ Content Cell | Content Cell"""
         footer_lower_text_max_length = 256
 
         freight = Decimal("5.00")
+
+        product_example_price = Decimal("9.90")
+        product_example_stock = 100
+        product_example_min_stock = 10
+        product_example_sales_number = 32
 
 
 R = Resources()
