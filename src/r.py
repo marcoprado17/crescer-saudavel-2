@@ -18,6 +18,7 @@ class Resources(object):
         edit_footer = "Editar rodapé"
         thumbnail = "Thumbnail"
         thumbnail_tooltip = "Imagem principal do post em questão"
+        tabs = "Abas"
 
         none_in_masculine = "Nenhum"
 
