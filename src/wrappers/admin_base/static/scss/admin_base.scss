@@ -27,4 +27,10 @@ $to-activate-disable-button-min-width: 120px;
       margin-top: 25px;
     }
   }
+
+  @media screen and (min-width: 1024px) {
+    .modal-dialog.large {
+      width: 900px;
+    }
+  }
 }
