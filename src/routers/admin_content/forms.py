@@ -26,27 +26,22 @@ class CarouselForm(FlaskForm):
     title = StringField(
         label=R.string.title,
         validators=[
-            Required(),
             Length(max_length=R.dimen.carousel_title_max_length)
         ])
     subtitle = StringField(
         label=R.string.subtitle,
         validators=[
-            Required(),
             Length(max_length=R.dimen.carousel_subtitle_max_length)
         ])
     image = SelectField(
         label=R.string.image,
-        validators=[
-            Required()
-        ]
     )
 
     submit = SubmitField(label=R.string.save)
 
     def __init__(self, **kwargs):
         super(CarouselForm, self).__init__(**kwargs)
-        self.image.choices = get_image_choices(include_none=False)
+        self.image.choices = get_image_choices(include_none=True)
 
     def set_values(self, home_content, carousel_number):
         assert carousel_number in range(1, 3+1)
@@ -74,37 +69,35 @@ class ProductSectionForm(FlaskForm):
     name = StringField(
         label=R.string.section_name,
         validators=[
-            Required(),
             Length(max_length=R.dimen.product_section_name_max_length)
         ])
-    product_1_id = SelectField(label=R.string.get_product_n(1),validators=[Required()])
-    product_2_id = SelectField(label=R.string.get_product_n(2), validators=[Required()])
-    product_3_id = SelectField(label=R.string.get_product_n(3), validators=[Required()])
-    product_4_id = SelectField(label=R.string.get_product_n(4), validators=[Required()])
-    product_5_id = SelectField(label=R.string.get_product_n(5), validators=[Required()])
-    product_6_id = SelectField(label=R.string.get_product_n(6), validators=[Required()])
-    product_7_id = SelectField(label=R.string.get_product_n(7), validators=[Required()])
-    product_8_id = SelectField(label=R.string.get_product_n(8), validators=[Required()])
-    product_9_id = SelectField(label=R.string.get_product_n(9), validators=[Required()])
-    product_10_id = SelectField(label=R.string.get_product_n(10), validators=[Required()])
-    product_11_id = SelectField(label=R.string.get_product_n(11), validators=[Required()])
-    product_12_id = SelectField(label=R.string.get_product_n(12), validators=[Required()])
-    product_13_id = SelectField(label=R.string.get_product_n(13), validators=[Required()])
-    product_14_id = SelectField(label=R.string.get_product_n(14), validators=[Required()])
-    product_15_id = SelectField(label=R.string.get_product_n(15), validators=[Required()])
-    product_16_id = SelectField(label=R.string.get_product_n(16), validators=[Required()])
-    product_17_id = SelectField(label=R.string.get_product_n(17), validators=[Required()])
-    product_18_id = SelectField(label=R.string.get_product_n(18), validators=[Required()])
-    product_19_id = SelectField(label=R.string.get_product_n(19), validators=[Required()])
-    product_20_id = SelectField(label=R.string.get_product_n(20), validators=[Required()])
+    product_1_id = SelectField(label=R.string.get_product_n(1))
+    product_2_id = SelectField(label=R.string.get_product_n(2))
+    product_3_id = SelectField(label=R.string.get_product_n(3))
+    product_4_id = SelectField(label=R.string.get_product_n(4))
+    product_5_id = SelectField(label=R.string.get_product_n(5))
+    product_6_id = SelectField(label=R.string.get_product_n(6))
+    product_7_id = SelectField(label=R.string.get_product_n(7))
+    product_8_id = SelectField(label=R.string.get_product_n(8))
+    product_9_id = SelectField(label=R.string.get_product_n(9))
+    product_10_id = SelectField(label=R.string.get_product_n(10))
+    product_11_id = SelectField(label=R.string.get_product_n(11))
+    product_12_id = SelectField(label=R.string.get_product_n(12))
+    product_13_id = SelectField(label=R.string.get_product_n(13))
+    product_14_id = SelectField(label=R.string.get_product_n(14))
+    product_15_id = SelectField(label=R.string.get_product_n(15))
+    product_16_id = SelectField(label=R.string.get_product_n(16))
+    product_17_id = SelectField(label=R.string.get_product_n(17))
+    product_18_id = SelectField(label=R.string.get_product_n(18))
+    product_19_id = SelectField(label=R.string.get_product_n(19))
+    product_20_id = SelectField(label=R.string.get_product_n(20))
 
     submit = SubmitField(label=R.string.save)
 
     def __init__(self, **kwargs):
         super(ProductSectionForm, self).__init__(**kwargs)
-        product_choices_without_none = Product.get_choices(include_none=False)
         product_choices_with_none = Product.get_choices(include_none=True)
-        self.product_1_id.choices = product_choices_without_none
+        self.product_1_id.choices = product_choices_with_none
         self.product_2_id.choices = product_choices_with_none
         self.product_3_id.choices = product_choices_with_none
         self.product_4_id.choices = product_choices_with_none
@@ -251,19 +244,17 @@ class BlogSectionForm(FlaskForm):
     name = StringField(
         label=R.string.section_name,
         validators=[
-            Required(),
             Length(max_length=R.dimen.blog_section_name_max_length)
         ])
-    post_1_id = SelectField(label=R.string.get_post_n(1),validators=[Required()])
-    post_2_id = SelectField(label=R.string.get_post_n(2), validators=[Required()])
+    post_1_id = SelectField(label=R.string.get_post_n(1))
+    post_2_id = SelectField(label=R.string.get_post_n(2))
 
     submit = SubmitField(label=R.string.save)
 
     def __init__(self, **kwargs):
         super(BlogSectionForm, self).__init__(**kwargs)
-        post_choices_without_none = BlogPost.get_choices(include_none=False)
         post_choices_with_none = BlogPost.get_choices(include_none=True)
-        self.post_1_id.choices = post_choices_without_none
+        self.post_1_id.choices = post_choices_with_none
         self.post_2_id.choices = post_choices_with_none
 
     def set_values(self, home_content, blog_section_number):
@@ -289,13 +280,11 @@ class ContactForm(FlaskForm):
     address = StringField(
         label=R.string.address,
         validators=[
-            Required(),
             Length(max_length=R.dimen.contact_address_max_length)
         ])
     tel = TelField(
         label=R.string.telephone,
         validators=[
-            Required(),
             PhoneFormat(),
             Length(max_length=R.dimen.tel_max_length)
         ]
@@ -303,7 +292,6 @@ class ContactForm(FlaskForm):
     email = StringField(
         label=R.string.email,
         validators=[
-            Required(),
             EmailFormat(),
             Length(max_length=R.dimen.email_max_length)
         ]
@@ -376,7 +364,6 @@ class AboutUsForm(FlaskForm):
     content = TextAreaField(
         label=R.string.content,
         validators=[
-            Required(),
             MarkdownValidator()
         ]
     )
@@ -390,7 +377,6 @@ class FaqForm(FlaskForm):
     content = TextAreaField(
         label=R.string.content,
         validators=[
-            Required(),
             MarkdownValidator()
         ]
     )
@@ -404,7 +390,6 @@ class FooterForm(FlaskForm):
     lower_text = StringField(
         label=R.string.lower_text,
         validators=[
-            Required(),
             Length(max_length=R.dimen.footer_lower_text_max_length)
         ]
     )

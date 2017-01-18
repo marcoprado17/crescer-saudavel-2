@@ -29,7 +29,7 @@ class Product(db.Model):
     sales_number = db.Column(db.Integer, default=0)
     editable = db.Column(db.Boolean, default=True, nullable=False)
 
-    image_1 = db.Column(db.Text, nullable=False)
+    image_1 = db.Column(db.Text)
     image_2 = db.Column(db.Text)
     image_3 = db.Column(db.Text)
     image_4 = db.Column(db.Text)

@@ -9,7 +9,7 @@ from r import R
 
 class Footer(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    lower_text = db.Column(db.String(R.dimen.footer_lower_text_max_length), nullable=False)
+    lower_text = db.Column(db.String(R.dimen.footer_lower_text_max_length))
 
     @staticmethod
     def get():

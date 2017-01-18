@@ -14,10 +14,7 @@ from r import R
 
 class CityForm(FlaskForm):
     state_id = SelectField(
-        label=R.string.state,
-        validators=[
-            Required()
-        ]
+        label=R.string.state
     )
     city_name = StringField(label=R.string.city_name, validators=[
         Required(),

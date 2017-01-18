@@ -61,55 +61,8 @@ def create_states():
     print "States created."
 
 
-def create_home_content(product_example_id, blog_post_example_id):
-    home_content = HomeContent(
-        carousel_item_1_active=True,
-        carousel_item_1_title="Título do carrossel 1",
-        carousel_item_1_subtitle="Subtítulo do carrossel 1",
-        carousel_item_1_image="carrossel_padrao.jpg",
-
-        carousel_item_2_active=True,
-        carousel_item_2_title="Título do carrossel 2",
-        carousel_item_2_subtitle="Subtítulo do carrossel 2",
-        carousel_item_2_image="carrossel_padrao.jpg",
-
-        carousel_item_3_active=True,
-        carousel_item_3_title="Título do carrossel 3",
-        carousel_item_3_subtitle="Subtítulo do carrossel 3",
-        carousel_item_3_image="carrossel_padrao.jpg",
-
-        product_section_1_active=True,
-        product_section_1_name="Seção de produtos 1",
-        product_section_1_product_1_id=product_example_id,
-
-        product_section_2_active=True,
-        product_section_2_name="Seção de produtos 2",
-        product_section_2_product_1_id=product_example_id,
-
-        product_section_3_active=True,
-        product_section_3_name="Seção de produtos 3",
-        product_section_3_product_1_id=product_example_id,
-
-        product_section_4_active=False,
-        product_section_4_name="Seção de produtos 4",
-        product_section_4_product_1_id=product_example_id,
-
-        product_section_5_active=False,
-        product_section_5_name="Seção de produtos 5",
-        product_section_5_product_1_id=product_example_id,
-
-        blog_section_1_active=True,
-        blog_section_1_name="Seção do blog 1",
-        blog_section_1_post_1_id=blog_post_example_id,
-
-        blog_section_2_active=False,
-        blog_section_2_name="Seção do blog 2",
-        blog_section_2_post_1_id=blog_post_example_id,
-
-        blog_section_3_active=False,
-        blog_section_3_name="Seção do blog 3",
-        blog_section_3_post_1_id=blog_post_example_id,
-    )
+def create_home_content():
+    home_content = HomeContent()
     db.session.add(home_content)
     db.session.commit()
     print "Home content created."
@@ -117,17 +70,7 @@ def create_home_content(product_example_id, blog_post_example_id):
 
 
 def create_contact():
-    contact = Contact(
-        address=R.string.address_example,
-        tel=R.string.tel_example,
-        email=R.string.email_example,
-        facebook_active=True,
-        facebook_link="#",
-        youtube_active=True,
-        youtube_link="#",
-        twitter_active=True,
-        twitter_link="#"
-    )
+    contact = Contact()
     db.session.add(contact)
     db.session.commit()
     print "Contact created."
@@ -135,9 +78,7 @@ def create_contact():
 
 
 def create_about_us():
-    about_us = AboutUs(
-        content = R.string.about_us_content_example
-    )
+    about_us = AboutUs()
     db.session.add(about_us)
     db.session.commit()
     print "AboutUs created."
@@ -145,9 +86,7 @@ def create_about_us():
 
 
 def create_faq():
-    faq = Faq(
-        content = R.string.faq_content_example
-    )
+    faq = Faq()
     db.session.add(faq)
     db.session.commit()
     print "Faq created."
@@ -155,9 +94,7 @@ def create_faq():
 
 
 def create_footer():
-    footer = Footer(
-        lower_text = R.string.footer_lower_text
-    )
+    footer = Footer()
     db.session.add(footer)
     db.session.commit()
     print "Footer created."

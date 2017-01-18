@@ -33,9 +33,6 @@ class BlogPostForm(FlaskForm):
     )
     thumbnail = SelectField(
         label=R.string.thumbnail,
-        validators=[
-            Required()
-        ],
         render_kw=dict(
             tooltip=R.string.thumbnail_tooltip
         )

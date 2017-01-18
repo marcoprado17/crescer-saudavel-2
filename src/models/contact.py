@@ -11,9 +11,9 @@ from wrappers.base.utils import safe_string
 class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    address = db.Column(db.String(R.dimen.contact_address_max_length), nullable=False)
-    tel = db.Column(db.String(R.dimen.tel_max_length), nullable=False)
-    email = db.Column(db.String(R.dimen.email_max_length), nullable=False)
+    address = db.Column(db.String(R.dimen.contact_address_max_length))
+    tel = db.Column(db.String(R.dimen.tel_max_length))
+    email = db.Column(db.String(R.dimen.email_max_length))
 
     facebook_active = db.Column(db.Boolean, default=False, nullable=False)
     facebook_link = db.Column(db.Text)

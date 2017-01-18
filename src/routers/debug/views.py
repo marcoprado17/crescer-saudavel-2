@@ -61,9 +61,10 @@ def restart_db_implementation():
     create_random_blog_posts()
 
     product_category_example = create_product_category_example()
-    product_example = create_product_example(product_category_example.id)
-    blog_post_example = create_blog_post_example()
-    create_home_content(product_example_id=product_example.id, blog_post_example_id=blog_post_example.id)
+    create_product_example(product_category_example.id)
+    create_blog_post_example()
+
+    create_home_content()
     create_contact()
     create_about_us()
     create_faq()

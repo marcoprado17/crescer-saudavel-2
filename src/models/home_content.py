@@ -12,24 +12,24 @@ from wrappers.base.utils import safe_id
 class HomeContent(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    carousel_item_1_active = db.Column(db.Boolean, nullable=False)
-    carousel_item_1_title = db.Column(db.String(R.dimen.carousel_title_max_length), nullable=False)
-    carousel_item_1_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length), nullable=False)
-    carousel_item_1_image = db.Column(db.Text, nullable=False)
+    carousel_item_1_active = db.Column(db.Boolean, default=False, nullable=False)
+    carousel_item_1_title = db.Column(db.String(R.dimen.carousel_title_max_length))
+    carousel_item_1_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length))
+    carousel_item_1_image = db.Column(db.Text)
 
-    carousel_item_2_active = db.Column(db.Boolean, nullable=False)
-    carousel_item_2_title = db.Column(db.String(R.dimen.carousel_title_max_length), nullable=False)
-    carousel_item_2_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length), nullable=False)
-    carousel_item_2_image = db.Column(db.Text, nullable=False)
+    carousel_item_2_active = db.Column(db.Boolean, default=False, nullable=False)
+    carousel_item_2_title = db.Column(db.String(R.dimen.carousel_title_max_length))
+    carousel_item_2_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length))
+    carousel_item_2_image = db.Column(db.Text)
 
-    carousel_item_3_active = db.Column(db.Boolean, nullable=False)
-    carousel_item_3_title = db.Column(db.String(R.dimen.carousel_title_max_length), nullable=False)
-    carousel_item_3_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length), nullable=False)
-    carousel_item_3_image = db.Column(db.Text, nullable=False)
+    carousel_item_3_active = db.Column(db.Boolean, default=False, nullable=False)
+    carousel_item_3_title = db.Column(db.String(R.dimen.carousel_title_max_length))
+    carousel_item_3_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length))
+    carousel_item_3_image = db.Column(db.Text)
 
-    product_section_1_active = db.Column(db.Boolean, nullable=False)
-    product_section_1_name = db.Column(db.String(R.dimen.product_section_name_max_length), nullable=False)
-    product_section_1_product_1_id = db.Column(db.Integer, ForeignKey("product.id"), nullable=False)
+    product_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
+    product_section_1_name = db.Column(db.String(R.dimen.product_section_name_max_length))
+    product_section_1_product_1_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_1_product_2_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_1_product_3_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_1_product_4_id = db.Column(db.Integer, ForeignKey("product.id"))
@@ -50,9 +50,9 @@ class HomeContent(db.Model):
     product_section_1_product_19_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_1_product_20_id = db.Column(db.Integer, ForeignKey("product.id"))
 
-    product_section_2_active = db.Column(db.Boolean, nullable=False)
-    product_section_2_name = db.Column(db.String(R.dimen.product_section_name_max_length), nullable=False)
-    product_section_2_product_1_id = db.Column(db.Integer, ForeignKey("product.id"), nullable=False)
+    product_section_2_active = db.Column(db.Boolean, default=False, nullable=False)
+    product_section_2_name = db.Column(db.String(R.dimen.product_section_name_max_length))
+    product_section_2_product_1_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_2_product_2_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_2_product_3_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_2_product_4_id = db.Column(db.Integer, ForeignKey("product.id"))
@@ -73,9 +73,9 @@ class HomeContent(db.Model):
     product_section_2_product_19_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_2_product_20_id = db.Column(db.Integer, ForeignKey("product.id"))
 
-    product_section_3_active = db.Column(db.Boolean, nullable=False)
-    product_section_3_name = db.Column(db.String(R.dimen.product_section_name_max_length), nullable=False)
-    product_section_3_product_1_id = db.Column(db.Integer, ForeignKey("product.id"), nullable=False)
+    product_section_3_active = db.Column(db.Boolean, default=False, nullable=False)
+    product_section_3_name = db.Column(db.String(R.dimen.product_section_name_max_length))
+    product_section_3_product_1_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_3_product_2_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_3_product_3_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_3_product_4_id = db.Column(db.Integer, ForeignKey("product.id"))
@@ -96,9 +96,9 @@ class HomeContent(db.Model):
     product_section_3_product_19_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_3_product_20_id = db.Column(db.Integer, ForeignKey("product.id"))
 
-    product_section_4_active = db.Column(db.Boolean, nullable=False)
-    product_section_4_name = db.Column(db.String(R.dimen.product_section_name_max_length), nullable=False)
-    product_section_4_product_1_id = db.Column(db.Integer, ForeignKey("product.id"), nullable=False)
+    product_section_4_active = db.Column(db.Boolean, default=False, nullable=False)
+    product_section_4_name = db.Column(db.String(R.dimen.product_section_name_max_length))
+    product_section_4_product_1_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_4_product_2_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_4_product_3_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_4_product_4_id = db.Column(db.Integer, ForeignKey("product.id"))
@@ -119,9 +119,9 @@ class HomeContent(db.Model):
     product_section_4_product_19_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_4_product_20_id = db.Column(db.Integer, ForeignKey("product.id"))
 
-    product_section_5_active = db.Column(db.Boolean, nullable=False)
-    product_section_5_name = db.Column(db.String(R.dimen.product_section_name_max_length), nullable=False)
-    product_section_5_product_1_id = db.Column(db.Integer, ForeignKey("product.id"), nullable=False)
+    product_section_5_active = db.Column(db.Boolean, default=False, nullable=False)
+    product_section_5_name = db.Column(db.String(R.dimen.product_section_name_max_length))
+    product_section_5_product_1_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_5_product_2_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_5_product_3_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_5_product_4_id = db.Column(db.Integer, ForeignKey("product.id"))
@@ -142,19 +142,19 @@ class HomeContent(db.Model):
     product_section_5_product_19_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_5_product_20_id = db.Column(db.Integer, ForeignKey("product.id"))
 
-    blog_section_1_active = db.Column(db.Boolean, nullable=False)
-    blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length), nullable=False)
-    blog_section_1_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"), nullable=False)
+    blog_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
+    blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length))
+    blog_section_1_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
     blog_section_1_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
 
-    blog_section_2_active = db.Column(db.Boolean, nullable=False)
-    blog_section_2_name = db.Column(db.String(R.dimen.blog_section_name_max_length), nullable=False)
-    blog_section_2_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"), nullable=False)
+    blog_section_2_active = db.Column(db.Boolean, default=False, nullable=False)
+    blog_section_2_name = db.Column(db.String(R.dimen.blog_section_name_max_length))
+    blog_section_2_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
     blog_section_2_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
 
-    blog_section_3_active = db.Column(db.Boolean, nullable=False)
-    blog_section_3_name = db.Column(db.String(R.dimen.blog_section_name_max_length), nullable=False)
-    blog_section_3_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"), nullable=False)
+    blog_section_3_active = db.Column(db.Boolean, default=False, nullable=False)
+    blog_section_3_name = db.Column(db.String(R.dimen.blog_section_name_max_length))
+    blog_section_3_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
     blog_section_3_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
 
     @staticmethod
@@ -198,7 +198,7 @@ class HomeContent(db.Model):
         home_content = HomeContent.get()
         home_content.product_section_1_active = product_section_form.active.data
         home_content.product_section_1_name = product_section_form.name.data
-        home_content.product_section_1_product_1_id = product_section_form.product_1_id.data
+        home_content.product_section_1_product_1_id = safe_id(product_section_form.product_1_id.data)
         home_content.product_section_1_product_2_id = safe_id(product_section_form.product_2_id.data)
         home_content.product_section_1_product_3_id = safe_id(product_section_form.product_3_id.data)
         home_content.product_section_1_product_4_id = safe_id(product_section_form.product_4_id.data)
@@ -226,7 +226,7 @@ class HomeContent(db.Model):
         home_content = HomeContent.get()
         home_content.product_section_2_active = product_section_form.active.data
         home_content.product_section_2_name = product_section_form.name.data
-        home_content.product_section_2_product_1_id = product_section_form.product_1_id.data
+        home_content.product_section_2_product_1_id = safe_id(product_section_form.product_1_id.data)
         home_content.product_section_2_product_2_id = safe_id(product_section_form.product_2_id.data)
         home_content.product_section_2_product_3_id = safe_id(product_section_form.product_3_id.data)
         home_content.product_section_2_product_4_id = safe_id(product_section_form.product_4_id.data)
@@ -254,7 +254,7 @@ class HomeContent(db.Model):
         home_content = HomeContent.get()
         home_content.product_section_3_active = product_section_form.active.data
         home_content.product_section_3_name = product_section_form.name.data
-        home_content.product_section_3_product_1_id = product_section_form.product_1_id.data
+        home_content.product_section_3_product_1_id = safe_id(product_section_form.product_1_id.data)
         home_content.product_section_3_product_2_id = safe_id(product_section_form.product_2_id.data)
         home_content.product_section_3_product_3_id = safe_id(product_section_form.product_3_id.data)
         home_content.product_section_3_product_4_id = safe_id(product_section_form.product_4_id.data)
@@ -282,7 +282,7 @@ class HomeContent(db.Model):
         home_content = HomeContent.get()
         home_content.product_section_4_active = product_section_form.active.data
         home_content.product_section_4_name = product_section_form.name.data
-        home_content.product_section_4_product_1_id = product_section_form.product_1_id.data
+        home_content.product_section_4_product_1_id = safe_id(product_section_form.product_1_id.data)
         home_content.product_section_4_product_2_id = safe_id(product_section_form.product_2_id.data)
         home_content.product_section_4_product_3_id = safe_id(product_section_form.product_3_id.data)
         home_content.product_section_4_product_4_id = safe_id(product_section_form.product_4_id.data)
@@ -310,7 +310,7 @@ class HomeContent(db.Model):
         home_content = HomeContent.get()
         home_content.product_section_5_active = product_section_form.active.data
         home_content.product_section_5_name = product_section_form.name.data
-        home_content.product_section_5_product_1_id = product_section_form.product_1_id.data
+        home_content.product_section_5_product_1_id = safe_id(product_section_form.product_1_id.data)
         home_content.product_section_5_product_2_id = safe_id(product_section_form.product_2_id.data)
         home_content.product_section_5_product_3_id = safe_id(product_section_form.product_3_id.data)
         home_content.product_section_5_product_4_id = safe_id(product_section_form.product_4_id.data)
@@ -338,7 +338,7 @@ class HomeContent(db.Model):
         home_content = HomeContent.get()
         home_content.blog_section_1_active = blog_section_form.active.data
         home_content.blog_section_1_name = blog_section_form.name.data
-        home_content.blog_section_1_post_1_id = blog_section_form.post_1_id.data
+        home_content.blog_section_1_post_1_id = safe_id(blog_section_form.post_1_id.data)
         home_content.blog_section_1_post_2_id = safe_id(blog_section_form.post_2_id.data)
         db.session.add(home_content)
         db.session.commit()
@@ -348,7 +348,7 @@ class HomeContent(db.Model):
         home_content = HomeContent.get()
         home_content.blog_section_2_active = blog_section_form.active.data
         home_content.blog_section_2_name = blog_section_form.name.data
-        home_content.blog_section_2_post_1_id = blog_section_form.post_1_id.data
+        home_content.blog_section_2_post_1_id = safe_id(blog_section_form.post_1_id.data)
         home_content.blog_section_2_post_2_id = safe_id(blog_section_form.post_2_id.data)
         db.session.add(home_content)
         db.session.commit()
@@ -358,7 +358,7 @@ class HomeContent(db.Model):
         home_content = HomeContent.get()
         home_content.blog_section_3_active = blog_section_form.active.data
         home_content.blog_section_3_name = blog_section_form.name.data
-        home_content.blog_section_3_post_1_id = blog_section_form.post_1_id.data
+        home_content.blog_section_3_post_1_id = safe_id(blog_section_form.post_1_id.data)
         home_content.blog_section_3_post_2_id = safe_id(blog_section_form.post_2_id.data)
         db.session.add(home_content)
         db.session.commit()

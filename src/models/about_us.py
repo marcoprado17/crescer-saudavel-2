@@ -8,7 +8,7 @@ from extensions import db
 
 class AboutUs(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    content = db.Column(db.UnicodeText, nullable=False)
+    content = db.Column(db.UnicodeText)
 
     @staticmethod
     def get():

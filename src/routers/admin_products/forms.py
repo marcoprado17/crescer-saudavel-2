@@ -77,10 +77,7 @@ class ProductCategoryFilterForm(FlaskForm):
 # ======================================================================================================================
 class ProductSubcategoryForm(FlaskForm):
     category_id = SelectField(
-        label=R.string.product_category,
-        validators=[
-            Required()
-        ]
+        label=R.string.product_category
     )
     subcategory_name = StringField(label=R.string.product_subcategory_name, validators=[
         Required(),
@@ -131,7 +128,7 @@ class ProductSubcategoryFilterForm(FlaskForm):
 # ======================================================================================================================
 #
 #
-# Product Subcategory
+# Product
 #
 #
 # ======================================================================================================================
@@ -209,12 +206,7 @@ class ProductForm(FlaskForm):
             MarkdownValidator()
         ])
 
-    image_1 = SelectField(
-        label=R.string.n_image(1),
-        validators=[
-            Required()
-        ]
-    )
+    image_1 = SelectField(label=R.string.n_image(1))
     image_2 = SelectField(label=R.string.n_image(2))
     image_3 = SelectField(label=R.string.n_image(3))
     image_4 = SelectField(label=R.string.n_image(4))
