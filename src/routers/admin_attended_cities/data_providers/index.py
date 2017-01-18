@@ -8,6 +8,8 @@ from flask import url_for
 from sqlalchemy import asc
 
 from components.data_providers.paginator import paginator_data_provider
+from components.data_providers.super_table import super_table_data_provider
+from flask_bombril.url_args import get_valid_enum
 from flask_bombril.utils import get_page_range
 from flask_bombril.utils import n_pages
 from flask_bombril.url_args import get_valid_page
@@ -20,16 +22,32 @@ from routers.admin_attended_cities.forms import CityFilterForm
 from wrappers.base.forms import SubmitForm
 
 
-class AdminCitiesDataProvider(object):
+class AdminCitiesDataProvider:
+    def __init__(self):
+        self.sort_method_ids = [
+            R.id.SORT_METHOD_ID,
+            R.id.SORT_METHOD_NAME,
+        ]
+        self.sort_method_names = [
+            R.string.id,
+            R.string.city_name,
+        ]
+        self.sort_method_by_id = {
+            R.id.SORT_METHOD_ID: asc(City.id),
+            R.id.SORT_METHOD_NAME: asc(City.name),
+        }
+
     def get_data(self):
         active = get_boolean_url_arg(arg_name=R.string.active_arg_name, default=True)
         state_id = get_valid_model_id(model=State, arg_name=R.string.state_id_arg_name, include_zero=True, default=0)
+        sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
+                                        default=R.id.SORT_METHOD_NAME, possible_values=self.sort_method_ids)
 
         self.q = City.query
         self.q = self.q.filter(City.active == active)
         if state_id != 0:
             self.q = self.q.filter(City.state_id == state_id)
-        self.q = self.q.order_by(asc(City.name))
+        self.q = self.q.order_by(self.sort_method_by_id[sort_method_id])
 
         n_cities = self.q.count()
 
@@ -50,6 +68,11 @@ class AdminCitiesDataProvider(object):
             filter_data=dict(
                 filter_form=filter_form
             ),
+            sort_methods=super_table_data_provider.get_sort_methods_data(
+                selected_sort_method_id=sort_method_id,
+                sort_method_ids=self.sort_method_ids,
+                sort_method_names=self.sort_method_names
+            ),
             table_data=self.get_table_data()
         )
 
@@ -58,6 +81,7 @@ class AdminCitiesDataProvider(object):
         for idx, city in enumerate(self.q.slice(
                 *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()):
             rows.append([
+                "#" + str(city.id),
                 city.active,
                 city.state.name,
                 city.name,
@@ -92,6 +116,11 @@ class AdminCitiesDataProvider(object):
         return dict(
             id="cities-table",
             cols=[
+                dict(
+                    id="id",
+                    title=R.string.id,
+                    type=R.id.COL_TYPE_TEXT
+                ),
                 dict(
                     id="active",
                     title=R.string.active_in_female,

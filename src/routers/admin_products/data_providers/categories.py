@@ -9,6 +9,8 @@ from flask import current_app
 from flask import url_for
 from sqlalchemy import asc
 
+from components.data_providers.super_table import super_table_data_provider
+from flask_bombril.url_args import get_valid_enum
 from flask_bombril.utils import n_pages
 from components.data_providers.paginator import paginator_data_provider
 from flask_bombril.utils import get_page_range
@@ -20,13 +22,29 @@ from routers.admin_products.forms import ProductCategoryFilterForm
 from wrappers.base.forms import SubmitForm
 
 
-class AdminProductCategoriesDataProvider(object):
+class AdminProductCategoriesDataProvider:
+    def __init__(self):
+        self.sort_method_ids = [
+            R.id.SORT_METHOD_ID,
+            R.id.SORT_METHOD_NAME,
+        ]
+        self.sort_method_names = [
+            R.string.id,
+            R.string.category_name,
+        ]
+        self.sort_method_by_id = {
+            R.id.SORT_METHOD_ID: asc(ProductCategory.id),
+            R.id.SORT_METHOD_NAME: asc(ProductCategory.name),
+        }
+
     def get_data(self):
         active = get_boolean_url_arg(R.string.category_active_arg_name, True)
+        sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
+                                        default=R.id.SORT_METHOD_NAME, possible_values=self.sort_method_ids)
 
         self.q = ProductCategory.query
         self.q = self.q.filter(ProductCategory.active == active)
-        self.q = self.q.order_by(asc(ProductCategory.name))
+        self.q = self.q.order_by(self.sort_method_by_id[sort_method_id])
 
         n_categories = self.q.count()
 
@@ -47,6 +65,11 @@ class AdminProductCategoriesDataProvider(object):
             filter_data=dict(
                 filter_form=filter_form
             ),
+            sort_methods=super_table_data_provider.get_sort_methods_data(
+                selected_sort_method_id=sort_method_id,
+                sort_method_ids=self.sort_method_ids,
+                sort_method_names=self.sort_method_names
+            ),
             table_data=self.get_table_data()
         )
 
@@ -55,6 +78,7 @@ class AdminProductCategoriesDataProvider(object):
         for idx, category in enumerate(self.q.slice(
                 *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()):
             rows.append([
+                "#" + str(category.id),
                 category.active,
                 category.name,
                 [
@@ -88,6 +112,11 @@ class AdminProductCategoriesDataProvider(object):
         return dict(
             id=R.string.product_categories_table_id,
             cols=[
+                dict(
+                    id="id",
+                    title=R.string.id,
+                    type=R.id.COL_TYPE_TEXT
+                ),
                 dict(
                     id=R.string.product_category_active_col_id,
                     title=R.string.active_in_female,

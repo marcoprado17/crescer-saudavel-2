@@ -322,6 +322,8 @@ class Resources(object):
         link_placeholder = "Ex.: https://www.google.com.br"
         footer_lower_text_placeholder = "Ex.: " + footer_lower_text
         city_placeholder = "Ex.: São José dos Campos"
+        category_name = "Nome da categoria"
+        subcategory_name = "Nome da subcategoria"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -793,6 +795,8 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         SORT_METHOD_NEWEST =                    311
         SORT_METHOD_OLDER =                     312
         SORT_METHOD_CLIENT_NAME =               313
+        SORT_METHOD_ID =                        314
+        SORT_METHOD_NAME =                      315
 
         # Order status
         ORDER_STATUS_ANY =                      400

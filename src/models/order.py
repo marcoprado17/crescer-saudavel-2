@@ -32,6 +32,7 @@ class Order(db.Model):
         self.products_total_price = self.get_products_total_price()
 
     sort_method_ids = [
+        R.id.SORT_METHOD_ID,
         R.id.SORT_METHOD_CLIENT_EMAIL,
         R.id.SORT_METHOD_NEWEST,
         R.id.SORT_METHOD_OLDER,
@@ -39,6 +40,7 @@ class Order(db.Model):
         R.id.SORT_METHOD_HIGHER_TOTAL_PRICE
     ]
     sort_method_names = [
+        R.string.id,
         R.string.client_email,
         R.string.newest,
         R.string.older,
@@ -46,6 +48,7 @@ class Order(db.Model):
         R.string.higher_price,
     ]
     sort_method_by_id = {
+        R.id.SORT_METHOD_ID: asc(id),
         R.id.SORT_METHOD_CLIENT_EMAIL: asc(client_email),
         R.id.SORT_METHOD_NEWEST: desc(paid_datetime),
         R.id.SORT_METHOD_OLDER: asc(paid_datetime),

@@ -24,16 +24,19 @@ from wrappers.base.forms import SubmitForm
 class AdminPostsDataProvider:
     def __init__(self):
         self.sort_method_ids = [
+            R.id.SORT_METHOD_ID,
             R.id.SORT_METHOD_TITLE,
             R.id.SORT_METHOD_NEWEST,
             R.id.SORT_METHOD_OLDER
         ]
         self.sort_method_names = [
+            R.string.id,
             R.string.title,
             R.string.newest,
             R.string.older,
         ]
         self.sort_method_by_id = {
+            R.id.SORT_METHOD_ID: asc(BlogPost.id),
             R.id.SORT_METHOD_TITLE: asc(BlogPost.title),
             R.id.SORT_METHOD_NEWEST: desc(BlogPost.datetime),
             R.id.SORT_METHOD_OLDER: asc(BlogPost.datetime),
@@ -80,6 +83,7 @@ class AdminPostsDataProvider:
         for idx, blog_post in enumerate(self.q.slice(
                 *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()):
             rows.append([
+                "#" + str(blog_post.id),
                 blog_post.active,
                 blog_post.title,
                 blog_post.get_formatted_datetime(),
@@ -114,6 +118,11 @@ class AdminPostsDataProvider:
         return dict(
             id="posts-table",
             cols=[
+                dict(
+                    id="id",
+                    title=R.string.id,
+                    type=R.id.COL_TYPE_TEXT
+                ),
                 dict(
                     id="active",
                     title=R.string.active,

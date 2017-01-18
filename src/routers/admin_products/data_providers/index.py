@@ -27,6 +27,7 @@ from wrappers.base.forms import SubmitForm
 class AdminProductsDataProvider:
     def __init__(self):
         self.sort_method_ids = [
+            R.id.SORT_METHOD_ID,
             R.id.SORT_METHOD_TITLE,
             R.id.SORT_METHOD_LOWEST_PRICE,
             R.id.SORT_METHOD_HIGHER_PRICE,
@@ -36,6 +37,7 @@ class AdminProductsDataProvider:
             R.id.SORT_METHOD_LESS_SOLD
         ]
         self.sort_method_names = [
+            R.string.id,
             R.string.title,
             R.string.lowest_price,
             R.string.higher_price,
@@ -45,6 +47,7 @@ class AdminProductsDataProvider:
             R.string.less_sold
         ]
         self.sort_method_by_id = {
+            R.id.SORT_METHOD_ID: asc(Product.id),
             R.id.SORT_METHOD_TITLE: asc(Product.title),
             R.id.SORT_METHOD_LOWEST_PRICE: asc(Product.price),
             R.id.SORT_METHOD_HIGHER_PRICE: desc(Product.price),
@@ -103,6 +106,7 @@ class AdminProductsDataProvider:
         for idx, product in enumerate(self.q.slice(
                 *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()):
             rows.append([
+                "#" + str(product.id),
                 product.active,
                 product.category.name,
                 product.subcategory.name if product.subcategory else R.string.empty_subcategory_symbol,
@@ -178,6 +182,11 @@ class AdminProductsDataProvider:
         return dict(
             id=R.string.products_table_id,
             cols=[
+                dict(
+                    id="id",
+                    title=R.string.id,
+                    type=R.id.COL_TYPE_TEXT
+                ),
                 dict(
                     id=R.string.product_active_col_id,
                     title=R.string.active,
