@@ -35,7 +35,7 @@ class AddCityForm(CityForm):
 
 
 class EditCityForm(CityForm):
-    submit = SubmitField(label=R.string.edit)
+    submit = SubmitField(label=R.string.save)
 
     def set_values(self, city):
         self.state_id.data = str(city.state_id)

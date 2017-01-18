@@ -50,7 +50,7 @@ class AddProductCategoryForm(ProductCategoryForm):
 
 
 class EditProductCategoryForm(ProductCategoryForm):
-    submit = SubmitField(label=R.string.edit)
+    submit = SubmitField(label=R.string.save)
 
     def set_values(self, product_category):
         self.category_name.data = product_category.name
@@ -98,7 +98,7 @@ class AddProductSubcategoryForm(ProductSubcategoryForm):
 
 
 class EditProductSubcategoryForm(ProductSubcategoryForm):
-    submit = SubmitField(label=R.string.edit)
+    submit = SubmitField(label=R.string.save)
 
     def set_values(self, product_subcategory):
         self.category_id.data = str(product_subcategory.category_id)
@@ -285,7 +285,7 @@ class AddProductForm(ProductForm):
 
 
 class EditProductForm(ProductForm):
-    submit = SubmitField(label=R.string.edit)
+    submit = SubmitField(label=R.string.save)
 
     def set_values(self, product):
         self.title.data = product.title

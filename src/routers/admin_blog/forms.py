@@ -62,7 +62,7 @@ class AddBlogPostForm(BlogPostForm):
 
 
 class EditBlogPostForm(BlogPostForm):
-    submit = SubmitField(label=R.string.edit)
+    submit = SubmitField(label=R.string.save)
 
     def set_values(self, blog_post):
         self.active.data = blog_post.active
