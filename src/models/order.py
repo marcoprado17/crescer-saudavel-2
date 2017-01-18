@@ -12,6 +12,7 @@ from sqlalchemy.orm import relationship
 from extensions import db
 from sqlalchemy.dialects.postgresql import JSON
 
+from models.client import Client
 from models.product import Product
 from r import R
 
@@ -26,10 +27,14 @@ class Order(db.Model):
     delivered_datetime = db.Column(db.DateTime)
     quantity_by_product_id = db.Column(JSON, nullable=False)
     products_total_price = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
+    products_table_data = db.Column(db.JSON, nullable=False)
+    total_table_data = db.Column(db.JSON, nullable=False)
 
     def __init__(self, **kwargs):
         super(Order, self).__init__(**kwargs)
-        self.products_total_price = self.get_products_total_price()
+        self.products_total_price = self._get_products_total_price()
+        self.products_table_data = self._get_products_table_data()
+        self.total_table_data = self._get_total_table_data()
 
     sort_method_ids = [
         R.id.SORT_METHOD_ID,
@@ -101,18 +106,18 @@ class Order(db.Model):
         db.session.commit()
         return order
 
-    def get_products_total_price(self):
+    def _get_products_total_price(self):
         products_total_price = Decimal("0.00")
         for product_id, quantity in self.quantity_by_product_id.iteritems():
             product = Product.get(product_id)
             products_total_price += product.get_price(n_units=quantity)
         return products_total_price
 
-    def get_products_table_data(self):
+    def _get_products_table_data(self):
         rows = []
         products = Product.query.filter(Product.id.in_(self.quantity_by_product_id.keys())).all()
         for product in products:
-            quantity = self.quantity_by_product_id[str(product.id)]
+            quantity = self.quantity_by_product_id[product.id]
             rows.append([
                 product.title,
                 product.get_formatted_price(),
@@ -127,23 +132,23 @@ class Order(db.Model):
                     dict(
                         id="product-title",
                         title=R.string.product,
-                        type=R.id.COL_TYPE_TEXT
+                        type=R.id.COL_TYPE_TEXT.value
                     ),
                     dict(
                         id="product-price",
                         title=R.string.price,
-                        type=R.id.COL_TYPE_TEXT,
+                        type=R.id.COL_TYPE_TEXT.value,
                         tooltip=R.string.product_price_tooltip
                     ),
                     dict(
                         id="product-quantity",
                         title=R.string.quantity,
-                        type=R.id.COL_TYPE_TEXT
+                        type=R.id.COL_TYPE_TEXT.value
                     ),
                     dict(
                         id="product-subtotal",
                         title=R.string.subtotal,
-                        type=R.id.COL_TYPE_TEXT,
+                        type=R.id.COL_TYPE_TEXT.value,
                         tooltip=R.string.subtotal_tooltip
                     ),
                 ],
@@ -151,9 +156,10 @@ class Order(db.Model):
             )
         )
 
-    def get_total_table_data(self):
-        products_total_price = self.get_products_total_price()
-        freight = self.client.get_freight()
+    def _get_total_table_data(self):
+        client = Client.get(self.client_email)
+        assert client != None
+        freight = client.get_freight()
         return dict(
             table_data=dict(
                 no_head = True,
@@ -169,9 +175,9 @@ class Order(db.Model):
                     )
                 ],
                 rows=[
-                    [R.string.products, R.string.price_with_rs(products_total_price)],
+                    [R.string.products, R.string.price_with_rs(self.products_total_price)],
                     [R.string.freight, R.string.price_with_rs(freight)],
-                    [R.string.total, R.string.price_with_rs(products_total_price + freight)]
+                    [R.string.total, R.string.price_with_rs(self.products_total_price + freight)]
                 ]
             )
         )
