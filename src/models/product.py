@@ -133,6 +133,7 @@ class Product(db.Model):
         )
         db.session.add(product)
         db.session.commit()
+        return product
 
     @staticmethod
     def update_from_form(product, product_form):

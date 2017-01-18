@@ -46,6 +46,7 @@ class BlogPost(db.Model):
         )
         db.session.add(blog_post)
         db.session.commit()
+        return blog_post
 
     @staticmethod
     def update_from_form(blog_post, blog_post_form):

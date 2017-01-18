@@ -140,7 +140,7 @@ function initIntWithButtonAction(forms, onSuccess) {
                 if (Math.floor(status / 100) == 4) {
                     throwErrorOpToast(error_4xx_msg);
                 }
-                else if (Math.floor(status / 100) == 5) {
+                else {
                     throwErrorOpToast(error_5xx_msg);
                 }
             },

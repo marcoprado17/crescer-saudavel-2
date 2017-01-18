@@ -38,6 +38,7 @@ class City(db.Model):
         )
         db.session.add(city)
         db.session.commit()
+        return city
 
     @staticmethod
     def get(city_id):

@@ -104,12 +104,12 @@ class AdminPostsDataProvider:
                         to_activate_url=url_for(
                             "admin_blog.to_activate_post", blog_post_id=blog_post.id),
                         to_activate_meta_data={
-                            "data-error-msg": R.string.to_activate_post_error(blog_post.title),
+                            "data-error-msg": R.string.to_activate_post_error(blog_post),
                         },
                         disable_url = url_for(
                                 "admin_blog.disable_post", blog_post_id=blog_post.id),
                         disable_meta_data= {
-                            "data-error-msg": R.string.disable_post_error(blog_post.title),
+                            "data-error-msg": R.string.disable_post_error(blog_post),
                         }
                     ),
                 ]

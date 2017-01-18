@@ -98,12 +98,12 @@ class AdminProductCategoriesDataProvider:
                         to_activate_url=url_for(
                             "admin_products.to_activate_category", category_id=category.id),
                         to_activate_meta_data={
-                            "data-error-msg": R.string.to_activate_product_category_error(category.name),
+                            "data-error-msg": R.string.to_activate_product_category_error(category),
                         },
                         disable_url=url_for(
                             "admin_products.disable_category", category_id=category.id),
                         disable_meta_data={
-                            "data-error-msg": R.string.disable_product_category_error(category.name),
+                            "data-error-msg": R.string.disable_product_category_error(category),
                         }
                     )
                 ]

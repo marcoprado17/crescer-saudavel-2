@@ -102,12 +102,12 @@ class AdminProductSubcategoriesDataProvider:
                         to_activate_url=url_for(
                             "admin_products.to_activate_subcategory", subcategory_id=subcategory.id),
                         to_activate_meta_data={
-                            "data-error-msg": R.string.to_activate_product_subcategory_error(subcategory.name),
+                            "data-error-msg": R.string.to_activate_product_subcategory_error(subcategory),
                         },
                         disable_url=url_for(
                             "admin_products.disable_subcategory", subcategory_id=subcategory.id),
                         disable_meta_data={
-                            "data-error-msg": R.string.disable_product_subcategory_error(subcategory.name),
+                            "data-error-msg": R.string.disable_product_subcategory_error(subcategory),
                         }
                     )
                 ]

@@ -40,8 +40,8 @@ def add_product():
         add_product_form = AddProductForm()
 
         if add_product_form.validate_on_submit():
-            Product.create_from_form(product_form=add_product_form)
-            flash(R.string.product_sent_successfully(add_product_form.title.data),
+            product = Product.create_from_form(product_form=add_product_form)
+            flash(R.string.product_sent_successfully(product),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_product"))
         else:
@@ -70,7 +70,7 @@ def edit_product(product_id):
         if edit_product_form.validate_on_submit():
             product.update_from_form(product=product,
                                      product_form=edit_product_form)
-            flash(R.string.product_successful_edited(product.title),
+            flash(R.string.product_successful_edited(product),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.index"))
         else:
@@ -136,8 +136,8 @@ def add_category():
         add_product_category_form = AddProductCategoryForm()
 
         if add_product_category_form.validate_on_submit():
-            ProductCategory.create_from_form(add_product_category_form=add_product_category_form)
-            flash(R.string.product_category_sent_successfully(add_product_category_form.category_name.data),
+            product_category = ProductCategory.create_from_form(add_product_category_form=add_product_category_form)
+            flash(R.string.product_category_sent_successfully(product_category),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_category"))
         else:
@@ -158,7 +158,7 @@ def edit_category(category_id):
                                    product_category=product_category))
     else:
         if not product_category.editable:
-            flash(R.string.product_category_not_editable(product_category.name),
+            flash(R.string.product_category_not_editable(product_category),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return redirect(url_for("admin_products.categories"))
 
@@ -167,7 +167,7 @@ def edit_category(category_id):
         if edit_product_category_form.validate_on_submit():
             ProductCategory.update_from_form(product_category=product_category,
                                              edit_product_category_form=edit_product_category_form)
-            flash(R.string.product_category_successful_edited(product_category.name),
+            flash(R.string.product_category_successful_edited(product_category),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.categories"))
         else:
@@ -206,8 +206,8 @@ def add_subcategory():
         add_product_subcategory_form = AddProductSubcategoryForm()
 
         if add_product_subcategory_form.validate_on_submit():
-            ProductSubcategory.create_from_form(add_product_subcategory_form=add_product_subcategory_form)
-            flash(R.string.product_subcategory_sent_successfully(add_product_subcategory_form.subcategory_name.data),
+            product_subcategory = ProductSubcategory.create_from_form(add_product_subcategory_form=add_product_subcategory_form)
+            flash(R.string.product_subcategory_sent_successfully(product_subcategory),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_subcategory"))
 
@@ -232,7 +232,7 @@ def edit_subcategory(subcategory_id):
         if edit_product_subcategory_form.validate_on_submit():
             ProductSubcategory.update_from_form(product_subcategory=product_subcategory,
                                                 edit_product_subcategory_form=edit_product_subcategory_form)
-            flash(R.string.product_subcategory_successful_edited(product_subcategory.name),
+            flash(R.string.product_subcategory_successful_edited(product_subcategory),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.subcategories"))
         else:

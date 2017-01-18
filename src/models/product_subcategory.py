@@ -29,6 +29,7 @@ class ProductSubcategory(db.Model):
         )
         db.session.add(product_subcategory)
         db.session.commit()
+        return product_subcategory
 
     @staticmethod
     def get(subcategory_id):
@@ -50,6 +51,7 @@ class ProductSubcategory(db.Model):
         product_subcategory.category_id = edit_product_subcategory_form.category_id.data
         db.session.add(product_subcategory)
         db.session.commit()
+        return product_subcategory
 
     @staticmethod
     def get_choices(include_all=False, include_none=False):

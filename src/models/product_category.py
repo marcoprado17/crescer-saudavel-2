@@ -28,6 +28,7 @@ class ProductCategory(db.Model):
         )
         db.session.add(product_category)
         db.session.commit()
+        return product_category
 
     @staticmethod
     def get(category_id):
@@ -44,6 +45,7 @@ class ProductCategory(db.Model):
         product_category.active = edit_product_category_form.active.data
         db.session.add(product_category)
         db.session.commit()
+        return product_category
 
     @staticmethod
     def update(product_category_id, **kw):

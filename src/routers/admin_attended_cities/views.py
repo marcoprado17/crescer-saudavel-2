@@ -34,8 +34,8 @@ def add_city():
         add_city_form = AddCityForm()
 
         if add_city_form.validate_on_submit():
-            City.create_from_form(add_city_form=add_city_form)
-            flash(R.string.city_sent_successfully(add_city_form.city_name.data),
+            city = City.create_from_form(add_city_form=add_city_form)
+            flash(R.string.city_sent_successfully(city),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_attended_cities.add_city"))
 
@@ -59,7 +59,7 @@ def edit_city(city_id):
 
         if edit_city_form.validate_on_submit():
             City.update_from_form(city=city, edit_city_form=edit_city_form)
-            flash(R.string.city_successful_edited(city.name),
+            flash(R.string.city_successful_edited(city),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_attended_cities.index"))
         else:

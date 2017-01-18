@@ -456,13 +456,11 @@ metus, integer sed est. Non dignissim felis cras tortor.
 """
 
         blog_post_summary_example = \
-"""
-A nutricionista *Karin Honorato*, dá dicas sobre a introdução dos alimentos nas papinhas dos bebês. Ela destaca os cuidados para que esta introdução seja feita de forma a beneficiar toda a vida da criança.
+"""A nutricionista *Karin Honorato*, dá dicas sobre a introdução dos alimentos nas papinhas dos bebês. Ela destaca os cuidados para que esta introdução seja feita de forma a beneficiar toda a vida da criança.
 """
 
         blog_post_content_example = \
-"""
-A melhor idade para o bebê começar a comer as papinhas salgadas é a partir do sexto mês, conforme a nutricionista Karin afirma que o ponto mais importante neste momento, é a introdução de um alimento de cada vez. Desta forma, é possível observar se o bebê tem alguma reação ou mudança no intestino. Ela indica que cada alimento deve ser dado por dois ou três dias seguidos.
+"""A melhor idade para o bebê começar a comer as papinhas salgadas é a partir do sexto mês, conforme a nutricionista Karin afirma que o ponto mais importante neste momento, é a introdução de um alimento de cada vez. Desta forma, é possível observar se o bebê tem alguma reação ou mudança no intestino. Ela indica que cada alimento deve ser dado por dois ou três dias seguidos.
 
 ###Ordem dos alimentos
 ***
@@ -514,80 +512,72 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 """
 
         @staticmethod
-        def to_activate_product_error(product_title):
-            return 'Ocorreu uma falha ao ativar o produto "%s". Tente novamente.' % product_title
+        def to_activate_product_error(product):
+            return 'Ocorreu uma falha ao ativar o produto #%s - "%s". Tente novamente.' % (product.id, product.title)
 
         @staticmethod
-        def disable_product_error(product_title):
-            return 'Ocorreu uma falha ao desativar o produto "%s". Tente novamente.' % product_title
+        def disable_product_error(product):
+            return 'Ocorreu uma falha ao desativar o produto #%s - "%s". Tente novamente.' % (product.id, product.title)
 
         @staticmethod
-        def to_activate_post_error(post_title):
-            return 'Ocorreu uma falha ao ativar o post "%s". Tente novamente.' % post_title
+        def to_activate_post_error(blog_post):
+            return 'Ocorreu uma falha ao ativar o post #%s - "%s". Tente novamente.' % (blog_post.id, blog_post.title)
 
         @staticmethod
-        def disable_post_error(post_title):
-            return 'Ocorreu uma falha ao desativar o post "%s". Tente novamente.' % post_title
+        def disable_post_error(blog_post):
+            return 'Ocorreu uma falha ao desativar o post #%s - "%s". Tente novamente.' % (blog_post.id, blog_post.title)
 
         @staticmethod
-        def to_activate_product_category_error(category_name):
-            return 'Ocorreu uma falha ao ativar a categoria de produto "%s". Tente novamente.' % category_name
+        def to_activate_product_category_error(product_category):
+            return 'Ocorreu uma falha ao ativar a categoria de produto #%s - "%s". Tente novamente.' % (product_category.id, product_category.name)
 
         @staticmethod
-        def disable_product_category_error(category_name):
-            return 'Ocorreu uma falha ao desativar a categoria de produto "%s". Tente novamente.' % category_name
+        def disable_product_category_error(product_category):
+            return 'Ocorreu uma falha ao desativar a categoria de produto #%s - "%s". Tente novamente.' % (product_category.id, product_category.name)
 
         @staticmethod
-        def to_activate_product_subcategory_error(subcategory_name):
-            return 'Ocorreu uma falha ao ativar a subcategoria de produto "%s". Tente novamente.' % subcategory_name
+        def to_activate_product_subcategory_error(product_subcategory):
+            return 'Ocorreu uma falha ao ativar a subcategoria de produto #%s - "%s". Tente novamente.' % (product_subcategory.id, product_subcategory.name)
 
         @staticmethod
-        def disable_product_subcategory_error(subcategory_name):
-            return 'Ocorreu uma falha ao desativar a subcategoria de produto "%s". Tente novamente.' % subcategory_name
+        def disable_product_subcategory_error(product_subcategory):
+            return 'Ocorreu uma falha ao desativar a subcategoria de produto #%s - "%s". Tente novamente.' % (product_subcategory.id, product_subcategory.name)
 
         @staticmethod
-        def to_activate_product_error(product_title):
-            return 'Ocorreu uma falha ao ativar o produto "%s". Tente novamente.' % product_title
+        def to_activate_city_error(city):
+            return 'Ocorreu uma falha ao ativar a cidade #%s - "%s". Tente novamente.' % (city.id, city.name)
 
         @staticmethod
-        def to_activate_city_error(city_name):
-            return 'Ocorreu uma falha ao ativar a cidade "%s". Tente novamente.' % city_name
+        def disable_city_error(city):
+            return 'Ocorreu uma falha ao desativar a cidade #%s - "%s". Tente novamente.' % (city.id, city.name)
 
         @staticmethod
-        def disable_product_error(product_title):
-            return 'Ocorreu uma falha ao desativar o produto "%s". Tente novamente.' % product_title
+        def stock_change_error(product):
+            return 'Ocorreu uma falha alterar o estoque do produto #%s - "%s". Tente novamente.' % (product.id, product.title)
 
         @staticmethod
-        def disable_city_error(city_name):
-            return 'Ocorreu uma falha ao desativar a cidade "%s". Tente novamente.' % city_name
-
-        @staticmethod
-        def stock_change_error(product_title):
-            return 'Ocorreu uma falha alterar o estoque do produto "%s". Tente novamente.' % product_title
-
-        @staticmethod
-        def stock_change_invalid_form_error(product_title):
-            return 'Formulário inválido. Não foi possível alterar o estoque do produto "%s". Tente novamente.' % product_title
+        def stock_change_invalid_form_error(product):
+            return 'Formulário inválido. Não foi possível alterar o estoque do produto #%s - "%s". Tente novamente.' % (product.id, product.title)
 
         @staticmethod
         def image_sent_successfully(image_name):
             return 'A imagem "%s" foi enviada com sucesso.' % image_name
 
         @staticmethod
-        def product_sent_successfully(title):
-            return 'O produto "%s" foi adicionado com sucesso.' % title
+        def product_sent_successfully(product):
+            return 'O produto #%s - "%s" foi adicionado com sucesso.' % (product.id, product.title)
 
         @staticmethod
-        def city_sent_successfully(city_name):
-            return 'A cidade "%s" foi adicionada com sucesso.' % city_name
+        def city_sent_successfully(city):
+            return 'A cidade #%s - "%s" foi adicionada com sucesso.' % (city.id, city.name)
 
         @staticmethod
-        def product_category_sent_successfully(category_name):
-            return 'A categoria de produto "%s" foi adicionada com sucesso.' % category_name
+        def product_category_sent_successfully(product_category):
+            return 'A categoria de produto #%s - "%s" foi adicionada com sucesso.' % (product_category.id, product_category.name)
 
         @staticmethod
-        def product_subcategory_sent_successfully(subcategory_name):
-            return 'A subcategoria de produto "%s" foi adicionada com sucesso.' % subcategory_name
+        def product_subcategory_sent_successfully(product_subcategory):
+            return 'A subcategoria de produto #%s - "%s" foi adicionada com sucesso.' % (product_subcategory.id, product_subcategory.name)
 
         @staticmethod
         def invalid_format(allowed_extensions):
@@ -607,24 +597,24 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
                 return str(n_items) + " items encontrados."
 
         @staticmethod
-        def product_category_successful_edited(category_name):
-            return 'A categoria de produto "%s" foi editada com sucesso.' % category_name
+        def product_category_successful_edited(product_category):
+            return 'A categoria de produto #%s - "%s" foi editada com sucesso.' % (product_category.id, product_category.name)
 
         @staticmethod
-        def product_successful_edited(product_title):
-            return 'O produto "%s" foi editado com sucesso.' % product_title
+        def product_successful_edited(product):
+            return 'O produto #%s - "%s" foi editado com sucesso.' % (product.id, product.title)
 
         @staticmethod
-        def post_successful_edited(post_title):
-            return 'O post "%s" foi editado com sucesso.' % post_title
+        def post_successful_edited(blog_post):
+            return 'O post #%s - "%s" foi editado com sucesso.' % (blog_post.id, blog_post.title)
 
         @staticmethod
-        def city_successful_edited(city_name):
-            return 'A cidade "%s" foi editada com sucesso.' % city_name
+        def city_successful_edited(city):
+            return 'A cidade #%s - "%s" foi editada com sucesso.' % (city.id, city.name)
 
         @staticmethod
-        def product_subcategory_successful_edited(subcategory_name):
-            return 'A subcategoria de produto "%s" foi editada com sucesso.' % subcategory_name
+        def product_subcategory_successful_edited(product_subcategory):
+            return 'A subcategoria de produto #%s - "%s" foi editada com sucesso.' % (product_subcategory.id, product_subcategory.name)
 
         @staticmethod
         def n_image(n):
@@ -712,16 +702,16 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
             return "Os dados da seção de blog %s foram atualizados com sucesso." % blog_section_number
 
         @staticmethod
-        def blog_post_sent_successfully(blog_post_title):
-            return 'O post "%s" foi adicionado com sucesso.' % blog_post_title
+        def blog_post_sent_successfully(blog_post):
+            return 'O post #%s - "%s" foi adicionado com sucesso.' % (blog_post.id, blog_post.title)
 
         @staticmethod
-        def post_not_editable(post_title):
-            return 'O post "%s" não pode ser editado.' % post_title
+        def post_not_editable(blog_post):
+            return 'O post #%s - "%s" não pode ser editado.' % (blog_post.id, blog_post.title)
 
         @staticmethod
-        def product_category_not_editable(product_category_name):
-            return 'A categoria de produto "%s" não pode ser editada.' % product_category_name
+        def product_category_not_editable(product_category):
+            return 'A categoria de produto #%s - "%s" não pode ser editada.' % (product_category.id, product_category.name)
 
         @staticmethod
         def product_not_editable(product_title):

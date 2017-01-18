@@ -130,8 +130,8 @@ class AdminProductsDataProvider:
                         meta_data = {
                             "data-text": R.string.add_to_stock,
                             "data-doing-text": R.string.adding,
-                            "data-error-4xx-msg": R.string.stock_change_invalid_form_error(product.title),
-                            "data-error-5xx-msg": R.string.stock_change_error(product.title)
+                            "data-error-4xx-msg": R.string.stock_change_invalid_form_error(product),
+                            "data-error-5xx-msg": R.string.stock_change_error(product)
                         },
                     ),
                     dict(
@@ -142,8 +142,8 @@ class AdminProductsDataProvider:
                         meta_data = {
                             "data-text": R.string.remove_from_stock,
                             "data-doing-text": R.string.removing,
-                            "data-error-4xx-msg": R.string.stock_change_invalid_form_error(product.title),
-                            "data-error-5xx-msg": R.string.stock_change_error(product.title)
+                            "data-error-4xx-msg": R.string.stock_change_invalid_form_error(product),
+                            "data-error-5xx-msg": R.string.stock_change_error(product)
                         }
                     ),
                     dict(
@@ -154,8 +154,8 @@ class AdminProductsDataProvider:
                         meta_data = {
                             "data-text": R.string.update_stock,
                             "data-doing-text": R.string.updating,
-                            "data-error-4xx-msg": R.string.stock_change_invalid_form_error(product.title),
-                            "data-error-5xx-msg": R.string.stock_change_error(product.title)
+                            "data-error-4xx-msg": R.string.stock_change_invalid_form_error(product),
+                            "data-error-5xx-msg": R.string.stock_change_error(product)
                         }
                     ),
                     dict(
@@ -168,12 +168,12 @@ class AdminProductsDataProvider:
                         to_activate_url=url_for(
                             "admin_products.to_activate_product", product_id=product.id),
                         to_activate_meta_data={
-                            "data-error-msg": R.string.to_activate_product_error(product.title),
+                            "data-error-msg": R.string.to_activate_product_error(product),
                         },
                         disable_url = url_for(
                                 "admin_products.disable_product", product_id=product.id),
                         disable_meta_data= {
-                            "data-error-msg": R.string.disable_product_error(product.title),
+                            "data-error-msg": R.string.disable_product_error(product),
                         }
                     ),
                 ]

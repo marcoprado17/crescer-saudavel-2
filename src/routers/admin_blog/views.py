@@ -34,8 +34,8 @@ def add_post():
         add_blog_post_form = AddBlogPostForm()
 
         if add_blog_post_form.validate_on_submit():
-            BlogPost.create_from_form(add_blog_post_form)
-            flash(R.string.blog_post_sent_successfully(add_blog_post_form.title.data),
+            blog_post = BlogPost.create_from_form(add_blog_post_form)
+            flash(R.string.blog_post_sent_successfully(blog_post),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_blog.add_post"))
         else:
@@ -55,7 +55,7 @@ def edit_post(blog_post_id):
                                    blog_post=blog_post))
     else:
         if not blog_post.editable:
-            flash(R.string.post_not_editable(blog_post.title),
+            flash(R.string.post_not_editable(blog_post),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return redirect(url_for("admin_blog.posts"))
 
@@ -64,7 +64,7 @@ def edit_post(blog_post_id):
         if edit_post_form.validate_on_submit():
             blog_post.update_from_form(blog_post=blog_post,
                                      blog_post_form=edit_post_form)
-            flash(R.string.post_successful_edited(blog_post.title),
+            flash(R.string.post_successful_edited(blog_post),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_blog.posts"))
         else:

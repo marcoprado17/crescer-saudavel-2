@@ -102,12 +102,12 @@ class AdminCitiesDataProvider:
                         to_activate_url=url_for(
                             "admin_attended_cities.to_activate_city", city_id=city.id),
                         to_activate_meta_data={
-                            "data-error-msg": R.string.to_activate_city_error(city.name),
+                            "data-error-msg": R.string.to_activate_city_error(city),
                         },
                         disable_url=url_for(
                             "admin_attended_cities.disable_city", city_id=city.id),
                         disable_meta_data={
-                            "data-error-msg": R.string.disable_city_error(city.name),
+                            "data-error-msg": R.string.disable_city_error(city),
                         }
                     )
                 ]
