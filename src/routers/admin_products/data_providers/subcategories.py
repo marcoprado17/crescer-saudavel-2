@@ -21,33 +21,19 @@ from routers.admin_products.forms import ProductSubcategoryFilterForm
 from wrappers.base.forms import SubmitForm
 
 
-class AdminProductSubcategoriesDataProvider:
-    def __init__(self):
-        self.sort_method_ids = [
-            R.id.SORT_METHOD_ID,
-            R.id.SORT_METHOD_NAME,
-        ]
-        self.sort_method_names = [
-            R.string.id,
-            R.string.subcategory_name,
-        ]
-        self.sort_method_by_id = {
-            R.id.SORT_METHOD_ID: asc(ProductSubcategory.id),
-            R.id.SORT_METHOD_NAME: asc(ProductSubcategory.name),
-        }
-
+class AdminProductSubcategoriesDataProvider(object):
     def get_data(self):
         active = get_boolean_url_arg(arg_name=R.string.subcategory_active_arg_name, default=True)
         category_id = get_valid_model_id(model=ProductSubcategory, arg_name=R.string.category_id_arg_name, include_zero=True, default=0)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_NAME, possible_values=self.sort_method_ids)
+                                        default=R.id.SORT_METHOD_NAME, possible_values=ProductSubcategory.sort_method_ids)
 
 
         self.q = ProductSubcategory.query
         self.q = self.q.filter(ProductSubcategory.active == active)
         if category_id != 0:
             self.q = self.q.filter(ProductSubcategory.category_id == category_id)
-        self.q = self.q.order_by(self.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(ProductSubcategory.sort_method_by_id[sort_method_id])
 
         n_subcategories = self.q.count()
 
@@ -70,8 +56,8 @@ class AdminProductSubcategoriesDataProvider:
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=self.sort_method_ids,
-                sort_method_names=self.sort_method_names
+                sort_method_ids=ProductSubcategory.sort_method_ids,
+                sort_method_names=ProductSubcategory.sort_method_names
             ),
             table_data=self.get_table_data()
         )

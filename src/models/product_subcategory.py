@@ -20,6 +20,19 @@ class ProductSubcategory(db.Model):
     category = relationship("ProductCategory", back_populates="subcategories")
     products = relationship("Product", order_by=Product.title, back_populates="subcategory")
 
+    sort_method_ids = [
+        R.id.SORT_METHOD_ID,
+        R.id.SORT_METHOD_NAME,
+    ]
+    sort_method_names = [
+        R.string.id,
+        R.string.subcategory_name,
+    ]
+    sort_method_by_id = {
+        R.id.SORT_METHOD_ID: asc(id),
+        R.id.SORT_METHOD_NAME: asc(name),
+    }
+
     @staticmethod
     def create_from_form(add_product_subcategory_form):
         product_subcategory = ProductSubcategory(

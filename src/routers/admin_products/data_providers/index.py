@@ -24,38 +24,7 @@ from routers.admin_products.forms import ProductFilterForm, AddToStockForm, Remo
 from wrappers.base.forms import SubmitForm
 
 
-class AdminProductsDataProvider:
-    def __init__(self):
-        self.sort_method_ids = [
-            R.id.SORT_METHOD_ID,
-            R.id.SORT_METHOD_TITLE,
-            R.id.SORT_METHOD_LOWEST_PRICE,
-            R.id.SORT_METHOD_HIGHER_PRICE,
-            R.id.SORT_METHOD_LOWEST_STOCK,
-            R.id.SORT_METHOD_HIGHER_STOCK,
-            R.id.SORT_METHOD_BEST_SELLER,
-            R.id.SORT_METHOD_LESS_SOLD
-        ]
-        self.sort_method_names = [
-            R.string.id,
-            R.string.title,
-            R.string.lowest_price,
-            R.string.higher_price,
-            R.string.lowest_stock,
-            R.string.higher_stock,
-            R.string.best_seller,
-            R.string.less_sold
-        ]
-        self.sort_method_by_id = {
-            R.id.SORT_METHOD_ID: asc(Product.id),
-            R.id.SORT_METHOD_TITLE: asc(Product.title),
-            R.id.SORT_METHOD_LOWEST_PRICE: asc(Product.price),
-            R.id.SORT_METHOD_HIGHER_PRICE: desc(Product.price),
-            R.id.SORT_METHOD_LOWEST_STOCK: asc(Product.stock),
-            R.id.SORT_METHOD_HIGHER_STOCK: desc(Product.stock),
-            R.id.SORT_METHOD_BEST_SELLER: desc(Product.sales_number),
-            R.id.SORT_METHOD_LESS_SOLD: asc(Product.sales_number)
-        }
+class AdminProductsDataProvider(object):
 
     def get_data(self):
         category_id = get_valid_model_id(model=ProductCategory, arg_name=R.string.category_id_arg_name,
@@ -64,7 +33,7 @@ class AdminProductsDataProvider:
                                             include_zero=True, default=0)
         active = get_boolean_url_arg(arg_name=R.string.subcategory_active_arg_name, default=True)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_TITLE, possible_values=self.sort_method_ids)
+                                        default=R.id.SORT_METHOD_TITLE, possible_values=Product.sort_method_ids)
 
         self.q = Product.query
         self.q = self.q.filter(Product.active == active)
@@ -72,7 +41,7 @@ class AdminProductsDataProvider:
             self.q = self.q.filter(Product.category_id == category_id)
         if subcategory_id != 0:
             self.q = self.q.filter(Product.subcategory_id == subcategory_id)
-        self.q = self.q.order_by(self.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(Product.sort_method_by_id[sort_method_id])
 
         n_products = self.q.count()
 
@@ -95,8 +64,8 @@ class AdminProductsDataProvider:
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=self.sort_method_ids,
-                sort_method_names=self.sort_method_names
+                sort_method_ids=Product.sort_method_ids,
+                sort_method_names=Product.sort_method_names
             ),
             table_data=self.get_table_data()
         )

@@ -6,6 +6,8 @@
 from decimal import Decimal
 
 from sqlalchemy import ForeignKey
+from sqlalchemy import asc
+from sqlalchemy import desc
 from sqlalchemy.orm import relationship
 
 from extensions import db
@@ -70,6 +72,37 @@ class Product(db.Model):
     tab_10_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_10_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_10_content = db.Column(db.UnicodeText)
+
+    sort_method_ids = [
+        R.id.SORT_METHOD_ID,
+        R.id.SORT_METHOD_TITLE,
+        R.id.SORT_METHOD_LOWEST_PRICE,
+        R.id.SORT_METHOD_HIGHER_PRICE,
+        R.id.SORT_METHOD_LOWEST_STOCK,
+        R.id.SORT_METHOD_HIGHER_STOCK,
+        R.id.SORT_METHOD_BEST_SELLER,
+        R.id.SORT_METHOD_LESS_SOLD
+    ]
+    sort_method_names = [
+        R.string.id,
+        R.string.title,
+        R.string.lowest_price,
+        R.string.higher_price,
+        R.string.lowest_stock,
+        R.string.higher_stock,
+        R.string.best_seller,
+        R.string.less_sold
+    ]
+    sort_method_by_id = {
+        R.id.SORT_METHOD_ID: asc(id),
+        R.id.SORT_METHOD_TITLE: asc(title),
+        R.id.SORT_METHOD_LOWEST_PRICE: asc(price),
+        R.id.SORT_METHOD_HIGHER_PRICE: desc(price),
+        R.id.SORT_METHOD_LOWEST_STOCK: asc(stock),
+        R.id.SORT_METHOD_HIGHER_STOCK: desc(stock),
+        R.id.SORT_METHOD_BEST_SELLER: desc(sales_number),
+        R.id.SORT_METHOD_LESS_SOLD: asc(sales_number)
+    }
 
     @staticmethod
     def get_attrs_from_form(product_form):

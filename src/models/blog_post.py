@@ -3,6 +3,9 @@
 # ======================================================================================================================
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from sqlalchemy import asc
+from sqlalchemy import desc
+
 from extensions import db
 from r import R
 
@@ -16,6 +19,25 @@ class BlogPost(db.Model):
     summary = db.Column(db.UnicodeText, nullable=False)
     content = db.Column(db.UnicodeText, nullable=False)
     editable = db.Column(db.Boolean, default=True, nullable=False)
+
+    sort_method_ids = [
+        R.id.SORT_METHOD_ID,
+        R.id.SORT_METHOD_TITLE,
+        R.id.SORT_METHOD_NEWEST,
+        R.id.SORT_METHOD_OLDER
+    ]
+    sort_method_names = [
+        R.string.id,
+        R.string.title,
+        R.string.newest,
+        R.string.older,
+    ]
+    sort_method_by_id = {
+        R.id.SORT_METHOD_ID: asc(id),
+        R.id.SORT_METHOD_TITLE: asc(title),
+        R.id.SORT_METHOD_NEWEST: desc(datetime),
+        R.id.SORT_METHOD_OLDER: asc(datetime),
+    }
 
     @staticmethod
     def get_choices(include_none=False):

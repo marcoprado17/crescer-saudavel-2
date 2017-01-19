@@ -21,35 +21,15 @@ from routers.admin_blog.forms import BlogPostFilterForm
 from wrappers.base.forms import SubmitForm
 
 
-class AdminPostsDataProvider:
-    def __init__(self):
-        self.sort_method_ids = [
-            R.id.SORT_METHOD_ID,
-            R.id.SORT_METHOD_TITLE,
-            R.id.SORT_METHOD_NEWEST,
-            R.id.SORT_METHOD_OLDER
-        ]
-        self.sort_method_names = [
-            R.string.id,
-            R.string.title,
-            R.string.newest,
-            R.string.older,
-        ]
-        self.sort_method_by_id = {
-            R.id.SORT_METHOD_ID: asc(BlogPost.id),
-            R.id.SORT_METHOD_TITLE: asc(BlogPost.title),
-            R.id.SORT_METHOD_NEWEST: desc(BlogPost.datetime),
-            R.id.SORT_METHOD_OLDER: asc(BlogPost.datetime),
-        }
-
+class AdminPostsDataProvider(object):
     def get_data(self):
         active = get_boolean_url_arg(arg_name=R.string.subcategory_active_arg_name, default=True)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_NEWEST, possible_values=self.sort_method_ids)
+                                        default=R.id.SORT_METHOD_NEWEST, possible_values=BlogPost.sort_method_ids)
 
         self.q = BlogPost.query
         self.q = self.q.filter(BlogPost.active == active)
-        self.q = self.q.order_by(self.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(BlogPost.sort_method_by_id[sort_method_id])
 
         n_posts = self.q.count()
 
@@ -72,8 +52,8 @@ class AdminPostsDataProvider:
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=self.sort_method_ids,
-                sort_method_names=self.sort_method_names
+                sort_method_ids=BlogPost.sort_method_ids,
+                sort_method_names=BlogPost.sort_method_names
             ),
             table_data=self.get_table_data()
         )
