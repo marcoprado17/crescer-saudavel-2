@@ -10,7 +10,7 @@
             <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
                 {{ data.blog_post_form.csrf_token }}
                 {{ form_fields.boolean_field(field=data.blog_post_form.active) }}
-                {{ form_fields.string_field(field=data.blog_post_form.title, explicit_label=True, placeholder=R.string.blog_post_title_example) }}
+                {{ form_fields.string_field(field=data.blog_post_form.title, max_length=R.dimen.blog_post_title_max_length, explicit_label=True, placeholder=R.string.blog_post_title_example) }}
                 <div class="row">
                     <div class="col-sm-6">
                         {{ form_fields.date_field(field=data.blog_post_form.datetime, explicit_label=True) }}

@@ -816,8 +816,8 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         address_complement_max_length = 32
         cep_max_length = 9
         tel_max_length = 15
-        state_name_max_length = 32
-        city_name_max_length = 32
+        state_name_max_length = 2
+        city_name_max_length = 48
         datetime_important_chars_size = 16
         carousel_title_max_length = 64
         carousel_subtitle_max_length = 128
@@ -825,7 +825,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         blog_post_title_max_length = 128
         blog_section_name_max_length = 32
         contact_address_max_length = 96
-        footer_lower_text_max_length = 256
+        footer_lower_text_max_length = 96
 
         freight = Decimal("5.00")
 

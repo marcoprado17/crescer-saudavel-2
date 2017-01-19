@@ -11,7 +11,7 @@
                 {{ data.city_form.csrf_token }}
                 {{ form_fields.boolean_field(field=data.city_form.active) }}
                 {{ form_fields.select_field(field=data.city_form.state_id, explicit_label=True) }}
-                {{ form_fields.string_field(field=data.city_form.city_name, explicit_label=True, placeholder=R.string.city_placeholder) }}
+                {{ form_fields.string_field(field=data.city_form.city_name, max_length=R.dimen.city_name_max_length, explicit_label=True, placeholder=R.string.city_placeholder) }}
                 {{ form_fields.submit(field=data.city_form.submit) }}
             </form>
         </div>

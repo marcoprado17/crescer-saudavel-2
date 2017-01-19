@@ -8,7 +8,7 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro string_field(field, explicit_label=False, placeholder="", readonly=False) %}
+{% macro string_field(field, explicit_label=False, placeholder="", readonly=False, max_length=None) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
             <div class="label-container">
@@ -23,7 +23,7 @@
         {% endif %}
         <input id="{{ field.id }}" name="{{ field.name }}" type="text"
                class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
-               value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }}>
+               value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }} maxlength={{ max_length|if(max_length) }}>
         {{ render_errors(field.errors) }}
     </div>
 {%- endmacro %}
