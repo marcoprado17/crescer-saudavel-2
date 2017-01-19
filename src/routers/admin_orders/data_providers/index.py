@@ -143,21 +143,36 @@ class AdminOrdersDataProvider(object):
                 self.mark_as_sent_action(order, False),
                 self.unmark_as_sent_action(order, True),
                 self.mark_as_delivered_action(order, True),
-                self.unmark_as_delivered_action(order, True)
+                self.unmark_as_delivered_action(order, True),
+                self.mark_as_canceled_action(order, False),
+                self.mark_as_paid_action(order, True)
             ]
         elif order.status == R.id.ORDER_STATUS_SENT:
             return [
                 self.mark_as_sent_action(order, True),
                 self.unmark_as_sent_action(order, False),
                 self.mark_as_delivered_action(order, False),
-                self.unmark_as_delivered_action(order, True)
+                self.unmark_as_delivered_action(order, True),
+                self.mark_as_canceled_action(order, True),
+                self.mark_as_paid_action(order, True)
             ]
         elif order.status == R.id.ORDER_STATUS_DELIVERED:
             return [
                 self.mark_as_sent_action(order, True),
                 self.unmark_as_sent_action(order, True),
                 self.mark_as_delivered_action(order, True),
-                self.unmark_as_delivered_action(order, False)
+                self.unmark_as_delivered_action(order, False),
+                self.mark_as_canceled_action(order, True),
+                self.mark_as_paid_action(order, True)
+            ]
+        elif order.status == R.id.ORDER_STATUS_CANCELED:
+            return [
+                self.mark_as_sent_action(order, True),
+                self.unmark_as_sent_action(order, True),
+                self.mark_as_delivered_action(order, True),
+                self.unmark_as_delivered_action(order, True),
+                self.mark_as_canceled_action(order, True),
+                self.mark_as_paid_action(order, False)
             ]
 
     def mark_as_sent_action(self, order, hidden):
@@ -197,6 +212,26 @@ class AdminOrdersDataProvider(object):
             form=SubmitForm(),
             url=url_for("admin_orders.unmark_as_delivered", order_id=order.id),
             classes="unmark-as-delivered " + ("hidden" if hidden else ""),
+            meta_data = self.get_meta_data(order)
+        )
+
+    def mark_as_canceled_action(self, order, hidden):
+        return dict(
+            type=R.id.ACTION_TYPE_BUTTON,
+            text=R.string.cancel_order,
+            form=SubmitForm(),
+            url=url_for("admin_orders.mark_as_canceled", order_id=order.id),
+            classes="mark-as-canceled " + ("hidden" if hidden else ""),
+            meta_data = self.get_meta_data(order)
+        )
+
+    def mark_as_paid_action(self, order, hidden):
+        return dict(
+            type=R.id.ACTION_TYPE_BUTTON,
+            text=R.string.mark_as_paid,
+            form=SubmitForm(),
+            url=url_for("admin_orders.mark_as_paid", order_id=order.id),
+            classes="mark-as-paid " + ("hidden" if hidden else ""),
             meta_data = self.get_meta_data(order)
         )
 

@@ -62,12 +62,14 @@ class Order(db.Model):
     }
     order_status_ids = [
         R.id.ORDER_STATUS_ANY,
+        R.id.ORDER_STATUS_CANCELED,
         R.id.ORDER_STATUS_PAID,
         R.id.ORDER_STATUS_SENT,
         R.id.ORDER_STATUS_DELIVERED
     ]
     order_status_as_string_by_id = {
         R.id.ORDER_STATUS_ANY: R.string.any,
+        R.id.ORDER_STATUS_CANCELED: R.string.canceled,
         R.id.ORDER_STATUS_PAID: R.string.paid,
         R.id.ORDER_STATUS_SENT: R.string.sent,
         R.id.ORDER_STATUS_DELIVERED: R.string.delivered

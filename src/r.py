@@ -243,6 +243,9 @@ class Resources(object):
         unchecking = "Desmarcando..."
         order_status_change_error = "Não foi possivel alterar o status do pedido #{0}. Tente novamente."
         mark_as_sent_confirmation = 'Você tem certeza que deseja marcar o pedido como enviado? Um email será automaticamente enviado para: {0}.'
+        mark_as_canceled_confirmation = 'Você tem certeza que deseja cancelar o pedido? Um email será automaticamente enviado para: {0}.'
+        canceling = "Cancelando..."
+        canceled = "Cancelado"
         email = "Email"
         email_confirmed = "Email confirmado"
         first_name = "Nome"
@@ -324,6 +327,8 @@ class Resources(object):
         city_placeholder = "Ex.: São José dos Campos"
         category_name = "Nome da categoria"
         subcategory_name = "Nome da subcategoria"
+        cancel_order = "Cancelar pedido"
+        mark_as_paid = "Marcar como pago"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -791,6 +796,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         ORDER_STATUS_PAID =                     401
         ORDER_STATUS_SENT =                     402
         ORDER_STATUS_DELIVERED =                403
+        ORDER_STATUS_CANCELED =                 404
 
 
     # noinspection PyPep8Naming

@@ -56,6 +56,7 @@
             var button = mark_as_sent_form.find("button");
             var unmark_as_sent_form = mark_as_sent_form.siblings(".unmark-as-sent");
             var mark_as_delivered_form = mark_as_sent_form.siblings(".mark-as-delivered");
+            var mark_as_canceled_form = mark_as_sent_form.siblings(".mark-as-canceled");
             var order_id = mark_as_sent_form.attr("data-order-id");
             var row_idx = mark_as_sent_form.attr("data-row-idx");
             var email = mark_as_sent_form.attr("data-email");
@@ -70,6 +71,8 @@
                 },
                 success: function (data) {
                     mark_as_sent_form.addClass("hidden");
+                    console.log(mark_as_canceled_form);
+                    mark_as_canceled_form.addClass("hidden");
                     unmark_as_sent_form.removeClass("hidden");
                     mark_as_delivered_form.removeClass("hidden");
                     setTextTdValue("status", row_idx, data.new_status);
@@ -90,6 +93,7 @@
             var button = unmark_as_sent_form.find("button");
             var mark_as_sent_form = unmark_as_sent_form.siblings(".mark-as-sent");
             var mark_as_delivered_form = unmark_as_sent_form.siblings(".mark-as-delivered");
+            var mark_as_canceled_form = unmark_as_sent_form.siblings(".mark-as-canceled");
             var order_id = unmark_as_sent_form.attr("data-order-id");
             var row_idx = unmark_as_sent_form.attr("data-row-idx");
 
@@ -104,6 +108,7 @@
                     unmark_as_sent_form.addClass("hidden");
                     mark_as_delivered_form.addClass("hidden");
                     mark_as_sent_form.removeClass("hidden");
+                    mark_as_canceled_form.removeClass("hidden");
                     setTextTdValue("status", row_idx, data.new_status);
                     setTextTdValue("sent-datetime", row_idx, data.new_sent_datetime);
                 },
@@ -176,6 +181,70 @@
                 },
                 complete: function () {
                     button.html("{{ R.string.unmark_as_delivered }}");
+                    button.prop("disabled", false);
+                }
+            });
+        });
+
+        $(".actions-container form.mark-as-canceled").each(function () {
+            var mark_as_canceled_form = $(this);
+            var button = mark_as_canceled_form.find("button");
+            var mark_as_paid_form = mark_as_canceled_form.siblings(".mark-as-paid");
+            var mark_as_sent_form = mark_as_canceled_form.siblings(".mark-as-sent");
+            var order_id = mark_as_canceled_form.attr("data-order-id");
+            var row_idx = mark_as_canceled_form.attr("data-row-idx");
+            var email = mark_as_canceled_form.attr("data-email");
+
+            setAjaxFormHandlers({
+                confirmMessage: "{{ R.string.mark_as_canceled_confirmation }}".f(email),
+                form: mark_as_canceled_form,
+                minResponseTime: DEFAULT_RESPONSE_TIME,
+                onSubmit: function () {
+                    button.html("{{ R.string.canceling }}");
+                    button.prop("disabled", true);
+                },
+                success: function (data) {
+                    mark_as_canceled_form.addClass("hidden");
+                    mark_as_sent_form.addClass("hidden");
+                    mark_as_paid_form.removeClass("hidden");
+                    setTextTdValue("status", row_idx, data.new_status);
+                },
+                error: function () {
+                    throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                },
+                complete: function () {
+                    button.html("{{ R.string.cancel_order }}");
+                    button.prop("disabled", false);
+                }
+            });
+        });
+
+        $(".actions-container form.mark-as-paid").each(function () {
+            var mark_as_paid_form = $(this);
+            var button = mark_as_paid_form.find("button");
+            var mark_as_canceled_form = mark_as_paid_form.siblings(".mark-as-canceled");
+            var mark_as_sent_form = mark_as_paid_form.siblings(".mark-as-sent");
+            var order_id = mark_as_paid_form.attr("data-order-id");
+            var row_idx = mark_as_paid_form.attr("data-row-idx");
+
+            setAjaxFormHandlers({
+                form: mark_as_paid_form,
+                minResponseTime: DEFAULT_RESPONSE_TIME,
+                onSubmit: function () {
+                    button.html("{{ R.string.checking }}");
+                    button.prop("disabled", true);
+                },
+                success: function (data) {
+                    mark_as_paid_form.addClass("hidden");
+                    mark_as_canceled_form.removeClass("hidden");
+                    mark_as_sent_form.removeClass("hidden");
+                    setTextTdValue("status", row_idx, data.new_status);
+                },
+                error: function () {
+                    throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                },
+                complete: function () {
+                    button.html("{{ R.string.mark_as_paid }}");
                     button.prop("disabled", false);
                 }
             });

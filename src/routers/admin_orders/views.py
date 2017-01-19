@@ -89,3 +89,34 @@ def unmark_as_delivered(order_id):
             new_delivered_datetime=order.get_formatted_delivered_datetime()
         )
     ), 200
+
+
+@admin_orders_blueprint.route("/cancelar-pedido/<int:order_id>", methods=["POST"])
+@valid_form(FormClass=SubmitForm)
+def mark_as_canceled(order_id):
+    order = Order.get(order_id)
+    assert order != None and order.status == R.id.ORDER_STATUS_PAID
+    order = Order.update(
+        order_id,
+        status=R.id.ORDER_STATUS_CANCELED,
+    )
+    return json.dumps(
+        dict(
+            new_status=order.get_status_as_string()
+        )
+    ), 200
+
+@admin_orders_blueprint.route("/marcar-como-pago/<int:order_id>", methods=["POST"])
+@valid_form(FormClass=SubmitForm)
+def mark_as_paid(order_id):
+    order = Order.get(order_id)
+    assert order != None and order.status == R.id.ORDER_STATUS_CANCELED
+    order = Order.update(
+        order_id,
+        status=R.id.ORDER_STATUS_PAID,
+    )
+    return json.dumps(
+        dict(
+            new_status=order.get_status_as_string()
+        )
+    ), 200
