@@ -11,7 +11,6 @@ from sqlalchemy import desc
 from sqlalchemy.orm import relationship
 
 from extensions import db
-from proj_exceptions import InvalidIdError
 from r import R
 from wrappers.base.utils import parse_markdown
 
@@ -26,7 +25,8 @@ class Product(db.Model):
     subcategory = relationship("ProductSubcategory", back_populates="products")
     price = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
     stock = db.Column(db.Integer, nullable=False)
-    min_stock = db.Column(db.Integer, nullable=False)
+    reserved = db.Column(db.Integer, default=0, nullable=False)
+    min_available = db.Column(db.Integer, nullable=False)
     summary = db.Column(db.UnicodeText, nullable=False)
     sales_number = db.Column(db.Integer, default=0)
     editable = db.Column(db.Boolean, default=True, nullable=False)
@@ -113,7 +113,7 @@ class Product(db.Model):
             subcategory_id=int(product_form.subcategory_id.data) if int(product_form.subcategory_id.data) != 0 else None,
             price=Decimal(product_form.price.data.replace(',', '.')),
             stock=int(product_form.stock.data),
-            min_stock=int(product_form.min_stock.data),
+            min_available=int(product_form.min_available.data),
             summary=parse_markdown(product_form.summary.data),
 
             image_1=product_form.image_1.data,
@@ -187,35 +187,25 @@ class Product(db.Model):
         db.session.commit()
         return product
 
-    @staticmethod
-    def add_to_stock(product_id, value):
-        product = Product.get(product_id)
-        assert product != None
-        assert product.editable
-        product.stock += value
-        db.session.add(product)
+    def add_to_stock(self, value):
+        self.stock += value
+        assert self.editable
+        db.session.add(self)
         db.session.commit()
-        return product.stock
 
-    @staticmethod
-    def remove_from_stock(product_id, value):
-        product = Product.get(product_id)
-        assert product != None
-        assert product.editable
-        product.stock = max(product.stock - value, 0)
-        db.session.add(product)
+    def remove_from_stock(self, value):
+        self.stock -= value
+        assert self.editable
+        assert self.stock >= 0
+        db.session.add(self)
         db.session.commit()
-        return product.stock
 
-    @staticmethod
-    def update_stock(product_id, value):
-        product = Product.get(product_id)
-        assert product != None
-        assert product.editable
-        product.stock = value
-        db.session.add(product)
+    def update_stock(self, value):
+        self.stock = value
+        assert self.editable
+        assert self.stock >= 0
+        db.session.add(self)
         db.session.commit()
-        return product.stock
 
     @staticmethod
     def get(product_id):
@@ -239,3 +229,11 @@ class Product(db.Model):
             product_choices.append((str(id_title[0]), id_title[1]))
 
         return product_choices
+
+    def get_n_units_available(self):
+        return self.stock-self.reserved
+
+    def inc_reserved(self, value):
+        assert value > 0
+        assert self.get_n_units_available() >= value
+        self.reserved += value

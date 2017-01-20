@@ -18,12 +18,15 @@
         initSuperTable();
         initIntWithButtonAction($("form.add-stock"), function (row_idx, dataAsObject) {
             setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
+            setTextTdValue("available", row_idx, dataAsObject.new_available_value);
         });
         initIntWithButtonAction($("form.remove-from-stock"), function (row_idx, dataAsObject) {
             setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
+            setTextTdValue("available", row_idx, dataAsObject.new_available_value);
         });
         initIntWithButtonAction($("form.update-stock"), function (row_idx, dataAsObject) {
             setTextTdValue("{{ R.string.product_stock_col_id }}", row_idx, dataAsObject.new_stock_value);
+            setTextTdValue("available", row_idx, dataAsObject.new_available_value);
         });
     </script>
 {% endblock %}

@@ -120,7 +120,7 @@ def create_product_example(category_id):
         category_id=category_id,
         price=R.dimen.product_example_price,
         stock=R.dimen.product_example_stock,
-        min_stock=R.dimen.product_example_min_stock,
+        min_available=R.dimen.product_example_min_available,
         summary=parse_markdown(R.string.product_example_summary),
         sales_number=R.dimen.product_example_sales_number,
         editable=False,
@@ -218,9 +218,11 @@ def create_random_clients():
 
 def create_random_orders():
     for i in range(0, 300):
-        db.session.add(get_random_order())
-        print "Order " + str(i) + " created."
-    db.session.commit()
+        try:
+            create_random_order()
+            print "Order " + str(i) + " created."
+        except:
+            print "Order " + str(i) + " creation fail."
 
 
 def create_random_blog_posts():
@@ -241,27 +243,28 @@ def get_random_blog_post():
     )
 
 
-def get_random_order():
+def create_random_order():
     status = random.choice(
         filter(lambda order_status_id: order_status_id != R.id.ORDER_STATUS_ANY, Order.order_status_ids))
-    return Order(
+    Order.create_new(
         client_email=get_valid_client_email(address_defined=True),
         status=status,
-        quantity_by_product_id=get_quantity_by_product_id(),
+        amount_by_product_id=get_amount_by_product_id(),
         **get_order_datetimes(status)
     )
 
 
-def get_quantity_by_product_id():
-    quantity_by_product_id = {}
+def get_amount_by_product_id():
+    amount_by_product_id = {}
     n_products = random.randint(1, 10)
     products = Product.query.all()
     random.shuffle(products)
     chosen_products = products[0:n_products]
     for product in chosen_products:
-        quantity = random.randint(1, 20)
-        quantity_by_product_id[product.id] = quantity
-    return quantity_by_product_id
+        amount = random.randint(1, product.get_n_units_available())
+        amount_by_product_id[product.id] = amount
+    assert len(amount_by_product_id) >= 1
+    return amount_by_product_id
 
 
 datetime_1 = datetime.datetime.now() - datetime.timedelta(days=90)
@@ -374,7 +377,7 @@ def get_random_product():
         subcategory_id=subcategory_id,
         price=Decimal(get_random_price()),
         stock=random.randint(0, 500),
-        min_stock=random.randint(2, 20),
+        min_available=random.randint(2, 20),
         summary=get_random_phrase((4, 10 + 1), (20, 40 + 1)),
         sales_number=random.randint(0, 500),
         **get_random_images_dic()

@@ -27,11 +27,7 @@ def index():
 def mark_as_sent(order_id):
     order = Order.get(order_id)
     assert order != None and order.status == R.id.ORDER_STATUS_PAID
-    order = Order.update(
-        order_id,
-        status = R.id.ORDER_STATUS_SENT,
-        sent_datetime = datetime.now()
-    )
+    order.mark_as_sent()
     return json.dumps(
         dict(
             new_status=order.get_status_as_string(),
@@ -44,11 +40,7 @@ def mark_as_sent(order_id):
 def unmark_as_sent(order_id):
     order = Order.get(order_id)
     assert order != None and order.status == R.id.ORDER_STATUS_SENT
-    order = Order.update(
-        order_id,
-        status=R.id.ORDER_STATUS_PAID,
-        sent_datetime=None
-    )
+    order.unmark_as_sent()
     return json.dumps(
         dict(
             new_status=order.get_status_as_string(),
@@ -96,10 +88,7 @@ def unmark_as_delivered(order_id):
 def mark_as_canceled(order_id):
     order = Order.get(order_id)
     assert order != None and order.status == R.id.ORDER_STATUS_PAID
-    order = Order.update(
-        order_id,
-        status=R.id.ORDER_STATUS_CANCELED,
-    )
+    order.mark_as_canceled()
     return json.dumps(
         dict(
             new_status=order.get_status_as_string()
@@ -111,10 +100,7 @@ def mark_as_canceled(order_id):
 def mark_as_paid(order_id):
     order = Order.get(order_id)
     assert order != None and order.status == R.id.ORDER_STATUS_CANCELED
-    order = Order.update(
-        order_id,
-        status=R.id.ORDER_STATUS_PAID,
-    )
+    order.mark_as_paid()
     return json.dumps(
         dict(
             new_status=order.get_status_as_string()

@@ -189,14 +189,14 @@ class ProductForm(FlaskForm):
             Required(),
             NotNegativeInteger(),
         ])
-    min_stock = IntegerField(
-        label=R.string.min_stock,
+    min_available = IntegerField(
+        label=R.string.min_available,
         validators=[
             Required(),
             NotNegativeInteger(),
         ],
         render_kw=dict(
-            tooltip=R.string.min_stock_tooltip
+            tooltip=R.string.min_available_tooltip
         )
     )
     summary = TextAreaField(
@@ -294,7 +294,7 @@ class EditProductForm(ProductForm):
         self.subcategory_id.data = str(product.subcategory_id)
         self.price.data = str(product.price).replace(".", ",")
         self.stock.data = product.stock
-        self.min_stock.data = product.min_stock
+        self.min_available.data = product.min_available
         self.summary.data = product.summary
 
         self.image_1.data = product.image_1

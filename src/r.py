@@ -191,8 +191,8 @@ class Resources(object):
         product_stock_col_id = "product-stock-col"
         in_stock = "Em estoque"
         product_min_stock_col_id = "product-min-stock-col"
-        min_stock = "Mín. Estoque"
-        min_stock_tooltip = "Quando o estoque do produto atingir o valor estabelecido em mín. estoque, o produto não será mais disponibilizado para venda na loja virtual."
+        min_available = "Mín. Disponíveis"
+        min_available_tooltip = "Quando o número de unidades disponíveis do produto atingir o valor estabelecido em mín. disponíveis, o produto não será mais disponibilizado para venda na loja virtual."
         product_sales_number_col_id = "product-sales-number-col"
         sales = "Vendas"
         empty_subcategory_symbol = "Nenhuma"
@@ -260,7 +260,8 @@ class Resources(object):
         undefined_masculine = "Indefinido"
         undefined_feminine = "Indefinida"
         products_of_order = "Produtos do pedido"
-        quantity = "Quantia"
+        amount = "Quantia"
+        product_title = "Título do produto"
         subtotal_tooltip = "Valor do produto multiplicado por sua quantia (em R$)"
         product_price_tooltip = "Valor do produto em R$"
         order_total_value = "Valor total do pedido"
@@ -329,6 +330,10 @@ class Resources(object):
         subcategory_name = "Nome da subcategoria"
         cancel_order = "Cancelar pedido"
         mark_as_paid = "Marcar como pago"
+        available = "Disponíveis"
+        available_tooltip = "Número de unidades disponíveis do produto, equivale ao número de unidades no estoque menos o número de unidades reservadas."
+        reserved = "Reservadas"
+        reserved_tooltip = "Número de unidades reservadas do produto, já foram vendidas, mas ainda não foram enviadas."
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -831,7 +836,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         product_example_price = Decimal("9.90")
         product_example_stock = 100
-        product_example_min_stock = 10
+        product_example_min_available = 10
         product_example_sales_number = 32
 
 

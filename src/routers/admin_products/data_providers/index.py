@@ -82,7 +82,9 @@ class AdminProductsDataProvider(object):
                 product.title,
                 product.get_formatted_price(),
                 product.stock,
-                product.min_stock,
+                product.get_n_units_available(),
+                product.reserved,
+                product.min_available,
                 product.sales_number,
                 [
                     dict(
@@ -188,10 +190,22 @@ class AdminProductsDataProvider(object):
                     type=R.id.COL_TYPE_TEXT,
                 ),
                 dict(
-                    id=R.string.product_min_stock_col_id,
-                    title=R.string.min_stock,
+                    id="available",
+                    title=R.string.available,
                     type=R.id.COL_TYPE_TEXT,
-                    tooltip=R.string.min_stock_tooltip
+                    tooltip=R.string.available_tooltip
+                ),
+                dict(
+                    id="reserved",
+                    title=R.string.reserved,
+                    type=R.id.COL_TYPE_TEXT,
+                    tooltip=R.string.reserved_tooltip
+                ),
+                dict(
+                    id="min-available",
+                    title=R.string.min_available,
+                    type=R.id.COL_TYPE_TEXT,
+                    tooltip=R.string.min_available_tooltip
                 ),
                 dict(
                     id=R.string.product_sales_number_col_id,

@@ -96,8 +96,10 @@ def to_activate_product(product_id):
 @valid_form(FormClass=AddToStockForm)
 def product_stock_addition(product_id, form):
     try:
-        new_stock_value=Product.add_to_stock(product_id=product_id, value=form.value.data)
-        return json.dumps(dict(new_stock_value=new_stock_value)), 200
+        product = Product.get(product_id)
+        assert product != None
+        product.add_to_stock(form.value.data)
+        return json.dumps(dict(new_stock_value=product.stock, new_available_value=product.get_n_units_available())), 200
     except:
         return "", 500
 
@@ -106,8 +108,10 @@ def product_stock_addition(product_id, form):
 @valid_form(FormClass=RemoveFromStockForm)
 def product_stock_removal(product_id, form):
     try:
-        new_stock_value = Product.remove_from_stock(product_id=product_id, value=form.value.data)
-        return json.dumps(dict(new_stock_value=new_stock_value)), 200
+        product = Product.get(product_id)
+        assert product != None
+        product.remove_from_stock(form.value.data)
+        return json.dumps(dict(new_stock_value=product.stock, new_available_value=product.get_n_units_available())), 200
     except:
         return "", 500
 
@@ -116,8 +120,10 @@ def product_stock_removal(product_id, form):
 @valid_form(FormClass=UpdateStockForm)
 def product_stock_update(product_id, form):
     try:
-        new_stock_value = Product.update_stock(product_id=product_id, value=form.value.data)
-        return json.dumps(dict(new_stock_value=new_stock_value)), 200
+        product = Product.get(product_id)
+        assert product != None
+        product.update_stock(form.value.data)
+        return json.dumps(dict(new_stock_value=product.stock, new_available_value=product.get_n_units_available())), 200
     except:
         return "", 500
 

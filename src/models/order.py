@@ -5,6 +5,7 @@
 # ======================================================================================================================
 from decimal import Decimal
 
+from datetime import datetime
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy import desc
@@ -25,16 +26,10 @@ class Order(db.Model):
     paid_datetime = db.Column(db.DateTime, nullable=False)
     sent_datetime = db.Column(db.DateTime)
     delivered_datetime = db.Column(db.DateTime)
-    quantity_by_product_id = db.Column(JSON, nullable=False)
+    amount_by_product_id = db.Column(JSON, nullable=False)
     products_total_price = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
     products_table_data = db.Column(db.JSON, nullable=False)
     total_table_data = db.Column(db.JSON, nullable=False)
-
-    def __init__(self, **kwargs):
-        super(Order, self).__init__(**kwargs)
-        self.products_total_price = self._get_products_total_price()
-        self.products_table_data = self._get_products_table_data()
-        self.total_table_data = self._get_total_table_data()
 
     sort_method_ids = [
         R.id.SORT_METHOD_ID,
@@ -75,6 +70,39 @@ class Order(db.Model):
         R.id.ORDER_STATUS_DELIVERED: R.string.delivered
     }
 
+    @staticmethod
+    def create_new(**kwargs):
+        order = Order(**kwargs)
+        client = Client.get(order.client_email)
+        assert client != None
+
+        products_amounts_zip = order.get_products_amounts_zip()
+
+        order.products_total_price = order._get_products_total_price(products_amounts_zip)
+        order.products_table_data = order._get_products_table_data(products_amounts_zip)
+        order.total_table_data = order._get_total_table_data(products_amounts_zip=products_amounts_zip, client=client)
+        order.inc_products_reserved(products_amounts_zip)
+
+        db.session.add(order)
+        db.session.commit()
+        return order
+
+    def get_products_amounts_zip(self):
+        products = []
+        amounts = []
+
+        for product_id, amount in self.amount_by_product_id.iteritems():
+            product = Product.get(product_id)
+            products.append(product)
+            amounts.append(amount)
+
+        return zip(products, amounts)
+
+    def inc_products_reserved(self, products_amounts_zip):
+        for product, amount in products_amounts_zip:
+            product.inc_reserved(amount)
+            db.session.add(product)
+
     def get_status_as_string(self):
         return self.order_status_as_string_by_id[self.status]
 
@@ -108,23 +136,21 @@ class Order(db.Model):
         db.session.commit()
         return order
 
-    def _get_products_total_price(self):
+    def _get_products_total_price(self, products_amounts_zip):
         products_total_price = Decimal("0.00")
-        for product_id, quantity in self.quantity_by_product_id.iteritems():
-            product = Product.get(product_id)
-            products_total_price += product.get_price(n_units=quantity)
+        for product, amount in products_amounts_zip:
+            products_total_price += product.get_price(n_units=amount)
         return products_total_price
 
-    def _get_products_table_data(self):
+    def _get_products_table_data(self, products_amounts_zip):
         rows = []
-        products = Product.query.filter(Product.id.in_(self.quantity_by_product_id.keys())).all()
-        for product in products:
-            quantity = self.quantity_by_product_id[product.id]
+        for product, amount in products_amounts_zip:
             rows.append([
+                "#" + str(product.id),
                 product.title,
                 product.get_formatted_price(),
-                quantity,
-                product.get_formatted_price(n_units=quantity)
+                amount,
+                product.get_formatted_price(n_units=amount)
             ])
 
         return dict(
@@ -132,8 +158,13 @@ class Order(db.Model):
                 id="products-table",
                 cols=[
                     dict(
+                        id="product-id",
+                        title=R.string.id,
+                        type=R.id.COL_TYPE_TEXT.value
+                    ),
+                    dict(
                         id="product-title",
-                        title=R.string.product,
+                        title=R.string.product_title,
                         type=R.id.COL_TYPE_TEXT.value
                     ),
                     dict(
@@ -143,8 +174,8 @@ class Order(db.Model):
                         tooltip=R.string.product_price_tooltip
                     ),
                     dict(
-                        id="product-quantity",
-                        title=R.string.quantity,
+                        id="product-amount",
+                        title=R.string.amount,
                         type=R.id.COL_TYPE_TEXT.value
                     ),
                     dict(
@@ -158,9 +189,7 @@ class Order(db.Model):
             )
         )
 
-    def _get_total_table_data(self):
-        client = Client.get(self.client_email)
-        assert client != None
+    def _get_total_table_data(self, products_amounts_zip, client):
         freight = client.get_freight()
         return dict(
             table_data=dict(
@@ -186,3 +215,56 @@ class Order(db.Model):
 
     def get_formatted_products_total_price(self):
         return str(self.products_total_price).replace(".", ",")
+
+    def mark_as_sent(self):
+        assert self.status == R.id.ORDER_STATUS_PAID
+        self.status = R.id.ORDER_STATUS_SENT
+        self.sent_datetime = datetime.now()
+
+        for product, amount in self.get_products_amounts_zip():
+            assert product.reserved >= amount
+            assert product.stock >= amount
+            product.reserved -= amount
+            product.stock -= amount
+            db.session.add(product)
+
+        db.session.add(self)
+        db.session.commit()
+
+    def unmark_as_sent(self):
+        assert self.status == R.id.ORDER_STATUS_SENT
+
+        self.status=R.id.ORDER_STATUS_PAID
+        self.sent_datetime=None
+
+        for product, amount in self.get_products_amounts_zip():
+            product.reserved += amount
+            product.stock += amount
+            db.session.add(product)
+
+        db.session.add(self)
+        db.session.commit()
+
+    def mark_as_canceled(self):
+        assert self.status == R.id.ORDER_STATUS_PAID
+
+        self.status=R.id.ORDER_STATUS_CANCELED
+
+        for product, amount in self.get_products_amounts_zip():
+            product.reserved -= amount
+            db.session.add(product)
+
+        db.session.add(self)
+        db.session.commit()
+
+    def mark_as_paid(self):
+        assert self.status == R.id.ORDER_STATUS_CANCELED
+
+        self.status=R.id.ORDER_STATUS_PAID
+
+        for product, amount in self.get_products_amounts_zip():
+            product.reserved += amount
+            db.session.add(product)
+
+        db.session.add(self)
+        db.session.commit()
