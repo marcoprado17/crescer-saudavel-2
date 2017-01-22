@@ -1,6 +1,7 @@
 {% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
 {% import "flask_bombril_macros/tooltip.html" as tooltip with context %}
 {% import "flask_bombril_macros/actions.html" as macro_actions with context %}
+{% import "flask_bombril_macros/utils.html" as utils with context %}
 <div class="__components__ __super_table__">
     {% if data.filter_data %}
         <div class="jumbotron">
@@ -108,6 +109,8 @@
                                             {% endfor %}
                                         </div>
                                     {% endif %}
+                                {% elif col.type == R.id.COL_TYPE_MIN_UUID or col.type == R.id.COL_TYPE_MIN_UUID.value %}
+                                    {{ utils.min_uuid(item_data) }}
                                 {% endif %}
                             </td>
                         {% endfor %}

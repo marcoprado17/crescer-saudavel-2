@@ -3,6 +3,8 @@
 # ======================================================================================================================
 # Created at 10/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+import uuid
+
 from decimal import Decimal
 
 from datetime import datetime
@@ -20,6 +22,7 @@ from r import R
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    uuid = db.Column(db.String(R.dimen.uuid_length), nullable=False)
     client_email = db.Column(db.String(R.dimen.email_max_length), ForeignKey("client.email"), nullable=False)
     client = relationship("Client", back_populates="orders")
     status = db.Column(db.Enum(R.id), default=R.id.ORDER_STATUS_PAID, nullable=False)
@@ -32,7 +35,6 @@ class Order(db.Model):
     total_table_data = db.Column(db.JSON, nullable=False)
 
     sort_method_ids = [
-        R.id.SORT_METHOD_ID,
         R.id.SORT_METHOD_CLIENT_EMAIL,
         R.id.SORT_METHOD_NEWEST,
         R.id.SORT_METHOD_OLDER,
@@ -40,7 +42,6 @@ class Order(db.Model):
         R.id.SORT_METHOD_HIGHER_TOTAL_PRICE
     ]
     sort_method_names = [
-        R.string.id,
         R.string.client_email,
         R.string.newest,
         R.string.older,
@@ -48,7 +49,6 @@ class Order(db.Model):
         R.string.higher_price,
     ]
     sort_method_by_id = {
-        R.id.SORT_METHOD_ID: asc(id),
         R.id.SORT_METHOD_CLIENT_EMAIL: asc(client_email),
         R.id.SORT_METHOD_NEWEST: desc(paid_datetime),
         R.id.SORT_METHOD_OLDER: asc(paid_datetime),
@@ -82,6 +82,7 @@ class Order(db.Model):
         order.products_table_data = order._get_products_table_data(products_amounts_zip)
         order.total_table_data = order._get_total_table_data(products_amounts_zip=products_amounts_zip, client=client)
         order.inc_products_reserved(products_amounts_zip)
+        order.uuid = str(uuid.uuid4())
 
         db.session.add(order)
         db.session.commit()

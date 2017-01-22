@@ -4,3 +4,6 @@
     </div>
 {%- endmacro %}
 
+{% macro min_uuid(uuid) %}
+    <span data-toggle="tooltip" title="#{{ uuid }}" >#{{ uuid[0:5] }}...</span>
+{%- endmacro %}

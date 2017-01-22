@@ -66,7 +66,7 @@ class AdminOrdersDataProvider(object):
         rows = []
         for idx, order in enumerate(self.orders_in_page):
             rows.append([
-                "#" + str(order.id),
+                order.uuid,
                 order.client_email,
                 order.get_formatted_products_total_price(),
                 order.get_status_as_string(),
@@ -92,7 +92,7 @@ class AdminOrdersDataProvider(object):
                 dict(
                     id="order-id",
                     title=R.string.id,
-                    type=R.id.COL_TYPE_TEXT
+                    type=R.id.COL_TYPE_MIN_UUID
                 ),
                 dict(
                     id="client-email",

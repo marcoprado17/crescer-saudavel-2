@@ -772,6 +772,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         COL_TYPE_TEXT =                         102
         COL_TYPE_ACTION =                       103
         COL_TYPE_BOOL =                         104
+        COL_TYPE_MIN_UUID =                     105
 
         # Super table action element types
         ACTION_TYPE_BUTTON =                    201
@@ -838,6 +839,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         product_example_stock = 100
         product_example_min_available = 10
         product_example_sales_number = 32
+        uuid_length = 36
 
 
 R = Resources()
