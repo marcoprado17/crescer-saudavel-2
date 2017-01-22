@@ -25,7 +25,7 @@
 {%- endmacro %}
 
 {% macro link_button(action, additional_meta_data=None) %}
-    <a href="{{ action.href }}">
+    <a href="{{ action.href }}" target="{{ '_blank'|if(action.new_tab) }}">
         <button
                 class="btn btn-default {{ action.classes|if(action.classes) }} type-link-button"
                 type="button"

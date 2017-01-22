@@ -74,6 +74,11 @@ def edit_product(product_id):
                                        edit_product_form=edit_product_form))
 
 
+@admin_products_blueprint.route("/pre-visualizacao-de-produto/<int:product_id>")
+def product_preview(product_id):
+    return "Pré-visualização do produto #" + str(product_id)
+
+
 @admin_products_blueprint.route("/desabilitar-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def disable_product(product_id):

@@ -68,6 +68,10 @@ def edit_post(blog_post_id):
                                        edit_post_form=edit_post_form))
 
 
+@admin_blog_blueprint.route("/pre-visualizacao-de-post/<int:blog_post_id>")
+def post_preview(blog_post_id):
+    return "Pré-visualização do post #" + str(blog_post_id)
+
 
 @admin_blog_blueprint.route("/desabilitar-post/<int:blog_post_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)

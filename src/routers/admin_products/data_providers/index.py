@@ -89,6 +89,13 @@ class AdminProductsDataProvider(object):
                 [
                     dict(
                         type=R.id.ACTION_TYPE_LINK_BUTTON,
+                        text=R.string.preview,
+                        classes="preview",
+                        href=url_for("admin_products.product_preview", product_id=product.id),
+                        new_tab=True
+                    ),
+                    dict(
+                        type=R.id.ACTION_TYPE_LINK_BUTTON,
                         text=R.string.edit,
                         classes=R.string.edit_class,
                         href=url_for("admin_products.edit_product", product_id=product.id),

@@ -70,6 +70,13 @@ class AdminPostsDataProvider(object):
                 [
                     dict(
                         type=R.id.ACTION_TYPE_LINK_BUTTON,
+                        text=R.string.preview,
+                        classes="preview",
+                        href=url_for("admin_blog.post_preview", blog_post_id=blog_post.id),
+                        new_tab=True
+                    ),
+                    dict(
+                        type=R.id.ACTION_TYPE_LINK_BUTTON,
                         text=R.string.edit,
                         classes="edit",
                         href=url_for("admin_blog.edit_post", blog_post_id=blog_post.id),
