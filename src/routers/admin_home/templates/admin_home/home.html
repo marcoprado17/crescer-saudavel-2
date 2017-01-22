@@ -6,7 +6,7 @@
 {% block content %}
     <div class="__admin_home__ __index__ container">
         {{ utils.page_header(R.string.home) }}
-        <p>Seja bem vindo admin!</p>
-        <p>Há <a href="{{ data.new_orders_href }}">{{ data.n_news_orders }} novos pedidos</a> a serem enviados.</p>
+        <p>{{ R.string.admin_welcome_message }}</p>
+        <p>{{ R.string.get_admin_home_new_orders_message(data.new_orders_href, data.n_new_orders)|safe }}</p>
     </div>
 {% endblock %}

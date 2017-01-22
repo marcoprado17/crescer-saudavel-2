@@ -19,6 +19,7 @@ class Resources(object):
         thumbnail = "Thumbnail"
         thumbnail_tooltip = "Imagem principal do post em questão"
         tabs = "Abas"
+        admin_welcome_message = "Seja bem vindo admin!"
 
         lowest_reserved = "Menor nº de unid. reservadas"
         higher_reserved = "Maior nº de unid. reservadas"
@@ -757,6 +758,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def get_tab_n_active(n):
             return "%sº aba ativa" % n
+
+        @staticmethod
+        def get_admin_home_new_orders_message(new_orders_href, n_new_orders):
+            return "Há <a href='%s'>%s novos pedidos</a> a serem enviados." % (new_orders_href, n_new_orders)
 
     # noinspection PyPep8Naming
     @unique

@@ -5,9 +5,9 @@
 # ======================================================================================================================
 from flask import render_template
 from routers.admin_home import admin_home_blueprint
-from routers.admin_home.data_providers.index import admin_home_data_provider
+from routers.admin_home.data_providers.home import admin_home_data_provider
 
 
 @admin_home_blueprint.route("/")
-def index():
-    return render_template("admin_home/index.html", data=admin_home_data_provider.get_data())
+def home():
+    return render_template("admin_home/home.html", data=admin_home_data_provider.get_data())

@@ -17,6 +17,7 @@ from sqlalchemy.dialects.postgresql import JSON
 
 from models.client import Client
 from models.product import Product
+from proj_exceptions import InvalidOrderStatusId
 from r import R
 
 
@@ -271,3 +272,9 @@ class Order(db.Model):
 
         db.session.add(self)
         db.session.commit()
+
+    @staticmethod
+    def get_n_orders(status):
+        if not status in Order.order_status_ids:
+            raise InvalidOrderStatusId
+        return Order.query.filter(Order.status == status).count()

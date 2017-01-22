@@ -7,3 +7,7 @@
 
 class InvalidIdError(Exception):
     pass
+
+
+class InvalidOrderStatusId(Exception):
+    pass

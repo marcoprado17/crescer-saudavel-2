@@ -12,7 +12,7 @@ from r import R
 class AdminHomeDataProvider(object):
     def get_data(self):
         return dict(
-            n_news_orders=Order.query.filter(Order.status == R.id.ORDER_STATUS_PAID).count(),
+            n_new_orders=Order.get_n_orders(status=R.id.ORDER_STATUS_PAID),
             new_orders_href=url_for("admin_orders.index")
         )
 
