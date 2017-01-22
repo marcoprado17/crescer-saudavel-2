@@ -82,7 +82,7 @@ class AdminProductsDataProvider(object):
                 product.title,
                 product.get_formatted_price(),
                 product.stock,
-                product.get_n_units_available(),
+                product.available,
                 product.reserved,
                 product.min_available,
                 product.sales_number,

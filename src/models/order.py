@@ -101,7 +101,9 @@ class Order(db.Model):
 
     def inc_products_reserved(self, products_amounts_zip):
         for product, amount in products_amounts_zip:
-            product.inc_reserved(amount)
+            assert amount > 0
+            assert product.available >= amount
+            product.reserved += amount
             db.session.add(product)
 
     def get_status_as_string(self):

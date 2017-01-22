@@ -200,7 +200,7 @@ def get_amount_by_product_id():
     random.shuffle(products)
     chosen_products = products[0:n_products]
     for product in chosen_products:
-        amount = random.randint(1, product.get_n_units_available())
+        amount = random.randint(1, product.available)
         amount_by_product_id[product.id] = amount
     assert len(amount_by_product_id) >= 1
     return amount_by_product_id
@@ -309,13 +309,15 @@ def get_random_product():
     else:
         category_id = get_random_valid_product_category_id(),
 
+    stock = random.randint(0, 500)
+
     return Product(
         active=(random.uniform(0, 1) < 0.5),
         title=get_random_phrase((3, 10 + 1), (1, 5 + 1))[0:R.dimen.product_title_max_length],
         category_id=category_id,
         subcategory_id=subcategory_id,
         price=Decimal(get_random_price()),
-        stock=random.randint(0, 500),
+        stock=stock,
         min_available=random.randint(2, 20),
         summary=get_random_phrase((4, 10 + 1), (20, 40 + 1)),
         sales_number=random.randint(0, 500),

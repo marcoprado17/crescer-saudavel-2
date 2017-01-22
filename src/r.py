@@ -20,6 +20,12 @@ class Resources(object):
         thumbnail_tooltip = "Imagem principal do post em questão"
         tabs = "Abas"
 
+        lowest_reserved = "Menor nº de unid. reservadas"
+        higher_reserved = "Maior nº de unid. reservadas"
+
+        lowest_available = "Menor nº de unid. disponíveis"
+        higher_available = "Maior nº de unid. disponíveis"
+
         none_in_masculine = "Nenhum"
 
         and_word = "e"
@@ -796,6 +802,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         SORT_METHOD_CLIENT_NAME =               313
         SORT_METHOD_ID =                        314
         SORT_METHOD_NAME =                      315
+        SORT_METHOD_LOWEST_RESERVED =           316
+        SORT_METHOD_HIGHER_RESERVED =           317
+        SORT_METHOD_LOWEST_AVAILABLE =          318
+        SORT_METHOD_HIGHER_AVAILABLE =          319
 
         # Order status
         ORDER_STATUS_ANY =                      400

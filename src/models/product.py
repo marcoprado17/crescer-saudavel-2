@@ -8,6 +8,7 @@ from decimal import Decimal
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy import desc
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
 from extensions import db
@@ -24,8 +25,9 @@ class Product(db.Model):
     subcategory_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
     subcategory = relationship("ProductSubcategory", back_populates="products")
     price = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
-    stock = db.Column(db.Integer, nullable=False)
-    reserved = db.Column(db.Integer, default=0, nullable=False)
+    _stock = db.Column(db.Integer, nullable=False)
+    _available = db.Column(db.Integer, nullable=False)
+    _reserved = db.Column(db.Integer, default=0, nullable=False)
     min_available = db.Column(db.Integer, nullable=False)
     summary = db.Column(db.UnicodeText, nullable=False)
     sales_number = db.Column(db.Integer, default=0)
@@ -72,6 +74,33 @@ class Product(db.Model):
     tab_10_title = db.Column(db.String(R.dimen.tab_title_max_length))
     tab_10_content = db.Column(db.UnicodeText)
 
+    @hybrid_property
+    def available(self):
+        return self._available
+
+    @hybrid_property
+    def stock(self):
+        return self._stock
+
+    @stock.setter
+    def stock(self, new_stock):
+        self._stock = new_stock
+        self.update_available()
+
+    @hybrid_property
+    def reserved(self):
+        return self._reserved
+
+    @reserved.setter
+    def reserved(self, new_reserved):
+        self._reserved = new_reserved
+        self.update_available()
+
+    def update_available(self):
+        if self._reserved == None:
+            self._reserved = 0
+        self._available = self._stock - self._reserved
+
     sort_method_ids = [
         R.id.SORT_METHOD_ID,
         R.id.SORT_METHOD_TITLE,
@@ -79,6 +108,10 @@ class Product(db.Model):
         R.id.SORT_METHOD_HIGHER_PRICE,
         R.id.SORT_METHOD_LOWEST_STOCK,
         R.id.SORT_METHOD_HIGHER_STOCK,
+        R.id.SORT_METHOD_LOWEST_AVAILABLE,
+        R.id.SORT_METHOD_HIGHER_AVAILABLE,
+        R.id.SORT_METHOD_LOWEST_RESERVED,
+        R.id.SORT_METHOD_HIGHER_RESERVED,
         R.id.SORT_METHOD_BEST_SELLER,
         R.id.SORT_METHOD_LESS_SOLD
     ]
@@ -89,6 +122,10 @@ class Product(db.Model):
         R.string.higher_price,
         R.string.lowest_stock,
         R.string.higher_stock,
+        R.string.lowest_available,
+        R.string.higher_available,
+        R.string.lowest_reserved,
+        R.string.higher_reserved,
         R.string.best_seller,
         R.string.less_sold
     ]
@@ -97,8 +134,12 @@ class Product(db.Model):
         R.id.SORT_METHOD_TITLE: asc(title),
         R.id.SORT_METHOD_LOWEST_PRICE: asc(price),
         R.id.SORT_METHOD_HIGHER_PRICE: desc(price),
-        R.id.SORT_METHOD_LOWEST_STOCK: asc(stock),
-        R.id.SORT_METHOD_HIGHER_STOCK: desc(stock),
+        R.id.SORT_METHOD_LOWEST_STOCK: asc(_stock),
+        R.id.SORT_METHOD_HIGHER_STOCK: desc(_stock),
+        R.id.SORT_METHOD_LOWEST_AVAILABLE: asc(_available),
+        R.id.SORT_METHOD_HIGHER_AVAILABLE: desc(_available),
+        R.id.SORT_METHOD_LOWEST_RESERVED: asc(_reserved),
+        R.id.SORT_METHOD_HIGHER_RESERVED: desc(_reserved),
         R.id.SORT_METHOD_BEST_SELLER: desc(sales_number),
         R.id.SORT_METHOD_LESS_SOLD: asc(sales_number)
     }
@@ -163,6 +204,7 @@ class Product(db.Model):
         product = Product(
             **Product.get_attrs_from_form(product_form)
         )
+        product.available = product.stock.data
         db.session.add(product)
         db.session.commit()
         return product
@@ -224,11 +266,3 @@ class Product(db.Model):
             product_choices.append((str(id_title[0]), id_title[1]))
 
         return product_choices
-
-    def get_n_units_available(self):
-        return self.stock-self.reserved
-
-    def inc_reserved(self, value):
-        assert value > 0
-        assert self.get_n_units_available() >= value
-        self.reserved += value

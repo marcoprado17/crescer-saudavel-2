@@ -99,7 +99,7 @@ def product_stock_addition(product_id, form):
         product = Product.get(product_id)
         assert product != None
         product.add_to_stock(form.value.data)
-        return json.dumps(dict(new_stock_value=product.stock, new_available_value=product.get_n_units_available())), 200
+        return json.dumps(dict(new_stock_value=product.stock, new_available_value=product.available)), 200
     except:
         return "", 500
 
@@ -111,7 +111,7 @@ def product_stock_removal(product_id, form):
         product = Product.get(product_id)
         assert product != None
         product.remove_from_stock(form.value.data)
-        return json.dumps(dict(new_stock_value=product.stock, new_available_value=product.get_n_units_available())), 200
+        return json.dumps(dict(new_stock_value=product.stock, new_available_value=product.available)), 200
     except:
         return "", 500
 
@@ -123,7 +123,7 @@ def product_stock_update(product_id, form):
         product = Product.get(product_id)
         assert product != None
         product.update_stock(form.value.data)
-        return json.dumps(dict(new_stock_value=product.stock, new_available_value=product.get_n_units_available())), 200
+        return json.dumps(dict(new_stock_value=product.stock, new_available_value=product.available)), 200
     except:
         return "", 500
 
