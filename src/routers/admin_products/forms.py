@@ -265,10 +265,9 @@ class ProductForm(FlaskForm):
             dependent_choices=json.dumps(dependent_choices)
         )
 
-        image_choices_without_none = get_image_choices(include_none=False)
         image_choices_with_none = get_image_choices(include_none=True)
 
-        self.image_1.choices = image_choices_without_none
+        self.image_1.choices = image_choices_with_none
         self.image_2.choices = image_choices_with_none
         self.image_3.choices = image_choices_with_none
         self.image_4.choices = image_choices_with_none

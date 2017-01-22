@@ -101,67 +101,6 @@ def create_footer():
     return footer
 
 
-def create_product_category_example():
-    product_category = ProductCategory(
-        name=R.string.product_category_example_name,
-        active=False,
-        editable=False
-    )
-    db.session.add(product_category)
-    db.session.commit()
-    print "Product category example created."
-    return product_category
-
-
-def create_product_example(category_id):
-    product = Product(
-        title=R.string.product_example_title,
-        active=False,
-        category_id=category_id,
-        price=R.dimen.product_example_price,
-        stock=R.dimen.product_example_stock,
-        min_available=R.dimen.product_example_min_available,
-        summary=parse_markdown(R.string.product_example_summary),
-        sales_number=R.dimen.product_example_sales_number,
-        editable=False,
-
-        image_1=R.string.product_example_image_1,
-        image_2=R.string.product_example_image_2,
-        image_3=R.string.product_example_image_3,
-
-        tab_1_title=R.string.product_example_tab_1_title,
-        tab_1_content=parse_markdown(R.string.product_example_tab_1_content),
-        tab_2_title=R.string.product_example_tab_2_title,
-        tab_2_content=parse_markdown(R.string.product_example_tab_2_content),
-        tab_3_title=R.string.product_example_tab_3_title,
-        tab_3_content=parse_markdown(R.string.product_example_tab_3_content),
-        tab_4_title=R.string.product_example_tab_4_title,
-        tab_4_content=parse_markdown(R.string.product_example_tab_4_content),
-        tab_5_title=R.string.product_example_tab_5_title,
-        tab_5_content=parse_markdown(R.string.product_example_tab_5_content)
-    )
-    db.session.add(product)
-    db.session.commit()
-    print "Product example created."
-    return product
-
-
-def create_blog_post_example():
-    blog_post = BlogPost(
-        active=False,
-        title=R.string.blog_example_title,
-        datetime=get_random_datetime(datetime_1, datetime_2),
-        thumbnail=R.string.blog_example_thumbnail,
-        summary=R.string.blog_post_summary_example,
-        content=R.string.blog_post_content_example,
-        editable=False
-    )
-    db.session.add(blog_post)
-    db.session.commit()
-    print "Blog post example created."
-    return blog_post
-
-
 def create_random_product_categories():
     for i in range(0, 25):
         db.session.add(get_random_product_category())

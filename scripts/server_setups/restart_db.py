@@ -10,8 +10,7 @@ sys.path.append("/vagrant/build")
 
 from app_contexts.app import app
 from extensions import db
-from models.utils import create_states, create_product_category_example, create_product_example, \
-    create_blog_post_example, create_home_content, create_contact, create_about_us, create_faq, create_footer
+from models.utils import create_states, create_home_content, create_contact, create_about_us, create_faq, create_footer
 
 
 def restart_db():
@@ -19,9 +18,6 @@ def restart_db():
         db.drop_all()
         db.create_all()
         create_states()
-        product_category_example = create_product_category_example()
-        create_product_example(product_category_example.id)
-        create_blog_post_example()
         create_home_content()
         create_contact()
         create_about_us()

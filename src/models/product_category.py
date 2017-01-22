@@ -18,7 +18,6 @@ class ProductCategory(db.Model):
     active = db.Column(db.Boolean, default=False, nullable=False)
     subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="category")
     products = relationship("Product", order_by=Product.title, back_populates="category")
-    editable = db.Column(db.Boolean, default=True, nullable=False)
 
     sort_method_ids = [
         R.id.SORT_METHOD_ID,

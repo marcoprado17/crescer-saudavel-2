@@ -60,11 +60,6 @@ def edit_product(product_id):
                                data=admin_edit_product_data_provider.get_data_when_get(
                                    product=product))
     else:
-        if not product.editable:
-            flash(R.string.product_not_editable(product.title),
-                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
-            return redirect(url_for("admin_products.index"))
-
         edit_product_form = EditProductForm()
 
         if edit_product_form.validate_on_submit():
@@ -163,11 +158,6 @@ def edit_category(category_id):
                                data=admin_edit_product_category_data_provider.get_data_when_get(
                                    product_category=product_category))
     else:
-        if not product_category.editable:
-            flash(R.string.product_category_not_editable(product_category),
-                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
-            return redirect(url_for("admin_products.categories"))
-
         edit_product_category_form = EditProductCategoryForm()
 
         if edit_product_category_form.validate_on_submit():

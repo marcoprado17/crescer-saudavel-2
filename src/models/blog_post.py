@@ -18,7 +18,6 @@ class BlogPost(db.Model):
     thumbnail = db.Column(db.Text, nullable=False)
     summary = db.Column(db.UnicodeText, nullable=False)
     content = db.Column(db.UnicodeText, nullable=False)
-    editable = db.Column(db.Boolean, default=True, nullable=False)
 
     sort_method_ids = [
         R.id.SORT_METHOD_ID,

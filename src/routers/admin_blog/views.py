@@ -54,11 +54,6 @@ def edit_post(blog_post_id):
                                data=admin_edit_post_data_provider.get_data_when_get(
                                    blog_post=blog_post))
     else:
-        if not blog_post.editable:
-            flash(R.string.post_not_editable(blog_post),
-                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
-            return redirect(url_for("admin_blog.posts"))
-
         edit_post_form = EditBlogPostForm()
 
         if edit_post_form.validate_on_submit():
