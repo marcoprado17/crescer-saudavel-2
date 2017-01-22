@@ -16,6 +16,10 @@ class MockForm(FlaskForm):
     email = Field(validators=[EmailFormat()])
 
 
+class MockFormCanBeEmptyTrue(FlaskForm):
+    email = Field(validators=[EmailFormat(can_be_empty=True)])
+
+
 class MockFormStopTrue(FlaskForm):
     email = Field(validators=[EmailFormat(stop=True), AlwaysError()])
 
@@ -58,6 +62,8 @@ class TestCase(BaseTestCase):
                 "marco.padasv21@b",
                 "marco.psd231sv@b asd sd",
                 "a@bbb"
+                "",
+                None
             ]
 
             def assert_invalid_email(invalid_email):
@@ -71,6 +77,19 @@ class TestCase(BaseTestCase):
 
             for email in invalid_emails:
                 assert_invalid_email(email)
+
+    def test_can_be_empty_true(self):
+        with app.test_client() as c:
+            c.post("/", data=dict(
+                email=""
+            ))
+            email_mock_form = MockFormCanBeEmptyTrue()
+            self.assertTrue(email_mock_form.validate_on_submit())
+
+            c.post("/", data=dict(
+            ))
+            email_mock_form = MockFormCanBeEmptyTrue()
+            self.assertTrue(email_mock_form.validate_on_submit())
 
     def test_stop_true(self):
         with app.test_client() as c:

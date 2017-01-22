@@ -285,14 +285,14 @@ class ContactForm(FlaskForm):
     tel = TelField(
         label=R.string.telephone,
         validators=[
-            PhoneFormat(),
+            PhoneFormat(can_be_empty=True),
             Length(max_length=R.dimen.tel_max_length)
         ]
     )
     email = StringField(
         label=R.string.email,
         validators=[
-            EmailFormat(),
+            EmailFormat(can_be_empty=True),
             Length(max_length=R.dimen.email_max_length)
         ]
     )

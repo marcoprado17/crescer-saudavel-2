@@ -18,6 +18,10 @@ class MockForm(FlaskForm):
     tel = TelField(validators=[PhoneFormat()])
 
 
+class MockFormCanBeEmptyTrue(FlaskForm):
+    tel = Field(validators=[PhoneFormat(can_be_empty=True)])
+
+
 class MockFormStopTrue(FlaskForm):
     tel = TelField(validators=[PhoneFormat(stop=True), AlwaysError()])
 
@@ -79,6 +83,19 @@ class TestCase(BaseTestCase):
 
             for phone in invalid_phones:
                 assert_invalid_phone(phone)
+
+    def test_can_be_empty_true(self):
+        with app.test_client() as c:
+            c.post("/", data=dict(
+                tel=""
+            ))
+            mock_form = MockFormCanBeEmptyTrue()
+            self.assertTrue(mock_form.validate_on_submit())
+
+            c.post("/", data=dict(
+            ))
+            mock_form = MockFormCanBeEmptyTrue()
+            self.assertTrue(mock_form.validate_on_submit())
 
     def test_stop_true(self):
         with app.test_client() as c:
