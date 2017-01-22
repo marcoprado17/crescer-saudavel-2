@@ -179,7 +179,6 @@ class Product(db.Model):
     def update(product_id, **kw):
         product = Product.get(product_id)
         assert product != None
-        assert product.editable
         for key, val in kw.iteritems():
             setattr(product, key, val)
         db.session.add(product)
@@ -188,20 +187,17 @@ class Product(db.Model):
 
     def add_to_stock(self, value):
         self.stock += value
-        assert self.editable
         db.session.add(self)
         db.session.commit()
 
     def remove_from_stock(self, value):
         self.stock -= value
-        assert self.editable
         assert self.stock >= 0
         db.session.add(self)
         db.session.commit()
 
     def update_stock(self, value):
         self.stock = value
-        assert self.editable
         assert self.stock >= 0
         db.session.add(self)
         db.session.commit()

@@ -34,7 +34,7 @@
         >
             {{ action.text }}
         </button>
-    </a>
+    </a><br>
 {%- endmacro %}
 
 {% macro int_with_button(action, additional_meta_data=None) %}
@@ -96,5 +96,29 @@
                 {{ R.string.disable }}
             </button>
         </form>
+    </div>
+{%- endmacro %}
+
+{% macro render_all(actions, row_idx) %}
+    <div class="actions-container">
+        {% for action in actions %}
+            {% if action.type == R.id.ACTION_TYPE_BUTTON or action.type == R.id.ACTION_TYPE_BUTTON.value %}
+                {{ button(
+                    action=action,
+                    additional_meta_data={"data-row-idx": row_idx}) }}
+            {% elif action.type == R.id.ACTION_TYPE_LINK_BUTTON or action.type == R.id.ACTION_TYPE_LINK_BUTTON.value %}
+                {{ link_button(action=action) }}
+            {% elif action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON or action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON.value %}
+                {{ int_with_button(
+                    action=action,
+                    additional_meta_data={"data-row-idx": row_idx}) }}
+            {% elif action.type == R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON or action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON.value %}
+                {{ activate_disable_button(
+                    action=action,
+                    additional_meta_data={
+                        "data-row-idx": row_idx,
+                    }) }}
+            {% endif %}
+        {% endfor %}
     </div>
 {%- endmacro %}

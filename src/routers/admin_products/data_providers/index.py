@@ -159,6 +159,7 @@ class AdminProductsDataProvider(object):
 
         return dict(
             id=R.string.products_table_id,
+            expandable=True,
             cols=[
                 dict(
                     id="id",
@@ -221,8 +222,7 @@ class AdminProductsDataProvider(object):
                 ),
                 dict(
                     id=R.string.action_col_id,
-                    type=R.id.COL_TYPE_ACTION,
-                    expandable=False
+                    type=R.id.COL_TYPE_ACTION
                 )
             ],
             rows=rows

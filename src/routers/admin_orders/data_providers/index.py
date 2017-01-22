@@ -88,6 +88,7 @@ class AdminOrdersDataProvider(object):
 
         return dict(
             id="orders-table",
+            expandable=True,
             cols=[
                 dict(
                     id="order-id",
@@ -130,8 +131,7 @@ class AdminOrdersDataProvider(object):
                 ),
                 dict(
                     id="action",
-                    type=R.id.COL_TYPE_ACTION,
-                    expandable=False
+                    type=R.id.COL_TYPE_ACTION
                 )
             ],
             rows=rows

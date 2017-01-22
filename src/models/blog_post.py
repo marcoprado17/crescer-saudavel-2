@@ -71,7 +71,6 @@ class BlogPost(db.Model):
 
     @staticmethod
     def update_from_form(blog_post, blog_post_form):
-        assert blog_post.editable
         attrs_dict = BlogPost.get_attrs_from_form(blog_post_form)
         for key, val in attrs_dict.iteritems():
             setattr(blog_post, key, val)
@@ -89,7 +88,6 @@ class BlogPost(db.Model):
     def update(blog_post_id, **kw):
         blog_post = BlogPost.get(blog_post_id)
         assert blog_post != None
-        assert blog_post.editable
         for key, val in kw.iteritems():
             setattr(blog_post, key, val)
         db.session.add(blog_post)

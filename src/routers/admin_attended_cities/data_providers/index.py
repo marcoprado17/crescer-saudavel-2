@@ -139,8 +139,7 @@ class AdminCitiesDataProvider:
 
                 dict(
                     id="action",
-                    type=R.id.COL_TYPE_ACTION,
-                    expandable=False
+                    type=R.id.COL_TYPE_ACTION
                 )
             ],
             rows=rows

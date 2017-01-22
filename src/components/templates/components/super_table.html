@@ -49,7 +49,7 @@
 
         <div class="table-responsive {{ 'without-bottom-paginator'|if(not(data.paginator_data) or data.paginator_data.pages|length <= 1) }}">
             <table id="{{ data.table_data.id|if(data.table_data.id) }}"
-                   class="table table-hover super-table {{ 'table-bordered'|if(data.table_data.bordered) }} {{ data.table_data.classes|if(data.table_data.classes) }}">
+                   class="table super-table {{ 'table-bordered'|if(data.table_data.bordered) }} {{ data.table_data.classes|if(data.table_data.classes) }}">
                 {% if not data.table_data.no_head %}
                     <thead>
                     <tr>
@@ -67,6 +67,7 @@
                     </thead>
                 {% endif %}
                 <tbody>
+                {% set n_cols = data.table_data.cols|length %}
                 {% for row in data.table_data.rows %}
                     {% set row_idx = loop.index0 %}
                     <tr id="row-{{ row_idx }}">
@@ -84,30 +85,10 @@
                                         <span class="glyphicon glyphicon-remove false" aria-hidden="true"></span>
                                     </div>
                                 {% elif col.type == R.id.COL_TYPE_ACTION or col.type == R.id.COL_TYPE_ACTION.value %}
-                                    {% if col.expandable %}
-
+                                    {% if data.table_data.expandable %}
+                                        <button type="button" class="btn btn-default expandable" data-expandable-row="expandable-row-{{ row_idx }}"><span class="glyphicon glyphicon-plus"></span></button>
                                     {% else %}
-                                        <div class="actions-container">
-                                            {% for action in item_data %}
-                                                {% if action.type == R.id.ACTION_TYPE_BUTTON or action.type == R.id.ACTION_TYPE_BUTTON.value %}
-                                                    {{ macro_actions.button(
-                                                        action=action,
-                                                        additional_meta_data={"data-row-idx": row_idx}) }}
-                                                {% elif action.type == R.id.ACTION_TYPE_LINK_BUTTON or action.type == R.id.ACTION_TYPE_LINK_BUTTON.value %}
-                                                    {{ macro_actions.link_button(action=action) }}
-                                                {% elif action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON or action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON.value %}
-                                                    {{ macro_actions.int_with_button(
-                                                        action=action,
-                                                        additional_meta_data={"data-row-idx": row_idx}) }}
-                                                {% elif action.type == R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON or action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON.value %}
-                                                    {{ macro_actions.activate_disable_button(
-                                                        action=action,
-                                                        additional_meta_data={
-                                                            "data-row-idx": row_idx,
-                                                        }) }}
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
+                                        {{ macro_actions.render_all(actions=item_data, row_idx=row_idx) }}
                                     {% endif %}
                                 {% elif col.type == R.id.COL_TYPE_MIN_UUID or col.type == R.id.COL_TYPE_MIN_UUID.value %}
                                     {{ utils.min_uuid(item_data) }}
@@ -115,6 +96,19 @@
                             </td>
                         {% endfor %}
                     </tr>
+                    {% if data.table_data.expandable %}
+                        <tr id="expandable-row-{{ row_idx }}" class="expandable hidden">
+                            <td colspan="{{ n_cols }}" class="expandable">
+                                {% for col in data.table_data.cols %}
+                                    {% set col_idx = loop.index0 %}
+                                    {% set item_data = row[col_idx] %}
+                                    {% if col.type == R.id.COL_TYPE_ACTION or col.type == R.id.COL_TYPE_ACTION.value %}
+                                        {{ macro_actions.render_all(actions=item_data, row_idx=row_idx) }}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>

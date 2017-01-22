@@ -3,6 +3,14 @@
     margin-bottom: 32px;
   }
 
+  .actions-container {
+    float: right;
+  }
+
+  td.expandable {
+    border-top: none;
+  }
+
   th.min-width {
     width: 1px;
   }

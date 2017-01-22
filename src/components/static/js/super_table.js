@@ -26,10 +26,33 @@ function setTextTdValue(col, row_idx, value) {
 }
 
 function initSuperTable() {
+    initExpandableButton();
     initTooltips();
     initDynamicSelects();
     initSuperTableSortMethod();
     initActionActivateDisableButtons();
+}
+
+function initExpandableButton(){
+    $("button.expandable").each(function () {
+        var button = $(this);
+        var expandable_row = $("#{0}".f(button.attr("data-expandable-row")));
+        button.click(function () {
+            var span = button.find("span");
+            if(button.hasClass("expanded")){
+                button.removeClass("expanded");
+                span.addClass("glyphicon-plus");
+                span.removeClass("glyphicon-minus");
+                expandable_row.addClass("hidden");
+            }
+            else {
+                button.addClass("expanded");
+                span.removeClass("glyphicon-plus");
+                span.addClass("glyphicon-minus");
+                expandable_row.removeClass("hidden");
+            }
+        })
+    })
 }
 
 function initActionActivateDisableButtons(){

@@ -125,8 +125,7 @@ class AdminProductSubcategoriesDataProvider(object):
 
                 dict(
                     id=R.string.action_col_id,
-                    type=R.id.COL_TYPE_ACTION,
-                    expandable=False
+                    type=R.id.COL_TYPE_ACTION
                 )
             ],
             rows=rows
