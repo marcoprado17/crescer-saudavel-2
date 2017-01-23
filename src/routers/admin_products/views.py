@@ -47,6 +47,7 @@ def add_product():
                                    data=admin_add_product_data_provider.get_data_when_post(add_product_form=add_product_form))
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/editar-produto/<int:product_id>", methods=["GET", "POST"])
 @safe_id_to_model_elem(model=Product)
 def edit_product(product):
@@ -67,12 +68,14 @@ def edit_product(product):
                                        edit_product_form=edit_product_form))
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/pre-visualizacao-de-produto/<int:product_id>")
 @safe_id_to_model_elem(model=Product)
 def product_preview(product):
     return "Pré-visualização do produto " + product.id_formatted
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/desabilitar-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Product)
@@ -81,6 +84,7 @@ def disable_product(product, form):
     return "", 200
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/ativar-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Product)
@@ -89,6 +93,7 @@ def to_activate_product(product, form):
     return "", 200
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/aumentar-estoque-do-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=AddToStockForm)
 @safe_id_to_model_elem(model=Product)
@@ -97,6 +102,7 @@ def product_stock_addition(product, form):
     return json.dumps(dict(stock=product.stock, available=product.available)), 200
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/diminuir-estoque-do-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=RemoveFromStockForm)
 @safe_id_to_model_elem(model=Product)
@@ -105,6 +111,7 @@ def product_stock_removal(product, form):
     return json.dumps(dict(stock=product.stock, available=product.available)), 200
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/atualizar-estoque-do-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=UpdateStockForm)
 @safe_id_to_model_elem(model=Product)
@@ -136,6 +143,7 @@ def add_category():
                                        add_product_category_form=add_product_category_form))
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/editar-categoria-de-produto/<int:product_category_id>", methods=["GET", "POST"])
 @safe_id_to_model_elem(model=ProductCategory)
 def edit_category(product_category):
@@ -156,6 +164,7 @@ def edit_category(product_category):
                                        edit_product_category_form=edit_product_category_form))
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/desabilitar-categoria-de-produto/<int:product_category_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=ProductCategory)
@@ -164,6 +173,7 @@ def disable_category(product_category, form):
     return "", 200
 
 
+# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/ativar-categoria-de-produto/<int:product_category_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=ProductCategory)
@@ -183,37 +193,30 @@ def add_subcategory():
     if request.method == "GET":
         return render_template("admin_products/add_subcategory.html",
                                data=admin_add_product_subcategory_data_provider.get_data())
-
     else:
         add_product_subcategory_form = AddProductSubcategoryForm()
-
         if add_product_subcategory_form.validate_on_submit():
-            product_subcategory = ProductSubcategory.create_from_form(add_product_subcategory_form=add_product_subcategory_form)
+            product_subcategory = ProductSubcategory.create_from_form(form=add_product_subcategory_form)
             flash(R.string.product_subcategory_sent_successfully(product_subcategory),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_subcategory"))
-
         return render_template("admin_products/add_subcategory.html",
                                data=admin_add_product_subcategory_data_provider.get_data(
                                    add_product_subcategory_form=add_product_subcategory_form))
 
 
-@admin_products_blueprint.route("/editar-subcategoria-de-produto/<int:subcategory_id>", methods=["GET", "POST"])
-def edit_subcategory(subcategory_id):
-    product_subcategory = ProductSubcategory.get(subcategory_id=subcategory_id)
-    if not product_subcategory:
-        return "", 404
-
+# noinspection PyUnresolvedReferences
+@admin_products_blueprint.route("/editar-subcategoria-de-produto/<int:product_subcategory_id>", methods=["GET", "POST"])
+@safe_id_to_model_elem(model=ProductSubcategory)
+def edit_subcategory(product_subcategory):
     if request.method == "GET":
         return render_template("admin_products/edit_subcategory.html",
                                data=admin_edit_product_subcategory_data_provider.get_data_when_get(
                                    product_subcategory=product_subcategory))
     else:
         edit_product_subcategory_form = EditProductSubcategoryForm()
-
         if edit_product_subcategory_form.validate_on_submit():
-            ProductSubcategory.update_from_form(product_subcategory=product_subcategory,
-                                                edit_product_subcategory_form=edit_product_subcategory_form)
+            product_subcategory.update_from_form(form=edit_product_subcategory_form)
             flash(R.string.product_subcategory_successful_edited(product_subcategory),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.subcategories"))
@@ -223,15 +226,19 @@ def edit_subcategory(subcategory_id):
                                        edit_product_subcategory_form=edit_product_subcategory_form))
 
 
-@admin_products_blueprint.route("/desabilitar-subcategoria-de-produto/<int:subcategory_id>", methods=["POST"])
+# noinspection PyUnresolvedReferences
+@admin_products_blueprint.route("/desabilitar-subcategoria-de-produto/<int:product_subcategory_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
-def disable_subcategory(subcategory_id):
-    ProductSubcategory.set_active_value(subcategory_id=subcategory_id, active=False)
+@safe_id_to_model_elem(model=ProductSubcategory)
+def disable_subcategory(product_subcategory, form):
+    product_subcategory.disable()
     return "", 200
 
 
-@admin_products_blueprint.route("/ativar-subcategoria-de-produto/<int:subcategory_id>", methods=["POST"])
+# noinspection PyUnresolvedReferences
+@admin_products_blueprint.route("/ativar-subcategoria-de-produto/<int:product_subcategory_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
-def to_activate_subcategory(subcategory_id):
-    ProductSubcategory.set_active_value(subcategory_id=subcategory_id, active=True)
+@safe_id_to_model_elem(model=ProductSubcategory)
+def to_activate_subcategory(product_subcategory, form):
+    product_subcategory.to_activate()
     return "", 200

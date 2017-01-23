@@ -36,9 +36,6 @@ class AdminProductCategoriesDataProvider(object):
         self.curr_page = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=self.per_page,
                                         n_items=n_categories)
 
-        filter_form = ProductCategoryFilterForm()
-        filter_form.set_values(active=active)
-
         return dict(
             n_items=n_categories,
             paginator_data=paginator_data_provider.get_data(
@@ -47,7 +44,7 @@ class AdminProductCategoriesDataProvider(object):
                 max_page=n_pages(per_page=self.per_page, n_items=n_categories)
             ),
             filter_data=dict(
-                filter_form=filter_form
+                filter_form=ProductCategoryFilterForm(active=active)
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,

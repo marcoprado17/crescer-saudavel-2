@@ -5,12 +5,11 @@
 # ======================================================================================================================
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
-from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from proj_extensions import db
 from models.base import BaseModel
 from models.product import Product
-from proj_exceptions import InvalidIdError
+from proj_utils import SortMethodMap
 from r import R
 
 
@@ -21,51 +20,18 @@ class ProductSubcategory(BaseModel):
     category = relationship("ProductCategory", back_populates="subcategories")
     products = relationship("Product", order_by=Product.title, back_populates="subcategory")
 
-    sort_method_ids = [
-        R.id.SORT_METHOD_ID,
-        R.id.SORT_METHOD_NAME,
-    ]
-    sort_method_names = [
-        R.string.id,
-        R.string.subcategory_name,
-    ]
-    sort_method_by_id = {
-        R.id.SORT_METHOD_ID: asc(BaseModel.id),
-        R.id.SORT_METHOD_NAME: asc(name),
-    }
+    sort_method_map = SortMethodMap([
+        (R.id.SORT_METHOD_ID, R.string.id, asc("id")),
+        (R.id.SORT_METHOD_NAME, R.string.category_name, asc(name)),
+    ])
 
     @staticmethod
-    def create_from_form(add_product_subcategory_form):
-        product_subcategory = ProductSubcategory(
-            name=add_product_subcategory_form.subcategory_name.data,
-            active=add_product_subcategory_form.active.data,
-            category_id=int(add_product_subcategory_form.category_id.data)
+    def get_attrs_from_form(form):
+        return dict(
+            category_id=form.category_id.data,
+            name=form.subcategory_name.data,
+            active=form.active.data,
         )
-        db.session.add(product_subcategory)
-        db.session.commit()
-        return product_subcategory
-
-    @staticmethod
-    def get(subcategory_id):
-        return ProductSubcategory.query.filter_by(id=subcategory_id).one_or_none()
-
-    @staticmethod
-    def set_active_value(subcategory_id, active):
-        product_subcategory = ProductSubcategory.query.filter_by(id=subcategory_id).one_or_none()
-        if not product_subcategory:
-            raise InvalidIdError
-        product_subcategory.active = active
-        db.session.add(product_subcategory)
-        db.session.commit()
-
-    @staticmethod
-    def update_from_form(product_subcategory, edit_product_subcategory_form):
-        product_subcategory.name = edit_product_subcategory_form.subcategory_name.data,
-        product_subcategory.active = edit_product_subcategory_form.active.data
-        product_subcategory.category_id = edit_product_subcategory_form.category_id.data
-        db.session.add(product_subcategory)
-        db.session.commit()
-        return product_subcategory
 
     @staticmethod
     def get_choices(include_all=False, include_none=False):
@@ -82,3 +48,13 @@ class ProductSubcategory(BaseModel):
             choices.append((str(subcategory.id), subcategory.name))
 
         return choices
+
+    def disable(self):
+        self.active = False
+        db.session.add(self)
+        db.session.commit()
+
+    def to_activate(self):
+        self.active = True
+        db.session.add(self)
+        db.session.commit()

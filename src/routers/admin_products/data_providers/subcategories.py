@@ -25,23 +25,19 @@ class AdminProductSubcategoriesDataProvider(object):
         active = get_boolean_url_arg(arg_name=R.string.subcategory_active_arg_name, default=True)
         category_id = get_valid_model_id(model=ProductSubcategory, arg_name=R.string.category_id_arg_name, include_zero=True, default=0)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_NAME, possible_values=ProductSubcategory.sort_method_ids)
-
+                                        default=R.id.SORT_METHOD_NAME, possible_values=ProductSubcategory.sort_method_map.ids)
 
         self.q = ProductSubcategory.query
         self.q = self.q.filter(ProductSubcategory.active == active)
         if category_id != 0:
             self.q = self.q.filter(ProductSubcategory.category_id == category_id)
-        self.q = self.q.order_by(ProductSubcategory.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(ProductSubcategory.sort_method_map.order(sort_method_id))
 
         n_subcategories = self.q.count()
 
         self.per_page = current_app.config["DEFAULT_PER_PAGE"]
         self.curr_page = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=self.per_page,
                                         n_items=n_subcategories)
-
-        filter_form = ProductSubcategoryFilterForm()
-        filter_form.set_values(category_id=category_id, active=active)
 
         return dict(
             n_items=n_subcategories,
@@ -51,48 +47,47 @@ class AdminProductSubcategoriesDataProvider(object):
                 max_page=n_pages(per_page=self.per_page, n_items=n_subcategories)
             ),
             filter_data=dict(
-                filter_form=filter_form
+                filter_form=ProductSubcategoryFilterForm(category_id=category_id, active=active)
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=ProductSubcategory.sort_method_ids,
-                sort_method_names=ProductSubcategory.sort_method_names
+                sort_method_map=ProductSubcategory.sort_method_map
             ),
             table_data=self.get_table_data()
         )
 
     def get_table_data(self):
         rows = []
-        for idx, subcategory in enumerate(self.q.slice(
+        for idx, product_subcategory in enumerate(self.q.slice(
                 *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()):
             rows.append([
-                "#" + str(subcategory.id),
-                subcategory.active,
-                subcategory.category.name,
-                subcategory.name,
+                "#" + str(product_subcategory.id),
+                product_subcategory.active,
+                product_subcategory.category.name,
+                product_subcategory.name,
                 [
                     dict(
                         type=R.id.ACTION_TYPE_LINK_BUTTON,
                         text=R.string.edit,
                         classes=R.string.edit_class,
-                        href=url_for("admin_products.edit_subcategory", subcategory_id=subcategory.id)
+                        href=url_for("admin_products.edit_subcategory", product_subcategory_id=product_subcategory.id)
                     ),
                     dict(
                         type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
-                        active=subcategory.active,
+                        active=product_subcategory.active,
                         form=SubmitForm(),
                         meta_data={
                             "data-active-col-id": R.string.product_subcategory_active_col_id
                         },
                         to_activate_url=url_for(
-                            "admin_products.to_activate_subcategory", subcategory_id=subcategory.id),
+                            "admin_products.to_activate_subcategory", product_subcategory_id=product_subcategory.id),
                         to_activate_meta_data={
-                            "data-error-msg": R.string.to_activate_product_subcategory_error(subcategory),
+                            "data-error-msg": R.string.to_activate_product_subcategory_error(product_subcategory),
                         },
                         disable_url=url_for(
-                            "admin_products.disable_subcategory", subcategory_id=subcategory.id),
+                            "admin_products.disable_subcategory", product_subcategory_id=product_subcategory.id),
                         disable_meta_data={
-                            "data-error-msg": R.string.disable_product_subcategory_error(subcategory),
+                            "data-error-msg": R.string.disable_product_subcategory_error(product_subcategory),
                         }
                     )
                 ]
@@ -100,6 +95,7 @@ class AdminProductSubcategoriesDataProvider(object):
 
         return dict(
             id=R.string.product_subcategories_table_id,
+            expandable=True,
             cols=[
                 dict(
                     id="id",

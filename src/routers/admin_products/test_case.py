@@ -69,19 +69,25 @@ class TestCase(BaseTestCase):
                 # Edit ProductCategory
                 # ------------------------------------------------------------------------------------------------------
                 product_category = ProductCategory.get_last()
-                response = c.post(url_for("admin_products.edit_category", product_category_id=product_category.id), data=dict(
-                    category_name="b",
-                    active=True,
-                ))
+                response = c.post(
+                    url_for("admin_products.edit_category", product_category_id=product_category.id),
+                    data=dict(
+                        category_name="b",
+                        active=True,
+                    )
+                )
                 product_category = ProductCategory.get_last()
                 self.assertEqual(response.status_code, 302)
                 self.assertEqual(product_category.name, "b")
                 self.assertEqual(product_category.active, True)
 
                 product_category = ProductCategory.get_last()
-                response = c.post(url_for("admin_products.edit_category", product_category_id=product_category.id), data=dict(
-                      category_name="c",
-                ))
+                response = c.post(
+                    url_for("admin_products.edit_category", product_category_id=product_category.id),
+                    data=dict(
+                        category_name="c",
+                    )
+                )
                 product_category = ProductCategory.get_last()
                 self.assertEqual(response.status_code, 302)
                 self.assertEqual(product_category.name, "c")
@@ -91,7 +97,8 @@ class TestCase(BaseTestCase):
                 # ProductCategory Activate / Disable
                 # ------------------------------------------------------------------------------------------------------
                 product_category = ProductCategory.get_last()
-                response = c.post(url_for("admin_products.to_activate_category", product_category_id=product_category.id))
+                response = c.post(
+                    url_for("admin_products.to_activate_category", product_category_id=product_category.id))
                 product_category = ProductCategory.get_last()
                 self.assertEqual(response.status_code, 200)
                 self.assertEqual(product_category.active, True)
@@ -141,10 +148,97 @@ class TestCase(BaseTestCase):
                 self.assertEqual(response.status_code, 302)
                 n_subcategories = ProductSubcategory.count()
                 self.assertEqual(n_subcategories, 1)
-                subcategory = ProductSubcategory.get_last()
-                self.assertEqual(subcategory.category_id, 1)
-                self.assertEqual(subcategory.name, R.string.test1)
-                self.assertEqual(subcategory.active, True)
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(product_subcategory.category_id, 1)
+                self.assertEqual(product_subcategory.name, R.string.test1)
+                self.assertEqual(product_subcategory.active, True)
+
+                response = c.post(url_for("admin_products.add_subcategory"), data=dict(
+                    category_id="2",
+                    subcategory_name="b"
+                ))
+                self.assertEqual(response.status_code, 302)
+                self.assertEqual(ProductSubcategory.count(), 2)
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(product_subcategory.category_id, 2)
+                self.assertEqual(product_subcategory.name, "b")
+                self.assertEqual(product_subcategory.active, False)
+
+                # ------------------------------------------------------------------------------------------------------
+                # Edit ProductSubcategory
+                # ------------------------------------------------------------------------------------------------------
+                product_subcategory = ProductCategory.get_last()
+                response = c.post(
+                    url_for("admin_products.edit_subcategory", product_subcategory_id=product_subcategory.id),
+                    data=dict(
+                        category_id="1",
+                        subcategory_name="e",
+                        active=True,
+                    )
+                )
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(response.status_code, 302)
+                self.assertEqual(product_subcategory.category_id, 1)
+                self.assertEqual(product_subcategory.name, "e")
+                self.assertEqual(product_subcategory.active, True)
+
+                response = c.post(
+                    url_for("admin_products.edit_subcategory", product_subcategory_id=product_subcategory.id),
+                    data=dict(
+                        category_id="2",
+                        subcategory_name="f",
+                    )
+                )
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(response.status_code, 302)
+                self.assertEqual(product_subcategory.category_id, 2)
+                self.assertEqual(product_subcategory.name, "f")
+                self.assertEqual(product_subcategory.active, False)
+
+                # ------------------------------------------------------------------------------------------------------
+                # ProductSubcategory Activate / Disable
+                # ------------------------------------------------------------------------------------------------------
+                product_subcategory = ProductSubcategory.get_last()
+                response = c.post(
+                    url_for("admin_products.to_activate_subcategory", product_subcategory_id=product_subcategory.id))
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_subcategory.active, True)
+
+                product_subcategory = ProductSubcategory.get_last()
+                response = c.post(
+                    url_for("admin_products.disable_subcategory", product_subcategory_id=product_subcategory.id))
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_subcategory.active, False)
+
+                product_subcategory = ProductSubcategory.get_last()
+                response = c.post(
+                    url_for("admin_products.disable_subcategory", product_subcategory_id=product_subcategory.id))
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_subcategory.active, False)
+
+                product_subcategory = ProductSubcategory.get_last()
+                response = c.post(
+                    url_for("admin_products.to_activate_subcategory", product_subcategory_id=product_subcategory.id))
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_subcategory.active, True)
+
+                product_subcategory = ProductSubcategory.get_last()
+                response = c.post(
+                    url_for("admin_products.to_activate_subcategory", product_subcategory_id=product_subcategory.id))
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_subcategory.active, True)
+
+                product_subcategory = ProductSubcategory.get_last()
+                response = c.post(
+                    url_for("admin_products.disable_subcategory", product_subcategory_id=product_subcategory.id))
+                product_subcategory = ProductSubcategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_subcategory.active, False)
 
                 # ------------------------------------------------------------------------------------------------------
                 # Add Product
