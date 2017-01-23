@@ -122,7 +122,7 @@ def categories():
 def add_category():
     if request.method == "GET":
         return render_template("admin_products/add_category.html",
-                               data=admin_add_product_category_data_provider.get_when_get_data())
+                               data=admin_add_product_category_data_provider.get_data_when_get())
     else:
         add_product_category_form = AddProductCategoryForm()
         if add_product_category_form.validate_on_submit():

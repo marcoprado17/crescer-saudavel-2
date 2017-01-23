@@ -86,7 +86,7 @@
                                     </div>
                                 {% elif col.type == R.id.COL_TYPE_ACTION or col.type == R.id.COL_TYPE_ACTION.value %}
                                     {% if data.table_data.expandable %}
-                                        <button type="button" class="btn btn-default expandable" data-expandable-row="expandable-row-{{ row_idx }}"><span class="glyphicon glyphicon-plus"></span></button>
+                                        <button type="button" class="btn btn-default btn-sm expandable" data-expandable-row="expandable-row-{{ row_idx }}"><span class="glyphicon glyphicon-plus"></span></button>
                                     {% else %}
                                         {{ macro_actions.render_all(actions=item_data, row_idx=row_idx) }}
                                     {% endif %}

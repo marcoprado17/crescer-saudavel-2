@@ -24,11 +24,11 @@ class AdminProductCategoriesDataProvider(object):
     def get_data(self):
         active = get_boolean_url_arg(R.string.category_active_arg_name, True)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_NAME, possible_values=ProductCategory.sort_method_ids)
+                                        default=R.id.SORT_METHOD_NAME, possible_values=ProductCategory.sort_method_map.ids)
 
         self.q = ProductCategory.query
         self.q = self.q.filter(ProductCategory.active == active)
-        self.q = self.q.order_by(ProductCategory.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(ProductCategory.sort_method_map.order(sort_method_id))
 
         n_categories = self.q.count()
 
@@ -51,43 +51,42 @@ class AdminProductCategoriesDataProvider(object):
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=ProductCategory.sort_method_ids,
-                sort_method_names=ProductCategory.sort_method_names
+                sort_method_map=ProductCategory.sort_method_map
             ),
             table_data=self.get_table_data()
         )
 
     def get_table_data(self):
         rows = []
-        for idx, category in enumerate(self.q.slice(
+        for idx, product_category in enumerate(self.q.slice(
                 *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()):
             rows.append([
-                "#" + str(category.id),
-                category.active,
-                category.name,
+                "#" + str(product_category.id),
+                product_category.active,
+                product_category.name,
                 [
                     dict(
                         type=R.id.ACTION_TYPE_LINK_BUTTON,
                         text=R.string.edit,
                         classes=R.string.edit_class,
-                        href=url_for("admin_products.edit_category", category_id=category.id)
+                        href=url_for("admin_products.edit_category", product_category_id=product_category.id)
                     ),
                     dict(
                         type=R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON,
-                        active=category.active,
+                        active=product_category.active,
                         form=SubmitForm(),
                         meta_data={
                             "data-active-col-id": R.string.product_category_active_col_id
                         },
                         to_activate_url=url_for(
-                            "admin_products.to_activate_category", category_id=category.id),
+                            "admin_products.to_activate_category", product_category_id=product_category.id),
                         to_activate_meta_data={
-                            "data-error-msg": R.string.to_activate_product_category_error(category),
+                            "data-error-msg": R.string.to_activate_product_category_error(product_category),
                         },
                         disable_url=url_for(
-                            "admin_products.disable_category", category_id=category.id),
+                            "admin_products.disable_category", product_category_id=product_category.id),
                         disable_meta_data={
-                            "data-error-msg": R.string.disable_product_category_error(category),
+                            "data-error-msg": R.string.disable_product_category_error(product_category),
                         }
                     )
                 ]
@@ -95,6 +94,7 @@ class AdminProductCategoriesDataProvider(object):
 
         return dict(
             id=R.string.product_categories_table_id,
+            expandable=True,
             cols=[
                 dict(
                     id="id",

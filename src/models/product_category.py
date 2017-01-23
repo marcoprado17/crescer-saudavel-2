@@ -9,6 +9,7 @@ from models.base import BaseModel
 from proj_extensions import db
 from models.product import Product
 from models.product_subcategory import ProductSubcategory
+from proj_utils import SortMethodMap
 from r import R
 
 
@@ -18,18 +19,10 @@ class ProductCategory(BaseModel):
     subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="category")
     products = relationship("Product", order_by=Product.title, back_populates="category")
 
-    sort_method_ids = [
-        R.id.SORT_METHOD_ID,
-        R.id.SORT_METHOD_NAME,
-    ]
-    sort_method_names = [
-        R.string.id,
-        R.string.category_name,
-    ]
-    sort_method_by_id = {
-        R.id.SORT_METHOD_ID: asc(BaseModel.id),
-        R.id.SORT_METHOD_NAME: asc(name),
-    }
+    sort_method_map = SortMethodMap([
+        (R.id.SORT_METHOD_ID, R.string.id, asc("id")),
+        (R.id.SORT_METHOD_NAME, R.string.category_name, asc(name)),
+    ])
 
     @staticmethod
     def get_attrs_from_form(form):
