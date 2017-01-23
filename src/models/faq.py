@@ -3,11 +3,11 @@
 # ======================================================================================================================
 # Created at 16/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from extensions import db
+from proj_extensions import db
+from models.base import BaseModel
 
 
-class Faq(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class Faq(BaseModel):
     content = db.Column(db.UnicodeText)
 
     @staticmethod

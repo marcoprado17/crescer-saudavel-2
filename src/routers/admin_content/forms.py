@@ -7,15 +7,14 @@ from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, SelectField, SubmitField, TextAreaField
 from wtforms.fields.html5 import TelField
 
-from flask_bombril.form_validators import MarkdownValidator
 from flask_bombril.form_validators import EmailFormat
-from flask_bombril.form_validators.phone_fomat.phone_format import PhoneFormat
 from flask_bombril.form_validators import Length
-from flask_bombril.form_validators import Required
+from flask_bombril.form_validators import MarkdownValidator
+from flask_bombril.form_validators.phone_fomat.phone_format import PhoneFormat
 from models.blog_post import BlogPost
 from models.product import Product
 from r import R
-from wrappers.base.utils import get_image_choices, safe_string
+from proj_utils import get_image_choices, safe_string
 
 
 class CarouselForm(FlaskForm):

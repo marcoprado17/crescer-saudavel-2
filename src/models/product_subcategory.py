@@ -5,16 +5,17 @@
 # ======================================================================================================================
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
-from extensions import db
+from proj_extensions import db
+from models.base import BaseModel
 from models.product import Product
 from proj_exceptions import InvalidIdError
 from r import R
 
 
-class ProductSubcategory(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(R.dimen.product_subcategory_name_max_length))
+class ProductSubcategory(BaseModel):
+    name = db.Column(db.String(R.dimen.product_subcategory_name_max_length), nullable=False)
     active = db.Column(db.Boolean, default=False, nullable=False)
     category_id = db.Column(db.Integer, ForeignKey("product_category.id"), nullable=False)
     category = relationship("ProductCategory", back_populates="subcategories")
@@ -29,7 +30,7 @@ class ProductSubcategory(db.Model):
         R.string.subcategory_name,
     ]
     sort_method_by_id = {
-        R.id.SORT_METHOD_ID: asc(id),
+        R.id.SORT_METHOD_ID: asc(BaseModel.id),
         R.id.SORT_METHOD_NAME: asc(name),
     }
 

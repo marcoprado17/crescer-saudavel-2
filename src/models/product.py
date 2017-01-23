@@ -11,13 +11,14 @@ from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
-from extensions import db
+from proj_exceptions import InvalidStockRemoveValue
+from proj_extensions import db
+from models.base import BaseModel
 from r import R
-from wrappers.base.utils import parse_markdown
+from proj_utils import parse_markdown, SortMethodMap
 
 
-class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class Product(BaseModel):
     title = db.Column(db.String(R.dimen.product_title_max_length), nullable=False)
     active = db.Column(db.Boolean, default=False, nullable=False)
     category_id = db.Column(db.Integer, ForeignKey("product_category.id"), nullable=False)
@@ -75,10 +76,6 @@ class Product(db.Model):
     tab_10_content = db.Column(db.UnicodeText)
 
     @hybrid_property
-    def available(self):
-        return self._available
-
-    @hybrid_property
     def stock(self):
         return self._stock
 
@@ -96,136 +93,93 @@ class Product(db.Model):
         self._reserved = new_reserved
         self.update_available()
 
-    def update_available(self):
-        if self._reserved == None:
-            self._reserved = 0
-        self._available = self._stock - self._reserved
+    @hybrid_property
+    def available(self):
+        return self._available
 
-    sort_method_ids = [
-        R.id.SORT_METHOD_ID,
-        R.id.SORT_METHOD_TITLE,
-        R.id.SORT_METHOD_LOWEST_PRICE,
-        R.id.SORT_METHOD_HIGHER_PRICE,
-        R.id.SORT_METHOD_LOWEST_STOCK,
-        R.id.SORT_METHOD_HIGHER_STOCK,
-        R.id.SORT_METHOD_LOWEST_AVAILABLE,
-        R.id.SORT_METHOD_HIGHER_AVAILABLE,
-        R.id.SORT_METHOD_LOWEST_RESERVED,
-        R.id.SORT_METHOD_HIGHER_RESERVED,
-        R.id.SORT_METHOD_BEST_SELLER,
-        R.id.SORT_METHOD_LESS_SOLD
-    ]
-    sort_method_names = [
-        R.string.id,
-        R.string.title,
-        R.string.lowest_price,
-        R.string.higher_price,
-        R.string.lowest_stock,
-        R.string.higher_stock,
-        R.string.lowest_available,
-        R.string.higher_available,
-        R.string.lowest_reserved,
-        R.string.higher_reserved,
-        R.string.best_seller,
-        R.string.less_sold
-    ]
-    sort_method_by_id = {
-        R.id.SORT_METHOD_ID: asc(id),
-        R.id.SORT_METHOD_TITLE: asc(title),
-        R.id.SORT_METHOD_LOWEST_PRICE: asc(price),
-        R.id.SORT_METHOD_HIGHER_PRICE: desc(price),
-        R.id.SORT_METHOD_LOWEST_STOCK: asc(_stock),
-        R.id.SORT_METHOD_HIGHER_STOCK: desc(_stock),
-        R.id.SORT_METHOD_LOWEST_AVAILABLE: asc(_available),
-        R.id.SORT_METHOD_HIGHER_AVAILABLE: desc(_available),
-        R.id.SORT_METHOD_LOWEST_RESERVED: asc(_reserved),
-        R.id.SORT_METHOD_HIGHER_RESERVED: desc(_reserved),
-        R.id.SORT_METHOD_BEST_SELLER: desc(sales_number),
-        R.id.SORT_METHOD_LESS_SOLD: asc(sales_number)
-    }
+    @hybrid_property
+    def id_formatted(self):
+        return R.string.id_prefix + str(self.id)
+
+    sort_method_map = SortMethodMap([
+        (R.id.SORT_METHOD_ID,                   R.string.id,                asc("id")),
+        (R.id.SORT_METHOD_TITLE,                R.string.title,             asc(title)),
+        (R.id.SORT_METHOD_LOWEST_PRICE,         R.string.lowest_price,      asc(price)),
+        (R.id.SORT_METHOD_HIGHER_PRICE,         R.string.higher_price,      desc(price)),
+        (R.id.SORT_METHOD_LOWEST_STOCK,         R.string.lowest_stock,      asc(_stock)),
+        (R.id.SORT_METHOD_HIGHER_STOCK,         R.string.higher_stock,      desc(_stock)),
+        (R.id.SORT_METHOD_LOWEST_AVAILABLE,     R.string.lowest_available,  asc(_available)),
+        (R.id.SORT_METHOD_HIGHER_AVAILABLE,     R.string.higher_available,  desc(_available)),
+        (R.id.SORT_METHOD_LOWEST_RESERVED,      R.string.lowest_reserved,   asc(_reserved)),
+        (R.id.SORT_METHOD_HIGHER_RESERVED,      R.string.higher_reserved,   desc(_reserved)),
+        (R.id.SORT_METHOD_BEST_SELLER,          R.string.best_seller,       desc(sales_number)),
+        (R.id.SORT_METHOD_LESS_SOLD,            R.string.less_sold,         asc(sales_number))
+    ])
 
     @staticmethod
-    def get_attrs_from_form(product_form):
+    def get_attrs_from_form(form):
         return dict(
-            title=product_form.title.data,
-            active=product_form.active.data,
-            category_id=int(product_form.category_id.data),
-            subcategory_id=int(product_form.subcategory_id.data) if int(product_form.subcategory_id.data) != 0 else None,
-            price=Decimal(product_form.price.data.replace(',', '.')),
-            stock=int(product_form.stock.data),
-            min_available=int(product_form.min_available.data),
-            summary=parse_markdown(product_form.summary.data),
+            title=form.title.data,
+            active=form.active.data,
+            category_id=int(form.category_id.data),
+            subcategory_id=int(form.subcategory_id.data) if int(form.subcategory_id.data) != 0 else None,
+            price=Decimal(form.price.data.replace(',', '.')),
+            stock=int(form.stock.data),
+            min_available=int(form.min_available.data),
+            summary=parse_markdown(form.summary.data),
 
-            image_1=product_form.image_1.data,
-            image_2=product_form.image_2.data,
-            image_3=product_form.image_3.data,
-            image_4=product_form.image_4.data,
-            image_5=product_form.image_5.data,
-            image_6=product_form.image_6.data,
-            image_7=product_form.image_7.data,
-            image_8=product_form.image_8.data,
-            image_9=product_form.image_9.data,
-            image_10=product_form.image_10.data,
+            image_1=form.image_1.data,
+            image_2=form.image_2.data,
+            image_3=form.image_3.data,
+            image_4=form.image_4.data,
+            image_5=form.image_5.data,
+            image_6=form.image_6.data,
+            image_7=form.image_7.data,
+            image_8=form.image_8.data,
+            image_9=form.image_9.data,
+            image_10=form.image_10.data,
 
-            tab_1_active=product_form.tab_1_active.data,
-            tab_1_title=product_form.tab_1_title.data,
-            tab_1_content=parse_markdown(product_form.tab_1_content.data),
-            tab_2_active=product_form.tab_2_active.data,
-            tab_2_title=product_form.tab_2_title.data,
-            tab_2_content=parse_markdown(product_form.tab_2_content.data),
-            tab_3_active=product_form.tab_3_active.data,
-            tab_3_title=product_form.tab_3_title.data,
-            tab_3_content=parse_markdown(product_form.tab_3_content.data),
-            tab_4_active=product_form.tab_4_active.data,
-            tab_4_title=product_form.tab_4_title.data,
-            tab_4_content=parse_markdown(product_form.tab_4_content.data),
-            tab_5_active=product_form.tab_5_active.data,
-            tab_5_title=product_form.tab_5_title.data,
-            tab_5_content=parse_markdown(product_form.tab_5_content.data),
-            tab_6_active=product_form.tab_6_active.data,
-            tab_6_title=product_form.tab_6_title.data,
-            tab_6_content=parse_markdown(product_form.tab_6_content.data),
-            tab_7_active=product_form.tab_7_active.data,
-            tab_7_title=product_form.tab_7_title.data,
-            tab_7_content=parse_markdown(product_form.tab_7_content.data),
-            tab_8_active=product_form.tab_8_active.data,
-            tab_8_title=product_form.tab_8_title.data,
-            tab_8_content=parse_markdown(product_form.tab_8_content.data),
-            tab_9_active=product_form.tab_9_active.data,
-            tab_9_title=product_form.tab_9_title.data,
-            tab_9_content=parse_markdown(product_form.tab_9_content.data),
-            tab_10_active=product_form.tab_10_active.data,
-            tab_10_title=product_form.tab_10_title.data,
-            tab_10_content=parse_markdown(product_form.tab_10_content.data)
+            tab_1_active=form.tab_1_active.data,
+            tab_1_title=form.tab_1_title.data,
+            tab_1_content=parse_markdown(form.tab_1_content.data),
+            tab_2_active=form.tab_2_active.data,
+            tab_2_title=form.tab_2_title.data,
+            tab_2_content=parse_markdown(form.tab_2_content.data),
+            tab_3_active=form.tab_3_active.data,
+            tab_3_title=form.tab_3_title.data,
+            tab_3_content=parse_markdown(form.tab_3_content.data),
+            tab_4_active=form.tab_4_active.data,
+            tab_4_title=form.tab_4_title.data,
+            tab_4_content=parse_markdown(form.tab_4_content.data),
+            tab_5_active=form.tab_5_active.data,
+            tab_5_title=form.tab_5_title.data,
+            tab_5_content=parse_markdown(form.tab_5_content.data),
+            tab_6_active=form.tab_6_active.data,
+            tab_6_title=form.tab_6_title.data,
+            tab_6_content=parse_markdown(form.tab_6_content.data),
+            tab_7_active=form.tab_7_active.data,
+            tab_7_title=form.tab_7_title.data,
+            tab_7_content=parse_markdown(form.tab_7_content.data),
+            tab_8_active=form.tab_8_active.data,
+            tab_8_title=form.tab_8_title.data,
+            tab_8_content=parse_markdown(form.tab_8_content.data),
+            tab_9_active=form.tab_9_active.data,
+            tab_9_title=form.tab_9_title.data,
+            tab_9_content=parse_markdown(form.tab_9_content.data),
+            tab_10_active=form.tab_10_active.data,
+            tab_10_title=form.tab_10_title.data,
+            tab_10_content=parse_markdown(form.tab_10_content.data)
         )
 
-    @staticmethod
-    def create_from_form(product_form):
-        product = Product(
-            **Product.get_attrs_from_form(product_form)
-        )
-        product.available = product.stock.data
-        db.session.add(product)
-        db.session.commit()
-        return product
-
-    @staticmethod
-    def update_from_form(product, product_form):
-        attrs_dict = Product.get_attrs_from_form(product_form)
-        for key, val in attrs_dict.iteritems():
-            setattr(product, key, val)
-        db.session.add(product)
+    def disable(self):
+        self.active = False
+        db.session.add(self)
         db.session.commit()
 
-    @staticmethod
-    def update(product_id, **kw):
-        product = Product.get(product_id)
-        assert product != None
-        for key, val in kw.iteritems():
-            setattr(product, key, val)
-        db.session.add(product)
+    def to_activate(self):
+        self.active = True
+        db.session.add(self)
         db.session.commit()
-        return product
 
     def add_to_stock(self, value):
         self.stock += value
@@ -234,19 +188,17 @@ class Product(db.Model):
 
     def remove_from_stock(self, value):
         self.stock -= value
-        assert self.stock >= 0
+
+        if self.stock < 0:
+            raise InvalidStockRemoveValue
+
         db.session.add(self)
         db.session.commit()
 
     def update_stock(self, value):
         self.stock = value
-        assert self.stock >= 0
         db.session.add(self)
         db.session.commit()
-
-    @staticmethod
-    def get(product_id):
-        return Product.query.filter_by(id=product_id).one_or_none()
 
     def get_price(self, n_units=1):
         assert isinstance(n_units, int)
@@ -255,6 +207,13 @@ class Product(db.Model):
 
     def get_formatted_price(self, n_units=1):
         return str(self.get_price(n_units=n_units)).replace(".", ",")
+
+    def update_available(self):
+        if self._reserved == None:
+            self._reserved = 0
+        if self.stock == None:
+            self._stock = 0
+        self._available = self._stock - self._reserved
 
     @staticmethod
     def get_choices(include_none=False):

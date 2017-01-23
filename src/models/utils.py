@@ -11,7 +11,7 @@ from decimal import Decimal
 import datetime
 from flask import current_app
 
-from extensions import db
+from proj_extensions import db
 from models.about_us import AboutUs
 from models.blog_post import BlogPost
 from models.city import City
@@ -26,7 +26,6 @@ from models.product_category import ProductCategory
 from models.product_subcategory import ProductSubcategory
 from models.state import State
 from r import R
-from wrappers.base.utils import parse_markdown
 
 
 def create_states():

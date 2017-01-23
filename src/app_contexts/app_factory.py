@@ -15,7 +15,7 @@ from configs import default_app_config
 from configs.instance import instance_app_config
 from configs.instance import unit_test_app_config
 
-from extensions import db
+from proj_extensions import db
 
 from flask_bombril.log import log_request
 
@@ -32,11 +32,11 @@ def __create_app(configs):
         app.config.from_object(config)
 
     # Initializing extensions
-    from extensions import bcrypt
+    from proj_extensions import bcrypt
     bcrypt.init_app(app)
-    from extensions import db
+    from proj_extensions import db
     db.init_app(app)
-    from extensions import mail
+    from proj_extensions import mail
     mail.init_app(app)
 
     return app

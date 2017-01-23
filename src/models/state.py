@@ -5,13 +5,13 @@
 # ======================================================================================================================
 from sqlalchemy import asc
 from sqlalchemy.orm import relationship
-from extensions import db
+from proj_extensions import db
+from models.base import BaseModel
 from models.city import City
 from r import R
 
 
-class State(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class State(BaseModel):
     name = db.Column(db.String(R.dimen.state_name_max_length))
     active = db.Column(db.Boolean, default=False, nullable=False)
     cities = relationship("City", order_by=City.name, back_populates="state")

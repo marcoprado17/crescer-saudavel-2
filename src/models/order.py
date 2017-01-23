@@ -12,17 +12,17 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.orm import relationship
-from extensions import db
+from proj_extensions import db
 from sqlalchemy.dialects.postgresql import JSON
 
+from models.base import BaseModel
 from models.client import Client
 from models.product import Product
-from proj_exceptions import InvalidOrderStatusId
+from proj_exceptions import InvalidOrderStatusIdError
 from r import R
 
 
-class Order(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class Order(BaseModel):
     uuid = db.Column(db.String(R.dimen.uuid_length), nullable=False)
     client_email = db.Column(db.String(R.dimen.email_max_length), ForeignKey("client.email"), nullable=False)
     client = relationship("Client", back_populates="orders")
@@ -276,5 +276,5 @@ class Order(db.Model):
     @staticmethod
     def get_n_orders(status):
         if not status in Order.order_status_ids:
-            raise InvalidOrderStatusId
+            raise InvalidOrderStatusIdError
         return Order.query.filter(Order.status == status).count()

@@ -8,7 +8,7 @@ from unittest import TestCase as BaseTestCase
 from flask import request
 
 from app_contexts.unit_test_app import unit_test_app as app
-from extensions import db
+from proj_extensions import db
 from valid_model_id import get_valid_model_id
 
 class TestValidModelId(db.Model):

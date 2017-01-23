@@ -9,13 +9,14 @@ from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
-from extensions import db, bcrypt
+from proj_extensions import db, bcrypt
+from models.base import BaseModel
 from r import R
 from routers.admin_clients.forms import ClientForm
 
 
-class Client(db.Model):
-    email = db.Column(db.String(R.dimen.email_max_length), primary_key=True, unique=True, nullable=False)
+class Client(BaseModel):
+    email = db.Column(db.String(R.dimen.email_max_length), unique=True, nullable=False)
     _password = db.Column(db.Text, nullable=False)
     email_confirmed = db.Column(db.Boolean, default=False, nullable=False)
     authenticated = db.Column(db.Boolean, default=False, nullable=False)

@@ -13,6 +13,8 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        test_price = "1,11"
+        test1 = "test1"
         footer_lower_text = "Crescer saudável - CNPJ 01.517.384/0001-87 -  © 2016 - 2017 "
         lower_text = "Texto inferior"
         edit_footer = "Editar rodapé"
@@ -202,8 +204,9 @@ class Resources(object):
         min_available_tooltip = "Quando o número de unidades disponíveis do produto atingir o valor estabelecido em mín. disponíveis, o produto não será mais disponibilizado para venda na loja virtual."
         product_sales_number_col_id = "product-sales-number-col"
         sales = "Vendas"
-        empty_subcategory_symbol = "Nenhuma"
         sort_method_label = "Ordenar por:"
+        empty_symbol = "-"
+        id_prefix = "#"
 
         lowest_price = "Menor preço"
         higher_price = "Maior preço"
@@ -568,7 +571,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         @staticmethod
         def stock_change_error(product):
-            return 'Ocorreu uma falha alterar o estoque do produto #%s - "%s". Tente novamente.' % (product.id, product.title)
+            return 'Ocorreu uma falha ao alterar o estoque do produto #%s - "%s". Tente novamente.' % (product.id, product.title)
 
         @staticmethod
         def stock_change_invalid_form_error(product):
@@ -855,6 +858,9 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         product_example_min_available = 10
         product_example_sales_number = 32
         uuid_length = 36
+
+        test_stock = 42
+        test_min_available = 12
 
 
 R = Resources()

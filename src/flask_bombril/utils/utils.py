@@ -6,6 +6,8 @@
 import unittest
 import math
 from unittest import TestSuite
+
+import re
 from flask import request
 
 from flask_bombril.r import R
@@ -74,3 +76,7 @@ def get_page_range(curr_page, per_page, min_page):
     first = (curr_page - min_page) * per_page
     last_plus_one = first + per_page
     return (first, last_plus_one)
+
+def camel_case_to_snake_case(camel_case_word):
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', camel_case_word)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()

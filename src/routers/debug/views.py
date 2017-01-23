@@ -11,7 +11,7 @@ from models.utils import create_states, create_random_product_categories, create
     create_random_products, create_specif_cities, create_random_clients, create_random_orders, create_home_content, \
     create_contact, create_about_us, create_faq, create_footer, create_random_blog_posts
 from routers.debug import debug_blueprint
-from extensions import db
+from proj_extensions import db
 
 
 @debug_blueprint.route("/test")
@@ -22,7 +22,7 @@ def test():
 @debug_blueprint.route("/reiniciar-imagens")
 def restart_images():
     restart_images_implementation()
-    return redirect(url_for("admin_home.index"))
+    return redirect(url_for("admin_home.home"))
 
 
 def restart_images_implementation():
@@ -43,7 +43,7 @@ def restart_images_implementation():
 @debug_blueprint.route("/reiniciar-db")
 def restart_db():
     restart_db_implementation()
-    return redirect(url_for("admin_home.index"))
+    return redirect(url_for("admin_home.home"))
 
 
 def restart_db_implementation():

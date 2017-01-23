@@ -3,12 +3,12 @@
 # ======================================================================================================================
 # Created at 16/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from extensions import db
+from proj_extensions import db
+from models.base import BaseModel
 from r import R
 
 
-class Footer(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class Footer(BaseModel):
     lower_text = db.Column(db.String(R.dimen.footer_lower_text_max_length))
 
     @staticmethod

@@ -5,7 +5,9 @@
 # ======================================================================================================================
 
 class SuperTableDataProvider(object):
-    def get_sort_methods_data(self, selected_sort_method_id, sort_method_ids, sort_method_names):
+    def get_sort_methods_data(self, selected_sort_method_id, sort_method_map):
+        sort_method_ids = sort_method_map.ids
+        sort_method_names = sort_method_map.names
         sort_method_data = []
         for sort_method_id, sort_method_name in zip(sort_method_ids, sort_method_names):
             sort_method_data.append(dict(

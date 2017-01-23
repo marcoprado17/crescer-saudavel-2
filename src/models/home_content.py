@@ -4,14 +4,14 @@
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from sqlalchemy import ForeignKey
-from extensions import db
+
+from proj_extensions import db
+from models.base import BaseModel
 from r import R
-from wrappers.base.utils import safe_id
+from proj_utils import safe_id
 
 
-class HomeContent(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
+class HomeContent(BaseModel):
     carousel_item_1_active = db.Column(db.Boolean, default=False, nullable=False)
     carousel_item_1_title = db.Column(db.String(R.dimen.carousel_title_max_length))
     carousel_item_1_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length))

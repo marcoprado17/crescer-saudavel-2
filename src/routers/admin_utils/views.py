@@ -3,11 +3,11 @@
 # ======================================================================================================================
 # Created at 05/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-import markdown
 from flask import json
 from flask import request
+
 from routers.admin_utils import admin_utils_blueprint
-from wrappers.base.utils import parse_markdown
+from proj_utils import parse_markdown
 
 
 @admin_utils_blueprint.route("/traduzir-markdown", methods=["POST"])

@@ -8,6 +8,10 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
+
+from proj_decorators import valid_form
+from flask_bombril.r import R as bombril_R
+from proj_forms import SubmitForm
 from models.city import City
 from r import R
 from routers.admin_attended_cities import admin_attended_cities_blueprint
@@ -15,9 +19,6 @@ from routers.admin_attended_cities.data_providers.add_city import admin_add_city
 from routers.admin_attended_cities.data_providers.edit_city import admin_edit_city_data_provider
 from routers.admin_attended_cities.data_providers.index import admin_cities_data_provider
 from routers.admin_attended_cities.forms import AddCityForm, EditCityForm
-from flask_bombril.r import R as bombril_R
-from wrappers.base.decorators import valid_form
-from wrappers.base.forms import SubmitForm
 
 
 @admin_attended_cities_blueprint.route("/")

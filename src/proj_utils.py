@@ -7,6 +7,9 @@ import os
 import markdown
 
 from flask import current_app
+from sqlalchemy.sql.elements import UnaryExpression
+
+from proj_exceptions import InvalidSortMapError
 from r import R
 
 
@@ -39,3 +42,27 @@ def safe_string(s):
     if s == None or not isinstance(s, basestring):
         return ""
     return s
+
+
+class SortMethodMap(object):
+    def __init__(self, sort_map):
+        try:
+            assert isinstance(sort_map, list)
+            assert len(sort_map) >= 1
+            self.ids = []
+            self.names = []
+            self.order_by_id = {}
+            for sort_map_elem in sort_map:
+                assert isinstance(sort_map_elem, tuple)
+                assert len(sort_map_elem) == 3
+                assert isinstance(sort_map_elem[0], R.id)
+                self.ids.append(sort_map_elem[0])
+                assert isinstance(sort_map_elem[1], basestring)
+                self.names.append(sort_map_elem[1])
+                assert isinstance(sort_map_elem[2], UnaryExpression)
+                self.order_by_id[sort_map_elem[0]] = sort_map_elem[2]
+        except:
+            raise InvalidSortMapError
+
+    def order(self, sort_method_id):
+        return self.order_by_id[sort_method_id]

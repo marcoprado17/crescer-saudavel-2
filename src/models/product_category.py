@@ -5,16 +5,17 @@
 # ======================================================================================================================
 from sqlalchemy import asc
 from sqlalchemy.orm import relationship
+
+from models.base import BaseModel
 from proj_exceptions import InvalidIdError
-from extensions import db
+from proj_extensions import db
 from models.product import Product
 from models.product_subcategory import ProductSubcategory
 from r import R
 
 
-class ProductCategory(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(R.dimen.product_category_name_max_length))
+class ProductCategory(BaseModel):
+    name = db.Column(db.String(R.dimen.product_category_name_max_length), nullable=False)
     active = db.Column(db.Boolean, default=False, nullable=False)
     subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="category")
     products = relationship("Product", order_by=Product.title, back_populates="category")
@@ -28,7 +29,7 @@ class ProductCategory(db.Model):
         R.string.category_name,
     ]
     sort_method_by_id = {
-        R.id.SORT_METHOD_ID: asc(id),
+        R.id.SORT_METHOD_ID: asc(BaseModel.id),
         R.id.SORT_METHOD_NAME: asc(name),
     }
 

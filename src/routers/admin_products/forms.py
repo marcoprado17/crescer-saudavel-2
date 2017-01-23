@@ -4,31 +4,20 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import json
-import os
 
-from flask import current_app
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, SelectField, IntegerField, TextAreaField
 
 from flask_bombril.form_fields import SelectFieldWithClasses
+from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import MarkdownValidator
 from flask_bombril.form_validators import NotNegativeInteger
 from flask_bombril.form_validators import Price
-from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import Required
 from models.product_category import ProductCategory
 from models.product_subcategory import ProductSubcategory
 from r import R
-
-
-# ======================================================================================================================
-#
-#
-# Product Category
-#
-#
-# ======================================================================================================================
-from wrappers.base.utils import get_image_choices
+from proj_utils import get_image_choices
 
 
 class ProductCategoryForm(FlaskForm):
@@ -286,57 +275,59 @@ class AddProductForm(ProductForm):
 class EditProductForm(ProductForm):
     submit = SubmitField(label=R.string.save)
 
-    def set_values(self, product):
-        self.title.data = product.title
-        self.active.data = product.active
-        self.category_id.data = str(product.category_id)
-        self.subcategory_id.data = str(product.subcategory_id)
-        self.price.data = str(product.price).replace(".", ",")
-        self.stock.data = product.stock
-        self.min_available.data = product.min_available
-        self.summary.data = product.summary
+    def __init__(self, product=None, **kwargs):
+        super(EditProductForm, self).__init__(**kwargs)
+        if product != None:
+            self.title.data = product.title
+            self.active.data = product.active
+            self.category_id.data = str(product.category_id)
+            self.subcategory_id.data = str(product.subcategory_id)
+            self.price.data = str(product.price).replace(".", ",")
+            self.stock.data = product.stock
+            self.min_available.data = product.min_available
+            self.summary.data = product.summary
 
-        self.image_1.data = product.image_1
-        self.image_2.data = product.image_2
-        self.image_3.data = product.image_3
-        self.image_4.data = product.image_4
-        self.image_5.data = product.image_5
-        self.image_6.data = product.image_6
-        self.image_7.data = product.image_7
-        self.image_8.data = product.image_8
-        self.image_9.data = product.image_9
-        self.image_10.data = product.image_10
+            self.image_1.data = product.image_1
+            self.image_2.data = product.image_2
+            self.image_3.data = product.image_3
+            self.image_4.data = product.image_4
+            self.image_5.data = product.image_5
+            self.image_6.data = product.image_6
+            self.image_7.data = product.image_7
+            self.image_8.data = product.image_8
+            self.image_9.data = product.image_9
+            self.image_10.data = product.image_10
 
-        self.tab_1_active.data = product.tab_1_active
-        self.tab_1_title.data = product.tab_1_title
-        self.tab_1_content.data = product.tab_1_content
-        self.tab_2_active.data = product.tab_2_active
-        self.tab_2_title.data = product.tab_2_title
-        self.tab_2_content.data = product.tab_2_content
-        self.tab_3_active.data = product.tab_3_active
-        self.tab_3_title.data = product.tab_3_title
-        self.tab_3_content.data = product.tab_3_content
-        self.tab_4_active.data = product.tab_4_active
-        self.tab_4_title.data = product.tab_4_title
-        self.tab_4_content.data = product.tab_4_content
-        self.tab_5_active.data = product.tab_5_active
-        self.tab_5_title.data = product.tab_5_title
-        self.tab_5_content.data = product.tab_5_content
-        self.tab_6_active.data = product.tab_6_active
-        self.tab_6_title.data = product.tab_6_title
-        self.tab_6_content.data = product.tab_6_content
-        self.tab_7_active.data = product.tab_7_active
-        self.tab_7_title.data = product.tab_7_title
-        self.tab_7_content.data = product.tab_7_content
-        self.tab_8_active.data = product.tab_8_active
-        self.tab_8_title.data = product.tab_8_title
-        self.tab_8_content.data = product.tab_8_content
-        self.tab_9_active.data = product.tab_9_active
-        self.tab_9_title.data = product.tab_9_title
-        self.tab_9_content.data = product.tab_9_content
-        self.tab_10_active.data = product.tab_10_active
-        self.tab_10_title.data = product.tab_10_title
-        self.tab_10_content.data = product.tab_10_content
+            self.tab_1_active.data = product.tab_1_active
+            self.tab_1_title.data = product.tab_1_title
+            self.tab_1_content.data = product.tab_1_content
+            self.tab_2_active.data = product.tab_2_active
+            self.tab_2_title.data = product.tab_2_title
+            self.tab_2_content.data = product.tab_2_content
+            self.tab_3_active.data = product.tab_3_active
+            self.tab_3_title.data = product.tab_3_title
+            self.tab_3_content.data = product.tab_3_content
+            self.tab_4_active.data = product.tab_4_active
+            self.tab_4_title.data = product.tab_4_title
+            self.tab_4_content.data = product.tab_4_content
+            self.tab_5_active.data = product.tab_5_active
+            self.tab_5_title.data = product.tab_5_title
+            self.tab_5_content.data = product.tab_5_content
+            self.tab_6_active.data = product.tab_6_active
+            self.tab_6_title.data = product.tab_6_title
+            self.tab_6_content.data = product.tab_6_content
+            self.tab_7_active.data = product.tab_7_active
+            self.tab_7_title.data = product.tab_7_title
+            self.tab_7_content.data = product.tab_7_content
+            self.tab_8_active.data = product.tab_8_active
+            self.tab_8_title.data = product.tab_8_title
+            self.tab_8_content.data = product.tab_8_content
+            self.tab_9_active.data = product.tab_9_active
+            self.tab_9_title.data = product.tab_9_title
+            self.tab_9_content.data = product.tab_9_content
+            self.tab_10_active.data = product.tab_10_active
+            self.tab_10_title.data = product.tab_10_title
+            self.tab_10_content.data = product.tab_10_content
 
 
 class ProductFilterForm(FlaskForm):

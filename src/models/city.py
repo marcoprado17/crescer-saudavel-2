@@ -6,12 +6,12 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy.orm import relationship
-from extensions import db
+from proj_extensions import db
+from models.base import BaseModel
 from r import R
 
 
-class City(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class City(BaseModel):
     name = db.Column(db.String(R.dimen.city_name_max_length))
     active = db.Column(db.Boolean, default=False, nullable=False)
     state_id = db.Column(db.Integer, ForeignKey("state.id"), nullable=False)

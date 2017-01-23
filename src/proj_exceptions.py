@@ -9,5 +9,13 @@ class InvalidIdError(Exception):
     pass
 
 
-class InvalidOrderStatusId(Exception):
+class InvalidOrderStatusIdError(Exception):
+    pass
+
+
+class InvalidSortMapError(Exception):
+    pass
+
+
+class InvalidStockRemoveValue(Exception):
     pass

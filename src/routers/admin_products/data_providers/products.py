@@ -5,23 +5,21 @@
 # ======================================================================================================================
 from flask import current_app
 from flask import url_for
-from sqlalchemy import asc
-from sqlalchemy import desc
 
+from components.data_providers.paginator import paginator_data_provider
 from components.data_providers.super_table import super_table_data_provider
+from flask_bombril.url_args import get_boolean_url_arg
 from flask_bombril.url_args import get_valid_enum
 from flask_bombril.url_args import get_valid_model_id
-from flask_bombril.utils import n_pages
-from components.data_providers.paginator import paginator_data_provider
-from flask_bombril.utils import get_page_range
 from flask_bombril.url_args import get_valid_page
-from flask_bombril.url_args import get_boolean_url_arg
+from flask_bombril.utils import get_page_range
+from flask_bombril.utils import n_pages
+from proj_forms import SubmitForm
 from models.product import Product
 from models.product_category import ProductCategory
 from models.product_subcategory import ProductSubcategory
 from r import R
 from routers.admin_products.forms import ProductFilterForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm
-from wrappers.base.forms import SubmitForm
 
 
 class AdminProductsDataProvider(object):
@@ -33,7 +31,7 @@ class AdminProductsDataProvider(object):
                                             include_zero=True, default=0)
         active = get_boolean_url_arg(arg_name=R.string.subcategory_active_arg_name, default=True)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_TITLE, possible_values=Product.sort_method_ids)
+                                        default=R.id.SORT_METHOD_TITLE, possible_values=Product.sort_method_map.ids)
 
         self.q = Product.query
         self.q = self.q.filter(Product.active == active)
@@ -41,7 +39,7 @@ class AdminProductsDataProvider(object):
             self.q = self.q.filter(Product.category_id == category_id)
         if subcategory_id != 0:
             self.q = self.q.filter(Product.subcategory_id == subcategory_id)
-        self.q = self.q.order_by(Product.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(Product.sort_method_map.order(sort_method_id))
 
         n_products = self.q.count()
 
@@ -64,8 +62,7 @@ class AdminProductsDataProvider(object):
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=Product.sort_method_ids,
-                sort_method_names=Product.sort_method_names
+                sort_method_map=Product.sort_method_map,
             ),
             table_data=self.get_table_data()
         )
@@ -75,10 +72,10 @@ class AdminProductsDataProvider(object):
         for idx, product in enumerate(self.q.slice(
                 *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()):
             rows.append([
-                "#" + str(product.id),
+                product.id_formatted,
                 product.active,
                 product.category.name,
-                product.subcategory.name if product.subcategory else R.string.empty_subcategory_symbol,
+                product.subcategory.name if product.subcategory else R.string.empty_symbol,
                 product.title,
                 product.get_formatted_price(),
                 product.stock,

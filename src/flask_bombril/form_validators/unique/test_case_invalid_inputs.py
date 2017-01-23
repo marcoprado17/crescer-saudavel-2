@@ -9,7 +9,7 @@ from flask_bombril.form_validators.unique.forms import MockForm, MockFormCustomM
 from flask_bombril.r import R
 from flask_bombril.form_validators.utils import TestUser
 from app_contexts.unit_test_app import unit_test_app as app
-from extensions import db
+from proj_extensions import db
 
 email = "marco.pdsv@gmail.com"
 

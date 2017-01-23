@@ -3,14 +3,13 @@
 # ======================================================================================================================
 # Created at 14/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from extensions import db
+from proj_extensions import db
+from models.base import BaseModel
 from r import R
-from wrappers.base.utils import safe_string
+from proj_utils import safe_string
 
 
-class Contact(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
+class Contact(BaseModel):
     address = db.Column(db.String(R.dimen.contact_address_max_length))
     tel = db.Column(db.String(R.dimen.tel_max_length))
     email = db.Column(db.String(R.dimen.email_max_length))

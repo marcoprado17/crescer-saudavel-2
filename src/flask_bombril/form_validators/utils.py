@@ -5,7 +5,7 @@
 # ======================================================================================================================
 from wtforms.validators import StopValidation, ValidationError
 from flask_bombril.r import R
-from extensions import db
+from proj_extensions import db
 
 
 class TestUser(db.Model):

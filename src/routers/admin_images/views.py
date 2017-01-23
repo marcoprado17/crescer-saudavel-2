@@ -7,13 +7,14 @@ import os
 
 from flask import render_template, request, flash, current_app, redirect, url_for
 from werkzeug.utils import secure_filename
-from r import R
+
+from proj_decorators import valid_form
 from flask_bombril import R as bombril_R
+from proj_forms import SubmitForm
+from r import R
 from routers.admin_images import admin_images_blueprint
 from routers.admin_images.data_providers import admin_images_data_provider, admin_add_image_data_provider
 from routers.admin_images.forms import UploadImageForm
-from wrappers.base.decorators import valid_form
-from wrappers.base.forms import SubmitForm
 
 
 @admin_images_blueprint.route("/")

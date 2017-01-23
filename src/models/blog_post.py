@@ -6,12 +6,12 @@
 from sqlalchemy import asc
 from sqlalchemy import desc
 
-from extensions import db
+from proj_extensions import db
+from models.base import BaseModel
 from r import R
 
 
-class BlogPost(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class BlogPost(BaseModel):
     active = db.Column(db.Boolean, default=False, nullable=False)
     title = db.Column(db.String(R.dimen.blog_post_title_max_length), nullable=False)
     datetime = db.Column(db.DateTime, nullable=False)
@@ -32,7 +32,7 @@ class BlogPost(db.Model):
         R.string.older,
     ]
     sort_method_by_id = {
-        R.id.SORT_METHOD_ID: asc(id),
+        R.id.SORT_METHOD_ID: asc(BaseModel.id),
         R.id.SORT_METHOD_TITLE: asc(title),
         R.id.SORT_METHOD_NEWEST: desc(datetime),
         R.id.SORT_METHOD_OLDER: asc(datetime),

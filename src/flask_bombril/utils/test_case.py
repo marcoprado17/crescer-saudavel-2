@@ -9,7 +9,8 @@ from flask import request
 from flask import url_for
 
 from flask_bombril import R
-from utils import stringfy_list, n_pages, slice_items, get_url_args, get_url_arg, get_page_range
+from utils import stringfy_list, n_pages, slice_items, get_url_args, get_url_arg, get_page_range, \
+    camel_case_to_snake_case
 from app_contexts.unit_test_app import unit_test_app as app
 
 
@@ -100,3 +101,16 @@ class TestCase(BaseTestCase):
         self.assertEqual((5, 10), get_page_range(curr_page=1, per_page=5, min_page=0))
         self.assertEqual((10, 15), get_page_range(curr_page=2, per_page=5, min_page=0))
         self.assertEqual((15, 20), get_page_range(curr_page=3, per_page=5, min_page=0))
+
+    def test_camel_case_to_snake_case(self):
+        self.assertEqual(camel_case_to_snake_case("CamelCase"), "camel_case")
+        self.assertEqual(camel_case_to_snake_case("CamelCamelCase"), "camel_camel_case")
+        self.assertEqual(camel_case_to_snake_case("Camel2Camel2Case"), "camel2_camel2_case")
+        self.assertEqual(camel_case_to_snake_case("getHTTPResponseCode"), "get_http_response_code")
+        self.assertEqual(camel_case_to_snake_case("get2HTTPResponseCode"), "get2_http_response_code")
+        self.assertEqual(camel_case_to_snake_case("HTTPResponseCode"), "http_response_code")
+        self.assertEqual(camel_case_to_snake_case("HTTPResponseCodeXYZ"), "http_response_code_xyz")
+        self.assertEqual(camel_case_to_snake_case("Camel42A"), "camel42_a")
+        self.assertEqual(camel_case_to_snake_case("A"), "a")
+        self.assertEqual(camel_case_to_snake_case("a"), "a")
+        self.assertEqual(camel_case_to_snake_case(""), "")

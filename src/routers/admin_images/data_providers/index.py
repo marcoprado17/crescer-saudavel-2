@@ -4,14 +4,15 @@
 # Created at 26/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import os
+
 from flask import current_app
 from flask import url_for
 
 from components.data_providers.paginator import paginator_data_provider
-from flask_bombril.utils import n_pages, slice_items
 from flask_bombril.url_args import get_valid_page
+from flask_bombril.utils import n_pages, slice_items
+from proj_forms import SubmitForm
 from r import R
-from wrappers.base.forms import SubmitForm
 
 
 class AdminImagesDataProvider(object):
