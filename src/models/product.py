@@ -4,14 +4,11 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
-
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
-
-from proj_exceptions import InvalidStockRemoveValue
 from proj_extensions import db
 from models.base import BaseModel
 from r import R
@@ -190,7 +187,7 @@ class Product(BaseModel):
         self.stock -= value
 
         if self.stock < 0:
-            raise InvalidStockRemoveValue
+            self.stock = 0
 
         db.session.add(self)
         db.session.commit()

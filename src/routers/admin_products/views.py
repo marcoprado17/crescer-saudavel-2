@@ -6,7 +6,6 @@
 import json
 
 from flask import render_template, request, flash, redirect, url_for
-
 from data_providers import admin_add_product_category_data_provider, admin_product_categories_data_provider
 from proj_decorators import valid_form, safe_id_to_model_elem
 from flask_bombril.r import R as bombril_R
@@ -48,7 +47,6 @@ def add_product():
                                    data=admin_add_product_data_provider.get_data_when_post(add_product_form=add_product_form))
 
 
-# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/editar-produto/<int:product_id>", methods=["GET", "POST"])
 @safe_id_to_model_elem(model=Product)
 def edit_product(product):
@@ -69,14 +67,12 @@ def edit_product(product):
                                        edit_product_form=edit_product_form))
 
 
-# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/pre-visualizacao-de-produto/<int:product_id>")
 @safe_id_to_model_elem(model=Product)
 def product_preview(product):
     return "Pré-visualização do produto " + product.id_formatted
 
 
-# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/desabilitar-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Product)
@@ -85,7 +81,6 @@ def disable_product(product, form):
     return "", 200
 
 
-# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/ativar-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Product)
@@ -94,7 +89,6 @@ def to_activate_product(product, form):
     return "", 200
 
 
-# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/aumentar-estoque-do-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=AddToStockForm)
 @safe_id_to_model_elem(model=Product)
@@ -103,19 +97,14 @@ def product_stock_addition(product, form):
     return json.dumps(dict(stock=product.stock, available=product.available)), 200
 
 
-# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/diminuir-estoque-do-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=RemoveFromStockForm)
 @safe_id_to_model_elem(model=Product)
 def product_stock_removal(product, form):
-    try:
-        product.remove_from_stock(form.value.data)
-        return json.dumps(dict(stock=product.stock, available=product.available)), 200
-    except InvalidStockRemoveValue:
-        return "", 400
+    product.remove_from_stock(form.value.data)
+    return json.dumps(dict(stock=product.stock, available=product.available)), 200
 
 
-# noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/atualizar-estoque-do-produto/<int:product_id>", methods=["POST"])
 @valid_form(FormClass=UpdateStockForm)
 @safe_id_to_model_elem(model=Product)

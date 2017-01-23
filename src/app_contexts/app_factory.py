@@ -184,6 +184,18 @@ def create_app():
         # TODO: Add home page href
         return R.string.temp_error_html % dict(home_page_href="#"), 500
 
+    # ==================================================================================================================
+    #
+    #
+    #
+    #
+    # Declaring after request
+    # ==================================================================================================================
+    @app.after_request
+    def after_request(response):
+        db.session.remove()
+        return response
+
     return app
 
 

@@ -15,7 +15,3 @@ class InvalidOrderStatusIdError(Exception):
 
 class InvalidSortMapError(Exception):
     pass
-
-
-class InvalidStockRemoveValue(Exception):
-    pass
