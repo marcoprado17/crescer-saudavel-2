@@ -34,6 +34,10 @@ class BaseModel(db.Model):
         raise NotImplementedError
 
     @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
     def count(cls):
         return cls.query.count()
 

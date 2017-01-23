@@ -7,12 +7,15 @@ from routers.admin_products.forms import AddProductCategoryForm
 
 
 class AddProductCategoryDataProvider(object):
-    def get_data(self, add_product_category_form=None):
-        if not add_product_category_form:
-            add_product_category_form = AddProductCategoryForm()
-
+    def get_data_when_get(self):
         return dict(
-            add_product_category_form = add_product_category_form
+            add_product_category_form=AddProductCategoryForm()
         )
+
+    def get_data_when_post(self, add_product_category_form):
+        return dict(
+            add_product_category_form=add_product_category_form
+        )
+
 
 admin_add_product_category_data_provider = AddProductCategoryDataProvider()

@@ -42,10 +42,9 @@ class TestCase(BaseTestCase):
         with app.app_context():
             with app.test_client() as c:
                 # ------------------------------------------------------------------------------------------------------
-                # ProductCategory
+                # Add ProductCategory
                 # ------------------------------------------------------------------------------------------------------
-                n_categories = ProductCategory.count()
-                self.assertEqual(n_categories, 0)
+                self.assertEqual(ProductCategory.count(), 0)
                 response = c.post(url_for("admin_products.add_category"), data=dict(
                     category_name=R.string.test1,
                     active=True,
@@ -53,12 +52,84 @@ class TestCase(BaseTestCase):
                 self.assertEqual(response.status_code, 302)
                 n_categories = ProductCategory.count()
                 self.assertEqual(n_categories, 1)
-                category = ProductCategory.get_last()
-                self.assertEqual(category.name, R.string.test1)
-                self.assertEqual(category.active, True)
+                product_category = ProductCategory.get_last()
+                self.assertEqual(product_category.name, R.string.test1)
+                self.assertEqual(product_category.active, True)
+
+                response = c.post(url_for("admin_products.add_category"), data=dict(
+                    category_name="a",
+                ))
+                self.assertEqual(response.status_code, 302)
+                self.assertEqual(ProductCategory.count(), 2)
+                product_category = ProductCategory.get_last()
+                self.assertEqual(product_category.name, "a")
+                self.assertEqual(product_category.active, False)
 
                 # ------------------------------------------------------------------------------------------------------
-                # ProductSubcategory
+                # Edit ProductCategory
+                # ------------------------------------------------------------------------------------------------------
+                product_category = ProductCategory.get_last()
+                response = c.post(url_for("admin_products.edit_category", product_category_id=product_category.id), data=dict(
+                    category_name="b",
+                    active=True,
+                ))
+                product_category = ProductCategory.get_last()
+                self.assertEqual(response.status_code, 302)
+                self.assertEqual(product_category.name, "b")
+                self.assertEqual(product_category.active, True)
+
+                product_category = ProductCategory.get_last()
+                response = c.post(url_for("admin_products.edit_category", product_category_id=product_category.id), data=dict(
+                      category_name="c",
+                ))
+                product_category = ProductCategory.get_last()
+                self.assertEqual(response.status_code, 302)
+                self.assertEqual(product_category.name, "c")
+                self.assertEqual(product_category.active, False)
+
+                # ------------------------------------------------------------------------------------------------------
+                # ProductCategory Activate / Disable
+                # ------------------------------------------------------------------------------------------------------
+                product_category = ProductCategory.get_last()
+                response = c.post(url_for("admin_products.to_activate_category", product_category_id=product_category.id))
+                product_category = ProductCategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_category.active, True)
+
+                response = c.post(
+                    url_for("admin_products.disable_category", product_category_id=product_category.id))
+                product_category = ProductCategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_category.active, False)
+
+                response = c.post(
+                    url_for("admin_products.disable_category", product_category_id=product_category.id))
+                product_category = ProductCategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_category.active, False)
+
+                product_category = ProductCategory.get_last()
+                response = c.post(
+                    url_for("admin_products.to_activate_category", product_category_id=product_category.id))
+                product_category = ProductCategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_category.active, True)
+
+                product_category = ProductCategory.get_last()
+                response = c.post(
+                    url_for("admin_products.to_activate_category", product_category_id=product_category.id))
+                product_category = ProductCategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_category.active, True)
+
+                response = c.post(
+                    url_for("admin_products.disable_category", product_category_id=product_category.id))
+                product_category = ProductCategory.get_last()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(product_category.active, False)
+
+                # ------------------------------------------------------------------------------------------------------
+                # Add ProductSubcategory
                 # ------------------------------------------------------------------------------------------------------
                 n_subcategories = ProductSubcategory.count()
                 self.assertEqual(n_subcategories, 0)
@@ -287,6 +358,9 @@ class TestCase(BaseTestCase):
                 self.assertEqual(product.image_1, "product_default.jpg")
                 self.assertEqual(product.image_2, "product_default.jpg")
 
+                # ------------------------------------------------------------------------------------------------------
+                # Product Activate / Disable
+                # ------------------------------------------------------------------------------------------------------
                 response = c.post(url_for("admin_products.disable_product", product_id=Product.count()+1))
                 self.assertEqual(response.status_code, 404)
 

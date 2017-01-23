@@ -8,10 +8,8 @@ from routers.admin_products.forms import EditProductCategoryForm
 
 class EditProductCategoryDataProvider(object):
     def get_data_when_get(self, product_category):
-        edit_product_category_form = EditProductCategoryForm()
-        edit_product_category_form.set_values(product_category=product_category)
         return dict(
-            edit_product_category_form=edit_product_category_form
+            edit_product_category_form=EditProductCategoryForm(product_category=product_category)
         )
 
     def get_data_when_post(self, edit_product_category_form):

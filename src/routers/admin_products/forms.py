@@ -41,9 +41,11 @@ class AddProductCategoryForm(ProductCategoryForm):
 class EditProductCategoryForm(ProductCategoryForm):
     submit = SubmitField(label=R.string.save)
 
-    def set_values(self, product_category):
-        self.category_name.data = product_category.name
-        self.active.data = product_category.active
+    def __init__(self, product_category=None, **kwargs):
+        super(EditProductCategoryForm, self).__init__(**kwargs)
+        if product_category != None:
+            self.category_name.data = product_category.name
+            self.active.data = product_category.active
 
 
 class ProductCategoryFilterForm(FlaskForm):

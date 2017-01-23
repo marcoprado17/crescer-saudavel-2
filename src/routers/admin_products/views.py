@@ -122,37 +122,31 @@ def categories():
 def add_category():
     if request.method == "GET":
         return render_template("admin_products/add_category.html",
-                               data=admin_add_product_category_data_provider.get_data())
+                               data=admin_add_product_category_data_provider.get_when_get_data())
     else:
         add_product_category_form = AddProductCategoryForm()
-
         if add_product_category_form.validate_on_submit():
-            product_category = ProductCategory.create_from_form(add_product_category_form=add_product_category_form)
+            product_category = ProductCategory.create_from_form(form=add_product_category_form)
             flash(R.string.product_category_sent_successfully(product_category),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_category"))
         else:
             return render_template("admin_products/add_category.html",
-                                   data=admin_add_product_category_data_provider.get_data(
+                                   data=admin_add_product_category_data_provider.get_data_when_post(
                                        add_product_category_form=add_product_category_form))
 
 
-@admin_products_blueprint.route("/editar-categoria-de-produto/<int:category_id>", methods=["GET", "POST"])
-def edit_category(category_id):
-    product_category = ProductCategory.get(category_id=category_id)
-    if not product_category:
-        return "", 404
-
+@admin_products_blueprint.route("/editar-categoria-de-produto/<int:product_category_id>", methods=["GET", "POST"])
+@safe_id_to_model_elem(model=ProductCategory)
+def edit_category(product_category):
     if request.method == "GET":
         return render_template("admin_products/edit_category.html",
                                data=admin_edit_product_category_data_provider.get_data_when_get(
                                    product_category=product_category))
     else:
         edit_product_category_form = EditProductCategoryForm()
-
         if edit_product_category_form.validate_on_submit():
-            ProductCategory.update_from_form(product_category=product_category,
-                                             edit_product_category_form=edit_product_category_form)
+            product_category.update_from_form(form=edit_product_category_form)
             flash(R.string.product_category_successful_edited(product_category),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.categories"))
@@ -162,17 +156,19 @@ def edit_category(category_id):
                                        edit_product_category_form=edit_product_category_form))
 
 
-@admin_products_blueprint.route("/desabilitar-categoria-de-produto/<int:category_id>", methods=["POST"])
+@admin_products_blueprint.route("/desabilitar-categoria-de-produto/<int:product_category_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
-def disable_category(category_id):
-    ProductCategory.update(product_category_id=category_id, active=False)
+@safe_id_to_model_elem(model=ProductCategory)
+def disable_category(product_category, form):
+    product_category.disable()
     return "", 200
 
 
-@admin_products_blueprint.route("/ativar-categoria-de-produto/<int:category_id>", methods=["POST"])
+@admin_products_blueprint.route("/ativar-categoria-de-produto/<int:product_category_id>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
-def to_activate_category(category_id):
-    ProductCategory.update(product_category_id=category_id, active=True)
+@safe_id_to_model_elem(model=ProductCategory)
+def to_activate_category(product_category, form):
+    product_category.to_activate()
     return "", 200
 
 

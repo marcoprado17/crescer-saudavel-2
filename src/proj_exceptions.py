@@ -15,3 +15,7 @@ class InvalidOrderStatusIdError(Exception):
 
 class InvalidSortMapError(Exception):
     pass
+
+
+class InvalidNUnitsError(Exception):
+    pass

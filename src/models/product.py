@@ -9,6 +9,8 @@ from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
+
+from proj_exceptions import InvalidNUnitsError
 from proj_extensions import db
 from models.base import BaseModel
 from r import R
@@ -198,8 +200,11 @@ class Product(BaseModel):
         db.session.commit()
 
     def get_price(self, n_units=1):
-        assert isinstance(n_units, int)
-        assert n_units >= 0
+        try:
+            assert isinstance(n_units, int)
+            assert n_units >= 0
+        except:
+            raise InvalidNUnitsError
         return self.price * Decimal(str(n_units))
 
     def get_formatted_price(self, n_units=1):
