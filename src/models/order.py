@@ -26,6 +26,7 @@ from r import R
 class Order(BaseModel):
     uuid = db.Column(db.String(R.dimen.uuid_length), nullable=False)
     client_id = db.Column(db.Integer, ForeignKey("client.id"), nullable=False)
+    client_email = db.Column(db.String(R.dimen.email_max_length), nullable=False)
     client = relationship("Client", back_populates="orders")
     status = db.Column(db.Enum(R.id), default=R.id.ORDER_STATUS_PAID, nullable=False)
     paid_datetime = db.Column(db.DateTime, nullable=False)
@@ -37,10 +38,11 @@ class Order(BaseModel):
     total_table_data = db.Column(db.JSON, nullable=False)
 
     sort_method_map = SortMethodMap([
-        (R.id.SORT_METHOD_NEWEST, R.string.newest, desc(paid_datetime)),
-        (R.id.SORT_METHOD_OLDER, R.string.older, asc(paid_datetime)),
-        (R.id.SORT_METHOD_LOWER_TOTAL_PRICE, R.string.lowest_price, asc(products_total_price)),
-        (R.id.SORT_METHOD_HIGHER_TOTAL_PRICE, R.string.higher_price, desc(products_total_price)),
+        (R.id.SORT_METHOD_CLIENT_EMAIL,         R.string.client_email,          asc(client_email)),
+        (R.id.SORT_METHOD_NEWEST,               R.string.newest,                desc(paid_datetime)),
+        (R.id.SORT_METHOD_OLDER,                R.string.older,                 asc(paid_datetime)),
+        (R.id.SORT_METHOD_LOWER_TOTAL_PRICE,    R.string.lowest_price,          asc(products_total_price)),
+        (R.id.SORT_METHOD_HIGHER_TOTAL_PRICE,   R.string.higher_price,          desc(products_total_price)),
     ])
 
     order_status_map = OrderedDict()
@@ -56,6 +58,7 @@ class Order(BaseModel):
         client = Client.get(order.client_id)
         if client == None:
             raise InvalidClientToOrder
+        order.client_email = client.email
 
         products_amounts_zip = order.get_products_amounts_zip()
 
@@ -275,6 +278,6 @@ class Order(BaseModel):
 
     @staticmethod
     def get_n_orders(status):
-        if not status in Order.order_status_ids:
+        if not status in Order.order_status_map.keys():
             raise InvalidOrderStatusIdError
         return Order.query.filter(Order.status == status).count()

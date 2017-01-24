@@ -159,7 +159,7 @@ def create_random_orders():
         try:
             create_random_order()
             print "Order " + str(i) + " created."
-        except:
+        except Exception as e:
             print "Order " + str(i) + " creation fail."
 
 
@@ -183,9 +183,9 @@ def get_random_blog_post():
 
 def create_random_order():
     status = random.choice(
-        filter(lambda order_status_id: order_status_id != R.id.ORDER_STATUS_ANY, Order.order_status_ids))
+        filter(lambda order_status_id: order_status_id != R.id.ORDER_STATUS_ANY, Order.order_status_map.keys()))
     Order.create_new(
-        client_email=get_valid_client_email(address_defined=True),
+        client_id=get_valid_client_id(address_defined=True),
         status=status,
         amount_by_product_id=get_amount_by_product_id(),
         **get_order_datetimes(status)
@@ -324,11 +324,11 @@ def get_random_product():
     )
 
 
-def get_valid_client_email(address_defined):
+def get_valid_client_id(address_defined):
     q = Client.query
     if address_defined:
         q = q.filter(Client.address != None)
-    return random.choice(q.with_entities(Client.email).all())
+    return random.choice(q.with_entities(Client.id).all())
 
 
 def get_random_valid_product_category_id():
