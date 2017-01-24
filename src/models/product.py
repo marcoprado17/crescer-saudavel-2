@@ -9,7 +9,6 @@ from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
-
 from proj_exceptions import InvalidNUnitsError
 from proj_extensions import db
 from models.base import BaseModel
@@ -170,6 +169,17 @@ class Product(BaseModel):
             tab_10_content=parse_markdown(form.tab_10_content.data)
         )
 
+    @staticmethod
+    def get_choices(include_none=False):
+        product_choices = []
+        if include_none:
+            product_choices = [(str(0), R.string.none_in_masculine)]
+
+        for id_title in Product.query.order_by(Product.title).with_entities(Product.id, Product.title).all():
+            product_choices.append((str(id_title[0]), id_title[1]))
+
+        return product_choices
+
     def disable(self):
         self.active = False
         db.session.add(self)
@@ -200,10 +210,7 @@ class Product(BaseModel):
         db.session.commit()
 
     def get_price(self, n_units=1):
-        try:
-            assert isinstance(n_units, int)
-            assert n_units >= 0
-        except:
+        if not isinstance(n_units, int) or n_units < 0:
             raise InvalidNUnitsError
         return self.price * Decimal(str(n_units))
 
@@ -216,14 +223,3 @@ class Product(BaseModel):
         if self.stock == None:
             self._stock = 0
         self._available = self._stock - self._reserved
-
-    @staticmethod
-    def get_choices(include_none=False):
-        product_choices = []
-        if include_none:
-            product_choices = [(str(0), R.string.none_in_masculine)]
-
-        for id_title in Product.query.order_by(Product.title).with_entities(Product.id, Product.title).all():
-            product_choices.append((str(id_title[0]), id_title[1]))
-
-        return product_choices

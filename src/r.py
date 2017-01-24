@@ -766,6 +766,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         def get_admin_home_new_orders_message(new_orders_href, n_new_orders):
             return "Há <a href='%s'>%s novos pedidos</a> a serem enviados." % (new_orders_href, n_new_orders)
 
+        @staticmethod
+        def product_stock_insufficient_to_send_order(limiting_product):
+            return 'O estoque do produto #%s - "%s" é insuficiente para o pedido em questão. Por favor, atualize o estoque deste produto.' % (limiting_product.id, limiting_product.title)
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):

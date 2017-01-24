@@ -19,3 +19,25 @@ class InvalidSortMapError(Exception):
 
 class InvalidNUnitsError(Exception):
     pass
+
+
+class InvalidOrderStatusChange(Exception):
+    pass
+
+
+class InsufficientStockToSendOrder(Exception):
+    def __init__(self, limiting_product):
+        super(InsufficientStockToSendOrder, self).__init__()
+        self.limiting_product = limiting_product
+
+
+class InconsistentDataBaseError(Exception):
+    pass
+
+
+class InvalidClientToOrder(Exception):
+    pass
+
+
+class InvalidOrderError(Exception):
+    pass

@@ -16,9 +16,7 @@ class AdminOrderFilterForm(FlaskForm):
     )
     filter = SubmitField(label=R.string.filter)
 
-    def __init__(self, **kwargs):
+    def __init__(self, order_status_id, **kwargs):
         super(AdminOrderFilterForm, self).__init__(**kwargs)
-        self.status.choices = Order.get_choices()
-
-    def set_values(self, order_status_id):
+        self.status.choices = Order.get_order_status_id_choices()
         self.status.data = str(order_status_id.value)

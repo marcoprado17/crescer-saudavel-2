@@ -5,7 +5,7 @@
     {{ R.string.orders }}
 {% endblock %}
 {% block content %}
-    <div class="__admin_orders__ __index__ container">
+    <div class="__admin_orders__ __orders__ container">
         {% for order in data.orders_in_page %}
             <div id="modal-{{ loop.index0 }}" class="modal fade details" role="dialog">
                 <div class="modal-dialog large">
@@ -78,8 +78,13 @@
                     setTextTdValue("status", row_idx, data.new_status);
                     setTextTdValue("sent-datetime", row_idx, data.new_sent_datetime);
                 },
-                error: function () {
-                    throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                error: function (status, data) {
+                    if( status == 409 ) {
+                        throwErrorOpToast(data.error_message);
+                    }
+                    else {
+                        throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                    }
                 },
                 complete: function () {
                     button.html("{{ R.string.mark_as_sent }}");

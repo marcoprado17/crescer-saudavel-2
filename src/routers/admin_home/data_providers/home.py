@@ -13,7 +13,7 @@ class AdminHomeDataProvider(object):
     def get_data(self):
         return dict(
             n_new_orders=Order.get_n_orders(status=R.id.ORDER_STATUS_PAID),
-            new_orders_href=url_for("admin_orders.index")
+            new_orders_href=url_for("admin_orders.orders")
         )
 
 admin_home_data_provider = AdminHomeDataProvider()

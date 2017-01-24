@@ -21,23 +21,20 @@ from routers.admin_orders.forms import AdminOrderFilterForm
 class AdminOrdersDataProvider(object):
     def get_data(self):
         order_status_id = get_valid_enum(arg_name=R.string.order_status_id_arg_name, enum=R.id,
-                                        default=R.id.ORDER_STATUS_PAID, possible_values=Order.order_status_ids)
+                                        default=R.id.ORDER_STATUS_PAID, possible_values=Order.order_status_map.keys())
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_NEWEST, possible_values=Order.sort_method_ids)
+                                        default=R.id.SORT_METHOD_NEWEST, possible_values=Order.sort_method_map.ids)
 
         self.q = Order.query
         if order_status_id != R.id.ORDER_STATUS_ANY:
             self.q = self.q.filter(Order.status == order_status_id)
-        self.q = self.q.order_by(Order.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(Order.sort_method_map.order(sort_method_id))
 
         n_orders = self.q.count()
 
         self.per_page = current_app.config["ORDERS_TABLE_PER_PAGE"]
         self.curr_page = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=self.per_page,
                                         n_items=n_orders)
-
-        filter_form = AdminOrderFilterForm()
-        filter_form.set_values(order_status_id=order_status_id)
 
         self.orders_in_page = self.q.slice(
                 *get_page_range(curr_page=self.curr_page, per_page=self.per_page, min_page=R.dimen.min_page)).all()
@@ -50,12 +47,11 @@ class AdminOrdersDataProvider(object):
                 max_page=n_pages(per_page=self.per_page, n_items=n_orders)
             ),
             filter_data=dict(
-                filter_form=filter_form
+                filter_form=AdminOrderFilterForm(order_status_id=order_status_id)
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=Order.sort_method_ids,
-                sort_method_names=Order.sort_method_names
+                sort_method_map=Order.sort_method_map
             ),
             table_data=self.get_table_data(),
             orders_in_page=self.orders_in_page

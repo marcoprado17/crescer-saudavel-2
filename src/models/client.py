@@ -93,7 +93,7 @@ class Client(BaseModel):
         return R.dimen.freight
 
     @staticmethod
-    def get(client_email):
+    def get_by_email(client_email):
         return Client.query.filter_by(email=client_email).one_or_none()
 
     def get_formatted_register_datetime(self):

@@ -6,7 +6,7 @@
 import uuid
 
 from decimal import Decimal
-
+from collections import OrderedDict
 from datetime import datetime
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
@@ -14,17 +14,18 @@ from sqlalchemy import desc
 from sqlalchemy.orm import relationship
 from proj_extensions import db
 from sqlalchemy.dialects.postgresql import JSON
-
 from models.base import BaseModel
 from models.client import Client
 from models.product import Product
-from proj_exceptions import InvalidOrderStatusIdError
+from proj_exceptions import InvalidOrderStatusIdError, InvalidOrderStatusChange, InsufficientStockToSendOrder, \
+    InconsistentDataBaseError, InvalidClientToOrder, InvalidOrderError
+from proj_utils import SortMethodMap
 from r import R
 
 
 class Order(BaseModel):
     uuid = db.Column(db.String(R.dimen.uuid_length), nullable=False)
-    client_email = db.Column(db.String(R.dimen.email_max_length), ForeignKey("client.email"), nullable=False)
+    client_id = db.Column(db.Integer, ForeignKey("client.id"), nullable=False)
     client = relationship("Client", back_populates="orders")
     status = db.Column(db.Enum(R.id), default=R.id.ORDER_STATUS_PAID, nullable=False)
     paid_datetime = db.Column(db.DateTime, nullable=False)
@@ -35,49 +36,32 @@ class Order(BaseModel):
     products_table_data = db.Column(db.JSON, nullable=False)
     total_table_data = db.Column(db.JSON, nullable=False)
 
-    sort_method_ids = [
-        R.id.SORT_METHOD_CLIENT_EMAIL,
-        R.id.SORT_METHOD_NEWEST,
-        R.id.SORT_METHOD_OLDER,
-        R.id.SORT_METHOD_LOWER_TOTAL_PRICE,
-        R.id.SORT_METHOD_HIGHER_TOTAL_PRICE
-    ]
-    sort_method_names = [
-        R.string.client_email,
-        R.string.newest,
-        R.string.older,
-        R.string.lowest_price,
-        R.string.higher_price,
-    ]
-    sort_method_by_id = {
-        R.id.SORT_METHOD_CLIENT_EMAIL: asc(client_email),
-        R.id.SORT_METHOD_NEWEST: desc(paid_datetime),
-        R.id.SORT_METHOD_OLDER: asc(paid_datetime),
-        R.id.SORT_METHOD_LOWER_TOTAL_PRICE: asc(products_total_price),
-        R.id.SORT_METHOD_HIGHER_TOTAL_PRICE: desc(products_total_price)
-    }
-    order_status_ids = [
-        R.id.ORDER_STATUS_ANY,
-        R.id.ORDER_STATUS_CANCELED,
-        R.id.ORDER_STATUS_PAID,
-        R.id.ORDER_STATUS_SENT,
-        R.id.ORDER_STATUS_DELIVERED
-    ]
-    order_status_as_string_by_id = {
-        R.id.ORDER_STATUS_ANY: R.string.any,
-        R.id.ORDER_STATUS_CANCELED: R.string.canceled,
-        R.id.ORDER_STATUS_PAID: R.string.paid,
-        R.id.ORDER_STATUS_SENT: R.string.sent,
-        R.id.ORDER_STATUS_DELIVERED: R.string.delivered
-    }
+    sort_method_map = SortMethodMap([
+        (R.id.SORT_METHOD_NEWEST, R.string.newest, desc(paid_datetime)),
+        (R.id.SORT_METHOD_OLDER, R.string.older, asc(paid_datetime)),
+        (R.id.SORT_METHOD_LOWER_TOTAL_PRICE, R.string.lowest_price, asc(products_total_price)),
+        (R.id.SORT_METHOD_HIGHER_TOTAL_PRICE, R.string.higher_price, desc(products_total_price)),
+    ])
+
+    order_status_map = OrderedDict()
+    order_status_map[R.id.ORDER_STATUS_ANY] = R.string.any
+    order_status_map[R.id.ORDER_STATUS_CANCELED] = R.string.canceled
+    order_status_map[R.id.ORDER_STATUS_PAID] = R.string.paid
+    order_status_map[R.id.ORDER_STATUS_SENT] = R.string.sent
+    order_status_map[R.id.ORDER_STATUS_DELIVERED] = R.string.delivered
 
     @staticmethod
     def create_new(**kwargs):
         order = Order(**kwargs)
-        client = Client.get(order.client_email)
-        assert client != None
+        client = Client.get(order.client_id)
+        if client == None:
+            raise InvalidClientToOrder
 
         products_amounts_zip = order.get_products_amounts_zip()
+
+        for product, amount in products_amounts_zip:
+            if amount <= 0 or product.stock < amount:
+                raise InvalidOrderError
 
         order.products_total_price = order._get_products_total_price(products_amounts_zip)
         order.products_table_data = order._get_products_table_data(products_amounts_zip)
@@ -95,6 +79,8 @@ class Order(BaseModel):
 
         for product_id, amount in self.amount_by_product_id.iteritems():
             product = Product.get(product_id)
+            if product == None:
+                raise InvalidOrderError
             products.append(product)
             amounts.append(amount)
 
@@ -102,13 +88,11 @@ class Order(BaseModel):
 
     def inc_products_reserved(self, products_amounts_zip):
         for product, amount in products_amounts_zip:
-            assert amount > 0
-            assert product.available >= amount
             product.reserved += amount
             db.session.add(product)
 
     def get_status_as_string(self):
-        return self.order_status_as_string_by_id[self.status]
+        return self.order_status_map[self.status]
 
     def get_formatted_paid_datetime(self):
         return R.string.formatted_datetime(self.paid_datetime)
@@ -120,25 +104,11 @@ class Order(BaseModel):
         return R.string.formatted_datetime(self.delivered_datetime)
 
     @staticmethod
-    def get_choices():
+    def get_order_status_id_choices():
         choices = []
-        for order_status_id in Order.order_status_ids:
-            choices.append((str(order_status_id.value), Order.order_status_as_string_by_id[order_status_id]))
+        for order_status_id, order_status_name in Order.order_status_map.iteritems():
+            choices.append((str(order_status_id.value), order_status_name))
         return choices
-
-    @staticmethod
-    def get(order_id):
-        return Order.query.filter_by(id=order_id).one_or_none()
-
-    @staticmethod
-    def update(order_id, **kw):
-        order = Order.get(order_id)
-        assert order != None
-        for key, val in kw.iteritems():
-            setattr(order, key, val)
-        db.session.add(order)
-        db.session.commit()
-        return order
 
     def _get_products_total_price(self, products_amounts_zip):
         products_total_price = Decimal("0.00")
@@ -221,13 +191,16 @@ class Order(BaseModel):
         return str(self.products_total_price).replace(".", ",")
 
     def mark_as_sent(self):
-        assert self.status == R.id.ORDER_STATUS_PAID
+        if self.status != R.id.ORDER_STATUS_PAID:
+            raise InvalidOrderStatusChange
         self.status = R.id.ORDER_STATUS_SENT
         self.sent_datetime = datetime.now()
 
         for product, amount in self.get_products_amounts_zip():
-            assert product.reserved >= amount
-            assert product.stock >= amount
+            if product.stock < amount:
+                raise InsufficientStockToSendOrder(limiting_product=product)
+            if product.reserved < amount:
+                raise InconsistentDataBaseError
             product.reserved -= amount
             product.stock -= amount
             db.session.add(product)
@@ -236,7 +209,8 @@ class Order(BaseModel):
         db.session.commit()
 
     def unmark_as_sent(self):
-        assert self.status == R.id.ORDER_STATUS_SENT
+        if self.status != R.id.ORDER_STATUS_SENT:
+            raise InvalidOrderStatusChange
 
         self.status=R.id.ORDER_STATUS_PAID
         self.sent_datetime=None
@@ -244,25 +218,51 @@ class Order(BaseModel):
         for product, amount in self.get_products_amounts_zip():
             product.reserved += amount
             product.stock += amount
+            if product.reserved < 0 or product.stock < 0:
+                raise InconsistentDataBaseError
             db.session.add(product)
 
         db.session.add(self)
         db.session.commit()
 
+    def mark_as_delivered(self):
+        if self.status != R.id.ORDER_STATUS_SENT:
+            raise InvalidOrderStatusChange
+
+        self.status = R.id.ORDER_STATUS_DELIVERED
+        self.delivered_datetime = datetime.now()
+
+        db.session.add(self)
+        db.session.commit()
+
+    def unmark_as_delivered(self):
+        if self.status != R.id.ORDER_STATUS_DELIVERED:
+            raise InvalidOrderStatusChange
+
+        self.status = R.id.ORDER_STATUS_SENT
+        self.delivered_datetime = None
+
+        db.session.add(self)
+        db.session.commit()
+
     def mark_as_canceled(self):
-        assert self.status == R.id.ORDER_STATUS_PAID
+        if self.status != R.id.ORDER_STATUS_PAID:
+            raise InvalidOrderStatusChange
 
         self.status=R.id.ORDER_STATUS_CANCELED
 
         for product, amount in self.get_products_amounts_zip():
             product.reserved -= amount
+            if product.reserved < 0:
+                raise InconsistentDataBaseError
             db.session.add(product)
 
         db.session.add(self)
         db.session.commit()
 
     def mark_as_paid(self):
-        assert self.status == R.id.ORDER_STATUS_CANCELED
+        if self.status != R.id.ORDER_STATUS_CANCELED:
+            raise InvalidOrderStatusChange
 
         self.status=R.id.ORDER_STATUS_PAID
 
