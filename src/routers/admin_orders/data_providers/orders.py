@@ -67,8 +67,8 @@ class AdminOrdersDataProvider(object):
                 order.get_formatted_products_total_price(),
                 order.get_status_as_string(),
                 order.get_formatted_paid_datetime(),
-                order.get_formatted_sent_datetime() if order.sent_datetime else "",
-                order.get_formatted_delivered_datetime() if order.delivered_datetime else "",
+                order.get_formatted_sent_datetime() if order.sent_datetime else R.string.empty_symbol,
+                order.get_formatted_delivered_datetime() if order.delivered_datetime else R.string.empty_symbol,
                 [
                     dict(
                         type=R.id.ACTION_TYPE_BUTTON,

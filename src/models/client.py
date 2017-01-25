@@ -11,6 +11,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from proj_extensions import db, bcrypt
 from models.base import BaseModel
+from proj_utils import SortMethodMap
 from r import R
 from routers.admin_clients.forms import ClientForm
 
@@ -36,24 +37,12 @@ class Client(BaseModel):
     cep = db.Column(db.String(R.dimen.cep_max_length))
     tel = db.Column(db.String(R.dimen.tel_max_length))
 
-    sort_method_ids = [
-        R.id.SORT_METHOD_CLIENT_NAME,
-        R.id.SORT_METHOD_CLIENT_EMAIL,
-        R.id.SORT_METHOD_NEWEST,
-        R.id.SORT_METHOD_OLDER
-    ]
-    sort_method_names = [
-        R.string.client_name,
-        R.string.client_email,
-        R.string.newest_register,
-        R.string.older_register
-    ]
-    sort_method_by_id = {
-        R.id.SORT_METHOD_CLIENT_NAME: asc(first_name),
-        R.id.SORT_METHOD_CLIENT_EMAIL: asc(email),
-        R.id.SORT_METHOD_NEWEST: desc(register_datetime),
-        R.id.SORT_METHOD_OLDER: asc(register_datetime)
-    }
+    sort_method_map = SortMethodMap([
+        (R.id.SORT_METHOD_CLIENT_NAME,      R.string.client_name,       asc(first_name)),
+        (R.id.SORT_METHOD_CLIENT_EMAIL,     R.string.client_email,      asc(email)),
+        (R.id.SORT_METHOD_NEWEST,           R.string.newest_register,   desc(register_datetime)),
+        (R.id.SORT_METHOD_OLDER,            R.string.older_register,    asc(register_datetime)),
+    ])
 
     @hybrid_property
     def password(self):

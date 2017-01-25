@@ -5,7 +5,7 @@
     {{ R.string.clients }}
 {% endblock %}
 {% block content %}
-    <div class="__admin_clients__ __index__ container">
+    <div class="__admin_clients__ __clients__ container">
         {% for client in data.clients_in_page %}
             <div id="modal-{{ loop.index0 }}" class="modal fade details" role="dialog">
                 <div class="modal-dialog large">

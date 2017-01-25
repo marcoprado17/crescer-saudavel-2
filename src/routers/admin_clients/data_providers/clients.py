@@ -26,14 +26,14 @@ class AdminClientsDataProvider(object):
         city_id = get_valid_model_id(model=City, arg_name=R.string.city_id_arg_name,
                                       include_zero=True, default=0)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_CLIENT_NAME, possible_values=Client.sort_method_ids)
+                                        default=R.id.SORT_METHOD_CLIENT_NAME, possible_values=Client.sort_method_map.ids)
 
         self.q = Client.query
         if state_id != 0:
             self.q = self.q.filter(Client.state_id == state_id)
         if city_id != 0:
             self.q = self.q.filter(Client.city_id == city_id)
-        self.q = self.q.order_by(Client.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(Client.sort_method_map.order(sort_method_id))
 
         n_orders = self.q.count()
 
@@ -59,8 +59,7 @@ class AdminClientsDataProvider(object):
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=Client.sort_method_ids,
-                sort_method_names=Client.sort_method_names
+                sort_method_map=Client.sort_method_map
             ),
             table_data=self.get_table_data(),
             clients_in_page=self.clients_in_page
@@ -71,10 +70,10 @@ class AdminClientsDataProvider(object):
         rows = []
         for idx, client in enumerate(self.clients_in_page):
             rows.append([
-                client.state.name if client.state else R.string.undefined_masculine,
-                client.city.name if client.city else R.string.undefined_feminine,
+                client.state.name if client.state else R.string.empty_symbol,
+                client.city.name if client.city else R.string.empty_symbol,
                 client.email,
-                client.first_name if client.first_name else "",
+                client.first_name if client.first_name else R.string.empty_symbol,
                 client.get_formatted_register_datetime(),
                 [
                     dict(
