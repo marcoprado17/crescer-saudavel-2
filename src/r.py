@@ -658,7 +658,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def formatted_datetime(datetime):
             if datetime == None:
-                return ""
+                return R.string.empty_symbol
             return str(datetime)[0:R.dimen.datetime_important_chars_size]
 
         @staticmethod
