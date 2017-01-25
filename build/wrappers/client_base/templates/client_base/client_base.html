@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+{% block css_bundle %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/client_bundle.min.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="__client_base__">
+        <div id="page">
+            {% include "components/client_header.html" %}
+            {% block above_content %}
+            {% endblock %}
+            {% block content %}
+            {% endblock %}
+            {% include "components/client_footer.html" %}
+        </div>
+        {% include "components/client_mobile_menu.html" %}
+    </div>
+{% endblock %}
+{% block js_bundle %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/client_bundle.min.js') }}"></script>
+{% endblock %}

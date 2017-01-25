@@ -1,0 +1,22 @@
+{% extends "admin_base/admin_base.html" %}
+{% block subtitle %}
+    {{ R.string.add_product_category }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_products__ __add_category__ container hidden">
+        {% with data=dict(
+            title=R.string.add_product_category,
+            product_category_form=data.add_product_category_form
+        )%}
+            {% include "components/product_category_panel_form.html" %}
+        {% endwith %}
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}
+{% block script %}
+    <script>
+        initVerticalFluid();
+        initTooltips();
+    </script>
+{% endblock %}

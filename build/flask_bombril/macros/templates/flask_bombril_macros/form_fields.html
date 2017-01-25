@@ -1,0 +1,176 @@
+{% import "flask_bombril_macros/tooltip.html" as tooltip with context %}
+
+{% macro render_errors(errors) %}
+    {% if errors|length > 0 %}
+        {% for error in errors %}
+            <span class="help-block">{{ error|safe }}</span>
+        {% endfor %}
+    {% endif %}
+{%- endmacro %}
+
+{% macro string_field(field, explicit_label=False, placeholder="", readonly=False, max_length=None) %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <div class="label-container">
+                <label for="{{ field.id }}">{{ field.label }}</label>
+                {% if field.flags.required %}
+                    {{ tooltip.asterisk(bombril_R.string.required_field) }}
+                {% endif %}
+                {% if field.render_kw and field.render_kw.tooltip %}
+                    {{ tooltip.info(field.render_kw.tooltip) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        <input id="{{ field.id }}" name="{{ field.name }}" type="text"
+               class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
+               value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }} maxlength={{ max_length|if(max_length) }}>
+        {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
+{% macro date_field(field, explicit_label=False) %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <div class="label-container">
+                <label for="{{ field.id }}">{{ field.label }}</label>
+                {% if field.flags.required %}
+                    {{ tooltip.asterisk(bombril_R.string.required_field) }}
+                {% endif %}
+                {% if field.render_kw and field.render_kw.tooltip %}
+                    {{ tooltip.info(field.render_kw.tooltip) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class='input-group date datetimepicker'>
+            <input id="{{ field.id }}" name="{{ field.name }}" type='text' class="form-control" data-date-as-string="{{ field.data|if(field.data) }}"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
+{% macro integer_field(field, explicit_label=False, placeholder="", readonly=False) %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <div class="label-container">
+                <label for="{{ field.id }}">{{ field.label }}</label>
+                {% if field.flags.required %}
+                    {{ tooltip.asterisk(bombril_R.string.required_field) }}
+                {% endif %}
+                {% if field.render_kw and field.render_kw.tooltip %}
+                    {{ tooltip.info(field.render_kw.tooltip) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        <input id="{{ field.id }}" name="{{ field.name }}" type="number"
+               class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
+               value="{{ field.data|if(field.data or field.data == 0) }}" {{ "readonly"|if(readonly) }}>
+        {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
+{% macro tel_field(field, explicit_label=False, readonly=False, placeholder="") %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <div class="label-container">
+                <label for="{{ field.id }}">{{ field.label }}</label>
+                {% if field.flags.required %}
+                    {{ tooltip.asterisk(bombril_R.string.required_field) }}
+                {% endif %}
+                {% if field.render_kw and field.render_kw.tooltip %}
+                    {{ tooltip.info(field.render_kw.tooltip) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        <input id="{{ field.id }}" name="{{ field.name }}" type="tel" maxlength="{{ R.dimen.tel_max_length }}"
+               class="form-control" value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }} placeholder="{{ placeholder }}">
+        {{ render_errors(field.errors) }}
+    </div>
+    <div class="form-group auxiliar-text">
+        <span class="help-block">{{ R.string.tel_tooltip }}</span>
+    </div>
+{%- endmacro %}
+
+{% macro boolean_field(field, readonly=False) %}
+    <div class="checkbox">
+        <div class="label-container">
+            <label>
+                <input id="{{ field.id }}" name="{{ field.name }}" type="checkbox" {{ "checked"|if(field.data) }} {{ "disabled"|if(readonly) }}>
+                {{ field.label.text }}
+            </label>
+            {% if field.render_kw and field.render_kw.tooltip %}
+                {{ tooltip.info(field.render_kw.tooltip) }}
+            {% endif %}
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro select_field(field, explicit_label=False, classes="", readonly=False) %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <div class="label-container">
+                {{ field.label }}
+                {% if field.flags.required %}
+                    {{ tooltip.asterisk(bombril_R.string.required_field) }}
+                {% endif %}
+                {% if field.render_kw and field.render_kw.tooltip %}
+                    {{ tooltip.info(field.render_kw.tooltip) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if readonly %}
+            {{ field(class_="form-control" + " " + classes + " " + field.classes|if(field.classes), disabled="disabled")}}
+        {% else %}
+            {{ field(class_="form-control" + " " + classes + " " + field.classes|if(field.classes))}}
+        {% endif %}
+        {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
+{% macro password_field(field, explicit_label=False) %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
+        {% if explicit_label %}
+            <div class="label-container">
+                <label for="{{ field.id }}">{{ field.label }}</label>
+                {% if field.flags.required %}
+                    {{ tooltip.asterisk(bombril_R.string.required_field) }}
+                {% endif %}
+                {% if field.render_kw and field.render_kw.tooltip %}
+                    {{ tooltip.info(field.render_kw.tooltip) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        <input id="{{ field.id }}" name="{{ field.name }}" type="password" class="form-control"
+               placeholder="{{ field.label.text|if(not explicit_label) }}" maxlength="{{ max_length }}">
+        {{ render_errors(field.errors) }}
+    </div>
+{%- endmacro %}
+
+{% macro file_field(field, button_text=None, label=False, auxiliar_text=None) %}
+    <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }} {{ 'zero-margin-bottom'|if(auxiliar_text) }}">
+        {% if label %}
+            <label for="{{ field.id }}">{{ field.label }}</label>
+        {% endif %}
+        <input type="file" class="filestyle" name="{{ field.name }}" id="{{ field.id }}" data-icon="false" data-buttonText="{{ button_text|if(button_text, bombril_R.string.find_file) }}">
+        {{ render_errors(field.errors) }}
+    </div>
+    {% if auxiliar_text %}
+        <div class="form-group auxiliar-text">
+            <span class="help-block">{{ auxiliar_text }}</span>
+        </div>
+    {% endif %}
+{%- endmacro %}
+
+{% macro submit(field) %}
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" value="{{ field.label.text }}">
+    </div>
+{%- endmacro %}
+
+{% macro readonly_text_input(text) %}
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="{{ text }}" readonly>
+    </div>
+{%- endmacro %}

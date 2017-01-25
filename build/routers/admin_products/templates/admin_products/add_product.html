@@ -1,0 +1,24 @@
+{% extends "admin_base/admin_base.html" %}
+{% block subtitle %}
+    {{ R.string.add_product }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_products__ __add_product__ container hidden">
+        {% with data=dict(
+            title=R.string.add_product,
+            product_form=data.add_product_form
+        )%}
+            {% include "components/product_panel_form.html" %}
+        {% endwith %}
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}
+{% block script %}
+    <script>
+        initDynamicSelects();
+        initVerticalFluid();
+        initTooltips();
+        initAllMarkdownTextArea();
+    </script>
+{% endblock %}

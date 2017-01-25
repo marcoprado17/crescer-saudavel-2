@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="Remote Python 2.7.6 Vagrant VM at ~/PycharmProjects/crescer-saudavel-2 (/usr/bin/python)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/src/email_blueprint/templates" />
+        <option value="$MODULE_DIR$/src/macros/templates" />
+        <option value="$MODULE_DIR$/src/routers/admin_home/templates" />
+        <option value="$MODULE_DIR$/src/routers/debug/templates" />
+        <option value="$MODULE_DIR$/src/wrappers/base/templates" />
+        <option value="$MODULE_DIR$/src/wrappers/admin_base/templates" />
+        <option value="$MODULE_DIR$/src/components/templates" />
+        <option value="$MODULE_DIR$/src/routers/admin_images/templates" />
+        <option value="$MODULE_DIR$/src/flask_bombril/macros/templates" />
+        <option value="$MODULE_DIR$/src/routers/admin_products/templates" />
+        <option value="$MODULE_DIR$/src/routers/admin_orders/templates" />
+        <option value="$MODULE_DIR$/src/routers/admin_clients/templates" />
+        <option value="$MODULE_DIR$/src/routers/admin_attended_cities/templates" />
+        <option value="$MODULE_DIR$/src/routers/admin_content/templates" />
+        <option value="$MODULE_DIR$/src/routers/admin_blog/templates" />
+        <option value="$MODULE_DIR$/src/routers/client_about_us/templates" />
+        <option value="$MODULE_DIR$/src/wrappers/client_base/templates" />
+        <option value="$MODULE_DIR$/src/routers/client_faq/templates" />
+      </list>
+    </option>
+  </component>
+  <component name="TestRunnerService">
+    <option name="PROJECT_TEST_RUNNER" value="Unittests" />
+  </component>
+</module>

@@ -1,0 +1,124 @@
+{% macro button(action, additional_meta_data=None) %}
+    {% if action.form %}
+        <form
+                action="{{ action.url }}"
+                method="post"
+                enctype=multipart/form-data
+                class="{{ action.classes|if(action.classes) }}"
+                {% if action.meta_data %}{{ action.meta_data|xmlattr }}{% endif %}
+                {% if additional_meta_data %}{{ additional_meta_data|xmlattr }}{% endif %}
+        >
+            {{ action.form.csrf_token }}
+            <button class="btn btn-default" type="submit">
+                {{ action.text }}
+            </button>
+        </form>
+    {% else %}
+        <button class="btn btn-default {{ action.classes|if(action.classes) }}" type="button"
+            {% if action.meta_data %}{{ action.meta_data|xmlattr }}{% endif %}
+            {% if additional_meta_data %}{{ additional_meta_data|xmlattr }}{% endif %}
+        >
+            {{ action.text }}
+        </button>
+    {% endif %}
+
+{%- endmacro %}
+
+{% macro link_button(action, additional_meta_data=None) %}
+    <a href="{{ action.href }}" target="{{ '_blank'|if(action.new_tab) }}">
+        <button
+                class="btn btn-default {{ action.classes|if(action.classes) }} type-link-button"
+                type="button"
+                {% if action.meta_data %}{{ action.meta_data|xmlattr }}{% endif %}
+                {% if additional_meta_data %}{{ additional_meta_data|xmlattr }}{% endif %}
+        >
+            {{ action.text }}
+        </button>
+    </a><br>
+{%- endmacro %}
+
+{% macro int_with_button(action, additional_meta_data=None) %}
+    <form
+            action="{{ action.url }}"
+            method="post"
+            enctype=multipart/form-data
+            class="input-group int-with-button {{ action.classes|if(action.classes) }}"
+            {% if action.meta_data %}{{ action.meta_data|xmlattr }}{% endif %}
+            {% if additional_meta_data %}{{ additional_meta_data|xmlattr }}{% endif %}
+    >
+        {{ action.form.csrf_token }}
+        <input type="number"
+               name="{{ action.form.value.name }}"
+               class="form-control"
+               placeholder="{{ action.form.value.label.text }}">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" name="{{ action.form.submit.name }}">
+                {{ action.meta_data["data-text"] }}
+            </button>
+        </span>
+    </form>
+{%- endmacro %}
+
+{% macro activate_disable_button(action, additional_meta_data) %}
+    <div
+            {% if action.meta_data %}{{ action.meta_data|xmlattr }}{% endif %}
+            {% if additional_meta_data %}{{ additional_meta_data|xmlattr }}{% endif %}
+    >
+        <form
+                action="{{ action.to_activate_url }}"
+                method="post"
+                enctype=multipart/form-data
+                class="to-activate {{ 'hidden'|if(action.active) }}"
+                {% if action.to_activate_meta_data %}{{ action.to_activate_meta_data|xmlattr }}{% endif %}
+                {{ {
+                    "data-to-activate-text": R.string.to_activate,
+                    "data-activating-text": R.string.activating,
+                }|xmlattr }}
+        >
+            {{ action.form.csrf_token }}
+            <button class="btn btn-default type-activate-disable" type="submit">
+                {{ R.string.to_activate }}
+            </button>
+        </form>
+        <form
+                action="{{ action.disable_url }}"
+                method="post"
+                enctype=multipart/form-data
+                class="disable {{ 'hidden'|if(not action.active) }}"
+                {% if action.disable_meta_data %}{{ action.disable_meta_data|xmlattr }}{% endif %}
+                {{ {
+                    "data-disable-text": R.string.disable,
+                    "data-disabling-text": R.string.disabling,
+                }|xmlattr }}
+        >
+            {{ action.form.csrf_token }}
+            <button class="btn btn-default type-activate-disable" type="submit">
+                {{ R.string.disable }}
+            </button>
+        </form>
+    </div>
+{%- endmacro %}
+
+{% macro render_all(actions, row_idx) %}
+    <div class="actions-container">
+        {% for action in actions %}
+            {% if action.type == R.id.ACTION_TYPE_BUTTON or action.type == R.id.ACTION_TYPE_BUTTON.value %}
+                {{ button(
+                    action=action,
+                    additional_meta_data={"data-row-idx": row_idx}) }}
+            {% elif action.type == R.id.ACTION_TYPE_LINK_BUTTON or action.type == R.id.ACTION_TYPE_LINK_BUTTON.value %}
+                {{ link_button(action=action) }}
+            {% elif action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON or action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON.value %}
+                {{ int_with_button(
+                    action=action,
+                    additional_meta_data={"data-row-idx": row_idx}) }}
+            {% elif action.type == R.id.ACTION_TYPE_ACTIVATE_DISABLE_BUTTON or action.type == R.id.ACTION_TYPE_INT_WITH_BUTTON.value %}
+                {{ activate_disable_button(
+                    action=action,
+                    additional_meta_data={
+                        "data-row-idx": row_idx,
+                    }) }}
+            {% endif %}
+        {% endfor %}
+    </div>
+{%- endmacro %}
