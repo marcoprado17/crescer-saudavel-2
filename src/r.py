@@ -865,6 +865,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         test_stock = 42
         test_min_available = 12
+        super_table_text_max_length = 32
 
 
 R = Resources()

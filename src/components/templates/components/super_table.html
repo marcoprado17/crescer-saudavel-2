@@ -78,7 +78,7 @@
                                 {% if col.type == R.id.COL_TYPE_IMAGE or col.type == R.id.COL_TYPE_IMAGE.value %}
                                     <img src="{{ item_data }}">
                                 {% elif col.type == R.id.COL_TYPE_TEXT or col.type == R.id.COL_TYPE_TEXT.value %}
-                                    {{ item_data }}
+                                    {{ utils.limited_text_tooltip(text=item_data, max_length=R.dimen.super_table_text_max_length) }}
                                 {% elif col.type == R.id.COL_TYPE_BOOL or col.type == R.id.COL_TYPE_BOOL.value %}
                                     <div class="bool-container {{ 'true'|if(item_data, 'false') }}">
                                         <span class="glyphicon glyphicon-ok true" aria-hidden="true"></span>
