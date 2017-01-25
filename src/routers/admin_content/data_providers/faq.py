@@ -9,10 +9,8 @@ from routers.admin_content.forms import FaqForm
 
 class AdminFaqDataProvider(object):
     def get_data(self):
-        faq_form = FaqForm()
-        faq_form.set_values(Faq.get())
         return dict(
-            faq_form=faq_form
+            faq_form=FaqForm(Faq.get())
         )
 
 admin_faq_data_provider = AdminFaqDataProvider()

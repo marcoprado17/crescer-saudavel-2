@@ -9,10 +9,8 @@ from routers.admin_content.forms import AboutUsForm
 
 class AdminAboutUsDataProvider(object):
     def get_data(self):
-        about_us_form = AboutUsForm()
-        about_us_form.set_values(AboutUs.get())
         return dict(
-            about_us_form=about_us_form
+            about_us_form=AboutUsForm(AboutUs.get())
         )
 
 admin_about_us_data_provider = AdminAboutUsDataProvider()

@@ -5,6 +5,7 @@
 # ======================================================================================================================
 from sqlalchemy import ForeignKey
 
+from proj_exceptions import InconsistentDataBaseError
 from proj_extensions import db
 from models.base import BaseModel
 from r import R
@@ -160,7 +161,8 @@ class HomeContent(BaseModel):
     @staticmethod
     def get():
         home_contents = HomeContent.query.all()
-        assert len(home_contents)
+        if len(home_contents) != 1:
+            raise InconsistentDataBaseError
         return home_contents[0]
 
     @staticmethod

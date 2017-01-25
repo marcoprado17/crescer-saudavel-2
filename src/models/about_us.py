@@ -3,6 +3,7 @@
 # ======================================================================================================================
 # Created at 16/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from proj_exceptions import InconsistentDataBaseError
 from proj_extensions import db
 from models.base import BaseModel
 
@@ -13,12 +14,12 @@ class AboutUs(BaseModel):
     @staticmethod
     def get():
         all_about_us = AboutUs.query.all()
-        assert len(all_about_us)
+        if len(all_about_us) != 1:
+            raise InconsistentDataBaseError
         return all_about_us[0]
 
     @staticmethod
-    def set_values_from_form(about_us_form):
-        about_us = AboutUs.get()
-        about_us.content = about_us_form.content.data
-        db.session.add(about_us)
-        db.session.commit()
+    def get_attrs_from_form(form):
+        return dict(
+            content = form.content.data
+        )

@@ -9,10 +9,8 @@ from routers.admin_content.forms import ContactForm
 
 class AdminContactDataProvider(object):
     def get_data(self):
-        contact_form = ContactForm()
-        contact_form.set_values(Contact.get())
         return dict(
-            contact_form=contact_form
+            contact_form=ContactForm(Contact.get())
         )
 
 

@@ -3,6 +3,7 @@
 # ======================================================================================================================
 # Created at 14/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from proj_exceptions import InconsistentDataBaseError
 from proj_extensions import db
 from models.base import BaseModel
 from r import R
@@ -32,31 +33,29 @@ class Contact(BaseModel):
     @staticmethod
     def get():
         contacts = Contact.query.all()
-        assert len(contacts)
+        if len(contacts) != 1:
+            raise InconsistentDataBaseError
         return contacts[0]
 
     @staticmethod
-    def set_values_from_form(contact_form):
-        contact = Contact.get()
+    def get_attrs_from_form(form):
+        return dict(
+            address=form.address.data,
+            tel=form.tel.data,
+            email=form.email.data,
 
-        contact.address = contact_form.address.data
-        contact.tel = contact_form.tel.data
-        contact.email = contact_form.email.data
+            facebook_active=form.facebook_active.data,
+            facebook_link=safe_string(form.facebook_link.data),
 
-        contact.facebook_active = contact_form.facebook_active.data
-        contact.facebook_link = safe_string(contact_form.facebook_link.data)
+            youtube_active=form.youtube_active.data,
+            youtube_link=safe_string(form.youtube_link.data),
 
-        contact.youtube_active = contact_form.youtube_active.data
-        contact.youtube_link = safe_string(contact_form.youtube_link.data)
+            twitter_active=form.twitter_active.data,
+            twitter_link=safe_string(form.twitter_link.data),
 
-        contact.twitter_active = contact_form.twitter_active.data
-        contact.twitter_link = safe_string(contact_form.twitter_link.data)
+            googleplus_active=form.googleplus_active.data,
+            googleplus_link=safe_string(form.googleplus_link.data),
 
-        contact.googleplus_active = contact_form.googleplus_active.data
-        contact.googleplus_link = safe_string(contact_form.googleplus_link.data)
-
-        contact.pintrest_active = contact_form.pintrest_active.data
-        contact.pintrest_link = safe_string(contact_form.pintrest_link.data)
-
-        db.session.add(contact)
-        db.session.commit()
+            pintrest_active=form.pintrest_active.data,
+            pintrest_link=safe_string(form.pintrest_link.data),
+        )

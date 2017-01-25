@@ -11,43 +11,18 @@ class AdminContentHomeDataProvider(object):
     def get_data(self):
         home_content = HomeContent.get()
 
-        carousel_1_form = CarouselForm()
-        carousel_1_form.set_values(home_content, 1)
-        carousel_2_form = CarouselForm()
-        carousel_2_form.set_values(home_content, 2)
-        carousel_3_form = CarouselForm()
-        carousel_3_form.set_values(home_content, 3)
-
-        product_section_1_form = ProductSectionForm()
-        product_section_1_form.set_values(home_content, 1)
-        product_section_2_form = ProductSectionForm()
-        product_section_2_form.set_values(home_content, 2)
-        product_section_3_form = ProductSectionForm()
-        product_section_3_form.set_values(home_content, 3)
-        product_section_4_form = ProductSectionForm()
-        product_section_4_form.set_values(home_content, 4)
-        product_section_5_form = ProductSectionForm()
-        product_section_5_form.set_values(home_content, 5)
-
-        blog_section_1_form = BlogSectionForm()
-        blog_section_1_form.set_values(home_content, 1)
-        blog_section_2_form = BlogSectionForm()
-        blog_section_2_form.set_values(home_content, 2)
-        blog_section_3_form = BlogSectionForm()
-        blog_section_3_form.set_values(home_content, 3)
-
         return dict(
-            carousel_1_form=carousel_1_form,
-            carousel_2_form=carousel_2_form,
-            carousel_3_form=carousel_3_form,
-            product_section_1_form=product_section_1_form,
-            product_section_2_form=product_section_2_form,
-            product_section_3_form=product_section_3_form,
-            product_section_4_form=product_section_4_form,
-            product_section_5_form=product_section_5_form,
-            blog_section_1_form=blog_section_1_form,
-            blog_section_2_form=blog_section_2_form,
-            blog_section_3_form=blog_section_3_form
+            carousel_1_form=CarouselForm(home_content=home_content, carousel_number=1),
+            carousel_2_form=CarouselForm(home_content=home_content, carousel_number=2),
+            carousel_3_form=CarouselForm(home_content=home_content, carousel_number=3),
+            product_section_1_form=ProductSectionForm(home_content=home_content, product_section_number=1),
+            product_section_2_form=ProductSectionForm(home_content=home_content, product_section_number=2),
+            product_section_3_form=ProductSectionForm(home_content=home_content, product_section_number=3),
+            product_section_4_form=ProductSectionForm(home_content=home_content, product_section_number=4),
+            product_section_5_form=ProductSectionForm(home_content=home_content, product_section_number=5),
+            blog_section_1_form=BlogSectionForm(home_content=home_content, blog_section_number=1),
+            blog_section_2_form=BlogSectionForm(home_content=home_content, blog_section_number=2),
+            blog_section_3_form=BlogSectionForm(home_content=home_content, blog_section_number=3)
         )
 
 admin_content_home_data_provider = AdminContentHomeDataProvider()

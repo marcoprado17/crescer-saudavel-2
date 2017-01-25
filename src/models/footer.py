@@ -3,6 +3,7 @@
 # ======================================================================================================================
 # Created at 16/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from proj_exceptions import InconsistentDataBaseError
 from proj_extensions import db
 from models.base import BaseModel
 from r import R
@@ -14,12 +15,12 @@ class Footer(BaseModel):
     @staticmethod
     def get():
         footers = Footer.query.all()
-        assert len(footers)
+        if len(footers) != 1:
+            raise InconsistentDataBaseError
         return footers[0]
 
     @staticmethod
-    def set_values_from_form(footer_form):
-        footer = Footer.get()
-        footer.lower_text = footer_form.lower_text.data
-        db.session.add(footer)
-        db.session.commit()
+    def get_attrs_from_form(form):
+        return dict(
+            lower_text=form.lower_text.data
+        )

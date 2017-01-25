@@ -9,10 +9,8 @@ from routers.admin_content.forms import FooterForm
 
 class AdminFooterDataProvider(object):
     def get_data(self):
-        footer_form = FooterForm()
-        footer_form.set_values(Footer.get())
         return dict(
-            footer_form=footer_form
+            footer_form=FooterForm(Footer.get())
         )
 
 admin_footer_data_provider = AdminFooterDataProvider()

@@ -94,9 +94,8 @@ def contact():
         return render_template("admin_content/contact.html", data=admin_contact_data_provider.get_data())
     else:
         contact_form = ContactForm()
-
         if contact_form.validate_on_submit():
-            Contact.set_values_from_form(contact_form)
+            Contact.get().update_from_form(form=contact_form)
             return "", 200
         else:
             return json.dumps(dict(errors=contact_form.errors)), 400
@@ -108,9 +107,8 @@ def about_us():
         return render_template("admin_content/about_us.html", data=admin_about_us_data_provider.get_data())
     else:
         about_us_form = AboutUsForm()
-
         if about_us_form.validate_on_submit():
-            AboutUs.set_values_from_form(about_us_form)
+            AboutUs.get().update_from_form(form=about_us_form)
             return "", 200
         else:
             return json.dumps(dict(errors=about_us_form.errors)), 400
@@ -122,9 +120,8 @@ def faq():
         return render_template("admin_content/faq.html", data=admin_faq_data_provider.get_data())
     else:
         faq_form = FaqForm()
-
         if faq_form.validate_on_submit():
-            Faq.set_values_from_form(faq_form)
+            Faq.get().update_from_form(form=faq_form)
             return "", 200
         else:
             return json.dumps(dict(errors=faq_form.errors)), 400
@@ -136,9 +133,8 @@ def footer():
         return render_template("admin_content/footer.html", data=admin_footer_data_provider.get_data())
     else:
         footer_form = FooterForm()
-
         if footer_form.validate_on_submit():
-            Footer.set_values_from_form(footer_form)
+            Footer.get().update_from_form(form=footer_form)
             return "", 200
         else:
             return json.dumps(dict(errors=footer_form.errors)), 400
