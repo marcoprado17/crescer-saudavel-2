@@ -194,19 +194,19 @@ function delay(delayTime) {
     }
 }
 
-// gulp.task("test", function(){
-//     return gulp.src([
-//         "bower_components/flipmart-v5/css/flexslider.css",
-//         "bower_components/flipmart-v5/css/font-awesome.css",
-//         "bower_components/flipmart-v5/css/jquery.bxslider.css",
-//         "bower_components/flipmart-v5/css/jquery.mobile-menu.css",
-//         "bower_components/flipmart-v5/css/owl.carousel.css",
-//         "bower_components/flipmart-v5/css/owl.theme.css",
-//         "bower_components/flipmart-v5/css/responsive.css",
-//         "bower_components/flipmart-v5/css/revslider.css",
-//         "bower_components/flipmart-v5/css/style.css"
-//     ])
-//         .pipe(concat("client_bundle.css"))
-//         .pipe(sass().on('error', sass.logError))
-//         .pipe(gulp.dest("build/static/css"));
-// });
+gulp.task("test", function(){
+    return gulp.src([
+        "bower_components/flipmart-v5/css/flexslider.css",
+        "bower_components/flipmart-v5/css/font-awesome.css",
+        "bower_components/flipmart-v5/css/jquery.bxslider.css",
+        "bower_components/flipmart-v5/css/jquery.mobile-menu.css",
+        "bower_components/flipmart-v5/css/owl.carousel.css",
+        "bower_components/flipmart-v5/css/owl.theme.css",
+        "bower_components/flipmart-v5/css/responsive.css",
+        "bower_components/flipmart-v5/css/revslider.css",
+        "bower_components/flipmart-v5/css/style.css"
+    ])
+        .pipe(concat("client_bundle.css"))
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest("build/static/css"));
+});
