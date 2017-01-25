@@ -8,6 +8,7 @@ from sqlalchemy import asc
 from sqlalchemy.orm import relationship
 from proj_extensions import db
 from models.base import BaseModel
+from proj_utils import SortMethodMap
 from r import R
 
 
@@ -16,6 +17,19 @@ class City(BaseModel):
     active = db.Column(db.Boolean, default=False, nullable=False)
     state_id = db.Column(db.Integer, ForeignKey("state.id"), nullable=False)
     state = relationship("State", back_populates="cities")
+
+    sort_method_map = SortMethodMap([
+        (R.id.SORT_METHOD_ID, R.string.id, asc("id")),
+        (R.id.SORT_METHOD_NAME, R.string.city_name, asc(name)),
+    ])
+
+    @staticmethod
+    def get_attrs_from_form(form):
+        return dict(
+            name=form.city_name.data,
+            active=form.active.data,
+            state_id=int(form.state_id.data)
+        )
 
     @staticmethod
     def get_choices(include_undefined=False, include_all=False):
@@ -29,35 +43,12 @@ class City(BaseModel):
             choices.append((str(city.id), city.name))
         return choices
 
-    @staticmethod
-    def create_from_form(add_city_form):
-        city = City(
-            name=add_city_form.city_name.data,
-            active=add_city_form.active.data,
-            state_id=int(add_city_form.state_id.data)
-        )
-        db.session.add(city)
+    def disable(self):
+        self.active = False
+        db.session.add(self)
         db.session.commit()
-        return city
 
-    @staticmethod
-    def get(city_id):
-        return City.query.filter_by(id=city_id).one_or_none()
-
-    @staticmethod
-    def update(city_id, **kw):
-        city = City.get(city_id)
-        assert city != None
-        for key, val in kw.iteritems():
-            setattr(city, key, val)
-        db.session.add(city)
-        db.session.commit()
-        return city
-
-    @staticmethod
-    def update_from_form(city, edit_city_form):
-        city.name = edit_city_form.city_name.data
-        city.active = edit_city_form.active.data
-        city.state_id = edit_city_form.state_id.data
-        db.session.add(city)
+    def to_activate(self):
+        self.active = True
+        db.session.add(self)
         db.session.commit()

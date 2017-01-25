@@ -23,40 +23,23 @@ from routers.admin_attended_cities.forms import CityFilterForm
 
 
 class AdminCitiesDataProvider:
-    def __init__(self):
-        self.sort_method_ids = [
-            R.id.SORT_METHOD_ID,
-            R.id.SORT_METHOD_NAME,
-        ]
-        self.sort_method_names = [
-            R.string.id,
-            R.string.city_name,
-        ]
-        self.sort_method_by_id = {
-            R.id.SORT_METHOD_ID: asc(City.id),
-            R.id.SORT_METHOD_NAME: asc(City.name),
-        }
-
     def get_data(self):
         active = get_boolean_url_arg(arg_name=R.string.active_arg_name, default=True)
         state_id = get_valid_model_id(model=State, arg_name=R.string.state_id_arg_name, include_zero=True, default=0)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_NAME, possible_values=self.sort_method_ids)
+                                        default=R.id.SORT_METHOD_NAME, possible_values=City.sort_method_map.ids)
 
         self.q = City.query
         self.q = self.q.filter(City.active == active)
         if state_id != 0:
             self.q = self.q.filter(City.state_id == state_id)
-        self.q = self.q.order_by(self.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(City.sort_method_map.order(sort_method_id))
 
         n_cities = self.q.count()
 
         self.per_page = current_app.config["DEFAULT_PER_PAGE"]
         self.curr_page = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=self.per_page,
                                         n_items=n_cities)
-
-        filter_form = CityFilterForm()
-        filter_form.set_values(state_id=state_id, active=active)
 
         return dict(
             n_items=n_cities,
@@ -66,12 +49,11 @@ class AdminCitiesDataProvider:
                 max_page=n_pages(per_page=self.per_page, n_items=n_cities)
             ),
             filter_data=dict(
-                filter_form=filter_form
+                filter_form=CityFilterForm(state_id=state_id, active=active)
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=self.sort_method_ids,
-                sort_method_names=self.sort_method_names
+                sort_method_map=City.sort_method_map
             ),
             table_data=self.get_table_data()
         )
@@ -115,6 +97,7 @@ class AdminCitiesDataProvider:
 
         return dict(
             id="cities-table",
+            expandable=True,
             cols=[
                 dict(
                     id="id",

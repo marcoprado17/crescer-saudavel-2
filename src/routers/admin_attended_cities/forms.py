@@ -5,7 +5,6 @@
 # ======================================================================================================================
 from flask_wtf import FlaskForm
 from wtforms import SelectField, StringField, BooleanField, SubmitField
-
 from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import Required
 from models.state import State
@@ -37,10 +36,13 @@ class AddCityForm(CityForm):
 class EditCityForm(CityForm):
     submit = SubmitField(label=R.string.save)
 
-    def set_values(self, city):
-        self.state_id.data = str(city.state_id)
-        self.city_name.data = city.name
-        self.active.data = city.active
+    def __init__(self, city=None, **kwargs):
+        super(EditCityForm, self).__init__(**kwargs)
+        if city != None:
+            self.state_id.data = str(city.state_id)
+            self.city_name.data = city.name
+            self.active.data = city.active
+
 
 class CityFilterForm(FlaskForm):
     state_id = SelectField(
@@ -52,10 +54,8 @@ class CityFilterForm(FlaskForm):
     )
     filter = SubmitField(label=R.string.filter)
 
-    def __init__(self, **kwargs):
+    def __init__(self, state_id, active, **kwargs):
         super(CityFilterForm, self).__init__(**kwargs)
         self.state_id.choices = State.get_choices(include_all=True)
-
-    def set_values(self, state_id, active):
         self.state_id.data = str(state_id)
         self.active.data = str(active)

@@ -7,10 +7,12 @@ from routers.admin_attended_cities.forms import AddCityForm
 
 
 class AdminAddCityDataProvider(object):
-    def get_data(self, add_city_form=None):
-        if add_city_form == None:
-            add_city_form = AddCityForm()
+    def get_data_when_get(self):
+        return dict(
+            add_city_form=AddCityForm()
+        )
 
+    def get_data_when_post(self, add_city_form):
         return dict(
             add_city_form=add_city_form
         )

@@ -5,7 +5,7 @@
     {{ R.string.attended_cities }}
 {% endblock %}
 {% block content %}
-    <div class="__admin_attended_cities__ __index__ container">
+    <div class="__admin_attended_cities__ __cities__ container">
         {{ utils.page_header(R.string.attended_cities) }}
         {% with data=data %}
             {% include "components/super_table.html" %}
