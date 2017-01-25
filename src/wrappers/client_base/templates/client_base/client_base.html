@@ -5,6 +5,8 @@
 {% block body %}
     <div class="__client_base__">
         {% include "components/client_header.html" %}
+        {% block above_content %}
+        {% endblock %}
         {% block content %}
         {% endblock %}
         {% include "components/client_footer.html" %}

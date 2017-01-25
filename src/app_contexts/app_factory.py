@@ -153,6 +153,7 @@ def create_app():
     from components.data_providers import admin_navbar_data_provider
     from components.data_providers.client_footer import client_footer_data_provider
     from components.data_providers.client_header import client_header_data_provider
+    from components.data_providers.client_page_heading import client_page_heading_data_provider
 
     @app.context_processor
     def _():
@@ -162,6 +163,7 @@ def create_app():
             get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data(),
             get_components_client_header_data=lambda: client_header_data_provider.get_data(),
             get_components_client_footer_data=lambda: client_footer_data_provider.get_data(),
+            get_components_client_page_heading_data=lambda: client_page_heading_data_provider.get_data(),
         )
 
     # ==================================================================================================================
