@@ -4,12 +4,15 @@
 {% endblock %}
 {% block body %}
     <div class="__client_base__">
-        {% include "components/client_header.html" %}
-        {% block above_content %}
-        {% endblock %}
-        {% block content %}
-        {% endblock %}
-        {% include "components/client_footer.html" %}
+        <div id="page">
+            {% include "components/client_header.html" %}
+            {% block above_content %}
+            {% endblock %}
+            {% block content %}
+            {% endblock %}
+            {% include "components/client_footer.html" %}
+        </div>
+        {% include "components/client_mobile_menu.html" %}
     </div>
 {% endblock %}
 {% block js_bundle %}

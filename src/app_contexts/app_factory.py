@@ -164,6 +164,7 @@ def create_app():
             get_components_client_header_data=lambda: client_header_data_provider.get_data(),
             get_components_client_footer_data=lambda: client_footer_data_provider.get_data(),
             get_components_client_page_heading_data=lambda: client_page_heading_data_provider.get_data(),
+            get_components_client_mobile_menu_data=lambda: client_header_data_provider.get_menu_data()
         )
 
     # ==================================================================================================================
