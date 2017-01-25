@@ -35,9 +35,6 @@ class AdminPostsDataProvider(object):
         self.curr_page = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=self.per_page,
                                         n_items=n_posts)
 
-        filter_form = BlogPostFilterForm()
-        filter_form.set_values(active=active)
-
         return dict(
             n_items=n_posts,
             paginator_data=paginator_data_provider.get_data(
@@ -46,7 +43,7 @@ class AdminPostsDataProvider(object):
                 max_page=n_pages(per_page=self.per_page, n_items=n_posts)
             ),
             filter_data=dict(
-                filter_form=filter_form
+                filter_form=BlogPostFilterForm(active=active)
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,

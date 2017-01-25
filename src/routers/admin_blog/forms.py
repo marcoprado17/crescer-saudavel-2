@@ -83,5 +83,6 @@ class BlogPostFilterForm(FlaskForm):
     )
     filter = SubmitField(label=R.string.filter)
 
-    def set_values(self, active):
+    def __init__(self, active, **kwargs):
+        super(BlogPostFilterForm, self).__init__(**kwargs)
         self.active.data = str(active)
