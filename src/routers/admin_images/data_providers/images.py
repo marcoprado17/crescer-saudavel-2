@@ -16,6 +16,13 @@ from r import R
 
 
 class AdminImagesDataProvider(object):
+    default_images = [
+        "blog_post_thumbnail_default.jpg",
+        "carousel_default.jpg",
+        "post_exemplo_abobora.jpg",
+        "product_default.jpg"
+    ]
+
     def get_data(self):
         self.images_name = os.listdir(current_app.config["UPLOADED_IMAGES_FOLDER_FULL_PATH"])
         self.images_name.sort()
@@ -48,6 +55,11 @@ class AdminImagesDataProvider(object):
                         meta_data={
                             "image-name": image_name
                         }
+                    ) if not image_name in self.default_images else
+                    dict(
+                        type=R.id.ACTION_TYPE_BUTTON,
+                        text=R.string.can_not_be_removed,
+                        classes="disabled"
                     )
                 ]
             ])

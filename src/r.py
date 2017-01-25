@@ -13,6 +13,7 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        can_not_be_removed = "Não pode ser removida"
         test_price = "1,11"
         test1 = "test1"
         footer_lower_text = "Crescer saudável - CNPJ 01.517.384/0001-87 -  © 2016 - 2017 "
@@ -72,7 +73,7 @@ class Resources(object):
         image_sent_failure = "Ocorreu um erro no envio da imagem %(image_name)s."
 
         find_image = "Procurar imagem"
-        upload_image_auxiliar_text = "Os formatos de imagem aceitos são: " + stringfy_list(allowed_image_extensions)
+        upload_image_auxiliar_text = "Os formatos de imagem aceitos são: " + stringfy_list(allowed_image_extensions) + "."
 
         images_table_id = "images-table"
         products_table_id = "products-table"
@@ -769,6 +770,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def product_stock_insufficient_to_send_order(limiting_product):
             return 'O estoque do produto #%s - "%s" é insuficiente para o pedido em questão. Por favor, atualize o estoque deste produto.' % (limiting_product.id, limiting_product.title)
+
+        @staticmethod
+        def prohibited_image_name(image_name):
+            return 'O nome de imagem "%s" não é permitido. Por favor, troque o nome da imagem.' % image_name
 
     # noinspection PyPep8Naming
     @unique

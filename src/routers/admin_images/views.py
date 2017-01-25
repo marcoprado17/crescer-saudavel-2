@@ -7,7 +7,6 @@ import os
 
 from flask import render_template, request, flash, current_app, redirect, url_for
 from werkzeug.utils import secure_filename
-
 from proj_decorators import valid_form
 from flask_bombril import R as bombril_R
 from proj_forms import SubmitForm
@@ -18,13 +17,16 @@ from routers.admin_images.forms import UploadImageForm
 
 
 @admin_images_blueprint.route("/")
-def index():
-    return render_template("admin_images/index.html", data=admin_images_data_provider.get_data())
+def images():
+    return render_template("admin_images/images.html", data=admin_images_data_provider.get_data())
 
 
 @admin_images_blueprint.route("/remover-imagem/<string:image_name>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
-def remove_image(image_name):
+def remove_image(image_name, form):
+    if image_name in admin_images_data_provider.default_images:
+        return "", 403
+
     file_path = os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], image_name)
 
     if os.path.exists(file_path):
@@ -39,7 +41,6 @@ def add_image():
         return render_template("admin_images/add_image.html", data=admin_add_image_data_provider.get_data())
     else:
         upload_image_form = UploadImageForm()
-
         if upload_image_form.validate_on_submit():
             image = request.files[upload_image_form.image.name]
             filename = secure_filename(image.filename)

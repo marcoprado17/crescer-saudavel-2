@@ -5,10 +5,11 @@
 # ======================================================================================================================
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
-
+from flask_bombril.form_validators.prohibited_file_name import ProhibitedFileName
 from flask_bombril.form_validators.allowed_file_format import AllowedFileFormat
 from flask_bombril.form_validators.has_file_part import HasFilePart
 from r import R
+from routers.admin_images.data_providers.images import AdminImagesDataProvider
 
 
 class UploadImageForm(FlaskForm):
@@ -18,6 +19,7 @@ class UploadImageForm(FlaskForm):
             input_file_name="image",
             allowed_extensions=R.string.allowed_image_extensions,
             message=R.string.invalid_format(R.string.allowed_image_extensions)
-        )
+        ),
+        ProhibitedFileName(prohibited_names=AdminImagesDataProvider.default_images, message=R.string.prohibited_image_name)
     ])
     submit = SubmitField(label=R.string.upload)

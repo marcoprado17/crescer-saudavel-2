@@ -27,10 +27,6 @@ class Resources(object):
         and_word = "e"
         comma = ","
 
-        @staticmethod
-        def get_message_category(type, level):
-            return type + Resources.string.category_separator + level
-
         # validators
         required_field = "Campo obrigatório."
         invalid_email_format = "Formato de email inválido."
@@ -60,6 +56,15 @@ class Resources(object):
         invalid_markdown_format = "Formatação Markdown inválida."
 
         find_file = "Procurar arquivo"
+        prohibited_value = "Valor não permitido. Pro favor, entre com outro valor."
+
+        @staticmethod
+        def get_message_category(type, level):
+            return type + Resources.string.category_separator + level
+
+        @staticmethod
+        def func_test_message(x):
+            return "Test %s" % x
 
     # noinspection PyPep8Naming
     @unique
