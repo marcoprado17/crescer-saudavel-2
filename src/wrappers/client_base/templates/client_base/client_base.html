@@ -1,0 +1,18 @@
+{% extends "base/base.html" %}
+{% block css_bundle %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/client_bundle.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="__client_base__">
+{#        TODO:  Include top shared components#}
+        {% include "components/client_header.html" %}
+        <p>Shared top</p>
+        {% block content %}
+        {% endblock %}
+{#        TODO:  Include bottom shared components#}
+        <p>Shared bottom</p>
+    </div>
+{% endblock %}
+{% block js_bundle %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/client_bundle.js') }}"></script>
+{% endblock %}

@@ -5,6 +5,8 @@
 # ======================================================================================================================
 import sys
 
+from components.data_providers.client_header import client_header_data_provider
+
 if sys.version_info.major < 3:
     reload(sys)
 sys.setdefaultencoding("utf8")
@@ -62,7 +64,7 @@ def create_app():
     from components import components_blueprint
     app.register_blueprint(components_blueprint, url_prefix="/components")
     #
-    # Routers
+    # Admin Routers
     #
     from routers.admin_attended_cities import admin_attended_cities_blueprint
     app.register_blueprint(admin_attended_cities_blueprint, url_prefix="/admin/cidades-atendidas")
@@ -80,11 +82,18 @@ def create_app():
     app.register_blueprint(admin_orders_blueprint, url_prefix="/admin/pedidos")
     from routers.admin_products import admin_products_blueprint
     app.register_blueprint(admin_products_blueprint, url_prefix="/admin/produtos")
+    from routers.admin_utils import admin_utils_blueprint
+    app.register_blueprint(admin_utils_blueprint, url_prefix="/admin/utils")
+    #
+    # Client Routers
+    #
+    from routers.client_about_us import client_about_us_blueprint
+    app.register_blueprint(client_about_us_blueprint, url_prefix="/sobre-nos")
+
     if app.config["DEBUG"]:
         from routers.debug import debug_blueprint
         app.register_blueprint(debug_blueprint, url_prefix="/debug")
-    from routers.admin_utils import admin_utils_blueprint
-    app.register_blueprint(admin_utils_blueprint, url_prefix="/admin/utils")
+
     #
     # Wrappers
     #
@@ -92,6 +101,8 @@ def create_app():
     app.register_blueprint(base_blueprint, url_prefix="/base")
     from wrappers.admin_base import admin_base_blueprint
     app.register_blueprint(admin_base_blueprint, url_prefix="/admin-base")
+    from wrappers.client_base import client_base_blueprint
+    app.register_blueprint(client_base_blueprint, url_prefix="/client-base")
     #
     # Macros
     #
@@ -148,7 +159,8 @@ def create_app():
         return dict(
             R=R,
             bombril_R=bombril_R,
-            get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data()
+            get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data(),
+            get_components_header_data=lambda: client_header_data_provider.get_data()
         )
 
     # ==================================================================================================================

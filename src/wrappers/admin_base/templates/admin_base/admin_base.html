@@ -2,10 +2,16 @@
 {% block title %}
     {{ R.string.admin }} | {% block subtitle %}{% endblock %}
 {% endblock %}
+{% block css_bundle %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/admin_bundle.css') }}">
+{% endblock %}
 {% block body %}
     <div class="__admin_base__">
         {% include "components/admin_navbar.html" %}
         {% block content %}
         {% endblock %}
     </div>
+{% endblock %}
+{% block js_bundle %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/admin_bundle.js') }}"></script>
 {% endblock %}

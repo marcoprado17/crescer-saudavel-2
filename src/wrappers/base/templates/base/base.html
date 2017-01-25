@@ -12,12 +12,14 @@
     <link rel="icon" href="#" type="image/x-icon">
     <link rel="shortcut icon" href="#" type="image/x-icon">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bundle.css') }}">
+    {% block css_bundle %}
+    {% endblock %}
 </head>
 <body class="__base__">
     {% block body %}
     {% endblock %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    {% block js_bundle %}
+    {% endblock %}
     {% block script %}
     {% endblock %}
 </body>
