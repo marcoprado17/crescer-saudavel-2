@@ -88,6 +88,7 @@ gulp.task("make_admin_js_bundle", function () {
         "src/front_bombril/utils.js",
         "src/wrappers/base/**/*.js",
         "src/wrappers/admin_base/**/*.js",
+        "src/components/**/*.js",
         "src/routers/admin_attended_cities/**/*.js",
         "src/routers/admin_blog/**/*.js",
         "src/routers/admin_clients/**/*.js",

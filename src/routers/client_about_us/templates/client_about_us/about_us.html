@@ -6,7 +6,19 @@
     {% include "components/client_page_heading.html" %}
 {% endblock %}
 {% block content %}
-<div class="__client_about_us__ __about_us__">
-    <p>About us page</p>
-</div>
+    <div class="__client_about_us__ __about_us__">
+        <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">
+            <div class="main container">
+                <div class="std">
+                    <div class="wrapper_bl" style="margin-top: 1px;">
+                        <div class="form_background">
+                            <div class="admin-content-container">
+                                {{ data.content|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

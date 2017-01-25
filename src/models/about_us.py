@@ -6,10 +6,11 @@
 from proj_exceptions import InconsistentDataBaseError
 from proj_extensions import db
 from models.base import BaseModel
+from proj_utils import parse_markdown
 
 
 class AboutUs(BaseModel):
-    content = db.Column(db.UnicodeText)
+    content = db.Column(db.UnicodeText, default="")
 
     @staticmethod
     def get():
@@ -21,5 +22,5 @@ class AboutUs(BaseModel):
     @staticmethod
     def get_attrs_from_form(form):
         return dict(
-            content = form.content.data
+            content = parse_markdown(form.content.data)
         )
