@@ -87,6 +87,8 @@ def create_app():
     #
     from routers.client_about_us import client_about_us_blueprint
     app.register_blueprint(client_about_us_blueprint, url_prefix="/sobre-nos")
+    from routers.client_faq import client_faq_blueprint
+    app.register_blueprint(client_faq_blueprint, url_prefix="/faq")
 
     if app.config["DEBUG"]:
         from routers.debug import debug_blueprint

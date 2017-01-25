@@ -22,5 +22,5 @@ class AboutUs(BaseModel):
     @staticmethod
     def get_attrs_from_form(form):
         return dict(
-            content = parse_markdown(form.content.data)
+            content=parse_markdown(form.content.data)
         )
