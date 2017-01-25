@@ -23,11 +23,11 @@ class AdminPostsDataProvider(object):
     def get_data(self):
         active = get_boolean_url_arg(arg_name=R.string.subcategory_active_arg_name, default=True)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_NEWEST, possible_values=BlogPost.sort_method_ids)
+                                        default=R.id.SORT_METHOD_NEWEST, possible_values=BlogPost.sort_method_map.ids)
 
         self.q = BlogPost.query
         self.q = self.q.filter(BlogPost.active == active)
-        self.q = self.q.order_by(BlogPost.sort_method_by_id[sort_method_id])
+        self.q = self.q.order_by(BlogPost.sort_method_map.order(sort_method_id))
 
         n_posts = self.q.count()
 
@@ -50,8 +50,7 @@ class AdminPostsDataProvider(object):
             ),
             sort_methods=super_table_data_provider.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_ids=BlogPost.sort_method_ids,
-                sort_method_names=BlogPost.sort_method_names
+                sort_method_map=BlogPost.sort_method_map
             ),
             table_data=self.get_table_data()
         )

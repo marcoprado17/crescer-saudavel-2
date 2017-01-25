@@ -8,10 +8,8 @@ from routers.admin_blog.forms import EditBlogPostForm
 
 class EditPostDataProvider(object):
     def get_data_when_get(self, blog_post):
-        edit_post_form = EditBlogPostForm()
-        edit_post_form.set_values(blog_post=blog_post)
         return dict(
-            edit_post_form=edit_post_form
+            edit_post_form=EditBlogPostForm(blog_post=blog_post)
         )
 
     def get_data_when_post(self, edit_post_form):

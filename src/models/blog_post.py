@@ -8,6 +8,7 @@ from sqlalchemy import desc
 
 from proj_extensions import db
 from models.base import BaseModel
+from proj_utils import SortMethodMap
 from r import R
 
 
@@ -19,24 +20,12 @@ class BlogPost(BaseModel):
     summary = db.Column(db.UnicodeText, nullable=False)
     content = db.Column(db.UnicodeText, nullable=False)
 
-    sort_method_ids = [
-        R.id.SORT_METHOD_ID,
-        R.id.SORT_METHOD_TITLE,
-        R.id.SORT_METHOD_NEWEST,
-        R.id.SORT_METHOD_OLDER
-    ]
-    sort_method_names = [
-        R.string.id,
-        R.string.title,
-        R.string.newest,
-        R.string.older,
-    ]
-    sort_method_by_id = {
-        R.id.SORT_METHOD_ID: asc(BaseModel.id),
-        R.id.SORT_METHOD_TITLE: asc(title),
-        R.id.SORT_METHOD_NEWEST: desc(datetime),
-        R.id.SORT_METHOD_OLDER: asc(datetime),
-    }
+    sort_method_map = SortMethodMap([
+        (R.id.SORT_METHOD_ID, R.string.id, asc("id")),
+        (R.id.SORT_METHOD_TITLE, R.string.title, asc(title)),
+        (R.id.SORT_METHOD_NEWEST, R.string.newest, desc(datetime)),
+        (R.id.SORT_METHOD_OLDER, R.string.older, asc(datetime)),
+    ])
 
     @staticmethod
     def get_choices(include_none=False):
@@ -50,46 +39,25 @@ class BlogPost(BaseModel):
         return blog_post_choices
 
     @staticmethod
-    def get_attrs_from_form(blog_post_form):
+    def get_attrs_from_form(form):
         return dict(
-            active=blog_post_form.active.data,
-            datetime=blog_post_form.datetime.data,
-            title = blog_post_form.title.data,
-            thumbnail = blog_post_form.thumbnail.data,
-            summary = blog_post_form.summary.data,
-            content = blog_post_form.content.data
+            active=form.active.data,
+            datetime=form.datetime.data,
+            title = form.title.data,
+            thumbnail = form.thumbnail.data,
+            summary = form.summary.data,
+            content = form.content.data
         )
-
-    @staticmethod
-    def create_from_form(blog_post_form):
-        blog_post = BlogPost(
-            **BlogPost.get_attrs_from_form(blog_post_form)
-        )
-        db.session.add(blog_post)
-        db.session.commit()
-        return blog_post
-
-    @staticmethod
-    def update_from_form(blog_post, blog_post_form):
-        attrs_dict = BlogPost.get_attrs_from_form(blog_post_form)
-        for key, val in attrs_dict.iteritems():
-            setattr(blog_post, key, val)
-        db.session.add(blog_post)
-        db.session.commit()
 
     def get_formatted_datetime(self):
         return self.datetime.strftime(R.string.default_datetime_format)
 
-    @staticmethod
-    def get(blog_post_id):
-        return BlogPost.query.filter_by(id=blog_post_id).one_or_none()
-
-    @staticmethod
-    def update(blog_post_id, **kw):
-        blog_post = BlogPost.get(blog_post_id)
-        assert blog_post != None
-        for key, val in kw.iteritems():
-            setattr(blog_post, key, val)
-        db.session.add(blog_post)
+    def disable(self):
+        self.active = False
+        db.session.add(self)
         db.session.commit()
-        return blog_post
+
+    def to_activate(self):
+        self.active = True
+        db.session.add(self)
+        db.session.commit()

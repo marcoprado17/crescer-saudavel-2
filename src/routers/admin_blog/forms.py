@@ -65,13 +65,15 @@ class AddBlogPostForm(BlogPostForm):
 class EditBlogPostForm(BlogPostForm):
     submit = SubmitField(label=R.string.save)
 
-    def set_values(self, blog_post):
-        self.active.data = blog_post.active
-        self.datetime.data = blog_post.datetime
-        self.title.data = blog_post.title
-        self.thumbnail.data = blog_post.thumbnail
-        self.summary.data = blog_post.summary
-        self.content.data = blog_post.content
+    def __init__(self, blog_post=None, **kwargs):
+        super(EditBlogPostForm, self).__init__(**kwargs)
+        if blog_post != None:
+            self.active.data = blog_post.active
+            self.datetime.data = blog_post.datetime
+            self.title.data = blog_post.title
+            self.thumbnail.data = blog_post.thumbnail
+            self.summary.data = blog_post.summary
+            self.content.data = blog_post.content
 
 
 class BlogPostFilterForm(FlaskForm):

@@ -7,12 +7,15 @@ from routers.admin_blog.forms import AddBlogPostForm
 
 
 class AddBlogPostDataProvider(object):
-    def get_data(self, add_blog_post_form=None):
-        if not add_blog_post_form:
+    def get_data_when_get(self):
+        return dict(
             add_blog_post_form = AddBlogPostForm()
+        )
 
+    def get_data_when_post(self, add_blog_post_form):
         return dict(
             add_blog_post_form = add_blog_post_form
         )
+
 
 admin_add_blog_post_data_provider = AddBlogPostDataProvider()

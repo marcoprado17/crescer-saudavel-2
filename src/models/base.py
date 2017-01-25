@@ -22,13 +22,6 @@ class BaseModel(db.Model):
         db.session.commit()
         return model_elem
 
-    def update_from_form(self, form):
-        attrs_dict = self.__class__.get_attrs_from_form(form)
-        for key, val in attrs_dict.iteritems():
-            setattr(self, key, val)
-        db.session.add(self)
-        db.session.commit()
-
     @staticmethod
     def get_attrs_from_form(form):
         raise NotImplementedError
@@ -48,3 +41,10 @@ class BaseModel(db.Model):
     @classmethod
     def get(cls, id):
         return cls.query.filter_by(id=id).one_or_none()
+
+    def update_from_form(self, form):
+        attrs_dict = self.__class__.get_attrs_from_form(form)
+        for key, val in attrs_dict.iteritems():
+            setattr(self, key, val)
+        db.session.add(self)
+        db.session.commit()
