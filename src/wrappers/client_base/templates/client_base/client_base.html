@@ -4,13 +4,10 @@
 {% endblock %}
 {% block body %}
     <div class="__client_base__">
-{#        TODO:  Include top shared components#}
         {% include "components/client_header.html" %}
-        <p>Shared top</p>
         {% block content %}
         {% endblock %}
-{#        TODO:  Include bottom shared components#}
-        <p>Shared bottom</p>
+        {% include "components/client_footer.html" %}
     </div>
 {% endblock %}
 {% block js_bundle %}
