@@ -63,6 +63,7 @@ class Resources(object):
         attended_cities = "Cidades atendidas"
         add_new_city = "Adicionar nova cidade"
         cities_table = "Tabela de cidades"
+        order_space_at_end = "Pedido "
 
         # Admin image
         no_file_selected = "Nenhum arquivo foi selecionado."

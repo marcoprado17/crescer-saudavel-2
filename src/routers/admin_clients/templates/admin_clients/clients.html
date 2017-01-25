@@ -23,7 +23,8 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h3 class="panel-title">
-                                                {{ R.string.order_panel_title(order.id) }}
+{#                                                {{ R.string.order_panel_title(order.id) }}#}
+                                                {{ R.string.order_space_at_end }}{{ utils.min_uuid(order.uuid) }}
                                                 <span class="date">
                                                     {{ R.string.get_formatted_date(order.paid_datetime) }}
                                                 </span>
