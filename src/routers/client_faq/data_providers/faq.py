@@ -9,7 +9,7 @@ from models.faq import Faq
 class ClientFaqDataProvider(object):
     def get_data(self):
         return dict(
-            content=Faq.get().content
+            content=Faq.get().content_html
         )
 
 client_faq_data_provider = ClientFaqDataProvider()

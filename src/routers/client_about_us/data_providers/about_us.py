@@ -9,7 +9,7 @@ from models.about_us import AboutUs
 class ClientAboutUsDataProvider(object):
     def get_data(self):
         return dict(
-            content=AboutUs.get().content
+            content=AboutUs.get().content_html
         )
 
 client_about_us_data_provider = ClientAboutUsDataProvider()

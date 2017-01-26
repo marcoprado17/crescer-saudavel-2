@@ -375,7 +375,7 @@ class AboutUsForm(FlaskForm):
         super(AboutUsForm, self).__init__(**kwargs)
 
         if about_us != None:
-            self.content.data = about_us.content
+            self.content.data = about_us.content_markdown
 
 
 class FaqForm(FlaskForm):
@@ -391,7 +391,7 @@ class FaqForm(FlaskForm):
         super(FaqForm, self).__init__(**kwargs)
 
         if faq != None:
-            self.content.data = faq.content
+            self.content.data = faq.content_markdown
 
 
 class FooterForm(FlaskForm):

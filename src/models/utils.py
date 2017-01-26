@@ -364,7 +364,7 @@ def get_random_phrase(word_size_interval, words_interval):
             phrase += get_random_string(random.choice(range(*word_size_interval)))
             if i != last_idx:
                 phrase += " "
-    return phrase
+    return phrase.decode('utf-8')
 
 
 def get_random_string(size):
