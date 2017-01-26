@@ -87,8 +87,23 @@ def create_app():
     #
     from routers.client_about_us import client_about_us_blueprint
     app.register_blueprint(client_about_us_blueprint, url_prefix="/sobre-nos")
+    from routers.client_account import client_account_blueprint
+    app.register_blueprint(client_account_blueprint, url_prefix="/minha-conta")
+    from routers.client_blog import client_blog_blueprint
+    app.register_blueprint(client_blog_blueprint, url_prefix="/blog")
+    from routers.client_cart import client_cart_blueprint
+    app.register_blueprint(client_cart_blueprint, url_prefix="/carrinho")
+    from routers.client_checkout import client_checkout_blueprint
+    app.register_blueprint(client_checkout_blueprint, url_prefix="/finalizacao-de-compra")
     from routers.client_faq import client_faq_blueprint
     app.register_blueprint(client_faq_blueprint, url_prefix="/faq")
+    from routers.client_home import client_home_blueprint
+    app.register_blueprint(client_home_blueprint, url_prefix="/home")
+    from routers.client_products import client_products_blueprint
+    app.register_blueprint(client_products_blueprint, url_prefix="/produtos")
+    from routers.client_user_management import client_user_management_blueprint
+    app.register_blueprint(client_user_management_blueprint, url_prefix="/conta")
+
 
     if app.config["DEBUG"]:
         from routers.debug import debug_blueprint
