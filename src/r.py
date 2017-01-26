@@ -670,10 +670,6 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
                 return "Detalhes do cliente"
 
         @staticmethod
-        def order_panel_title(order_id):
-            return "Pedido #" + str(order_id)
-
-        @staticmethod
         def get_formatted_date(paid_datetime):
             return str(paid_datetime)[0:10]
 

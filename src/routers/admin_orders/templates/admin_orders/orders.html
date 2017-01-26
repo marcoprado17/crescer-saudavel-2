@@ -12,7 +12,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">{{ R.string.order_details_modal_title(order.id) }}</h4>
+                            <h4 class="modal-title">{{ R.string.order_space_at_end }}{{ utils.min_uuid(order.uuid) }}</h4>
                         </div>
                         <div class="modal-body example">
                             {% with client_form=order.client.get_form(include_undefined_in_choices=True), readonly=True %}
@@ -20,7 +20,7 @@
                             {% endwith %}
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">{{ R.string.products_of_order }}</h3>
+                                    <h3 class="panel-title">{{ R.string.products_of_order }}{{ utils.min_uuid(order.uuid) }}</h3>
                                 </div>
                                 <div class="panel-body">
                                     {% with data=order.products_table_data %}
