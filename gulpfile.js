@@ -135,7 +135,7 @@ gulp.task("build", function (callback) {
     runSequence(
         "delete_old_build",
         ["copy_html_files_to_build_dir", "copy_py_files_to_build_dir", "make_css_bundles", "make_js_bundles", "copy_bootstrap_fonts_to_build_dir", "copy_flipmart_fonts_to_build_dir"],
-        ["minify_css_bundle", "minify_js_bundle", "create_imgs_dir"],
+        ["minify_admin_css_bundle", "minify_admin_js_bundle", "minify_client_css_bundle", "minify_client_js_bundle", "create_imgs_dir"],
         ["append_sys_path_to_build_init"],
         callback);
 });
@@ -178,8 +178,8 @@ gulp.task("copy_flipmart_fonts_to_build_dir", function () {
         .pipe(gulp.dest("build/static/fonts"));
 });
 
-gulp.task("minify_css_bundle", function () {
-    return gulp.src("build/static/css/bundle.css")
+gulp.task("minify_admin_css_bundle", function () {
+    return gulp.src("build/static/css/admin_bundle.css")
         .pipe(cleanCSS({compatibility: "ie8"}))
         .pipe(rename({
             suffix: ".min"
@@ -187,8 +187,26 @@ gulp.task("minify_css_bundle", function () {
         .pipe(gulp.dest("build/static/css"));
 });
 
-gulp.task("minify_js_bundle", function () {
-    return gulp.src("build/static/js/bundle.js")
+gulp.task("minify_client_css_bundle", function () {
+    return gulp.src("build/static/css/client_bundle.css")
+        .pipe(cleanCSS({compatibility: "ie8"}))
+        .pipe(rename({
+            suffix: ".min"
+        }))
+        .pipe(gulp.dest("build/static/css"));
+});
+
+gulp.task("minify_admin_js_bundle", function () {
+    return gulp.src("build/static/js/admin_bundle.js")
+        .pipe(uglify())
+        .pipe(rename({
+            suffix: ".min"
+        }))
+        .pipe(gulp.dest("build/static/js"));
+});
+
+gulp.task("minify_client_js_bundle", function () {
+    return gulp.src("build/static/js/client_bundle.js")
         .pipe(uglify())
         .pipe(rename({
             suffix: ".min"
