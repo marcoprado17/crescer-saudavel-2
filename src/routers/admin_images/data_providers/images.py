@@ -16,11 +16,21 @@ from r import R
 
 
 class AdminImagesDataProvider(object):
-    default_images = [
+    fixed_images = [
         "blog_post_thumbnail_default.jpg",
         "carousel_default.jpg",
         "post_exemplo_abobora.jpg",
-        "product_default.jpg"
+        "product_default.jpg",
+        "payment_master_card.png",
+        "payment_visa.png",
+        "search.png",
+        "search_icon.png",
+        "to_top_arrow.png"
+    ]
+
+    irremovable_images = [
+        "logo.png",
+        "mini_logo.png"
     ]
 
     def get_data(self):
@@ -45,23 +55,7 @@ class AdminImagesDataProvider(object):
             rows.append([
                 url_for("static", filename=(current_app.config["UPLOADED_IMAGES_FOLDER"] + "/" + image_name)),
                 image_name,
-                [
-                    dict(
-                        type=R.id.ACTION_TYPE_BUTTON,
-                        text=R.string.remove,
-                        form=SubmitForm(),
-                        url=url_for("admin_images.remove_image", image_name=image_name),
-                        classes="remove",
-                        meta_data={
-                            "image-name": image_name
-                        }
-                    ) if not image_name in self.default_images else
-                    dict(
-                        type=R.id.ACTION_TYPE_BUTTON,
-                        text=R.string.can_not_be_removed,
-                        classes="disabled"
-                    )
-                ]
+                [self.get_action(image_name)]
             ])
 
         return dict(
@@ -83,6 +77,33 @@ class AdminImagesDataProvider(object):
             ],
             rows=rows
         )
+
+    def get_action(self, image_name):
+        if image_name in self.fixed_images:
+            return dict(
+                type=R.id.ACTION_TYPE_BUTTON,
+                text=R.string.fixed,
+                classes="disabled",
+                tooltip=R.string.fixed_images_tooltip
+            )
+        elif image_name in self.irremovable_images:
+            return dict(
+                type=R.id.ACTION_TYPE_BUTTON,
+                text=R.string.irremovable,
+                classes="disabled",
+                tooltip=R.string.irremovable_images_tooltip
+            )
+        else:
+            return dict(
+                type=R.id.ACTION_TYPE_BUTTON,
+                text=R.string.remove,
+                form=SubmitForm(),
+                url=url_for("admin_images.remove_image", image_name=image_name),
+                classes="remove",
+                meta_data={
+                    "image-name": image_name
+                }
+            )
 
 
 admin_images_data_provider = AdminImagesDataProvider()

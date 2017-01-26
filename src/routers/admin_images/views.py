@@ -24,7 +24,7 @@ def images():
 @admin_images_blueprint.route("/remover-imagem/<string:image_name>", methods=["POST"])
 @valid_form(FormClass=SubmitForm)
 def remove_image(image_name, form):
-    if image_name in admin_images_data_provider.default_images:
+    if (image_name in admin_images_data_provider.fixed_images) or (image_name in admin_images_data_provider.irremovable_images):
         return "", 403
 
     file_path = os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], image_name)

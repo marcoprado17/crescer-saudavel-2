@@ -20,6 +20,6 @@ class UploadImageForm(FlaskForm):
             allowed_extensions=R.string.allowed_image_extensions,
             message=R.string.invalid_format(R.string.allowed_image_extensions)
         ),
-        ProhibitedFileName(prohibited_names=AdminImagesDataProvider.default_images, message=R.string.prohibited_image_name)
+        ProhibitedFileName(prohibited_names=AdminImagesDataProvider.fixed_images, message=R.string.prohibited_image_name)
     ])
     submit = SubmitField(label=R.string.upload)

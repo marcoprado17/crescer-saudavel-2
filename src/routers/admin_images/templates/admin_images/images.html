@@ -13,6 +13,8 @@
 {% endblock %}
 {% block script %}
     <script>
+        initTooltips();
+
         $("form.remove").each(function(){
             var form = $(this);
             var button = form.find("button");

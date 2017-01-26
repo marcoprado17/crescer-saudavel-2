@@ -4,15 +4,14 @@
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
-
 from enum import Enum, unique
-
 from flask_bombril.utils import stringfy_list
 
 
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        fixed = "Fixa"
         can_not_be_removed = "Não pode ser removida"
         test_price = "1,11"
         test1 = "test1"
@@ -23,6 +22,9 @@ class Resources(object):
         thumbnail_tooltip = "Imagem principal do post em questão"
         tabs = "Abas"
         admin_welcome_message = "Seja bem vindo admin!"
+        fixed_images_tooltip = "Imagens fixas não podem ser removidas e nem atualizadas."
+        irremovable = "Irremovível"
+        irremovable_images_tooltip = "Imagens irremovíveis não podem ser removidas, mas podem ser atualizadas ao se adicionar uma nova imagem com o mesmo nome."
 
         lowest_reserved = "Menor nº de unid. reservadas"
         higher_reserved = "Maior nº de unid. reservadas"
