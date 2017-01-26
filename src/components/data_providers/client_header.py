@@ -3,7 +3,12 @@
 # ======================================================================================================================
 # Created at 25/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from pprint import pprint
+
 from flask import url_for
+
+from models.product_category import ProductCategory
+from r import R
 
 
 class ClientHeaderDataProvider(object):
@@ -37,76 +42,37 @@ class ClientHeaderDataProvider(object):
     def get_menu_data(self):
         return [
             dict(
-                name="Produtos",
-                href="#",
-                children=[
-                    dict(
-                        name="Frutas",
-                        href="#",
-                    ),
-                    dict(
-                        name="Sopa creme",
-                        href="#",
-                    ),
-                    dict(
-                        name="Sopa com pedaços",
-                        href="#",
-                    ),
-                    dict(
-                        name="Linha Single",
-                        href="#",
-                        children=[
-                            dict(
-                                name="Sobremesas",
-                                href="#",
-                            ),
-                        ]
-                    ),
-                    dict(
-                        name="Linha Emporinho",
-                        href="#",
-                        children=[
-                            dict(
-                                name="Risotos",
-                                href="#",
-                            ),
-                            dict(
-                                name="Massas",
-                                href="#",
-                            ),
-                            dict(
-                                name="Escondidinhos",
-                                href="#",
-                            ),
-                            dict(
-                                name="Arroz",
-                                href="#",
-                            ),
-                            dict(
-                                name="Legumes",
-                                href="#",
-                            ),
-                            dict(
-                                name="Sopas/Cremes",
-                                href="#",
-                            ),
-                            dict(
-                                name="Refeições combinadas",
-                                href="#",
-                            ),
-                        ]
-                    ),
-                    dict(
-                        name="Acessórios",
-                        href="#",
-                    ),
-                ]
+                name=R.string.products,
+                href=url_for("client_products.products"),
+                children=self.get_products_menu_tree()
             ),
             dict(
-                name="Blog",
-                href="#",
+                name=R.string.blog,
+                href=url_for("client_blog.blog"),
             ),
         ]
+
+    def get_products_menu_tree(self):
+        menu_tree = []
+        for category in ProductCategory.get_all():
+            if category.active:
+                children = []
+                for subcategory in category.subcategories:
+                    if subcategory.active:
+                        children.append(
+                            dict(
+                                name=subcategory.name,
+                                href=url_for("client_products.products", **{R.string.subcategory_id_arg_name: subcategory.id})
+                            )
+                        )
+                menu_tree.append(
+                    dict(
+                        name=category.name,
+                        href=url_for("client_products.products", **{R.string.category_id_arg_name: category.id}),
+                        children=children
+                    )
+                )
+        return menu_tree
 
 
 client_header_data_provider = ClientHeaderDataProvider()
