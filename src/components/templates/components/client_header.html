@@ -7,10 +7,10 @@
                     <div class="row">
                         <span class="header-account-row-welcome-text"><b>{{ R.string.welcome_message }}</b></span>
                         {% if not data.logged %}
-                            <span class="header-account-row-right-part"><a href="#"><b><u>{{ R.string.enter }}</u></b></a> {{ R.string.or_word }} <a
-                                    href="#"><b><u>{{ R.string.register }}</u></b></a></span>
+                            <span class="header-account-row-right-part"><a href="{{ url_for('client_user_management.login') }}"><b><u>{{ R.string.enter }}</u></b></a> {{ R.string.or_word }} <a
+                                    href="{{ url_for('client_user_management.register') }}"><b><u>{{ R.string.register }}</u></b></a></span>
                         {% else %}
-                            <span class="header-account-row-right-part"><a href="#"><b><u>{{ R.string.my_account }}</u></b></a></span>
+                            <span class="header-account-row-right-part"><a href="{{ url_for('client_account.my_account') }}"><b><u>{{ R.string.my_account }}</u></b></a></span>
                         {% endif %}
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                     <div class="header-container container">
                         <div class="row">
                             <div class="logo">
-                                <a href="#" title="Home">
+                                <a href="{{ url_for('client_home.home') }}" title="Home">
                                     <div>
                                         <img class="logo-img" src="{{ url_for('static', filename='imgs/logo.png') }}"
                                              alt="Logo da loja">
@@ -79,7 +79,7 @@
                         <div class="fl-header-right">
                             <div class="fl-cart-contain">
                                 <div class="mini-cart">
-                                    <div class="basket"><a href="#"></a></div>
+                                    <div class="basket"><a href="{{ url_for('client_cart.cart') }}"></a></div>
                                     <div class="fl-mini-cart-content">
                                         <div class="block-subtitle">
                                             <div class="top-subtotal">
@@ -92,9 +92,9 @@
                                                     <li class="item first">
                                                         <div class="item-inner">
                                                             <a class="product-image" title="{{ product.title }}"
-                                                               href="{{ product.href }}">
+                                                                href="{{ product.href }}">
                                                                 <img alt="{{ product.title }}"
-                                                                     src="{{ product.img_src }}">
+                                                                    src="{{ product.img_src }}">
                                                             </a>
                                                             <div class="product-details">
                                                                 <a href="{{ product.href }}">
@@ -109,12 +109,12 @@
                                                 {% endfor %}
                                             </ul>
                                             <div class="actions">
-                                                <a href="#">
+                                                <a href="{{ url_for('client_checkout.checkout') }}">
                                                     <button class="btn-checkout" title="{{ R.string.finalize_purchase }}" type="button">
                                                         <span>{{ R.string.finalize_purchase }}</span>
                                                     </button>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{{ url_for('client_cart.cart') }}">
                                                     <button class="view-cart" title="{{ R.string.view_cart }}" type="button">
                                                         <span>{{ R.string.view_cart }}</span>
                                                     </button>
