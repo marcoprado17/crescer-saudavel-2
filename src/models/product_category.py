@@ -52,3 +52,10 @@ class ProductCategory(BaseModel):
         self.active = True
         db.session.add(self)
         db.session.commit()
+
+    def get_n_active_products(self):
+        n = 0
+        for product in self.products:
+            if product.active:
+                n += 1
+        return n

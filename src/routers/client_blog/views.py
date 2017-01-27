@@ -11,6 +11,6 @@ def blog():
     return "Blog."
 
 
-@client_blog_blueprint.route("/post")
-def blog_post():
-    return "Post do blog."
+@client_blog_blueprint.route("/post/<int:blog_post_id>")
+def blog_post(blog_post_id):
+    return "Blog post #" + str(blog_post_id)

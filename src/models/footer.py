@@ -10,7 +10,7 @@ from r import R
 
 
 class Footer(BaseModel):
-    lower_text = db.Column(db.String(R.dimen.footer_lower_text_max_length))
+    lower_text = db.Column(db.String(R.dimen.footer_lower_text_max_length), default="")
 
     @staticmethod
     def get():

@@ -11,7 +11,11 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        signup_newsletter = "Assine nossa newsletter"
         fixed = "Fixa"
+        signup = "Assinar"
+        contact = "Contato"
+        company = "Empresa"
         can_not_be_removed = "Não pode ser removida"
         test_price = "1,11"
         test1 = "test1"
@@ -100,6 +104,7 @@ class Resources(object):
         state_id_arg_name = "state_id"
         city_id_arg_name = "city_id"
         active_arg_name = "active"
+        blog_post_id_arg_name = "blog_post_id"
 
         name = "Nome"
         section_name = "Nome de seção"
@@ -870,6 +875,8 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         test_stock = 42
         test_min_available = 12
         super_table_text_max_length = 32
+        # TODO: Change timeout in production
+        cache_timeout = 1
 
 
 R = Resources()

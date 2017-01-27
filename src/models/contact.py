@@ -11,24 +11,24 @@ from proj_utils import safe_string
 
 
 class Contact(BaseModel):
-    address = db.Column(db.String(R.dimen.contact_address_max_length))
-    tel = db.Column(db.String(R.dimen.tel_max_length))
-    email = db.Column(db.String(R.dimen.email_max_length))
+    address = db.Column(db.String(R.dimen.contact_address_max_length), default="")
+    tel = db.Column(db.String(R.dimen.tel_max_length), default="")
+    email = db.Column(db.String(R.dimen.email_max_length), default="")
 
     facebook_active = db.Column(db.Boolean, default=False, nullable=False)
-    facebook_link = db.Column(db.Text)
+    facebook_link = db.Column(db.Text, default="#")
 
     youtube_active = db.Column(db.Boolean, default=False, nullable=False)
-    youtube_link = db.Column(db.Text)
+    youtube_link = db.Column(db.Text, default="#")
 
     twitter_active = db.Column(db.Boolean, default=False, nullable=False)
-    twitter_link = db.Column(db.Text)
+    twitter_link = db.Column(db.Text, default="#")
 
     googleplus_active = db.Column(db.Boolean, default=False, nullable=False)
-    googleplus_link = db.Column(db.Text)
+    googleplus_link = db.Column(db.Text, default="#")
 
     pintrest_active = db.Column(db.Boolean, default=False, nullable=False)
-    pintrest_link = db.Column(db.Text)
+    pintrest_link = db.Column(db.Text, default="#")
 
     @staticmethod
     def get():

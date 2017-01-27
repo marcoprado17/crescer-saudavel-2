@@ -16,7 +16,6 @@ from configs.instance import instance_app_config
 from configs.instance import unit_test_app_config
 
 from proj_extensions import db
-
 from flask_bombril.log import log_request
 
 
@@ -38,6 +37,8 @@ def __create_app(configs):
     db.init_app(app)
     from proj_extensions import mail
     mail.init_app(app)
+    from proj_extensions import cache
+    cache.init_app(app)
 
     return app
 
