@@ -17,4 +17,23 @@
 {% endblock %}
 {% block js_bundle %}
     <script type="text/javascript" src="{{ url_for('static', filename='js/client_bundle.js') }}"></script>
+    <script>
+        function updateFooterPosition(){
+            footer=$("footer");
+            page=$("#page");
+            footer.removeClass("fixed-at-bottom");
+            page_height=page.height();
+            window_height=$(window).height();
+            if(window_height > page_height) {
+                footer.addClass("fixed-at-bottom");
+            }
+        }
+
+        function initFooter(){
+            updateFooterPosition();
+            $(window).resize(updateFooterPosition);
+        }
+
+        initFooter();
+    </script>
 {% endblock %}

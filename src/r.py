@@ -11,6 +11,14 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        or_word = "ou"
+        finalize_purchase = "Finalizar compra"
+        view_cart = "Ver Carrinho"
+        search = "Buscar"
+        welcome_message = "Seja bem vindo!"
+        enter = "Entre"
+        my_account = "Minha conta"
+        register = "Cadastre-se"
         signup_newsletter = "Assine nossa newsletter"
         fixed = "Fixa"
         signup = "Assinar"
@@ -778,6 +786,14 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def prohibited_image_name(image_name):
             return 'O nome de imagem "%s" não é permitido. Por favor, troque o nome da imagem.' % image_name
+
+        @staticmethod
+        def cart_popup_title(n_items, total_price):
+            return str(n_items) + " items | " + str(total_price)
+
+        @staticmethod
+        def get_product_amount_subtotal(amount, unit_price):
+            return str(amount) + " x " + str(unit_price)
 
     # noinspection PyPep8Naming
     @unique
