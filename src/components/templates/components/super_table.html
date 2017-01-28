@@ -74,7 +74,7 @@
                         {% for col in data.table_data.cols %}
                             {% set col_idx = loop.index0 %}
                             {% set item_data = row[col_idx] %}
-                            <td id="col-{{ col.id }}-row-{{ row_idx }}">
+                            <td id="col-{{ col.id }}-row-{{ row_idx }}" class="{{ col.id }}">
                                 {% if col.type == R.id.COL_TYPE_IMAGE or col.type == R.id.COL_TYPE_IMAGE.value %}
                                     <img src="{{ item_data }}">
                                 {% elif col.type == R.id.COL_TYPE_TEXT or col.type == R.id.COL_TYPE_TEXT.value %}

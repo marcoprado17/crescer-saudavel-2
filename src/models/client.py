@@ -86,4 +86,4 @@ class Client(BaseModel):
         return Client.query.filter_by(email=client_email).one_or_none()
 
     def get_formatted_register_datetime(self):
-        return R.string.formatted_datetime(self.register_datetime)
+        return self.register_datetime.strftime(R.string.default_datetime_format)

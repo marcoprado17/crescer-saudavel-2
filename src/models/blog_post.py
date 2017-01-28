@@ -71,7 +71,7 @@ class BlogPost(BaseModel):
         )
 
     def get_formatted_datetime(self):
-        return self.datetime.strftime(R.string.default_datetime_format)
+        return self.datetime.strftime(R.string.default_date_format)
 
     def disable(self):
         self.active = False

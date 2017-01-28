@@ -332,7 +332,8 @@ class Resources(object):
         edit_faq_page_content = 'Editar conteúdo da página "FAQ"'
         footer = "Rodapé"
         date = "Data"
-        default_datetime_format = "%d/%m/%Y"
+        default_date_format = "%d/%m/%Y"
+        default_datetime_format = "%d/%m/%Y\n%H:%M"
         posts = "Posts"
         edit_post = "Editar post"
         product_category_example = "Ex.: Frutas"
@@ -675,12 +676,6 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def price_with_rs(price):
             return "R$ " + str(price).replace(".", ",")
-
-        @staticmethod
-        def formatted_datetime(datetime):
-            if datetime == None:
-                return R.string.empty_symbol
-            return str(datetime)[0:R.dimen.datetime_important_chars_size]
 
         @staticmethod
         def client_details_modal_title(client_first_name):

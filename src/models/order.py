@@ -98,13 +98,13 @@ class Order(BaseModel):
         return self.order_status_map[self.status]
 
     def get_formatted_paid_datetime(self):
-        return R.string.formatted_datetime(self.paid_datetime)
+        return self.paid_datetime.strftime(R.string.default_datetime_format)
 
     def get_formatted_sent_datetime(self):
-        return R.string.formatted_datetime(self.sent_datetime)
+        return self.sent_datetime.strftime(R.string.default_datetime_format)
 
     def get_formatted_delivered_datetime(self):
-        return R.string.formatted_datetime(self.delivered_datetime)
+        return self.delivered_datetime.strftime(R.string.default_datetime_format)
 
     @staticmethod
     def get_order_status_id_choices():

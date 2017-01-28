@@ -80,7 +80,7 @@ class AdminPostsDataProvider(object):
                         active=blog_post.active,
                         form=SubmitForm(),
                         meta_data= {
-                            "data-active-col-id": "active"
+                            "data-active-col-id": "active-col"
                         },
                         to_activate_url=url_for(
                             "admin_blog.to_activate_post", blog_post_id=blog_post.id),
@@ -106,7 +106,7 @@ class AdminPostsDataProvider(object):
                     type=R.id.COL_TYPE_TEXT
                 ),
                 dict(
-                    id="active",
+                    id="active-col",
                     title=R.string.active,
                     type=R.id.COL_TYPE_BOOL
                 ),

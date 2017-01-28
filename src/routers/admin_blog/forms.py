@@ -20,7 +20,7 @@ class BlogPostForm(FlaskForm):
     )
     datetime = DateTimeField(
         label = R.string.date,
-        format=R.string.default_datetime_format,
+        format=R.string.default_date_format,
         validators= [
             Required()
         ]

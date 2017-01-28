@@ -79,7 +79,7 @@ class AdminCitiesDataProvider:
                         active=city.active,
                         form=SubmitForm(),
                         meta_data={
-                            "data-active-col-id": "active"
+                            "data-active-col-id": "active-col"
                         },
                         to_activate_url=url_for(
                             "admin_attended_cities.to_activate_city", city_id=city.id),
@@ -105,7 +105,7 @@ class AdminCitiesDataProvider:
                     type=R.id.COL_TYPE_TEXT
                 ),
                 dict(
-                    id="active",
+                    id="active-col",
                     title=R.string.active_in_female,
                     type=R.id.COL_TYPE_BOOL
                 ),
