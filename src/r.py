@@ -11,6 +11,10 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        previous_page = "Página anterior"
+        next_page = "Próxima página"
+        read_more = "Ler mais"
+        back_to_home = "Voltar para Home"
         or_word = "ou"
         finalize_purchase = "Finalizar compra"
         view_cart = "Ver Carrinho"
@@ -338,6 +342,7 @@ class Resources(object):
         tel_example = "(11) 2352-2458"
         email_example = "contato@crescersaudavel.com"
         blog_post_title_example = "Ex.: Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
+        thumbnail_alt = "Imagem principal do post"
 
 
         blog_example_title = "Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
@@ -531,11 +536,11 @@ Ordem | Alimento
 
 ###Cuidados
 ***
-Karin alerta que **apenas as verduras e as carnes podem ser processadas no liquidificador. Os demais alimentos devem ser amassados.** No inicio, os alimentos devem ser mais “amassadinhos” e, com o tempo, é indicado deixar uns pedacinhos maiores. Desta forma, o bebê exercita a musculatura tanto para mastigação quanto para a fala, diz.
+Karin alerta que **apenas as verduras e as carnes podem ser processadas no liquidificador. Os demais alimentos devem ser amassados.** No inicio, os alimentos devem ser mais "amassadinhos" e, com o tempo, é indicado deixar uns pedacinhos maiores. Desta forma, o bebê exercita a musculatura tanto para mastigação quanto para a fala, diz.
 
 Na hora da introdução das carnes, Karin indica o frango sem pele e a carne de boi (patinho, acém ou músculo, moídos ou cozidos). A carne, como dito anteriormente deve ser processada no liquidificador. A partir do sétimo mês, alguns pedaços desfiados podem ser introduzidos.
 
-As leguminosas como feijão, arroz, ervilha e lentilha são os próximos alimentos a serem incorporados à alimentação do bebê. Primeiro deve ser dado só o caldo. Depois, o alimento processado, e após o oitavo mês, ele pode já conseguir mastigar uns “grãozinhos”, explica.
+As leguminosas como feijão, arroz, ervilha e lentilha são os próximos alimentos a serem incorporados à alimentação do bebê. Primeiro deve ser dado só o caldo. Depois, o alimento processado, e após o oitavo mês, ele pode já conseguir mastigar uns "grãozinhos", explica.
 
 Depois de introduzir todos estes tipos de alimentos, o bebê já vai ter um cardápio variado. Karin destaca ainda os temperos, que aguçam o paladar da criança. Ela recomenda uma pitadinha de sal, um fio de azeite, cebola e algumas ervinhas.
 

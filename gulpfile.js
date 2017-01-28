@@ -72,7 +72,15 @@ gulp.task("make_client_css_bundle", function(){
         "src/wrappers/base/**/*.scss",
         "src/wrappers/client_base/**/*.scss",
         "src/components/**/*.scss",
-        "src/routers/client_about_us/**/*.scss"
+        "src/routers/client_about_us/**/*.scss",
+        "src/routers/client_account/**/*.scss",
+        "src/routers/client_blog/**/*.scss",
+        "src/routers/client_cart/**/*.scss",
+        "src/routers/client_checkout/**/*.scss",
+        "src/routers/client_faq/**/*.scss",
+        "src/routers/client_home/**/*.scss",
+        "src/routers/client_products/**/*.scss",
+        "src/routers/client_user_management/**/*.scss"
     ])
         .pipe(concat("client_bundle.css"))
         .pipe(sass().on('error', sass.logError))
@@ -121,7 +129,15 @@ gulp.task("make_client_js_bundle", function () {
         "src/wrappers/base/**/*.js",
         "src/wrappers/client_base/**/*.js",
         "src/components/**/*.js",
-        "src/routers/client_about_us/**/*.js"
+        "src/routers/client_about_us/**/*.js",
+        "src/routers/client_account/**/*.js",
+        "src/routers/client_blog/**/*.js",
+        "src/routers/client_cart/**/*.js",
+        "src/routers/client_checkout/**/*.js",
+        "src/routers/client_faq/**/*.js",
+        "src/routers/client_home/**/*.js",
+        "src/routers/client_products/**/*.js",
+        "src/routers/client_user_management/**/*.js"
     ])
         .pipe(concat("client_bundle.js"))
         .pipe(gulp.dest("build/static/js"));

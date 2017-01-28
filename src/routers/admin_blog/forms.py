@@ -72,8 +72,8 @@ class EditBlogPostForm(BlogPostForm):
             self.datetime.data = blog_post.datetime
             self.title.data = blog_post.title
             self.thumbnail.data = blog_post.thumbnail
-            self.summary.data = blog_post.summary
-            self.content.data = blog_post.content
+            self.summary.data = blog_post.summary_markdown
+            self.content.data = blog_post.content_markdown
 
 
 class BlogPostFilterForm(FlaskForm):

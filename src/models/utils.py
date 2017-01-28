@@ -176,8 +176,8 @@ def get_random_blog_post():
         title=get_random_phrase((3,8), (3, 6)),
         datetime=get_random_datetime(datetime_1, datetime_2),
         thumbnail=get_random_image_name(),
-        summary=get_random_phrase((3,8), (16, 30)),
-        content=get_random_phrase((3,8), (50, 150))
+        summary_markdown=get_random_phrase((3,8), (16, 30)),
+        content_markdown=get_random_phrase((3,8), (50, 150))
     )
 
 

@@ -32,7 +32,7 @@
     {% if data.table_data.rows|length > 0 %}
         {% if data.paginator_data %}
             {% with data=data.paginator_data %}
-                {% include "components/paginator.html" %}
+                {% include "components/admin_paginator.html" %}
             {% endwith %}
         {% endif %}
         {% if data.sort_methods and data.sort_methods|length > 0 %}
@@ -116,7 +116,7 @@
 
         {% if data.paginator_data %}
             {% with data=data.paginator_data %}
-                {% include "components/paginator.html" %}
+                {% include "components/admin_paginator.html" %}
             {% endwith %}
         {% endif %}
     {% else %}

@@ -19,5 +19,13 @@
     img {
       max-width: 90%;
     }
+
+    a {
+      color: #337ab7 !important;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
   }
 }
