@@ -11,6 +11,8 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        back_to_blog = "Voltar ao blog"
+        post = "Post"
         previous_page = "Página anterior"
         next_page = "Próxima página"
         read_more = "Ler mais"

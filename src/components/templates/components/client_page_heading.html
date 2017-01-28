@@ -2,9 +2,9 @@
     <div class="page-heading">
         <div class="breadcrumbs">
             <div class="container">
-                {% if "blog_post_date" in data %}
+                {% if data.blog_post_date %}
                     <div class="entry-meta">
-                        <div class="blog-post-date">{{ data["blog_post_date"] }}</div>
+                        <div class="blog-post-date">{{ data.blog_post_date }}</div>
                     </div>
                 {% endif %}
                 <div class="row">

@@ -44,7 +44,8 @@ class BlogDataProvider(object):
                 curr_page=curr_page,
                 max_page=n_pages(per_page=per_page, n_items=n_active_posts)
             ),
-            posts=q.slice(*get_page_range(curr_page=curr_page, per_page=per_page, min_page=R.dimen.min_page)).all()
+            posts=q.slice(*get_page_range(curr_page=curr_page, per_page=per_page, min_page=R.dimen.min_page)).all(),
+            page=curr_page
         )
         return data
 

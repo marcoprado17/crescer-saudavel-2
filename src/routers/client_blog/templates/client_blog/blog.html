@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
     <div class="__client_blog__ __blog__">
-        {% with data=data["page_heading_data"] %}
+        {% with data=data.page_heading_data %}
             {% include "components/client_page_heading.html" %}
         {% endwith %}
         <div class="main-container">
@@ -17,12 +17,13 @@
                             {% endwith %}
                             <div id="content" role="main">
                                 {% for post in data.posts %}
+                                    {% set post_href=url_for("client_blog.blog_post", blog_post_id=post.id, **{R.string.page_arg_name: data.page}) %}
                                     <article id="post-29" class="blog_entry clearfix wow bounceInUp animated animated"
                                              style="visibility: visible;">
                                         <div class="blog_entry-header clearfix">
                                             <div class="blog_entry-header-inner row">
                                                 <h2 class="blog_entry-title"><a
-                                                        href="{{ url_for('client_blog.blog_post', blog_post_id=post.id) }}">{{ post.title }}</a>
+                                                        href="{{ post_href }}">{{ post.title }}</a>
                                                 </h2>
                                                 <div class="entry-meta">
                                                     <div class="entry-date">{{ post.get_formatted_datetime() }}</div>
@@ -31,7 +32,7 @@
                                         </div>
                                         <div class="entry-content">
                                             <div class="featured-thumb">
-                                                <a href="{{ url_for('client_blog.blog_post', blog_post_id=post.id) }}">
+                                                <a href="{{ post_href }}">
                                                     <img
                                                     src="{{ url_for('static', filename='imgs/' + post.thumbnail) }}" alt="{{ R.string.thumbnail_alt }}">
                                                 </a>
@@ -40,7 +41,7 @@
                                                 {{ post.summary_html|safe }}
                                             </div>
                                             <div class="centered-content-container">
-                                                <a href="{{ url_for('client_blog.blog_post', blog_post_id=post['id']) }}">
+                                                <a href="{{ post_href }}">
                                                     <button title="{{ R.string.read_more }}" class="button"><span>{{ R.string.read_more }}</span>
                                                     </button>
                                                 </a>
