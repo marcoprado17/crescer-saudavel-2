@@ -7,10 +7,12 @@
                     <div class="row">
                         <span class="header-account-row-welcome-text"><b>{{ R.string.welcome_message }}</b></span>
                         {% if not data.logged %}
-                            <span class="header-account-row-right-part"><a href="{{ url_for('client_user_management.login') }}"><b><u>{{ R.string.enter }}</u></b></a> {{ R.string.or_word }} <a
+                            <span class="header-account-row-right-part"><a
+                                    href="{{ url_for('client_user_management.login') }}"><b><u>{{ R.string.enter }}</u></b></a> {{ R.string.or_word }} <a
                                     href="{{ url_for('client_user_management.register') }}"><b><u>{{ R.string.register }}</u></b></a></span>
                         {% else %}
-                            <span class="header-account-row-right-part"><a href="{{ url_for('client_account.my_account') }}"><b><u>{{ R.string.my_account }}</u></b></a></span>
+                            <span class="header-account-row-right-part"><a
+                                    href="{{ url_for('client_account.my_account') }}"><b><u>{{ R.string.my_account }}</u></b></a></span>
                         {% endif %}
                     </div>
                 </div>
@@ -81,20 +83,22 @@
                                 <div class="mini-cart">
                                     <div class="basket"><a href="{{ url_for('client_cart.cart') }}"></a></div>
                                     <div class="fl-mini-cart-content">
-                                        <div class="block-subtitle">
-                                            <div class="top-subtotal">
-                                                {{ R.string.cart_popup_title(data.cart_data.n_items, data.cart_data.total_price) }}
+                                        <a href="{{ url_for('client_cart.cart') }}">
+                                            <div class="block-subtitle">
+                                                <div class="top-subtotal">
+                                                    {{ R.string.cart_popup_title(data.cart_data.n_items, data.cart_data.total_price) }}
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                         {% if data.cart_data.products and data.cart_data.products|length > 0 %}
                                             <ul class="mini-products-list" id="cart-sidebar">
                                                 {% for product in data.cart_data.products %}
                                                     <li class="item first">
                                                         <div class="item-inner">
                                                             <a class="product-image" title="{{ product.title }}"
-                                                                href="{{ product.href }}">
+                                                               href="{{ product.href }}">
                                                                 <img alt="{{ product.title }}"
-                                                                    src="{{ product.img_src }}">
+                                                                     src="{{ product.img_src }}">
                                                             </a>
                                                             <div class="product-details">
                                                                 <a href="{{ product.href }}">
@@ -110,12 +114,14 @@
                                             </ul>
                                             <div class="actions">
                                                 <a href="{{ url_for('client_checkout.checkout') }}">
-                                                    <button class="btn-checkout" title="{{ R.string.finalize_purchase }}" type="button">
+                                                    <button class="btn-checkout"
+                                                            title="{{ R.string.finalize_purchase }}" type="button">
                                                         <span>{{ R.string.finalize_purchase }}</span>
                                                     </button>
                                                 </a>
                                                 <a href="{{ url_for('client_cart.cart') }}">
-                                                    <button class="view-cart" title="{{ R.string.view_cart }}" type="button">
+                                                    <button class="view-cart" title="{{ R.string.view_cart }}"
+                                                            type="button">
                                                         <span>{{ R.string.view_cart }}</span>
                                                     </button>
                                                 </a>
@@ -128,7 +134,8 @@
                                 <form action="#" class="navbar-form" role="search"
                                       method="get">
                                     <div class="input-group">
-                                        <input class="GlobalNavSearch js-globalSearchInput " placeholder="{{ R.string.search }}"
+                                        <input class="GlobalNavSearch js-globalSearchInput "
+                                               placeholder="{{ R.string.search }}"
                                                id="desktopSearchInput"
                                                data-reactid=".1.0.0.0" name="q">
                                         <label class="GlobalNavSearch-searchIcon" for="desktopSearchInput"
