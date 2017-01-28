@@ -7,6 +7,7 @@ import os
 import markdown
 
 from flask import current_app
+from sqlalchemy import desc
 from sqlalchemy.sql.elements import UnaryExpression
 
 from proj_exceptions import InvalidSortMapError
@@ -65,4 +66,4 @@ class SortMethodMap(object):
             raise InvalidSortMapError
 
     def order(self, sort_method_id):
-        return self.order_by_id[sort_method_id]
+        return self.order_by_id[sort_method_id], desc("id")

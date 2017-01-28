@@ -18,13 +18,12 @@ class BlogDataProvider(object):
     def get_data(self):
         q = BlogPost.query
         q = q.filter(BlogPost.active == True)
-        q = q.order_by(desc(BlogPost.datetime))
+        q = q.order_by(desc(BlogPost.datetime), desc("id"))
 
         n_active_posts = q.count()
 
         per_page = current_app.config["CLIENT_BLOG_POSTS_PER_PAGE"]
-        curr_page = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=per_page,
-                                        n_items=n_active_posts)
+        curr_page = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=per_page, n_items=n_active_posts)
 
         data = dict(
             page_heading_data=dict(

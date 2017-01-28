@@ -39,7 +39,7 @@ class AdminProductsDataProvider(object):
             self.q = self.q.filter(Product.category_id == category_id)
         if subcategory_id != 0:
             self.q = self.q.filter(Product.subcategory_id == subcategory_id)
-        self.q = self.q.order_by(Product.sort_method_map.order(sort_method_id))
+        self.q = self.q.order_by(*Product.sort_method_map.order(sort_method_id))
 
         n_products = self.q.count()
 

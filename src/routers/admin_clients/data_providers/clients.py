@@ -33,7 +33,7 @@ class AdminClientsDataProvider(object):
             self.q = self.q.filter(Client.state_id == state_id)
         if city_id != 0:
             self.q = self.q.filter(Client.city_id == city_id)
-        self.q = self.q.order_by(Client.sort_method_map.order(sort_method_id))
+        self.q = self.q.order_by(*Client.sort_method_map.order(sort_method_id))
 
         n_orders = self.q.count()
 

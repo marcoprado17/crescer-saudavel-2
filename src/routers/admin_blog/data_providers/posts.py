@@ -27,7 +27,7 @@ class AdminPostsDataProvider(object):
 
         self.q = BlogPost.query
         self.q = self.q.filter(BlogPost.active == active)
-        self.q = self.q.order_by(BlogPost.sort_method_map.order(sort_method_id))
+        self.q = self.q.order_by(*BlogPost.sort_method_map.order(sort_method_id))
 
         n_posts = self.q.count()
 

@@ -28,7 +28,7 @@ class AdminProductCategoriesDataProvider(object):
 
         self.q = ProductCategory.query
         self.q = self.q.filter(ProductCategory.active == active)
-        self.q = self.q.order_by(ProductCategory.sort_method_map.order(sort_method_id))
+        self.q = self.q.order_by(*ProductCategory.sort_method_map.order(sort_method_id))
 
         n_categories = self.q.count()
 

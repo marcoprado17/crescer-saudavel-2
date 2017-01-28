@@ -28,7 +28,7 @@ class AdminOrdersDataProvider(object):
         self.q = Order.query
         if order_status_id != R.id.ORDER_STATUS_ANY:
             self.q = self.q.filter(Order.status == order_status_id)
-        self.q = self.q.order_by(Order.sort_method_map.order(sort_method_id))
+        self.q = self.q.order_by(*Order.sort_method_map.order(sort_method_id))
 
         n_orders = self.q.count()
 

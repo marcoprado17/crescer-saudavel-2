@@ -33,7 +33,7 @@ class AdminCitiesDataProvider:
         self.q = self.q.filter(City.active == active)
         if state_id != 0:
             self.q = self.q.filter(City.state_id == state_id)
-        self.q = self.q.order_by(City.sort_method_map.order(sort_method_id))
+        self.q = self.q.order_by(*City.sort_method_map.order(sort_method_id))
 
         n_cities = self.q.count()
 
