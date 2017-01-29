@@ -65,12 +65,13 @@ def get_url_args():
         url_args[key] = val
     return url_args
 
-def get_url_arg(arg_name):
+def get_url_arg(arg_name, default=None):
     url_args = get_url_args()
     if arg_name in url_args:
         return url_args[arg_name]
-    else:
-        return None
+    elif default != None:
+        return default
+    return None
 
 def get_page_range(curr_page, per_page, min_page):
     first = (curr_page - min_page) * per_page

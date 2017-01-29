@@ -39,10 +39,26 @@ def safe_id(element_id):
         return None
     return element_id
 
+
 def safe_string(s):
     if s == None or not isinstance(s, basestring):
         return ""
     return s
+
+
+def get_sort_methods_data(selected_sort_method_id, sort_method_map):
+    sort_method_ids = sort_method_map.ids
+    sort_method_names = sort_method_map.names
+    sort_method_data = []
+    for sort_method_id, sort_method_name in zip(sort_method_ids, sort_method_names):
+        sort_method_data.append(
+            dict(
+                name=sort_method_name,
+                value=str(sort_method_id.value),
+                selected=sort_method_id==selected_sort_method_id
+            )
+        )
+    return sort_method_data
 
 
 class SortMethodMap(object):

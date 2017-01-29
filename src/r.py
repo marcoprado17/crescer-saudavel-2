@@ -119,6 +119,7 @@ class Resources(object):
         city_id_arg_name = "city_id"
         active_arg_name = "active"
         blog_post_id_arg_name = "blog_post_id"
+        search_string_arg_name = "q"
 
         name = "Nome"
         section_name = "Nome de seção"
@@ -796,6 +797,22 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def get_product_amount_subtotal(amount, unit_price):
             return str(amount) + " x " + str(unit_price)
+
+        @staticmethod
+        def get_products_by_category_title(category_name):
+            return "Categoria " + category_name
+
+        @staticmethod
+        def get_products_by_subcategory_title(subcategory_name):
+            return "Subcategoria " + subcategory_name
+
+        @staticmethod
+        def get_products_by_search_title(search_title):
+            return "Busca: " + search_title
+
+        @staticmethod
+        def cart_popup_title(n_items, total_price):
+            return str(n_items) + " items | " + " R$ " + str(total_price)
 
     # noinspection PyPep8Naming
     @unique

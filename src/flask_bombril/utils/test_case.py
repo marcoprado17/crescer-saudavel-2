@@ -91,6 +91,7 @@ class TestCase(BaseTestCase):
             )
             self.assertEqual("a", get_url_arg("test_view_arg"))
             self.assertEqual("b", get_url_arg("query_arg"))
+            self.assertEqual("c", get_url_arg("not_found", default="c"))
 
     def test_get_page_range(self):
         self.assertEqual((0, 5), get_page_range(curr_page=1, per_page=5, min_page=1))

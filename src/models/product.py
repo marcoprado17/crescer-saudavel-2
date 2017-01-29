@@ -18,7 +18,7 @@ from proj_utils import parse_markdown, SortMethodMap
 
 class Product(BaseModel):
     title = db.Column(db.String(R.dimen.product_title_max_length), nullable=False)
-    active = db.Column(db.Boolean, default=False, nullable=False)
+    _active = db.Column(db.Boolean, default=False, nullable=False)
     category_id = db.Column(db.Integer, ForeignKey("product_category.id"), nullable=False)
     category = relationship("ProductCategory", back_populates="products")
     subcategory_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
@@ -27,7 +27,8 @@ class Product(BaseModel):
     _stock = db.Column(db.Integer, nullable=False)
     _available = db.Column(db.Integer, nullable=False)
     _reserved = db.Column(db.Integer, default=0, nullable=False)
-    min_available = db.Column(db.Integer, nullable=False)
+    _min_available = db.Column(db.Integer, nullable=False)
+    is_available_to_client = db.Column(db.Boolean, nullable=False)
     summary = db.Column(db.UnicodeText, nullable=False)
     sales_number = db.Column(db.Integer, default=0)
 
@@ -74,6 +75,15 @@ class Product(BaseModel):
     tab_10_content = db.Column(db.UnicodeText)
 
     @hybrid_property
+    def active(self):
+        return self._active
+
+    @active.setter
+    def active(self, new_active):
+        self._active = new_active
+        self.update_is_available_to_client()
+
+    @hybrid_property
     def stock(self):
         return self._stock
 
@@ -81,6 +91,7 @@ class Product(BaseModel):
     def stock(self, new_stock):
         self._stock = new_stock
         self.update_available()
+        self.update_is_available_to_client()
 
     @hybrid_property
     def reserved(self):
@@ -90,6 +101,16 @@ class Product(BaseModel):
     def reserved(self, new_reserved):
         self._reserved = new_reserved
         self.update_available()
+        self.update_is_available_to_client()
+
+    @hybrid_property
+    def min_available(self):
+        return self._min_available
+
+    @min_available.setter
+    def min_available(self, new_min_available):
+        self._min_available = new_min_available
+        self.update_is_available_to_client()
 
     @hybrid_property
     def available(self):
@@ -100,18 +121,25 @@ class Product(BaseModel):
         return R.string.id_prefix + str(self.id)
 
     sort_method_map = SortMethodMap([
-        (R.id.SORT_METHOD_ID,                   R.string.id,                asc("id")),
-        (R.id.SORT_METHOD_TITLE,                R.string.title,             asc(title)),
-        (R.id.SORT_METHOD_LOWEST_PRICE,         R.string.lowest_price,      asc(price)),
-        (R.id.SORT_METHOD_HIGHER_PRICE,         R.string.higher_price,      desc(price)),
-        (R.id.SORT_METHOD_LOWEST_STOCK,         R.string.lowest_stock,      asc(_stock)),
-        (R.id.SORT_METHOD_HIGHER_STOCK,         R.string.higher_stock,      desc(_stock)),
-        (R.id.SORT_METHOD_LOWEST_AVAILABLE,     R.string.lowest_available,  asc(_available)),
-        (R.id.SORT_METHOD_HIGHER_AVAILABLE,     R.string.higher_available,  desc(_available)),
-        (R.id.SORT_METHOD_LOWEST_RESERVED,      R.string.lowest_reserved,   asc(_reserved)),
-        (R.id.SORT_METHOD_HIGHER_RESERVED,      R.string.higher_reserved,   desc(_reserved)),
-        (R.id.SORT_METHOD_BEST_SELLER,          R.string.best_seller,       desc(sales_number)),
-        (R.id.SORT_METHOD_LESS_SOLD,            R.string.less_sold,         asc(sales_number))
+        (R.id.SORT_METHOD_ID,               R.string.id,                    asc("id")),
+        (R.id.SORT_METHOD_TITLE,            R.string.title,                 asc(title)),
+        (R.id.SORT_METHOD_LOWEST_PRICE,     R.string.lowest_price,          asc(price)),
+        (R.id.SORT_METHOD_HIGHER_PRICE,     R.string.higher_price,          desc(price)),
+        (R.id.SORT_METHOD_LOWEST_STOCK,     R.string.lowest_stock,          asc(_stock)),
+        (R.id.SORT_METHOD_HIGHER_STOCK,     R.string.higher_stock,          desc(_stock)),
+        (R.id.SORT_METHOD_LOWEST_AVAILABLE, R.string.lowest_available,      asc(_available)),
+        (R.id.SORT_METHOD_HIGHER_AVAILABLE, R.string.higher_available,      desc(_available)),
+        (R.id.SORT_METHOD_LOWEST_RESERVED,  R.string.lowest_reserved,       asc(_reserved)),
+        (R.id.SORT_METHOD_HIGHER_RESERVED,  R.string.higher_reserved,       desc(_reserved)),
+        (R.id.SORT_METHOD_BEST_SELLER,      R.string.best_seller,           desc(sales_number)),
+        (R.id.SORT_METHOD_LESS_SOLD,        R.string.less_sold,             asc(sales_number))
+    ])
+
+    client_sort_method_map = SortMethodMap([
+        (R.id.SORT_METHOD_NAME,             R.string.name,                  asc(title)),
+        (R.id.SORT_METHOD_BEST_SELLER,      R.string.best_seller,           desc(sales_number)),
+        (R.id.SORT_METHOD_LOWEST_PRICE,     R.string.lowest_price,          asc(price)),
+        (R.id.SORT_METHOD_HIGHER_PRICE,     R.string.higher_price,          desc(price)),
     ])
 
     @staticmethod
@@ -220,6 +248,12 @@ class Product(BaseModel):
     def update_available(self):
         if self._reserved == None:
             self._reserved = 0
-        if self.stock == None:
-            self._stock = 0
-        self._available = self._stock - self._reserved
+        if self._stock is not None:
+            self._available = self._stock - self._reserved
+
+    def update_is_available_to_client(self):
+        if self._active is not None and self._available is not None and self._min_available is not None:
+            if self._active and self._available > self._min_available:
+                self.is_available_to_client = True
+            else:
+                self.is_available_to_client = False

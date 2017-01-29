@@ -5,17 +5,16 @@
 # ======================================================================================================================
 from flask import current_app
 from flask import url_for
-
 from components.data_providers.paginator import paginator_data_provider
-from components.data_providers.super_table import super_table_data_provider
+from flask_bombril.utils import n_pages
 from flask_bombril.url_args import get_boolean_url_arg
 from flask_bombril.url_args import get_valid_enum
 from flask_bombril.url_args import get_valid_model_id
 from flask_bombril.url_args import get_valid_page
 from flask_bombril.utils import get_page_range
-from flask_bombril.utils import n_pages
 from proj_forms import SubmitForm
 from models.product_subcategory import ProductSubcategory
+from proj_utils import get_sort_methods_data
 from r import R
 from routers.admin_products.forms import ProductSubcategoryFilterForm
 
@@ -49,7 +48,7 @@ class AdminProductSubcategoriesDataProvider(object):
             filter_data=dict(
                 filter_form=ProductSubcategoryFilterForm(category_id=category_id, active=active)
             ),
-            sort_methods=super_table_data_provider.get_sort_methods_data(
+            sort_methods=get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
                 sort_method_map=ProductSubcategory.sort_method_map
             ),

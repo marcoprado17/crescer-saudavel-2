@@ -4,9 +4,7 @@
 # Created at 11/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask import current_app
-
 from components.data_providers.paginator import paginator_data_provider
-from components.data_providers.super_table import super_table_data_provider
 from flask_bombril.url_args import get_valid_model_id
 from flask_bombril.utils import n_pages
 from flask_bombril.utils import get_page_range
@@ -15,6 +13,7 @@ from flask_bombril.url_args import get_valid_enum
 from models.city import City
 from models.client import Client
 from models.state import State
+from proj_utils import get_sort_methods_data
 from r import R
 from routers.admin_clients.forms import AdminClientFilterForm
 
@@ -57,7 +56,7 @@ class AdminClientsDataProvider(object):
             filter_data=dict(
                 filter_form=filter_form
             ),
-            sort_methods=super_table_data_provider.get_sort_methods_data(
+            sort_methods=get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
                 sort_method_map=Client.sort_method_map
             ),
