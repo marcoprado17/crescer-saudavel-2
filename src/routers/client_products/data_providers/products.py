@@ -7,7 +7,8 @@ from pprint import pprint
 
 from flask import current_app
 from flask import url_for
-from sqlalchemy import asc
+from sqlalchemy import desc
+
 from components.data_providers.paginator import paginator_data_provider
 from flask_bombril.utils import get_page_range
 from flask_bombril.utils import n_pages
@@ -36,7 +37,7 @@ class ClientProductsDataProvider(object):
 
         q = Product.query
         q = q.filter(Product.active == True)
-        q = q.order_by(asc(Product.is_available_to_client), *Product.client_sort_method_map.order(sort_method_id))
+        q = q.order_by(desc(Product.is_available_to_client), *Product.client_sort_method_map.order(sort_method_id))
 
         page_heading_title = R.string.products
         page_heading_path = [
