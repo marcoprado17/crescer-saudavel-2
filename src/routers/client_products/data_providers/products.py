@@ -98,7 +98,7 @@ class ClientProductsDataProvider(object):
             ),
             sort_methods=self.get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_map=Product.sort_method_map,
+                sort_method_map=Product.client_sort_method_map,
             ),
             paginator_data=paginator_data_provider.get_data(
                 min_page=R.dimen.min_page,

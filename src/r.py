@@ -11,6 +11,8 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        add_to_cart = "Adicionar ao carrinho"
+        default_product_image_name = "product_default.jpg"
         back_to_blog = "Voltar ao blog"
         post = "Post"
         previous_page = "Página anterior"
@@ -20,7 +22,8 @@ class Resources(object):
         or_word = "ou"
         finalize_purchase = "Finalizar compra"
         view_cart = "Ver Carrinho"
-        search = "Buscar"
+        to_search = "Buscar"
+        search = "Busca"
         welcome_message = "Seja bem vindo!"
         enter = "Entre"
         my_account = "Minha conta"
@@ -120,6 +123,7 @@ class Resources(object):
         active_arg_name = "active"
         blog_post_id_arg_name = "blog_post_id"
         search_string_arg_name = "q"
+        product_id_arg_name = "product_id"
 
         name = "Nome"
         section_name = "Nome de seção"

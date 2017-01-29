@@ -4,6 +4,8 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
+
+from flask import url_for
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy import desc
@@ -237,13 +239,26 @@ class Product(BaseModel):
         db.session.add(self)
         db.session.commit()
 
+    def get_href(self):
+        return url_for("client_products.product", **{R.string.product_id_arg_name: self.id})
+
+    def get_main_image_src(self):
+        image_name = self.image_1
+        if image_name is None or image_name == "":
+            image_name = R.string.default_product_image_name
+        return url_for("static", filename="imgs/" + image_name)
+
     def get_price(self, n_units=1):
         if not isinstance(n_units, int) or n_units < 0:
             raise InvalidNUnitsError
         return self.price * Decimal(str(n_units))
 
-    def get_formatted_price(self, n_units=1):
-        return str(self.get_price(n_units=n_units)).replace(".", ",")
+    def get_formatted_price(self, n_units=1, include_rs=False):
+        formatted_price = ""
+        if include_rs:
+            formatted_price += "R$ "
+        formatted_price += str(self.get_price(n_units=n_units)).replace(".", ",")
+        return formatted_price
 
     def update_available(self):
         if self._reserved == None:
