@@ -4,7 +4,6 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
-
 from flask import url_for
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
@@ -31,7 +30,8 @@ class Product(BaseModel):
     _reserved = db.Column(db.Integer, default=0, nullable=False)
     _min_available = db.Column(db.Integer, nullable=False)
     is_available_to_client = db.Column(db.Boolean, nullable=False)
-    summary = db.Column(db.UnicodeText, nullable=False)
+    _summary_markdown = db.Column(db.UnicodeText, nullable=False)
+    summary_html = db.Column(db.UnicodeText, nullable=False)
     sales_number = db.Column(db.Integer, default=0)
 
     image_1 = db.Column(db.Text)
@@ -47,34 +47,143 @@ class Product(BaseModel):
 
     tab_1_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_1_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_1_content = db.Column(db.UnicodeText)
+    _tab_1_content_markdown = db.Column(db.UnicodeText)
+    tab_1_content_html = db.Column(db.UnicodeText)
     tab_2_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_2_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_2_content = db.Column(db.UnicodeText)
+    _tab_2_content_markdown = db.Column(db.UnicodeText)
+    tab_2_content_html = db.Column(db.UnicodeText)
     tab_3_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_3_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_3_content = db.Column(db.UnicodeText)
+    _tab_3_content_markdown = db.Column(db.UnicodeText)
+    tab_3_content_html = db.Column(db.UnicodeText)
     tab_4_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_4_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_4_content = db.Column(db.UnicodeText)
+    _tab_4_content_markdown = db.Column(db.UnicodeText)
+    tab_4_content_html = db.Column(db.UnicodeText)
     tab_5_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_5_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_5_content = db.Column(db.UnicodeText)
+    _tab_5_content_markdown = db.Column(db.UnicodeText)
+    tab_5_content_html = db.Column(db.UnicodeText)
     tab_6_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_6_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_6_content = db.Column(db.UnicodeText)
+    _tab_6_content_markdown = db.Column(db.UnicodeText)
+    tab_6_content_html = db.Column(db.UnicodeText)
     tab_7_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_7_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_7_content = db.Column(db.UnicodeText)
+    _tab_7_content_markdown = db.Column(db.UnicodeText)
+    tab_7_content_html = db.Column(db.UnicodeText)
     tab_8_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_8_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_8_content = db.Column(db.UnicodeText)
+    _tab_8_content_markdown = db.Column(db.UnicodeText)
+    tab_8_content_html = db.Column(db.UnicodeText)
     tab_9_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_9_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_9_content = db.Column(db.UnicodeText)
+    _tab_9_content_markdown = db.Column(db.UnicodeText)
+    tab_9_content_html = db.Column(db.UnicodeText)
     tab_10_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_10_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    tab_10_content = db.Column(db.UnicodeText)
+    _tab_10_content_markdown = db.Column(db.UnicodeText)
+    tab_10_content_html = db.Column(db.UnicodeText)
+
+    @hybrid_property
+    def tab_1_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_1_content_markdown.setter
+    def tab_1_content_markdown(self, value):
+        self._tab_1_content_markdown = value
+        self.tab_1_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def tab_2_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_2_content_markdown.setter
+    def tab_2_content_markdown(self, value):
+        self._tab_2_content_markdown = value
+        self.tab_2_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def tab_3_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_3_content_markdown.setter
+    def tab_3_content_markdown(self, value):
+        self._tab_3_content_markdown = value
+        self.tab_3_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def tab_4_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_4_content_markdown.setter
+    def tab_4_content_markdown(self, value):
+        self._tab_4_content_markdown = value
+        self.tab_4_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def tab_5_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_5_content_markdown.setter
+    def tab_5_content_markdown(self, value):
+        self._tab_5_content_markdown = value
+        self.tab_5_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def tab_6_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_6_content_markdown.setter
+    def tab_6_content_markdown(self, value):
+        self._tab_6_content_markdown = value
+        self.tab_6_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def tab_7_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_7_content_markdown.setter
+    def tab_7_content_markdown(self, value):
+        self._tab_7_content_markdown = value
+        self.tab_7_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def tab_8_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_8_content_markdown.setter
+    def tab_8_content_markdown(self, value):
+        self._tab_8_content_markdown = value
+        self.tab_8_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def tab_9_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_9_content_markdown.setter
+    def tab_9_content_markdown(self, value):
+        self._tab_9_content_markdown = value
+        self.tab_9_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def tab_10_content_markdown(self):
+        return self._summary_markdown
+
+    @tab_10_content_markdown.setter
+    def tab_10_content_markdown(self, value):
+        self._tab_10_content_markdown = value
+        self.tab_10_content_html = parse_markdown(value)
+
+    @hybrid_property
+    def summary_markdown(self):
+        return self._summary_markdown
+
+    @summary_markdown.setter
+    def summary_markdown(self, value):
+        self._summary_markdown = value
+        self.summary_html = parse_markdown(value)
 
     @hybrid_property
     def active(self):
@@ -154,7 +263,7 @@ class Product(BaseModel):
             price=Decimal(form.price.data.replace(',', '.')),
             stock=int(form.stock.data),
             min_available=int(form.min_available.data),
-            summary=parse_markdown(form.summary.data),
+            summary_markdown=form.summary.data,
 
             image_1=form.image_1.data,
             image_2=form.image_2.data,
@@ -169,34 +278,34 @@ class Product(BaseModel):
 
             tab_1_active=form.tab_1_active.data,
             tab_1_title=form.tab_1_title.data,
-            tab_1_content=parse_markdown(form.tab_1_content.data),
+            tab_1_content_markdown=form.tab_1_content.data,
             tab_2_active=form.tab_2_active.data,
             tab_2_title=form.tab_2_title.data,
-            tab_2_content=parse_markdown(form.tab_2_content.data),
+            tab_2_content_markdown=form.tab_2_content.data,
             tab_3_active=form.tab_3_active.data,
             tab_3_title=form.tab_3_title.data,
-            tab_3_content=parse_markdown(form.tab_3_content.data),
+            tab_3_content_markdown=form.tab_3_content.data,
             tab_4_active=form.tab_4_active.data,
             tab_4_title=form.tab_4_title.data,
-            tab_4_content=parse_markdown(form.tab_4_content.data),
+            tab_4_content_markdown=form.tab_4_content.data,
             tab_5_active=form.tab_5_active.data,
             tab_5_title=form.tab_5_title.data,
-            tab_5_content=parse_markdown(form.tab_5_content.data),
+            tab_5_content_markdown=form.tab_5_content.data,
             tab_6_active=form.tab_6_active.data,
             tab_6_title=form.tab_6_title.data,
-            tab_6_content=parse_markdown(form.tab_6_content.data),
+            tab_6_content_markdown=form.tab_6_content.data,
             tab_7_active=form.tab_7_active.data,
             tab_7_title=form.tab_7_title.data,
-            tab_7_content=parse_markdown(form.tab_7_content.data),
+            tab_7_content_markdown=form.tab_7_content.data,
             tab_8_active=form.tab_8_active.data,
             tab_8_title=form.tab_8_title.data,
-            tab_8_content=parse_markdown(form.tab_8_content.data),
+            tab_8_content_markdown=form.tab_8_content.data,
             tab_9_active=form.tab_9_active.data,
             tab_9_title=form.tab_9_title.data,
-            tab_9_content=parse_markdown(form.tab_9_content.data),
+            tab_9_content_markdown=form.tab_9_content.data,
             tab_10_active=form.tab_10_active.data,
             tab_10_title=form.tab_10_title.data,
-            tab_10_content=parse_markdown(form.tab_10_content.data)
+            tab_10_content_markdown=form.tab_10_content.data
         )
 
     @staticmethod

@@ -11,6 +11,10 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        unavailable_product_at_moment = "Produto indisponível no momento."
+        product_image = "Imagem do produto"
+        in_stock = "Em estoque"
+        product = "Produto"
         add_to_cart = "Adicionar ao carrinho"
         default_product_image_name = "product_default.jpg"
         back_to_blog = "Voltar ao blog"
@@ -80,7 +84,6 @@ class Resources(object):
         add_new_image = "Adicionar nova imagem"
         images_table = "Tabela de imagens"
         content = "Conteúdo"
-        contact = "Contato"
         about_us = "Sobre nós"
         faq = "FAQ"
         attended_cities = "Cidades atendidas"
@@ -409,7 +412,7 @@ Açúcar mascavo  | 5g"""
 
 Tipo de nutriente  | Quantidade
 ------------------ | ----------
-Carboidrato        | 87g
+Carboidratos       | 87g
 Proteínas          | 9,2g
 Gorduras totais    | 0g
 Gorduras saturadas | 0g

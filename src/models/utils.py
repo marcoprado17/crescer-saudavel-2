@@ -318,7 +318,7 @@ def get_random_product():
         price=Decimal(get_random_price()),
         stock=stock,
         min_available=random.randint(2, 20),
-        summary=get_random_phrase((4, 10 + 1), (20, 40 + 1)),
+        summary_markdown=get_random_phrase((4, 10 + 1), (20, 40 + 1)),
         sales_number=random.randint(0, 500),
         **get_random_images_dic()
     )

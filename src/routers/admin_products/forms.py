@@ -285,7 +285,7 @@ class EditProductForm(ProductForm):
             self.price.data = str(product.price).replace(".", ",")
             self.stock.data = product.stock
             self.min_available.data = product.min_available
-            self.summary.data = product.summary
+            self.summary.data = product.summary_markdown
 
             self.image_1.data = product.image_1
             self.image_2.data = product.image_2
@@ -300,34 +300,34 @@ class EditProductForm(ProductForm):
 
             self.tab_1_active.data = product.tab_1_active
             self.tab_1_title.data = product.tab_1_title
-            self.tab_1_content.data = product.tab_1_content
+            self.tab_1_content.data = product.tab_1_content_markdown
             self.tab_2_active.data = product.tab_2_active
             self.tab_2_title.data = product.tab_2_title
-            self.tab_2_content.data = product.tab_2_content
+            self.tab_2_content.data = product.tab_2_content_markdown
             self.tab_3_active.data = product.tab_3_active
             self.tab_3_title.data = product.tab_3_title
-            self.tab_3_content.data = product.tab_3_content
+            self.tab_3_content.data = product.tab_3_content_markdown
             self.tab_4_active.data = product.tab_4_active
             self.tab_4_title.data = product.tab_4_title
-            self.tab_4_content.data = product.tab_4_content
+            self.tab_4_content.data = product.tab_4_content_markdown
             self.tab_5_active.data = product.tab_5_active
             self.tab_5_title.data = product.tab_5_title
-            self.tab_5_content.data = product.tab_5_content
+            self.tab_5_content.data = product.tab_5_content_markdown
             self.tab_6_active.data = product.tab_6_active
             self.tab_6_title.data = product.tab_6_title
-            self.tab_6_content.data = product.tab_6_content
+            self.tab_6_content.data = product.tab_6_content_markdown
             self.tab_7_active.data = product.tab_7_active
             self.tab_7_title.data = product.tab_7_title
-            self.tab_7_content.data = product.tab_7_content
+            self.tab_7_content.data = product.tab_7_content_markdown
             self.tab_8_active.data = product.tab_8_active
             self.tab_8_title.data = product.tab_8_title
-            self.tab_8_content.data = product.tab_8_content
+            self.tab_8_content.data = product.tab_8_content_markdown
             self.tab_9_active.data = product.tab_9_active
             self.tab_9_title.data = product.tab_9_title
-            self.tab_9_content.data = product.tab_9_content
+            self.tab_9_content.data = product.tab_9_content_markdown
             self.tab_10_active.data = product.tab_10_active
             self.tab_10_title.data = product.tab_10_title
-            self.tab_10_content.data = product.tab_10_content
+            self.tab_10_content.data = product.tab_10_content_markdown
 
 
 class ProductFilterForm(FlaskForm):

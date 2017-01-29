@@ -46,8 +46,7 @@ class ClientProductsDataProvider(object):
                 href=url_for("client_home.home")
             ),
             dict(
-                name=R.string.products,
-                href=url_for("client_products.products")
+                name=R.string.products
             )
         ]
 
@@ -55,16 +54,29 @@ class ClientProductsDataProvider(object):
             q = q.filter(Product.category_id == category_id)
             category = ProductCategory.get(category_id)
             page_heading_title = R.string.get_products_by_category_title(category.name)
+            page_heading_path.pop()
             page_heading_path.append(
                 dict(
-                    name=category.name,
-                    href=url_for("client_products.products", **{R.string.category_id_arg_name: category_id})
+                    name=R.string.products,
+                    href=url_for("client_products.products")
+                )
+            )
+            page_heading_path.append(
+                dict(
+                    name=category.name
                 )
             )
         elif subcategory_id != 0:
             q = q.filter(Product.subcategory_id == subcategory_id)
             subcategory = ProductSubcategory.get(subcategory_id)
             page_heading_title = R.string.get_products_by_subcategory_title(subcategory.name)
+            page_heading_path.pop()
+            page_heading_path.append(
+                dict(
+                    name=R.string.products,
+                    href=url_for("client_products.products")
+                )
+            )
             page_heading_path.append(
                 dict(
                     name=subcategory.category.name,
@@ -73,17 +85,22 @@ class ClientProductsDataProvider(object):
             )
             page_heading_path.append(
                 dict(
-                    name=subcategory.name,
-                    href=url_for("client_products.products", **{R.string.subcategory_id_arg_name: subcategory_id})
+                    name=subcategory.name
                 )
             )
         elif search_string != "":
             # TODO: Implement filter of search
             page_heading_title = R.string.get_products_by_search_title(search_string)
+            page_heading_path.pop()
             page_heading_path.append(
                 dict(
-                    name=R.string.search,
-                    href=url_for("client_products.products", **{R.string.search_string_arg_name: search_string})
+                    name=R.string.products,
+                    href=url_for("client_products.products")
+                )
+            )
+            page_heading_path.append(
+                dict(
+                    name=R.string.search
                 )
             )
 
