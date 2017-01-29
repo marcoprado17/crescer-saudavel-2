@@ -428,7 +428,7 @@ problemas de constipação sem o uso de laxantes.
 * A banana acalma o estômago e ajuda na digestão."""
         product_example_tab_5_title = "Conservação"
         product_example_tab_5_content = \
-""" Conservar este produto congelado até o seu uso. Após Aberto e descongelado, consumir em até 12 horas.
+"""Conservar este produto congelado até o seu uso. Após Aberto e descongelado, consumir em até 12 horas.
 Nenhum produto após o descongelamento poderá ser recongelado."""
 
 

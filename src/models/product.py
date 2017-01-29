@@ -88,7 +88,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_1_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_1_content_markdown
 
     @tab_1_content_markdown.setter
     def tab_1_content_markdown(self, value):
@@ -97,7 +97,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_2_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_2_content_markdown
 
     @tab_2_content_markdown.setter
     def tab_2_content_markdown(self, value):
@@ -106,7 +106,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_3_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_3_content_markdown
 
     @tab_3_content_markdown.setter
     def tab_3_content_markdown(self, value):
@@ -115,7 +115,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_4_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_4_content_markdown
 
     @tab_4_content_markdown.setter
     def tab_4_content_markdown(self, value):
@@ -124,7 +124,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_5_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_5_content_markdown
 
     @tab_5_content_markdown.setter
     def tab_5_content_markdown(self, value):
@@ -133,7 +133,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_6_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_6_content_markdown
 
     @tab_6_content_markdown.setter
     def tab_6_content_markdown(self, value):
@@ -142,7 +142,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_7_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_7_content_markdown
 
     @tab_7_content_markdown.setter
     def tab_7_content_markdown(self, value):
@@ -151,7 +151,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_8_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_8_content_markdown
 
     @tab_8_content_markdown.setter
     def tab_8_content_markdown(self, value):
@@ -160,7 +160,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_9_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_9_content_markdown
 
     @tab_9_content_markdown.setter
     def tab_9_content_markdown(self, value):
@@ -169,7 +169,7 @@ class Product(BaseModel):
 
     @hybrid_property
     def tab_10_content_markdown(self):
-        return self._summary_markdown
+        return self._tab_10_content_markdown
 
     @tab_10_content_markdown.setter
     def tab_10_content_markdown(self, value):
