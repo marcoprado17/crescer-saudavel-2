@@ -1,0 +1,258 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/utils.html" as utils with context %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block subtitle %}
+    {{ R.string.orders }}
+{% endblock %}
+{% block content %}
+    <div class="__admin_orders__ __orders__ container">
+        {% for order in data.orders_in_page %}
+            <div id="modal-{{ loop.index0 }}" class="modal fade details" role="dialog">
+                <div class="modal-dialog large">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{ R.string.order_space_at_end }}{{ utils.min_uuid(order.uuid) }}</h4>
+                        </div>
+                        <div class="modal-body example">
+                            {% with client_form=order.client.get_form(include_undefined_in_choices=True), readonly=True %}
+                                {% include "components/client_panel_form.html" %}
+                            {% endwith %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{ R.string.products_of_order }}{{ utils.min_uuid(order.uuid) }}</h3>
+                                </div>
+                                <div class="panel-body">
+                                    {% with data=order.products_table_data %}
+                                        {% include "components/super_table.html" %}
+                                    {% endwith %}
+                                    {% with data=order.total_table_data %}
+                                        {% include "components/super_table.html" %}
+                                    {% endwith %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">{{ R.string.close }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ utils.page_header(R.string.orders) }}
+        {% with data=data %}
+            {% include "components/super_table.html" %}
+        {% endwith %}
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        initSuperTable();
+
+        $(".actions-container form.mark-as-sent").each(function () {
+            var mark_as_sent_form = $(this);
+            var button = mark_as_sent_form.find("button");
+            var unmark_as_sent_form = mark_as_sent_form.siblings(".unmark-as-sent");
+            var mark_as_delivered_form = mark_as_sent_form.siblings(".mark-as-delivered");
+            var mark_as_canceled_form = mark_as_sent_form.siblings(".mark-as-canceled");
+            var order_id = mark_as_sent_form.attr("data-order-id");
+            var row_idx = mark_as_sent_form.attr("data-row-idx");
+            var email = mark_as_sent_form.attr("data-email");
+
+            setAjaxFormHandlers({
+                confirmMessage: "{{ R.string.mark_as_sent_confirmation }}".f(email),
+                form: mark_as_sent_form,
+                minResponseTime: DEFAULT_RESPONSE_TIME,
+                onSubmit: function () {
+                    button.html("{{ R.string.checking }}");
+                    button.prop("disabled", true);
+                },
+                success: function (data) {
+                    mark_as_sent_form.addClass("hidden");
+                    console.log(mark_as_canceled_form);
+                    mark_as_canceled_form.addClass("hidden");
+                    unmark_as_sent_form.removeClass("hidden");
+                    mark_as_delivered_form.removeClass("hidden");
+                    setTextTdValue("status", row_idx, data.new_status);
+                    setTextTdValue("sent-datetime", row_idx, data.new_sent_datetime);
+                },
+                error: function (status, data) {
+                    if( status == 409 ) {
+                        throwErrorOpToast(data.error_message);
+                    }
+                    else {
+                        throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                    }
+                },
+                complete: function () {
+                    button.html("{{ R.string.mark_as_sent }}");
+                    button.prop("disabled", false);
+                }
+            });
+        });
+
+        $(".actions-container form.unmark-as-sent").each(function () {
+            var unmark_as_sent_form = $(this);
+            var button = unmark_as_sent_form.find("button");
+            var mark_as_sent_form = unmark_as_sent_form.siblings(".mark-as-sent");
+            var mark_as_delivered_form = unmark_as_sent_form.siblings(".mark-as-delivered");
+            var mark_as_canceled_form = unmark_as_sent_form.siblings(".mark-as-canceled");
+            var order_id = unmark_as_sent_form.attr("data-order-id");
+            var row_idx = unmark_as_sent_form.attr("data-row-idx");
+
+            setAjaxFormHandlers({
+                form: unmark_as_sent_form,
+                minResponseTime: DEFAULT_RESPONSE_TIME,
+                onSubmit: function () {
+                    button.html("{{ R.string.unchecking }}");
+                    button.prop("disabled", true);
+                },
+                success: function (data) {
+                    unmark_as_sent_form.addClass("hidden");
+                    mark_as_delivered_form.addClass("hidden");
+                    mark_as_sent_form.removeClass("hidden");
+                    mark_as_canceled_form.removeClass("hidden");
+                    setTextTdValue("status", row_idx, data.new_status);
+                    setTextTdValue("sent-datetime", row_idx, data.new_sent_datetime);
+                },
+                error: function () {
+                    throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                },
+                complete: function () {
+                    button.html("{{ R.string.unmark_as_sent }}");
+                    button.prop("disabled", false);
+                }
+            });
+        });
+
+        $(".actions-container form.mark-as-delivered").each(function () {
+            var mark_as_delivered_form = $(this);
+            var button = mark_as_delivered_form.find("button");
+            var unmark_as_sent_form = mark_as_delivered_form.siblings(".unmark-as-sent");
+            var unmark_as_delivered_form = mark_as_delivered_form.siblings(".unmark-as-delivered");
+            var order_id = mark_as_delivered_form.attr("data-order-id");
+            var row_idx = mark_as_delivered_form.attr("data-row-idx");
+
+            setAjaxFormHandlers({
+                form: mark_as_delivered_form,
+                minResponseTime: DEFAULT_RESPONSE_TIME,
+                onSubmit: function () {
+                    button.html("{{ R.string.checking }}");
+                    button.prop("disabled", true);
+                },
+                success: function (data) {
+                    mark_as_delivered_form.addClass("hidden");
+                    unmark_as_sent_form.addClass("hidden");
+                    unmark_as_delivered_form.removeClass("hidden");
+                    setTextTdValue("status", row_idx, data.new_status);
+                    setTextTdValue("delivered-datetime", row_idx, data.new_delivered_datetime);
+                },
+                error: function () {
+                    throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                },
+                complete: function () {
+                    button.html("{{ R.string.mark_as_delivered }}");
+                    button.prop("disabled", false);
+                }
+            });
+        });
+
+        $(".actions-container form.unmark-as-delivered").each(function () {
+            var unmark_as_delivered_form = $(this);
+            var button = unmark_as_delivered_form.find("button");
+            var mark_as_delivered_form = unmark_as_delivered_form.siblings(".mark-as-delivered");
+            var unmark_as_sent_form = unmark_as_delivered_form.siblings(".unmark-as-sent");
+            var order_id = unmark_as_delivered_form.attr("data-order-id");
+            var row_idx = unmark_as_delivered_form.attr("data-row-idx");
+
+            setAjaxFormHandlers({
+                form: unmark_as_delivered_form,
+                minResponseTime: DEFAULT_RESPONSE_TIME,
+                onSubmit: function () {
+                    button.html("{{ R.string.unchecking }}");
+                    button.prop("disabled", true);
+                },
+                success: function (data) {
+                    unmark_as_delivered_form.addClass("hidden");
+                    mark_as_delivered_form.removeClass("hidden");
+                    unmark_as_sent_form.removeClass("hidden");
+                    setTextTdValue("status", row_idx, data.new_status);
+                    setTextTdValue("delivered-datetime", row_idx, data.new_delivered_datetime);
+                },
+                error: function () {
+                    throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                },
+                complete: function () {
+                    button.html("{{ R.string.unmark_as_delivered }}");
+                    button.prop("disabled", false);
+                }
+            });
+        });
+
+        $(".actions-container form.mark-as-canceled").each(function () {
+            var mark_as_canceled_form = $(this);
+            var button = mark_as_canceled_form.find("button");
+            var mark_as_paid_form = mark_as_canceled_form.siblings(".mark-as-paid");
+            var mark_as_sent_form = mark_as_canceled_form.siblings(".mark-as-sent");
+            var order_id = mark_as_canceled_form.attr("data-order-id");
+            var row_idx = mark_as_canceled_form.attr("data-row-idx");
+            var email = mark_as_canceled_form.attr("data-email");
+
+            setAjaxFormHandlers({
+                confirmMessage: "{{ R.string.mark_as_canceled_confirmation }}".f(email),
+                form: mark_as_canceled_form,
+                minResponseTime: DEFAULT_RESPONSE_TIME,
+                onSubmit: function () {
+                    button.html("{{ R.string.canceling }}");
+                    button.prop("disabled", true);
+                },
+                success: function (data) {
+                    mark_as_canceled_form.addClass("hidden");
+                    mark_as_sent_form.addClass("hidden");
+                    mark_as_paid_form.removeClass("hidden");
+                    setTextTdValue("status", row_idx, data.new_status);
+                },
+                error: function () {
+                    throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                },
+                complete: function () {
+                    button.html("{{ R.string.cancel_order }}");
+                    button.prop("disabled", false);
+                }
+            });
+        });
+
+        $(".actions-container form.mark-as-paid").each(function () {
+            var mark_as_paid_form = $(this);
+            var button = mark_as_paid_form.find("button");
+            var mark_as_canceled_form = mark_as_paid_form.siblings(".mark-as-canceled");
+            var mark_as_sent_form = mark_as_paid_form.siblings(".mark-as-sent");
+            var order_id = mark_as_paid_form.attr("data-order-id");
+            var row_idx = mark_as_paid_form.attr("data-row-idx");
+
+            setAjaxFormHandlers({
+                form: mark_as_paid_form,
+                minResponseTime: DEFAULT_RESPONSE_TIME,
+                onSubmit: function () {
+                    button.html("{{ R.string.checking }}");
+                    button.prop("disabled", true);
+                },
+                success: function (data) {
+                    mark_as_paid_form.addClass("hidden");
+                    mark_as_canceled_form.removeClass("hidden");
+                    mark_as_sent_form.removeClass("hidden");
+                    setTextTdValue("status", row_idx, data.new_status);
+                },
+                error: function () {
+                    throwErrorOpToast("{{ R.string.order_status_change_error }}".f(order_id));
+                },
+                complete: function () {
+                    button.html("{{ R.string.mark_as_paid }}");
+                    button.prop("disabled", false);
+                }
+            });
+        });
+    </script>
+{% endblock %}

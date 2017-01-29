@@ -1,0 +1,152 @@
+{% set data = get_components_client_header_data|assert_defined|assert_callable|call %}
+<div class="__components__ __client_header__">
+    <header>
+        <div id="header">
+            <div class="header-account">
+                <div class="header-container container">
+                    <div class="row">
+                        <span class="header-account-row-welcome-text"><b>{{ R.string.welcome_message }}</b></span>
+                        {% if not data.logged %}
+                            <span class="header-account-row-right-part"><a
+                                    href="{{ url_for('client_user_management.login') }}"><b><u>{{ R.string.enter }}</u></b></a> {{ R.string.or_word }} <a
+                                    href="{{ url_for('client_user_management.register') }}"><b><u>{{ R.string.register }}</u></b></a></span>
+                        {% else %}
+                            <span class="header-account-row-right-part"><a
+                                    href="{{ url_for('client_account.my_account') }}"><b><u>{{ R.string.my_account }}</u></b></a></span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="header-main">
+                    <div class="header-container container">
+                        <div class="row">
+                            <div class="logo">
+                                <a href="{{ url_for('client_home.home') }}" title="Home">
+                                    <div>
+                                        <img class="logo-img" src="{{ url_for('static', filename='imgs/logo.png') }}"
+                                             alt="Logo da loja">
+                                        <img class="mini-logo-img"
+                                             src="{{ url_for('static', filename='imgs/mini_logo.png') }}"
+                                             alt="Logo da loja">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="fl-nav-menu">
+                                <nav>
+                                    <div class="mm-toggle-wrap">
+                                        <div class="mm-toggle">
+                                            <i class="icon-align-justify"></i><span class="mm-label"></span>
+                                        </div>
+                                    </div>
+                                    <div class="nav-inner">
+                                        {% if data.menu_data and data.menu_data|length > 0 %}
+                                            <ul id="nav" class="hidden-xs">
+                                                {% for menu_item in data.menu_data %}
+                                                    <li class="mega-menu">
+                                                        <a href="{{ menu_item.href }}"
+                                                           class="level-top"><span>{{ menu_item.name }}</span></a>
+                                                        {% if menu_item.children and menu_item.children|length > 0 %}
+                                                            <div class="level0-wrapper dropdown-6col" style="left: 0;">
+                                                                <div class="container">
+                                                                    <div class="level0-wrapper2">
+                                                                        <div class="nav-block nav-block-center">
+                                                                            <ul class="level0">
+                                                                                {% for children1 in menu_item.children %}
+                                                                                    <li class="level1 nav-6-1 parent item">
+                                                                                        <a href="{{ children1.href }}"><span>{{ children1.name }}</span></a>
+                                                                                        {% if children1.children and children1.children|length > 0 %}
+                                                                                            <ul class="level1">
+                                                                                                {% for children2 in children1.children %}
+                                                                                                    <li class="level2 nav-6-1-1">
+                                                                                                        <a href="{{ children2.href }}"><span>{{ children2.name }}</span></a>
+                                                                                                    </li>
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                        {% endif %}
+                                                                                    </li>
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="fl-header-right">
+                            <div class="fl-cart-contain">
+                                <div class="mini-cart">
+                                    <div class="basket"><a href="{{ url_for('client_cart.cart') }}"></a></div>
+                                    <div class="fl-mini-cart-content">
+                                        <a href="{{ url_for('client_cart.cart') }}">
+                                            <div class="block-subtitle">
+                                                <div class="top-subtotal">
+                                                    {{ R.string.cart_popup_title(data.cart_data.n_items, data.cart_data.total_price) }}
+                                                </div>
+                                            </div>
+                                        </a>
+                                        {% if data.cart_data.products and data.cart_data.products|length > 0 %}
+                                            <ul class="mini-products-list" id="cart-sidebar">
+                                                {% for product in data.cart_data.products %}
+                                                    <li class="item first">
+                                                        <div class="item-inner">
+                                                            <a class="product-image" title="{{ product.title }}"
+                                                               href="{{ product.href }}">
+                                                                <img alt="{{ product.title }}"
+                                                                     src="{{ product.img_src }}">
+                                                            </a>
+                                                            <div class="product-details">
+                                                                <a href="{{ product.href }}">
+                                                                    <strong>{{ R.string.get_product_amount_subtotal(amount=product.quantity, unit_price=product.unity_price) }}</strong>
+                                                                </a>
+                                                                <p class="product-name"><a
+                                                                        href="{{ product.href }}">{{ product.title }}</a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <div class="actions">
+                                                <a href="{{ url_for('client_checkout.checkout') }}">
+                                                    <button class="btn-checkout"
+                                                            title="{{ R.string.finalize_purchase }}" type="button">
+                                                        <span>{{ R.string.finalize_purchase }}</span>
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url_for('client_cart.cart') }}">
+                                                    <button class="view-cart" title="{{ R.string.view_cart }}"
+                                                            type="button">
+                                                        <span>{{ R.string.view_cart }}</span>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="collapse navbar-collapse search-input-container">
+                                <form action="#" class="navbar-form" role="search"
+                                      method="get">
+                                    <div class="input-group">
+                                        <input class="GlobalNavSearch js-globalSearchInput "
+                                               placeholder="{{ R.string.to_search }}"
+                                               id="desktopSearchInput"
+                                               data-reactid=".1.0.0.0" name="q">
+                                        <label class="GlobalNavSearch-searchIcon" for="desktopSearchInput"
+                                               data-reactid=".1.0.0.1"></label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

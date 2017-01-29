@@ -1,0 +1,13 @@
+{
+  "name": "flipmart-v5",
+  "homepage": "https://github.com/marcoprado17/flipmart-v5",
+  "_release": "2edb9513a8",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "2edb9513a83caf2cc195c172a53d3f20011d8135"
+  },
+  "_source": "https://github.com/marcoprado17/flipmart-v5.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/marcoprado17/flipmart-v5.git"
+}

@@ -1,0 +1,20 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/utils.html" as utils with context %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block subtitle %}
+    {{ R.string.product_subcategories }}
+{% endblock %}
+{% block content %}
+    <div class="__admin_products__ __subcategories__ container">
+        {{ utils.page_header(R.string.product_subcategories) }}
+        {% with data=data %}
+            {% include "components/super_table.html" %}
+        {% endwith %}
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        {{ messages.flash_toast() }}
+        initSuperTable();
+    </script>
+{% endblock %}

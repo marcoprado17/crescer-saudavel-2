@@ -1,7 +1,5 @@
 .vagrant/
-bower_components/
 *.pyc
-node_modules/
 /logs/*
 !/logs/.gitkeep
 /scripts/server_setups/export_db_info_result.txt
@@ -9,6 +7,3 @@ node_modules/
 playground/
 portuguese_brazil_dic/
 /debug_images/
-/configs/instance/instance_app_config.py
-/configs/instance/db_info.py
-build/

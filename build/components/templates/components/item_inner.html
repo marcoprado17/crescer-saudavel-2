@@ -1,0 +1,36 @@
+<div class="item-inner">
+    <div class="item-img">
+        <div class="item-img-info">
+            <a
+                href="{{ product.get_href() }}"
+                class="product-image">
+                <img src="{{ product.get_main_image_src() }}">
+            </a>
+        </div>
+    </div>
+    <div class="item-info">
+        <div class="info-inner">
+            <div class="item-title">
+                <a href="{{ product.get_href() }}">{{ product.title }}</a>
+            </div>
+            <div class="add_cart_container">
+                <div class="add_cart">
+                    <form method="post"
+{#                          TODO: Implement this action#}
+                          action="#">
+                        <button class="button btn-cart" type="submit" title="{{ R.string.add_to_cart }}"></button>
+                    </form>
+                </div>
+            </div>
+            <div class="item-content">
+                <div class="item-price">
+                    <div class="price-box">
+                        <span class="regular-price">
+                            <span class="price">{{ product.get_formatted_price(include_rs=True) }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
