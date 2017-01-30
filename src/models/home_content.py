@@ -3,8 +3,11 @@
 # ======================================================================================================================
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from flask import url_for
 from sqlalchemy import ForeignKey
 
+from models.blog_post import BlogPost
+from models.product import Product
 from proj_exceptions import InconsistentDataBaseError
 from proj_extensions import db
 from models.base import BaseModel
@@ -14,19 +17,19 @@ from proj_utils import safe_id
 
 class HomeContent(BaseModel):
     carousel_item_1_active = db.Column(db.Boolean, default=False, nullable=False)
-    carousel_item_1_title = db.Column(db.String(R.dimen.carousel_title_max_length))
-    carousel_item_1_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length))
-    carousel_item_1_image = db.Column(db.Text)
+    carousel_item_1_title = db.Column(db.String(R.dimen.carousel_title_max_length), default="", nullable=False)
+    carousel_item_1_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length), default="", nullable=False)
+    carousel_item_1_image = db.Column(db.Text, default="", nullable=False)
 
     carousel_item_2_active = db.Column(db.Boolean, default=False, nullable=False)
     carousel_item_2_title = db.Column(db.String(R.dimen.carousel_title_max_length))
     carousel_item_2_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length))
-    carousel_item_2_image = db.Column(db.Text)
+    carousel_item_2_image = db.Column(db.Text, default="", nullable=False)
 
     carousel_item_3_active = db.Column(db.Boolean, default=False, nullable=False)
     carousel_item_3_title = db.Column(db.String(R.dimen.carousel_title_max_length))
     carousel_item_3_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length))
-    carousel_item_3_image = db.Column(db.Text)
+    carousel_item_3_image = db.Column(db.Text, default="", nullable=False)
 
     product_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_1_name = db.Column(db.String(R.dimen.product_section_name_max_length))
@@ -364,3 +367,39 @@ class HomeContent(BaseModel):
         home_content.blog_section_3_post_2_id = safe_id(blog_section_form.post_2_id.data)
         db.session.add(home_content)
         db.session.commit()
+
+    def get_carousel_img_src(self, carousel_number):
+        if carousel_number == 1:
+            image_name = self.carousel_item_1_image
+        elif carousel_number == 2:
+            image_name = self.carousel_item_2_image
+        elif carousel_number == 3:
+            image_name = self.carousel_item_3_image
+        else:
+            raise ValueError
+        print "carousel_number: " + str(carousel_number)
+        print "image_name: " + image_name
+        if image_name is None or image_name == "":
+            image_name = R.string.default_carousel_image_name
+        return url_for("static", filename="imgs/" + image_name)
+
+    def get_section_is_active(self, section_number):
+        return getattr(self, "product_section_" + str(section_number) + "_active", "")
+
+    def get_product_section_title(self, section_number):
+        return getattr(self, "product_section_" + str(section_number) + "_name", "")
+
+    def get_blog_section_title(self, section_number):
+        return getattr(self, "blog_section_" + str(section_number) + "_name", "")
+
+    def get_product_of_section(self, section_number, product_number):
+        return Product.get(self.get_product_id_of_section(section_number=section_number, product_number=product_number))
+
+    def get_product_id_of_section(self, section_number, product_number):
+        return getattr(self, "product_section_" + str(section_number) + "_product_" + str(product_number) + "_id", 0)
+
+    def get_blog_post_of_section(self, section_number, blog_post_number):
+        return BlogPost.get(self.get_blog_post_id_of_section(section_number=section_number, blog_post_number=blog_post_number))
+
+    def get_blog_post_id_of_section(self, section_number, blog_post_number):
+        return getattr(self, "blog_section_" + str(section_number) + "_post_" + str(blog_post_number) + "_id", 0)

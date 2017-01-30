@@ -95,7 +95,7 @@ class ProductSectionForm(FlaskForm):
 
     def __init__(self, home_content=None, product_section_number=None, **kwargs):
         super(ProductSectionForm, self).__init__(**kwargs)
-        product_choices_with_none = Product.get_choices(include_none=True)
+        product_choices_with_none = Product.get_choices(include_none=True, only_active=True)
         self.product_1_id.choices = product_choices_with_none
         self.product_2_id.choices = product_choices_with_none
         self.product_3_id.choices = product_choices_with_none
@@ -252,7 +252,7 @@ class BlogSectionForm(FlaskForm):
 
     def __init__(self, home_content=None, blog_section_number=None, **kwargs):
         super(BlogSectionForm, self).__init__(**kwargs)
-        post_choices_with_none = BlogPost.get_choices(include_none=True)
+        post_choices_with_none = BlogPost.get_choices(include_none=True, only_active=True)
         self.post_1_id.choices = post_choices_with_none
         self.post_2_id.choices = post_choices_with_none
 

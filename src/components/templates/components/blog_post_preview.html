@@ -1,0 +1,16 @@
+<div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 blog-post">
+    <h3><a href="{{ blog_post.get_href() }}">{{ blog_post.title }}</a></h3>
+    <div class="blog_inner">
+        <div class="blog-img">
+            <a href="{{ blog_post.get_href() }}"> <img src="{{ blog_post.get_img_src_of_thumbnail() }}" alt="Thumbnail do post"> </a>
+            <div class="mask"><a class="info" href="{{ blog_post.get_href() }}">{{ R.string.read_more }}</a></div>
+        </div>
+        <div class="blog-info">
+            <div class="post-date">
+                <time class="entry-date" datetime="2015-05-11T11:07:27+00:00">
+                    <span>{{ blog_post.get_day() }}</span><br>{{ blog_post.get_month() }}
+                </time>
+            </div>
+        </div>
+    </div>
+</div>

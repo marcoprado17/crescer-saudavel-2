@@ -1,0 +1,70 @@
+{% extends "client_base/client_base.html" %}
+{% block title %}
+    {{ R.string.home }}
+{% endblock %}
+{% block content %}
+    <div class="__client_home__ __home__">
+        <div class="content">
+            {% if data.carousel and data.carousel|length > 0 %}
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        {% for slide in data.carousel %}
+                            <div class="item img-container {{ 'active'|if(loop.first) }}">
+                                <img src="{{ slide.img_src }}">
+                                {% if slide.title or slide.subtitle %}
+                                    <div class="carousel-caption">
+                                        <h3>{{ slide.title }}</h3>
+                                        <h5>{{ slide.subtitle }}</h5>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+                </div>
+            {% endif %}
+
+            {% if data.product_sections and data.product_sections|length > 0 %}
+                {% for product_section in data.product_sections %}
+                    {% with data=product_section %}
+                        {% include "components/products_home_section.html" %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
+
+            {% if data.blog_sections and data.blog_sections|length > 0 %}
+                {% for blog_section in data.blog_sections %}
+                    <div class="latest-blog wow bounceInUp animated animated container">
+                        <div class="new_title">
+                            <h2>{{ blog_section.title }}</h2>
+                        </div>
+                        <div class="blog_block">
+                            <div class="blog_block_inner">
+                                {% with blog_post=blog_section.blog_posts[0] %}
+                                    {% include "components/blog_post_preview.html" %}
+                                {% endwith %}
+                                {% if blog_section.blog_posts|length == 2 %}
+                                    {% with blog_post=blog_section.blog_posts[1] %}
+                                        {% include "components/blog_post_preview.html" %}
+                                    {% endwith %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

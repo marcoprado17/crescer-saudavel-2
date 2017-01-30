@@ -11,6 +11,8 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        default_blog_post_thumbnail_name = "blog_post_thumbnail_default.jpg"
+        default_carousel_image_name = "carousel_default.jpg"
         unavailable_product_at_moment = "Produto indisponível no momento."
         product_image = "Imagem do produto"
         in_stock = "Em estoque"
@@ -344,6 +346,8 @@ class Resources(object):
         date = "Data"
         default_date_format = "%d/%m/%Y"
         default_datetime_format = "%d/%m/%Y\n%H:%M"
+        day_format = "%d"
+        month_format = "%b"
         posts = "Posts"
         edit_post = "Editar post"
         product_category_example = "Ex.: Frutas"

@@ -3,10 +3,10 @@
 # ======================================================================================================================
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from flask import url_for
 from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
-
 from proj_extensions import db
 from models.base import BaseModel
 from proj_utils import SortMethodMap, parse_markdown
@@ -17,7 +17,7 @@ class BlogPost(BaseModel):
     active = db.Column(db.Boolean, default=False, nullable=False)
     title = db.Column(db.String(R.dimen.blog_post_title_max_length), nullable=False)
     datetime = db.Column(db.DateTime, nullable=False)
-    thumbnail = db.Column(db.Text, nullable=False)
+    thumbnail = db.Column(db.Text)
     _summary_markdown = db.Column(db.UnicodeText, nullable=False)
     summary_html = db.Column(db.UnicodeText, nullable=False)
     _content_markdown = db.Column(db.UnicodeText, nullable=False)
@@ -49,13 +49,15 @@ class BlogPost(BaseModel):
         self.content_html = parse_markdown(value)
 
     @staticmethod
-    def get_choices(include_none=False):
+    def get_choices(include_none=False, only_active=True):
         blog_post_choices = []
+
         if include_none:
             blog_post_choices = [(str(0), R.string.none_in_masculine)]
 
-        for id_title in BlogPost.query.order_by(BlogPost.title).with_entities(BlogPost.id, BlogPost.title).all():
-            blog_post_choices.append((str(id_title[0]), id_title[1]))
+        for (id, title, active) in BlogPost.query.order_by(BlogPost.title).with_entities(BlogPost.id, BlogPost.title, BlogPost.active).all():
+            if not only_active or (only_active and active):
+                blog_post_choices.append((str(id), title))
 
         return blog_post_choices
 
@@ -82,3 +84,18 @@ class BlogPost(BaseModel):
         self.active = True
         db.session.add(self)
         db.session.commit()
+
+    def get_img_src_of_thumbnail(self):
+        thumbnail_name = self.thumbnail
+        if thumbnail_name is None or thumbnail_name == "":
+            thumbnail_name = R.string.default_blog_post_thumbnail_name
+        return url_for("static", filename="imgs/" + thumbnail_name)
+
+    def get_day(self):
+        return self.datetime.strftime(R.string.day_format)
+
+    def get_month(self):
+        return self.datetime.strftime(R.string.month_format)
+
+    def get_href(self):
+        return url_for("client_blog.blog_post", **{R.string.blog_post_id_arg_name: self.id})

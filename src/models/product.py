@@ -309,13 +309,14 @@ class Product(BaseModel):
         )
 
     @staticmethod
-    def get_choices(include_none=False):
+    def get_choices(include_none=False, only_active=False):
         product_choices = []
         if include_none:
             product_choices = [(str(0), R.string.none_in_masculine)]
 
-        for id_title in Product.query.order_by(Product.title).with_entities(Product.id, Product.title).all():
-            product_choices.append((str(id_title[0]), id_title[1]))
+        for (id, title, active) in Product.query.order_by(Product.title).with_entities(Product.id, Product.title, Product.active).all():
+            if not only_active or (only_active and active):
+                product_choices.append((str(id), title))
 
         return product_choices
 
