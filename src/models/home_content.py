@@ -155,17 +155,20 @@ class HomeContent(BaseModel):
     product_section_5_product_20_id = db.Column(db.Integer, ForeignKey("product.id"))
 
     blog_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
-    blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length))
+    blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
+    blog_section_1_link = db.Column(db.String(R.dimen.link_max_length), default="", nullable=False)
     blog_section_1_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
     blog_section_1_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
 
     blog_section_2_active = db.Column(db.Boolean, default=False, nullable=False)
-    blog_section_2_name = db.Column(db.String(R.dimen.blog_section_name_max_length))
+    blog_section_2_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
+    blog_section_2_link = db.Column(db.String(R.dimen.link_max_length), default="", nullable=False)
     blog_section_2_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
     blog_section_2_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
 
     blog_section_3_active = db.Column(db.Boolean, default=False, nullable=False)
-    blog_section_3_name = db.Column(db.String(R.dimen.blog_section_name_max_length))
+    blog_section_3_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
+    blog_section_3_link = db.Column(db.String(R.dimen.link_max_length), default="", nullable=False)
     blog_section_3_post_1_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
     blog_section_3_post_2_id = db.Column(db.Integer, ForeignKey("blog_post.id"))
 
@@ -359,6 +362,7 @@ class HomeContent(BaseModel):
         home_content = HomeContent.get()
         home_content.blog_section_1_active = blog_section_form.active.data
         home_content.blog_section_1_name = blog_section_form.name.data
+        home_content.blog_section_1_link = blog_section_form.link.data
         home_content.blog_section_1_post_1_id = safe_id(blog_section_form.post_1_id.data)
         home_content.blog_section_1_post_2_id = safe_id(blog_section_form.post_2_id.data)
         db.session.add(home_content)
@@ -369,6 +373,7 @@ class HomeContent(BaseModel):
         home_content = HomeContent.get()
         home_content.blog_section_2_active = blog_section_form.active.data
         home_content.blog_section_2_name = blog_section_form.name.data
+        home_content.blog_section_2_link = blog_section_form.link.data
         home_content.blog_section_2_post_1_id = safe_id(blog_section_form.post_1_id.data)
         home_content.blog_section_2_post_2_id = safe_id(blog_section_form.post_2_id.data)
         db.session.add(home_content)
@@ -379,6 +384,7 @@ class HomeContent(BaseModel):
         home_content = HomeContent.get()
         home_content.blog_section_3_active = blog_section_form.active.data
         home_content.blog_section_3_name = blog_section_form.name.data
+        home_content.blog_section_3_link = blog_section_form.link.data
         home_content.blog_section_3_post_1_id = safe_id(blog_section_form.post_1_id.data)
         home_content.blog_section_3_post_2_id = safe_id(blog_section_form.post_2_id.data)
         db.session.add(home_content)
@@ -407,6 +413,9 @@ class HomeContent(BaseModel):
 
     def get_product_section_link(self, section_number):
         return getattr(self, "product_section_" + str(section_number) + "_link", None)
+
+    def get_blog_section_link(self, section_number):
+        return getattr(self, "blog_section_" + str(section_number) + "_link", None)
 
     def get_blog_section_title(self, section_number):
         return getattr(self, "blog_section_" + str(section_number) + "_name", "")

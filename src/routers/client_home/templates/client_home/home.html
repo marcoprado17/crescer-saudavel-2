@@ -54,7 +54,13 @@
                 {% for blog_section in data.blog_sections %}
                     <div class="latest-blog wow bounceInUp animated animated container">
                         <div class="new_title">
-                            <h2>{{ blog_section.title }}</h2>
+                            {% if blog_section.href %}
+                                <a href="{{ blog_section.href }}">
+                                    <h2>{{ blog_section.title }}</h2>
+                                </a>
+                            {% else %}
+                                <h2>{{ blog_section.title }}</h2>
+                            {% endif %}
                         </div>
                         <div class="blog_block">
                             <div class="blog_block_inner">

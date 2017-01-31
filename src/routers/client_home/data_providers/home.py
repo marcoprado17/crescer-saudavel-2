@@ -67,6 +67,7 @@ class ClientHomeDataProvider(object):
                     blog_posts.append(blog_post)
             if len(blog_posts) > 0:
                 section["title"] = home_content.get_blog_section_title(section_number=section_number)
+                section["href"] = home_content.get_blog_section_link(section_number=section_number)
                 section["blog_posts"] = blog_posts
                 blog_sections.append(section)
 

@@ -11,6 +11,7 @@
         {{ data.blog_section_form.csrf_token }}
         {{ form_fields.boolean_field(field=data.blog_section_form.active) }}
         {{ form_fields.string_field(field=data.blog_section_form.name, max_length=R.dimen.blog_section_name_max_length, explicit_label=True, placeholder=R.string.blog_section_name_example) }}
+        {{ form_fields.string_field(field=data.blog_section_form.link, max_length=R.dimen.link_max_length, explicit_label=True, placeholder=R.string.inner_link_example) }}
         <div class="row">
             <div class="col-md-6">
                 {{ form_fields.select_field(field=data.blog_section_form.post_1_id, explicit_label=True) }}

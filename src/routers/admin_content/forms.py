@@ -263,6 +263,12 @@ class BlogSectionForm(FlaskForm):
         validators=[
             Length(max_length=R.dimen.blog_section_name_max_length)
         ])
+    link = StringField(
+        label=R.string.link,
+        validators=[
+            Length(max_length=R.dimen.link_max_length)
+        ]
+    )
     post_1_id = SelectField(label=R.string.get_post_n(1))
     post_2_id = SelectField(label=R.string.get_post_n(2))
 
@@ -279,16 +285,19 @@ class BlogSectionForm(FlaskForm):
             if blog_section_number == 1:
                 self.active.data = home_content.blog_section_1_active
                 self.name.data = home_content.blog_section_1_name
+                self.link.data = home_content.blog_section_1_link
                 self.post_1_id.data = str(home_content.blog_section_1_post_1_id)
                 self.post_2_id.data = str(home_content.blog_section_1_post_2_id)
             elif blog_section_number == 2:
                 self.active.data = home_content.blog_section_2_active
                 self.name.data = home_content.blog_section_2_name
+                self.link.data = home_content.blog_section_2_link
                 self.post_1_id.data = str(home_content.blog_section_2_post_1_id)
                 self.post_2_id.data = str(home_content.blog_section_2_post_2_id)
             else:
                 self.active.data = home_content.blog_section_3_active
                 self.name.data = home_content.blog_section_3_name
+                self.link.data = home_content.blog_section_3_link
                 self.post_1_id.data = str(home_content.blog_section_3_post_1_id)
                 self.post_2_id.data = str(home_content.blog_section_3_post_2_id)
 
