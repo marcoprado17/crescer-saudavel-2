@@ -52,6 +52,7 @@ class ClientHomeDataProvider(object):
                         products.append(product)
                 if len(products) > 0:
                     section["title"] = home_content.get_product_section_title(section_number=section_number)
+                    section["href"] = home_content.get_product_section_link(section_number=section_number)
                     section["products"] = products
                     product_sections.append(section)
 

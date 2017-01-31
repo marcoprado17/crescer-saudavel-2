@@ -78,6 +78,11 @@ class ProductSectionForm(FlaskForm):
         validators=[
             Length(max_length=R.dimen.product_section_name_max_length)
         ])
+    link = StringField(
+        label=R.string.link,
+        validators=[
+            Length(max_length=R.dimen.link_max_length)
+        ])
     product_1_id = SelectField(label=R.string.get_product_n(1))
     product_2_id = SelectField(label=R.string.get_product_n(2))
     product_3_id = SelectField(label=R.string.get_product_n(3))
@@ -130,6 +135,7 @@ class ProductSectionForm(FlaskForm):
             if product_section_number == 1:
                 self.active.data = home_content.product_section_1_active
                 self.name.data = home_content.product_section_1_name
+                self.link.data = home_content.product_section_1_link
                 self.product_1_id.data = str(home_content.product_section_1_product_1_id)
                 self.product_2_id.data = str(home_content.product_section_1_product_2_id)
                 self.product_3_id.data = str(home_content.product_section_1_product_3_id)
@@ -153,6 +159,7 @@ class ProductSectionForm(FlaskForm):
             elif product_section_number == 2:
                 self.active.data = home_content.product_section_2_active
                 self.name.data = home_content.product_section_2_name
+                self.link.data = home_content.product_section_2_link
                 self.product_1_id.data = str(home_content.product_section_2_product_1_id)
                 self.product_2_id.data = str(home_content.product_section_2_product_2_id)
                 self.product_3_id.data = str(home_content.product_section_2_product_3_id)
@@ -176,6 +183,7 @@ class ProductSectionForm(FlaskForm):
             elif product_section_number == 3:
                 self.active.data = home_content.product_section_3_active
                 self.name.data = home_content.product_section_3_name
+                self.link.data = home_content.product_section_3_link
                 self.product_1_id.data = str(home_content.product_section_3_product_1_id)
                 self.product_2_id.data = str(home_content.product_section_3_product_2_id)
                 self.product_3_id.data = str(home_content.product_section_3_product_3_id)
@@ -199,6 +207,7 @@ class ProductSectionForm(FlaskForm):
             elif product_section_number == 4:
                 self.active.data = home_content.product_section_4_active
                 self.name.data = home_content.product_section_4_name
+                self.link.data = home_content.product_section_4_link
                 self.product_1_id.data = str(home_content.product_section_4_product_1_id)
                 self.product_2_id.data = str(home_content.product_section_4_product_2_id)
                 self.product_3_id.data = str(home_content.product_section_4_product_3_id)
@@ -222,6 +231,7 @@ class ProductSectionForm(FlaskForm):
             elif product_section_number == 5:
                 self.active.data = home_content.product_section_5_active
                 self.name.data = home_content.product_section_5_name
+                self.link.data = home_content.product_section_5_link
                 self.product_1_id.data = str(home_content.product_section_5_product_1_id)
                 self.product_2_id.data = str(home_content.product_section_5_product_2_id)
                 self.product_3_id.data = str(home_content.product_section_5_product_3_id)
