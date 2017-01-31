@@ -11,6 +11,7 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        inner_link_example = "Ex.: /produtos/?category_id=1"
         default_blog_post_thumbnail_name = "blog_post_thumbnail_default.jpg"
         default_carousel_image_name = "carousel_default.jpg"
         unavailable_product_at_moment = "Produto indisponível no momento."
@@ -923,6 +924,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         super_table_text_max_length = 32
         # TODO: Change timeout in production
         cache_timeout = 1
+        link_max_length = 256
 
 
 R = Resources()

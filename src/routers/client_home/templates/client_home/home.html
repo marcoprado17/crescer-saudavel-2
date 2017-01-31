@@ -10,7 +10,13 @@
                     <div class="carousel-inner" role="listbox">
                         {% for slide in data.carousel %}
                             <div class="item img-container {{ 'active'|if(loop.first) }}">
-                                <img src="{{ slide.img_src }}">
+                                {% if slide.href %}
+                                    <a href='{{ slide.href }}'>
+                                        <img src="{{ slide.img_src }}">
+                                    </a>
+                                {% else %}
+                                    <img src="{{ slide.img_src }}">
+                                {% endif %}
                                 {% if slide.title or slide.subtitle %}
                                     <div class="carousel-caption">
                                         <h3>{{ slide.title }}</h3>

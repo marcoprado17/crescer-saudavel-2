@@ -11,6 +11,7 @@
         {{ form_fields.boolean_field(field=data.carousel_form.active) }}
         {{ form_fields.string_field(field=data.carousel_form.title, max_length=R.dimen.carousel_title_max_length, explicit_label=True, placeholder=R.string.carousel_title_example) }}
         {{ form_fields.string_field(field=data.carousel_form.subtitle, max_length=R.dimen.carousel_subtitle_max_length, explicit_label=True, placeholder=R.string.carousel_subtitle_example) }}
+        {{ form_fields.string_field(field=data.carousel_form.link, max_length=R.dimen.link_max_length, explicit_label=True, placeholder=R.string.inner_link_example) }}
         {{ form_fields.select_field(field=data.carousel_form.image, explicit_label=True) }}
         {{ form_fields.submit(field=data.carousel_form.submit) }}
     </form>

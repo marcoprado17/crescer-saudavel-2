@@ -17,7 +17,8 @@ class ClientHomeDataProvider(object):
                 dict(
                     title=home_content.carousel_item_1_title,
                     subtitle=home_content.carousel_item_1_subtitle,
-                    img_src=home_content.get_carousel_img_src(carousel_number=1)
+                    img_src=home_content.get_carousel_img_src(carousel_number=1),
+                    href=home_content.carousel_item_1_link if home_content.carousel_item_1_link is not None and home_content.carousel_item_1_link != "" else None
                 )
             )
         if home_content.carousel_item_2_active:
@@ -25,7 +26,8 @@ class ClientHomeDataProvider(object):
                 dict(
                     title=home_content.carousel_item_2_title,
                     subtitle=home_content.carousel_item_2_subtitle,
-                    img_src=home_content.get_carousel_img_src(carousel_number=2)
+                    img_src=home_content.get_carousel_img_src(carousel_number=2),
+                    href=home_content.carousel_item_2_link if home_content.carousel_item_2_link is not None and home_content.carousel_item_2_link != "" else None
                 )
             )
         if home_content.carousel_item_3_active:
@@ -33,7 +35,8 @@ class ClientHomeDataProvider(object):
                 dict(
                     title=home_content.carousel_item_3_title,
                     subtitle=home_content.carousel_item_3_subtitle,
-                    img_src=home_content.get_carousel_img_src(carousel_number=3)
+                    img_src=home_content.get_carousel_img_src(carousel_number=3),
+                    href=home_content.carousel_item_3_link if home_content.carousel_item_3_link is not None and home_content.carousel_item_3_link != "" else None
                 )
             )
 

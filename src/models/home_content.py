@@ -19,16 +19,19 @@ class HomeContent(BaseModel):
     carousel_item_1_active = db.Column(db.Boolean, default=False, nullable=False)
     carousel_item_1_title = db.Column(db.String(R.dimen.carousel_title_max_length), default="", nullable=False)
     carousel_item_1_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length), default="", nullable=False)
+    carousel_item_1_link = db.Column(db.String(R.dimen.link_max_length), default="", nullable=False)
     carousel_item_1_image = db.Column(db.Text, default="", nullable=False)
 
     carousel_item_2_active = db.Column(db.Boolean, default=False, nullable=False)
     carousel_item_2_title = db.Column(db.String(R.dimen.carousel_title_max_length))
     carousel_item_2_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length))
+    carousel_item_2_link = db.Column(db.String(R.dimen.link_max_length), default="", nullable=False)
     carousel_item_2_image = db.Column(db.Text, default="", nullable=False)
 
     carousel_item_3_active = db.Column(db.Boolean, default=False, nullable=False)
     carousel_item_3_title = db.Column(db.String(R.dimen.carousel_title_max_length))
     carousel_item_3_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length))
+    carousel_item_3_link = db.Column(db.String(R.dimen.link_max_length), default="", nullable=False)
     carousel_item_3_image = db.Column(db.Text, default="", nullable=False)
 
     product_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
@@ -174,6 +177,7 @@ class HomeContent(BaseModel):
         home_content.carousel_item_1_active = carousel_form.active.data
         home_content.carousel_item_1_title = carousel_form.title.data
         home_content.carousel_item_1_subtitle = carousel_form.subtitle.data
+        home_content.carousel_item_1_link = carousel_form.link.data
         home_content.carousel_item_1_image = carousel_form.image.data
         db.session.add(home_content)
         db.session.commit()
@@ -184,6 +188,7 @@ class HomeContent(BaseModel):
         home_content.carousel_item_2_active = carousel_form.active.data
         home_content.carousel_item_2_title = carousel_form.title.data
         home_content.carousel_item_2_subtitle = carousel_form.subtitle.data
+        home_content.carousel_item_2_link = carousel_form.link.data
         home_content.carousel_item_2_image = carousel_form.image.data
         db.session.add(home_content)
         db.session.commit()
@@ -194,6 +199,7 @@ class HomeContent(BaseModel):
         home_content.carousel_item_3_active = carousel_form.active.data
         home_content.carousel_item_3_title = carousel_form.title.data
         home_content.carousel_item_3_subtitle = carousel_form.subtitle.data
+        home_content.carousel_item_3_link = carousel_form.link.data
         home_content.carousel_item_3_image = carousel_form.image.data
         db.session.add(home_content)
         db.session.commit()

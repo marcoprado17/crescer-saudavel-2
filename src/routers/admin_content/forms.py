@@ -31,6 +31,11 @@ class CarouselForm(FlaskForm):
         validators=[
             Length(max_length=R.dimen.carousel_subtitle_max_length)
         ])
+    link = StringField(
+        label=R.string.link,
+        validators=[
+            Length(max_length=R.dimen.link_max_length)
+        ])
     image = SelectField(
         label=R.string.image,
     )
@@ -47,16 +52,19 @@ class CarouselForm(FlaskForm):
                 self.active.data = home_content.carousel_item_1_active
                 self.title.data = home_content.carousel_item_1_title
                 self.subtitle.data = home_content.carousel_item_1_subtitle
+                self.link.data = home_content.carousel_item_1_link
                 self.image.data = home_content.carousel_item_1_image
             elif carousel_number == 2:
                 self.active.data = home_content.carousel_item_2_active
                 self.title.data = home_content.carousel_item_2_title
                 self.subtitle.data = home_content.carousel_item_2_subtitle
+                self.link.data = home_content.carousel_item_2_link
                 self.image.data = home_content.carousel_item_2_image
             else:
                 self.active.data = home_content.carousel_item_3_active
                 self.title.data = home_content.carousel_item_3_title
                 self.subtitle.data = home_content.carousel_item_3_subtitle
+                self.link.data = home_content.carousel_item_3_link
                 self.image.data = home_content.carousel_item_3_image
 
 
