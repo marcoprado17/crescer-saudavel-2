@@ -15,7 +15,11 @@
                 {{ messages.flash_static() }}
                 <form action="{{ url_for("admin_images.add_image") }}" method="post" enctype=multipart/form-data>
                     {{ data.upload_image_form.csrf_token }}
-                    {{ form_fields.file_field(field=data.upload_image_form.image, button_text=R.string.find_image, auxiliar_text=R.string.upload_image_auxiliar_text) }}
+                    {{ form_fields.file_field(field=data.upload_image_form.image, button_text=R.string.find_image, auxiliar_texts=[
+                    R.string.upload_image_auxiliar_text,
+                    R.string.ideal_product_image_size_auxiliar_text,
+                    R.string.ideal_blog_thumbnail_size_auxiliar_text,
+                    R.string.ideal_carousel_images_size_auxiliar_text]) }}
                     {{ form_fields.submit(field=data.upload_image_form.submit) }}
                 </form>
             </div>

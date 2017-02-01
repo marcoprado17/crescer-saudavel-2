@@ -3,6 +3,18 @@
   $mid-color: rgba(0, 0, 0, 0.4);
   $bottom-color: rgba(0, 0, 0, 0.6);
 
+
+  .carousel-inner {
+    height: 500px;
+  }
+
+  #myCarousel {
+    height: 500px;
+    img {
+      height: 500px;
+    }
+  }
+
   .carousel-control {
     opacity: 0.4;
   }
@@ -51,7 +63,7 @@
   .carousel-caption {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: -50px;
     left: 0;
     z-index: 10;
     padding-top: 20px;

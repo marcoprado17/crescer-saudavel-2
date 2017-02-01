@@ -148,7 +148,7 @@
     </div>
 {%- endmacro %}
 
-{% macro file_field(field, button_text=None, label=False, auxiliar_text=None) %}
+{% macro file_field(field, button_text=None, label=False, auxiliar_texts=None) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }} {{ 'zero-margin-bottom'|if(auxiliar_text) }}">
         {% if label %}
             <label for="{{ field.id }}">{{ field.label }}</label>
@@ -156,9 +156,11 @@
         <input type="file" class="filestyle" name="{{ field.name }}" id="{{ field.id }}" data-icon="false" data-buttonText="{{ button_text|if(button_text, bombril_R.string.find_file) }}">
         {{ render_errors(field.errors) }}
     </div>
-    {% if auxiliar_text %}
+    {% if auxiliar_texts and auxiliar_texts|length > 0 %}
         <div class="form-group auxiliar-text">
+        {% for auxiliar_text in auxiliar_texts %}
             <span class="help-block">{{ auxiliar_text }}</span>
+        {% endfor %}
         </div>
     {% endif %}
 {%- endmacro %}
