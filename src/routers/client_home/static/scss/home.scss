@@ -76,4 +76,8 @@
     background: -moz-linear-gradient($top-color, $bottom-color); /* For Firefox 3.6 to 15 */
     background: linear-gradient($top-color, $bottom-color); /* Standard syntax */
   }
+
+  .blog-img a.info {
+    margin-top: 14%;
+  }
 }
