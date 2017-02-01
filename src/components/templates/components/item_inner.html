@@ -1,3 +1,4 @@
+{% import "flask_bombril_macros/utils.html" as utils with context %}
 <div class="__components__ __item_inner__">
     <div class="item-inner">
         <div class="item-img">
@@ -12,7 +13,7 @@
         <div class="item-info">
             <div class="info-inner">
                 <div class="item-title">
-                    <a href="{{ product.get_href() }}">{{ product.title }}</a>
+                    <a href="{{ product.get_href() }}">{{ utils.limited_text_tooltip(text=product.title, max_length=R.dimen.item_inner_max_length, min_length=((1*R.dimen.item_inner_max_length)/1)|int) }}</a>
                 </div>
                 <div class="add_cart_container">
                     <div class="add_cart">

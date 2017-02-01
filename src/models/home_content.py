@@ -399,8 +399,6 @@ class HomeContent(BaseModel):
             image_name = self.carousel_item_3_image
         else:
             raise ValueError
-        print "carousel_number: " + str(carousel_number)
-        print "image_name: " + image_name
         if image_name is None or image_name == "":
             image_name = R.string.default_carousel_image_name
         return url_for("static", filename="imgs/" + image_name)

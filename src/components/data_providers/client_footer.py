@@ -45,7 +45,6 @@ class ClientFooterDataProvider(object):
             )
 
         contact = Contact.get()
-        print contact.facebook_link
         return dict(
             address=contact.address,
             tel=contact.tel,
