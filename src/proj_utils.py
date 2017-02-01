@@ -88,6 +88,9 @@ class SortMethodMap(object):
 def create_product_image(file_path, file_name):
     products_folder_path = current_app.config['PRODUCTS_IMAGES_FOLDER_FULL_PATH']
 
+    if not os.path.exists(products_folder_path):
+        os.makedirs(products_folder_path)
+
     if os.path.exists(file_path):
         image = Image.open(file_path)
         width = image.size[0]
@@ -102,3 +105,24 @@ def create_product_image(file_path, file_name):
         image = image.crop(
             ((new_width - 600) / 2, (new_height - 600) / 2, (new_width + 600) / 2, (new_height + 600) / 2))
         image.save(os.path.join(os.path.join(products_folder_path, file_name)))
+
+def create_blog_thumbnail_image(file_path, file_name):
+    blog_thumbnails_folder_path = current_app.config['BLOG_THUMBNAILS_IMAGES_FOLDER_FULL_PATH']
+
+    if not os.path.exists(blog_thumbnails_folder_path):
+        os.makedirs(blog_thumbnails_folder_path)
+
+    if os.path.exists(file_path):
+        image = Image.open(file_path)
+        width = image.size[0]
+        height = image.size[1]
+        if float(width)/float(height) >= float(900)/float(500):
+            new_height = 500
+            new_width = int(width * float(new_height) / float(height))
+        else:
+            new_width = 900
+            new_height = int(height * float(new_width) / float(width))
+        image = image.resize((new_width, new_height), Image.ANTIALIAS)
+        image = image.crop(
+            ((new_width - 900) / 2, (new_height - 500) / 2, (new_width + 900) / 2, (new_height + 500) / 2))
+        image.save(os.path.join(os.path.join(blog_thumbnails_folder_path, file_name)))

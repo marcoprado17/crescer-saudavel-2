@@ -89,7 +89,7 @@ class BlogPost(BaseModel):
         thumbnail_name = self.thumbnail
         if thumbnail_name is None or thumbnail_name == "":
             thumbnail_name = R.string.default_blog_post_thumbnail_name
-        return url_for("static", filename="imgs/" + thumbnail_name)
+        return url_for("static", filename="imgs/blog_thumbnails/" + thumbnail_name)
 
     def get_day(self):
         return self.datetime.strftime(R.string.day_format)

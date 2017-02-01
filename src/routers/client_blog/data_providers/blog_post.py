@@ -37,7 +37,7 @@ class ClientBlogPostDataProvider(object):
                 title=blog_post.title,
                 blog_post_date = blog_post.get_formatted_datetime()
             ),
-            thumbnail_src=url_for("static", filename="imgs/" + blog_post.thumbnail),
+            thumbnail_src=url_for("static", filename="imgs/blog_thumbnails/" + blog_post.thumbnail),
             title=blog_post.title,
             blog_href_to_return = blog_href_to_return,
             content=blog_post.content_html

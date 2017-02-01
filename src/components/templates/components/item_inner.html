@@ -4,7 +4,6 @@
             <div class="item-img-info">
                 <a href="{{ product.get_href() }}" class="product-image">
                     <div class="img-container">
-{#                        <img src="{{ url_for('static', filename='imgs/products/product_default.jpg') }}">#}
                         <img src="{{ product.get_main_image_src() }}">
                     </div>
                 </a>
