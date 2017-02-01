@@ -11,6 +11,7 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        post_thumbnail = "Thumbnail do post"
         order_by = "Ordenar por: "
         inner_link_example = "Ex.: /produtos/?category_id=1"
         default_blog_post_thumbnail_name = "blog_post_thumbnail_default.jpg"
@@ -927,6 +928,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         cache_timeout = 1
         link_max_length = 256
         item_inner_max_length = 36
+        blog_post_preview_title_max_length = 48
 
 
 R = Resources()

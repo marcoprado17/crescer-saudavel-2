@@ -1,8 +1,9 @@
+{% import "flask_bombril_macros/utils.html" as utils with context %}
 <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 blog-post">
-    <h3><a href="{{ blog_post.get_href() }}">{{ blog_post.title }}</a></h3>
+    <h3><a href="{{ blog_post.get_href() }}">{{ utils.limited_text_tooltip(text=blog_post.title, max_length=R.dimen.blog_post_preview_title_max_length) }}</a></h3>
     <div class="blog_inner">
         <div class="blog-img">
-            <a href="{{ blog_post.get_href() }}"> <img src="{{ blog_post.get_img_src_of_thumbnail() }}" alt="Thumbnail do post"> </a>
+            <a href="{{ blog_post.get_href() }}"><img src="{{ blog_post.get_img_src_of_thumbnail() }}" alt="{{ R.string.post_thumbnail }}"></a>
             <div class="mask"><a class="info" href="{{ blog_post.get_href() }}">{{ R.string.read_more }}</a></div>
         </div>
         <div class="blog-info">
