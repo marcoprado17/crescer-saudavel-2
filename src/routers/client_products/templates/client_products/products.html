@@ -17,7 +17,7 @@
                                     <div class="pager">
                                         {% if data.sort_methods and data.sort_methods|length > 0 %}
                                             <div id="sort-by">
-                                                <label class="left">Ordenar por: </label>
+                                                <label class="left">{{ R.string.order_by }}</label>
                                                 <ul>
                                                     {% for sort_method in data.sort_methods %}
                                                         <li class="{{ 'active'|if(sort_method.selected) }}">

@@ -9,7 +9,7 @@ import markdown
 from flask import current_app
 from sqlalchemy import desc
 from sqlalchemy.sql.elements import UnaryExpression
-
+from PIL import Image
 from proj_exceptions import InvalidSortMapError
 from r import R
 
@@ -83,3 +83,22 @@ class SortMethodMap(object):
 
     def order(self, sort_method_id):
         return self.order_by_id[sort_method_id], desc("id")
+
+
+def create_product_image(file_path, file_name):
+    products_folder_path = current_app.config['PRODUCTS_IMAGES_FOLDER_FULL_PATH']
+
+    if os.path.exists(file_path):
+        image = Image.open(file_path)
+        width = image.size[0]
+        height = image.size[1]
+        if width >= height:
+            new_height = 600
+            new_width = int(600 * float(width) / float(height))
+        else:
+            new_width = 600
+            new_height = int(600 * float(height) / float(width))
+        image = image.resize((new_width, new_height), Image.ANTIALIAS)
+        image = image.crop(
+            ((new_width - 600) / 2, (new_height - 600) / 2, (new_width + 600) / 2, (new_height + 600) / 2))
+        image.save(os.path.join(os.path.join(products_folder_path, file_name)))

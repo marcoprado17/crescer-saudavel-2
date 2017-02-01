@@ -25,6 +25,7 @@ MAIL_USE_SSL = True
 
 UPLOADED_IMAGES_FOLDER = "imgs"
 UPLOADED_IMAGES_FOLDER_FULL_PATH = "/vagrant/build/static/imgs"
+PRODUCTS_IMAGES_FOLDER_FULL_PATH = "/vagrant/build/static/imgs/products"
 
 DEFAULT_PER_PAGE = 20
 ORDERS_TABLE_PER_PAGE = 10

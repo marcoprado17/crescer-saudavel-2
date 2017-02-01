@@ -11,6 +11,7 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        order_by = "Ordenar por: "
         inner_link_example = "Ex.: /produtos/?category_id=1"
         default_blog_post_thumbnail_name = "blog_post_thumbnail_default.jpg"
         default_carousel_image_name = "carousel_default.jpg"

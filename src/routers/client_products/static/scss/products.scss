@@ -2,4 +2,9 @@
   .__components__.__client_paginator__ {
       float: right;
   }
+
+  .img-container{
+    background-image: url("/static/imgs/products/product_default.jpg") repeat 0 0;
+    height: 300px;
+  }
 }

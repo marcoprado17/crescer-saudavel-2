@@ -356,7 +356,7 @@ class Product(BaseModel):
         image_name = self.image_1
         if image_name is None or image_name == "":
             image_name = R.string.default_product_image_name
-        return url_for("static", filename="imgs/" + image_name)
+        return url_for("static", filename="imgs/products/" + image_name)
 
     def get_price(self, n_units=1):
         if not isinstance(n_units, int) or n_units < 0:

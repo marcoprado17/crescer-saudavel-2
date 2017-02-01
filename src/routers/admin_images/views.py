@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 from proj_decorators import valid_form
 from flask_bombril import R as bombril_R
 from proj_forms import SubmitForm
+from proj_utils import create_product_image
 from r import R
 from routers.admin_images import admin_images_blueprint
 from routers.admin_images.data_providers import admin_images_data_provider, admin_add_image_data_provider
@@ -32,6 +33,11 @@ def remove_image(image_name, form):
     if os.path.exists(file_path):
         os.remove(file_path)
 
+    file_path = os.path.join(current_app.config['PRODUCTS_IMAGES_FOLDER_FULL_PATH'], image_name)
+
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
     return "", 204
 
 
@@ -45,6 +51,7 @@ def add_image():
             image = request.files[upload_image_form.image.name]
             filename = secure_filename(image.filename)
             image.save(os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], filename))
+            create_product_image(os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], filename), filename)
             flash(R.string.image_sent_successfully(filename), bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_images.add_image"))
         else:
