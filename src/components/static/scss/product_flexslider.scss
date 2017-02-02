@@ -1,5 +1,10 @@
 .__components__.__product_flexslider__ {
   .owl-wrapper {
     padding-bottom: 16px !important;
+    padding-left: 8px !important;
+  }
+
+  .owl-item .item {
+    margin-right: 26px !important;
   }
 }
