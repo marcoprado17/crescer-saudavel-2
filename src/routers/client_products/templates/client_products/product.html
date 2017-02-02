@@ -20,9 +20,13 @@
                                     {% if data.images_src and data.images_src|length > 0 %}
                                         <div class="product-img-box col-sm-6 col-xs-12">
                                             {% if data.in_stock %}
-                                                <p class="availability in-stock">
-                                                    <span>{{ R.string.in_stock }}</span>
-                                                </p>
+                                                <div class="alert alert-success" role="alert">
+                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{ R.string.in_stock }}
+                                                </div>
+                                            {% else %}
+                                                <div class="alert alert-danger" role="alert">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ R.string.without_stock }}
+                                                </div>
                                             {% endif %}
                                             <div class="product-image">
                                                 <div class="large-image">

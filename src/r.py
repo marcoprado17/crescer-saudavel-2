@@ -11,6 +11,7 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        without_stock = "Sem estoque"
         ideal_product_image_size_auxiliar_text = "Tamanho ideal das imagens de produto: 600 x 600."
         ideal_blog_thumbnail_size_auxiliar_text = "Tamanho ideal das thumbnails do blog: 900 x 500."
         ideal_carousel_images_size_auxiliar_text = "Tamanho ideal das imagens do carousel: 2560 x 500."
