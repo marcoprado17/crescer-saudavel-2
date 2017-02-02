@@ -21,11 +21,13 @@
                                         <div class="product-img-box col-sm-6 col-xs-12">
                                             {% if data.in_stock %}
                                                 <div class="alert alert-success" role="alert">
-                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{ R.string.in_stock }}
+                                                    <span class="glyphicon glyphicon-ok"
+                                                          aria-hidden="true"></span>{{ R.string.in_stock }}
                                                 </div>
                                             {% else %}
                                                 <div class="alert alert-danger" role="alert">
-                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ R.string.without_stock }}
+                                                    <span class="glyphicon glyphicon-remove"
+                                                          aria-hidden="true"></span>{{ R.string.without_stock }}
                                                 </div>
                                             {% endif %}
                                             <div class="product-image">
@@ -37,10 +39,13 @@
                                                     <ul class="previews-list slides">
                                                         {% for img_src in data.images_src %}
                                                             <li>
-                                                                <a><img class="secondary-image" src="{{ img_src }}"
-                                                                        alt="{{ R.string.product_image }}"/></a>
+                                                                <a>
+                                                                    <img class="secondary-image" src="{{ img_src }}"
+                                                                        alt="{{ R.string.product_image }}"/>
+                                                                </a>
                                                             </li>
                                                         {% endfor %}
+                                                        <li></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -119,4 +124,15 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            $(".secondary-image").each(function () {
+                $(this).click(function () {
+                    $("#main-image").attr("src", $(this).attr("src"));
+                });
+            });
+        });
+    </script>
 {% endblock %}
