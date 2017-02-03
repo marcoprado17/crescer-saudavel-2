@@ -41,7 +41,7 @@
                                                             <li>
                                                                 <a>
                                                                     <img class="secondary-image" src="{{ img_src }}"
-                                                                        alt="{{ R.string.product_image }}"/>
+                                                                         alt="{{ R.string.product_image }}"/>
                                                                 </a>
                                                             </li>
                                                         {% endfor %}
@@ -105,9 +105,12 @@
                                         <li class="{{ 'active'|if(loop.first) }}">
                                             <a href={{ "#" + section.id }} data-toggle="tab">{{ section.title }}</a>
                                         </li>
+                                        <div class="mobile-tab-content markdown-parsed-container">
+                                            {{ section.content|safe }}
+                                        </div>
                                     {% endfor %}
                                 </ul>
-                                <div id="productTabContent" class="tab-content">
+                                <div id="productTabContent" class="tab-content no-mobile">
                                     {% for section in data.sections %}
                                         <div class="tab-pane fade in {{ 'active'|if(loop.first) }}"
                                              id="{{ section.id }}">
