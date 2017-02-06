@@ -4,11 +4,13 @@
 # Created at 26/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from datetime import datetime
+from flask import current_app
 from flask import flash
 from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
+from itsdangerous import URLSafeTimedSerializer
 
 from email_blueprint import email_manager
 from models.client import Client
@@ -57,4 +59,12 @@ def register():
 
 @client_user_management_blueprint.route("/email-confirmado/<string:token>")
 def email_confirmed(token):
-    return "Email confirmado, token: " + token
+    ts = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    email = ts.loads(token, salt=current_app.config["EMAIL_TOKEN_SALT"])
+    client = Client.get_by_email(email)
+    if client == None:
+        return "", 404
+    client.mark_email_as_confirmed()
+    flash(R.string.email_successful_confirmed(email=email),
+          bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+    return redirect(url_for("client_user_management.login", email=email))

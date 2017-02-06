@@ -17,7 +17,7 @@
                             <div class="content">
                                 <ul class="form-list">
                                     <li>
-                                        {{ form_fields.string_field(field=data.register_form.email, max_length=R.dimen.email_max_length, explicit_label=True, placeholder=R.string.email_example_placeholder) }}
+                                        {{ form_fields.string_field(field=data.register_form.email, max_length=R.dimen.email_max_length, explicit_label=True) }}
                                     </li>
                                     <li>
                                         {{ form_fields.password_field(field=data.register_form.password, explicit_label=True) }}

@@ -16,7 +16,7 @@ class EmailManager(object):
     def send_create_account_confirmation_email(self, receiver_email):
         ts = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
         subject = "Crescer Saudável | Confirme seu endereço de e-mail"
-        token = ts.dumps(receiver_email, salt="email-confirm-key")
+        token = ts.dumps(receiver_email, salt=current_app.config["EMAIL_TOKEN_SALT"])
         confirm_url = url_for("client_user_management.email_confirmed", token=token, _external=True)
         logo_url = url_for("static", filename="imgs/logo.png", _external=True)
         data = dict(

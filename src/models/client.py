@@ -98,3 +98,8 @@ class Client(BaseModel):
 
     def get_formatted_register_datetime(self):
         return self.register_datetime.strftime(R.string.default_datetime_format)
+
+    def mark_email_as_confirmed(self):
+        self.email_confirmed = True
+        db.session.add(self)
+        db.session.commit()

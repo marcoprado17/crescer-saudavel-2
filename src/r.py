@@ -851,6 +851,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         def account_successful_created(email):
             return "<b>Conta criada com sucesso!</b> Para logar é necessário confirmar o email <b>%s</b> clicando no link da mensagem que acabamos de enviar." % email
 
+        @staticmethod
+        def email_successful_confirmed(email):
+            return "O email <b>%s</b> foi confirmado com sucesso!"
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
