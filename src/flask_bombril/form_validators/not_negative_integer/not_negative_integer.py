@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 05/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from flask_bombril.form_validators.utils import raise_with_stop
+from flask_bombril.utils import raise_with_stop
 from flask_bombril import R
 
 

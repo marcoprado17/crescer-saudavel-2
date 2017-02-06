@@ -11,9 +11,9 @@ from StringIO import StringIO
 from flask_wtf import FlaskForm
 from wtforms import FileField
 
-from flask_bombril.form_validators.allowed_file_format.allowed_file_format import AllowedFileFormat
+from allowed_file_format import AllowedFileFormat
 from flask_bombril.r import R
-from flask_bombril.form_validators.utils import AlwaysError
+from flask_bombril.utils import AlwaysError
 from app_contexts.unit_test_app import unit_test_app as app
 
 allowed_extensions = [R.string.png, R.string.jpg, R.string.jpeg]

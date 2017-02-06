@@ -11,6 +11,17 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        send_confirmation_email_error_message = "Ocorreu uma falha no envio do email de confirmação. Por favor, tente novamente."
+        data_base_access_error_message = "Ocorreu uma falha ao acessar o banco de dados. Por favor, tente novamente."
+        email_already_in_use = "Este email já está em uso."
+        already_has_account = "Já possui conta?"
+        to_register = "Cadastrar"
+        new_client = "Novo cliente"
+        password_mismatch_message = "As senhas digitadas não são iguais."
+        password = "Senha"
+        password_confirmation = "Confirmação de senha"
+        email_example_placeholder = "Ex.: exemplo@gmail.com"
+        register = "Cadastro"
         without_stock = "Sem estoque"
         ideal_product_image_size_auxiliar_text = "Tamanho ideal das imagens de produto: 600 x 600."
         ideal_blog_thumbnail_size_auxiliar_text = "Tamanho ideal das thumbnails do blog: 900 x 500."
@@ -832,6 +843,14 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         def cart_popup_title(n_items, total_price):
             return str(n_items) + " items | " + " R$ " + str(total_price)
 
+        @staticmethod
+        def get_password_length_message():
+            return "A senha deve possuir entre %s e %s caracteres." % (R.dimen.password_min_length, R.dimen.password_max_length)
+
+        @staticmethod
+        def account_successful_created(email):
+            return "<b>Conta criada com sucesso!</b> Para logar é necessário confirmar o email <b>%s</b> clicando no link da mensagem que acabamos de enviar." % email
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -899,6 +918,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         tab_title_max_length = 48
         product_title_max_length = 96
         email_max_length = 256
+        password_min_length = 6
         password_max_length = 32
         first_name_max_length = 256
         last_name_max_length = 256

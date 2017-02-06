@@ -4,10 +4,10 @@
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from unittest import TestCase as BaseTestCase
-from flask_bombril.form_validators.unique.forms import MockForm, MockFormCustomMessage, \
+from forms import MockForm, MockFormCustomMessage, \
     MockFormCustomCallableMessage, MockFormStopTrue, MockFormStopFalse
 from flask_bombril.r import R
-from flask_bombril.form_validators.utils import TestUser
+from flask_bombril.utils import TestUser
 from app_contexts.unit_test_app import unit_test_app as app
 from proj_extensions import db
 

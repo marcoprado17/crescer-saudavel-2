@@ -14,9 +14,13 @@ class BaseModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     @classmethod
-    def create_from_form(cls, form):
+    def create_from_form(cls, form, other_attrs=None):
+        attrs = cls.get_attrs_from_form(form=form)
+        if other_attrs != None and isinstance(other_attrs, dict):
+            for key, val in other_attrs.iteritems():
+                attrs[key] = val
         model_elem = cls(
-            **cls.get_attrs_from_form(form=form)
+            **attrs
         )
         db.session.add(model_elem)
         db.session.commit()

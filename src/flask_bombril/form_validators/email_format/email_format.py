@@ -7,7 +7,7 @@ import re
 
 from wtforms.validators import Regexp, HostnameValidation, ValidationError, StopValidation
 from flask_bombril.r import R
-from flask_bombril.form_validators.utils import raise_with_stop
+from flask_bombril.utils.utils import raise_with_stop
 
 
 class EmailFormat(Regexp):

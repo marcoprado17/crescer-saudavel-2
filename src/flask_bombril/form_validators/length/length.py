@@ -5,7 +5,7 @@
 # ======================================================================================================================
 import gettext
 
-from flask_bombril.form_validators.utils import raise_with_stop
+from flask_bombril.utils import raise_with_stop
 from flask_bombril.r import R
 
 

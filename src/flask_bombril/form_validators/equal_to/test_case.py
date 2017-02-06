@@ -9,7 +9,7 @@ from wtforms import StringField
 from flask_bombril.exceptions import InvalidFieldError
 from equal_to import EqualTo
 from flask_bombril.r import R
-from flask_bombril.form_validators.utils import AlwaysError
+from flask_bombril.utils import AlwaysError
 from app_contexts.unit_test_app import unit_test_app as app
 
 

@@ -57,7 +57,11 @@ class Client(BaseModel):
             self._password = bcrypt.generate_password_hash(plaintext)
 
     def is_correct_password(self, plaintext):
-        return bcrypt.check_password_hash(self._password, plaintext)
+        # TODO: Remove in production
+        if current_app.config["DEBUG"]:
+            return self._password == plaintext
+        else:
+            return bcrypt.check_password_hash(self._password, plaintext)
 
     def is_active(self):
         return True
@@ -70,6 +74,13 @@ class Client(BaseModel):
 
     def is_anonymous(self):
         return False
+
+    @staticmethod
+    def get_attrs_from_form(form):
+        return dict(
+            email=form.email.data,
+            password=form.password.data
+        )
 
     def get_form(self, include_undefined_in_choices=False):
         client_form = ClientForm()

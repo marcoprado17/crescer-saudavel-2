@@ -6,7 +6,7 @@
 from unittest import TestCase as BaseTestCase
 from wtforms import Field
 from flask_bombril.r import R
-from flask_bombril.form_validators.utils import AlwaysError
+from flask_bombril.utils.utils import AlwaysError
 from email_format import EmailFormat
 from flask_wtf import FlaskForm
 from app_contexts.unit_test_app import unit_test_app as app

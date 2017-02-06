@@ -8,7 +8,7 @@ from flask_wtf import FlaskForm
 from wtforms import Field
 
 from flask_bombril.form_validators.markdown_validator.markdown_validator import MarkdownValidator
-from flask_bombril.form_validators.utils import AlwaysError
+from flask_bombril.utils import AlwaysError
 from app_contexts.unit_test_app import unit_test_app as app
 from flask_bombril.r import R
 

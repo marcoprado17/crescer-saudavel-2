@@ -4,7 +4,7 @@
 # Created at 26/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask import request
-from flask_bombril.form_validators.utils import raise_with_stop
+from flask_bombril.utils import raise_with_stop
 from flask_bombril.r import R
 
 
