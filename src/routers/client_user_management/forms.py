@@ -73,3 +73,33 @@ class WantRedefinePasswordForm(FlaskForm):
             EmailFormat(),
         ]
     )
+
+
+class RedefinePasswordForm(FlaskForm):
+    email = StringField(
+        label=R.string.email,
+        validators=[
+            Required(),
+            Length(max_length=R.dimen.email_max_length),
+            EmailFormat(),
+        ]
+    )
+    password = PasswordField(
+        label=R.string.password,
+        validators=[
+            Required(),
+            Length(min_length=R.dimen.password_min_length, max_length=R.dimen.password_max_length,
+                   message=R.string.get_password_length_message()),
+            EqualTo('password_confirmation', message=R.string.password_mismatch_message)
+        ]
+    )
+    password_confirmation = PasswordField(
+        label='Confirmação de senha',
+        validators=[
+            Required()
+        ]
+    )
+
+    def __init__(self, email, **kwargs):
+        super(RedefinePasswordForm, self).__init__(**kwargs)
+        self.email.data = email

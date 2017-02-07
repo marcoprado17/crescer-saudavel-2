@@ -17,10 +17,11 @@ from models.user import User
 from r import R
 from routers.client_user_management import client_user_management_blueprint
 from routers.client_user_management.data_providers.login import client_login_data_provider
+from routers.client_user_management.data_providers.redefine_password import client_redefine_password_data_provider
 from routers.client_user_management.data_providers.register import client_register_data_provider
 from routers.client_user_management.data_providers.want_redefine_password import \
     client_want_redefine_password_data_provider
-from routers.client_user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm
+from routers.client_user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm, RedefinePasswordForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -103,7 +104,10 @@ def register():
 @client_user_management_blueprint.route("/email-confirmado/<string:token>")
 def email_confirmed(token):
     ts = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
-    email = ts.loads(token, salt=current_app.config["EMAIL_TOKEN_SALT"])
+    try:
+        email = ts.loads(token, salt=current_app.config["EMAIL_TOKEN_SALT"])
+    except:
+        return "", 400
     client = User.get_by_email(email)
     if client == None:
         return "", 404
@@ -148,12 +152,32 @@ def want_redefine_password():
         return redirect(url_for("client_user_management.login"))
 
 
-@client_user_management_blueprint.route("/redefinir-senha", methods=["GET", "POST"])
-def redefine_password():
+@client_user_management_blueprint.route("/redefinir-senha/<string:token>", methods=["GET", "POST"])
+def redefine_password(token):
+    ts = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    try:
+        email = ts.loads(token, salt=current_app.config["EMAIL_TOKEN_SALT"], max_age=R.dimen.day_in_seconds)
+    except:
+        flash(R.string.invalid_redefine_password_requisition,
+              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+        return redirect(url_for("client_user_management.want_redefine_password"))
     if request.method == "GET":
-        return "Redefinir senha (GET)."
+        return render_template("client_user_management/redefine_password.html", data=client_redefine_password_data_provider.get_data_when_get(email=email))
     else:
-        return "Redefinir senha (POST)."
+        redefine_password_form = RedefinePasswordForm(email=email)
+
+        if not redefine_password_form.validate_on_submit():
+            return render_template("client_user_management/redefine_password.html",
+                                   data=client_redefine_password_data_provider.get_data_when_post(redefine_password_form=redefine_password_form))
+
+        user = User.get_by_email(email)
+        if user == None:
+            return "", 400
+        user.change_password(redefine_password_form.password.data)
+
+        flash(R.string.password_successful_redefined,
+              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+        return redirect(url_for("client_user_management.login", email=email))
 
 
 @client_user_management_blueprint.route("/reenviar-email-de-confirmacao")

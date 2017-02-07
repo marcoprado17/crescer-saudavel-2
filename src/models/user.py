@@ -120,3 +120,8 @@ class User(BaseModel):
         db.session.add(self)
         db.session.commit()
         login_user(self)
+
+    def change_password(self, new_password):
+        self.password = new_password
+        db.session.add(self)
+        db.session.commit()

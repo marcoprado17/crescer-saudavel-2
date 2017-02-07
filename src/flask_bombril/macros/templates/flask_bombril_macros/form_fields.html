@@ -8,12 +8,12 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro string_field(field, explicit_label=False, placeholder="", readonly=False, max_length=None) %}
+{% macro string_field(field, explicit_label=False, placeholder="", readonly=False, max_length=None, auxiliar_texts=None) %}
     <div class="form-group {{ 'has-error'|if(field.errors|length > 0) }}">
         {% if explicit_label %}
             <div class="label-container">
                 <label for="{{ field.id }}">{{ field.label }}</label>
-                {% if field.flags.required %}
+                {% if field.flags.required and not readonly %}
                     {{ tooltip.asterisk(bombril_R.string.required_field) }}
                 {% endif %}
                 {% if field.render_kw and field.render_kw.tooltip %}
@@ -26,6 +26,13 @@
                value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }} maxlength={{ max_length|if(max_length) }}>
         {{ render_errors(field.errors) }}
     </div>
+    {% if auxiliar_texts and auxiliar_texts|length > 0 %}
+        <div class="form-group auxiliar-text">
+        {% for auxiliar_text in auxiliar_texts %}
+            <span class="help-block">{{ auxiliar_text }}</span>
+        {% endfor %}
+        </div>
+    {% endif %}
 {%- endmacro %}
 
 {% macro date_field(field, explicit_label=False) %}

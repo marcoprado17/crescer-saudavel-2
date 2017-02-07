@@ -13,6 +13,8 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        password_successful_redefined = "Sua senha foi redefinida com sucesso."
+        invalid_redefine_password_requisition = "A requisição de redefinição de senha em questão expirou. Por favor, faça outra requisição de redefinição de senha."
         forgot_password_or_want_redefine_it = "Esqueceu sua senha ou quer redefini-la?"
         want_redefine_your_password = "Quer redefinir sua senha?"
         redefine_password = "Redefinir senha"
@@ -873,7 +875,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         @staticmethod
         def email_or_password_invalid():
-            return "Email ou senha incorretos. Caso tenha esquecido sua senha clique <a href='%s'>aqui</a>." % str(url_for("client_user_management.forgot_password"))
+            return "Email ou senha incorretos. Caso tenha esquecido sua senha clique <a href='%s'>aqui</a>." % str(url_for("client_user_management.want_redefine_password"))
 
         @staticmethod
         def email_not_confirmed(email):
@@ -989,6 +991,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         link_max_length = 256
         item_inner_max_length = 36
         blog_post_preview_title_max_length = 48
+        day_in_seconds = 24*60*60
 
 
 R = Resources()
