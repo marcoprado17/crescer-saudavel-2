@@ -1,6 +1,8 @@
 .__client_user_management__.__register__ {
-  .buttons-set a {
-    float: right;
-    margin-top: 6px;
+  .buttons-set {
+    .links-container {
+      float: right;
+      text-align: right;
+    }
   }
 }

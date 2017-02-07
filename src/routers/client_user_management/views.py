@@ -19,9 +19,12 @@ from routers.client_user_management import client_user_management_blueprint
 from routers.client_user_management.data_providers.login import client_login_data_provider
 from routers.client_user_management.data_providers.redefine_password import client_redefine_password_data_provider
 from routers.client_user_management.data_providers.register import client_register_data_provider
+from routers.client_user_management.data_providers.resend_confirmation_email import \
+    client_resend_confirmation_email_data_provider
 from routers.client_user_management.data_providers.want_redefine_password import \
     client_want_redefine_password_data_provider
-from routers.client_user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm, RedefinePasswordForm
+from routers.client_user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm, RedefinePasswordForm, \
+    ResendConfirmationEmailForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -71,8 +74,9 @@ def login():
 @client_user_management_blueprint.route("/cadastrar", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
+        email=get_url_arg(R.string.email_arg_name)
         return render_template("client_user_management/register.html",
-                               data=client_register_data_provider.get_data_when_get())
+                               data=client_register_data_provider.get_data_when_get(email))
     else:
         register_form = RegisterForm()
         if register_form.validate_on_submit():
@@ -162,13 +166,15 @@ def redefine_password(token):
               bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
         return redirect(url_for("client_user_management.want_redefine_password"))
     if request.method == "GET":
-        return render_template("client_user_management/redefine_password.html", data=client_redefine_password_data_provider.get_data_when_get(email=email))
+        return render_template("client_user_management/redefine_password.html",
+                               data=client_redefine_password_data_provider.get_data_when_get(email=email))
     else:
         redefine_password_form = RedefinePasswordForm(email=email)
 
         if not redefine_password_form.validate_on_submit():
             return render_template("client_user_management/redefine_password.html",
-                                   data=client_redefine_password_data_provider.get_data_when_post(redefine_password_form=redefine_password_form))
+                                   data=client_redefine_password_data_provider.get_data_when_post(
+                                       redefine_password_form=redefine_password_form))
 
         user = User.get_by_email(email)
         if user == None:
@@ -180,6 +186,35 @@ def redefine_password(token):
         return redirect(url_for("client_user_management.login", email=email))
 
 
-@client_user_management_blueprint.route("/reenviar-email-de-confirmacao")
+@client_user_management_blueprint.route("/reenviar-email-de-confirmacao", methods=["GET", "POST"])
 def resend_confirmation_email():
-    return "Reenviar email de confirmação"
+    if request.method == "GET":
+        return render_template("client_user_management/resend_confirmation_email.html",
+                               data=client_resend_confirmation_email_data_provider.get_data_when_get())
+    else:
+        resend_confirmation_email_form = ResendConfirmationEmailForm()
+
+        if not resend_confirmation_email_form.validate_on_submit():
+            return render_template("client_user_management/resend_confirmation_email.html",
+                                   data=client_resend_confirmation_email_data_provider.get_data_when_post(resend_confirmation_email_form=resend_confirmation_email_form))
+
+        user = User.get_by_email(resend_confirmation_email_form.email.data)
+        if user is None:
+            flash(R.string.account_never_created(email=resend_confirmation_email_form.email.data),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/resend_confirmation_email.html",
+                                   data=client_resend_confirmation_email_data_provider.get_data_when_post(
+                                       resend_confirmation_email_form=resend_confirmation_email_form))
+
+        try:
+            email_manager.send_create_account_confirmation_email(receiver_email=user.email)
+        except:
+            flash(R.string.send_confirmation_email_error_message,
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/resend_confirmation_email.html",
+                                   data=client_resend_confirmation_email_data_provider.get_data_when_post(
+                                       resend_confirmation_email_form=resend_confirmation_email_form))
+
+        flash(R.string.successful_resend_of_confirmation_email(email=user.email),
+              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+        return redirect(url_for("client_user_management.login", **{R.string.email_arg_name: user.email}))

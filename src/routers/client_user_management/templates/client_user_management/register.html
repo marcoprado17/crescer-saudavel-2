@@ -29,7 +29,11 @@
                                 <div class="buttons-set">
                                     <button type="submit" class="button"><span>{{ R.string.to_register }}</span>
                                     </button>
-                                    <a href="{{ url_for('client_user_management.login') }}">{{ R.string.already_has_account }}</a>
+                                    <div class="links-container">
+                                        <a href="{{ url_for('client_user_management.login') }}">{{ R.string.already_has_account }}</a>
+                                        <br>
+                                        <a href="{{ url_for('client_user_management.resend_confirmation_email') }}">{{ R.string.resend_confirmation_email_query }}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

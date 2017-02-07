@@ -13,6 +13,9 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        resend_confirmation_email_query = "Deseja reenviar o email de confirmação?"
+        resend_confirmation_email_auxiliar_text = "Entre com o email cadastrado, reenviaremos o link para confirmação do email."
+        resend_confirmation_email = "Reenviar email de confirmação"
         password_successful_redefined = "Sua senha foi redefinida com sucesso."
         invalid_redefine_password_requisition = "A requisição de redefinição de senha em questão expirou. Por favor, faça outra requisição de redefinição de senha."
         forgot_password_or_want_redefine_it = "Esqueceu sua senha ou quer redefini-la?"
@@ -888,6 +891,14 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def successful_send_redefine_password_email(email):
             return "O email de redefinição de senha foi enviado com sucesso para <b>%s</b>." % email
+
+        @staticmethod
+        def account_never_created(email):
+            return "A conta com o email <b>%s</b> nunca foi criada, para criá-la clique <a href='%s'>aqui</a>." % (email, url_for("client_user_management.register", **{R.string.email_arg_name: email}))
+
+        @staticmethod
+        def successful_resend_of_confirmation_email(email):
+            return "O email de confirmação foi reenviado com sucesso para <b>%s</b>." % email
 
     # noinspection PyPep8Naming
     @unique

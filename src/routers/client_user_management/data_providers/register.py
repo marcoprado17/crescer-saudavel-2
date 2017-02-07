@@ -7,9 +7,9 @@ from routers.client_user_management.forms import RegisterForm
 
 
 class ClientRegisterDataProvider(object):
-    def get_data_when_get(self):
+    def get_data_when_get(self, email):
         return dict(
-            register_form=RegisterForm()
+            register_form=RegisterForm(email)
         )
 
     def get_data_when_post(self, register_form):
