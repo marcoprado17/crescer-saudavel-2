@@ -6,8 +6,9 @@
 import json
 
 from flask import render_template, request, flash, redirect, url_for
+from flask_login import login_required
 from data_providers import admin_add_product_category_data_provider, admin_product_categories_data_provider
-from proj_decorators import valid_form, safe_id_to_model_elem
+from proj_decorators import valid_form, safe_id_to_model_elem, admin_required
 from flask_bombril.r import R as bombril_R
 from proj_forms import SubmitForm
 from models.product import Product
@@ -27,11 +28,15 @@ from routers.admin_products.forms import AddProductCategoryForm, EditProductCate
 
 
 @admin_products_blueprint.route("/")
+@login_required
+@admin_required
 def products():
     return render_template("admin_products/products.html", data=admin_products_data_provider.get_data())
 
 
 @admin_products_blueprint.route("/adicionar-produto", methods=["GET", "POST"])
+@login_required
+@admin_required
 def add_product():
     if request.method == "GET":
         return render_template("admin_products/add_product.html", data=admin_add_product_data_provider.get_data_when_get())
@@ -49,6 +54,8 @@ def add_product():
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/editar-produto/<int:product_id>", methods=["GET", "POST"])
+@login_required
+@admin_required
 @safe_id_to_model_elem(model=Product)
 def edit_product(product):
     if request.method == "GET":
@@ -70,6 +77,8 @@ def edit_product(product):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/pre-visualizacao-de-produto/<int:product_id>")
+@login_required
+@admin_required
 @safe_id_to_model_elem(model=Product)
 def product_preview(product):
     return "Pré-visualização do produto " + product.id_formatted
@@ -77,6 +86,8 @@ def product_preview(product):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/desabilitar-produto/<int:product_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Product)
 def disable_product(product, form):
@@ -86,6 +97,8 @@ def disable_product(product, form):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/ativar-produto/<int:product_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Product)
 def to_activate_product(product, form):
@@ -95,6 +108,8 @@ def to_activate_product(product, form):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/aumentar-estoque-do-produto/<int:product_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=AddToStockForm)
 @safe_id_to_model_elem(model=Product)
 def product_stock_addition(product, form):
@@ -104,6 +119,8 @@ def product_stock_addition(product, form):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/diminuir-estoque-do-produto/<int:product_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=RemoveFromStockForm)
 @safe_id_to_model_elem(model=Product)
 def product_stock_removal(product, form):
@@ -113,6 +130,8 @@ def product_stock_removal(product, form):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/atualizar-estoque-do-produto/<int:product_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=UpdateStockForm)
 @safe_id_to_model_elem(model=Product)
 def product_stock_update(product, form):
@@ -121,11 +140,15 @@ def product_stock_update(product, form):
 
 
 @admin_products_blueprint.route("/categorias-de-produto")
+@login_required
+@admin_required
 def categories():
     return render_template("admin_products/categories.html", data=admin_product_categories_data_provider.get_data())
 
 
 @admin_products_blueprint.route("/adicionar-categoria-de-produto", methods=["GET", "POST"])
+@login_required
+@admin_required
 def add_category():
     if request.method == "GET":
         return render_template("admin_products/add_category.html",
@@ -145,6 +168,8 @@ def add_category():
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/editar-categoria-de-produto/<int:product_category_id>", methods=["GET", "POST"])
+@login_required
+@admin_required
 @safe_id_to_model_elem(model=ProductCategory)
 def edit_category(product_category):
     if request.method == "GET":
@@ -166,6 +191,8 @@ def edit_category(product_category):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/desabilitar-categoria-de-produto/<int:product_category_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=ProductCategory)
 def disable_category(product_category, form):
@@ -175,6 +202,8 @@ def disable_category(product_category, form):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/ativar-categoria-de-produto/<int:product_category_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=ProductCategory)
 def to_activate_category(product_category, form):
@@ -183,12 +212,16 @@ def to_activate_category(product_category, form):
 
 
 @admin_products_blueprint.route("/subcategorias-de-produto")
+@login_required
+@admin_required
 def subcategories():
     return render_template("admin_products/subcategories.html",
                            data=admin_product_subcategories_data_provider.get_data())
 
 
 @admin_products_blueprint.route("/adicionar-subcategoria-de-produto", methods=["GET", "POST"])
+@login_required
+@admin_required
 def add_subcategory():
     if request.method == "GET":
         return render_template("admin_products/add_subcategory.html",
@@ -207,6 +240,8 @@ def add_subcategory():
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/editar-subcategoria-de-produto/<int:product_subcategory_id>", methods=["GET", "POST"])
+@login_required
+@admin_required
 @safe_id_to_model_elem(model=ProductSubcategory)
 def edit_subcategory(product_subcategory):
     if request.method == "GET":
@@ -228,6 +263,8 @@ def edit_subcategory(product_subcategory):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/desabilitar-subcategoria-de-produto/<int:product_subcategory_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=ProductSubcategory)
 def disable_subcategory(product_subcategory, form):
@@ -237,6 +274,8 @@ def disable_subcategory(product_subcategory, form):
 
 # noinspection PyUnresolvedReferences
 @admin_products_blueprint.route("/ativar-subcategoria-de-produto/<int:product_subcategory_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=ProductSubcategory)
 def to_activate_subcategory(product_subcategory, form):

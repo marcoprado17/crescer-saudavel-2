@@ -6,8 +6,9 @@
 import os
 
 from flask import render_template, request, flash, current_app, redirect, url_for
+from flask_login import login_required
 from werkzeug.utils import secure_filename
-from proj_decorators import valid_form
+from proj_decorators import valid_form, admin_required
 from flask_bombril import R as bombril_R
 from proj_forms import SubmitForm
 from proj_utils import create_product_image
@@ -18,11 +19,15 @@ from routers.admin_images.forms import UploadImageForm
 
 
 @admin_images_blueprint.route("/")
+@login_required
+@admin_required
 def images():
     return render_template("admin_images/images.html", data=admin_images_data_provider.get_data())
 
 
 @admin_images_blueprint.route("/remover-imagem/<string:image_name>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 def remove_image(image_name, form):
     if (image_name in admin_images_data_provider.fixed_images) or (image_name in admin_images_data_provider.irremovable_images):
@@ -42,6 +47,8 @@ def remove_image(image_name, form):
 
 
 @admin_images_blueprint.route("/adicionar-imagem", methods=["GET", "POST"])
+@login_required
+@admin_required
 def add_image():
     if request.method == "GET":
         return render_template("admin_images/add_image.html", data=admin_add_image_data_provider.get_data())

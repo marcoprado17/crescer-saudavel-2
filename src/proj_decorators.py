@@ -4,7 +4,16 @@
 # Created at 09/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from functools import wraps
+from flask import current_app
+from flask import flash
+from flask import redirect
+from flask import request
+from flask import url_for
+from flask_login import current_user
+
+from flask_bombril.r import R as bombril_R
 from flask_bombril.utils import camel_case_to_snake_case
+from r import R
 
 
 def valid_form(FormClass):
@@ -42,3 +51,12 @@ def safe_id_to_model_elem(model):
                 return func(*args, **kwargs)
         return decorated_function
     return real_decorator
+
+def admin_required(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if (not current_user) or (not current_user.is_authenticated()) or (current_user.email != current_app.config['ADMIN_MAIL']):
+            flash(R.string.admin_login_required, bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.info))
+            return redirect(url_for("client_user_management.login", next=request.url))
+        return func(*args, **kwargs)
+    return decorated_function

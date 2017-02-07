@@ -8,7 +8,8 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
-from proj_decorators import valid_form, safe_id_to_model_elem
+from flask_login import login_required
+from proj_decorators import valid_form, safe_id_to_model_elem, admin_required
 from flask_bombril.r import R as bombril_R
 from proj_forms import SubmitForm
 from models.city import City
@@ -21,11 +22,15 @@ from routers.admin_attended_cities.forms import AddCityForm, EditCityForm
 
 
 @admin_attended_cities_blueprint.route("/")
+@login_required
+@admin_required
 def cities():
     return render_template("admin_attended_cities/cities.html", data=admin_cities_data_provider.get_data())
 
 
 @admin_attended_cities_blueprint.route("/adiciona-cidade", methods=["GET", "POST"])
+@login_required
+@admin_required
 def add_city():
     if request.method == "GET":
         return render_template("admin_attended_cities/add_city.html", data=admin_add_city_data_provider.get_data_when_get())
@@ -44,6 +49,8 @@ def add_city():
 
 # noinspection PyUnresolvedReferences
 @admin_attended_cities_blueprint.route("/editar-cidade/<int:city_id>", methods=["GET", "POST"])
+@login_required
+@admin_required
 @safe_id_to_model_elem(model=City)
 def edit_city(city):
     if request.method == "GET":
@@ -65,6 +72,8 @@ def edit_city(city):
 
 # noinspection PyUnresolvedReferences
 @admin_attended_cities_blueprint.route("/ativar-cidade/<int:city_id>", methods=["GET", "POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=City)
 def to_activate_city(city, form):
@@ -74,6 +83,8 @@ def to_activate_city(city, form):
 
 # noinspection PyUnresolvedReferences
 @admin_attended_cities_blueprint.route("/desativar-cidade/<int:city_id>", methods=["GET", "POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=City)
 def disable_city(city, form):

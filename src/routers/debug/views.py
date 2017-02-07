@@ -7,20 +7,26 @@ import os
 import shutil
 
 from flask import render_template, redirect, url_for, current_app
+from flask_login import login_required
 from models.utils import create_states, create_random_product_categories, create_random_product_subcategories, \
     create_random_products, create_specif_cities, create_random_clients, create_random_orders, create_home_content, \
     create_contact, create_about_us, create_faq, create_footer, create_random_blog_posts
+from proj_decorators import admin_required
 from proj_utils import create_product_image, create_blog_thumbnail_image
 from routers.debug import debug_blueprint
 from proj_extensions import db
 
 
 @debug_blueprint.route("/test")
+@login_required
+@admin_required
 def test():
     return render_template("debug/test.html")
 
 
 @debug_blueprint.route("/reiniciar-imagens")
+@login_required
+@admin_required
 def restart_images():
     restart_images_implementation()
     return redirect(url_for("admin_home.home"))
@@ -43,6 +49,8 @@ def restart_images_implementation():
 
 
 @debug_blueprint.route("/criar-imagens-redimensionadas")
+@login_required
+@admin_required
 def create_resized_images():
     create_products_images_implementation()
     create_blog_thumbnails_images_implementation()
@@ -80,6 +88,8 @@ def create_blog_thumbnails_images_implementation():
 
 
 @debug_blueprint.route("/reiniciar-db")
+@login_required
+@admin_required
 def restart_db():
     restart_db_implementation()
     return redirect(url_for("admin_home.home"))

@@ -8,7 +8,8 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
-from proj_decorators import valid_form, safe_id_to_model_elem
+from flask_login import login_required
+from proj_decorators import valid_form, safe_id_to_model_elem, admin_required
 from flask_bombril.r import R as bombril_R
 from proj_forms import SubmitForm
 from models.blog_post import BlogPost
@@ -21,11 +22,15 @@ from routers.admin_blog.forms import AddBlogPostForm, EditBlogPostForm
 
 
 @admin_blog_blueprint.route("/posts")
+@login_required
+@admin_required
 def posts():
     return render_template("admin_blog/posts.html", data=admin_posts_data_provider.get_data())
 
 
 @admin_blog_blueprint.route("/adicionar-post", methods=["GET", "POST"])
+@login_required
+@admin_required
 def add_post():
     if request.method == "GET":
         return render_template("admin_blog/add_post.html", data=admin_add_blog_post_data_provider.get_data_when_get())
@@ -43,6 +48,8 @@ def add_post():
 
 # noinspection PyUnresolvedReferences
 @admin_blog_blueprint.route("/editar-post/<int:blog_post_id>", methods=["GET", "POST"])
+@login_required
+@admin_required
 @safe_id_to_model_elem(model=BlogPost)
 def edit_post(blog_post):
     if request.method == "GET":
@@ -64,6 +71,8 @@ def edit_post(blog_post):
 
 # noinspection PyUnresolvedReferences
 @admin_blog_blueprint.route("/pre-visualizacao-de-post/<int:blog_post_id>")
+@login_required
+@admin_required
 @safe_id_to_model_elem(model=BlogPost)
 def post_preview(blog_post):
     return "Pré-visualização do post #" + str(blog_post.id)
@@ -71,6 +80,8 @@ def post_preview(blog_post):
 
 # noinspection PyUnresolvedReferences
 @admin_blog_blueprint.route("/desabilitar-post/<int:blog_post_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=BlogPost)
 def disable_post(blog_post, form):
@@ -80,6 +91,8 @@ def disable_post(blog_post, form):
 
 # noinspection PyUnresolvedReferences
 @admin_blog_blueprint.route("/ativar-post/<int:blog_post_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=BlogPost)
 def to_activate_post(blog_post, form):

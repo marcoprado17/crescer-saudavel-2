@@ -6,7 +6,8 @@
 import json
 
 from flask import render_template
-from proj_decorators import valid_form, safe_id_to_model_elem
+from flask_login import login_required
+from proj_decorators import valid_form, safe_id_to_model_elem, admin_required
 from proj_exceptions import InsufficientStockToSendOrder
 from proj_forms import SubmitForm
 from models.order import Order
@@ -16,12 +17,16 @@ from routers.admin_orders.data_providers.orders import admin_orders_data_provide
 
 
 @admin_orders_blueprint.route("/")
+@login_required
+@admin_required
 def orders():
     return render_template("admin_orders/orders.html", data=admin_orders_data_provider.get_data())
 
 
 # noinspection PyUnresolvedReferences
 @admin_orders_blueprint.route("/marcar-como-enviado/<int:order_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Order)
 def mark_as_sent(order, form):
@@ -44,6 +49,8 @@ def mark_as_sent(order, form):
 
 # noinspection PyUnresolvedReferences
 @admin_orders_blueprint.route("/desmarcar-como-enviado/<int:order_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Order)
 def unmark_as_sent(order, form):
@@ -58,6 +65,8 @@ def unmark_as_sent(order, form):
 
 # noinspection PyUnresolvedReferences
 @admin_orders_blueprint.route("/marcar-como-entregue/<int:order_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Order)
 def mark_as_delivered(order, form):
@@ -72,6 +81,8 @@ def mark_as_delivered(order, form):
 
 # noinspection PyUnresolvedReferences
 @admin_orders_blueprint.route("/desmarcar-como-entregue/<int:order_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Order)
 def unmark_as_delivered(order, form):
@@ -86,6 +97,8 @@ def unmark_as_delivered(order, form):
 
 # noinspection PyUnresolvedReferences
 @admin_orders_blueprint.route("/cancelar-pedido/<int:order_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Order)
 def mark_as_canceled(order, form):
@@ -100,6 +113,8 @@ def mark_as_canceled(order, form):
 
 # noinspection PyUnresolvedReferences
 @admin_orders_blueprint.route("/marcar-como-pago/<int:order_id>", methods=["POST"])
+@login_required
+@admin_required
 @valid_form(FormClass=SubmitForm)
 @safe_id_to_model_elem(model=Order)
 def mark_as_paid(order, form):

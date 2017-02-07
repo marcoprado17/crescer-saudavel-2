@@ -6,12 +6,13 @@
 from flask import json
 from flask import render_template
 from flask import request
-
+from flask_login import login_required
 from models.about_us import AboutUs
 from models.contact import Contact
 from models.faq import Faq
 from models.footer import Footer
 from models.home_content import HomeContent
+from proj_decorators import admin_required
 from routers.admin_content import admin_content_blueprint
 from routers.admin_content.data_providers.about_us import admin_about_us_data_provider
 from routers.admin_content.data_providers.contact import admin_contact_data_provider
@@ -23,11 +24,15 @@ from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSe
 
 
 @admin_content_blueprint.route("/home")
+@login_required
+@admin_required
 def home():
     return render_template("admin_content/home.html", data=admin_content_home_data_provider.get_data())
 
 
 @admin_content_blueprint.route("/home/salvar-carrossel/<int:carousel_number>", methods=["POST"])
+@login_required
+@admin_required
 def save_carousel(carousel_number):
     carousel_form = CarouselForm()
 
@@ -47,6 +52,8 @@ def save_carousel(carousel_number):
 
 
 @admin_content_blueprint.route("/home/salvar-secao-de-produto/<int:product_section_number>", methods=["POST"])
+@login_required
+@admin_required
 def save_product_section(product_section_number):
     product_section_form = ProductSectionForm()
 
@@ -70,6 +77,8 @@ def save_product_section(product_section_number):
 
 
 @admin_content_blueprint.route("/home/salvar-secao-do-blog/<int:blog_section_number>", methods=["POST"])
+@login_required
+@admin_required
 def save_blog_section(blog_section_number):
     blog_section_form = BlogSectionForm()
 
@@ -89,6 +98,8 @@ def save_blog_section(blog_section_number):
 
 
 @admin_content_blueprint.route("/contato", methods=["GET", "POST"])
+@login_required
+@admin_required
 def contact():
     if request.method=="GET":
         return render_template("admin_content/contact.html", data=admin_contact_data_provider.get_data())
@@ -102,6 +113,8 @@ def contact():
 
 
 @admin_content_blueprint.route("/sobre-nos", methods=["GET", "POST"])
+@login_required
+@admin_required
 def about_us():
     if request.method=="GET":
         return render_template("admin_content/about_us.html", data=admin_about_us_data_provider.get_data())
@@ -115,6 +128,8 @@ def about_us():
 
 
 @admin_content_blueprint.route("/faq", methods=["GET", "POST"])
+@login_required
+@admin_required
 def faq():
     if request.method=="GET":
         return render_template("admin_content/faq.html", data=admin_faq_data_provider.get_data())
@@ -128,6 +143,8 @@ def faq():
 
 
 @admin_content_blueprint.route("/rodape", methods=["GET", "POST"])
+@login_required
+@admin_required
 def footer():
     if request.method=="GET":
         return render_template("admin_content/footer.html", data=admin_footer_data_provider.get_data())
