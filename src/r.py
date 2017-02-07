@@ -13,6 +13,12 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        forgot_password_or_want_redefine_it = "Esqueceu sua senha ou quer redefini-la?"
+        want_redefine_your_password = "Quer redefinir sua senha?"
+        redefine_password = "Redefinir senha"
+        send_redefine_password_email_error_message = "Ocorreu uma falha no envio do email de redefinição de senha. Por favor, tente novamente."
+        recovery_password_message = "Entre com o email cadastrado, enviaremos um link para a redefinição da senha."
+        recovery_password = "Recuperar senha"
         forgot_password = "Esqueceu sua senha?"
         admin_login_required = "É preciso entrar como admin para acessar tal página."
         login_message = "Para acessar a página é preciso entrar na sua conta."
@@ -872,6 +878,14 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def email_not_confirmed(email):
             return "O email <b>%s</b> ainda não foi confirmado. Para reenviar o email de confirmação, clique <a href='%s'>aqui</a>." % (email, url_for("client_user_management.resend_confirmation_email"))
+
+        @staticmethod
+        def email_not_found(email):
+            return "O email <b>%s</b> não foi encontrado em nosso banco de dados. Tente novamente." % email
+
+        @staticmethod
+        def successful_send_redefine_password_email(email):
+            return "O email de redefinição de senha foi enviado com sucesso para <b>%s</b>." % email
 
     # noinspection PyPep8Naming
     @unique

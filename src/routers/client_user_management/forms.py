@@ -62,3 +62,14 @@ class LoginForm(FlaskForm):
         super(LoginForm, self).__init__(**kwargs)
         if email is not None:
             self.email.data = email
+
+
+class WantRedefinePasswordForm(FlaskForm):
+    email = StringField(
+        label=R.string.email,
+        validators=[
+            Required(),
+            Length(max_length=R.dimen.email_max_length),
+            EmailFormat(),
+        ]
+    )

@@ -18,7 +18,9 @@ from r import R
 from routers.client_user_management import client_user_management_blueprint
 from routers.client_user_management.data_providers.login import client_login_data_provider
 from routers.client_user_management.data_providers.register import client_register_data_provider
-from routers.client_user_management.forms import RegisterForm, LoginForm
+from routers.client_user_management.data_providers.want_redefine_password import \
+    client_want_redefine_password_data_provider
+from routers.client_user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -26,7 +28,8 @@ from flask_bombril.r import R as bombril_R
 def login():
     if request.method == "GET":
         email = get_url_arg(R.string.email_arg_name)
-        return render_template("client_user_management/login.html", data=client_login_data_provider.get_data_when_get(email))
+        return render_template("client_user_management/login.html",
+                               data=client_login_data_provider.get_data_when_get(email))
     else:
         login_form = LoginForm()
 
@@ -64,11 +67,11 @@ def login():
             return redirect(url_for('client_home.home'))
 
 
-
 @client_user_management_blueprint.route("/cadastrar", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
-        return render_template("client_user_management/register.html", data=client_register_data_provider.get_data_when_get())
+        return render_template("client_user_management/register.html",
+                               data=client_register_data_provider.get_data_when_get())
     else:
         register_form = RegisterForm()
         if register_form.validate_on_submit():
@@ -90,7 +93,8 @@ def register():
                                            register_form=register_form))
             flash(R.string.account_successful_created(email=register_form.email.data),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
-            return redirect(url_for("client_user_management.login", **{R.string.email_arg_name: register_form.email.data}))
+            return redirect(
+                url_for("client_user_management.login", **{R.string.email_arg_name: register_form.email.data}))
         else:
             return render_template("client_user_management/register.html",
                                    data=client_register_data_provider.get_data_when_post(register_form=register_form))
@@ -109,9 +113,47 @@ def email_confirmed(token):
     return redirect(url_for("client_user_management.login", **{R.string.email_arg_name: email}))
 
 
-@client_user_management_blueprint.route("/esqueci-minha-senha")
-def forgot_password():
-    return "Esqueci minha senha."
+@client_user_management_blueprint.route("/quero-redefinir-minha-senha", methods=["GET", "POST"])
+def want_redefine_password():
+    if request.method == "GET":
+        return render_template("client_user_management/want_redefine_password.html",
+                               data=client_want_redefine_password_data_provider.get_data_when_get())
+    else:
+        want_redefine_password_form = WantRedefinePasswordForm()
+
+        if not want_redefine_password_form.validate_on_submit():
+            return render_template("client_user_management/want_redefine_password.html",
+                                   data=client_want_redefine_password_data_provider.get_data_when_post(
+                                       want_redefine_password_form=want_redefine_password_form))
+
+        user = User.get_by_email(want_redefine_password_form.email.data)
+        if user == None:
+            flash(R.string.email_not_found(email=want_redefine_password_form.email.data),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/want_redefine_password.html",
+                                   data=client_want_redefine_password_data_provider.get_data_when_post(
+                                       want_redefine_password_form=want_redefine_password_form))
+
+        try:
+            email_manager.send_redefine_password_email(receiver_email=want_redefine_password_form.email.data)
+        except:
+            flash(R.string.send_redefine_password_email_error_message,
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/want_redefine_password.html",
+                                   data=client_want_redefine_password_data_provider.get_data_when_post(
+                                       want_redefine_password_form=want_redefine_password_form))
+
+        flash(R.string.successful_send_redefine_password_email(email=want_redefine_password_form.email.data),
+              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+        return redirect(url_for("client_user_management.login"))
+
+
+@client_user_management_blueprint.route("/redefinir-senha", methods=["GET", "POST"])
+def redefine_password():
+    if request.method == "GET":
+        return "Redefinir senha (GET)."
+    else:
+        return "Redefinir senha (POST)."
 
 
 @client_user_management_blueprint.route("/reenviar-email-de-confirmacao")
