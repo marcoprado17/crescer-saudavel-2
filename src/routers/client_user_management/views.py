@@ -10,6 +10,8 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
+from flask_login import logout_user
+from flask_login import login_required
 from itsdangerous import URLSafeTimedSerializer
 from email_blueprint import email_manager
 from flask_bombril.utils import get_url_arg
@@ -218,3 +220,10 @@ def resend_confirmation_email():
         flash(R.string.successful_resend_of_confirmation_email(email=user.email),
               bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
         return redirect(url_for("client_user_management.login", **{R.string.email_arg_name: user.email}))
+
+
+@client_user_management_blueprint.route("/sair")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("client_home.home"))
