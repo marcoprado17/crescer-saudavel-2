@@ -2,34 +2,31 @@
 {% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
 {% import "flask_bombril_macros/messages.html" as messages with context %}
 {% block title %}
-    {{ R.string.register }}
+    {{ R.string.login }}
 {% endblock %}
 {% block content %}
-    <div class="__client_user_management__ __register__">
+    <div class="__client_user_management__ __login__">
         <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">
             <div class="main">
                 <div class="account-login container">
                     <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
-                        {{ data.register_form.csrf_token }}
+                        {{ data.login_form.csrf_token }}
                         <div class="registered-users">
                             {{ messages.flash_static() }}
-                            <strong>{{ R.string.new_account }}</strong>
+                            <strong>{{ R.string.to_enter }}</strong>
                             <div class="content">
                                 <ul class="form-list">
                                     <li>
-                                        {{ form_fields.string_field(field=data.register_form.email, max_length=R.dimen.email_max_length, explicit_label=True) }}
+                                        {{ form_fields.string_field(field=data.login_form.email, max_length=R.dimen.email_max_length, explicit_label=True) }}
                                     </li>
                                     <li>
-                                        {{ form_fields.password_field(field=data.register_form.password, explicit_label=True) }}
-                                    </li>
-                                    <li>
-                                        {{ form_fields.password_field(field=data.register_form.password_confirmation, explicit_label=True) }}
+                                        {{ form_fields.password_field(field=data.login_form.password, explicit_label=True) }}
                                     </li>
                                 </ul>
                                 <div class="buttons-set">
-                                    <button type="submit" class="button"><span>{{ R.string.to_register }}</span>
+                                    <button type="submit" class="button"><span>{{ R.string.to_enter }}</span>
                                     </button>
-                                    <a href="{{ url_for('client_user_management.login') }}" class="already-has-account">{{ R.string.already_has_account }}</a>
+                                    <a href="{{ url_for('client_user_management.register') }}" class="already-has-account">{{ R.string.not_has_account }}</a>
                                 </div>
                             </div>
                         </div>

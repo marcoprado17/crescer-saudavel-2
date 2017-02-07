@@ -39,3 +39,26 @@ class RegisterForm(FlaskForm):
             Required()
         ]
     )
+
+
+class LoginForm(FlaskForm):
+    email = StringField(
+        label=R.string.email,
+        validators=[
+            Required(),
+            Length(max_length=R.dimen.email_max_length),
+            EmailFormat(),
+        ]
+    )
+    password = PasswordField(
+        label=R.string.password,
+        validators=[
+            Required(),
+            Length(min_length=R.dimen.password_min_length, max_length=R.dimen.password_max_length, message=R.string.get_password_length_message()),
+        ]
+    )
+
+    def __init__(self, email=None, **kwargs):
+        super(LoginForm, self).__init__(**kwargs)
+        if email is not None:
+            self.email.data = email

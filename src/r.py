@@ -11,6 +11,10 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        to_enter = "Entrar"
+        not_has_account = "Não possui conta?"
+        new_account = "Nova conta"
+        login = "Entrar"
         send_confirmation_email_error_message = "Ocorreu uma falha no envio do email de confirmação. Por favor, tente novamente."
         data_base_access_error_message = "Ocorreu uma falha ao acessar o banco de dados. Por favor, tente novamente."
         email_already_in_use = "Este email já está em uso."
@@ -21,7 +25,6 @@ class Resources(object):
         password = "Senha"
         password_confirmation = "Confirmação de senha"
         email_example_placeholder = "Ex.: exemplo@gmail.com"
-        register = "Cadastro"
         without_stock = "Sem estoque"
         ideal_product_image_size_auxiliar_text = "Tamanho ideal das imagens de produto: 600 x 600."
         ideal_blog_thumbnail_size_auxiliar_text = "Tamanho ideal das thumbnails do blog: 900 x 500."
@@ -147,6 +150,7 @@ class Resources(object):
         blog_post_id_arg_name = "blog_post_id"
         search_string_arg_name = "q"
         product_id_arg_name = "product_id"
+        email_arg_name = "email"
 
         name = "Nome"
         section_name = "Nome de seção"
@@ -849,11 +853,11 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         @staticmethod
         def account_successful_created(email):
-            return "<b>Conta criada com sucesso!</b> Para logar é necessário confirmar o email <b>%s</b> clicando no link da mensagem que acabamos de enviar." % email
+            return "<b>Conta criada com sucesso!</b> Para entrar é necessário confirmar o email <b>%s</b> clicando no link da mensagem que acabamos de enviar." % email
 
         @staticmethod
         def email_successful_confirmed(email):
-            return "O email <b>%s</b> foi confirmado com sucesso!"
+            return "O email <b>%s</b> foi confirmado com sucesso!" % email
 
     # noinspection PyPep8Naming
     @unique
