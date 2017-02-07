@@ -13,6 +13,7 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        forgot_password = "Esqueceu sua senha?"
         admin_login_required = "É preciso entrar como admin para acessar tal página."
         login_message = "Para acessar a página é preciso entrar na sua conta."
         login_error = "Ocorreu uma falha ao entrar na sua conta. Por favor, tente novamente."
