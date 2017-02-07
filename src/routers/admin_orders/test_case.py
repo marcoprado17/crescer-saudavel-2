@@ -10,7 +10,7 @@ from unittest import TestCase as BaseTestCase
 from datetime import datetime
 from flask import url_for
 from app_contexts.app import app
-from models.client import Client
+from models.user import User
 from models.order import Order
 from proj_exceptions import InvalidOrderError, InvalidOrderStatusChange, InsufficientStockToSendOrder
 from proj_extensions import db
@@ -140,7 +140,7 @@ class TestCase(BaseTestCase):
                 # ------------------------------------------------------------------------------------------------------
                 # Add Client
                 # ------------------------------------------------------------------------------------------------------
-                client = Client(
+                client = User(
                     email="a@a.com",
                     email_confirmed=True,
                     authenticated=True,
@@ -149,7 +149,7 @@ class TestCase(BaseTestCase):
                 )
                 db.session.add(client)
                 db.session.commit()
-                self.assertEqual(Client.count(), 1)
+                self.assertEqual(User.count(), 1)
 
                 # ------------------------------------------------------------------------------------------------------
                 # Add Order

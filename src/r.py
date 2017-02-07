@@ -5,12 +5,16 @@
 # ======================================================================================================================
 from decimal import Decimal
 from enum import Enum, unique
+from flask import url_for
+
 from flask_bombril.utils import stringfy_list
 
 
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        login_message = "Para acessar a página é preciso entrar na sua conta."
+        login_error = "Ocorreu uma falha ao entrar na sua conta. Por favor, tente novamente."
         to_enter = "Entrar"
         not_has_account = "Não possui conta?"
         new_account = "Nova conta"
@@ -858,6 +862,14 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def email_successful_confirmed(email):
             return "O email <b>%s</b> foi confirmado com sucesso!" % email
+
+        @staticmethod
+        def email_or_password_invalid():
+            return "Email ou senha incorretos. Caso tenha esquecido sua senha clique <a href='%s'>aqui</a>." % str(url_for("client_user_management.forgot_password"))
+
+        @staticmethod
+        def email_not_confirmed(email):
+            return "O email <b>%s</b> ainda não foi confirmado. Para reenviar o email de confirmação, clique <a href='%s'>aqui</a>." % (email, url_for("client_user_management.resend_confirmation_email"))
 
     # noinspection PyPep8Naming
     @unique

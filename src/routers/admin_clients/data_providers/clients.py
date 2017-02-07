@@ -11,7 +11,7 @@ from flask_bombril.utils import get_page_range
 from flask_bombril.url_args import get_valid_page
 from flask_bombril.url_args import get_valid_enum
 from models.city import City
-from models.client import Client
+from models.user import User
 from models.state import State
 from proj_utils import get_sort_methods_data
 from r import R
@@ -25,14 +25,14 @@ class AdminClientsDataProvider(object):
         city_id = get_valid_model_id(model=City, arg_name=R.string.city_id_arg_name,
                                       include_zero=True, default=0)
         sort_method_id = get_valid_enum(arg_name=R.string.sort_method_arg_name, enum=R.id,
-                                        default=R.id.SORT_METHOD_CLIENT_NAME, possible_values=Client.sort_method_map.ids)
+                                        default=R.id.SORT_METHOD_CLIENT_NAME, possible_values=User.sort_method_map.ids)
 
-        self.q = Client.query
+        self.q = User.query
         if state_id != 0:
-            self.q = self.q.filter(Client.state_id == state_id)
+            self.q = self.q.filter(User.state_id == state_id)
         if city_id != 0:
-            self.q = self.q.filter(Client.city_id == city_id)
-        self.q = self.q.order_by(*Client.sort_method_map.order(sort_method_id))
+            self.q = self.q.filter(User.city_id == city_id)
+        self.q = self.q.order_by(*User.sort_method_map.order(sort_method_id))
 
         n_orders = self.q.count()
 
@@ -58,7 +58,7 @@ class AdminClientsDataProvider(object):
             ),
             sort_methods=get_sort_methods_data(
                 selected_sort_method_id=sort_method_id,
-                sort_method_map=Client.sort_method_map
+                sort_method_map=User.sort_method_map
             ),
             table_data=self.get_table_data(),
             clients_in_page=self.clients_in_page

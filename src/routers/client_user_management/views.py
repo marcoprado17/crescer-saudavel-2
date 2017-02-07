@@ -13,12 +13,12 @@ from flask import url_for
 from itsdangerous import URLSafeTimedSerializer
 from email_blueprint import email_manager
 from flask_bombril.utils import get_url_arg
-from models.client import Client
+from models.user import User
 from r import R
 from routers.client_user_management import client_user_management_blueprint
 from routers.client_user_management.data_providers.login import client_login_data_provider
 from routers.client_user_management.data_providers.register import client_register_data_provider
-from routers.client_user_management.forms import RegisterForm
+from routers.client_user_management.forms import RegisterForm, LoginForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -28,7 +28,41 @@ def login():
         email = get_url_arg(R.string.email_arg_name)
         return render_template("client_user_management/login.html", data=client_login_data_provider.get_data_when_get(email))
     else:
-        return ""
+        login_form = LoginForm()
+
+        if not login_form.validate_on_submit():
+            return render_template("client_user_management/login.html",
+                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
+
+        user = User.get_by_email(login_form.email.data)
+        if (user is None) or (not user.is_correct_password(login_form.password.data)):
+            flash(R.string.email_or_password_invalid(),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/login.html",
+                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
+        if not user.email_confirmed:
+            flash(R.string.email_not_confirmed(email=login_form.email.data),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.info))
+            return render_template("client_user_management/login.html",
+                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
+
+        try:
+            user.login_danger_danger()
+        except:
+            flash(R.string.login_error,
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/login.html",
+                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
+
+        next = get_url_arg("next")
+        if next:
+            return redirect(next)
+
+        if user.email == current_app.config["ADMIN_MAIL"]:
+            return redirect(url_for('admin_home.home'))
+        else:
+            return redirect(url_for('client_home.home'))
+
 
 
 @client_user_management_blueprint.route("/cadastrar", methods=["GET", "POST"])
@@ -47,7 +81,7 @@ def register():
                                        data=client_register_data_provider.get_data_when_post(
                                            register_form=register_form))
             try:
-                Client.create_from_form(form=register_form, other_attrs=dict(register_datetime=datetime.now()))
+                User.create_from_form(form=register_form, other_attrs=dict(register_datetime=datetime.now()))
             except:
                 flash(R.string.data_base_access_error_message,
                       bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
@@ -66,10 +100,20 @@ def register():
 def email_confirmed(token):
     ts = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     email = ts.loads(token, salt=current_app.config["EMAIL_TOKEN_SALT"])
-    client = Client.get_by_email(email)
+    client = User.get_by_email(email)
     if client == None:
         return "", 404
     client.mark_email_as_confirmed()
     flash(R.string.email_successful_confirmed(email=email),
           bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
     return redirect(url_for("client_user_management.login", **{R.string.email_arg_name: email}))
+
+
+@client_user_management_blueprint.route("/esqueci-minha-senha")
+def forgot_password():
+    return "Esqueci minha senha."
+
+
+@client_user_management_blueprint.route("/reenviar-email-de-confirmacao")
+def resend_confirmation_email():
+    return "Reenviar email de confirmação"

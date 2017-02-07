@@ -11,7 +11,7 @@ from flask_bombril.form_validators import EmailFormat
 from flask_bombril.form_validators import EqualTo
 from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import Required
-from models.client import Client
+from models.user import User
 from r import R
 
 
@@ -22,7 +22,7 @@ class RegisterForm(FlaskForm):
             Required(),
             Length(max_length=R.dimen.email_max_length),
             EmailFormat(),
-            Unique(model=Client, field=Client.email, message=R.string.email_already_in_use)
+            Unique(model=User, field=User.email, message=R.string.email_already_in_use)
         ]
     )
     password = PasswordField(

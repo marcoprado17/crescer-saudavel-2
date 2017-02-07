@@ -15,7 +15,7 @@ from sqlalchemy.orm import relationship
 from proj_extensions import db
 from sqlalchemy.dialects.postgresql import JSON
 from models.base import BaseModel
-from models.client import Client
+from models.user import User
 from models.product import Product
 from proj_exceptions import InvalidOrderStatusIdError, InvalidOrderStatusChange, InsufficientStockToSendOrder, \
     InconsistentDataBaseError, InvalidClientToOrder, InvalidOrderError
@@ -25,9 +25,9 @@ from r import R
 
 class Order(BaseModel):
     uuid = db.Column(db.String(R.dimen.uuid_length), nullable=False)
-    client_id = db.Column(db.Integer, ForeignKey("client.id"), nullable=False)
+    client_id = db.Column(db.Integer, ForeignKey("user.id"), nullable=False)
     client_email = db.Column(db.String(R.dimen.email_max_length), nullable=False)
-    client = relationship("Client", back_populates="orders")
+    client = relationship("User", back_populates="orders")
     status = db.Column(db.Enum(R.id), default=R.id.ORDER_STATUS_PAID, nullable=False)
     paid_datetime = db.Column(db.DateTime, nullable=False)
     sent_datetime = db.Column(db.DateTime)
@@ -55,7 +55,7 @@ class Order(BaseModel):
     @staticmethod
     def create_new(**kwargs):
         order = Order(**kwargs)
-        client = Client.get(order.client_id)
+        client = User.get(order.client_id)
         if client == None:
             raise InvalidClientToOrder
         order.client_email = client.email

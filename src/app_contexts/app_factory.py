@@ -5,6 +5,8 @@
 # ======================================================================================================================
 import sys
 
+from r import R
+
 if sys.version_info.major < 3:
     reload(sys)
 sys.setdefaultencoding("utf8")
@@ -39,6 +41,8 @@ def __create_app(configs):
     mail.init_app(app)
     from proj_extensions import cache
     cache.init_app(app)
+    from proj_extensions import login_manager
+    login_manager.init_app(app)
 
     return app
 

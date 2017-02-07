@@ -14,7 +14,7 @@ class ClientLoginDataProvider(object):
 
     def get_data_when_post(self, login_form):
         return dict(
-            login_form=LoginForm()
+            login_form=login_form
         )
 
 

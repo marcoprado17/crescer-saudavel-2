@@ -4,19 +4,21 @@
 # Created at 10/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask import current_app
+from flask_login import login_user
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
-from proj_extensions import db, bcrypt
+from proj_extensions import db, bcrypt, login_manager
 from models.base import BaseModel
 from proj_utils import SortMethodMap
 from r import R
 from routers.admin_clients.forms import ClientForm
+from flask_bombril.r import R as bombril_R
 
 
-class Client(BaseModel):
+class User(BaseModel):
     email = db.Column(db.String(R.dimen.email_max_length), unique=True, nullable=False)
     _password = db.Column(db.Text, nullable=False)
     email_confirmed = db.Column(db.Boolean, default=False, nullable=False)
@@ -67,13 +69,22 @@ class Client(BaseModel):
         return True
 
     def get_id(self):
-        return self.email
+        return self.id
 
     def is_authenticated(self):
         return self.authenticated
 
     def is_anonymous(self):
         return False
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.get(user_id)
+
+    login_manager.login_view = "client_user_management.login"
+    login_manager.login_message = R.string.login_message
+    login_manager.login_message_category = bombril_R.string.get_message_category(bombril_R.string.static,
+                                                                                 bombril_R.string.info)
 
     @staticmethod
     def get_attrs_from_form(form):
@@ -94,7 +105,7 @@ class Client(BaseModel):
 
     @staticmethod
     def get_by_email(client_email):
-        return Client.query.filter_by(email=client_email).one_or_none()
+        return User.query.filter_by(email=client_email).one_or_none()
 
     def get_formatted_register_datetime(self):
         return self.register_datetime.strftime(R.string.default_datetime_format)
@@ -103,3 +114,9 @@ class Client(BaseModel):
         self.email_confirmed = True
         db.session.add(self)
         db.session.commit()
+
+    def login_danger_danger(self):
+        self.authenticated = True
+        db.session.add(self)
+        db.session.commit()
+        login_user(self)

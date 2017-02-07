@@ -15,7 +15,7 @@ from proj_extensions import db
 from models.about_us import AboutUs
 from models.blog_post import BlogPost
 from models.city import City
-from models.client import Client
+from models.user import User
 from models.contact import Contact
 from models.faq import Faq
 from models.footer import Footer
@@ -247,7 +247,7 @@ def get_random_client():
             tel=get_random_tel()[0:R.dimen.tel_max_length]
         )
 
-    return Client(
+    return User(
         email=(get_random_string(random.randint(4, 8)) + "@" + get_random_string(random.randint(4, 8)) + ".com")[
               0:R.dimen.email_max_length],
         password=get_random_string(random.randint(6, 32))[0:R.dimen.password_max_length],
@@ -325,10 +325,10 @@ def get_random_product():
 
 
 def get_valid_client_id(address_defined):
-    q = Client.query
+    q = User.query
     if address_defined:
-        q = q.filter(Client.address != None)
-    return random.choice(q.with_entities(Client.id).all())
+        q = q.filter(User.address != None)
+    return random.choice(q.with_entities(User.id).all())
 
 
 def get_random_valid_product_category_id():
