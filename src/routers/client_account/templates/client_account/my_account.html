@@ -1,0 +1,88 @@
+{% extends "client_base/client_base.html" %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block title %}
+    {{ R.string.my_account }}
+{% endblock %}
+{% block content %}
+    <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">
+        <div class="main container">
+            <div class="std">
+                <div class="wrapper_bl" style="margin-top: 1px;">
+                    <div class="form_background">
+                        <div class="col-main">
+                            <div class="dashboard">
+                                <div class="box-account">
+                                    <div class="page-title">
+                                        <h2>{{ R.string.my_information }}</h2>
+                                        <form method="post">
+                                            <div class="group-select">
+                                                {% with client_form=data.user.get_form(edit=data.edit), edit=data.edit, include_email_confirmed=False %}
+                                                    {% include "components/client_info_form_fields.html" %}
+                                                {% endwith %}
+                                                <div class="buttons-set account-info-buttons-container">
+                                                    {% if data.edit %}
+                                                        <button type="submit" class="button save"><span>{{ R.string.save }}</span>
+                                                        </button>
+                                                        <a href="{{ url_for('client_account.my_account') }}">
+                                                            <button type="button" class="button cancel"><span>{{ R.string.cancel }}</span></button>
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="{{ url_for('client_account.my_account', **{R.string.edit_arg_name: True}) }}">
+                                                            <button type="button" class="button edit">
+                                                                <span>{{ R.string.edit }}</span></button>
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </form>
+{#                                        <div class="recent-orders">#}
+{#                                            <div class="title-buttons"><strong>{{ R.string.my_orders }}</strong></div>#}
+{#                                            {% if data["orders"] and data["orders"]|length > 0 %}#}
+{#                                                <div class="table-responsive">#}
+{#                                                    <table class="data-table table-striped" id="my-orders-table">#}
+{#                                                        <thead>#}
+{#                                                        <tr class="first last">#}
+{#                                                            <th>Pedido #</th>#}
+{#                                                            <th>Data</th>#}
+{#                                                            <th><span class="nobr">Total</span></th>#}
+{#                                                            <th>Status</th>#}
+{#                                                            <th>&nbsp;</th>#}
+{#                                                        </tr>#}
+{#                                                        </thead>#}
+{#                                                        <tbody>#}
+{#                                                        {% for order in data["orders"] %}#}
+{#                                                            <tr>#}
+{#                                                                <td>{{ order["id"] }}</td>#}
+{#                                                                <td><span class="nobr">{{ order["date"] }}</span></td>#}
+{#                                                                <td><span class="price">{{ order["total"] }}</span></td>#}
+{#                                                                <td><em>{{ order["status"] }}</em></td>#}
+{#                                                                <td class="a-center last"><span class="nobr"> <a#}
+{#                                                                        href="{{ url_for('order', order_id=order['id']) }}">Detalhes</a> </span>#}
+{#                                                                </td>#}
+{#                                                            </tr>#}
+{#                                                        {% endfor %}#}
+{#                                                        </tbody>#}
+{#                                                    </table>#}
+{#                                                </div>#}
+{#                                            {% else %}#}
+{#                                                <p class="none-order-registered">Nenhum pedido registrado.</p>#}
+{#                                            {% endif %}#}
+{#                                        </div>#}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        initTooltips();
+        initAllTelInput();
+        initAllCepInput();
+        initDynamicSelects();
+    </script>
+{% endblock %}

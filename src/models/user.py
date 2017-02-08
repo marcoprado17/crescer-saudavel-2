@@ -14,7 +14,7 @@ from proj_extensions import db, bcrypt, login_manager
 from models.base import BaseModel
 from proj_utils import SortMethodMap
 from r import R
-from routers.admin_clients.forms import ClientForm
+from routers.admin_clients.forms import UserForm
 from flask_bombril.r import R as bombril_R
 
 
@@ -93,12 +93,8 @@ class User(BaseModel):
             password=form.password.data
         )
 
-    def get_form(self, include_undefined_in_choices=False):
-        client_form = ClientForm()
-        client_form.set_state_choices(include_undefined=include_undefined_in_choices)
-        client_form.set_city_choices(include_undefined=include_undefined_in_choices)
-        client_form.set_values(self)
-        return client_form
+    def get_form(self, edit=False):
+        return UserForm(user=self, edit=edit)
 
     def get_freight(self):
         return R.dimen.freight

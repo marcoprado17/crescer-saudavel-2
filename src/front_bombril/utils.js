@@ -37,7 +37,6 @@ function initVerticalFluid() {
 function initAllDateTimePickers(){
     $(".datetimepicker").each(function(){
         dateAsString = $(this).find("input").attr("data-date-as-string");
-        console.log(dateAsString);
         date = new Date(dateAsString);
         if(dateAsString == ""){
             date = new Date();
@@ -194,7 +193,7 @@ function initTooltips(){
 function initDynamicSelects() {
     $("select.dynamic").each(function () {
         var dependent_select = $(this);
-        var determinant_select = $("#{0}".f(dependent_select.attr("depends_on")));
+        var determinant_select = dependent_select.closest("form").find("#{0}".f(dependent_select.attr("depends_on")));
         var dependent_choices_string = dependent_select.attr("dependent_choices");
         var dependent_choices = JSON.parse( dependent_choices_string );
 
@@ -202,7 +201,7 @@ function initDynamicSelects() {
 
         var new_value = determinant_select.find("option:selected").attr('value');
         var options = dependent_choices[new_value];
-            dependent_select.empty();
+        dependent_select.empty();
         options.forEach(function(option){
             dependent_select.append($("<option></option>").attr("value", option[0]).text(option[1]));
         });
@@ -296,15 +295,15 @@ function initSaveForms() {
 }
 
 function initAllTelInput(){
-    $("input[type='tel']").each(function(){
-        input = $(this);
+    $("input.tel").each(function(){
+        var input = $(this);
         input.keypress(function (e) {
             if(e.keyCode == 13)
                 return true;
             var chr = String.fromCharCode(e.which);
             if ("0123456789".indexOf(chr) < 0)
                 return false;
-            input_length = input.val().length;
+            var input_length = input.val().length;
             if(input_length == 0){
                 input.val("(")
             }
@@ -323,7 +322,7 @@ function initAllTelInput(){
         });
 
         input.keyup(function () {
-            input_length = input.val().length;
+            var input_length = input.val().length;
             if(input_length >= 11 && input_length < 15 && input.val()[10] == "-") {
                 old_tel = input.val();
                 sub_1 = old_tel.substring(0, 9);
@@ -334,6 +333,26 @@ function initAllTelInput(){
                 old_tel = input.val();
                 sub_1 = old_tel.substring(0, 9);
                 input.val(sub_1+"-"+old_tel[9]);
+            }
+        });
+    });
+}
+
+function initAllCepInput(){
+    $("input.cep").each(function(){
+        var input = $(this);
+        input.keypress(function (e) {
+            if(e.keyCode == 13)
+                return true;
+            var chr = String.fromCharCode(e.which);
+            if ("0123456789".indexOf(chr) < 0)
+                return false;
+            var input_length = input.val().length;
+            if(input_length == 5){
+                input.val(input.val()+"-")
+            }
+            else if(input_length==9) {
+                return false;
             }
         });
     });

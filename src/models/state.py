@@ -27,7 +27,3 @@ class State(BaseModel):
         for state in State.query.order_by(asc(State.name)).all():
             choices.append((str(state.id), state.name))
         return choices
-
-    @staticmethod
-    def get_all():
-        return State.query.all()

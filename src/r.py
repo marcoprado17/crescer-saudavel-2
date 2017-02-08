@@ -13,6 +13,7 @@ from flask_bombril.utils import stringfy_list
 class Resources(object):
     # noinspection PyPep8Naming
     class string(object):
+        my_information = "Minhas informações"
         resend_confirmation_email_query = "Deseja reenviar o email de confirmação?"
         resend_confirmation_email_auxiliar_text = "Entre com o email cadastrado, reenviaremos o link para confirmação do email."
         resend_confirmation_email = "Reenviar email de confirmação"
@@ -53,8 +54,6 @@ class Resources(object):
         default_carousel_image_name = "carousel_default.jpg"
         unavailable_product_at_moment = "Produto indisponível no momento."
         product_image = "Imagem do produto"
-        in_stock = "Em estoque"
-        product = "Produto"
         add_to_cart = "Adicionar ao carrinho"
         default_product_image_name = "product_default.jpg"
         back_to_blog = "Voltar ao blog"
@@ -168,6 +167,7 @@ class Resources(object):
         search_string_arg_name = "q"
         product_id_arg_name = "product_id"
         email_arg_name = "email"
+        edit_arg_name = "editar"
 
         name = "Nome"
         section_name = "Nome de seção"
@@ -365,7 +365,7 @@ class Resources(object):
         main_info = "Principais informações"
         social_networks = "Redes sociais"
         link = "Link"
-        tel_tooltip = "Formatos de telefone aceitos: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX."
+        just_enter_numbers = "Digite apenas os números."
         facebook = "Facebook"
         twitter = "Twitter"
         google_plus = "Google+"
@@ -393,7 +393,7 @@ class Resources(object):
         product_subcategory_example = "Ex.: Frutas vermelhas"
         product_category = "Categoria de produto"
         address_example = "R. Vinte e Sete de Julho, 231 - São José dos Campos - SP"
-        tel_example = "(11) 2352-2458"
+        tel_example = "(12) 2352-2458"
         email_example = "contato@crescersaudavel.com"
         blog_post_title_example = "Ex.: Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
         thumbnail_alt = "Imagem principal do post"
@@ -420,6 +420,15 @@ class Resources(object):
         available_tooltip = "Número de unidades disponíveis do produto, equivale ao número de unidades no estoque menos o número de unidades reservadas."
         reserved = "Reservadas"
         reserved_tooltip = "Número de unidades reservadas do produto, já foram vendidas, mas ainda não foram enviadas."
+        cancel = "Cancelar"
+
+        first_name_placeholder="Ex.: João"
+        last_name_placeholder="Ex.: Silva Mendes"
+        cep_placeholder = "Ex.: 12210-250"
+        number_placeholder = "Ex.: 460"
+        address_complement_placeholder = "Ex.: Blc. A, Apt. 72"
+        user_info_address_placeholder = "Ex.: R. Siqueira Campos - Centro"
+        my_roders = "Meus pedidos"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -969,10 +978,11 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         email_max_length = 256
         password_min_length = 6
         password_max_length = 32
-        first_name_max_length = 256
-        last_name_max_length = 256
+        first_name_max_length = 64
+        last_name_max_length = 64
         address_max_length = 256
         address_complement_max_length = 32
+        address_number_max_length = 9
         cep_max_length = 9
         tel_max_length = 15
         state_name_max_length = 2
@@ -1003,6 +1013,8 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         item_inner_max_length = 36
         blog_post_preview_title_max_length = 48
         day_in_seconds = 24*60*60
+        max_value_of_int_field = 999999999
+        min_value_of_int_field = -999999999
 
 
 R = Resources()

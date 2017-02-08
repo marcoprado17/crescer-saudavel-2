@@ -15,7 +15,7 @@
                             <h4 class="modal-title">{{ R.string.client_details_modal_title(client.first_name) }}</h4>
                         </div>
                         <div class="modal-body example">
-                            {% with client_form=client.get_form(include_undefined_in_choices=True), readonly=True %}
+                            {% with client_form=client.get_form(edit=False), edit=False %}
                                 {% include "components/client_panel_form.html" %}
                             {% endwith %}
                             {% if client.orders and client.orders|length > 0 %}
