@@ -97,14 +97,29 @@ class Order(BaseModel):
     def get_status_as_string(self):
         return self.order_status_map[self.status]
 
-    def get_formatted_paid_datetime(self):
-        return self.paid_datetime.strftime(R.string.default_datetime_format)
+    def get_formatted_paid_datetime(self, with_hifen=False):
+        if self.paid_datetime is None:
+            return R.string.empty_symbol
+        if not with_hifen:
+            return self.paid_datetime.strftime(R.string.default_datetime_format)
+        else:
+            return self.paid_datetime.strftime(R.string.default_datetime_format_with_hifen)
 
-    def get_formatted_sent_datetime(self):
-        return self.sent_datetime.strftime(R.string.default_datetime_format)
+    def get_formatted_sent_datetime(self, with_hifen=False):
+        if self.sent_datetime is None:
+            return R.string.empty_symbol
+        if not with_hifen:
+            return self.sent_datetime.strftime(R.string.default_datetime_format)
+        else:
+            return self.sent_datetime.strftime(R.string.default_datetime_format_with_hifen)
 
-    def get_formatted_delivered_datetime(self):
-        return self.delivered_datetime.strftime(R.string.default_datetime_format)
+    def get_formatted_delivered_datetime(self, with_hifen=False):
+        if self.delivered_datetime is None:
+            return R.string.empty_symbol
+        if not with_hifen:
+            return self.delivered_datetime.strftime(R.string.default_datetime_format)
+        else:
+            return self.delivered_datetime.strftime(R.string.default_datetime_format_with_hifen)
 
     @staticmethod
     def get_order_status_id_choices():
@@ -190,8 +205,12 @@ class Order(BaseModel):
             )
         )
 
-    def get_formatted_products_total_price(self):
-        return str(self.products_total_price).replace(".", ",")
+    def get_formatted_products_total_price(self, include_rs=False):
+        s = ""
+        if include_rs:
+            s += "R$ "
+        s += str(self.products_total_price).replace(".", ",")
+        return s
 
     def mark_as_sent(self):
         if self.status != R.id.ORDER_STATUS_PAID:

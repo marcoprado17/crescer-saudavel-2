@@ -5,9 +5,48 @@ $item-price-border-radius: 5px;
   height: 100%;
   min-height: 100%;
 
+  .right-indent {
+    margin-left: 26px;
+  }
+
+  //.modal .page-header {
+  //  margin-top: 0;
+  //  h4 {
+  //    margin-bottom: 0;
+  //  }
+  //}
+
+  .products-total-table {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  .panel {
+    .page-header {
+      margin-top: 25px;
+    }
+  }
+
+  .panel {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .label-container span.glyphicon.glyphicon-asterisk {
     font-size: 8px;
     top: -4px;
+  }
+
+  .modal.details {
+    #total-table {
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .table-responsive {
+      margin-bottom: 0 !important;
+    }
   }
 
   .markdown-parsed-container {
@@ -29,6 +68,34 @@ $item-price-border-radius: 5px;
 
     a:hover {
         text-decoration: underline;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .modal-dialog.large {
+      width: 900px;
+    }
+
+    .panel.large {
+      width: 800px;
+    }
+  }
+
+  @media screen and (min-width: 480px) {
+    .panel.med {
+      width: 400px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .panel {
+      width: 90%;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .products-total-table {
+      border: 1px solid #ddd !important;
     }
   }
 }

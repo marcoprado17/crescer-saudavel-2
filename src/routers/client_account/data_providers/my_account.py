@@ -10,7 +10,8 @@ class ClientMyAccountDataProvider(object):
     def get_data_when_get(self, edit):
         return dict(
             user=current_user,
-            edit=edit
+            edit=edit,
+            orders=current_user.orders
         )
 
 
