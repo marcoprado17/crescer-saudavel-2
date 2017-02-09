@@ -437,6 +437,9 @@ class Resources(object):
         sent_date_label = "Data do envio: "
         delivered_date_label = "Data da entrega: "
         basic_info = "Informações básicas"
+        order_total_tooltip = "Valor total do pedido, produtos + frete, em R$"
+        lowest_total_price = "Menor preço total"
+        higher_total_price = "Maior preço total"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"

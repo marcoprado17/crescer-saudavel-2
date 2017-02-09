@@ -34,6 +34,7 @@ class Order(BaseModel):
     delivered_datetime = db.Column(db.DateTime)
     amount_by_product_id = db.Column(JSON, nullable=False)
     products_total_price = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
+    freight = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
     products_table_data = db.Column(db.JSON, nullable=False)
     total_table_data = db.Column(db.JSON, nullable=False)
 
@@ -41,8 +42,8 @@ class Order(BaseModel):
         (R.id.SORT_METHOD_CLIENT_EMAIL,         R.string.client_email,          asc(client_email)),
         (R.id.SORT_METHOD_NEWEST,               R.string.newest,                desc(paid_datetime)),
         (R.id.SORT_METHOD_OLDER,                R.string.older,                 asc(paid_datetime)),
-        (R.id.SORT_METHOD_LOWER_TOTAL_PRICE,    R.string.lowest_price,          asc(products_total_price)),
-        (R.id.SORT_METHOD_HIGHER_TOTAL_PRICE,   R.string.higher_price,          desc(products_total_price)),
+        (R.id.SORT_METHOD_LOWER_TOTAL_PRICE,    R.string.lowest_total_price,    asc(products_total_price)),
+        (R.id.SORT_METHOD_HIGHER_TOTAL_PRICE,   R.string.higher_total_price,    desc(products_total_price)),
     ])
 
     order_status_map = OrderedDict()
@@ -182,7 +183,7 @@ class Order(BaseModel):
         )
 
     def _get_total_table_data(self, products_amounts_zip, client):
-        freight = client.get_freight()
+        self.freight = client.get_freight()
         return dict(
             table_data=dict(
                 no_head = True,
@@ -199,17 +200,17 @@ class Order(BaseModel):
                 ],
                 rows=[
                     [R.string.products, R.string.price_with_rs(self.products_total_price)],
-                    [R.string.freight, R.string.price_with_rs(freight)],
-                    [R.string.total, R.string.price_with_rs(self.products_total_price + freight)]
+                    [R.string.freight, R.string.price_with_rs(self.freight)],
+                    [R.string.total, R.string.price_with_rs(self.products_total_price + self.freight)]
                 ]
             )
         )
 
-    def get_formatted_products_total_price(self, include_rs=False):
+    def get_formatted_total_price(self, include_rs=False):
         s = ""
         if include_rs:
             s += "R$ "
-        s += str(self.products_total_price).replace(".", ",")
+        s += str(self.products_total_price + self.freight).replace(".", ",")
         return s
 
     def mark_as_sent(self):

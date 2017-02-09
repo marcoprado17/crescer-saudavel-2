@@ -63,7 +63,7 @@ class AdminOrdersDataProvider(object):
             rows.append([
                 order.uuid,
                 order.client_email,
-                order.get_formatted_products_total_price(),
+                order.get_formatted_total_price(),
                 order.get_status_as_string(),
                 order.get_formatted_paid_datetime(),
                 order.get_formatted_sent_datetime() if order.sent_datetime else R.string.empty_symbol,
@@ -97,9 +97,9 @@ class AdminOrdersDataProvider(object):
                 ),
                 dict(
                     id="products-total-price",
-                    title=R.string.price,
+                    title=R.string.total,
                     type=R.id.COL_TYPE_TEXT,
-                    tooltip=R.string.order_products_price_tooltip
+                    tooltip=R.string.order_total_tooltip
                 ),
                 dict(
                     id="status",
