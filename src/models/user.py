@@ -10,13 +10,11 @@ from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
-
 from models.base_user import BaseUser
-from proj_extensions import db, bcrypt, login_manager
+from proj_extensions import db, bcrypt
 from proj_utils import SortMethodMap
 from r import R
 from routers.admin_clients.forms import UserForm
-from flask_bombril.r import R as bombril_R
 
 
 class User(BaseUser):
@@ -77,15 +75,6 @@ class User(BaseUser):
 
     def is_anonymous(self):
         return False
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.get(user_id)
-
-    login_manager.login_view = "client_user_management.login"
-    login_manager.login_message = R.string.login_message
-    login_manager.login_message_category = bombril_R.string.get_message_category(bombril_R.string.static,
-                                                                                 bombril_R.string.info)
 
     @staticmethod
     def get_attrs_from_form(form):

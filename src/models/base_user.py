@@ -4,11 +4,13 @@
 # Created at 11/02/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
-
 from sqlalchemy import JSON
 from models.base import BaseModel
 from models.product import Product
-from proj_extensions import db
+from proj_exceptions import InvalidIdError, AmountExceededStock
+from proj_extensions import db, login_manager
+from r import R
+
 
 
 class BaseUser(BaseModel):
@@ -17,10 +19,22 @@ class BaseUser(BaseModel):
     _cart_amount_by_product_id = db.Column(JSON, default={}, nullable=False)
 
     def add_product_to_cart(self, product_id, amount=1):
-        if product_id in self._cart_amount_by_product_id:
+        product = Product.get(product_id)
+        if product is None:
+            raise InvalidIdError
+
+        if amount > product.available:
+            raise AmountExceededStock
+
+        if self._cart_amount_by_product_id is None:
+            self._cart_amount_by_product_id = {}
+
+        if product_id in self._cart_amount_by_product_id.keys():
             self._cart_amount_by_product_id[product_id] += amount
         else:
             self._cart_amount_by_product_id[product_id] = amount
+        db.session.add(self)
+        db.session.commit()
 
     def get_cart_data(self):
         products = db.session.query(Product).filter(Product.id.in_(self._cart_amount_by_product_id.keys())).all()
@@ -37,15 +51,14 @@ class BaseUser(BaseModel):
         return products_total
 
     def get_cart_products_total_as_string(self, include_rs=False):
-        products_total = self.get_cart_products_total()
-        s = ""
-        if include_rs:
-            s += "R$ "
-        s += str(products_total).replace(".", ",")
-        return s
+        return R.string.decimal_price_as_string(price_as_decimal=self.get_cart_products_total(), include_rs=include_rs)
 
     def get_freight(self):
         raise NotImplementedError
 
     def get_freight_as_string(self, include_rs=False):
         raise NotImplementedError
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return BaseUser.get(user_id)

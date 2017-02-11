@@ -41,3 +41,7 @@ class InvalidClientToOrder(Exception):
 
 class InvalidOrderError(Exception):
     pass
+
+
+class AmountExceededStock(Exception):
+    pass

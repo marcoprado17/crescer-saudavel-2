@@ -10,7 +10,6 @@ from r import R
 
 
 class MyAnonymousUser(BaseUser):
-
     @property
     def is_authenticated(self):
         return False
