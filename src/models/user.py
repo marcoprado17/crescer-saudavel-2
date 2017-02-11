@@ -10,15 +10,16 @@ from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
+
+from models.base_user import BaseUser
 from proj_extensions import db, bcrypt, login_manager
-from models.base import BaseModel
 from proj_utils import SortMethodMap
 from r import R
 from routers.admin_clients.forms import UserForm
 from flask_bombril.r import R as bombril_R
 
 
-class User(BaseModel):
+class User(BaseUser):
     email = db.Column(db.String(R.dimen.email_max_length), unique=True, nullable=False)
     _password = db.Column(db.Text, nullable=False)
     email_confirmed = db.Column(db.Boolean, default=False, nullable=False)
@@ -98,6 +99,9 @@ class User(BaseModel):
 
     def get_freight(self):
         return R.dimen.freight
+
+    def get_freight_as_string(self, include_rs=False):
+        return R.string.decimal_price_as_string(price_as_decimal=self.get_freight(), include_rs=include_rs)
 
     @staticmethod
     def get_by_email(client_email):

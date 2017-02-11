@@ -31,10 +31,13 @@ def restart_images_implementation():
     destiny_folder_path = current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH']
 
     if os.path.isdir(destiny_folder_path):
-        for file_name in os.listdir(destiny_folder_path):
-            file_path = os.path.join(destiny_folder_path, file_name)
-            if os.path.exists(file_path):
-                os.remove(file_path)
+        for file_or_dir_name in os.listdir(destiny_folder_path):
+            file_or_dir_path = os.path.join(destiny_folder_path, file_or_dir_name)
+            if os.path.exists(file_or_dir_path):
+                if os.path.isfile(file_or_dir_path):
+                    os.remove(file_or_dir_path)
+                elif os.path.isdir(file_or_dir_path):
+                    shutil.rmtree(file_or_dir_path)
 
     for file_name in os.listdir(src_folder_path):
         file_path = os.path.join(src_folder_path, file_name)

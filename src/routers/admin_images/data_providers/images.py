@@ -34,7 +34,8 @@ class AdminImagesDataProvider(object):
     ]
 
     def get_data(self):
-        self.images_name = os.listdir(current_app.config["UPLOADED_IMAGES_FOLDER_FULL_PATH"])
+        imgs_dir_path = current_app.config["UPLOADED_IMAGES_FOLDER_FULL_PATH"]
+        self.images_name = [f for f in os.listdir(imgs_dir_path) if os.path.isfile(os.path.join(imgs_dir_path, f))]
         self.images_name.sort()
         n_images = len(self.images_name)
         self.per_page = current_app.config["DEFAULT_PER_PAGE"]

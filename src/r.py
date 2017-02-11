@@ -440,6 +440,11 @@ class Resources(object):
         order_total_tooltip = "Valor total do pedido, produtos + frete, em R$"
         lowest_total_price = "Menor preço total"
         higher_total_price = "Maior preço total"
+        my_cart = "Meu carrinho"
+        keep_buying = "Continuar comprando"
+        clean_cart = "Limpar carrinho"
+        purchase_total = "Total da compra"
+        cart_empty = "Carrinho vazio!"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -919,6 +924,15 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def successful_resend_of_confirmation_email(email):
             return "O email de confirmação foi reenviado com sucesso para <b>%s</b>." % email
+
+        @staticmethod
+        def decimal_price_as_string(price_as_decimal, include_rs=False):
+            s = ""
+            if include_rs:
+                s += "R$ "
+            s += str(price_as_decimal).replace('.', ',')
+            return s
+
 
     # noinspection PyPep8Naming
     @unique

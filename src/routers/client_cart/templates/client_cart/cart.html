@@ -1,0 +1,57 @@
+{% extends "client_base/client_base.html" %}
+{% block title %}
+    {{ R.string.my_cart }}
+{% endblock %}
+{% block content %}
+    <div class="__client_cart__ __cart__">
+        {% with data=data.page_heading_data %}
+            {% include "components/client_page_heading.html" %}
+        {% endwith %}
+
+        <div class="main-container col1-layout wow bounceInUp animated">
+            <div class="main container">
+                {% if data.cart_data and data.cart_data|length > 0 %}
+                    <div class="cart wow bounceInUp animated">
+                        <div class="table-responsive shopping-cart-tbl  container">
+                            <fieldset>
+                                {% with cart_data=data.cart_data, edit=True %}
+                                    {% include "components/cart_table.html" %}
+                                {% endwith %}
+                            </fieldset>
+                            <div class="cart-buttons-container">
+                                <form action="{{ url_for('client_products.products') }}" method="get">
+                                    <button type="submit" class="button btn-continue">
+                                        <span>{{ R.string.keep_buying }}</span></button>
+                                </form>
+                                <form action="{{ url_for('client_cart.remove_all') }}" method="post">
+                                    {{ data.submit_form.csrf_token }}
+                                    <button type="submit" class="button btn-empty"><span>{{ R.string.clean_cart }}</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="cart-collaterals container total-cart">
+                            <div class="totals">
+                                <h3>{{ R.string.purchase_total }}</h3>
+                                <div class="inner">
+                                    {% with data=data.cart_total_table_data %}
+                                        {% include "components/cart_total_table.html" %}
+                                    {% endwith %}
+                                    <form action="{{ url_for('client_checkout.checkout') }}" method="get">
+                                        <button type="submit"
+                                                class="button btn-proceed-checkout">
+                                            <span>{{ R.string.finalize_purchase }}</span></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    {% with msg=R.string.cart_empty %}
+                        {% include "components/client_empty.html" %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
