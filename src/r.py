@@ -450,6 +450,7 @@ class Resources(object):
         anonymous_user_id = "anonymous_user_id"
         unit_price = "Preço da unid."
         quantity = "Quantidade"
+        cart_cleared = "Todos os produtos do carrinho foram removidos com sucesso."
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -945,6 +946,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def main_image_of_product(product_title):
             return 'Imagem principal do produto "%s"' % product_title
+
+        @staticmethod
+        def product_removed_from_cart(product_title):
+            return 'O produto "%s" foi removido do carrinho.' % product_title
 
 
     # noinspection PyPep8Naming

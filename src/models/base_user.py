@@ -4,6 +4,7 @@
 # Created at 13/02/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
+from pprint import pprint
 
 from sqlalchemy.orm.attributes import flag_modified
 
@@ -28,7 +29,7 @@ class BaseUser(BaseModel):
     def add_product_to_cart(self, product_id, amount=1):
         product = Product.get(product_id)
         if product is None:
-            raise InvalidIdError
+            return
 
         if amount > product.available:
             raise AmountExceededStock
@@ -41,6 +42,28 @@ class BaseUser(BaseModel):
         else:
             self._cart_amount_by_product_id[str(product_id)] = amount
 
+        flag_modified(self, "_cart_amount_by_product_id")
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_product_from_cart(self, product_id):
+        if str(product_id) in self._cart_amount_by_product_id.keys():
+            del self._cart_amount_by_product_id[str(product_id)]
+        flag_modified(self, "_cart_amount_by_product_id")
+        db.session.add(self)
+        db.session.commit()
+
+    def remove_from_cart(self, product_id, amount=1):
+        if str(product_id) in self._cart_amount_by_product_id.keys():
+            self._cart_amount_by_product_id[str(product_id)] -= amount
+            if self._cart_amount_by_product_id[str(product_id)] <= 0:
+                del self._cart_amount_by_product_id[str(product_id)]
+        flag_modified(self, "_cart_amount_by_product_id")
+        db.session.add(self)
+        db.session.commit()
+
+    def clear_cart(self):
+        self._cart_amount_by_product_id = {}
         flag_modified(self, "_cart_amount_by_product_id")
         db.session.add(self)
         db.session.commit()
