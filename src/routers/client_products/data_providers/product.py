@@ -120,10 +120,7 @@ class ClientProductDataProvider(object):
                 ],
                 title=product.title
             ),
-            title=product.title,
-            price=product.get_formatted_price(include_rs=True),
-            in_stock=product.is_available_to_client,
-            summary=product.summary_html,
+            product=product,
             images_src=images_src,
             sections=sections
         )
