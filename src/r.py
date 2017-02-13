@@ -447,6 +447,7 @@ class Resources(object):
         purchase_total = "Total da compra"
         cart_empty = "Carrinho vazio!"
         add_to_cart_error_msg_invalid_product_id = "Não foi possível adicionar o produto ao seu carrinho. O id do produto é inválido."
+        anonymous_user_id = "anonymous_user_id"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"

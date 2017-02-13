@@ -21,7 +21,6 @@ from configs.instance import unit_test_app_config
 from proj_extensions import db
 from flask_bombril.log import log_request
 from flask_bombril.r import R as bombril_R
-from models.my_anonymous_user import MyAnonymousUser
 
 
 def __create_app(configs):
@@ -50,7 +49,6 @@ def __create_app(configs):
     login_manager.login_message = R.string.login_message
     login_manager.login_message_category = bombril_R.string.get_message_category(bombril_R.string.static,
                                                                                  bombril_R.string.info)
-    login_manager.anonymous_user = MyAnonymousUser
 
     return app
 

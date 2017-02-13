@@ -3,6 +3,9 @@
 # ======================================================================================================================
 # Created at 10/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from decimal import Decimal
+from pprint import pprint
+
 from flask import current_app
 from flask_login import login_user
 from sqlalchemy import ForeignKey
@@ -10,19 +13,24 @@ from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
-from models.base_user import BaseUser
-from proj_extensions import db, bcrypt
+from sqlalchemy.orm.attributes import flag_modified
+
+from models.base import BaseModel
+from models.product import Product
+from proj_exceptions import InvalidIdError, AmountExceededStock
+from proj_extensions import db, bcrypt, login_manager
 from proj_utils import SortMethodMap
 from r import R
 from routers.admin_clients.forms import UserForm
 
 
-class User(BaseUser):
+class User(BaseModel):
     email = db.Column(db.String(R.dimen.email_max_length), unique=True, nullable=False)
     _password = db.Column(db.Text, nullable=False)
     email_confirmed = db.Column(db.Boolean, default=False, nullable=False)
     authenticated = db.Column(db.Boolean, default=False, nullable=False)
     register_datetime = db.Column(db.DateTime, nullable=False)
+    _cart_amount_by_product_id = db.Column(db.JSON, default={}, nullable=False)
 
     orders = relationship("Order", order_by="desc(Order.paid_datetime)", back_populates="client")
 
@@ -76,6 +84,10 @@ class User(BaseUser):
     def is_anonymous(self):
         return False
 
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.get(user_id)
+
     @staticmethod
     def get_attrs_from_form(form):
         return dict(
@@ -114,3 +126,40 @@ class User(BaseUser):
         self.password = new_password
         db.session.add(self)
         db.session.commit()
+
+    def add_product_to_cart(self, product_id, amount=1):
+        product = Product.get(product_id)
+        if product is None:
+            raise InvalidIdError
+
+        if amount > product.available:
+            raise AmountExceededStock
+
+        if self._cart_amount_by_product_id is None:
+            self._cart_amount_by_product_id = {}
+
+        if str(product_id) in self._cart_amount_by_product_id.keys():
+            self._cart_amount_by_product_id[str(product_id)] += amount
+        else:
+            self._cart_amount_by_product_id[str(product_id)] = amount
+
+        flag_modified(self, "_cart_amount_by_product_id")
+        db.session.add(self)
+        db.session.commit()
+
+    def get_cart_data(self):
+        products = db.session.query(Product).filter(Product.id.in_(self._cart_amount_by_product_id.keys())).all()
+        cart_data = []
+        for product in products:
+            cart_data.append((product, self._cart_amount_by_product_id[product.id]))
+        return cart_data
+
+    def get_cart_products_total(self):
+        cart_data = self.get_cart_data()
+        products_total = Decimal("0.00")
+        for product, amount in cart_data:
+            products_total += product.get_price(n_units=amount)
+        return products_total
+
+    def get_cart_products_total_as_string(self, include_rs=False):
+        return R.string.decimal_price_as_string(price_as_decimal=self.get_cart_products_total(), include_rs=include_rs)
