@@ -10,8 +10,7 @@ from r import R
 
 
 class ClientCartDataProvider(object):
-    def get_data(self):
-        user = current_user
+    def get_data(self, base_user):
         return dict(
             submit_form=SubmitForm(),
             page_heading_data=dict(
@@ -26,11 +25,11 @@ class ClientCartDataProvider(object):
                 ],
                 title=R.string.my_cart
             ),
-            cart_data=user.get_cart_data(),
+            cart_data=base_user.get_cart_data(),
             cart_total_table_data= dict(
-                products_total=user.get_cart_products_total_as_string(include_rs=True),
-                freight=user.get_freight_as_string(),
-                total=R.string.decimal_price_as_string(price_as_decimal=user.get_cart_products_total()+user.get_freight(), include_rs=True)
+                products_total=base_user.get_cart_products_total_as_string(include_rs=True),
+                freight=base_user.get_freight_as_string(include_rs=True),
+                total=R.string.decimal_price_as_string(price_as_decimal=base_user.get_cart_products_total()+base_user.get_freight(), include_rs=True)
             )
         )
 

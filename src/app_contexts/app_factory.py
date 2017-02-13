@@ -5,6 +5,7 @@
 # ======================================================================================================================
 import sys
 
+from models.anonymous_user import AnonymousUser
 from proj_forms import SubmitForm
 from r import R
 
@@ -49,6 +50,7 @@ def __create_app(configs):
     login_manager.login_message = R.string.login_message
     login_manager.login_message_category = bombril_R.string.get_message_category(bombril_R.string.static,
                                                                                  bombril_R.string.info)
+    login_manager.anonymous_user = AnonymousUser
 
     return app
 
