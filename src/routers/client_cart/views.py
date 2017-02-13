@@ -32,6 +32,7 @@ def remove_all():
     return "", 200
 
 
+# TODO: Validate SubmitForm
 @client_cart_blueprint.route("/adicionar-ao-carrinho", methods=["POST"])
 @login_or_anonymous
 def add_to_cart(base_user):
@@ -44,4 +45,35 @@ def add_to_cart(base_user):
     except AmountExceededStock:
         product = Product.get(product_id)
         return json.dumps(dict(error_msg=R.string.add_to_cart_error_msg_amount_exceeded_stock(product=product, amount=amount))), 400
+    return "", 200
+
+
+# TODO: Validate SubmitForm
+@client_cart_blueprint.route("/remover-do-carrinho", methods=["POST"])
+@login_or_anonymous
+def remove_from_cart(base_user):
+    product_id = get_valid_model_id(model=Product, arg_name=R.string.product_id_arg_name, include_zero=False, default=None)
+    if product_id == None:
+        return json.dumps(dict(error_msg=R.string.add_to_cart_error_msg_invalid_product_id)), 400
+    amount = get_valid_integer(arg_name=R.string.amount_arg_name, default=1)
+    # try:
+    #     base_user.add_product_to_cart(product_id=product_id, amount=amount)
+    # except AmountExceededStock:
+    #     product = Product.get(product_id)
+    #     return json.dumps(dict(error_msg=R.string.add_to_cart_error_msg_amount_exceeded_stock(product=product, amount=amount))), 400
+    return "", 200
+
+
+# TODO: Validate SubmitForm
+@client_cart_blueprint.route("/remover-produto-do-carrinho", methods=["POST"])
+@login_or_anonymous
+def delete_product_from_cart(base_user):
+    product_id = get_valid_model_id(model=Product, arg_name=R.string.product_id_arg_name, include_zero=False, default=None)
+    if product_id == None:
+        return json.dumps(dict(error_msg=R.string.add_to_cart_error_msg_invalid_product_id)), 400
+    # try:
+    #     base_user.add_product_to_cart(product_id=product_id, amount=amount)
+    # except AmountExceededStock:
+    #     product = Product.get(product_id)
+    #     return json.dumps(dict(error_msg=R.string.add_to_cart_error_msg_amount_exceeded_stock(product=product, amount=amount))), 400
     return "", 200

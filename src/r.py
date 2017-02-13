@@ -448,6 +448,8 @@ class Resources(object):
         cart_empty = "Carrinho vazio!"
         add_to_cart_error_msg_invalid_product_id = "Não foi possível adicionar o produto ao seu carrinho. O id do produto é inválido."
         anonymous_user_id = "anonymous_user_id"
+        unit_price = "Preço da unid."
+        quantity = "Quantidade"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -939,6 +941,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def add_to_cart_error_msg_amount_exceeded_stock(product, amount):
             return 'Não foi possível adicionar %s unidade(s) do produto "%s" ao seu carrinho. Há apenas %s unidades disponíveis no estoque.' % (str(amount), product.title, str(product.available))
+
+        @staticmethod
+        def main_image_of_product(product_title):
+            return 'Imagem principal do produto "%s"' % product_title
 
 
     # noinspection PyPep8Naming
