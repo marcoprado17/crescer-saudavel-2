@@ -1,3 +1,22 @@
-<p>Cart total table!!!</p>
-<p>data:</p>
-{{ data|pprint }}
+<table id="shopping-cart-totals-table" class="table shopping-cart-table-total">
+    <tfoot>
+    <tr>
+        <td style="" class="a-left" colspan="1">
+            <strong>{{ R.string.total }}</strong>
+        </td>
+        <td style="" class="a-right">
+            <strong><span class="price">{{ data.total }}</span></strong>
+        </td>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr>
+        <td style="" class="a-left" colspan="1">{{ R.string.products }}</td>
+        <td style="" class="a-right"><span class="price">{{ data.products_total }}</span></td>
+    </tr>
+    <tr>
+        <td style="" class="a-left" colspan="1">{{ R.string.freight }}</td>
+        <td style="" class="a-right"><span class="price">{{ data.freight }}</span></td>
+    </tr>
+    </tbody>
+</table>
