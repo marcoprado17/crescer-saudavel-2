@@ -4,6 +4,8 @@
 PRODUCT_SUCCESSFUL_ADDED_TO_CART = 'Uma unidade do produto "{0}" foi adicionada com sucesso ao seu carrinho.';
 PRODUCT_ADD_TO_CART_ERROR = 'Erro ao adicionar o produto "{0}" ao carrinho. Tente novamente.';
 
+BigNumber.config({ DECIMAL_PLACES: 2});
+
 function initAddToCartForms() {
     $("form.add-to-cart").each(function () {
         var form = $(this);

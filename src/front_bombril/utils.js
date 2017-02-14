@@ -361,3 +361,9 @@ function initAllCepInput(){
         });
     });
 }
+
+function bigNumberToFormattedPrice(value) {
+    s = "R$ ";
+    s += value.toFixed(2).replace(".", ",");
+    return s;
+}

@@ -5,18 +5,18 @@
             <strong>{{ R.string.total }}</strong>
         </td>
         <td style="" class="a-right">
-            <strong><span class="price">{{ data.total }}</span></strong>
+            <strong><span class="price total" data-total="{{ data.total }}">{{ data.total_formatted }}</span></strong>
         </td>
     </tr>
     </tfoot>
     <tbody>
     <tr>
         <td style="" class="a-left" colspan="1">{{ R.string.products }}</td>
-        <td style="" class="a-right"><span class="price">{{ data.products_total }}</span></td>
+        <td style="" class="a-right"><span class="price products-total" data-products-total="{{ data.products_total }}">{{ data.products_total_formatted }}</span></td>
     </tr>
     <tr>
         <td style="" class="a-left" colspan="1">{{ R.string.freight }}</td>
-        <td style="" class="a-right"><span class="price">{{ data.freight }}</span></td>
+        <td style="" class="a-right"><span class="price freight" data-freight="{{ data.freight }}">{{ data.freight_formatted }}</span></td>
     </tr>
     </tbody>
 </table>

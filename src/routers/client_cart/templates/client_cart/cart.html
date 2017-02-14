@@ -60,7 +60,7 @@
 {% endblock %}
 {% block script %}
     <script>
-        initChangeProductAmountForms()
+        initChangeProductAmountForms();
 
         function initChangeProductAmountForms() {
             $("form.change-product-amount").each(function () {
@@ -72,10 +72,36 @@
                     form: form,
                     minResponseTime: 0,
                     onSubmit: function () {
+                        var productPrice = quantity_input.attr("data-product-price");
+                        var subtotal = quantity_input.attr("data-subtotal");
+                        var productsTotalContainer = $("span.price.products-total");
+                        var productsTotal = productsTotalContainer.attr("data-products-total");
+                        var productsTotalBN = new BigNumber(productsTotal);
+                        var totalContainer = $("span.price.total");
+                        var total = totalContainer.attr("data-total");
+                        var totalBN = new BigNumber(total);
+                        var product_id = quantity_input.attr("data-product-id");
+                        var subTotalContainer = $("#subtotal-{0}".f(product_id));
+
+                        var oldValue = parseInt(quantity_input.val());
+                        var productPriceBN = new BigNumber(productPrice);
+                        var subtotalBN = new BigNumber(subtotal);
+
                         if(form.hasClass("increase")){
                             try{
-                                oldValue = parseInt(quantity_input.val());
                                 quantity_input.val(oldValue+1);
+
+                                newSubtotalBN = subtotalBN.plus(productPriceBN);
+                                quantity_input.attr("data-subtotal", newSubtotalBN.toFixed(2));
+                                subTotalContainer.html(bigNumberToFormattedPrice(newSubtotalBN));
+
+                                newProductsTotalBN = productsTotalBN.plus(productPriceBN);
+                                productsTotalContainer.attr("data-products-total", newProductsTotalBN.toFixed(2));
+                                productsTotalContainer.html(bigNumberToFormattedPrice(newProductsTotalBN));
+
+                                newTotalBN = totalBN.plus(productPriceBN);
+                                totalContainer.attr("data-total", newTotalBN.toFixed(2));
+                                totalContainer.html(bigNumberToFormattedPrice(newTotalBN))
                             }
                             catch(err){
                                 location.reload();
@@ -83,11 +109,22 @@
                         }
                         else if(form.hasClass("decrease")){
                             try{
-                                oldValue = parseInt(quantity_input.val());
                                 if(oldValue==0){
                                     return false;
                                 }
                                 quantity_input.val(oldValue-1);
+
+                                newSubtotalBN = subtotalBN.minus(productPriceBN);
+                                quantity_input.attr("data-subtotal", newSubtotalBN.toFixed(2));
+                                subTotalContainer.html(bigNumberToFormattedPrice(newSubtotalBN));
+
+                                newProductsTotalBN = productsTotalBN.minus(productPriceBN);
+                                productsTotalContainer.attr("data-products-total", newProductsTotalBN.toFixed(2));
+                                productsTotalContainer.html(bigNumberToFormattedPrice(newProductsTotalBN));
+
+                                newTotalBN = totalBN.minus(productPriceBN);
+                                totalContainer.attr("data-total", newTotalBN.toFixed(2));
+                                totalContainer.html(bigNumberToFormattedPrice(newTotalBN))
                             }
                             catch(err){
                                 location.reload();

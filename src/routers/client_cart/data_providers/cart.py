@@ -27,9 +27,12 @@ class ClientCartDataProvider(object):
             ),
             cart_data=base_user.get_cart_data(),
             cart_total_table_data= dict(
-                products_total=base_user.get_cart_products_total_as_string(include_rs=True),
-                freight=base_user.get_freight_as_string(include_rs=True),
-                total=R.string.decimal_price_as_string(price_as_decimal=base_user.get_cart_products_total()+base_user.get_freight(), include_rs=True)
+                products_total=base_user.get_cart_products_total(),
+                freight=base_user.get_freight(),
+                total=base_user.get_cart_products_total() + base_user.get_freight(),
+                products_total_formatted=base_user.get_cart_products_total_as_string(include_rs=True),
+                freight_formatted=base_user.get_freight_as_string(include_rs=True),
+                total_formatted=R.string.decimal_price_as_string(price_as_decimal=base_user.get_cart_products_total()+base_user.get_freight(), include_rs=True)
             )
         )
 

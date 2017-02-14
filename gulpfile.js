@@ -133,6 +133,7 @@ gulp.task("make_client_js_bundle", function () {
         "bower_components/flipmart-v5/js/countdown.js",
         "bower_components/flipmart-v5/js/owl.carousel.min.js",
         "bower_components/flipmart-v5/js/jquery.mobile-menu.min.js",
+        "bower_components/bignumber.js/bignumber.js",
         "src/front_bombril/utils.js",
         "src/wrappers/base/**/*.js",
         "src/wrappers/client_base/**/*.js",

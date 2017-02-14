@@ -37,7 +37,8 @@
                                 <li>
                                     <form action="{{ url_for('client_cart.add_to_cart', **{R.string.product_id_arg_name: product.id, R.string.amount_arg_name: 1, R.string.redirect_to_cart_arg_name: False}) }}"
                                           method="post" class="change-product-amount increase"
-                                          data-quantity-input-id="quantity-input-{{ product.id }}">
+                                          data-quantity-input-id="quantity-input-{{ product.id }}"
+                                    >
                                         {{ submit_form.csrf_token }}
                                         <button class="increase items-count" type="submit"><i class="icon-plus"></i>
                                         </button>
@@ -48,7 +49,11 @@
                                 {% if edit %}
                                     <input id="quantity-input-{{ product.id }}" type="text" name="quantity"
                                            value="{{ amount }}" title="{{ R.string.amount }}"
-                                           class="qty" readonly>
+                                           class="qty" readonly
+                                           data-product-price="{{ product.get_price() }}"
+                                           data-subtotal="{{ product.get_price(n_units=amount) }}"
+                                           data-product-id="{{ product.id }}"
+                                    >
                                 {% else %}
                                     <span>{{ amount }}</span>
                                 {% endif %}
@@ -68,7 +73,7 @@
                     </div>
                 </td>
                 <td class="movewishlist">
-                    <span class="price">{{ product.get_formatted_price(include_rs=True, n_units=amount) }}</span>
+                    <span class="price" id="subtotal-{{ product.id }}">{{ product.get_formatted_price(include_rs=True, n_units=amount) }}</span>
                 </td>
                 {% if edit %}
                     <td class="a-center last exclude-item-col">
