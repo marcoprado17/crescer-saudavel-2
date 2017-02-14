@@ -453,6 +453,7 @@ class Resources(object):
         quantity = "Quantidade"
         cart_cleared = "Todos os produtos do carrinho foram removidos com sucesso."
         add_cart_fail_invalid_product = "Não foi possível adicionar o produto ao carrinho, o produto em questão é inválido."
+        product_stock_limit_reached = "O limite do estoque deste produto foi atingido."
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"

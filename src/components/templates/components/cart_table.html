@@ -53,6 +53,7 @@
                                            data-product-price="{{ product.get_price() }}"
                                            data-subtotal="{{ product.get_price(n_units=amount) }}"
                                            data-product-id="{{ product.id }}"
+                                           data-product-stock-limit="{{ product.available - product.min_available }}"
                                     >
                                 {% else %}
                                     <span>{{ amount }}</span>

@@ -67,6 +67,7 @@
                 var form = $(this);
                 var quantity_input_id = form.attr("data-quantity-input-id");
                 var quantity_input = $("#{0}".f(quantity_input_id));
+                var stockLimit = parseInt(quantity_input.attr("data-product-stock-limit"));
 
                 setAjaxFormHandlers({
                     form: form,
@@ -89,6 +90,10 @@
 
                         if(form.hasClass("increase")){
                             try{
+                                if(oldValue == stockLimit) {
+                                    throwErrorOpToast("{{ R.string.product_stock_limit_reached }}");
+                                    return false;
+                                }
                                 quantity_input.val(oldValue+1);
 
                                 newSubtotalBN = subtotalBN.plus(productPriceBN);
