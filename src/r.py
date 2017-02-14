@@ -968,6 +968,14 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
             else:
                 return 'Limite do estoque atingido! %s unidades do produto "%s" foram adicionadas ao seu carrinho.' % (str(amount), product_title)
 
+        @staticmethod
+        def amount_of_product_changed(product_title):
+            return 'Devido a alterações no estoque, a quantidade do produto "%s" foi alterada no seu carrinho.' % product_title
+
+        @staticmethod
+        def product_removed_due_stock_changes(product_title):
+            return 'Devido a alterações no estoque, o produto "%s" não está mais disponível e foi removido do seu carrinho.' % product_title
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):

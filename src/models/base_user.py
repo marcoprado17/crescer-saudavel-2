@@ -6,6 +6,7 @@
 from decimal import Decimal
 from pprint import pprint
 
+from flask import flash
 from sqlalchemy.orm.attributes import flag_modified
 
 from models.base import BaseModel
@@ -13,6 +14,7 @@ from models.product import Product
 from proj_exceptions import InvalidIdError, AmountExceededStock
 from proj_extensions import db
 from r import R
+from flask_bombril.r import R as bombril_R
 
 
 class BaseUser(BaseModel):
@@ -77,7 +79,9 @@ class BaseUser(BaseModel):
         db.session.add(self)
         db.session.commit()
 
-    def get_cart_data(self):
+    def get_cart_data(self, fire_flash_messages=False):
+        self.update_cart(fire_flash_messages=fire_flash_messages)
+
         if self._cart_amount_by_product_id is None:
             self._cart_amount_by_product_id = {}
 
@@ -86,6 +90,31 @@ class BaseUser(BaseModel):
         for product in products:
             cart_data.append((product, self._cart_amount_by_product_id[str(product.id)]))
         return cart_data
+
+    def update_cart(self, fire_flash_messages):
+        remove_keys = []
+
+        for key, val in self._cart_amount_by_product_id.iteritems():
+            product = Product.get(key)
+            if product == None:
+                remove_keys.append(key)
+            elif val > product.available - product.min_available:
+                self._cart_amount_by_product_id[key] = product.available - product.min_available
+                if fire_flash_messages:
+                    if self._cart_amount_by_product_id[key] > 0:
+                        flash(R.string.amount_of_product_changed(product_title=product.title),
+                              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.warning))
+                    else:
+                        remove_keys.append(key)
+                        flash(R.string.product_removed_due_stock_changes(product_title=product.title),
+                              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.warning))
+
+        for key in remove_keys:
+            del self._cart_amount_by_product_id[key]
+
+        flag_modified(self, "_cart_amount_by_product_id")
+        db.session.add(self)
+        db.session.commit()
 
     def get_cart_products_total(self):
         cart_data = self.get_cart_data()

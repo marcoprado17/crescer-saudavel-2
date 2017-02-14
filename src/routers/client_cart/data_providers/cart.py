@@ -25,8 +25,8 @@ class ClientCartDataProvider(object):
                 ],
                 title=R.string.my_cart
             ),
-            cart_data=base_user.get_cart_data(),
-            cart_total_table_data= dict(
+            cart_data=base_user.get_cart_data(fire_flash_messages=True),
+            cart_total_table_data=dict(
                 products_total=base_user.get_cart_products_total(),
                 freight=base_user.get_freight(),
                 total=base_user.get_cart_products_total() + base_user.get_freight(),
