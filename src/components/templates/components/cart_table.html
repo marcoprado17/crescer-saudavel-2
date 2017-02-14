@@ -1,85 +1,88 @@
-<table id="shopping-cart-table" class="data-table cart-table table-striped">
-    <thead>
-    <tr class="first last">
-        <th rowspan="1">&nbsp;</th>
-        <th rowspan="1"><span class="nobr">{{ R.string.product }}</span></th>
-        <th class="a-center" colspan="1"><span class="nobr">{{ R.string.unit_price }}</span></th>
-        <th rowspan="1" class="a-center">{{ R.string.quantity }}</th>
-        <th class="a-center" colspan="1">{{ R.string.subtotal }}</th>
-        {% if edit %}
-            <th rowspan="1" class="a-center exclude-item-col">&nbsp;</th>
-        {% endif %}
-    </tr>
-    </thead>
-    <tfoot>
-    </tfoot>
-    <tbody>
-    {% for product, amount in data.cart_data %}
-        <tr>
-            <td class="hidden-table"><a href="{{ product.get_href() }}"
-                                        class="product-image"><img src="{{ product.get_main_image_src() }}" width="75"
-                                                                   alt="{{ R.string.main_image_of_product(product.title) }}"></a>
-            </td>
-            <td>
-                <h2 class="product-name">
-                    <a href="{{ product.get_href() }}">{{ product.title }}</a>
-                </h2>
-            </td>
-            <td class="hidden-table">
-                <span class="price">{{ product.get_formatted_price(include_rs=True) }}</span>
-            </td>
-            <td class="a-center movewishlist">
-                <div class="custom pull-left add-to-cart qty-container">
-                    <ul>
-                        {% if edit %}
-                            <li>
-                                <form action="{{ url_for('client_cart.add_to_cart', **{R.string.product_id_arg_name: product.id, R.string.amount_arg_name: 1}) }}"
-                                      method="post" class="change-product-amount increase"
-                                      data-quantity-input-id="quantity-input-{{ product.id }}">
-                                    {{ submit_form.csrf_token }}
-                                    <button class="increase items-count" type="submit"><i class="icon-plus"></i>
-                                    </button>
-                                </form>
-                            </li>
-                        {% endif %}
-                        <li>
-                            {% if edit %}
-                                <input id="quantity-input-{{ product.id }}" type="text" name="quantity"
-                                       value="{{ amount }}" title="{{ R.string.amount }}"
-                                       class="qty" readonly>
-                            {% else %}
-                                <span>{{ amount }}</span>
-                            {% endif %}
-                        </li>
-                        {% if edit %}
-                            <li>
-                                <form data-quantity-input-id="quantity-input-{{ product.id }}"
-                                      action="{{ url_for('client_cart.remove_from_cart', **{R.string.product_id_arg_name: product.id, R.string.amount_arg_name: 1}) }}"
-                                      method="post" class="change-product-amount decrease">
-                                    {{ submit_form.csrf_token }}
-                                    <button class="increase items-count" type="submit"><i class="icon-minus"></i>
-                                    </button>
-                                </form>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </td>
-            <td class="movewishlist">
-                <span class="price">{{ product.get_formatted_price(include_rs=True, n_units=amount) }}</span>
-            </td>
+<div class="__components__ __cart_table__">
+    <table id="shopping-cart-table" class="data-table cart-table table-striped">
+        <thead>
+        <tr class="first last">
+            <th rowspan="1">&nbsp;</th>
+            <th rowspan="1"><span class="nobr">{{ R.string.product }}</span></th>
+            <th class="a-center" colspan="1"><span class="nobr">{{ R.string.unit_price }}</span></th>
+            <th rowspan="1" class="a-center">{{ R.string.quantity }}</th>
+            <th class="a-center" colspan="1">{{ R.string.subtotal }}</th>
             {% if edit %}
-                <td class="a-center last exclude-item-col">
-                    <form action="{{ url_for('client_cart.delete_product_from_cart', **{R.string.product_id_arg_name: product.id}) }}"
-                          method="post">
-                        {{ submit_form.csrf_token }}
-                        <button class="increase items-count" type="submit">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-                    </form>
-                </td>
+                <th rowspan="1" class="a-center exclude-item-col">&nbsp;</th>
             {% endif %}
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tfoot>
+        </tfoot>
+        <tbody>
+        {% for product, amount in data.cart_data %}
+            <tr>
+                <td class="hidden-table"><a href="{{ product.get_href() }}"
+                                            class="product-image"><img src="{{ product.get_main_image_src() }}"
+                                                                       width="75"
+                                                                       alt="{{ R.string.main_image_of_product(product.title) }}"></a>
+                </td>
+                <td>
+                    <h2 class="product-name">
+                        <a href="{{ product.get_href() }}">{{ product.title }}</a>
+                    </h2>
+                </td>
+                <td class="hidden-table">
+                    <span class="price">{{ product.get_formatted_price(include_rs=True) }}</span>
+                </td>
+                <td class="a-center movewishlist">
+                    <div class="custom pull-left add-to-cart qty-container">
+                        <ul>
+                            {% if edit %}
+                                <li>
+                                    <form action="{{ url_for('client_cart.add_to_cart', **{R.string.product_id_arg_name: product.id, R.string.amount_arg_name: 1, R.string.redirect_to_cart_arg_name: False}) }}"
+                                          method="post" class="change-product-amount increase"
+                                          data-quantity-input-id="quantity-input-{{ product.id }}">
+                                        {{ submit_form.csrf_token }}
+                                        <button class="increase items-count" type="submit"><i class="icon-plus"></i>
+                                        </button>
+                                    </form>
+                                </li>
+                            {% endif %}
+                            <li>
+                                {% if edit %}
+                                    <input id="quantity-input-{{ product.id }}" type="text" name="quantity"
+                                           value="{{ amount }}" title="{{ R.string.amount }}"
+                                           class="qty" readonly>
+                                {% else %}
+                                    <span>{{ amount }}</span>
+                                {% endif %}
+                            </li>
+                            {% if edit %}
+                                <li>
+                                    <form data-quantity-input-id="quantity-input-{{ product.id }}"
+                                          action="{{ url_for('client_cart.remove_from_cart', **{R.string.product_id_arg_name: product.id, R.string.amount_arg_name: 1}) }}"
+                                          method="post" class="change-product-amount decrease">
+                                        {{ submit_form.csrf_token }}
+                                        <button class="increase items-count" type="submit"><i class="icon-minus"></i>
+                                        </button>
+                                    </form>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </td>
+                <td class="movewishlist">
+                    <span class="price">{{ product.get_formatted_price(include_rs=True, n_units=amount) }}</span>
+                </td>
+                {% if edit %}
+                    <td class="a-center last exclude-item-col">
+                        <form action="{{ url_for('client_cart.delete_product_from_cart', **{R.string.product_id_arg_name: product.id}) }}"
+                              method="post">
+                            {{ submit_form.csrf_token }}
+                            <button class="increase items-count" type="submit">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                        </form>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

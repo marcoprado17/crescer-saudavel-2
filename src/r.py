@@ -169,6 +169,7 @@ class Resources(object):
         email_arg_name = "email"
         edit_arg_name = "editar"
         amount_arg_name = "quantia"
+        redirect_to_cart_arg_name = "redirecionar_ao_carrinho"
 
         name = "Nome"
         section_name = "Nome de seção"
@@ -451,6 +452,7 @@ class Resources(object):
         unit_price = "Preço da unid."
         quantity = "Quantidade"
         cart_cleared = "Todos os produtos do carrinho foram removidos com sucesso."
+        add_cart_fail_invalid_product = "Não foi possível adicionar o produto ao carrinho, o produto em questão é inválido."
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -951,6 +953,19 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         def product_removed_from_cart(product_title):
             return 'O produto "%s" foi removido do carrinho.' % product_title
 
+        @staticmethod
+        def product_added_to_cart_without_stock_overflow(amount, product_title):
+            if amount == 1:
+                return '%s unidade do produto "%s" foi adicionada ao seu carrinho.' % (str(amount), product_title)
+            else:
+                return '%s unidades do produto "%s" foram adicionadas ao seu carrinho.' % (str(amount), product_title)
+
+        @staticmethod
+        def product_added_to_cart_with_stock_overflow(amount, product_title):
+            if amount == 1:
+                return 'Limite do estoque atingido! %s unidade do produto "%s" foi adicionada ao seu carrinho.' % (str(amount), product_title)
+            else:
+                return 'Limite do estoque atingido! %s unidades do produto "%s" foram adicionadas ao seu carrinho.' % (str(amount), product_title)
 
     # noinspection PyPep8Naming
     @unique
@@ -1007,6 +1022,9 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         ORDER_STATUS_SENT =                     402
         ORDER_STATUS_DELIVERED =                403
         ORDER_STATUS_CANCELED =                 404
+
+        ADD_TO_CART_EXCEEDED_STOCK =            500
+        ADD_TO_CART_NOT_EXCEEDED_STOCK =        501
 
 
     # noinspection PyPep8Naming

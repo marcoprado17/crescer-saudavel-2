@@ -9,6 +9,8 @@ from flask import flash
 from flask import redirect
 from flask import render_template
 from flask import url_for
+
+from flask_bombril.url_args import get_boolean_url_arg
 from flask_bombril.url_args import get_valid_integer
 from flask_bombril.url_args import get_valid_model_id
 from models.product import Product
@@ -32,15 +34,27 @@ def cart(base_user):
 @valid_form(FormClass=SubmitForm)
 def add_to_cart(base_user, form):
     product_id = get_valid_model_id(model=Product, arg_name=R.string.product_id_arg_name, include_zero=False, default=None)
+    redirect_to_cart = get_boolean_url_arg(arg_name=R.string.redirect_to_cart_arg_name, default=True)
     if product_id == None:
-        return json.dumps(dict(error_msg=R.string.add_to_cart_error_msg_invalid_product_id)), 400
+        if redirect_to_cart:
+            flash(R.string.add_cart_fail_invalid_product,
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return redirect(url_for("client_cart.cart"))
+        else:
+            return "", 400
     amount = get_valid_integer(arg_name=R.string.amount_arg_name, default=1)
-    try:
-        base_user.add_product_to_cart(product_id=product_id, amount=amount)
-        return "", 200
-    except AmountExceededStock:
+    add_product_to_cart_result, amount_added = base_user.add_product_to_cart(product_id=product_id, amount=amount)
+    if redirect_to_cart:
         product = Product.get(product_id)
-        return json.dumps(dict(error_msg=R.string.add_to_cart_error_msg_amount_exceeded_stock(product=product, amount=amount))), 400
+        if add_product_to_cart_result == R.id.ADD_TO_CART_NOT_EXCEEDED_STOCK:
+            flash(R.string.product_added_to_cart_without_stock_overflow(amount=amount_added, product_title=product.title),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+        elif add_product_to_cart_result == R.id.ADD_TO_CART_EXCEEDED_STOCK:
+            flash(R.string.product_added_to_cart_with_stock_overflow(amount=amount_added, product_title=product.title),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.warning))
+        return redirect(url_for("client_cart.cart"))
+    else:
+        return "", 200
 
 
 @client_cart_blueprint.route("/remover-do-carrinho", methods=["POST"])

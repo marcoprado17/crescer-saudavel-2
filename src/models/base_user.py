@@ -29,22 +29,31 @@ class BaseUser(BaseModel):
     def add_product_to_cart(self, product_id, amount=1):
         product = Product.get(product_id)
         if product is None:
-            return
-
-        if amount > product.available:
-            raise AmountExceededStock
+            return R.id.ADD_TO_CART_NOT_EXCEEDED_STOCK, 0
 
         if self._cart_amount_by_product_id is None:
             self._cart_amount_by_product_id = {}
 
+        initial_n_units = 0
         if str(product_id) in self._cart_amount_by_product_id.keys():
+            initial_n_units = self._cart_amount_by_product_id[str(product_id)]
             self._cart_amount_by_product_id[str(product_id)] += amount
         else:
             self._cart_amount_by_product_id[str(product_id)] = amount
 
+        return_value = R.id.ADD_TO_CART_NOT_EXCEEDED_STOCK
+        if self._cart_amount_by_product_id[str(product_id)] > product.available - product.min_available:
+            self._cart_amount_by_product_id[str(product_id)] = product.available - product.min_available
+            return_value = R.id.ADD_TO_CART_EXCEEDED_STOCK
+
+        final_n_units = self._cart_amount_by_product_id[str(product_id)]
+
         flag_modified(self, "_cart_amount_by_product_id")
         db.session.add(self)
         db.session.commit()
+
+        return return_value, (final_n_units-initial_n_units)
+
 
     def delete_product_from_cart(self, product_id):
         if str(product_id) in self._cart_amount_by_product_id.keys():
