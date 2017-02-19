@@ -453,6 +453,8 @@ class Resources(object):
         cart_cleared = "Todos os produtos do carrinho foram removidos com sucesso."
         add_cart_fail_invalid_product = "Não foi possível adicionar o produto ao carrinho, o produto em questão é inválido."
         product_stock_limit_reached = "O limite do estoque deste produto foi atingido."
+        store_logo = "Logo da loja"
+        logout = "Sair"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -874,11 +876,14 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
             return 'O nome de imagem "%s" não é permitido. Por favor, troque o nome da imagem.' % image_name
 
         @staticmethod
-        def cart_popup_title(n_items, total_price):
-            if n_items == 1:
-                return str(n_items) + " item | " + str(total_price)
+        def cart_popup_title(n_items, products_total_price_as_string):
+            print "n_items: " + str(n_items)
+            if n_items == 0:
+                return "Carrinho vazio"
+            elif n_items == 1:
+                return str(n_items) + " item | " + str(products_total_price_as_string)
             else:
-                return str(n_items) + " items | " + str(total_price)
+                return str(n_items) + " items | " + str(products_total_price_as_string)
 
         @staticmethod
         def get_product_amount_subtotal(amount, unit_price):
