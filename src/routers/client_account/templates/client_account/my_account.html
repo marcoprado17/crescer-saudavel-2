@@ -64,7 +64,7 @@
                                             <h2>{{ R.string.my_information }}</h2>
                                             <form method="post">
                                                 <div class="group-select">
-                                                    {% with client_form=data.user.get_form(edit=data.edit), edit=data.edit, include_email_confirmed=False %}
+                                                    {% with client_form=data.user_form, edit=data.edit, include_email_confirmed=False %}
                                                         {% include "components/client_info_form_fields.html" %}
                                                     {% endwith %}
                                                     <div class="buttons-set account-info-buttons-container">

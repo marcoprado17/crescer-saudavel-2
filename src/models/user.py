@@ -84,12 +84,38 @@ class User(BaseUser):
     def load_user(user_id):
         return User.get(user_id)
 
-    @staticmethod
-    def get_attrs_from_form(form):
-        return dict(
+    @classmethod
+    def create_from_form(cls, form, other_attrs=None):
+        attrs = dict(
             email=form.email.data,
             password=form.password.data
         )
+        if other_attrs != None and isinstance(other_attrs, dict):
+            for key, val in other_attrs.iteritems():
+                attrs[key] = val
+        model_elem = cls(
+            **attrs
+        )
+        db.session.add(model_elem)
+        db.session.commit()
+        return model_elem
+
+    def update_from_form(self, form):
+        attrs_dict = dict(
+            first_name=form.first_name.data,
+            last_name=form.last_name.data,
+            state_id=int(form.state_id.data),
+            city_id=int(form.city_id.data),
+            address=form.address.data,
+            address_number=form.address_number.data,
+            address_complement=form.address_complement.data,
+            cep=form.cep.data,
+            tel=form.tel.data,
+        )
+        for key, val in attrs_dict.iteritems():
+            setattr(self, key, val)
+        db.session.add(self)
+        db.session.commit()
 
     def get_form(self, edit=False):
         return UserForm(user=self, edit=edit)

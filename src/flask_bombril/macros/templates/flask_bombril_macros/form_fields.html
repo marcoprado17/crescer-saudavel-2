@@ -69,7 +69,7 @@
         {% if explicit_label %}
             <div class="label-container">
                 <label for="{{ field.id }}">{{ field.label }}</label>
-                {% if field.flags.required %}
+                {% if field.flags.required and not readonly %}
                     {{ tooltip.asterisk(bombril_R.string.required_field) }}
                 {% endif %}
                 {% if field.render_kw and field.render_kw.tooltip %}
@@ -92,7 +92,7 @@
         {% if explicit_label %}
             <div class="label-container">
                 <label for="{{ field.id }}">{{ field.label }}</label>
-                {% if field.flags.required %}
+                {% if field.flags.required and not readonly %}
                     {{ tooltip.asterisk(bombril_R.string.required_field) }}
                 {% endif %}
                 {% if field.render_kw and field.render_kw.tooltip %}
@@ -119,7 +119,7 @@
         {% if explicit_label %}
             <div class="label-container">
                 <label for="{{ field.id }}">{{ field.label }}</label>
-                {% if field.flags.required %}
+                {% if field.flags.required and not readonly %}
                     {{ tooltip.asterisk(bombril_R.string.required_field) }}
                 {% endif %}
                 {% if field.render_kw and field.render_kw.tooltip %}

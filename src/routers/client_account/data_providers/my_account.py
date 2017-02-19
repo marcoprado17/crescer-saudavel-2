@@ -8,10 +8,20 @@ from flask_login import current_user
 
 class ClientMyAccountDataProvider(object):
     def get_data_when_get(self, edit):
+        user = current_user
+        return dict(
+            user=user,
+            edit=edit,
+            orders=current_user.orders,
+            user_form=user.get_form(edit=edit)
+        )
+
+    def get_data_when_post(self, edit, user_form):
         return dict(
             user=current_user,
             edit=edit,
-            orders=current_user.orders
+            orders=current_user.orders,
+            user_form=user_form
         )
 
 

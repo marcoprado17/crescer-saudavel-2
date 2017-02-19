@@ -43,6 +43,7 @@ class Resources(object):
         file_part_not_found = "Arquivo não encontrado."
         invalid_file_extension = "Formato de arquivo inválido."
         invalid_phone_format = "Formato de telefone inválido."
+        invalid_cep_format = "Formato de cep inválido. Ex.: 12210-250"
 
         a = "a"
         b = "b"
