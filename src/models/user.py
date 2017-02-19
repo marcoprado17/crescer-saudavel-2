@@ -10,6 +10,7 @@ from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm.attributes import flag_modified
 from models.base_user import BaseUser
 from proj_extensions import db, bcrypt, login_manager
 from proj_utils import SortMethodMap
@@ -111,8 +112,14 @@ class User(BaseUser):
         db.session.add(self)
         db.session.commit()
 
-    def login_danger_danger(self):
+    def login_danger_danger(self, base_user):
+        if base_user.is_anonymous:
+            for product, amount in base_user.get_cart_data():
+                self.add_product_to_cart_without_commit(product_id=product.id, amount=amount)
+            base_user.clear_cart_without_commit()
+
         self.authenticated = True
+        flag_modified(self, "_cart_amount_by_product_id")
         db.session.add(self)
         db.session.commit()
         login_user(self)

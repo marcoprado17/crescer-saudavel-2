@@ -16,6 +16,7 @@ from itsdangerous import URLSafeTimedSerializer
 from email_blueprint import email_manager
 from flask_bombril.utils import get_url_arg
 from models.user import User
+from proj_decorators import login_or_anonymous
 from r import R
 from routers.client_user_management import client_user_management_blueprint
 from routers.client_user_management.data_providers.login import client_login_data_provider
@@ -31,7 +32,8 @@ from flask_bombril.r import R as bombril_R
 
 
 @client_user_management_blueprint.route("/entrar", methods=["GET", "POST"])
-def login():
+@login_or_anonymous
+def login(base_user):
     if request.method == "GET":
         email = get_url_arg(R.string.email_arg_name)
         return render_template("client_user_management/login.html",
@@ -56,7 +58,7 @@ def login():
                                    data=client_login_data_provider.get_data_when_post(login_form=login_form))
 
         try:
-            user.login_danger_danger()
+            user.login_danger_danger(base_user)
         except:
             flash(R.string.login_error,
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))

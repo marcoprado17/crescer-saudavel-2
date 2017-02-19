@@ -24,6 +24,15 @@ class BaseUser(BaseModel):
         return R.string.decimal_price_as_string(price_as_decimal=self.get_freight(), include_rs=include_rs)
 
     def add_product_to_cart(self, product_id, amount=1):
+        return_value, delta_n_units = self.add_product_to_cart_without_commit(product_id=product_id, amount=amount)
+
+        flag_modified(self, "_cart_amount_by_product_id")
+        db.session.add(self)
+        db.session.commit()
+
+        return return_value, delta_n_units
+
+    def add_product_to_cart_without_commit(self, product_id, amount=1):
         product = Product.get(product_id)
         if product is None or amount <= 0:
             return R.id.ADD_TO_CART_NOT_EXCEEDED_STOCK, 0
@@ -45,11 +54,7 @@ class BaseUser(BaseModel):
 
         final_n_units = self._cart_amount_by_product_id[str(product_id)]
 
-        flag_modified(self, "_cart_amount_by_product_id")
-        db.session.add(self)
-        db.session.commit()
-
-        return return_value, (final_n_units - initial_n_units)
+        return return_value, (final_n_units-initial_n_units)
 
     def delete_product_from_cart(self, product_id):
         if str(product_id) in self._cart_amount_by_product_id.keys():
@@ -68,10 +73,13 @@ class BaseUser(BaseModel):
         db.session.commit()
 
     def clear_cart(self):
-        self._cart_amount_by_product_id = {}
+        self.clear_cart_without_commit()
         flag_modified(self, "_cart_amount_by_product_id")
         db.session.add(self)
         db.session.commit()
+
+    def clear_cart_without_commit(self):
+        self._cart_amount_by_product_id = {}
 
     def get_cart_data(self):
         if self._cart_amount_by_product_id is None:
