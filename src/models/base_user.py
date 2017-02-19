@@ -4,18 +4,12 @@
 # Created at 13/02/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
-from pprint import pprint
-
-from flask import flash
 from flask import g
 from sqlalchemy.orm.attributes import flag_modified
-
 from models.base import BaseModel
 from models.product import Product
-from proj_exceptions import InvalidIdError, AmountExceededStock
 from proj_extensions import db
 from r import R
-from flask_bombril.r import R as bombril_R
 
 
 class BaseUser(BaseModel):
@@ -31,7 +25,7 @@ class BaseUser(BaseModel):
 
     def add_product_to_cart(self, product_id, amount=1):
         product = Product.get(product_id)
-        if product is None:
+        if product is None or amount <= 0:
             return R.id.ADD_TO_CART_NOT_EXCEEDED_STOCK, 0
 
         if self._cart_amount_by_product_id is None:

@@ -144,7 +144,12 @@
         $("form.add-to-cart").each(function () {
             var form = $(this);
             form.submit(function (event) {
-                form.attr("action", form.attr("action") + "&{0}={1}".f("{{ R.string.amount_arg_name }}", $("#qty").val()));
+                var qty = $("#qty").val();
+                if(qty==0){
+                    event.preventDefault();
+                    return false;
+                }
+                form.attr("action", form.attr("action") + "&{0}={1}".f("{{ R.string.amount_arg_name }}", qty));
             });
         });
     </script>
