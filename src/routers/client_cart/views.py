@@ -15,7 +15,6 @@ from flask_bombril.url_args import get_valid_integer
 from flask_bombril.url_args import get_valid_model_id
 from models.product import Product
 from proj_decorators import login_or_anonymous, valid_form
-from proj_exceptions import AmountExceededStock
 from proj_forms import SubmitForm
 from r import R
 from routers.client_cart import client_cart_blueprint

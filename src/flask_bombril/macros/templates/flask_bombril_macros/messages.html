@@ -33,6 +33,10 @@
 {% macro toast(message, level) %}
     {% if level == bombril_R.string.success %}
         throwSuccessOpToast("{{ message }}")
+    {% elif level == bombril_R.string.info %}
+        throwInfoOpToast("{{ message }}")
+    {% elif level == bombril_R.string.warning %}
+        throwWarningOpToast("{{ message }}")
     {% elif level == bombril_R.string.error %}
         throwErrorOpToast("{{ message }}")
     {% endif %}
@@ -43,5 +47,8 @@
         {% if category|is_toast %}
             {{ toast(message=message, level=category|get_level) }}
         {% endif %}
+    {% endfor %}
+    {% for message, level in g.toast_flashes %}
+        {{ toast(message=message, level=level) }}
     {% endfor %}
 {%- endmacro %}

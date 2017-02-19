@@ -3,40 +3,26 @@
 # ======================================================================================================================
 # Created at 25/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from pprint import pprint
-
+from flask import flash
 from flask import url_for
-
 from models.product_category import ProductCategory
+from proj_decorators import login_or_anonymous
 from r import R
+from flask_bombril.r import R as bombril_R
 
 
 class ClientHeaderDataProvider(object):
-    def get_data(self):
+    @login_or_anonymous
+    def get_data(self, base_user):
+        carta_data=base_user.get_cart_data()
+        cart_update_messages = base_user.get_cart_update_messages()
+        for message in cart_update_messages:
+            flash(message, bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.info))
         return dict(
-            logged=False,
-            first_name="João",
+            logged=(not base_user.is_anonymous) and base_user.is_authenticated,
+            first_name= getattr(base_user, "first_name", None),
             menu_data=self.get_menu_data(),
-            cart_data=dict(
-                n_items=5,
-                total_price="R$ 32,60",
-                products=[
-                    dict(
-                        title="Papinha de maça - 500g",
-                        href="#",
-                        img_src=url_for("static", filename="imgs/product_default.jpg"),
-                        quantity=2,
-                        unity_price="R$ 10,00"
-                    ),
-                    dict(
-                        title="Papinha de arroz doce - 200g",
-                        href="#",
-                        img_src=url_for("static", filename="imgs/product_default.jpg"),
-                        quantity=3,
-                        unity_price="R$ 4,20"
-                    )
-                ]
-            )
+            cart_data=carta_data
         )
 
     def get_menu_data(self):

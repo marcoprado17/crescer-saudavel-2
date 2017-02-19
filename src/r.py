@@ -67,7 +67,6 @@ class Resources(object):
         view_cart = "Ver Carrinho"
         to_search = "Buscar"
         search = "Busca"
-        welcome_message = "Seja bem vindo!"
         enter = "Entre"
         my_account = "Minha conta"
         register = "Cadastre-se"
@@ -876,7 +875,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         @staticmethod
         def cart_popup_title(n_items, total_price):
-            return str(n_items) + " items | " + str(total_price)
+            if n_items == 1:
+                return str(n_items) + " item | " + str(total_price)
+            else:
+                return str(n_items) + " items | " + str(total_price)
 
         @staticmethod
         def get_product_amount_subtotal(amount, unit_price):
@@ -893,10 +895,6 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def get_products_by_search_title(search_title):
             return "Busca: " + search_title
-
-        @staticmethod
-        def cart_popup_title(n_items, total_price):
-            return str(n_items) + " items | " + " R$ " + str(total_price)
 
         @staticmethod
         def get_password_length_message():
@@ -970,11 +968,18 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         @staticmethod
         def amount_of_product_changed(product_title):
-            return 'Devido a alterações no estoque, a quantidade do produto "%s" foi alterada no seu carrinho.' % product_title
+            return 'Devido a alterações recentes no estoque, a quantidade do produto "%s" foi alterada no seu carrinho.' % product_title
 
         @staticmethod
         def product_removed_due_stock_changes(product_title):
-            return 'Devido a alterações no estoque, o produto "%s" não está mais disponível e foi removido do seu carrinho.' % product_title
+            return 'Devido a alterações recentes no estoque, o produto "%s" não está mais disponível e foi removido do seu carrinho.' % product_title
+
+        @staticmethod
+        def welcome_message(first_name):
+            if first_name is None:
+                return "Seja bem vindo!"
+            else:
+                return "Seja bem vindo, %s!" % first_name
 
     # noinspection PyPep8Naming
     @unique

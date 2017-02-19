@@ -1,6 +1,8 @@
 DEFAULT_RESPONSE_TIME = 500;
 SUCCESS_TOAST_TIME_OUT = 3500;
 ERROR_TOAST_TIME_OUT = 10000;
+WARNING_TOAST_TIME_OUT = 8000;
+INFO_TOAST_TIME_OUT = 10000;
 
 String.prototype.format = String.prototype.f = function () {
     var s = this,
@@ -177,6 +179,20 @@ function throwSuccessOpToast(message) {
     toastr.options.closeButton = false;
     toastr.options.timeOut = SUCCESS_TOAST_TIME_OUT;
     toastr.success(message);
+}
+
+
+function throwInfoOpToast(message) {
+    toastr.options.closeButton = true;
+    toastr.options.timeOut = INFO_TOAST_TIME_OUT;
+    toastr.info(message);
+}
+
+
+function throwWarningOpToast(message) {
+    toastr.options.closeButton = true;
+    toastr.options.timeOut = WARNING_TOAST_TIME_OUT;
+    toastr.warning(message);
 }
 
 

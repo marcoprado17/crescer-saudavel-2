@@ -7,6 +7,7 @@ from decimal import Decimal
 from pprint import pprint
 
 from flask import flash
+from flask import g
 from sqlalchemy.orm.attributes import flag_modified
 
 from models.base import BaseModel
@@ -54,8 +55,7 @@ class BaseUser(BaseModel):
         db.session.add(self)
         db.session.commit()
 
-        return return_value, (final_n_units-initial_n_units)
-
+        return return_value, (final_n_units - initial_n_units)
 
     def delete_product_from_cart(self, product_id):
         if str(product_id) in self._cart_amount_by_product_id.keys():
@@ -79,19 +79,20 @@ class BaseUser(BaseModel):
         db.session.add(self)
         db.session.commit()
 
-    def get_cart_data(self, fire_flash_messages=False):
-        self.update_cart(fire_flash_messages=fire_flash_messages)
-
+    def get_cart_data(self):
         if self._cart_amount_by_product_id is None:
             self._cart_amount_by_product_id = {}
 
-        products = db.session.query(Product).filter(Product.id.in_([int(x) for x in self._cart_amount_by_product_id.keys()])).all()
+        self._update_cart()
+
+        products = db.session.query(Product).filter(
+            Product.id.in_([int(x) for x in self._cart_amount_by_product_id.keys()])).all()
         cart_data = []
         for product in products:
             cart_data.append((product, self._cart_amount_by_product_id[str(product.id)]))
         return cart_data
 
-    def update_cart(self, fire_flash_messages):
+    def _update_cart(self):
         remove_keys = []
 
         for key, val in self._cart_amount_by_product_id.iteritems():
@@ -100,14 +101,11 @@ class BaseUser(BaseModel):
                 remove_keys.append(key)
             elif val > product.available - product.min_available:
                 self._cart_amount_by_product_id[key] = product.available - product.min_available
-                if fire_flash_messages:
-                    if self._cart_amount_by_product_id[key] > 0:
-                        flash(R.string.amount_of_product_changed(product_title=product.title),
-                              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.warning))
-                    else:
-                        remove_keys.append(key)
-                        flash(R.string.product_removed_due_stock_changes(product_title=product.title),
-                              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.warning))
+                if self._cart_amount_by_product_id[key] > 0:
+                    self._add_cart_update_message(R.string.amount_of_product_changed(product_title=product.title))
+                else:
+                    remove_keys.append(key)
+                    self._add_cart_update_message(R.string.product_removed_due_stock_changes(product_title=product.title))
 
         for key in remove_keys:
             del self._cart_amount_by_product_id[key]
@@ -115,6 +113,17 @@ class BaseUser(BaseModel):
         flag_modified(self, "_cart_amount_by_product_id")
         db.session.add(self)
         db.session.commit()
+
+    def _add_cart_update_message(self, message):
+        if not hasattr(g, "cart_update_messages"):
+            g.cart_update_messages = []
+        g.cart_update_messages.append(message)
+
+    def get_cart_update_messages(self):
+        if not hasattr(g, "cart_update_messages"):
+            return []
+        else:
+            return g.cart_update_messages
 
     def get_cart_products_total(self):
         cart_data = self.get_cart_data()
@@ -125,3 +134,10 @@ class BaseUser(BaseModel):
 
     def get_cart_products_total_as_string(self, include_rs=False):
         return R.string.decimal_price_as_string(price_as_decimal=self.get_cart_products_total(), include_rs=include_rs)
+
+    def get_n_items(self):
+        cart_data = self.get_cart_data()
+        n_items = 0
+        for product, amount in cart_data:
+            n_items += amount
+        return n_items
