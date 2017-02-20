@@ -1,0 +1,68 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block subtitle %}
+    {{ R.string.edit_contact_information }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_content__ __contact__ container hidden">
+        <div class="panel panel-default large">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ R.string.edit_contact_information }}</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ url_for("admin_content.contact") }}" method="post" enctype=multipart/form-data
+                      class="save"
+                      data-save-text="{{ R.string.save }}" data-saving-text="{{ R.string.saving }}"
+                      data-error-msg="{{ R.string.save_contact_error_msg }}"
+                      data-success-msg="{{ R.string.save_contact_success_msg }}">
+                    {{ data.contact_form.csrf_token }}
+                    {{ form_fields.string_field(field=data.contact_form.address, max_length=R.dimen.contact_address_max_length, explicit_label=True, placeholder=R.string.address_placeholder) }}
+                    {{ form_fields.tel_field(field=data.contact_form.tel, explicit_label=True, placeholder=R.string.tel_placeholder) }}
+                    {{ form_fields.string_field(field=data.contact_form.email, max_length=R.dimen.email_max_length, explicit_label=True, placeholder=R.string.email_placeholder) }}
+
+                    {% with title = R.string.facebook %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.facebook_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.facebook_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
+
+                    {% with title = R.string.youtube %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.youtube_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.youtube_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
+
+                    {% with title = R.string.twitter %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.twitter_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.twitter_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
+
+                    {% with title = R.string.google_plus %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.googleplus_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.googleplus_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
+
+                    {% with title = R.string.pintrest %}
+                        {% include "components/panel_section_separator.html" %}
+                    {% endwith %}
+                    {{ form_fields.boolean_field(field=data.contact_form.pintrest_active) }}
+                    {{ form_fields.string_field(field=data.contact_form.pintrest_link, explicit_label=True, placeholder=R.string.link_placeholder) }}
+                {{ form_fields.submit(field=data.contact_form.submit) }}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}
+{% block script %}
+    <script>
+        initVerticalFluid();
+        initTooltips();
+        initAllTelInput();
+        initSaveForms();
+    </script>
+{% endblock %}

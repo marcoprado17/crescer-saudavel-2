@@ -1,0 +1,24 @@
+{% extends "admin_base/admin_base.html" %}
+{% block subtitle %}
+    {{ R.string.add_new_post }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_blog__ __add_post__ container hidden">
+        {% with data=dict(
+            title=R.string.add_new_post,
+            blog_post_form=data.add_blog_post_form
+        )%}
+            {% include "components/blog_post_panel_form.html" %}
+        {% endwith %}
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}
+{% block script %}
+    <script>
+        initTooltips();
+        initVerticalFluid();
+        initAllMarkdownTextArea();
+        initAllDateTimePickers();
+    </script>
+{% endblock %}
