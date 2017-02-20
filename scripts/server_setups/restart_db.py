@@ -3,7 +3,10 @@
 # ======================================================================================================================
 # Created at 12/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+import os
 import sys
+
+import shutil
 
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
@@ -15,8 +18,13 @@ from models.utils import create_states, create_home_content, create_contact, cre
 
 def restart_db():
     with app.app_context():
+        whoosh_base_path = app.config['WHOOSH_BASE']
+        if os.path.isdir(whoosh_base_path):
+            shutil.rmtree(whoosh_base_path)
+
         db.drop_all()
         db.create_all()
+
         create_states()
         create_home_content()
         create_contact()

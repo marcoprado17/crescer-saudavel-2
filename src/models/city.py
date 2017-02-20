@@ -13,6 +13,8 @@ from r import R
 
 
 class City(BaseModel):
+    __tablename__ = "city"
+
     name = db.Column(db.String(R.dimen.city_name_max_length))
     active = db.Column(db.Boolean, default=False, nullable=False)
     state_id = db.Column(db.Integer, ForeignKey("state.id"), nullable=False)

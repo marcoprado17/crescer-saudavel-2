@@ -6,6 +6,8 @@
 import sys
 
 from models.anonymous_user import AnonymousUser
+from models.blog_post import BlogPost
+from models.product import Product
 from proj_forms import SubmitForm
 from r import R
 
@@ -22,6 +24,7 @@ from configs.instance import unit_test_app_config
 from proj_extensions import db
 from flask_bombril.log import log_request
 from flask_bombril.r import R as bombril_R
+import flask_whooshalchemy as whooshalchemy
 
 
 def __create_app(configs):
@@ -51,6 +54,8 @@ def __create_app(configs):
     login_manager.login_message_category = bombril_R.string.get_message_category(bombril_R.string.static,
                                                                                  bombril_R.string.info)
     login_manager.anonymous_user = AnonymousUser
+    whooshalchemy.whoosh_index(app, Product)
+    whooshalchemy.whoosh_index(app, BlogPost)
 
     return app
 
@@ -114,6 +119,8 @@ def create_app():
     app.register_blueprint(client_home_blueprint, url_prefix="/home")
     from routers.client_products import client_products_blueprint
     app.register_blueprint(client_products_blueprint, url_prefix="/produtos")
+    from routers.client_search import client_search_blueprint
+    app.register_blueprint(client_search_blueprint, url_prefix="/busca")
     from routers.client_user_management import client_user_management_blueprint
     app.register_blueprint(client_user_management_blueprint, url_prefix="/conta")
 

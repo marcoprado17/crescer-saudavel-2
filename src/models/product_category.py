@@ -14,6 +14,8 @@ from r import R
 
 
 class ProductCategory(BaseModel):
+    __tablename__ = "product_category"
+
     name = db.Column(db.String(R.dimen.product_category_name_max_length), nullable=False)
     active = db.Column(db.Boolean, default=False, nullable=False)
     subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="category")

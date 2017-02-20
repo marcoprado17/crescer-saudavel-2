@@ -171,6 +171,7 @@ class Resources(object):
         amount_arg_name = "quantia"
         redirect_to_cart_arg_name = "redirecionar_ao_carrinho"
         step_arg_name = "passo"
+        search_query_arg_name = "q"
 
         name = "Nome"
         section_name = "Nome de seção"
@@ -467,6 +468,9 @@ class Resources(object):
         edit_items = "Editar items"
         payment = "Pagamento"
         fix_form_errors_before_proceed = "Conserte os erros no formulário antes de prosseguir."
+        product_not_found = "Nenhum produto foi encontrado."
+        blog_posts = "Posts do Blog"
+        no_results_were_found = "Nenhum resultado foi encontrado."
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -889,7 +893,6 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         @staticmethod
         def cart_popup_title(n_items, products_total_price_as_string):
-            print "n_items: " + str(n_items)
             if n_items == 0:
                 return "Carrinho vazio"
             elif n_items == 1:
@@ -997,6 +1000,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
                 return "Seja bem vindo!"
             else:
                 return "Seja bem vindo, %s!" % first_name
+
+        @staticmethod
+        def search_for(q):
+            return 'Busca por "%s"' % q
 
     # noinspection PyPep8Naming
     @unique
@@ -1107,6 +1114,9 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         day_in_seconds = 24*60*60
         max_value_of_int_field = 999999999
         min_value_of_int_field = -999999999
+
+        product_search_limit = 12
+        blog_post_search_limit = 4
 
 
 R = Resources()

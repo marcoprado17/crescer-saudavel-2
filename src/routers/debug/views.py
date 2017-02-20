@@ -89,6 +89,10 @@ def restart_db():
 
 
 def restart_db_implementation():
+    whoosh_base_path = current_app.config['WHOOSH_BASE']
+    if os.path.isdir(whoosh_base_path):
+        shutil.rmtree(whoosh_base_path)
+
     db.drop_all()
     db.create_all()
 

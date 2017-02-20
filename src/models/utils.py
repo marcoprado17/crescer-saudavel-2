@@ -27,6 +27,45 @@ from models.product_subcategory import ProductSubcategory
 from models.state import State
 from r import R
 
+title_key_words = [
+    "banana",
+    "maça",
+    "papinha",
+    "sobremesa",
+    "arroz",
+    "doce",
+    "salgado",
+    "azul",
+    "amarelo",
+    "vermelho",
+    "laranja"
+]
+
+text_key_words = [
+    "é",
+    "pois",
+    "não",
+    "sim",
+    "talvez",
+    "oi",
+    "olá",
+    "hoje",
+    "eu",
+    "você",
+    "amanhã",
+    "enquanto",
+    "matemática",
+    "ciência",
+    "física",
+    "química",
+    "lenço",
+    "copo",
+    "papel",
+    "livro",
+    "digestão",
+    "bebê"
+]
+
 
 def create_states():
     db.session.add(State(name="SP", active=True))
@@ -173,11 +212,11 @@ def create_random_blog_posts():
 def get_random_blog_post():
     return BlogPost(
         active=random.choice([True, False]),
-        title=get_random_phrase((3,8), (3, 6)),
+        title=random.choice(title_key_words) + " " + get_random_phrase((3,8), (3, 6)),
         datetime=get_random_datetime(datetime_1, datetime_2),
         thumbnail=get_random_image_name(),
-        summary_markdown=get_random_phrase((3,8), (16, 30)),
-        content_markdown=get_random_phrase((3,8), (50, 150))
+        summary_markdown=random.choice(text_key_words) + " " + get_random_phrase((3,8), (16, 30)),
+        content_markdown=random.choice(text_key_words) + " " + get_random_phrase((3,8), (50, 150))
     )
 
 
@@ -312,13 +351,13 @@ def get_random_product():
 
     return Product(
         active=(random.uniform(0, 1) < 0.5),
-        title=get_random_phrase((3, 10 + 1), (1, 5 + 1))[0:R.dimen.product_title_max_length],
+        title=random.choice(title_key_words) + " " + get_random_phrase((3, 9 + 1), (1, 5 + 1))[0:R.dimen.product_title_max_length],
         category_id=category_id,
         subcategory_id=subcategory_id,
         price=Decimal(get_random_price()),
         stock=stock,
         min_available=random.randint(2, 20),
-        summary_markdown=get_random_phrase((4, 10 + 1), (20, 40 + 1)),
+        summary_markdown=random.choice(text_key_words) + " " + get_random_phrase((4, 10 + 1), (20, 40 + 1)),
         sales_number=random.randint(0, 500),
         **get_random_images_dic()
     )

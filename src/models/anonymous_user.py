@@ -7,6 +7,8 @@ from models.base_user import BaseUser
 
 
 class AnonymousUser(BaseUser):
+    __tablename__ = "anonymous_user"
+
     @property
     def is_authenticated(self):
         return False

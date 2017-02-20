@@ -11,6 +11,8 @@ from proj_utils import parse_markdown
 
 
 class AboutUs(BaseModel):
+    __tablename__ = "about_us"
+
     _content_markdown = db.Column(db.UnicodeText, default=u"")
     content_html = db.Column(db.UnicodeText, default=u"")
 

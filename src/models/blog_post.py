@@ -14,6 +14,14 @@ from r import R
 
 
 class BlogPost(BaseModel):
+    __tablename__ = "blog_post"
+
+    __searchable__ = [
+        "title",
+        "summary_html",
+        "content_html"
+    ]
+
     active = db.Column(db.Boolean, default=False, nullable=False)
     title = db.Column(db.String(R.dimen.blog_post_title_max_length), nullable=False)
     datetime = db.Column(db.DateTime, nullable=False)

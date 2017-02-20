@@ -24,6 +24,8 @@ from r import R
 
 
 class Order(BaseModel):
+    __tablename__ = "order"
+
     uuid = db.Column(db.String(R.dimen.uuid_length), nullable=False)
     client_id = db.Column(db.Integer, ForeignKey("user.id"), nullable=False)
     client_email = db.Column(db.String(R.dimen.email_max_length), nullable=False)

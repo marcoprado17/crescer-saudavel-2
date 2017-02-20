@@ -16,6 +16,8 @@ from proj_utils import safe_id
 
 
 class HomeContent(BaseModel):
+    __tablename__ = "home_content"
+
     carousel_item_1_active = db.Column(db.Boolean, default=False, nullable=False)
     carousel_item_1_title = db.Column(db.String(R.dimen.carousel_title_max_length), default="", nullable=False)
     carousel_item_1_subtitle = db.Column(db.String(R.dimen.carousel_subtitle_max_length), default="", nullable=False)

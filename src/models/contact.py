@@ -11,6 +11,8 @@ from proj_utils import safe_string
 
 
 class Contact(BaseModel):
+    __tablename__ = "contact"
+
     address = db.Column(db.String(R.dimen.contact_address_max_length), default="")
     tel = db.Column(db.String(R.dimen.tel_max_length), default="")
     email = db.Column(db.String(R.dimen.email_max_length), default="")

@@ -19,6 +19,8 @@ from routers.admin_clients.forms import UserForm
 
 
 class User(BaseUser):
+    __tablename__ = "user"
+
     email = db.Column(db.String(R.dimen.email_max_length), unique=True, nullable=False)
     _password = db.Column(db.Text, nullable=False)
     email_confirmed = db.Column(db.Boolean, default=False, nullable=False)

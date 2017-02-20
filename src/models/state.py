@@ -12,6 +12,8 @@ from r import R
 
 
 class State(BaseModel):
+    __tablename__ = "state"
+
     name = db.Column(db.String(R.dimen.state_name_max_length))
     active = db.Column(db.Boolean, default=False, nullable=False)
     cities = relationship("City", order_by=City.name, back_populates="state")

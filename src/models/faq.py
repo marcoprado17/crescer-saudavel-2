@@ -11,6 +11,8 @@ from proj_utils import parse_markdown
 
 
 class Faq(BaseModel):
+    __tablename__ = "faq"
+
     _content_markdown = db.Column(db.UnicodeText, default=u"")
     content_html = db.Column(db.UnicodeText, default=u"")
 

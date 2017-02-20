@@ -18,6 +18,23 @@ from proj_utils import parse_markdown, SortMethodMap
 
 
 class Product(BaseModel):
+    __tablename__ = "product"
+
+    __searchable__ = [
+        "title",
+        "summary_html",
+        "tab_1_content_html",
+        "tab_2_content_html",
+        "tab_3_content_html",
+        "tab_4_content_html",
+        "tab_5_content_html",
+        "tab_6_content_html",
+        "tab_7_content_html",
+        "tab_8_content_html",
+        "tab_9_content_html",
+        "tab_10_content_html"
+    ]
+
     title = db.Column(db.String(R.dimen.product_title_max_length), nullable=False)
     _active = db.Column(db.Boolean, default=False, nullable=False)
     category_id = db.Column(db.Integer, ForeignKey("product_category.id"), nullable=False)
