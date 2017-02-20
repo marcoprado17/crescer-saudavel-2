@@ -25,6 +25,7 @@ from routers.admin_products.data_providers.products import admin_products_data_p
 from routers.admin_products.data_providers.subcategories import admin_product_subcategories_data_provider
 from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm, \
     EditProductSubcategoryForm, AddProductForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm, EditProductForm
+from routers.client_products.data_providers.product import client_product_data_provider
 
 
 @admin_products_blueprint.route("/")
@@ -81,7 +82,7 @@ def edit_product(product):
 @admin_required
 @safe_id_to_model_elem(model=Product)
 def product_preview(product):
-    return "Pré-visualização do produto " + product.id_formatted
+    return render_template("client_products/product.html", data=client_product_data_provider.get_data(product))
 
 
 # noinspection PyUnresolvedReferences
