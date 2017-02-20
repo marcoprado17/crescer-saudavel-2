@@ -5,6 +5,8 @@
 # ======================================================================================================================
 from flask import flash
 from flask import url_for
+
+from components.data_providers.cart_total_table import cart_total_table_data_provider
 from proj_forms import SubmitForm
 from r import R
 from flask_bombril.r import R as bombril_R
@@ -31,14 +33,7 @@ class ClientCartDataProvider(object):
                 title=R.string.my_cart
             ),
             cart_data=carta_data,
-            cart_total_table_data=dict(
-                products_total=base_user.get_cart_products_total(),
-                freight=base_user.get_freight(),
-                total=base_user.get_cart_products_total() + base_user.get_freight(),
-                products_total_formatted=base_user.get_cart_products_total_as_string(include_rs=True),
-                freight_formatted=base_user.get_freight_as_string(include_rs=True),
-                total_formatted=R.string.decimal_price_as_string(price_as_decimal=base_user.get_cart_products_total()+base_user.get_freight(), include_rs=True)
-            )
+            cart_total_table_data=cart_total_table_data_provider.get_data(base_user)
         )
 
 

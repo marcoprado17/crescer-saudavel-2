@@ -145,10 +145,10 @@ class User(BaseUser):
             base_user.clear_cart_without_commit()
 
         self.authenticated = True
+        login_user(self)
         flag_modified(self, "_cart_amount_by_product_id")
         db.session.add(self)
         db.session.commit()
-        login_user(self)
 
     def change_password(self, new_password):
         self.password = new_password

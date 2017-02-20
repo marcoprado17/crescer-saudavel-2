@@ -17,6 +17,7 @@ from email_blueprint import email_manager
 from flask_bombril.utils import get_url_arg
 from models.user import User
 from proj_decorators import login_or_anonymous
+from proj_extensions import db
 from r import R
 from routers.client_user_management import client_user_management_blueprint
 from routers.client_user_management.data_providers.login import client_login_data_provider
@@ -59,7 +60,10 @@ def login(base_user):
 
         try:
             user.login_danger_danger(base_user)
-        except:
+        except Exception as e:
+            print "###"
+            print(e)
+            db.session.rollback()
             flash(R.string.login_error,
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
             return render_template("client_user_management/login.html",

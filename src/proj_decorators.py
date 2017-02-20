@@ -15,6 +15,7 @@ from flask_login import current_user
 from flask_bombril.r import R as bombril_R
 from flask_bombril.utils import camel_case_to_snake_case
 from models.anonymous_user import AnonymousUser
+from proj_extensions import db
 from r import R
 
 
