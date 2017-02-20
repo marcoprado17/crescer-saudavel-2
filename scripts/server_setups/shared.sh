@@ -18,4 +18,5 @@ DB_PASSWORD=${DB_PASSWORD};
 PRODUCTION_DB_NAME=${PRODUCTION_DB_NAME};
 
 sudo runuser -l postgres -c "psql -c \"create user "${DB_USERNAME}" with password '"${DB_PASSWORD}"';\"";
+sudo runuser -l postgres -c "psql -c \"drop database "${PRODUCTION_DB_NAME}"\"";
 sudo runuser -l postgres -c "psql -c \"create database "${PRODUCTION_DB_NAME}" owner "${DB_USERNAME}";\"";
