@@ -19,6 +19,7 @@ from routers.admin_blog.data_providers.add_post import admin_add_blog_post_data_
 from routers.admin_blog.data_providers.edit_post import admin_edit_post_data_provider
 from routers.admin_blog.data_providers.posts import admin_posts_data_provider
 from routers.admin_blog.forms import AddBlogPostForm, EditBlogPostForm
+from routers.client_blog.data_providers.blog_post import client_blog_post_data_provider
 
 
 @admin_blog_blueprint.route("/posts")
@@ -75,7 +76,8 @@ def edit_post(blog_post):
 @admin_required
 @safe_id_to_model_elem(model=BlogPost)
 def post_preview(blog_post):
-    return "Pré-visualização do post #" + str(blog_post.id)
+    return render_template("client_blog/blog_post.html",
+                           data=client_blog_post_data_provider.get_data(blog_post=blog_post))
 
 
 # noinspection PyUnresolvedReferences
