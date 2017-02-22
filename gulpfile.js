@@ -68,6 +68,8 @@ gulp.task("make_client_css_bundle", function(){
         "bower_components/flipmart-v5/css/style.css",
         "bower_components/flipmart-v5/css/flexslider.css",
         "bower_components/flipmart-v5/css/responsive.css",
+        "bower_components/components-font-awesome/css/font-awesome.css",
+        "bower_components/bootstrap-social/bootstrap-social.css",
         "src/front_bombril/utils.scss",
         "src/wrappers/base/**/*.scss",
         "src/wrappers/client_base/**/*.scss",
@@ -159,7 +161,7 @@ gulp.task("refresh_page", shell.task([
 gulp.task("build", function (callback) {
     runSequence(
         "delete_old_build",
-        ["copy_html_files_to_build_dir", "copy_py_files_to_build_dir", "make_css_bundles", "make_js_bundles", "copy_bootstrap_fonts_to_build_dir", "copy_flipmart_fonts_to_build_dir", "copy_images_to_build_dir"],
+        ["copy_html_files_to_build_dir", "copy_py_files_to_build_dir", "make_css_bundles", "make_js_bundles", "copy_fonts_to_build_dir", "copy_flipmart_fonts_to_build_dir", "copy_images_to_build_dir"],
         ["minify_admin_css_bundle", "minify_admin_js_bundle", "minify_client_css_bundle", "minify_client_js_bundle"],
         ["append_sys_path_to_build_init"],
         callback
@@ -195,8 +197,11 @@ gulp.task("append_sys_path_to_build_init", function () {
         .pipe(gulp.dest("build"));
 });
 
-gulp.task("copy_bootstrap_fonts_to_build_dir", function () {
-    return gulp.src(["bower_components/bootstrap/dist/fonts/*"])
+gulp.task("copy_fonts_to_build_dir", function () {
+    return gulp.src([
+        "bower_components/bootstrap/dist/fonts/*",
+        "bower_components/components-font-awesome/fonts/*"
+    ])
         .pipe(gulp.dest("build/static/fonts"));
 });
 

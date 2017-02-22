@@ -471,6 +471,17 @@ class Resources(object):
         product_not_found = "Nenhum produto foi encontrado."
         blog_posts = "Posts do Blog"
         no_results_were_found = "Nenhum resultado foi encontrado."
+        register_with_facebook = "Cadastrar pelo Facebook"
+        or_text = "ou"
+        registering = "Cadastrando..."
+        facebook_register_error_msg = "Ocorreu uma falha ao tentar cadastrá-lo pelo Facebook. Por favor, tente novamente."
+        users_registered_with_facebook_cant_redefine_password = "Usuários cadastrados utilizando o Facebook não podem redefinir sua senha."
+        users_registered_with_facebook_no_need_confirm_email = "Usuários cadastrados utilizando o Facebook não precisam confirmar o email."
+        enter_with_facebook = "Entrar pelo Facebook"
+        entering = "Entrando..."
+        facebook_login_error_msg = "Ocorreu uma falha ao tentar entrar pelo Facebook. Por favor, tente novamente."
+        successful_facebook_login = "Você entrou com sucesso pelo Facebook."
+        successful_login = "Você entrou na sua conta com sucesso."
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -1004,6 +1015,14 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def search_for(q):
             return 'Busca por "%s"' % q
+
+        @staticmethod
+        def email_not_registered_with_facebook(email):
+            return "O email <b>%s</b> não foi cadastrado utilizando o Facebook. Utilize o email e a senha cadastrados." % email
+
+        @staticmethod
+        def user_registered_with_facebook(email):
+            return "O email <b>%s</b> foi cadastrado utilizando o Facebook. Entre utilizando o Facebook." % email
 
     # noinspection PyPep8Naming
     @unique

@@ -3,6 +3,9 @@
 # ======================================================================================================================
 # Created at 26/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+import json
+
+import httplib2
 from datetime import datetime
 from flask import current_app
 from flask import flash
@@ -47,6 +50,12 @@ def login(base_user):
                                    data=client_login_data_provider.get_data_when_post(login_form=login_form))
 
         user = User.get_by_email(login_form.email.data)
+
+        if (user is not None) and user.facebook_login:
+            flash(R.string.user_registered_with_facebook(user.email),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/login.html",
+                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
         if (user is None) or (not user.is_correct_password(login_form.password.data)):
             flash(R.string.email_or_password_invalid(),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
@@ -59,6 +68,7 @@ def login(base_user):
                                    data=client_login_data_provider.get_data_when_post(login_form=login_form))
 
         try:
+            logout_user()
             user.login_danger_danger(base_user)
         except Exception as e:
             print "###"
@@ -76,6 +86,8 @@ def login(base_user):
         if user.email == current_app.config["ADMIN_MAIL"]:
             return redirect(url_for('admin_home.home'))
         else:
+            flash(R.string.successful_login,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for('client_home.home'))
 
 
@@ -150,6 +162,13 @@ def want_redefine_password():
                                    data=client_want_redefine_password_data_provider.get_data_when_post(
                                        want_redefine_password_form=want_redefine_password_form))
 
+        if user.facebook_login:
+            flash(R.string.users_registered_with_facebook_cant_redefine_password,
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/want_redefine_password.html",
+                                   data=client_want_redefine_password_data_provider.get_data_when_post(
+                                       want_redefine_password_form=want_redefine_password_form))
+
         try:
             email_manager.send_redefine_password_email(receiver_email=want_redefine_password_form.email.data)
         except:
@@ -187,6 +206,14 @@ def redefine_password(token):
         user = User.get_by_email(email)
         if user == None:
             return "", 400
+
+        if user.facebook_login:
+            flash(R.string.users_registered_with_facebook_cant_redefine_password,
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/redefine_password.html",
+                                   data=client_redefine_password_data_provider.get_data_when_post(
+                                       redefine_password_form=redefine_password_form))
+
         user.change_password(redefine_password_form.password.data)
 
         flash(R.string.password_successful_redefined,
@@ -214,6 +241,13 @@ def resend_confirmation_email():
                                    data=client_resend_confirmation_email_data_provider.get_data_when_post(
                                        resend_confirmation_email_form=resend_confirmation_email_form))
 
+        if user.facebook_login:
+            flash(R.string.users_registered_with_facebook_no_need_confirm_email,
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            return render_template("client_user_management/resend_confirmation_email.html",
+                                   data=client_resend_confirmation_email_data_provider.get_data_when_post(
+                                       resend_confirmation_email_form=resend_confirmation_email_form))
+
         try:
             email_manager.send_create_account_confirmation_email(receiver_email=user.email)
         except:
@@ -233,3 +267,41 @@ def resend_confirmation_email():
 def logout():
     logout_user()
     return redirect(url_for("client_home.home"))
+
+
+@client_user_management_blueprint.route("/entrar-com-facebook", methods=["POST"])
+@login_or_anonymous
+def facebook_login(base_user):
+    access_token = request.data
+    app_id = current_app.config["FACEBOOK_APP_ID"]
+    app_secret = current_app.config["FACEBOOK_APP_SECRET"]
+
+    url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
+        app_id, app_secret, access_token)
+    h = httplib2.Http()
+    result = h.request(url, 'GET')[1]
+
+    token = result.split("&")[0]
+    url = 'https://graph.facebook.com/v2.4/me?%s&fields=name,id,email' % token
+    h = httplib2.Http()
+    result = h.request(url, 'GET')[1]
+    data = json.loads(result)
+
+    email=data["email"]
+
+    user = User.get_by_email(email)
+
+    if user is None:
+        user = User.create_user_with_facebook_login(email=email)
+        # TODO: Send email
+    else:
+        if user.facebook_login == False:
+            return json.dumps(dict(error=R.string.email_not_registered_with_facebook(email))), 400
+
+    logout_user()
+    user.login_danger_danger(base_user)
+
+    flash(R.string.successful_facebook_login,
+          bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+
+    return "", 200

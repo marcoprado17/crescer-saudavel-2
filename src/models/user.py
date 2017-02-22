@@ -3,6 +3,10 @@
 # ======================================================================================================================
 # Created at 10/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+import random
+import string
+
+from datetime import datetime
 from flask import current_app
 from flask_login import login_user
 from sqlalchemy import ForeignKey
@@ -24,6 +28,7 @@ class User(BaseUser):
     email = db.Column(db.String(R.dimen.email_max_length), unique=True, nullable=False)
     _password = db.Column(db.Text, nullable=False)
     email_confirmed = db.Column(db.Boolean, default=False, nullable=False)
+    facebook_login = db.Column(db.Boolean, default=False, nullable=False)
     authenticated = db.Column(db.Boolean, default=False, nullable=False)
     register_datetime = db.Column(db.DateTime, nullable=False)
 
@@ -101,6 +106,20 @@ class User(BaseUser):
         db.session.add(model_elem)
         db.session.commit()
         return model_elem
+
+    @classmethod
+    def create_user_with_facebook_login(cls, email):
+        random_password = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(R.dimen.password_max_length))
+        user = User(
+            email=email,
+            password=random_password,
+            email_confirmed=True,
+            facebook_login=True,
+            register_datetime = datetime.now()
+        )
+        db.session.add(user)
+        db.session.commit()
+        return user
 
     def update_from_form(self, form):
         attrs_dict = dict(

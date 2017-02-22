@@ -14,33 +14,78 @@ String.prototype.format = String.prototype.f = function () {
     return s;
 };
 
-function initVerticalFluid() {
-    $(document).ready(function () {
-    var siblingsTotalOuterHeight = 0;
-    var verticalFluids = $(".vertical-fluid");
-    var verticalFluid = verticalFluids.first();
-    verticalFluid.next().removeClass("hidden");
-    var parentHeight = verticalFluid.parent().height();
-    verticalFluid.siblings().each(function () {
-        var sibling = $(this);
-        if (!sibling.hasClass("vertical-fluid")) {
-            siblingsTotalOuterHeight += sibling.outerHeight(true)
-        }
-    });
-    var verticalFluidHeight = (parentHeight - siblingsTotalOuterHeight) / 2;
-    verticalFluids.each(function () {
-        var verticalFluid = $(this);
-        verticalFluid.height(verticalFluidHeight);
-    });
-});
+function initFacebookLoginButton() {
+    $("button.btn-facebook").each(function () {
+        var button = $(this);
+        var errorMsg = button.attr("data-error-msg");
+        var loadingText = button.siblings(".loading-text");
+        var connectFbUrl = button.attr("data-connect-url");
+        console.log(connectFbUrl);
+        var homeUrl = button.attr("data-home-url");
+        button.click(function () {
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    button.prop("disabled", true);
+                    loadingText.removeClass("hidden");
+                    $.ajax({
+                        type: "POST",
+                        url: connectFbUrl,
+                        data: response.authResponse["accessToken"],
+                        processData: false,
+                        contentType: 'application/octet-stream; charset=utf-8',
+                        success: function(result) {
+                            window.location.href = homeUrl;
+                        },
+                        error: function (result) {
+                            dataAsObject = getDataAsObject(result.responseText);
+                            if( dataAsObject != null && "error" in dataAsObject ){
+                                throwErrorOpToast(dataAsObject.error)
+                            }
+                            else {
+                                throwErrorOpToast(errorMsg);
+                            }
+                        },
+                        complete: function () {
+                            button.prop("disabled", false);
+                            loadingText.addClass("hidden");
+                        }
+                    })
+                } else {
+                    throwErrorOpToast(errorMsg);
+                }
+            }, {scope: "email"});
+        })
+    })
 }
 
 
-function initAllDateTimePickers(){
-    $(".datetimepicker").each(function(){
+function initVerticalFluid() {
+    $(document).ready(function () {
+        var siblingsTotalOuterHeight = 0;
+        var verticalFluids = $(".vertical-fluid");
+        var verticalFluid = verticalFluids.first();
+        verticalFluid.next().removeClass("hidden");
+        var parentHeight = verticalFluid.parent().height();
+        verticalFluid.siblings().each(function () {
+            var sibling = $(this);
+            if (!sibling.hasClass("vertical-fluid")) {
+                siblingsTotalOuterHeight += sibling.outerHeight(true)
+            }
+        });
+        var verticalFluidHeight = (parentHeight - siblingsTotalOuterHeight) / 2;
+        verticalFluids.each(function () {
+            var verticalFluid = $(this);
+            verticalFluid.height(verticalFluidHeight);
+        });
+    });
+}
+
+
+function initAllDateTimePickers() {
+    $(".datetimepicker").each(function () {
         dateAsString = $(this).find("input").attr("data-date-as-string");
         date = new Date(dateAsString);
-        if(dateAsString == ""){
+        if (dateAsString == "") {
             date = new Date();
         }
         $(this).datetimepicker({
@@ -52,10 +97,10 @@ function initAllDateTimePickers(){
 }
 
 
-function getDataAsObject(data){
-    try{
+function getDataAsObject(data) {
+    try {
         return JSON.parse(data)
-    }catch(e){
+    } catch (e) {
         return null
     }
 }
@@ -88,7 +133,7 @@ function setAjaxButtonHandlers(data) {
             url: url,
             method: method,
             data: requestData,
-            contentType:'application/json;charset=UTF-8',
+            contentType: 'application/json;charset=UTF-8',
             async: true,
             success: function (data) {
                 var postReturnTime = (new Date()).getTime();
@@ -125,7 +170,7 @@ function setAjaxFormHandlers(data) {
     var error = data.error;
     var complete = data.complete;
 
-    var submit=form.find("button[type='submit']");
+    var submit = form.find("button[type='submit']");
 
     form.submit(function (event) {
         event.preventDefault();
@@ -139,7 +184,7 @@ function setAjaxFormHandlers(data) {
             minResponseTime = 0;
         }
         submitReturn = onSubmit();
-        if(submitReturn == false){
+        if (submitReturn == false) {
             return false;
         }
         console.log(submitReturn);
@@ -203,7 +248,7 @@ function throwErrorOpToast(message) {
 }
 
 
-function initTooltips(){
+function initTooltips() {
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
@@ -215,19 +260,19 @@ function initDynamicSelects() {
         var dependent_select = $(this);
         var determinant_select = dependent_select.closest("form").find("#{0}".f(dependent_select.attr("depends_on")));
         var dependent_choices_string = dependent_select.attr("dependent_choices");
-        var dependent_choices = JSON.parse( dependent_choices_string );
+        var dependent_choices = JSON.parse(dependent_choices_string);
 
         var old_value = dependent_select.val();
 
         var new_value = determinant_select.find("option:selected").attr('value');
         var options = dependent_choices[new_value];
         dependent_select.empty();
-        options.forEach(function(option){
+        options.forEach(function (option) {
             dependent_select.append($("<option></option>").attr("value", option[0]).text(option[1]));
         });
 
-        options.forEach(function(option){
-            if(option[0] == old_value){
+        options.forEach(function (option) {
+            if (option[0] == old_value) {
                 dependent_select.val(old_value);
             }
         });
@@ -236,7 +281,7 @@ function initDynamicSelects() {
             var new_value = determinant_select.find("option:selected").attr('value');
             var options = dependent_choices[new_value];
             dependent_select.empty();
-            options.forEach(function(option){
+            options.forEach(function (option) {
                 dependent_select.append($("<option></option>").attr("value", option[0]).text(option[1]));
             });
         });
@@ -250,29 +295,29 @@ function clearErrors(form) {
 }
 
 
-function showFormErrors(form, errors){
+function showFormErrors(form, errors) {
     clearErrors(form);
-    for(var key in errors){
-        if(errors.hasOwnProperty(key)){
+    for (var key in errors) {
+        if (errors.hasOwnProperty(key)) {
             input = form.find("input[name='{0}']".f(key));
             select = form.find("select[name='{0}']".f(key));
             textarea = form.find("textarea[name='{0}']".f(key));
             arrayOfErrors = errors[key];
-            if(input.length == 1) {
+            if (input.length == 1) {
                 input.parent().addClass("has-error");
-                for(var i = 0; i < arrayOfErrors.length; i++){
+                for (var i = 0; i < arrayOfErrors.length; i++) {
                     input.after("<span class='help-block error'>{0}</span>".f(arrayOfErrors[i]))
                 }
             }
-            else if(select.length == 1) {
+            else if (select.length == 1) {
                 select.parent().addClass("has-error");
-                for(var i = 0; i < arrayOfErrors.length; i++){
+                for (var i = 0; i < arrayOfErrors.length; i++) {
                     select.after("<span class='help-block error'>{0}</span>".f(arrayOfErrors[i]))
                 }
             }
-            else if(textarea.length == 1) {
+            else if (textarea.length == 1) {
                 textarea.parent().addClass("has-error");
-                for(var i = 0; i < arrayOfErrors.length; i++){
+                for (var i = 0; i < arrayOfErrors.length; i++) {
                     textarea.after("<span class='help-block error'>{0}</span>".f(arrayOfErrors[i]))
                 }
             }
@@ -281,7 +326,7 @@ function showFormErrors(form, errors){
 }
 
 function initSaveForms() {
-    $("form.save").each(function(){
+    $("form.save").each(function () {
         var form = $(this);
         var submit_input = form.find("input[type='submit']");
         var save_text = form.attr("data-save-text");
@@ -301,7 +346,7 @@ function initSaveForms() {
                 throwSuccessOpToast(success_msg)
             },
             error: function (status, dataAsObject) {
-                if(status == 400){
+                if (status == 400) {
                     showFormErrors(form, dataAsObject.errors);
                 }
                 throwErrorOpToast(error_msg)
@@ -314,64 +359,64 @@ function initSaveForms() {
     });
 }
 
-function initAllTelInput(){
-    $("input.tel").each(function(){
+function initAllTelInput() {
+    $("input.tel").each(function () {
         var input = $(this);
         input.keypress(function (e) {
-            if(e.keyCode == 13)
+            if (e.keyCode == 13)
                 return true;
             var chr = String.fromCharCode(e.which);
             if ("0123456789".indexOf(chr) < 0)
                 return false;
             var input_length = input.val().length;
-            if(input_length == 0){
+            if (input_length == 0) {
                 input.val("(")
             }
-            else if(input_length == 3){
-                input.val(input.val()+") ")
+            else if (input_length == 3) {
+                input.val(input.val() + ") ")
             }
-            else if(input_length == 9) {
-                input.val(input.val()+"-")
+            else if (input_length == 9) {
+                input.val(input.val() + "-")
             }
-            else if(input_length == 14 && input.val()[10] != "-") {
+            else if (input_length == 14 && input.val()[10] != "-") {
                 old_tel = input.val();
                 sub_1 = old_tel.substring(0, 9);
                 sub_2 = old_tel.substring(11);
-                input.val(sub_1+old_tel[10]+"-"+sub_2)
+                input.val(sub_1 + old_tel[10] + "-" + sub_2)
             }
         });
 
         input.keyup(function () {
             var input_length = input.val().length;
-            if(input_length >= 11 && input_length < 15 && input.val()[10] == "-") {
+            if (input_length >= 11 && input_length < 15 && input.val()[10] == "-") {
                 old_tel = input.val();
                 sub_1 = old_tel.substring(0, 9);
                 sub_2 = old_tel.substring(11);
-                input.val(sub_1+"-"+old_tel[9]+sub_2);
+                input.val(sub_1 + "-" + old_tel[9] + sub_2);
             }
-            else if(input_length == 10 && input.val()[9] != "-") {
+            else if (input_length == 10 && input.val()[9] != "-") {
                 old_tel = input.val();
                 sub_1 = old_tel.substring(0, 9);
-                input.val(sub_1+"-"+old_tel[9]);
+                input.val(sub_1 + "-" + old_tel[9]);
             }
         });
     });
 }
 
-function initAllCepInput(){
-    $("input.cep").each(function(){
+function initAllCepInput() {
+    $("input.cep").each(function () {
         var input = $(this);
         input.keypress(function (e) {
-            if(e.keyCode == 13)
+            if (e.keyCode == 13)
                 return true;
             var chr = String.fromCharCode(e.which);
             if ("0123456789".indexOf(chr) < 0)
                 return false;
             var input_length = input.val().length;
-            if(input_length == 5){
-                input.val(input.val()+"-")
+            if (input_length == 5) {
+                input.val(input.val() + "-")
             }
-            else if(input_length==9) {
+            else if (input_length == 9) {
                 return false;
             }
         });
