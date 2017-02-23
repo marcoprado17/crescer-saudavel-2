@@ -4,6 +4,8 @@
 # Created at 09/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from functools import wraps
+
+from flask import abort
 from flask import current_app
 from flask import flash
 from flask import redirect
@@ -76,4 +78,13 @@ def login_or_anonymous(func):
         if user.is_anonymous:
             session[R.string.anonymous_user_id] = user.id
         return returned_value
+    return decorated_function
+
+def protect_against_csrf(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        token = session.pop('_csrf_token', None)
+        if not token or token != request.args.get(R.string.csrf_token):
+            abort(403)
+        return func(*args, **kwargs)
     return decorated_function

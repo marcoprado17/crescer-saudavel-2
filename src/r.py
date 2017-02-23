@@ -482,6 +482,7 @@ class Resources(object):
         facebook_login_error_msg = "Ocorreu uma falha ao tentar entrar pelo Facebook. Por favor, tente novamente."
         successful_facebook_login = "Você entrou com sucesso pelo Facebook."
         successful_login = "Você entrou na sua conta com sucesso."
+        csrf_token = "csrf_token"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -1136,6 +1137,8 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         product_search_limit = 12
         blog_post_search_limit = 4
+
+        csrf_length = 32
 
 
 R = Resources()

@@ -19,7 +19,7 @@ from itsdangerous import URLSafeTimedSerializer
 from email_blueprint import email_manager
 from flask_bombril.utils import get_url_arg
 from models.user import User
-from proj_decorators import login_or_anonymous
+from proj_decorators import login_or_anonymous, protect_against_csrf
 from proj_extensions import db
 from r import R
 from routers.client_user_management import client_user_management_blueprint
@@ -270,6 +270,7 @@ def logout():
 
 
 @client_user_management_blueprint.route("/entrar-com-facebook", methods=["POST"])
+@protect_against_csrf
 @login_or_anonymous
 def facebook_login(base_user):
     access_token = request.data

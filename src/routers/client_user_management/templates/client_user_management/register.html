@@ -18,7 +18,7 @@
                                     button_text=R.string.register_with_facebook,
                                     loading_text=R.string.registering,
                                     error_msg=R.string.facebook_register_error_msg,
-                                    connect_url=url_for("client_user_management.facebook_login") %}
+                                    connect_url=url_for("client_user_management.facebook_login", **{R.string.csrf_token: csrf_token()}) %}
                                 {% include "components/facebook_button.html" %}
                             {% endwith %}
                             <div class="or-text-container">

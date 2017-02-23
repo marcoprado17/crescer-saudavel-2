@@ -3,7 +3,11 @@
 # ======================================================================================================================
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+import random
+import string
 import sys
+
+from flask import session
 
 from models.anonymous_user import AnonymousUser
 from models.blog_post import BlogPost
@@ -191,6 +195,11 @@ def create_app():
     from components.data_providers.client_footer import client_footer_data_provider
     from components.data_providers.client_header import client_header_data_provider
 
+    def generate_csrf_token():
+        if '_csrf_token' not in session:
+            session['_csrf_token'] = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(R.dimen.csrf_length))
+        return session['_csrf_token']
+
     @app.context_processor
     def _():
         return dict(
@@ -200,7 +209,8 @@ def create_app():
             get_components_client_header_data=lambda: client_header_data_provider.get_data(),
             get_components_client_footer_data=lambda: client_footer_data_provider.get_data(),
             get_components_client_mobile_menu_data=lambda: client_header_data_provider.get_menu_data(),
-            submit_form=SubmitForm()
+            submit_form=SubmitForm(),
+            csrf_token=generate_csrf_token
         )
 
     # ==================================================================================================================
