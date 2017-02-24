@@ -3,6 +3,7 @@
     {{ R.string.product }}
 {% endblock %}
 {% block content %}
+    {% include "components/facebook_skd.html" %}
     <div class="__client_products__ __product__">
         {% with data=data.page_heading_data %}
             {% include "components/client_page_heading.html" %}
@@ -101,9 +102,9 @@
                                 </div>
                             </div>
                         </div>
-                        {% if data.sections and data.sections|length > 0 %}
-                            <div class="product-collateral container">
-                                <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
+                        <div class="product-collateral container">
+                            <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
+                                {% if data.sections and data.sections|length > 0 %}
                                     {% for section in data.sections %}
                                         <li class="{{ 'active'|if(loop.first) }}">
                                             <a href={{ "#" + section.id }} data-toggle="tab">{{ section.title }}</a>
@@ -112,8 +113,16 @@
                                             {{ section.content|safe }}
                                         </div>
                                     {% endfor %}
-                                </ul>
-                                <div id="productTabContent" class="tab-content no-mobile">
+                                {% endif %}
+                                <li class="{{ 'active'|if(not data.sections or data.sections|length == 0) }}">
+                                    <a href={{ "#comments-section" }} data-toggle="tab">{{ R.string.comments }}</a>
+                                </li>
+                                <div class="mobile-tab-content markdown-parsed-container">
+                                    <div class="fb-comments" data-href="{{ request.url }}" data-numposts="{{ R.dimen.blog_post_n_comments }}" data-width="100%"></div>
+                                </div>
+                            </ul>
+                            <div id="productTabContent" class="tab-content no-mobile">
+                                {% if data.sections and data.sections|length > 0 %}
                                     {% for section in data.sections %}
                                         <div class="tab-pane fade in {{ 'active'|if(loop.first) }}"
                                              id="{{ section.id }}">
@@ -122,9 +131,14 @@
                                             </div>
                                         </div>
                                     {% endfor %}
+                                {% endif %}
+                                <div class="tab-pane fade in {{ 'active'|if(not data.sections or data.sections|length == 0) }}" id="comments-section">
+                                    <div class="std markdown-parsed-container">
+                                        <div class="fb-comments" data-href="{{ request.url }}" data-numposts="{{ R.dimen.blog_post_n_comments }}" data-width="100%"></div>
+                                    </div>
                                 </div>
                             </div>
-                        {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -145,7 +159,7 @@
             var form = $(this);
             form.submit(function (event) {
                 var qty = $("#qty").val();
-                if(qty==0){
+                if (qty == 0) {
                     event.preventDefault();
                     return false;
                 }

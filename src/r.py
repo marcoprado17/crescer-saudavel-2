@@ -483,6 +483,7 @@ class Resources(object):
         successful_facebook_login = "Você entrou com sucesso pelo Facebook."
         successful_login = "Você entrou na sua conta com sucesso."
         csrf_token = "csrf_token"
+        comments = "Comentários"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
