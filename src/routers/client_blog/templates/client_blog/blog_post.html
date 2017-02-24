@@ -3,6 +3,7 @@
     {{ R.string.post }}
 {% endblock %}
 {% block content %}
+    {% include "components/facebook_skd.html" %}
     <div class="__client_blog__ __blog_post__">
         {% with data=data.page_heading_data %}
             {% include "components/client_page_heading.html" %}
@@ -28,6 +29,8 @@
                                             {{ data.content|safe }}
                                         </div>
                                     </div>
+                                    <hr>
+                                    <div class="fb-comments" data-href="{{ request.url }}" data-numposts="{{ R.dimen.blog_post_n_comments }}" data-width="100%"></div>
                                     <div class="centered-content-container">
                                         <a href="{{ data.blog_href_to_return }}">
                                             <button class="button"><span>{{ R.string.back_to_blog }}</span>
