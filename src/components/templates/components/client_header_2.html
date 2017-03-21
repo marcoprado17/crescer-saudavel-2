@@ -1,0 +1,122 @@
+{% set data = get_components_client_header_data|assert_defined|assert_callable|call %}
+<div class="__components__ __client_header_2__">
+    <header>
+        <div id="header">
+            <div class="header-account">
+                <div class="header-main">
+                    <div class="header-container container">
+                        <div class="row first">
+                            <div class="col-md-4">
+                                <img class="logo logo-img" src="{{ url_for('static', filename='imgs/logo.png') }}"
+                                     alt="{{ R.string.store_logo }}">
+                                <img class="logo mini-logo-img"
+                                     src="{{ url_for('static', filename='imgs/mini_logo.png') }}"
+                                     alt="{{ R.string.store_logo }}">
+                            </div>
+                            <div class="col-md-4">
+                                <div id="custom-search-input">
+                                    <div class="input-group col-md-12">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-lg" type="button">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control input-lg"
+                                               placeholder="{{ R.string.how_can_we_help_you }}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 account-col">
+                                <div class="item">
+                                    <a href="#">
+                                        <span class="notify-badge">16</span>
+                                        <img src="{{ url_for('static', filename='imgs/stroller.png') }}"/>
+                                    </a>
+                                </div>
+                                <a href="#"><img src="{{ url_for('static', filename='imgs/baby-3.png') }}"/></a>
+                                <div class="text-container">
+                                    Olá, Fulano Ciclano!<br>
+                                    <a>Minha conta</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row separator">
+                        </div>
+                        <div class="row">
+                            <div class="fl-nav-menu">
+                                <nav>
+                                    <div class="mm-toggle-wrap">
+                                        <div class="mm-toggle">
+                                            <i class="icon-align-justify"></i><span class="mm-label"></span>
+                                        </div>
+                                    </div>
+                                    <div class="nav-inner">
+                                        {% if data.menu_data and data.menu_data|length > 0 %}
+                                            <ul id="nav" class="hidden-xs">
+                                                {% for menu_item in data.menu_data %}
+                                                    <li class="mega-menu">
+                                                        <a href="{{ menu_item.href }}"
+                                                           class="level-top"><span>{{ menu_item.name }}</span></a>
+                                                        {% if menu_item.children and menu_item.children|length > 0 %}
+                                                            <div class="level0-wrapper dropdown-6col" style="left: 0;">
+                                                                <div class="container">
+                                                                    <div class="level0-wrapper2">
+                                                                        <div class="nav-block nav-block-center">
+                                                                            <ul class="level0">
+                                                                                {% for children1 in menu_item.children %}
+                                                                                    <li class="level1 nav-6-1 parent item">
+                                                                                        <a href="{{ children1.href }}"><span>{{ children1.name }}</span></a>
+                                                                                        {% if children1.children and children1.children|length > 0 %}
+                                                                                            <ul class="level1">
+                                                                                                {% for children2 in children1.children %}
+                                                                                                    <li class="level2 nav-6-1-1">
+                                                                                                        <a href="{{ children2.href }}"><span>{{ children2.name }}</span></a>
+                                                                                                    </li>
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                        {% endif %}
+                                                                                    </li>
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                                <li class="mega-menu">
+                                                    <a href="#" class="level-top"><span>Roupinhas</span></a>
+                                                    <div class="level0-wrapper dropdown-6col" style="left: 0;">
+                                                        <div class="container">
+                                                            <div class="level0-wrapper2">
+                                                                <div class="nav-block nav-block-center">
+                                                                    <ul class="level0">
+                                                                        <li class="level1 nav-6-1 parent item">
+                                                                            <ul class="level1">
+                                                                                <li class="level2 nav-6-1-1">
+                                                                                    <a href="#"><span>Feminina</span></a>
+                                                                                </li>
+                                                                                <li class="level2 nav-6-1-1">
+                                                                                    <a href="#"><span>Masculina</span></a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

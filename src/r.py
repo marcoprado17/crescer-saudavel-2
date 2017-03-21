@@ -484,6 +484,7 @@ class Resources(object):
         successful_login = "Você entrou na sua conta com sucesso."
         csrf_token = "csrf_token"
         comments = "Comentários"
+        how_can_we_help_you = "Como podemos te ajudar?"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
