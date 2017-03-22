@@ -7,24 +7,29 @@
                     <div class="header-container container">
                         <div class="row first">
                             <div class="col-md-4">
-                                <img class="logo logo-img" src="{{ url_for('static', filename='imgs/logo.png') }}"
-                                     alt="{{ R.string.store_logo }}">
-                                <img class="logo mini-logo-img"
-                                     src="{{ url_for('static', filename='imgs/mini_logo.png') }}"
-                                     alt="{{ R.string.store_logo }}">
+                                <a href="{{ url_for('client_home.home') }}">
+                                    <img class="logo logo-img" src="{{ url_for('static', filename='imgs/logo.png') }}"
+                                         alt="{{ R.string.store_logo }}">
+                                    <img class="logo mini-logo-img"
+                                         src="{{ url_for('static', filename='imgs/mini_logo.png') }}"
+                                         alt="{{ R.string.store_logo }}">
+                                </a>
                             </div>
                             <div class="col-md-4">
-                                <div id="custom-search-input">
-                                    <div class="input-group col-md-12">
+                                <form action="{{ url_for('client_search.search') }}" class="navbar-form search" role="search"
+                                      method="get">
+                                    <div id="custom-search-input">
+                                        <div class="input-group col-md-12">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-lg" type="button">
+                                            <button class="btn btn-lg" type="submit">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                             </button>
                                         </span>
-                                        <input type="text" class="form-control input-lg"
-                                               placeholder="{{ R.string.how_can_we_help_you }}"/>
+                                            <input name="{{ R.string.search_query_arg_name }}" type="text" class="form-control input-lg"
+                                                   placeholder="{{ R.string.how_can_we_help_you }}"/>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             <div class="col-md-4 account-col">
                                 <div class="item">

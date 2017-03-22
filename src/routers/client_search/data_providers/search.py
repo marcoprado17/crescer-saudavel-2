@@ -22,8 +22,6 @@ class ClientSearchDataProvider(object):
         if q != "":
             blog_posts = BlogPost.query.whoosh_search(q, or_=True, limit=R.dimen.blog_post_search_limit).filter(BlogPost.active == True).all()
 
-        print "blog_posts length: " + str(len(blog_posts))
-
         return dict(
             page_heading_data=dict(
                 path=[
