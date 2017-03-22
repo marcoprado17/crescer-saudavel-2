@@ -485,6 +485,7 @@ class Resources(object):
         csrf_token = "csrf_token"
         comments = "Comentários"
         how_can_we_help_you = "Como podemos te ajudar?"
+        hello = "Olá"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"

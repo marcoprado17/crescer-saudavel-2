@@ -16,7 +16,8 @@
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <form action="{{ url_for('client_search.search') }}" class="navbar-form search" role="search"
+                                <form action="{{ url_for('client_search.search') }}" class="navbar-form search"
+                                      role="search"
                                       method="get">
                                     <div id="custom-search-input">
                                         <div class="input-group col-md-12">
@@ -25,7 +26,8 @@
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                             </button>
                                         </span>
-                                            <input name="{{ R.string.search_query_arg_name }}" type="text" class="form-control input-lg"
+                                            <input name="{{ R.string.search_query_arg_name }}" type="text"
+                                                   class="form-control input-lg"
                                                    placeholder="{{ R.string.how_can_we_help_you }}"/>
                                         </div>
                                     </div>
@@ -40,8 +42,21 @@
                                 </div>
                                 <a href="#"><img src="{{ url_for('static', filename='imgs/baby-3.png') }}"/></a>
                                 <div class="text-container">
-                                    Olá, Fulano Ciclano!<br>
-                                    <a>Minha conta</a>
+                                    {% if data.logged %}
+                                        <div class="my-account-container">
+                                            {{ R.string.hello }}{% if data.name %},
+                                                {{ data.name }}{% endif %}!<br>
+                                            <a href="{{ url_for('client_account.my_account') }}"><b>{{ R.string.my_account }}</b></a> {{ R.string.or_word }}
+                                            <a href="{{ url_for('client_user_management.logout') }}"><b>{{ R.string.logout }}</b></a>
+                                        </div>
+                                    {% else %}
+                                        <div class="enter-register-container">
+                                            <a
+                                                    href="{{ url_for('client_user_management.login') }}"><b>{{ R.string.enter }}</b></a>
+                                            {{ R.string.or_word }} <a
+                                                href="{{ url_for('client_user_management.register') }}"><b>{{ R.string.register }}</b></a>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

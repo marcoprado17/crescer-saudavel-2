@@ -54,6 +54,15 @@ class User(BaseUser):
     ])
 
     @hybrid_property
+    def name(self):
+        if self.first_name is not None and isinstance(self.first_name, basestring):
+            return self.first_name
+        elif self.email is not None and isinstance(self.email, basestring):
+            return self.email.split('@')[0]
+        else:
+            return None
+
+    @hybrid_property
     def password(self):
         return self._password
 

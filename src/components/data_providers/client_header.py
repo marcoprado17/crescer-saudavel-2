@@ -20,7 +20,7 @@ class ClientHeaderDataProvider(object):
             flash(message, bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.info))
         return dict(
             logged=(not base_user.is_anonymous) and base_user.is_authenticated,
-            first_name= getattr(base_user, "first_name", None),
+            name= getattr(base_user, "name", None),
             menu_data=self.get_menu_data(),
             cart_data=carta_data,
             n_items=base_user.get_n_items(),
