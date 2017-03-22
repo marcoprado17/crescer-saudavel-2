@@ -4,6 +4,7 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from sqlalchemy import asc
+from sqlalchemy import desc
 from sqlalchemy.orm import relationship
 from models.base import BaseModel
 from proj_extensions import db
@@ -17,6 +18,7 @@ class ProductCategory(BaseModel):
     __tablename__ = "product_category"
 
     name = db.Column(db.String(R.dimen.product_category_name_max_length), nullable=False)
+    priority = db.Column(db.Integer, default=R.dimen.default_product_category_priority, nullable=False)
     active = db.Column(db.Boolean, default=False, nullable=False)
     subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="category")
     products = relationship("Product", order_by=Product.title, back_populates="category")
@@ -24,12 +26,14 @@ class ProductCategory(BaseModel):
     sort_method_map = SortMethodMap([
         (R.id.SORT_METHOD_ID, R.string.id, asc("id")),
         (R.id.SORT_METHOD_NAME, R.string.category_name, asc(name)),
+        (R.id.SORT_METHOD_PRIORITY, R.string.priority, desc(priority)),
     ])
 
     @staticmethod
     def get_attrs_from_form(form):
         return dict(
             name=form.category_name.data,
+            priority=int(form.priority.data),
             active=form.active.data
         )
 

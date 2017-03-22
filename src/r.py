@@ -82,6 +82,7 @@ class Resources(object):
         footer_lower_text = "Crescer saudável - CNPJ 01.517.384/0001-87 -  © 2016 - 2017 "
         lower_text = "Texto inferior"
         edit_footer = "Editar rodapé"
+        edit_header = "Editar cabeçalho"
         thumbnail = "Thumbnail"
         thumbnail_tooltip = "Imagem principal do post em questão"
         tabs = "Abas"
@@ -382,7 +383,9 @@ class Resources(object):
         save_faq_error_msg = 'Não foi possível salvar os novos dados da página "FAQ". Verifique os valores e tente novamente.'
         save_faq_success_msg = 'Os dados da página "FAQ" foram atualizados com sucesso.'
         save_footer_error_msg = 'Não foi possível salvar os novos dados do rodapé. Verifique os valores e tente novamente.'
+        save_header_error_msg = 'Não foi possível salvar os novos dados do cabeçalho. Verifique os valores e tente novamente.'
         save_footer_success_msg = 'Os dados do rodapé foram atualizados com sucesso.'
+        save_header_success_msg = 'Os dados do cabeçalho foram atualizados com sucesso.'
         edit_about_us_page_content = 'Editar conteúdo da página "Sobre nós"'
         edit_faq_page_content = 'Editar conteúdo da página "FAQ"'
         footer = "Rodapé"
@@ -402,7 +405,6 @@ class Resources(object):
         email_example = "contato@crescersaudavel.com"
         blog_post_title_example = "Ex.: Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
         thumbnail_alt = "Imagem principal do post"
-
 
         blog_example_title = "Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
         blog_example_thumbnail = "post_exemplo_bebe_comendo.jpg"
@@ -486,6 +488,12 @@ class Resources(object):
         comments = "Comentários"
         how_can_we_help_you = "Como podemos te ajudar?"
         hello = "Olá"
+        others = "Outros"
+        n_visible_categories = "Número de categorias visíveis"
+        header = "Cabeçalho"
+        priority = "Prioridade"
+        product_category_priority_tooltip = "Prioridade na exibição dessa categoria de produto no menu de navegação, a categoria com maior prioridade será exibida primeiro e a categoria com menor prioridade será exibida por último."
+        product_category_priority_placeholder = "Ex.: 10"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -1076,6 +1084,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         SORT_METHOD_HIGHER_RESERVED =           317
         SORT_METHOD_LOWEST_AVAILABLE =          318
         SORT_METHOD_HIGHER_AVAILABLE =          319
+        SORT_METHOD_PRIORITY =                  320
 
         # Order status
         ORDER_STATUS_ANY =                      400
@@ -1143,6 +1152,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         csrf_length = 32
         blog_post_n_comments = 5
+
+        default_n_visible_categories = 4
+
+        default_product_category_priority = 10
 
 
 R = Resources()

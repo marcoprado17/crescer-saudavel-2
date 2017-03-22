@@ -13,7 +13,7 @@ sys.path.append("/vagrant/build")
 
 from app_contexts.app import app
 from proj_extensions import db
-from models.utils import create_states, create_home_content, create_contact, create_about_us, create_faq, create_footer
+from models.utils import create_states, create_home_content, create_contact, create_about_us, create_faq, create_footer, create_header
 
 
 def restart_db():
@@ -30,6 +30,7 @@ def restart_db():
         create_contact()
         create_about_us()
         create_faq()
+        create_header()
         create_footer()
         print "Db restarted."
 

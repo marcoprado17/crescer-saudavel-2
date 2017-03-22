@@ -11,6 +11,7 @@
                 {{ data.product_category_form.csrf_token }}
                 {{ form_fields.boolean_field(field=data.product_category_form.active) }}
                 {{ form_fields.string_field(field=data.product_category_form.category_name, max_length=R.dimen.product_category_name_max_length, explicit_label=True, placeholder=R.string.product_category_example) }}
+                {{ form_fields.integer_field(field=data.product_category_form.priority, explicit_label=True, placeholder=R.string.product_category_priority_placeholder) }}
                 {{ form_fields.submit(field=data.product_category_form.submit) }}
             </form>
         </div>

@@ -59,6 +59,7 @@ class AdminProductCategoriesDataProvider(object):
                 "#" + str(product_category.id),
                 product_category.active,
                 product_category.name,
+                product_category.priority,
                 [
                     dict(
                         type=R.id.ACTION_TYPE_LINK_BUTTON,
@@ -104,6 +105,11 @@ class AdminProductCategoriesDataProvider(object):
                 dict(
                     id=R.string.product_category_name_col_id,
                     title=R.string.category,
+                    type=R.id.COL_TYPE_TEXT
+                ),
+                dict(
+                    id="priority",
+                    title=R.string.priority,
                     type=R.id.COL_TYPE_TEXT
                 ),
                 dict(

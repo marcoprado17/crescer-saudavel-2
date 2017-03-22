@@ -27,6 +27,15 @@ class ProductCategoryForm(FlaskForm):
             Length(max_length=R.dimen.product_category_name_max_length)
         ]
     )
+    priority = IntegerField(
+        label=R.string.priority,
+        validators=[
+            Required(),
+        ],
+        render_kw=dict(
+            tooltip=R.string.product_category_priority_tooltip
+        )
+    )
     active = BooleanField(
         label=R.string.active_in_female,
         default=False
@@ -42,8 +51,9 @@ class EditProductCategoryForm(ProductCategoryForm):
 
     def __init__(self, product_category=None, **kwargs):
         super(EditProductCategoryForm, self).__init__(**kwargs)
-        if product_category != None:
+        if product_category is not None:
             self.category_name.data = product_category.name
+            self.priority.data = product_category.priority
             self.active.data = product_category.active
 
 

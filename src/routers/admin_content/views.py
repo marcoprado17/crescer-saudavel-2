@@ -11,6 +11,7 @@ from models.about_us import AboutUs
 from models.contact import Contact
 from models.faq import Faq
 from models.footer import Footer
+from models.header import Header
 from models.home_content import HomeContent
 from proj_decorators import admin_required
 from routers.admin_content import admin_content_blueprint
@@ -18,9 +19,10 @@ from routers.admin_content.data_providers.about_us import admin_about_us_data_pr
 from routers.admin_content.data_providers.contact import admin_contact_data_provider
 from routers.admin_content.data_providers.faq import admin_faq_data_provider
 from routers.admin_content.data_providers.footer import admin_footer_data_provider
+from routers.admin_content.data_providers.header import admin_header_data_provider
 from routers.admin_content.data_providers.home import admin_content_home_data_provider
 from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm, ContactForm, AboutUsForm, \
-    FaqForm, FooterForm
+    FaqForm, FooterForm, HeaderForm
 
 
 @admin_content_blueprint.route("/home")
@@ -140,6 +142,21 @@ def faq():
             return "", 200
         else:
             return json.dumps(dict(errors=faq_form.errors)), 400
+
+
+@admin_content_blueprint.route("/cabecalho", methods=["GET", "POST"])
+@login_required
+@admin_required
+def header():
+    if request.method=="GET":
+        return render_template("admin_content/header.html", data=admin_header_data_provider.get_data())
+    else:
+        header_form = HeaderForm()
+        if header_form.validate_on_submit():
+            Header.get().update_from_form(form=header_form)
+            return "", 200
+        else:
+            return json.dumps(dict(errors=header_form.errors)), 400
 
 
 @admin_content_blueprint.route("/rodape", methods=["GET", "POST"])

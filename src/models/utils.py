@@ -11,6 +11,7 @@ from decimal import Decimal
 import datetime
 from flask import current_app
 
+from models.header import Header
 from proj_extensions import db
 from models.about_us import AboutUs
 from models.blog_post import BlogPost
@@ -129,6 +130,14 @@ def create_faq():
     db.session.commit()
     print "Faq created."
     return faq
+
+
+def create_header():
+    header = Header()
+    db.session.add(header)
+    db.session.commit()
+    print "Header created."
+    return header
 
 
 def create_footer():

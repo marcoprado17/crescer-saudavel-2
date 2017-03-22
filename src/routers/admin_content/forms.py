@@ -4,8 +4,10 @@
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, StringField, SelectField, SubmitField, TextAreaField
+from wtforms import BooleanField, StringField, SelectField, SubmitField, TextAreaField, IntegerField
 from wtforms.fields.html5 import TelField
+
+from flask.ext.bombril.form_validators import Required
 from flask_bombril.form_validators import EmailFormat
 from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import MarkdownValidator
@@ -421,6 +423,22 @@ class FaqForm(FlaskForm):
             self.content.data = faq.content_markdown
 
 
+class HeaderForm(FlaskForm):
+    n_visible_categories = IntegerField(
+        label=R.string.n_visible_categories,
+        validators=[
+            Required()
+        ]
+    )
+    submit = SubmitField(label=R.string.save)
+
+    def __init__(self, header=None, **kwargs):
+        super(HeaderForm, self).__init__(**kwargs)
+
+        if header is not None:
+            self.n_visible_categories.data = header.n_visible_categories
+
+
 class FooterForm(FlaskForm):
     lower_text = StringField(
         label=R.string.lower_text,
@@ -433,5 +451,5 @@ class FooterForm(FlaskForm):
     def __init__(self, footer=None, **kwargs):
         super(FooterForm, self).__init__(**kwargs)
 
-        if footer != None:
+        if footer is not None:
             self.lower_text.data = footer.lower_text
