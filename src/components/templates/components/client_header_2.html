@@ -6,16 +6,13 @@
                 <div class="header-main">
                     <div class="header-container container">
                         <div class="row first">
-                            <div class="col-md-4">
+                            <div class="col-md-3 col-sm-12">
                                 <a href="{{ url_for('client_home.home') }}">
                                     <img class="logo logo-img" src="{{ url_for('static', filename='imgs/logo.png') }}"
                                          alt="{{ R.string.store_logo }}">
-                                    <img class="logo mini-logo-img"
-                                         src="{{ url_for('static', filename='imgs/mini_logo.png') }}"
-                                         alt="{{ R.string.store_logo }}">
                                 </a>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5 col-sm-12">
                                 <form action="{{ url_for('client_search.search') }}" class="navbar-form search"
                                       role="search"
                                       method="get">
@@ -27,13 +24,13 @@
                                             </button>
                                         </span>
                                             <input name="{{ R.string.search_query_arg_name }}" type="text"
-                                                   class="form-control input-lg"
+                                                   class="form-control input-lg search"
                                                    placeholder="{{ R.string.how_can_we_help_you }}"/>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-md-4 account-col">
+                            <div class="col-md-4 col-sm-12 account-col">
                                 <div class="item">
                                     <a href="{{ url_for('client_cart.cart') }}">
                                         <span class="notify-badge cart-n-items-badge">{{ data.n_items }}</span>

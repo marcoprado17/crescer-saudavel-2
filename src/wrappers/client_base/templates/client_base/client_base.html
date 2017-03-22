@@ -37,6 +37,18 @@
 
         initFooter();
 
+        $(window).resize(function(){
+            console.log("resize");
+            console.log("screen.width: " + screen.width);
+            if( screen.width < 350 ) {
+                $("input.search").attr("placeholder", "{{ R.string.search }}");
+            }
+            else {
+                $("input.search").attr("placeholder", "{{ R.string.how_can_we_help_you }}");
+            }
+
+        });
+
         {{ messages.flash_toast() }}
     </script>
 {% endblock %}
