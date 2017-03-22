@@ -187,7 +187,6 @@ function setAjaxFormHandlers(data) {
         if (submitReturn == false) {
             return false;
         }
-        console.log(submitReturn);
         form.clickTime = (new Date()).getTime();
         $.ajax({
             url: form.attr("action"),

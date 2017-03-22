@@ -88,6 +88,9 @@
                         var productPriceBN = new BigNumber(productPrice);
                         var subtotalBN = new BigNumber(subtotal);
 
+                        var cartNItemsBadge = $(".cart-n-items-badge");
+                        var cartNItemsOldValue = parseInt(cartNItemsBadge.html());
+
                         if(form.hasClass("increase")){
                             try{
                                 if(oldValue == stockLimit) {
@@ -106,7 +109,9 @@
 
                                 newTotalBN = totalBN.plus(productPriceBN);
                                 totalContainer.attr("data-total", newTotalBN.toFixed(2));
-                                totalContainer.html(bigNumberToFormattedPrice(newTotalBN))
+                                totalContainer.html(bigNumberToFormattedPrice(newTotalBN));
+
+                                cartNItemsBadge.html(cartNItemsOldValue+1);
                             }
                             catch(err){
                                 location.reload();
@@ -130,6 +135,8 @@
                                 newTotalBN = totalBN.minus(productPriceBN);
                                 totalContainer.attr("data-total", newTotalBN.toFixed(2));
                                 totalContainer.html(bigNumberToFormattedPrice(newTotalBN))
+
+                                cartNItemsBadge.html(cartNItemsOldValue-1);
                             }
                             catch(err){
                                 location.reload();
@@ -137,13 +144,10 @@
                         }
                     },
                     success: function () {
-                        console.log("success");
                     },
                     error: function () {
-                        console.log("error");
                     },
                     complete: function () {
-                        console.log("complete");
                     }
                 });
             });

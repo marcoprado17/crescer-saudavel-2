@@ -35,8 +35,8 @@
                             </div>
                             <div class="col-md-4 account-col">
                                 <div class="item">
-                                    <a href="#">
-                                        <span class="notify-badge">16</span>
+                                    <a href="{{ url_for('client_cart.cart') }}">
+                                        <span class="notify-badge cart-n-items-badge">{{ data.n_items }}</span>
                                         <img src="{{ url_for('static', filename='imgs/stroller.png') }}"/>
                                     </a>
                                 </div>
