@@ -5,6 +5,8 @@
 # ======================================================================================================================
 from flask import flash
 from flask import url_for
+
+from models.header import Header
 from models.product_category import ProductCategory
 from proj_decorators import login_or_anonymous
 from r import R
@@ -28,10 +30,9 @@ class ClientHeaderDataProvider(object):
         )
 
     def get_menu_data(self):
-        return [
+        return self.get_products_menu_tree()[0:Header.get().n_visible_categories] + [
             dict(
-                name=R.string.products,
-                href=url_for("client_products.products"),
+                name=R.string.others,
                 children=self.get_products_menu_tree()
             ),
             dict(
@@ -42,7 +43,7 @@ class ClientHeaderDataProvider(object):
 
     def get_products_menu_tree(self):
         menu_tree = []
-        for category in ProductCategory.get_all():
+        for category in self.get_product_categories_sorted_by_priority():
             if category.active:
                 children = []
                 for subcategory in category.subcategories:
@@ -61,6 +62,9 @@ class ClientHeaderDataProvider(object):
                     )
                 )
         return menu_tree
+
+    def get_product_categories_sorted_by_priority(self):
+        return sorted(ProductCategory.get_all(), key=lambda product_category: product_category.priority, reverse=True)
 
 
 client_header_data_provider = ClientHeaderDataProvider()
