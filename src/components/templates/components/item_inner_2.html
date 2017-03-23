@@ -1,0 +1,44 @@
+{% import "flask_bombril_macros/utils.html" as utils with context %}
+<div class="__components__ __item_inner_2__">
+    <div class="item-inner grow {{ 'unavailable'|if(not product.is_available_to_client) }}">
+        <div class="item-img">
+            <div class="item-img-info">
+                <a href="{{ product.get_href() }}" class="product-image">
+                    <div class="img-container">
+                        <img src="{{ product.get_main_image_src() }}">
+                        {% if product.has_discount() %}
+                            <div class="gradient"></div>
+                            <span><b>-50%</b></span>
+                        {% endif %}
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="item-info">
+            <div class="info-inner">
+                <div class="item-title">
+                    <a href="{{ product.get_href() }}">{{ utils.limited_text_tooltip(text=product.title, max_length=R.dimen.item_inner_max_length) }}</a>
+                </div>
+                <div class="item-price">
+                    {% if product.has_discount() %}
+                        <span class="original-price"><strike>R$ 100,00</strike></span><br>
+                        <span class="big-price discount-price"><b>R$ 50,00</b></span>
+                    {% else %}
+                        <span class="big-price"><b>R$ 50,00</b></span>
+                    {% endif %}
+                </div>
+                <div class="add_cart_container">
+                    <div class="add_cart">
+                        <form method="post"
+                              action="{{ url_for('client_cart.add_to_cart', **{R.string.product_id_arg_name: product.id, R.string.amount_arg_name: 1}) }}"
+                              data-product-title="{{ product.title }}"
+                              class="add-to-cart">
+                            {{ submit_form.csrf_token }}
+                            <button class="button" type="submit" title="{{ R.string.add_to_cart }}">{{ R.string.buy }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

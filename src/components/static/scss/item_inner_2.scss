@@ -1,0 +1,78 @@
+$bottom-color: rgba(255,255,255,50);
+$top-color: rgba(255,255,255,255);
+
+.__components__.__item_inner_2__ {
+  .item-inner {
+    border-radius: $product-container-border-radius !important;
+  }
+
+  .text-container {
+    white-space: pre-wrap;
+  }
+
+  .grow {
+    transition: all .2s ease-in-out;
+  }
+
+  .grow:hover {
+    overflow: visible;
+    transform: scale(1.04);
+    box-shadow: 0 8px 20px black;
+  }
+
+  .item-img-info a {
+    border-top-left-radius: $product-container-border-radius;
+    border-top-right-radius: $product-container-border-radius;
+  }
+
+  .item-price {
+    text-align: center;
+    .big-price {
+      font-size: 24px;
+    }
+  }
+
+  button {
+    border-radius: 8px;
+    margin-top: 6px;
+  }
+
+  .unavailable {
+    opacity: 0.6;
+
+    button.btn-cart {
+      visibility: hidden;
+    }
+  }
+
+  form.add-to-cart p {
+    margin-top: 10px;
+  }
+
+  .img-container {
+    position: relative;
+    width: 100%;
+
+    span {
+      position: absolute;
+      bottom: 15%;
+      left: 0;
+      font-size: 50px;
+      width: 100%;
+    }
+
+    .gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 40%;
+      width: 100%;
+      background: $top-color; /* For browsers that do not support gradients */
+      background: -webkit-radial-gradient($top-color, $bottom-color); /* For Safari 5.1 to 6.0 */
+      background: -o-radial-gradient($top-color, $bottom-color); /* For Opera 11.1 to 12.0 */
+      background: -moz-radial-gradient($top-color, $bottom-color); /* For Firefox 3.6 to 15 */
+      background: radial-gradient($top-color, $bottom-color); /* Standard syntax */
+      opacity: 0.7;
+    }
+  }
+}

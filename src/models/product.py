@@ -3,6 +3,7 @@
 # ======================================================================================================================
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+import random
 from decimal import Decimal
 from flask import url_for
 from sqlalchemy import ForeignKey
@@ -102,6 +103,9 @@ class Product(BaseModel):
     tab_10_title = db.Column(db.String(R.dimen.tab_title_max_length))
     _tab_10_content_markdown = db.Column(db.UnicodeText)
     tab_10_content_html = db.Column(db.UnicodeText)
+
+    def has_discount(self):
+        return random.choice([True, False])
 
     @hybrid_property
     def tab_1_content_markdown(self):

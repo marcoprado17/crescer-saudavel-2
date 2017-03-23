@@ -203,7 +203,7 @@ def create_random_clients():
 
 
 def create_random_orders():
-    for i in range(0, 300):
+    for i in range(0, 50):
         try:
             create_random_order()
             print "Order " + str(i) + " created."

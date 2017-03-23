@@ -494,6 +494,7 @@ class Resources(object):
         priority = "Prioridade"
         product_category_priority_tooltip = "Prioridade na exibição dessa categoria de produto no menu de navegação, a categoria com maior prioridade será exibida primeiro e a categoria com menor prioridade será exibida por último."
         product_category_priority_placeholder = "Ex.: 10"
+        buy = "Comprar"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
