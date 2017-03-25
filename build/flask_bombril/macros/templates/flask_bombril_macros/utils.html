@@ -1,0 +1,19 @@
+{% macro page_header(title) %}
+    <div class="page-header">
+        <h1>{{ title }}</h1>
+    </div>
+{%- endmacro %}
+
+{% macro min_uuid(uuid) %}
+    <span data-toggle="tooltip" title="#{{ uuid }}" >#{{ uuid[0:5] }}...</span>
+{%- endmacro %}
+
+{% macro limited_text_tooltip(text, max_length) %}
+    {% if text|string|length <= max_length  %}
+        <div class="text-container">{{ text }}</div>
+    {% else %}
+        <span data-toggle="tooltip" title="{{ text }}">
+            {{ (text|string)[0:max_length-3] }}...
+        </span>
+    {% endif %}
+{%- endmacro %}
