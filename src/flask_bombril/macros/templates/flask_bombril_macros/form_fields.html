@@ -8,7 +8,7 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro string_field(field, explicit_label=False, placeholder="", readonly=False, max_length=None, auxiliar_texts=None, classes="") %}
+{% macro string_field(field, explicit_label=False, placeholder="", readonly=False, max_length=None, auxiliar_texts=None, classes="", xmlattrs={}) %}
     {% if readonly %}
         {% set placeholder="" %}
     {% endif %}
@@ -24,9 +24,9 @@
                 {% endif %}
             </div>
         {% endif %}
-        <input id="{{ field.id }}" name="{{ field.name }}" type="text"
-               class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
-               value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }} maxlength={{ max_length|if(max_length) }}>
+        <input {{ xmlattrs|xmlattr }} id="{{ field.id }}" name="{{ field.name }}" type="text"
+               class="form-control {{ classes }}" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
+               value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }} maxlength={{ max_length|if(max_length)}}>
         {{ render_errors(field.errors) }}
     </div>
     {% if auxiliar_texts and auxiliar_texts|length > 0 %}
@@ -61,7 +61,7 @@
     </div>
 {%- endmacro %}
 
-{% macro integer_field(field, explicit_label=False, placeholder="", readonly=False, max_length=None) %}
+{% macro integer_field(field, explicit_label=False, placeholder="", readonly=False, max_length=None, classes="") %}
     {% if readonly %}
         {% set placeholder="" %}
     {% endif %}
@@ -78,7 +78,7 @@
             </div>
         {% endif %}
         <input id="{{ field.id }}" name="{{ field.name }}" type="number" max="{{ R.dimen.max_value_of_int_field }}" min="{{ R.dimen.min_value_of_int_field }}"
-               class="form-control" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
+               class="form-control {{ classes }}" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
                value="{{ field.data|if(field.data or field.data == 0) }}" {{ "readonly"|if(readonly) }}>
         {{ render_errors(field.errors) }}
     </div>
@@ -138,11 +138,11 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro boolean_field(field, readonly=False) %}
+{% macro boolean_field(field, readonly=False, classes="") %}
     <div class="checkbox">
         <div class="label-container">
             <label>
-                <input id="{{ field.id }}" name="{{ field.name }}" type="checkbox" {{ "checked"|if(field.data) }} {{ "disabled"|if(readonly) }}>
+                <input id="{{ field.id }}" name="{{ field.name }}" type="checkbox" {{ "checked"|if(field.data) }} {{ "disabled"|if(readonly) }} class="{{ classes }}">
                 {{ field.label.text }}
             </label>
             {% if field.render_kw and field.render_kw.tooltip %}

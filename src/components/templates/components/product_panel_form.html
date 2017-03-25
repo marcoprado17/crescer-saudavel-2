@@ -20,13 +20,24 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4">
-                        {{ form_fields.string_field(field=data.product_form.price, explicit_label=True, placeholder=R.string.product_price_example) }}
+                    <div class="col-sm-2">
+                        {{ form_fields.string_field(field=data.product_form.price, explicit_label=True, placeholder=R.string.product_price_example, classes="price change-price-with-discount") }}
+                    </div>
+                    <div class="col-sm-2">
+                        {{ form_fields.boolean_field(field=data.product_form.has_discount, classes="change-price-with-discount") }}
                     </div>
                     <div class="col-sm-4">
+                        {{ form_fields.integer_field(field=data.product_form.discount_percentage, explicit_label=True, classes="change-price-with-discount discount-percentage") }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form_fields.string_field(field=data.product_form.price_with_discount, explicit_label=True, readonly=True, classes="price-with-discount", xmlattrs={"data-url": url_for("admin_products.calculate_price_with_discount")}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
                         {{ form_fields.integer_field(field=data.product_form.stock, explicit_label=True, placeholder=R.string.product_stock_quantity_example) }}
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         {{ form_fields.integer_field(field=data.product_form.min_available, explicit_label=True, placeholder=R.string.product_stop_sell_stock_quantity_example) }}
                     </div>
                 </div>

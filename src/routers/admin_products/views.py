@@ -26,6 +26,7 @@ from routers.admin_products.data_providers.subcategories import admin_product_su
 from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm, \
     EditProductSubcategoryForm, AddProductForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm, EditProductForm
 from routers.client_products.data_providers.product import client_product_data_provider
+from decimal import Decimal
 
 
 @admin_products_blueprint.route("/")
@@ -44,6 +45,8 @@ def add_product():
     else:
         add_product_form = AddProductForm()
         if add_product_form.validate_on_submit():
+            print "###"
+            print "add_product_form.discount_percentage.data: " + str(add_product_form.discount_percentage.data)
             product = Product.create_from_form(form=add_product_form)
             flash(R.string.product_sent_successfully(product),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
@@ -282,3 +285,14 @@ def disable_subcategory(product_subcategory, form):
 def to_activate_subcategory(product_subcategory, form):
     product_subcategory.to_activate()
     return "", 200
+
+
+@admin_products_blueprint.route("/calcular-preco-com-desconto", methods=["POST"])
+def calculate_price_with_discount():
+    try:
+        price = Decimal(request.form["price"].replace(',','.'))
+        discount_percentage = int(request.form["discount_percentage"])
+        price_with_discount = Product.calculate_price_with_discount(price=price, discount_percentage=discount_percentage)
+        return json.dumps(dict(price_with_discount=R.string.decimal_price_as_string(price_as_decimal=price_with_discount, include_rs=True))), 200
+    except:
+        return "", 400

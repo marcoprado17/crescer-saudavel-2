@@ -33,7 +33,8 @@ class ClientHeaderDataProvider(object):
         return self.get_products_menu_tree()[0:Header.get().n_visible_categories] + [
             dict(
                 name=R.string.others,
-                children=self.get_products_menu_tree()
+                children=self.get_products_menu_tree(),
+                href=url_for("client_products.products")
             ),
             dict(
                 name=R.string.blog,

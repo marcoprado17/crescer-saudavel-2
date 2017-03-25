@@ -7,6 +7,8 @@ import json
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, SelectField, IntegerField, TextAreaField
+
+from flask.ext.bombril.form_validators.integer_in_range.integer_in_range import IntegerInRange
 from flask_bombril.form_fields import SelectFieldWithClasses
 from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import MarkdownValidator
@@ -157,7 +159,7 @@ class ProductForm(FlaskForm):
             Length(max_length=R.dimen.product_title_max_length)
         ])
     active = BooleanField(
-        label=R.string.active,
+        label=R.string.product_active,
         default=False
     )
     category_id = SelectField(
@@ -181,6 +183,19 @@ class ProductForm(FlaskForm):
         render_kw=dict(
             tooltip=R.string.price_in_real
         )
+    )
+    has_discount = BooleanField(
+        label=R.string.discount_active,
+        default=False
+    )
+    discount_percentage = IntegerField(
+        label=R.string.discount,
+        validators=[
+            Required(),
+            IntegerInRange(min_value=0, max_value=100),
+        ])
+    price_with_discount = StringField(
+        label=R.string.price_with_discount
     )
     stock = IntegerField(
         label=R.string.stock_quantity,
@@ -277,6 +292,9 @@ class ProductForm(FlaskForm):
         self.image_9.choices = image_choices_with_none
         self.image_10.choices = image_choices_with_none
 
+        # self.discount_percentage.data = 0
+        self.price_with_discount.data = "-"
+
 
 class AddProductForm(ProductForm):
     submit = SubmitField(label=R.string.add)
@@ -338,6 +356,10 @@ class EditProductForm(ProductForm):
             self.tab_10_active.data = product.tab_10_active
             self.tab_10_title.data = product.tab_10_title
             self.tab_10_content.data = product.tab_10_content_markdown
+
+            self.has_discount.data = product.has_discount
+            self.discount_percentage.data = product.discount_percentage
+            self.price_with_discount.data = product.price_with_discount_as_string(include_rs=True)
 
 
 class ProductFilterForm(FlaskForm):

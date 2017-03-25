@@ -43,6 +43,8 @@ class Product(BaseModel):
     subcategory_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
     subcategory = relationship("ProductSubcategory", back_populates="products")
     price = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
+    has_discount = db.Column(db.Boolean, default=False, nullable=False)
+    discount_percentage = db.Column(db.Integer, default=0, nullable=False)
     _stock = db.Column(db.Integer, nullable=False)
     _available = db.Column(db.Integer, nullable=False)
     _reserved = db.Column(db.Integer, default=0, nullable=False)
@@ -104,8 +106,22 @@ class Product(BaseModel):
     _tab_10_content_markdown = db.Column(db.UnicodeText)
     tab_10_content_html = db.Column(db.UnicodeText)
 
-    def has_discount(self):
-        return random.choice([True, False])
+    @hybrid_property
+    def price_with_discount(self):
+        if not self.has_discount:
+            return None
+        return Product.calculate_price_with_discount(price=self.price, discount_percentage=self.discount_percentage)
+
+    def price_with_discount_as_string(self, include_rs=False):
+        s = ""
+        if include_rs:
+            s += "R$ "
+        price_with_discount = self.price_with_discount
+        if price_with_discount is not None:
+            s += str(price_with_discount)
+        else:
+            s = "-"
+        return s
 
     @hybrid_property
     def tab_1_content_markdown(self):
@@ -275,13 +291,24 @@ class Product(BaseModel):
     ])
 
     @staticmethod
+    def calculate_price_with_discount(price, discount_percentage):
+        assert isinstance(price, Decimal)
+        assert isinstance(discount_percentage, int) and discount_percentage >= 0 and discount_percentage <= 100
+        return (price * Decimal(str((100.0 - discount_percentage) / 100.0))).quantize(Decimal("0.01"))
+
+    @staticmethod
     def get_attrs_from_form(form):
+        print "get_attrs called"
+        print "form.discount_percentage.data: " + str(form.discount_percentage.data)
+
         return dict(
             title=form.title.data,
             active=form.active.data,
             category_id=int(form.category_id.data),
             subcategory_id=int(form.subcategory_id.data) if int(form.subcategory_id.data) != 0 else None,
             price=Decimal(form.price.data.replace(',', '.')),
+            has_discount=form.has_discount.data,
+            discount_percentage=int(form.discount_percentage.data),
             stock=int(form.stock.data),
             min_available=int(form.min_available.data),
             summary_markdown=form.summary.data,

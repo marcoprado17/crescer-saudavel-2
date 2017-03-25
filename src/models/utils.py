@@ -358,12 +358,19 @@ def get_random_product():
 
     stock = random.randint(0, 500)
 
+    has_discount = random.choice([True, False])
+    discount_percentage = 0
+    if has_discount:
+        discount_percentage = random.choice(range(1,71))
+
     return Product(
         active=(random.uniform(0, 1) < 0.5),
         title=random.choice(title_key_words) + " " + get_random_phrase((3, 9 + 1), (1, 5 + 1))[0:R.dimen.product_title_max_length],
         category_id=category_id,
         subcategory_id=subcategory_id,
         price=Decimal(get_random_price()),
+        has_discount=has_discount,
+        discount_percentage=discount_percentage,
         stock=stock,
         min_available=random.randint(2, 20),
         summary_markdown=random.choice(text_key_words) + " " + get_random_phrase((4, 10 + 1), (20, 40 + 1)),

@@ -33,12 +33,12 @@ function initFacebookLoginButton() {
                         data: response.authResponse["accessToken"],
                         processData: false,
                         contentType: 'application/octet-stream; charset=utf-8',
-                        success: function(result) {
+                        success: function (result) {
                             window.location.href = homeUrl;
                         },
                         error: function (result) {
                             dataAsObject = getDataAsObject(result.responseText);
-                            if( dataAsObject != null && "error" in dataAsObject ){
+                            if (dataAsObject != null && "error" in dataAsObject) {
                                 throwErrorOpToast(dataAsObject.error)
                             }
                             else {
@@ -426,4 +426,50 @@ function bigNumberToFormattedPrice(value) {
     s = "R$ ";
     s += value.toFixed(2).replace(".", ",");
     return s;
+}
+
+function initPriceWithDiscountCalc() {
+    $("input[type=checkbox].change-price-with-discount").bind("change", function () {
+        if (this.checked) {
+            recalcPriceWithDiscount();
+        }
+        else {
+            var priceWithDiscountInput = $("input.price-with-discount");
+            priceWithDiscountInput.val("-")
+        }
+    });
+    $("input[type=number].change-price-with-discount").bind("keyup mouseup", function () {
+        if($("input[type=checkbox].change-price-with-discount").prop("checked")){
+            recalcPriceWithDiscount();
+        }
+    });
+    $("input[type=text].change-price-with-discount").bind("keyup", function () {
+        if($("input[type=checkbox].change-price-with-discount").prop("checked")){
+            recalcPriceWithDiscount();
+        }
+    });
+}
+
+function recalcPriceWithDiscount() {
+    console.log("Recalculando preço com desconto");
+    var priceWithDiscountInput = $("input.price-with-discount");
+    var price = $("input.price").val();
+    var discountPercentage = $("input.discount-percentage").val();
+    var url = priceWithDiscountInput.attr("data-url");
+    priceWithDiscountInput.val("Calculando...");
+    $.ajax({
+        url: url,
+        method: "post",
+        data: {
+            price: price,
+            discount_percentage: discountPercentage
+        },
+        success: function (data) {
+            dataAsObject = getDataAsObject(data);
+            priceWithDiscountInput.val(dataAsObject.price_with_discount);
+        },
+        error: function () {
+            priceWithDiscountInput.val("Erro!");
+        }
+    });
 }

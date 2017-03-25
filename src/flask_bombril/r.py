@@ -67,6 +67,10 @@ class Resources(object):
         def func_test_message(x):
             return "Test %s" % x
 
+        @staticmethod
+        def integer_in_range_error_message(min_value, max_value):
+            return "O valor fornecido deve ser um inteiro entre %s e %s." % (min_value, max_value)
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -77,5 +81,7 @@ class Resources(object):
         test_int = 42
         test_int_2 = 17
         min_page = 1
+        integer_in_range_default_min_value = 0
+        integer_in_range_default_max_value = 100
 
 R = Resources()

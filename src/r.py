@@ -495,6 +495,10 @@ class Resources(object):
         product_category_priority_tooltip = "Prioridade na exibição dessa categoria de produto no menu de navegação, a categoria com maior prioridade será exibida primeiro e a categoria com menor prioridade será exibida por último."
         product_category_priority_placeholder = "Ex.: 10"
         buy = "Comprar"
+        product_active = "Produto ativo"
+        discount_active = "Desconto ativo"
+        discount = "Percentual de desconto"
+        price_with_discount = "Preço com desconto"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -1036,6 +1040,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def user_registered_with_facebook(email):
             return "O email <b>%s</b> foi cadastrado utilizando o Facebook. Entre utilizando o Facebook." % email
+
+        @staticmethod
+        def discount_format(discount_percentage):
+            return "-%s%%" % discount_percentage
 
     # noinspection PyPep8Naming
     @unique

@@ -6,9 +6,9 @@
                 <a href="{{ product.get_href() }}" class="product-image">
                     <div class="img-container">
                         <img src="{{ product.get_main_image_src() }}">
-                        {% if product.has_discount() %}
+                        {% if product.has_discount %}
                             <div class="gradient"></div>
-                            <span><b>-50%</b></span>
+                            <span><b>{{ R.string.discount_format(discount_percentage=product.discount_percentage) }}</b></span>
                         {% endif %}
                     </div>
                 </a>
@@ -20,11 +20,11 @@
                     <a href="{{ product.get_href() }}">{{ utils.limited_text_tooltip(text=product.title, max_length=R.dimen.item_inner_max_length) }}</a>
                 </div>
                 <div class="item-price">
-                    {% if product.has_discount() %}
-                        <span class="original-price"><strike>R$ 100,00</strike></span><br>
-                        <span class="big-price discount-price"><b>R$ 50,00</b></span>
+                    {% if product.has_discount %}
+                        <span class="original-price"><strike>{{ product.get_formatted_price(include_rs=True) }}</strike></span><br>
+                        <span class="big-price discount-price"><b>{{ product.price_with_discount_as_string(include_rs=True) }}</b></span>
                     {% else %}
-                        <span class="big-price"><b>R$ 50,00</b></span>
+                        <span class="big-price"><b>{{ product.get_formatted_price(include_rs=True) }}</b></span>
                     {% endif %}
                 </div>
                 {% if product.is_available_to_client %}
