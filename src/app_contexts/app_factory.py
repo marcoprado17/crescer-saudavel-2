@@ -119,6 +119,12 @@ def create_app():
     app.register_blueprint(client_checkout_blueprint, url_prefix="/finalizacao-de-compra")
     from routers.client_faq import client_faq_blueprint
     app.register_blueprint(client_faq_blueprint, url_prefix="/faq")
+    from routers.client_payment import client_payment_blueprint
+    app.register_blueprint(client_payment_blueprint, url_prefix="/pagamento")
+    from routers.client_dispatch import client_dispatch_blueprint
+    app.register_blueprint(client_dispatch_blueprint, url_prefix="/envio")
+    from routers.client_exchanges_and_returns import client_exchanges_and_returns_blueprint
+    app.register_blueprint(client_exchanges_and_returns_blueprint, url_prefix="/trocas-e-devolucoes")
     from routers.client_home import client_home_blueprint
     app.register_blueprint(client_home_blueprint, url_prefix="/home")
     from routers.client_products import client_products_blueprint

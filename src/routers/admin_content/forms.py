@@ -392,8 +392,14 @@ class ContactForm(FlaskForm):
 
 
 class AboutUsForm(FlaskForm):
+    summary = TextAreaField(
+        label=R.string.summary,
+        validators=[
+            MarkdownValidator()
+        ]
+    )
     content = TextAreaField(
-        label=R.string.content,
+        label=R.string.complete_content,
         validators=[
             MarkdownValidator()
         ]
@@ -404,6 +410,7 @@ class AboutUsForm(FlaskForm):
         super(AboutUsForm, self).__init__(**kwargs)
 
         if about_us != None:
+            self.summary.data = about_us.summary_markdown
             self.content.data = about_us.content_markdown
 
 
@@ -421,6 +428,54 @@ class FaqForm(FlaskForm):
 
         if faq != None:
             self.content.data = faq.content_markdown
+
+
+class PaymentForm(FlaskForm):
+    content = TextAreaField(
+        label=R.string.content,
+        validators=[
+            MarkdownValidator()
+        ]
+    )
+    submit = SubmitField(label=R.string.save)
+
+    def __init__(self, payment=None, **kwargs):
+        super(PaymentForm, self).__init__(**kwargs)
+
+        if payment != None:
+            self.content.data = payment.content_markdown
+
+
+class DispatchForm(FlaskForm):
+    content = TextAreaField(
+        label=R.string.content,
+        validators=[
+            MarkdownValidator()
+        ]
+    )
+    submit = SubmitField(label=R.string.save)
+
+    def __init__(self, dispatch=None, **kwargs):
+        super(DispatchForm, self).__init__(**kwargs)
+
+        if dispatch != None:
+            self.content.data = dispatch.content_markdown
+
+
+class ExchangesAndReturnsForm(FlaskForm):
+    content = TextAreaField(
+        label=R.string.content,
+        validators=[
+            MarkdownValidator()
+        ]
+    )
+    submit = SubmitField(label=R.string.save)
+
+    def __init__(self, exchange_and_returns=None, **kwargs):
+        super(ExchangesAndReturnsForm, self).__init__(**kwargs)
+
+        if exchange_and_returns != None:
+            self.content.data = exchange_and_returns.content_markdown
 
 
 class HeaderForm(FlaskForm):

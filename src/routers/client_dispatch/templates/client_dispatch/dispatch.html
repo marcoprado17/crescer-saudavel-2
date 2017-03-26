@@ -1,0 +1,24 @@
+{% extends "client_base/client_base.html" %}
+{% block title %}
+    {{ R.string.dispatch }}
+{% endblock %}
+{% block content %}
+    <div class="__client_dispatch__ __dispatch__">
+        <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">
+            <div class="main container">
+                <div class="std">
+                    <div class="wrapper_bl" style="margin-top: 1px;">
+                        <div class="form_background">
+                            <div class="admin-content-container">
+                                <div class="page-header">
+                                    <h1>{{ R.string.dispatch }}</h1>
+                                </div>
+                                {{ data.content|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -9,20 +9,26 @@ from flask import request
 from flask_login import login_required
 from models.about_us import AboutUs
 from models.contact import Contact
+from models.dispatch import Dispatch
+from models.exchanges_and_returns import ExchangesAndReturns
 from models.faq import Faq
 from models.footer import Footer
 from models.header import Header
 from models.home_content import HomeContent
+from models.payment import Payment
 from proj_decorators import admin_required
 from routers.admin_content import admin_content_blueprint
 from routers.admin_content.data_providers.about_us import admin_about_us_data_provider
 from routers.admin_content.data_providers.contact import admin_contact_data_provider
+from routers.admin_content.data_providers.dispatch import admin_dispatch_data_provider
+from routers.admin_content.data_providers.exchanges_and_returns import admin_exchanges_and_returns_data_provider
 from routers.admin_content.data_providers.faq import admin_faq_data_provider
 from routers.admin_content.data_providers.footer import admin_footer_data_provider
 from routers.admin_content.data_providers.header import admin_header_data_provider
 from routers.admin_content.data_providers.home import admin_content_home_data_provider
+from routers.admin_content.data_providers.payment import admin_payment_data_provider
 from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm, ContactForm, AboutUsForm, \
-    FaqForm, FooterForm, HeaderForm
+    FaqForm, FooterForm, HeaderForm, PaymentForm, DispatchForm, ExchangesAndReturnsForm
 
 
 @admin_content_blueprint.route("/home")
@@ -142,6 +148,51 @@ def faq():
             return "", 200
         else:
             return json.dumps(dict(errors=faq_form.errors)), 400
+
+
+@admin_content_blueprint.route("/pagamento", methods=["GET", "POST"])
+@login_required
+@admin_required
+def payment():
+    if request.method=="GET":
+        return render_template("admin_content/payment.html", data=admin_payment_data_provider.get_data())
+    else:
+        payment_form = PaymentForm()
+        if payment_form.validate_on_submit():
+            Payment.get().update_from_form(form=payment_form)
+            return "", 200
+        else:
+            return json.dumps(dict(errors=payment_form.errors)), 400
+
+
+@admin_content_blueprint.route("/envio", methods=["GET", "POST"])
+@login_required
+@admin_required
+def dispatch():
+    if request.method=="GET":
+        return render_template("admin_content/dispatch.html", data=admin_dispatch_data_provider.get_data())
+    else:
+        dispatch_form = DispatchForm()
+        if dispatch_form.validate_on_submit():
+            Dispatch.get().update_from_form(form=dispatch_form)
+            return "", 200
+        else:
+            return json.dumps(dict(errors=dispatch_form.errors)), 400
+
+
+@admin_content_blueprint.route("/trocas-e-devolucoes", methods=["GET", "POST"])
+@login_required
+@admin_required
+def exchanges_and_returns():
+    if request.method=="GET":
+        return render_template("admin_content/exchanges_and_returns.html", data=admin_exchanges_and_returns_data_provider.get_data())
+    else:
+        exchanges_and_returns_form = ExchangesAndReturnsForm()
+        if exchanges_and_returns_form.validate_on_submit():
+            ExchangesAndReturns.get().update_from_form(form=exchanges_and_returns_form)
+            return "", 200
+        else:
+            return json.dumps(dict(errors=exchanges_and_returns_form.errors)), 400
 
 
 @admin_content_blueprint.route("/cabecalho", methods=["GET", "POST"])

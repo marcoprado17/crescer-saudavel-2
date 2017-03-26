@@ -381,13 +381,22 @@ class Resources(object):
         save_about_us_error_msg = 'Não foi possível salvar os novos dados da página "Sobre nós". Verifique os valores e tente novamente.'
         save_about_us_success_msg = 'Os dados da página "Sobre nós" foram atualizados com sucesso.'
         save_faq_error_msg = 'Não foi possível salvar os novos dados da página "FAQ". Verifique os valores e tente novamente.'
+        save_payment_error_msg = 'Não foi possível salvar os novos dados da página "Pagamento". Verifique os valores e tente novamente.'
+        save_dispatch_error_msg = 'Não foi possível salvar os novos dados da página "Envio". Verifique os valores e tente novamente.'
+        save_exchanges_and_returns_error_msg = 'Não foi possível salvar os novos dados da página "Trocas & Devoluções". Verifique os valores e tente novamente.'
         save_faq_success_msg = 'Os dados da página "FAQ" foram atualizados com sucesso.'
+        save_payment_success_msg = 'Os dados da página "Pagamento" foram atualizados com sucesso.'
+        save_dispatch_success_msg = 'Os dados da página "Envio" foram atualizados com sucesso.'
+        save_exchanges_and_returns_success_msg = 'Os dados da página "Trocas & Devoluções" foram atualizados com sucesso.'
         save_footer_error_msg = 'Não foi possível salvar os novos dados do rodapé. Verifique os valores e tente novamente.'
         save_header_error_msg = 'Não foi possível salvar os novos dados do cabeçalho. Verifique os valores e tente novamente.'
         save_footer_success_msg = 'Os dados do rodapé foram atualizados com sucesso.'
         save_header_success_msg = 'Os dados do cabeçalho foram atualizados com sucesso.'
         edit_about_us_page_content = 'Editar conteúdo da página "Sobre nós"'
         edit_faq_page_content = 'Editar conteúdo da página "FAQ"'
+        edit_payment_page_content = 'Editar conteúdo da página "Pagamento"'
+        edit_dispatch_page_content = 'Editar conteúdo da página "Envio"'
+        edit_exchanges_and_returns_page_content = 'Editar conteúdo da página "Trocas & Devoluções"'
         footer = "Rodapé"
         date = "Data"
         default_date_format = "%d/%m/%Y"
@@ -499,6 +508,9 @@ class Resources(object):
         discount_active = "Desconto ativo"
         discount = "Percentual de desconto"
         price_with_discount = "Preço com desconto"
+        complete_content = "Conteúdo completo"
+        dispatch = "Envio"
+        exchanges_and_returns = "Trocas & Devoluções"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -601,6 +613,10 @@ First Header | Second Header
 ------------ | -------------
 Content Cell | Content Cell
 Content Cell | Content Cell"""
+
+        paragraph_example = \
+"""Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+"""
 
         about_us_content_example = \
 """Lorem ipsum dolor sit amet, vitae in etiam. Dignissim rutrum, phasellus arcu nibh hendrerit vel ridiculus eget, eget sit. Feugiat scelerisque risus. Fusce sit quis massa, wisi eu mauris curabitur. Et turpis in lectus neque, wisi eget, turpis in sed elementum, donec sed, nisl non odio eget. Magna maecenas aliquam, posuere viverra ante, turpis ipsum sociis vel porta. Mauris varius velit morbi non blandit sem, in tincidunt, ligula luctus orci condimentum risus ipsum, lacus lacus luctus. Lacinia parturient pellentesque duis. Dolor scelerisque odio eu pede at, integer vitae nunc tenetur wisi, dui cubilia tempor ullamcorper.

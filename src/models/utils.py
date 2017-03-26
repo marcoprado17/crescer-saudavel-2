@@ -11,7 +11,10 @@ from decimal import Decimal
 import datetime
 from flask import current_app
 
+from models.dispatch import Dispatch
+from models.exchanges_and_returns import ExchangesAndReturns
 from models.header import Header
+from models.payment import Payment
 from proj_extensions import db
 from models.about_us import AboutUs
 from models.blog_post import BlogPost
@@ -130,6 +133,30 @@ def create_faq():
     db.session.commit()
     print "Faq created."
     return faq
+
+
+def create_payment():
+    payment = Payment()
+    db.session.add(payment)
+    db.session.commit()
+    print "Payment created."
+    return payment
+
+
+def create_dispatch():
+    dispatch = Dispatch()
+    db.session.add(dispatch)
+    db.session.commit()
+    print "Dispatch created."
+    return dispatch
+
+
+def create_exchanges_and_returns():
+    exchanges_and_returns = ExchangesAndReturns()
+    db.session.add(exchanges_and_returns)
+    db.session.commit()
+    print "ExchangesAndReturns created."
+    return exchanges_and_returns
 
 
 def create_header():

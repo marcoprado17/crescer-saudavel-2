@@ -39,10 +39,10 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <a href="#">Leia mais +</a>
                     <h2>Utilidades</h2>
-                    <a href="#">FAQ</a><br>
-                    <a href="#">Pagamento</a><br>
-                    <a href="#">Envio</a><br>
-                    <a href="#">Trocas & Devoluções</a>
+                    <a href="{{ url_for('client_faq.faq') }}">FAQ</a><br>
+                    <a href="{{ url_for('client_payment.payment') }}">Pagamento</a><br>
+                    <a href="{{ url_for('client_dispatch.dispatch') }}">Envio</a><br>
+                    <a href="{{ url_for('client_exchanges_and_returns.exchanges_and_returns') }}">Trocas & Devoluções</a>
                     <h2>Formas de pagamento</h2>
                     <div class="payments-methods-container">
                         <img src="{{ url_for('static', filename='imgs/master_card.png') }}">
