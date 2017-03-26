@@ -17,7 +17,14 @@
                       data-error-msg="{{ R.string.save_footer_error_msg }}"
                       data-success-msg="{{ R.string.save_footer_success_msg }}">
                     {{ data.footer_form.csrf_token }}
-                    {{ form_fields.string_field(field=data.footer_form.lower_text, max_length=R.dimen.footer_lower_text_max_length, explicit_label=True, placeholder=R.string.footer_lower_text_placeholder) }}
+                    {% with data=dict(
+                        field=data.footer_form.lower_text,
+                        explicit_label=True,
+                        example=R.string.lower_text_example,
+                        has_preview=True
+                    ) %}
+                        {% include "components/markdown_textarea.html" %}
+                    {% endwith %}
                     {{ form_fields.submit(field=data.footer_form.submit) }}
                 </form>
             </div>

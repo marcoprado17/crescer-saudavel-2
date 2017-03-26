@@ -1,19 +1,6 @@
 .__components__.__client_footer_2__ {
-  footer.fixed-at-bottom {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-  }
-
-  a.col-title {
-    display: block;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .footer-column {
-    margin-bottom: 0;
-    min-height: 0;
+  .read-more-container {
+    text-align: right;
   }
 
   .payments-methods-container {
@@ -23,5 +10,9 @@
       height: 48px;
       margin-right: 8px;
     }
+  }
+
+  .lower-text {
+    text-align: center;
   }
 }

@@ -409,7 +409,6 @@ class Resources(object):
         product_category_example = "Ex.: Frutas"
         product_subcategory_example = "Ex.: Frutas vermelhas"
         product_category = "Categoria de produto"
-        address_example = "R. Vinte e Sete de Julho, 231 - São José dos Campos - SP"
         tel_example = "(12) 2352-2458"
         email_example = "contato@crescersaudavel.com"
         blog_post_title_example = "Ex.: Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
@@ -419,10 +418,9 @@ class Resources(object):
         blog_example_thumbnail = "post_exemplo_bebe_comendo.jpg"
         product_category_example_name = "Frutas"
         carousel_title_example = "Ex.: Conheça nossa loja física"
-        carousel_subtitle_example = "Ex.: Localização: " + address_example
+        carousel_subtitle_example = "Ex.: Localização: Shopping Centervale - São José dos Campos"
         product_section_name_example = "Ex.: Novidades"
         blog_section_name_example = "Ex.: Posts mais recentes"
-        address_placeholder = "Ex.: " + address_example
         tel_placeholder = "Ex.: " + tel_example
         email_placeholder = "Ex.: " + email_example
         link_placeholder = "Ex.: https://www.google.com.br"
@@ -511,6 +509,11 @@ class Resources(object):
         complete_content = "Conteúdo completo"
         dispatch = "Envio"
         exchanges_and_returns = "Trocas & Devoluções"
+        read_more_plus = "Leia mais +"
+        utilities = "Utilidades"
+        payment_methods = "Formas de pagamento"
+
+
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -565,6 +568,10 @@ problemas de constipação sem o uso de laxantes.
 """Conservar este produto congelado até o seu uso. Após Aberto e descongelado, consumir em até 12 horas.
 Nenhum produto após o descongelamento poderá ser recongelado."""
 
+        address_example = \
+"Centervale Shopping  \nAv. Dep. Benedito Matarazzo, 9403  \nSão José dos Campos - SP"
+
+        lower_text_example = "Crescer Saudável  \nCNPJ 01.517.384/0001-87  \nITA Júnior © 2016 - 2017"
 
         tab_content_example = \
 """An h1 header

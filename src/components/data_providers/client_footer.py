@@ -6,6 +6,7 @@
 from flask import url_for
 from sqlalchemy import desc
 
+from models.about_us import AboutUs
 from models.blog_post import BlogPost
 from models.contact import Contact
 from models.footer import Footer
@@ -46,11 +47,13 @@ class ClientFooterDataProvider(object):
 
         contact = Contact.get()
         return dict(
-            address=contact.address,
+            about_us_summary_html = AboutUs.get().summary_html,
+            address_html=contact.address_html,
             tel=contact.tel,
             email=contact.email,
             social_networks=[
                 dict(
+                    is_facebook=True,
                     active=contact.facebook_active,
                     title=R.string.facebook,
                     classes="fb",
@@ -83,7 +86,7 @@ class ClientFooterDataProvider(object):
             ],
             chosen_categories=chosen_categories,
             chosen_blog_posts=chosen_blog_posts,
-            lower_text=Footer.get().lower_text,
+            lower_text_html=Footer.get().lower_text_html,
         )
 
 

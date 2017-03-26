@@ -7,20 +7,28 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <h2>Contato</h2>
-                    <p>(12) 3913-3012</p>
-                    <p>bragajuniore65@gmail.com</p>
-                    <p>
-                        Centervale Shopping<br>
-                        Av. Dep. Benedito Matarazzo, 9403<br>
-                        São José dos Campos - SP
-                    </p>
-                    <div class="fb-page"
-                         data-href="https://www.facebook.com/imdb"
-                         data-width="340"
-                         data-hide-cover="false"
-                         data-show-facepile="true">
-                    </div>
+                    <h2>{{ R.string.contact }}</h2>
+                    {% if data.tel %}
+                        <p>{{ data.tel }}</p>
+                    {% endif %}
+                    {% if data.email %}
+                        <p>{{ data.email }}</p>
+                    {% endif %}
+                    {% if data.address_html %}
+                        {{ data.address_html|safe }}
+                    {% endif %}
+                    {% if data.social_networks and data.social_networks|length > 0 %}
+                        {% for item in data.social_networks %}
+                            {% if item.active %}
+                                <div class="fb-page"
+                                     data-href="{{ item.href }}"
+                                     data-width="340"
+                                     data-hide-cover="false"
+                                     data-show-facepile="true">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                     {% if data.social_networks and data.social_networks|length > 0 %}
                         <div class="social">
                             {% for item in data.social_networks %}
@@ -35,15 +43,17 @@
                     {% endif %}
                 </div>
                 <div class="col-md-6">
-                    <h2>Sobre nós</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <a href="#">Leia mais +</a>
-                    <h2>Utilidades</h2>
-                    <a href="{{ url_for('client_faq.faq') }}">FAQ</a><br>
-                    <a href="{{ url_for('client_payment.payment') }}">Pagamento</a><br>
-                    <a href="{{ url_for('client_dispatch.dispatch') }}">Envio</a><br>
-                    <a href="{{ url_for('client_exchanges_and_returns.exchanges_and_returns') }}">Trocas & Devoluções</a>
-                    <h2>Formas de pagamento</h2>
+                    <h2>{{ R.string.about_us }}</h2>
+                    {{ data.about_us_summary_html|safe }}
+                    <div class="read-more-container">
+                        <a href="{{ url_for('client_about_us.about_us') }}">{{ R.string.read_more_plus }}</a>
+                    </div>
+                    <h2>{{ R.string.utilities }}</h2>
+                    <a href="{{ url_for('client_faq.faq') }}">{{ R.string.faq }}</a><br>
+                    <a href="{{ url_for('client_payment.payment') }}">{{ R.string.payment }}</a><br>
+                    <a href="{{ url_for('client_dispatch.dispatch') }}">{{ R.string.dispatch }}</a><br>
+                    <a href="{{ url_for('client_exchanges_and_returns.exchanges_and_returns') }}">{{ R.string.exchanges_and_returns }}</a>
+                    <h2>{{ R.string.payment_methods }}</h2>
                     <div class="payments-methods-container">
                         <img src="{{ url_for('static', filename='imgs/master_card.png') }}">
                         <img src="{{ url_for('static', filename='imgs/visa.png') }}">
@@ -51,12 +61,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <p>
-                    Crescer Saudável<br>
-                    CNPJ 01.517.384/0001-87<br>
-                    ITA Júnior © 2016 - 2017<br>
-                </p>
+            <div class="row lower-text">
+                {{ data.lower_text_html|safe }}
             </div>
         </div>
     </footer>

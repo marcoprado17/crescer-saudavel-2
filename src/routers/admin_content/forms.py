@@ -305,11 +305,12 @@ class BlogSectionForm(FlaskForm):
 
 
 class ContactForm(FlaskForm):
-    address = StringField(
+    address = TextAreaField(
         label=R.string.address,
         validators=[
-            Length(max_length=R.dimen.contact_address_max_length)
-        ])
+            MarkdownValidator()
+        ]
+    )
     tel = TelField(
         label=R.string.telephone,
         validators=[
@@ -371,7 +372,7 @@ class ContactForm(FlaskForm):
         super(ContactForm, self).__init__(**kwargs)
 
         if contact != None:
-            self.address.data = contact.address
+            self.address.data = contact.address_markdown
             self.tel.data = contact.tel
             self.email.data = contact.email
 
@@ -495,10 +496,10 @@ class HeaderForm(FlaskForm):
 
 
 class FooterForm(FlaskForm):
-    lower_text = StringField(
+    lower_text = TextAreaField(
         label=R.string.lower_text,
         validators=[
-            Length(max_length=R.dimen.footer_lower_text_max_length)
+            MarkdownValidator()
         ]
     )
     submit = SubmitField(label=R.string.save)
@@ -507,4 +508,4 @@ class FooterForm(FlaskForm):
         super(FooterForm, self).__init__(**kwargs)
 
         if footer is not None:
-            self.lower_text.data = footer.lower_text
+            self.lower_text.data = footer.lower_text_markdown

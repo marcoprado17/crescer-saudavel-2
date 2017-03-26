@@ -18,7 +18,14 @@
                       data-error-msg="{{ R.string.save_contact_error_msg }}"
                       data-success-msg="{{ R.string.save_contact_success_msg }}">
                     {{ data.contact_form.csrf_token }}
-                    {{ form_fields.string_field(field=data.contact_form.address, max_length=R.dimen.contact_address_max_length, explicit_label=True, placeholder=R.string.address_placeholder) }}
+                    {% with data=dict(
+                        field=data.contact_form.address,
+                        explicit_label=True,
+                        example=R.string.address_example,
+                        has_preview=True
+                    ) %}
+                        {% include "components/markdown_textarea.html" %}
+                    {% endwith %}
                     {{ form_fields.tel_field(field=data.contact_form.tel, explicit_label=True, placeholder=R.string.tel_placeholder) }}
                     {{ form_fields.string_field(field=data.contact_form.email, max_length=R.dimen.email_max_length, explicit_label=True, placeholder=R.string.email_placeholder) }}
 

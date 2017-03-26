@@ -3,17 +3,20 @@
 # ======================================================================================================================
 # Created at 14/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from sqlalchemy.ext.hybrid import hybrid_property
+
 from proj_exceptions import InconsistentDataBaseError
 from proj_extensions import db
 from models.base import BaseModel
 from r import R
-from proj_utils import safe_string
+from proj_utils import safe_string, parse_markdown
 
 
 class Contact(BaseModel):
     __tablename__ = "contact"
 
-    address = db.Column(db.String(R.dimen.contact_address_max_length), default="")
+    _address_markdown = db.Column(db.UnicodeText, default=u"")
+    address_html = db.Column(db.UnicodeText, default=u"")
     tel = db.Column(db.String(R.dimen.tel_max_length), default="")
     email = db.Column(db.String(R.dimen.email_max_length), default="")
 
@@ -32,6 +35,15 @@ class Contact(BaseModel):
     pintrest_active = db.Column(db.Boolean, default=False, nullable=False)
     pintrest_link = db.Column(db.Text, default="#")
 
+    @hybrid_property
+    def address_markdown(self):
+        return self._address_markdown
+
+    @address_markdown.setter
+    def address_markdown(self, value):
+        self._address_markdown = value
+        self.address_html = parse_markdown(value)
+
     @staticmethod
     def get():
         contacts = Contact.query.all()
@@ -42,7 +54,7 @@ class Contact(BaseModel):
     @staticmethod
     def get_attrs_from_form(form):
         return dict(
-            address=form.address.data,
+            address_markdown=form.address.data,
             tel=form.tel.data,
             email=form.email.data,
 
