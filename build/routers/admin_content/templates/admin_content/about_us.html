@@ -1,0 +1,50 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+{% block subtitle %}
+    {{ R.string.edit_about_us_page_content }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_content__ __about_us__ container hidden">
+        <div class="panel panel-default large">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ R.string.edit_about_us_page_content }}</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ url_for("admin_content.about_us") }}" method="post" enctype=multipart/form-data
+                      class="save"
+                      data-save-text="{{ R.string.save }}" data-saving-text="{{ R.string.saving }}"
+                      data-error-msg="{{ R.string.save_about_us_error_msg }}"
+                      data-success-msg="{{ R.string.save_about_us_success_msg }}">
+                    {{ data.about_us_form.csrf_token }}
+                    {% with data=dict(
+                        field=data.about_us_form.summary,
+                        explicit_label=True,
+                        example=R.string.paragraph_example,
+                        has_preview=True
+                    ) %}
+                        {% include "components/markdown_textarea.html" %}
+                    {% endwith %}
+                    {% with data=dict(
+                        field=data.about_us_form.content,
+                        explicit_label=True,
+                        example=R.string.about_us_content_example,
+                        has_preview=True
+                    ) %}
+                        {% include "components/markdown_textarea.html" %}
+                    {% endwith %}
+                    {{ form_fields.submit(field=data.about_us_form.submit) }}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}
+{% block script %}
+    <script>
+        initVerticalFluid();
+        initTooltips();
+        initSaveForms();
+        initAllMarkdownTextArea();
+    </script>
+{% endblock %}

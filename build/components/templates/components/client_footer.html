@@ -1,0 +1,110 @@
+{% set data = get_components_client_footer_data|assert_defined|assert_callable|call %}
+<div class="__components__ __client_footer__">
+    <footer>
+        <div class="footer-inner">
+            <div class="newsletter-row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col">
+                            <div class="payment-accept">
+                                <div><img src="{{ url_for("static", filename="imgs/payment_visa.png") }}"
+                                          alt="Cartões Visa"> <img
+                                        src="{{ url_for("static", filename="imgs/payment_master_card.png") }}"
+                                        alt="Cartões Master Card"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 col1">
+                            <div class="newsletter-wrap">
+                                <form action="#" method="post" id="newsletter-validate-detail1">
+                                    <div id="container_form_news">
+                                        <div id="container_form_news2">
+                                            <h4>{{ R.string.signup_newsletter }}</h4>
+                                            <input type="text" name="email" id="newsletter1"
+                                                   title="Assine nossa newsletter"
+                                                   class="input-text required-entry validate-email"
+                                                   placeholder="Entre com seu email">
+                                            <button type="submit" title="Assinar newsletter" class="button subscribe">
+                                                <span>{{ R.string.signup }}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-12 col-lg-4">
+                        <div class="co-info">
+                            <h4>{{ R.string.contact }}</h4>
+                            <address>
+                                {% if data.address %}
+                                    <div><em class="icon-location-arrow"></em><span>{{ data.address }}</span></div>
+                                {% endif %}
+                                {% if data.tel %}
+                                    <div><em class="icon-mobile-phone"></em><span>{{ data.tel }}</span></div>
+                                {% endif %}
+                                {% if data.email %}
+                                    <div><em class="icon-envelope"></em><span>{{ data.email }}</span></div>
+                                {% endif %}
+                            </address>
+                            {% if data.social_networks and data.social_networks|length > 0 %}
+                                <div class="social">
+                                        {% for item in data.social_networks %}
+                                            {% if item.active %}
+                                                <div class="pull-left {{ item.classes }}">
+                                                    <a target="_blank" rel="nofollow" href="{{ item.href }}"
+                                                       title="{{ item.title }}"></a>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8 col-xs-12 col-lg-8">
+                        <div class="footer-column">
+                            <h4>{{ R.string.company }}</h4>
+                            <ul class="links">
+                                <li class="first"><a title="{{ R.string.about_us }}" href="{{ url_for("client_about_us.about_us") }}">{{ R.string.about_us }}</a>
+                                </li>
+                                <li><a title="{{ R.string.faq }}" href="{{ url_for("client_faq.faq") }}">{{ R.string.faq }}</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-column">
+                            <a href="{{ url_for("client_products.products") }}" class="col-title"><h4>{{ R.string.products }}</h4></a>
+                            {% if data.chosen_categories and data.chosen_categories|length > 0 %}
+                                <ul class="links">
+                                    {% for item in data.chosen_categories %}
+                                        <li>
+                                            <a href="{{ item.href }}" title="{{ item.name }}">{{ item.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    <li><a href="{{ url_for("client_products.products") }}" title="...">...</a></li>
+                                </ul>
+                            {% endif %}
+                        </div>
+
+                        <div class="footer-column">
+                            <a href="{{ url_for("client_blog.blog") }}" class="col-title"><h4>{{ R.string.blog }}</h4></a>
+                            <ul class="links">
+                                {% for item in data.chosen_blog_posts %}
+                                    <li><a href="{{ item.href }}" title="{{ item.title }}">{{ item.title }}</a></li>
+                                {% endfor %}
+                                <li><a href="{{ url_for("client_blog.blog") }}" title="...">...</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-text-container">
+                <span class="copyright-text">{{ data.lower_text }}</span>
+            </div>
+        </div>
+    </footer>
+</div>

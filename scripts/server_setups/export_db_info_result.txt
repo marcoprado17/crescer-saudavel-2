@@ -1,0 +1,4 @@
+DB_USERNAME='vagrant'
+DB_PASSWORD='qLUBHeMwtgrubUq9ggfZkMgU'
+TEST_DB_NAME='test_db'
+PRODUCTION_DB_NAME='production_db'

@@ -1,0 +1,69 @@
+{% set data = get_components_client_footer_data|assert_defined|assert_callable|call %}
+<div class="__components__ __client_footer_2__">
+    <footer>
+        <div class="container">
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>{{ R.string.contact }}</h2>
+                    {% if data.tel %}
+                        <p>{{ data.tel }}</p>
+                    {% endif %}
+                    {% if data.email %}
+                        <p>{{ data.email }}</p>
+                    {% endif %}
+                    {% if data.address_html %}
+                        {{ data.address_html|safe }}
+                    {% endif %}
+                    {% if data.social_networks and data.social_networks|length > 0 %}
+                        {% for item in data.social_networks %}
+                            {% if item.active %}
+                                <div class="fb-page"
+                                     data-href="{{ item.href }}"
+                                     data-width="340"
+                                     data-hide-cover="false"
+                                     data-show-facepile="true">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if data.social_networks and data.social_networks|length > 0 %}
+                        <div class="social">
+                            {% for item in data.social_networks %}
+                                {% if item.active %}
+                                    <div class="pull-left {{ item.classes }}">
+                                        <a target="_blank" rel="nofollow" href="{{ item.href }}"
+                                           title="{{ item.title }}"></a>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <h2>{{ R.string.about_us }}</h2>
+                    {{ data.about_us_summary_html|safe }}
+                    <div class="read-more-container">
+                        <a href="{{ url_for('client_about_us.about_us') }}">{{ R.string.read_more_plus }}</a>
+                    </div>
+                    <h2>{{ R.string.utilities }}</h2>
+                    <a href="{{ url_for('client_faq.faq') }}">{{ R.string.faq }}</a><br>
+                    <a href="{{ url_for('client_payment.payment') }}">{{ R.string.payment }}</a><br>
+                    <a href="{{ url_for('client_dispatch.dispatch') }}">{{ R.string.dispatch }}</a><br>
+                    <a href="{{ url_for('client_exchanges_and_returns.exchanges_and_returns') }}">{{ R.string.exchanges_and_returns }}</a>
+                    <h2>{{ R.string.payment_methods }}</h2>
+                    <div class="payments-methods-container">
+                        <img src="{{ url_for('static', filename='imgs/master_card.png') }}">
+                        <img src="{{ url_for('static', filename='imgs/visa.png') }}">
+                        <img src="{{ url_for('static', filename='imgs/boleto.jpg') }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row lower-text">
+                {{ data.lower_text_html|safe }}
+            </div>
+        </div>
+    </footer>
+</div>
