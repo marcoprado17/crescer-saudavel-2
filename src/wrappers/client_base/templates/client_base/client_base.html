@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/client_bundle.css') }}">
 {% endblock %}
 {% block body %}
+    {% include "components/facebook_skd.html" %}
     <div class="__client_base__">
         <div id="page">
             {% include "components/client_header_2.html" %}
@@ -11,7 +12,7 @@
             {% endblock %}
             {% block content %}
             {% endblock %}
-            {% include "components/client_footer.html" %}
+            {% include "components/client_footer_2.html" %}
         </div>
         {% include "components/client_mobile_menu.html" %}
     </div>
