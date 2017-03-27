@@ -80,4 +80,27 @@
   .blog-img a.info {
     margin-top: 14%;
   }
+
+  .additional-sections-title-container {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .additional-sections {
+    .col {
+      text-align: center;
+    }
+
+    img {
+      height: 80px;
+    }
+
+    ul {
+      list-style-type: none;
+
+      li {
+        text-align: left;
+      }
+    }
+  }
 }
