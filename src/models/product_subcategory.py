@@ -36,7 +36,7 @@ class ProductSubcategory(BaseModel):
         )
 
     @staticmethod
-    def get_choices(include_all=False, include_none=False):
+    def get_choices(include_all=False, include_none=False, only_active=False):
         assert not(include_all and include_none)
 
         choices = []
@@ -47,7 +47,8 @@ class ProductSubcategory(BaseModel):
             choices.append((str(0), R.string.none_in_female))
 
         for subcategory in ProductSubcategory.query.order_by(asc(ProductSubcategory.name)).all():
-            choices.append((str(subcategory.id), subcategory.name))
+            if not only_active or (only_active and subcategory.active):
+                choices.append((str(subcategory.id), subcategory.name))
 
         return choices
 

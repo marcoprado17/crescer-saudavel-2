@@ -28,7 +28,7 @@ from routers.admin_content.data_providers.header import admin_header_data_provid
 from routers.admin_content.data_providers.home import admin_content_home_data_provider
 from routers.admin_content.data_providers.payment import admin_payment_data_provider
 from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm, ContactForm, AboutUsForm, \
-    FaqForm, FooterForm, HeaderForm, PaymentForm, DispatchForm, ExchangesAndReturnsForm
+    FaqForm, FooterForm, HeaderForm, PaymentForm, DispatchForm, ExchangesAndReturnsForm, MoreCategoriesSectionForm
 
 
 @admin_content_blueprint.route("/home")
@@ -82,6 +82,19 @@ def save_product_section(product_section_number):
         return "", 200
     else:
         return json.dumps(dict(errors=product_section_form.errors)), 400
+
+
+@admin_content_blueprint.route("/home/salvar-secao-olha-so-o-que-temos-mais-para-voce", methods=["POST"])
+@login_required
+@admin_required
+def save_more_categories_section():
+    more_categories_section_form = MoreCategoriesSectionForm()
+
+    if more_categories_section_form.validate_on_submit():
+        HomeContent.set_more_categories_section_from_form(more_categories_section_form)
+        return "", 200
+    else:
+        return json.dumps(dict(errors=more_categories_section_form.errors)), 400
 
 
 @admin_content_blueprint.route("/home/salvar-secao-do-blog/<int:blog_section_number>", methods=["POST"])

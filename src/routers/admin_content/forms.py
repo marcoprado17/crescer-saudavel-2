@@ -3,6 +3,8 @@
 # ======================================================================================================================
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+import json
+
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, SelectField, SubmitField, TextAreaField, IntegerField
 from wtforms.fields.html5 import TelField
@@ -14,6 +16,8 @@ from flask_bombril.form_validators import MarkdownValidator
 from flask_bombril.form_validators.phone_fomat.phone_format import PhoneFormat
 from models.blog_post import BlogPost
 from models.product import Product
+from models.product_category import ProductCategory
+from models.product_subcategory import ProductSubcategory
 from r import R
 from proj_utils import get_image_choices, safe_string
 
@@ -254,6 +258,221 @@ class ProductSectionForm(FlaskForm):
                 self.product_18_id.data = str(home_content.product_section_5_product_18_id)
                 self.product_19_id.data = str(home_content.product_section_5_product_19_id)
                 self.product_20_id.data = str(home_content.product_section_5_product_20_id)
+
+
+class MoreCategoriesSectionForm(FlaskForm):
+    category_1_id = SelectField(label=R.string.category_n(n=1))
+    category_1_image = SelectField(label=R.string.image_of_category_n(1))
+    subcategory_1_of_category_1_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=1))
+    subcategory_2_of_category_1_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=1))
+    subcategory_3_of_category_1_id = SelectField(label=R.string.subcategory_n_of_category_m(n=3, m=1))
+    subcategory_4_of_category_1_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=1))
+    subcategory_5_of_category_1_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=1))
+
+    category_2_id = SelectField(label=R.string.category_n(n=2))
+    category_2_image = SelectField(label=R.string.image_of_category_n(2))
+    subcategory_1_of_category_2_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=2))
+    subcategory_2_of_category_2_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=2))
+    subcategory_3_of_category_2_id = SelectField(label=R.string.subcategory_n_of_category_m(n=3, m=2))
+    subcategory_4_of_category_2_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=2))
+    subcategory_5_of_category_2_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=2))
+
+    category_3_id = SelectField(label=R.string.category_n(n=3))
+    category_3_image = SelectField(label=R.string.image_of_category_n(3))
+    subcategory_1_of_category_3_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=3))
+    subcategory_2_of_category_3_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=3))
+    subcategory_3_of_category_3_id = SelectField(label=R.string.subcategory_n_of_category_m(n=3, m=3))
+    subcategory_4_of_category_3_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=3))
+    subcategory_5_of_category_3_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=3))
+
+    category_4_id = SelectField(label=R.string.category_n(n=4))
+    category_4_image = SelectField(label=R.string.image_of_category_n(4))
+    subcategory_1_of_category_4_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=4))
+    subcategory_2_of_category_4_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=4))
+    subcategory_3_of_category_4_id = SelectField(label=R.string.subcategory_n_of_category_m(n=3, m=4))
+    subcategory_4_of_category_4_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=4))
+    subcategory_5_of_category_4_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=4))
+
+    category_5_id = SelectField(label=R.string.category_n(n=5))
+    category_5_image = SelectField(label=R.string.image_of_category_n(5))
+    subcategory_1_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=5))
+    subcategory_2_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=5))
+    subcategory_3_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=3, m=5))
+    subcategory_4_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=5))
+    subcategory_5_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=5))
+
+    submit = SubmitField(label=R.string.save)
+
+    def __init__(self, home_content=None, **kwargs):
+        super(MoreCategoriesSectionForm, self).__init__(**kwargs)
+
+        dependent_choices = {}
+        for category in ProductCategory.get_all():
+            if category.active:
+                choices = []
+                choices.append((str(0), R.string.none_in_female))
+                for subcategory in category.subcategories:
+                    if subcategory.active:
+                        choices.append((str(subcategory.id), subcategory.name))
+                dependent_choices[str(category.id)] = choices
+        dependent_choices[str(0)] = [(str(0), R.string.none_in_female)]
+
+        product_category_choices = ProductCategory.get_choices(include_all=False, include_none=True, only_active=True)
+        product_subcategory_choices = ProductSubcategory.get_choices(include_all=False, include_none=True, only_active=True)
+
+        image_choices_with_none = get_image_choices(include_none=True)
+
+        self.category_1_id.choices = product_category_choices
+        self.category_1_image.choices = image_choices_with_none
+        self.subcategory_1_of_category_1_id.choices = product_subcategory_choices
+        self.subcategory_2_of_category_1_id.choices = product_subcategory_choices
+        self.subcategory_3_of_category_1_id.choices = product_subcategory_choices
+        self.subcategory_4_of_category_1_id.choices = product_subcategory_choices
+        self.subcategory_5_of_category_1_id.choices = product_subcategory_choices
+        dict_of_category_1 = dict(
+            depends_on="category_1_id",
+            dependent_choices=json.dumps(dependent_choices)
+        )
+        self.subcategory_1_of_category_1_id.render_kw = dict_of_category_1
+        self.subcategory_2_of_category_1_id.render_kw = dict_of_category_1
+        self.subcategory_3_of_category_1_id.render_kw = dict_of_category_1
+        self.subcategory_4_of_category_1_id.render_kw = dict_of_category_1
+        self.subcategory_5_of_category_1_id.render_kw = dict_of_category_1
+
+        self.category_2_id.choices = product_category_choices
+        self.category_2_image.choices = image_choices_with_none
+        self.subcategory_1_of_category_2_id.choices = product_subcategory_choices
+        self.subcategory_2_of_category_2_id.choices = product_subcategory_choices
+        self.subcategory_3_of_category_2_id.choices = product_subcategory_choices
+        self.subcategory_4_of_category_2_id.choices = product_subcategory_choices
+        self.subcategory_5_of_category_2_id.choices = product_subcategory_choices
+        dict_of_category_2 = dict(
+            depends_on="category_2_id",
+            dependent_choices=json.dumps(dependent_choices)
+        )
+        self.subcategory_1_of_category_2_id.render_kw = dict_of_category_2
+        self.subcategory_2_of_category_2_id.render_kw = dict_of_category_2
+        self.subcategory_3_of_category_2_id.render_kw = dict_of_category_2
+        self.subcategory_4_of_category_2_id.render_kw = dict_of_category_2
+        self.subcategory_5_of_category_2_id.render_kw = dict_of_category_2
+
+        self.category_3_id.choices = product_category_choices
+        self.category_3_image.choices = image_choices_with_none
+        self.subcategory_1_of_category_3_id.choices = product_subcategory_choices
+        self.subcategory_2_of_category_3_id.choices = product_subcategory_choices
+        self.subcategory_3_of_category_3_id.choices = product_subcategory_choices
+        self.subcategory_4_of_category_3_id.choices = product_subcategory_choices
+        self.subcategory_5_of_category_3_id.choices = product_subcategory_choices
+        dict_of_category_3 = dict(
+            depends_on="category_3_id",
+            dependent_choices=json.dumps(dependent_choices)
+        )
+        self.subcategory_1_of_category_3_id.render_kw = dict_of_category_3
+        self.subcategory_2_of_category_3_id.render_kw = dict_of_category_3
+        self.subcategory_3_of_category_3_id.render_kw = dict_of_category_3
+        self.subcategory_4_of_category_3_id.render_kw = dict_of_category_3
+        self.subcategory_5_of_category_3_id.render_kw = dict_of_category_3
+
+        self.category_4_id.choices = product_category_choices
+        self.category_4_image.choices = image_choices_with_none
+        self.subcategory_1_of_category_4_id.choices = product_subcategory_choices
+        self.subcategory_2_of_category_4_id.choices = product_subcategory_choices
+        self.subcategory_3_of_category_4_id.choices = product_subcategory_choices
+        self.subcategory_4_of_category_4_id.choices = product_subcategory_choices
+        self.subcategory_5_of_category_4_id.choices = product_subcategory_choices
+        dict_of_category_4 = dict(
+            depends_on="category_4_id",
+            dependent_choices=json.dumps(dependent_choices)
+        )
+        self.subcategory_1_of_category_4_id.render_kw = dict_of_category_4
+        self.subcategory_2_of_category_4_id.render_kw = dict_of_category_4
+        self.subcategory_3_of_category_4_id.render_kw = dict_of_category_4
+        self.subcategory_4_of_category_4_id.render_kw = dict_of_category_4
+        self.subcategory_5_of_category_4_id.render_kw = dict_of_category_4
+
+        self.category_5_id.choices = product_category_choices
+        self.category_5_image.choices = image_choices_with_none
+        self.subcategory_1_of_category_5_id.choices = product_subcategory_choices
+        self.subcategory_2_of_category_5_id.choices = product_subcategory_choices
+        self.subcategory_3_of_category_5_id.choices = product_subcategory_choices
+        self.subcategory_4_of_category_5_id.choices = product_subcategory_choices
+        self.subcategory_5_of_category_5_id.choices = product_subcategory_choices
+        dict_of_category_5 = dict(
+            depends_on="category_5_id",
+            dependent_choices=json.dumps(dependent_choices)
+        )
+        self.subcategory_1_of_category_5_id.render_kw = dict_of_category_5
+        self.subcategory_2_of_category_5_id.render_kw = dict_of_category_5
+        self.subcategory_3_of_category_5_id.render_kw = dict_of_category_5
+        self.subcategory_4_of_category_5_id.render_kw = dict_of_category_5
+        self.subcategory_5_of_category_5_id.render_kw = dict_of_category_5
+
+        if home_content is not None:
+            self.category_1_id.data = str(
+                home_content.more_categories_section_category_1_id)
+            self.subcategory_1_of_category_1_id.data = str(
+                home_content.more_categories_section_subcategory_1_of_category_1_id)
+            self.subcategory_2_of_category_1_id.data = str(
+                home_content.more_categories_section_subcategory_2_of_category_1_id)
+            self.subcategory_3_of_category_1_id.data = str(
+                home_content.more_categories_section_subcategory_3_of_category_1_id)
+            self.subcategory_4_of_category_1_id.data = str(
+                home_content.more_categories_section_subcategory_4_of_category_1_id)
+            self.subcategory_5_of_category_1_id.data = str(
+                home_content.more_categories_section_subcategory_5_of_category_1_id)
+
+            self.category_2_id.data = str(
+                home_content.more_categories_section_category_2_id)
+            self.subcategory_1_of_category_2_id.data = str(
+                home_content.more_categories_section_subcategory_1_of_category_2_id)
+            self.subcategory_2_of_category_2_id.data = str(
+                home_content.more_categories_section_subcategory_2_of_category_2_id)
+            self.subcategory_3_of_category_2_id.data = str(
+                home_content.more_categories_section_subcategory_3_of_category_2_id)
+            self.subcategory_4_of_category_2_id.data = str(
+                home_content.more_categories_section_subcategory_4_of_category_2_id)
+            self.subcategory_5_of_category_2_id.data = str(
+                home_content.more_categories_section_subcategory_5_of_category_2_id)
+
+            self.category_3_id.data = str(
+                home_content.more_categories_section_category_3_id)
+            self.subcategory_1_of_category_3_id.data = str(
+                home_content.more_categories_section_subcategory_1_of_category_3_id)
+            self.subcategory_2_of_category_3_id.data = str(
+                home_content.more_categories_section_subcategory_2_of_category_3_id)
+            self.subcategory_3_of_category_3_id.data = str(
+                home_content.more_categories_section_subcategory_3_of_category_3_id)
+            self.subcategory_4_of_category_3_id.data = str(
+                home_content.more_categories_section_subcategory_4_of_category_3_id)
+            self.subcategory_5_of_category_3_id.data = str(
+                home_content.more_categories_section_subcategory_5_of_category_3_id)
+
+            self.category_4_id.data = str(
+                home_content.more_categories_section_category_4_id)
+            self.subcategory_1_of_category_4_id.data = str(
+                home_content.more_categories_section_subcategory_1_of_category_4_id)
+            self.subcategory_2_of_category_4_id.data = str(
+                home_content.more_categories_section_subcategory_2_of_category_4_id)
+            self.subcategory_3_of_category_4_id.data = str(
+                home_content.more_categories_section_subcategory_3_of_category_4_id)
+            self.subcategory_4_of_category_4_id.data = str(
+                home_content.more_categories_section_subcategory_4_of_category_4_id)
+            self.subcategory_5_of_category_4_id.data = str(
+                home_content.more_categories_section_subcategory_5_of_category_4_id)
+
+            self.category_5_id.data = str(
+                home_content.more_categories_section_category_5_id)
+            self.subcategory_1_of_category_5_id.data = str(
+                home_content.more_categories_section_subcategory_1_of_category_5_id)
+            self.subcategory_2_of_category_5_id.data = str(
+                home_content.more_categories_section_subcategory_2_of_category_5_id)
+            self.subcategory_3_of_category_5_id.data = str(
+                home_content.more_categories_section_subcategory_3_of_category_5_id)
+            self.subcategory_4_of_category_5_id.data = str(
+                home_content.more_categories_section_subcategory_4_of_category_5_id)
+            self.subcategory_5_of_category_5_id.data = str(
+                home_content.more_categories_section_subcategory_5_of_category_5_id)
+
 
 class BlogSectionForm(FlaskForm):
     active = BooleanField(

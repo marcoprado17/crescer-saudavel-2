@@ -512,6 +512,7 @@ class Resources(object):
         read_more_plus = "Leia mais +"
         utilities = "Utilidades"
         payment_methods = "Formas de pagamento"
+        what_do_we_have_more_for_you_section = "Seção o que temos mais para você"
 
 
 
@@ -1067,6 +1068,18 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def discount_format(discount_percentage):
             return "-%s%%" % discount_percentage
+
+        @staticmethod
+        def category_n(n):
+            return "Categoria %s" % n
+
+        @staticmethod
+        def subcategory_n_of_category_m(n, m):
+            return "Subcategoria %s da categoria %s" % (n, m)
+
+        @staticmethod
+        def image_of_category_n(n):
+            return "Imagem da categoria %s" % n
 
     # noinspection PyPep8Naming
     @unique

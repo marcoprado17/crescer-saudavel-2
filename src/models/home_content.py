@@ -156,6 +156,46 @@ class HomeContent(BaseModel):
     product_section_5_product_19_id = db.Column(db.Integer, ForeignKey("product.id"))
     product_section_5_product_20_id = db.Column(db.Integer, ForeignKey("product.id"))
 
+    more_categories_section_category_1_id = db.Column(db.Integer, ForeignKey("product_category.id"))
+    more_categories_section_category_1_image = db.Column(db.Text)
+    more_categories_section_subcategory_1_of_category_1_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_2_of_category_1_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_3_of_category_1_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_4_of_category_1_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_5_of_category_1_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+
+    more_categories_section_category_2_id = db.Column(db.Integer, ForeignKey("product_category.id"))
+    more_categories_section_category_2_image = db.Column(db.Text)
+    more_categories_section_subcategory_1_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_2_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_3_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_4_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_5_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+
+    more_categories_section_category_3_id = db.Column(db.Integer, ForeignKey("product_category.id"))
+    more_categories_section_category_3_image = db.Column(db.Text)
+    more_categories_section_subcategory_1_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_2_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_3_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_4_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_5_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+
+    more_categories_section_category_4_id = db.Column(db.Integer, ForeignKey("product_category.id"))
+    more_categories_section_category_4_image = db.Column(db.Text)
+    more_categories_section_subcategory_1_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_2_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_3_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_4_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_5_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+
+    more_categories_section_category_5_id = db.Column(db.Integer, ForeignKey("product_category.id"))
+    more_categories_section_category_5_image = db.Column(db.Text)
+    more_categories_section_subcategory_1_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_2_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_3_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_4_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_5_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+
     blog_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
     blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
     blog_section_1_link = db.Column(db.String(R.dimen.link_max_length), default="", nullable=False)
@@ -356,6 +396,78 @@ class HomeContent(BaseModel):
         home_content.product_section_5_product_18_id = safe_id(product_section_form.product_18_id.data)
         home_content.product_section_5_product_19_id = safe_id(product_section_form.product_19_id.data)
         home_content.product_section_5_product_20_id = safe_id(product_section_form.product_20_id.data)
+        db.session.add(home_content)
+        db.session.commit()
+
+    @staticmethod
+    def set_more_categories_section_from_form(more_categories_section_form):
+        home_content = HomeContent.get()
+
+        home_content.more_categories_section_category_1_id = safe_id(more_categories_section_form.category_1_id.data)
+        home_content.more_categories_section_category_1_image = more_categories_section_form.category_1_image.data
+        home_content.more_categories_section_subcategory_1_of_category_1_id = safe_id(
+            more_categories_section_form.subcategory_1_of_category_1_id.data)
+        home_content.more_categories_section_subcategory_2_of_category_1_id = safe_id(
+            more_categories_section_form.subcategory_2_of_category_1_id.data)
+        home_content.more_categories_section_subcategory_3_of_category_1_id = safe_id(
+            more_categories_section_form.subcategory_3_of_category_1_id.data)
+        home_content.more_categories_section_subcategory_4_of_category_1_id = safe_id(
+            more_categories_section_form.subcategory_4_of_category_1_id.data)
+        home_content.more_categories_section_subcategory_5_of_category_1_id = safe_id(
+            more_categories_section_form.subcategory_5_of_category_1_id.data)
+
+        home_content.more_categories_section_category_2_id = safe_id(more_categories_section_form.category_2_id.data)
+        home_content.more_categories_section_category_2_image = more_categories_section_form.category_2_image.data
+        home_content.more_categories_section_subcategory_1_of_category_2_id = safe_id(
+            more_categories_section_form.subcategory_1_of_category_2_id.data)
+        home_content.more_categories_section_subcategory_2_of_category_2_id = safe_id(
+            more_categories_section_form.subcategory_2_of_category_2_id.data)
+        home_content.more_categories_section_subcategory_3_of_category_2_id = safe_id(
+            more_categories_section_form.subcategory_3_of_category_2_id.data)
+        home_content.more_categories_section_subcategory_4_of_category_2_id = safe_id(
+            more_categories_section_form.subcategory_4_of_category_2_id.data)
+        home_content.more_categories_section_subcategory_5_of_category_2_id = safe_id(
+            more_categories_section_form.subcategory_5_of_category_2_id.data)
+
+        home_content.more_categories_section_category_3_id = safe_id(more_categories_section_form.category_3_id.data)
+        home_content.more_categories_section_category_3_image = more_categories_section_form.category_3_image.data
+        home_content.more_categories_section_subcategory_1_of_category_3_id = safe_id(
+            more_categories_section_form.subcategory_1_of_category_3_id.data)
+        home_content.more_categories_section_subcategory_2_of_category_3_id = safe_id(
+            more_categories_section_form.subcategory_2_of_category_3_id.data)
+        home_content.more_categories_section_subcategory_3_of_category_3_id = safe_id(
+            more_categories_section_form.subcategory_3_of_category_3_id.data)
+        home_content.more_categories_section_subcategory_4_of_category_3_id = safe_id(
+            more_categories_section_form.subcategory_4_of_category_3_id.data)
+        home_content.more_categories_section_subcategory_5_of_category_3_id = safe_id(
+            more_categories_section_form.subcategory_5_of_category_3_id.data)
+
+        home_content.more_categories_section_category_4_id = safe_id(more_categories_section_form.category_4_id.data)
+        home_content.more_categories_section_category_4_image = more_categories_section_form.category_4_image.data
+        home_content.more_categories_section_subcategory_1_of_category_4_id = safe_id(
+            more_categories_section_form.subcategory_1_of_category_4_id.data)
+        home_content.more_categories_section_subcategory_2_of_category_4_id = safe_id(
+            more_categories_section_form.subcategory_2_of_category_4_id.data)
+        home_content.more_categories_section_subcategory_3_of_category_4_id = safe_id(
+            more_categories_section_form.subcategory_3_of_category_4_id.data)
+        home_content.more_categories_section_subcategory_4_of_category_4_id = safe_id(
+            more_categories_section_form.subcategory_4_of_category_4_id.data)
+        home_content.more_categories_section_subcategory_5_of_category_4_id = safe_id(
+            more_categories_section_form.subcategory_5_of_category_4_id.data)
+
+        home_content.more_categories_section_category_5_id = safe_id(more_categories_section_form.category_5_id.data)
+        home_content.more_categories_section_category_5_image = more_categories_section_form.category_5_image.data
+        home_content.more_categories_section_subcategory_1_of_category_5_id = safe_id(
+            more_categories_section_form.subcategory_1_of_category_5_id.data)
+        home_content.more_categories_section_subcategory_2_of_category_5_id = safe_id(
+            more_categories_section_form.subcategory_2_of_category_5_id.data)
+        home_content.more_categories_section_subcategory_3_of_category_5_id = safe_id(
+            more_categories_section_form.subcategory_3_of_category_5_id.data)
+        home_content.more_categories_section_subcategory_4_of_category_5_id = safe_id(
+            more_categories_section_form.subcategory_4_of_category_5_id.data)
+        home_content.more_categories_section_subcategory_5_of_category_5_id = safe_id(
+            more_categories_section_form.subcategory_5_of_category_5_id.data)
+
         db.session.add(home_content)
         db.session.commit()
 
