@@ -15,4 +15,46 @@
   .lower-text {
     text-align: center;
   }
+
+  form.newsletter-sign {
+    table {
+      width: 100%;
+
+      td.email-input {
+        width: 100%;
+        padding-right: 8px;
+      }
+    }
+  }
+
+  .row.newsletter-part {
+    background-color: #CDCDCD;
+
+    h2 {
+      margin-bottom: 2px;
+    }
+
+    .col-xs-6 {
+      min-width: 300px;
+
+      & .newsletter-sign {
+        margin-top: 24px;
+
+        input[type=submit] {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 599px) {
+    .row.newsletter-part {
+
+      .col-xs-6 {
+        & .newsletter-sign {
+          margin-top: 0;
+        }
+      }
+    }
+  }
 }

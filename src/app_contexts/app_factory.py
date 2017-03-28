@@ -82,7 +82,7 @@ def create_app():
     # Components
     #
     from components import components_blueprint
-    app.register_blueprint(components_blueprint, url_prefix="/components")
+    app.register_blueprint(components_blueprint, url_prefix="/componentes")
     #
     # Admin Routers
     #

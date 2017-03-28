@@ -1,10 +1,11 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ======================================================================================================================
-# Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
+# Created at 28/03/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from flask import Blueprint
+from components import components_blueprint
 
-components_blueprint = Blueprint("components", __name__, static_folder="static", template_folder="templates")
 
-import views
+@components_blueprint.route("/registrar-novo-email-do-newsletter", methods=["POST"])
+def register_new_newsletter_email():
+    return "", 200

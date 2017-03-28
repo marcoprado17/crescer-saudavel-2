@@ -25,7 +25,7 @@
             </div>
         {% endif %}
         <input {{ xmlattrs|xmlattr }} id="{{ field.id }}" name="{{ field.name }}" type="text"
-               class="form-control {{ classes }}" placeholder="{{ field.label.text|if(not explicit_label, placeholder) }}"
+               class="form-control {{ classes }}" placeholder="{{ placeholder|if(placeholder != "", field.label.text) }}"
                value="{{ field.data|if(field.data) }}" {{ "readonly"|if(readonly) }} maxlength={{ max_length|if(max_length)}}>
         {{ render_errors(field.errors) }}
     </div>

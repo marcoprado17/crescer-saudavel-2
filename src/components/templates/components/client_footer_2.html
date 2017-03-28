@@ -1,11 +1,31 @@
 {% set data = get_components_client_footer_data|assert_defined|assert_callable|call %}
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
 <div class="__components__ __client_footer_2__">
     <footer>
-        <div class="container">
-            <div class="row">
-
+        <div class="row newsletter-part">
+            <div class="container">
+                <div class="col-xs-6">
+                    <h2>Fique por dentro!</h2>
+                    <p>Assine nosso newsletter e receba nossas promoções e novidades.</p>
+                </div>
+                <div class="col-xs-6 newsletter-sign">
+                    <form action="{{ url_for("components.register_new_newsletter_email") }}" method="post" class="newsletter-sign"
+                          enctype=multipart/form-data data-sign-text="{{ R.string.sign }}"
+                          data-signing-text="{{ R.string.signing }}"
+                          data-error-msg="{{ R.string.newsletter_sign_error_msg }}"
+                          data-success-msg="{{ R.string.newsletter_sign_success_msg }}">
+                        <table>
+                            <tr>
+                                <td class="email-input">{{ form_fields.string_field(field=data.newsletter_email_form.email, explicit_label=False, placeholder=R.string.enter_with_your_email) }}</td>
+                                <td>{{ form_fields.submit(field=data.newsletter_email_form.submit) }}</td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
             </div>
-            <div class="row">
+        </div>
+        <div class="row">
+            <div class="container">
                 <div class="col-md-6">
                     <h2>{{ R.string.contact }}</h2>
                     {% if data.tel %}
@@ -61,7 +81,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row lower-text">
+        </div>
+        <div class="row lower-text">
+            <div class="container">
                 {{ data.lower_text_html|safe }}
             </div>
         </div>

@@ -6,17 +6,16 @@
 from flask import url_for
 from sqlalchemy import desc
 
+from components.forms import NewsletterEmailForm
 from models.about_us import AboutUs
 from models.blog_post import BlogPost
 from models.contact import Contact
 from models.footer import Footer
 from models.product_category import ProductCategory
-from proj_extensions import cache
 from r import R
 
 
 class ClientFooterDataProvider(object):
-    @cache.cached(timeout=R.dimen.cache_timeout, key_prefix='get_client_footer_data')
     def get_data(self):
         chosen_categories = []
         categories = ProductCategory.get_all()
@@ -87,6 +86,7 @@ class ClientFooterDataProvider(object):
             chosen_categories=chosen_categories,
             chosen_blog_posts=chosen_blog_posts,
             lower_text_html=Footer.get().lower_text_html,
+            newsletter_email_form=NewsletterEmailForm()
         )
 
 
