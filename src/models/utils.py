@@ -14,6 +14,7 @@ from flask import current_app
 from models.dispatch import Dispatch
 from models.exchanges_and_returns import ExchangesAndReturns
 from models.header import Header
+from models.newsletter_emails import NewsletterEmails
 from models.payment import Payment
 from proj_extensions import db
 from models.about_us import AboutUs
@@ -109,6 +110,14 @@ def create_home_content():
     db.session.commit()
     print "Home content created."
     return home_content
+
+
+def create_newsletter_emails():
+    newsletter_emails = NewsletterEmails()
+    db.session.add(newsletter_emails)
+    db.session.commit()
+    print "Newsletter emails created."
+    return newsletter_emails
 
 
 def create_contact():

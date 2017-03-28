@@ -40,6 +40,10 @@
       & .newsletter-sign {
         margin-top: 24px;
 
+        td {
+          vertical-align: top;
+        }
+
         input[type=submit] {
           margin-bottom: 0;
         }

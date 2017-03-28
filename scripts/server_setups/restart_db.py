@@ -14,7 +14,7 @@ sys.path.append("/vagrant/build")
 from app_contexts.app import app
 from proj_extensions import db
 from models.utils import create_states, create_home_content, create_contact, create_about_us, create_faq, create_footer, create_header, \
-    create_payment, create_dispatch, create_exchanges_and_returns
+    create_payment, create_dispatch, create_exchanges_and_returns, create_newsletter_emails
 
 
 def restart_db():
@@ -28,6 +28,7 @@ def restart_db():
 
         create_states()
         create_home_content()
+        create_newsletter_emails()
         create_contact()
         create_about_us()
         create_faq()

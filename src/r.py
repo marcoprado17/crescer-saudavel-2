@@ -519,6 +519,8 @@ class Resources(object):
         payment_methods = "Formas de pagamento"
         what_do_we_have_more_for_you_section = "Seção o que temos mais para você"
         what_do_we_have_more_for_you_title = "Olha só o que mais temos para você!"
+        stay_in = "Fique por dentro!"
+        stay_in_auxiliar_message = "Assine nosso newsletter e receba nossas promoções e novidades."
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"

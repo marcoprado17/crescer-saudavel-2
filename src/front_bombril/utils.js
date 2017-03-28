@@ -345,7 +345,7 @@ function initSaveForms() {
                 throwSuccessOpToast(success_msg)
             },
             error: function (status, dataAsObject) {
-                if (status == 400) {
+                if (status == 400 && dataAsObject != null && "errors" in dataAsObject) {
                     showFormErrors(form, dataAsObject.errors);
                 }
                 throwErrorOpToast(error_msg)
