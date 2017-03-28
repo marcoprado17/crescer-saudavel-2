@@ -649,6 +649,44 @@ class ContactForm(FlaskForm):
             self.pintrest_link.data = safe_string(contact.pintrest_link)
 
 
+class TagsRowForm(FlaskForm):
+    tag_1_image = SelectField(label=R.string.image_of_tag_n(1))
+    tag_1_title = StringField(label=R.string.title_of_tag_n(1))
+    tag_1_subtitle = StringField(label=R.string.subtitle_of_tag_n(1))
+
+    tag_2_image = SelectField(label=R.string.image_of_tag_n(2))
+    tag_2_title = StringField(label=R.string.title_of_tag_n(2))
+    tag_2_subtitle = StringField(label=R.string.subtitle_of_tag_n(2))
+
+    tag_3_image = SelectField(label=R.string.image_of_tag_n(3))
+    tag_3_title = StringField(label=R.string.title_of_tag_n(3))
+    tag_3_subtitle = StringField(label=R.string.subtitle_of_tag_n(3))
+
+    submit = SubmitField(label=R.string.save)
+
+    def __init__(self, tags_row=None, **kwargs):
+        super(TagsRowForm, self).__init__(**kwargs)
+
+        image_choices = get_image_choices(include_none=True)
+
+        self.tag_1_image.choices = image_choices
+        self.tag_2_image.choices = image_choices
+        self.tag_3_image.choices = image_choices
+
+        if tags_row != None:
+            self.tag_1_image.data = tags_row.tag_1_image
+            self.tag_1_title.data = tags_row.tag_1_title
+            self.tag_1_subtitle.data = tags_row.tag_1_subtitle
+
+            self.tag_2_image.data = tags_row.tag_2_image
+            self.tag_2_title.data = tags_row.tag_2_title
+            self.tag_2_subtitle.data = tags_row.tag_2_subtitle
+
+            self.tag_3_image.data = tags_row.tag_3_image
+            self.tag_3_title.data = tags_row.tag_3_title
+            self.tag_3_subtitle.data = tags_row.tag_3_subtitle
+
+
 class AboutUsForm(FlaskForm):
     summary = TextAreaField(
         label=R.string.summary,

@@ -16,6 +16,7 @@ from models.exchanges_and_returns import ExchangesAndReturns
 from models.header import Header
 from models.newsletter_emails import NewsletterEmails
 from models.payment import Payment
+from models.tags_row import TagsRow
 from proj_extensions import db
 from models.about_us import AboutUs
 from models.blog_post import BlogPost
@@ -118,6 +119,14 @@ def create_newsletter_emails():
     db.session.commit()
     print "Newsletter emails created."
     return newsletter_emails
+
+
+def create_tags_row():
+    tags_row = TagsRow()
+    db.session.add(tags_row)
+    db.session.commit()
+    print "Tags row created."
+    return tags_row
 
 
 def create_contact():

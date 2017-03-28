@@ -383,6 +383,8 @@ class Resources(object):
         youtube = "Youtube"
         save_contact_error_msg = "Não foi possível salvar os novos dados de contato. Verifique os valores e tente novamente."
         save_contact_success_msg = "Os dados de contato foram atualizados com sucesso."
+        save_tags_error_msg = "Não foi possível salvar os novos dados das tags. Verifique os valores e tente novamente."
+        save_tags_success_msg = "Os dados das tags foram atualizados com sucesso."
         save_about_us_error_msg = 'Não foi possível salvar os novos dados da página "Sobre nós". Verifique os valores e tente novamente.'
         save_about_us_success_msg = 'Os dados da página "Sobre nós" foram atualizados com sucesso.'
         save_faq_error_msg = 'Não foi possível salvar os novos dados da página "FAQ". Verifique os valores e tente novamente.'
@@ -521,6 +523,8 @@ class Resources(object):
         what_do_we_have_more_for_you_title = "Olha só o que mais temos para você!"
         stay_in = "Fique por dentro!"
         stay_in_auxiliar_message = "Assine nosso newsletter e receba nossas promoções e novidades."
+        tags_content = "Conteúdo das tags"
+        tags = "Tags"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -1087,6 +1091,18 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         def image_of_category_n(n):
             return "Imagem da categoria %s" % n
 
+        @staticmethod
+        def image_of_tag_n(n):
+            return "Imagem da tag %s" % n
+
+        @staticmethod
+        def title_of_tag_n(n):
+            return "Título da tag %s" % n
+
+        @staticmethod
+        def subtitle_of_tag_n(n):
+            return "Subtítulo da tag %s" % n
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -1207,6 +1223,9 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         default_n_visible_categories = 4
 
         default_product_category_priority = 10
+
+        tag_title_max_length = 32
+        tag_subtitle_max_length = 128
 
 
 R = Resources()

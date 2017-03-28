@@ -10,7 +10,7 @@ from flask import render_template, redirect, url_for, current_app
 from models.utils import create_states, create_random_product_categories, create_random_product_subcategories, \
     create_random_products, create_specif_cities, create_random_clients, create_random_orders, create_home_content, \
     create_contact, create_about_us, create_faq, create_footer, create_random_blog_posts, create_header, create_payment, \
-    create_dispatch, create_exchanges_and_returns, create_newsletter_emails
+    create_dispatch, create_exchanges_and_returns, create_newsletter_emails, create_tags_row
 from proj_utils import create_product_image, create_blog_thumbnail_image
 from routers.debug import debug_blueprint
 from proj_extensions import db
@@ -108,6 +108,7 @@ def restart_db_implementation():
 
     create_home_content()
     create_newsletter_emails()
+    create_tags_row()
     create_contact()
     create_about_us()
     create_faq()

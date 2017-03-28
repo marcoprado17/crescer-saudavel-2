@@ -16,6 +16,7 @@ from models.footer import Footer
 from models.header import Header
 from models.home_content import HomeContent
 from models.payment import Payment
+from models.tags_row import TagsRow
 from proj_decorators import admin_required
 from routers.admin_content import admin_content_blueprint
 from routers.admin_content.data_providers.about_us import admin_about_us_data_provider
@@ -27,8 +28,10 @@ from routers.admin_content.data_providers.footer import admin_footer_data_provid
 from routers.admin_content.data_providers.header import admin_header_data_provider
 from routers.admin_content.data_providers.home import admin_content_home_data_provider
 from routers.admin_content.data_providers.payment import admin_payment_data_provider
+from routers.admin_content.data_providers.tags_row import admin_tags_row_data_provider
 from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm, ContactForm, AboutUsForm, \
-    FaqForm, FooterForm, HeaderForm, PaymentForm, DispatchForm, ExchangesAndReturnsForm, MoreCategoriesSectionForm
+    FaqForm, FooterForm, HeaderForm, PaymentForm, DispatchForm, ExchangesAndReturnsForm, MoreCategoriesSectionForm, \
+    TagsRowForm
 
 
 @admin_content_blueprint.route("/home")
@@ -236,3 +239,18 @@ def footer():
             return "", 200
         else:
             return json.dumps(dict(errors=footer_form.errors)), 400
+
+
+@admin_content_blueprint.route("/tags", methods=["GET", "POST"])
+@login_required
+@admin_required
+def tags():
+    if request.method=="GET":
+        return render_template("admin_content/tags_row.html", data=admin_tags_row_data_provider.get_data())
+    else:
+        tags_row_form = TagsRowForm()
+        if tags_row_form.validate_on_submit():
+            TagsRow.get().update_from_form(form=tags_row_form)
+            return "", 200
+        else:
+            return json.dumps(dict(errors=tags_row_form.errors)), 400
