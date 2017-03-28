@@ -39,6 +39,8 @@
                 </div>
             {% endif %}
 
+            {% include "components/tags_row.html" %}
+
             {% if data.product_sections and data.product_sections|length > 0 %}
                 {% for product_section in data.product_sections %}
                     {% with data=product_section %}
