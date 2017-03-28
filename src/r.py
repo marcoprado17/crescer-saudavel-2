@@ -76,7 +76,7 @@ class Resources(object):
         fixed = "Fixa"
         signup = "Assinar"
         signing = "Assinando..."
-        newsletter_sign_error_msg = "Ocorreu uma falha ao cadastrar seu email em nossa newsletter. Por favor, cheque seu email e tente novamente."
+        newsletter_sign_error_msg = "Ocorreu uma falha ao cadastrar seu email em nosso newsletter. Por favor, cheque seu email e tente novamente."
         newsletter_sign_success_msg = "O email <b>{0}</b> foi registrado com sucesso em nossa newsletter!"
         sign = "Assinar"
         contact = "Contato"
