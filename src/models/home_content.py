@@ -196,6 +196,14 @@ class HomeContent(BaseModel):
     more_categories_section_subcategory_4_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
     more_categories_section_subcategory_5_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
 
+    more_categories_section_category_6_id = db.Column(db.Integer, ForeignKey("product_category.id"))
+    more_categories_section_category_6_image = db.Column(db.Text)
+    more_categories_section_subcategory_1_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_2_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_3_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_4_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+    more_categories_section_subcategory_5_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
+
     blog_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
     blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
     blog_section_1_link = db.Column(db.String(R.dimen.link_max_length), default="", nullable=False)
@@ -467,6 +475,19 @@ class HomeContent(BaseModel):
             more_categories_section_form.subcategory_4_of_category_5_id.data)
         home_content.more_categories_section_subcategory_5_of_category_5_id = safe_id(
             more_categories_section_form.subcategory_5_of_category_5_id.data)
+
+        home_content.more_categories_section_category_6_id = safe_id(more_categories_section_form.category_6_id.data)
+        home_content.more_categories_section_category_6_image = more_categories_section_form.category_6_image.data
+        home_content.more_categories_section_subcategory_1_of_category_6_id = safe_id(
+            more_categories_section_form.subcategory_1_of_category_6_id.data)
+        home_content.more_categories_section_subcategory_2_of_category_6_id = safe_id(
+            more_categories_section_form.subcategory_2_of_category_6_id.data)
+        home_content.more_categories_section_subcategory_3_of_category_6_id = safe_id(
+            more_categories_section_form.subcategory_3_of_category_6_id.data)
+        home_content.more_categories_section_subcategory_4_of_category_6_id = safe_id(
+            more_categories_section_form.subcategory_4_of_category_6_id.data)
+        home_content.more_categories_section_subcategory_5_of_category_6_id = safe_id(
+            more_categories_section_form.subcategory_5_of_category_6_id.data)
 
         db.session.add(home_content)
         db.session.commit()

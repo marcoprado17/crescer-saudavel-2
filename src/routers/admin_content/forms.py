@@ -261,7 +261,7 @@ class ProductSectionForm(FlaskForm):
 
 
 class MoreCategoriesSectionForm(FlaskForm):
-    category_1_id = SelectField(label=R.string.category_n(n=1))
+    category_1_id = SelectField(label=R.string.category_n(1))
     category_1_image = SelectField(label=R.string.image_of_category_n(1))
     subcategory_1_of_category_1_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=1))
     subcategory_2_of_category_1_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=1))
@@ -269,7 +269,7 @@ class MoreCategoriesSectionForm(FlaskForm):
     subcategory_4_of_category_1_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=1))
     subcategory_5_of_category_1_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=1))
 
-    category_2_id = SelectField(label=R.string.category_n(n=2))
+    category_2_id = SelectField(label=R.string.category_n(2))
     category_2_image = SelectField(label=R.string.image_of_category_n(2))
     subcategory_1_of_category_2_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=2))
     subcategory_2_of_category_2_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=2))
@@ -277,7 +277,7 @@ class MoreCategoriesSectionForm(FlaskForm):
     subcategory_4_of_category_2_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=2))
     subcategory_5_of_category_2_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=2))
 
-    category_3_id = SelectField(label=R.string.category_n(n=3))
+    category_3_id = SelectField(label=R.string.category_n(3))
     category_3_image = SelectField(label=R.string.image_of_category_n(3))
     subcategory_1_of_category_3_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=3))
     subcategory_2_of_category_3_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=3))
@@ -285,7 +285,7 @@ class MoreCategoriesSectionForm(FlaskForm):
     subcategory_4_of_category_3_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=3))
     subcategory_5_of_category_3_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=3))
 
-    category_4_id = SelectField(label=R.string.category_n(n=4))
+    category_4_id = SelectField(label=R.string.category_n(4))
     category_4_image = SelectField(label=R.string.image_of_category_n(4))
     subcategory_1_of_category_4_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=4))
     subcategory_2_of_category_4_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=4))
@@ -293,13 +293,21 @@ class MoreCategoriesSectionForm(FlaskForm):
     subcategory_4_of_category_4_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=4))
     subcategory_5_of_category_4_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=4))
 
-    category_5_id = SelectField(label=R.string.category_n(n=5))
+    category_5_id = SelectField(label=R.string.category_n(5))
     category_5_image = SelectField(label=R.string.image_of_category_n(5))
     subcategory_1_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=5))
     subcategory_2_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=5))
     subcategory_3_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=3, m=5))
     subcategory_4_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=5))
     subcategory_5_of_category_5_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=5))
+
+    category_6_id = SelectField(label=R.string.category_n(6))
+    category_6_image = SelectField(label=R.string.image_of_category_n(6))
+    subcategory_1_of_category_6_id = SelectField(label=R.string.subcategory_n_of_category_m(n=1, m=6))
+    subcategory_2_of_category_6_id = SelectField(label=R.string.subcategory_n_of_category_m(n=2, m=6))
+    subcategory_3_of_category_6_id = SelectField(label=R.string.subcategory_n_of_category_m(n=3, m=6))
+    subcategory_4_of_category_6_id = SelectField(label=R.string.subcategory_n_of_category_m(n=4, m=6))
+    subcategory_5_of_category_6_id = SelectField(label=R.string.subcategory_n_of_category_m(n=5, m=6))
 
     submit = SubmitField(label=R.string.save)
 
@@ -407,6 +415,23 @@ class MoreCategoriesSectionForm(FlaskForm):
         self.subcategory_4_of_category_5_id.render_kw = dict_of_category_5
         self.subcategory_5_of_category_5_id.render_kw = dict_of_category_5
 
+        self.category_6_id.choices = product_category_choices
+        self.category_6_image.choices = image_choices_with_none
+        self.subcategory_1_of_category_6_id.choices = product_subcategory_choices
+        self.subcategory_2_of_category_6_id.choices = product_subcategory_choices
+        self.subcategory_3_of_category_6_id.choices = product_subcategory_choices
+        self.subcategory_4_of_category_6_id.choices = product_subcategory_choices
+        self.subcategory_5_of_category_6_id.choices = product_subcategory_choices
+        dict_of_category_6 = dict(
+            depends_on="category_6_id",
+            dependent_choices=json.dumps(dependent_choices)
+        )
+        self.subcategory_1_of_category_6_id.render_kw = dict_of_category_6
+        self.subcategory_2_of_category_6_id.render_kw = dict_of_category_6
+        self.subcategory_3_of_category_6_id.render_kw = dict_of_category_6
+        self.subcategory_4_of_category_6_id.render_kw = dict_of_category_6
+        self.subcategory_5_of_category_6_id.render_kw = dict_of_category_6
+
         if home_content is not None:
             self.category_1_id.data = str(
                 home_content.more_categories_section_category_1_id)
@@ -472,6 +497,19 @@ class MoreCategoriesSectionForm(FlaskForm):
                 home_content.more_categories_section_subcategory_4_of_category_5_id)
             self.subcategory_5_of_category_5_id.data = str(
                 home_content.more_categories_section_subcategory_5_of_category_5_id)
+
+            self.category_6_id.data = str(
+                home_content.more_categories_section_category_6_id)
+            self.subcategory_1_of_category_6_id.data = str(
+                home_content.more_categories_section_subcategory_1_of_category_6_id)
+            self.subcategory_2_of_category_6_id.data = str(
+                home_content.more_categories_section_subcategory_2_of_category_6_id)
+            self.subcategory_3_of_category_6_id.data = str(
+                home_content.more_categories_section_subcategory_3_of_category_6_id)
+            self.subcategory_4_of_category_6_id.data = str(
+                home_content.more_categories_section_subcategory_4_of_category_6_id)
+            self.subcategory_5_of_category_6_id.data = str(
+                home_content.more_categories_section_subcategory_5_of_category_6_id)
 
 
 class BlogSectionForm(FlaskForm):

@@ -47,67 +47,30 @@
                 {% endfor %}
             {% endif %}
 
-            <div class="container">
-                <div class="additional-product-categories-and-subcategories-section-title-container">
-                    <h2>Olha só o que mais temos para você!</h2>
-                </div>
-                <div class="row additional-product-categories-and-subcategories-section">
-                    <div class="col col-xs-4 col-md-2">
-                        <img src="{{ url_for('static', filename='imgs/baby-food.png') }}">
-                        <h3>Papinhas</h3>
-                        <ul>
-                            <li><a href="#">sabor 1</a></li>
-                            <li><a href="#">sabor 2</a></li>
-                            <li><a href="#">sabor 3</a></li>
-                        </ul>
+            {% if data.more_categories and data.more_categories|length %}
+                <div class="container">
+                    <div class="additional-product-categories-and-subcategories-section-title-container">
+                        <h2>{{ R.string.what_do_we_have_more_for_you_title }}</h2>
                     </div>
-                    <div class="col col-xs-4 col-md-2">
-                        <img src="{{ url_for('static', filename='imgs/baby-food.png') }}">
-                        <h3>Papinhas</h3>
-                        <ul>
-                            <li><a href="#">sabor 1</a></li>
-                            <li><a href="#">sabor 2</a></li>
-                            <li><a href="#">sabor 3</a></li>
-                        </ul>
-                    </div>
-                    <div class="col col-xs-4 col-md-2">
-                        <img src="{{ url_for('static', filename='imgs/baby-food.png') }}">
-                        <h3>Papinhas</h3>
-                        <ul>
-                            <li><a href="#">sabor 1</a></li>
-                            <li><a href="#">sabor 2</a></li>
-                            <li><a href="#">sabor 3</a></li>
-                        </ul>
-                    </div>
-                    <div class="col col-xs-4 col-md-2">
-                        <img src="{{ url_for('static', filename='imgs/baby-food.png') }}">
-                        <h3>Papinhas</h3>
-                        <ul>
-                            <li><a href="#">sabor 1</a></li>
-                            <li><a href="#">sabor 2</a></li>
-                            <li><a href="#">sabor 3</a></li>
-                        </ul>
-                    </div>
-                    <div class="col col-xs-4 col-md-2">
-                        <img src="{{ url_for('static', filename='imgs/baby-food.png') }}">
-                        <h3>Papinhas</h3>
-                        <ul>
-                            <li><a href="#">sabor 1</a></li>
-                            <li><a href="#">sabor 2</a></li>
-                            <li><a href="#">sabor 3</a></li>
-                        </ul>
-                    </div>
-                    <div class="col col-xs-4 col-md-2">
-                        <img src="{{ url_for('static', filename='imgs/baby-food.png') }}">
-                        <h3>Papinhas</h3>
-                        <ul>
-                            <li><a href="#">sabor 1</a></li>
-                            <li><a href="#">sabor 2</a></li>
-                            <li><a href="#">sabor 3</a></li>
-                        </ul>
+                    <div class="row additional-product-categories-and-subcategories-section">
+                        {% for category_data in data.more_categories %}
+                            <div class="col col-xs-4 col-md-2">
+                                {% if category_data.image_src %}
+                                    <a href="{{ category_data.category_href }}"><img src="{{ category_data.image_src }}"></a>
+                                {% endif %}
+                                <a href="{{ category_data.category_href }}"><h3>{{ category_data.category_name }}</h3></a>
+                                {% if category_data.subcategories and category_data.subcategories|length > 0 %}
+                                    <ul>
+                                        {% for subcategory_data in category_data.subcategories %}
+                                            <li><a href="{{ subcategory_data.href }}">{{ subcategory_data.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
             {% if data.blog_sections and data.blog_sections|length > 0 %}
                 {% for blog_section in data.blog_sections %}
