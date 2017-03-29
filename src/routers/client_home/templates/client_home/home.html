@@ -62,13 +62,16 @@
                         {% for category_data in data.more_categories %}
                             <div class="col col-xs-4 col-md-2">
                                 {% if category_data.image_src %}
-                                    <a href="{{ category_data.category_href }}"><img src="{{ category_data.image_src }}"></a>
+                                    <a href="{{ category_data.category_href }}"><img
+                                            src="{{ category_data.image_src }}"></a>
                                 {% endif %}
-                                <a href="{{ category_data.category_href }}"><h3>{{ category_data.category_name }}</h3></a>
+                                <a href="{{ category_data.category_href }}"><h3>{{ category_data.category_name }}</h3>
+                                </a>
                                 {% if category_data.subcategories and category_data.subcategories|length > 0 %}
                                     <ul>
                                         {% for subcategory_data in category_data.subcategories %}
-                                            <li><a href="{{ subcategory_data.href }}">{{ subcategory_data.name }}</a></li>
+                                            <li><a href="{{ subcategory_data.href }}">{{ subcategory_data.name }}</a>
+                                            </li>
                                         {% endfor %}
                                     </ul>
                                 {% endif %}
@@ -79,31 +82,52 @@
             {% endif %}
 
             {% if data.blog_sections and data.blog_sections|length > 0 %}
-                {% for blog_section in data.blog_sections %}
-                    <div class="latest-blog wow bounceInUp animated animated container">
-                        <div class="new_title">
-                            {% if blog_section.href %}
-                                <a href="{{ blog_section.href }}">
+                <div class="container">
+                    {% for blog_section in data.blog_sections %}
+                        <div class="blog-section">
+                            <div class="new_title">
+                                {% if blog_section.href %}
+                                    <a href="{{ blog_section.href }}">
+                                        <h2>{{ blog_section.title }}</h2>
+                                    </a>
+                                {% else %}
                                     <h2>{{ blog_section.title }}</h2>
-                                </a>
-                            {% else %}
-                                <h2>{{ blog_section.title }}</h2>
-                            {% endif %}
-                        </div>
-                        <div class="blog_block">
-                            <div class="blog_block_inner">
-                                {% with blog_post=blog_section.blog_posts[0] %}
-                                    {% include "components/blog_post_preview.html" %}
-                                {% endwith %}
-                                {% if blog_section.blog_posts|length == 2 %}
-                                    {% with blog_post=blog_section.blog_posts[1] %}
-                                        {% include "components/blog_post_preview.html" %}
-                                    {% endwith %}
                                 {% endif %}
                             </div>
+                            <div class="row blog-posts">
+                                {% for blog_post in blog_section.blog_posts %}
+                                    <div class="col-md-6">
+                                        <img src="{{ blog_post.get_img_src_of_thumbnail() }}"
+                                             alt="{{ R.string.post_thumbnail }}">
+                                    </div>
+                                {% endfor %}
+                                {#                    <div class="latest-blog wow bounceInUp animated animated container">#}
+                                {#                        <div class="new_title">#}
+                                {#                            {% if blog_section.href %}#}
+                                {#                                <a href="{{ blog_section.href }}">#}
+                                {#                                    <h2>{{ blog_section.title }}</h2>#}
+                                {#                                </a>#}
+                                {#                            {% else %}#}
+                                {#                                <h2>{{ blog_section.title }}</h2>#}
+                                {#                            {% endif %}#}
+                                {#                        </div>#}
+                                {#                        <div class="blog_block">#}
+                                {#                            <div class="blog_block_inner">#}
+                                {#                                {% with blog_post=blog_section.blog_posts[0] %}#}
+                                {#                                    {% include "components/blog_post_preview.html" %}#}
+                                {#                                {% endwith %}#}
+                                {#                                {% if blog_section.blog_posts|length == 2 %}#}
+                                {#                                    {% with blog_post=blog_section.blog_posts[1] %}#}
+                                {#                                        {% include "components/blog_post_preview.html" %}#}
+                                {#                                    {% endwith %}#}
+                                {#                                {% endif %}#}
+                                {#                            </div>#}
+                                {#                        </div>#}
+                                {#                    </div>#}
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             {% endif %}
         </div>
     </div>

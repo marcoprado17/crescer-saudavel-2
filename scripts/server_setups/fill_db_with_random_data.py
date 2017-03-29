@@ -7,6 +7,7 @@ import random
 import sys
 
 from models.about_us import AboutUs
+from models.blog_post import BlogPost
 from models.contact import Contact
 from models.footer import Footer
 from models.home_content import HomeContent
@@ -260,6 +261,16 @@ def create_home_content_data():
             home_content.more_categories_section_subcategory_4_of_category_6_id = active_subcategories[3].id
         if len(active_subcategories) >= 5:
             home_content.more_categories_section_subcategory_5_of_category_6_id = active_subcategories[4].id
+
+    blog_posts = BlogPost.query.filter(BlogPost.active == True).all()
+
+    if len(blog_posts) >= 1:
+        home_content.blog_section_1_active = True
+        home_content.blog_section_1_name = "Novidades do blog"
+        home_content.blog_section_1_link = "/blog"
+        home_content.blog_section_1_post_1_id = blog_posts[0].id
+        if len(blog_posts) >= 2:
+            home_content.blog_section_1_post_2_id = blog_posts[0].id
 
     db.session.add(home_content)
     db.session.commit()

@@ -3,7 +3,6 @@
   $mid-color: rgba(0, 0, 0, 0.4);
   $bottom-color: rgba(0, 0, 0, 0.6);
 
-
   .carousel-inner {
     height: 500px;
   }
@@ -101,6 +100,17 @@
       li {
         text-align: left;
       }
+    }
+  }
+
+  .blog-section {
+    margin-bottom: 24px;
+  }
+
+  .row.blog-posts {
+    img {
+      width: 100%;
+      border-radius: 16px;
     }
   }
 }
