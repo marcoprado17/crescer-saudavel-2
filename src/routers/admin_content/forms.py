@@ -651,16 +651,16 @@ class ContactForm(FlaskForm):
 
 class TagsRowForm(FlaskForm):
     tag_1_image = SelectField(label=R.string.image_of_tag_n(1))
-    tag_1_title = StringField(label=R.string.title_of_tag_n(1))
-    tag_1_subtitle = StringField(label=R.string.subtitle_of_tag_n(1))
+    tag_1_title = StringField(label=R.string.title_of_tag_n(1), validators=[Length(max_length=R.dimen.tag_title_max_length)])
+    tag_1_subtitle = StringField(label=R.string.subtitle_of_tag_n(1), validators=[Length(max_length=R.dimen.tag_subtitle_max_length)])
 
     tag_2_image = SelectField(label=R.string.image_of_tag_n(2))
-    tag_2_title = StringField(label=R.string.title_of_tag_n(2))
-    tag_2_subtitle = StringField(label=R.string.subtitle_of_tag_n(2))
+    tag_2_title = StringField(label=R.string.title_of_tag_n(2), validators=[Length(max_length=R.dimen.tag_title_max_length)])
+    tag_2_subtitle = StringField(label=R.string.subtitle_of_tag_n(2), validators=[Length(max_length=R.dimen.tag_subtitle_max_length)])
 
     tag_3_image = SelectField(label=R.string.image_of_tag_n(3))
-    tag_3_title = StringField(label=R.string.title_of_tag_n(3))
-    tag_3_subtitle = StringField(label=R.string.subtitle_of_tag_n(3))
+    tag_3_title = StringField(label=R.string.title_of_tag_n(3), validators=[Length(max_length=R.dimen.tag_title_max_length)])
+    tag_3_subtitle = StringField(label=R.string.subtitle_of_tag_n(3), validators=[Length(max_length=R.dimen.tag_subtitle_max_length)])
 
     submit = SubmitField(label=R.string.save)
 

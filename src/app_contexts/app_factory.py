@@ -200,6 +200,7 @@ def create_app():
     from components.data_providers import admin_navbar_data_provider
     from components.data_providers.client_footer import client_footer_data_provider
     from components.data_providers.client_header import client_header_data_provider
+    from components.data_providers.tags_row import tags_row_data_provider
 
     def generate_csrf_token():
         if '_csrf_token' not in session:
@@ -215,6 +216,7 @@ def create_app():
             get_components_client_header_data=lambda: client_header_data_provider.get_data(),
             get_components_client_footer_data=lambda: client_footer_data_provider.get_data(),
             get_components_client_mobile_menu_data=lambda: client_header_data_provider.get_menu_data(),
+            get_components_tags_row_data=lambda: tags_row_data_provider.get_data(),
             submit_form=SubmitForm(),
             csrf_token=generate_csrf_token
         )
