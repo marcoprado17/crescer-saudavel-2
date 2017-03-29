@@ -6,15 +6,6 @@
 import random
 import sys
 
-from models.about_us import AboutUs
-from models.blog_post import BlogPost
-from models.contact import Contact
-from models.footer import Footer
-from models.home_content import HomeContent
-from models.product import Product
-from models.product_category import ProductCategory
-from models.tags_row import TagsRow
-
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
 
@@ -24,6 +15,15 @@ from models.utils import create_random_product_categories, create_random_product
     create_random_product_subcategories, create_random_blog_posts
 
 from proj_extensions import db
+
+from models.about_us import AboutUs
+from models.blog_post import BlogPost
+from models.contact import Contact
+from models.footer import Footer
+from models.home_content import HomeContent
+from models.product import Product
+from models.product_category import ProductCategory
+from models.tags_row import TagsRow
 
 def fill_db_with_random_data():
     with app.app_context():
