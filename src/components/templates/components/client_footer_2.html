@@ -40,7 +40,7 @@
                     {% endif %}
                     {% if data.social_networks and data.social_networks|length > 0 %}
                         {% for item in data.social_networks %}
-                            {% if item.active %}
+                            {% if item.active and item.is_facebook %}
                                 <div class="fb-page"
                                      data-href="{{ item.href }}"
                                      data-width="340"

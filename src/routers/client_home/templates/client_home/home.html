@@ -19,8 +19,12 @@
                                 {% endif %}
                                 {% if slide.title or slide.subtitle %}
                                     <div class="carousel-caption">
-                                        <h3>{{ slide.title }}</h3>
-                                        <h5>{{ slide.subtitle }}</h5>
+                                        {% if slide.title %}
+                                            <h3>{{ slide.title }}</h3>
+                                        {% endif %}
+                                        {% if slide.subtitle %}
+                                            <h5>{{ slide.subtitle }}</h5>
+                                        {% endif %}
                                     </div>
                                 {% endif %}
                             </div>
