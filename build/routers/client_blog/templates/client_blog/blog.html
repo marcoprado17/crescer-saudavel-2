@@ -1,0 +1,66 @@
+{% extends "client_base/client_base.html" %}
+{% block title %}
+    {{ R.string.blog }}
+{% endblock %}
+{% block content %}
+    <div class="__client_blog__ __blog__">
+        {% with data=data.page_heading_data %}
+            {% include "components/client_page_heading.html" %}
+        {% endwith %}
+        <div class="main-container">
+            <div class="main container">
+                {% if data.posts and data.posts|length > 0 %}
+                    <div id="main" class="blog-wrapper">
+                        <div id="primary" class="site-content">
+                            {% with data=data.paginator_data %}
+                                {% include "components/client_paginator.html" %}
+                            {% endwith %}
+                            <div id="content" role="main">
+                                {% for post in data.posts %}
+                                    {% set post_href=url_for("client_blog.blog_post", blog_post_id=post.id, **{R.string.page_arg_name: data.page}) %}
+                                    <article id="post-29" class="blog_entry clearfix wow bounceInUp animated animated"
+                                             style="visibility: visible;">
+                                        <div class="blog_entry-header clearfix">
+                                            <div class="blog_entry-header-inner row">
+                                                <h2 class="blog_entry-title"><a
+                                                        href="{{ post_href }}">{{ post.title }}</a>
+                                                </h2>
+                                                <div class="entry-meta">
+                                                    <div class="entry-date">{{ post.get_formatted_datetime() }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="entry-content">
+                                            <div class="featured-thumb">
+                                                <a href="{{ post_href }}">
+                                                    <img
+                                                    src="{{ url_for('static', filename='imgs/blog_thumbnails/' + post.thumbnail) }}" alt="{{ R.string.thumbnail_alt }}">
+                                                </a>
+                                            </div>
+                                            <div class="entry-content markdown-parsed-container">
+                                                {{ post.summary_html|safe }}
+                                            </div>
+                                            <div class="centered-content-container">
+                                                <a href="{{ post_href }}">
+                                                    <button title="{{ R.string.read_more }}" class="button"><span>{{ R.string.read_more }}</span>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </article>
+                                {% endfor %}
+                            </div>
+                            {% with data=data.paginator_data %}
+                                {% include "components/client_paginator.html" %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                {% else %}
+                    {% with msg="Nenhuma postagem encontrada!" %}
+                        {% include "components/client_empty.html" %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

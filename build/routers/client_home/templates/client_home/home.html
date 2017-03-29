@@ -1,0 +1,134 @@
+{% extends "client_base/client_base.html" %}
+{% block title %}
+    {{ R.string.home }}
+{% endblock %}
+{% block content %}
+    <div class="__client_home__ __home__">
+        <div class="content">
+            {% if data.carousel and data.carousel|length > 0 %}
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        {% for slide in data.carousel %}
+                            <div class="item img-container {{ 'active'|if(loop.first) }}">
+                                {% if slide.href %}
+                                    <a href='{{ slide.href }}'>
+                                        <img src="{{ slide.img_src }}">
+                                    </a>
+                                {% else %}
+                                    <img src="{{ slide.img_src }}">
+                                {% endif %}
+                                {% if slide.title or slide.subtitle %}
+                                    <div class="carousel-caption">
+                                        {% if slide.title %}
+                                            <h3>{{ slide.title }}</h3>
+                                        {% endif %}
+                                        {% if slide.subtitle %}
+                                            <h5>{{ slide.subtitle }}</h5>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if data.carousel|length >= 2 %}
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% include "components/tags_row.html" %}
+
+            {% if data.product_sections and data.product_sections|length > 0 %}
+                {% for product_section in data.product_sections %}
+                    {% with data=product_section %}
+                        {% include "components/products_home_section.html" %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
+
+            {% if data.more_categories and data.more_categories|length %}
+                <div class="container">
+                    <div class="additional-product-categories-and-subcategories-section-title-container">
+                        <h2>{{ R.string.what_do_we_have_more_for_you_title }}</h2>
+                    </div>
+                    <div class="row additional-product-categories-and-subcategories-section">
+                        {% for category_data in data.more_categories %}
+                            <div class="col col-xs-4 col-md-2">
+                                {% if category_data.image_src %}
+                                    <a href="{{ category_data.category_href }}"><img
+                                            src="{{ category_data.image_src }}"></a>
+                                {% endif %}
+                                <a href="{{ category_data.category_href }}"><h3>{{ category_data.category_name }}</h3>
+                                </a>
+                                {% if category_data.subcategories and category_data.subcategories|length > 0 %}
+                                    <ul>
+                                        {% for subcategory_data in category_data.subcategories %}
+                                            <li><a href="{{ subcategory_data.href }}">{{ subcategory_data.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if data.blog_sections and data.blog_sections|length > 0 %}
+                <div class="container">
+                    {% for blog_section in data.blog_sections %}
+                        <div class="blog-section">
+                            <div class="new_title">
+                                {% if blog_section.href %}
+                                    <a href="{{ blog_section.href }}">
+                                        <h2>{{ blog_section.title }}</h2>
+                                    </a>
+                                {% else %}
+                                    <h2>{{ blog_section.title }}</h2>
+                                {% endif %}
+                            </div>
+                            <div class="row blog-posts">
+                                {% for blog_post in blog_section.blog_posts %}
+                                    <div class="col-md-6">
+                                        <img src="{{ blog_post.get_img_src_of_thumbnail() }}"
+                                             alt="{{ R.string.post_thumbnail }}">
+                                    </div>
+                                {% endfor %}
+                                {#                    <div class="latest-blog wow bounceInUp animated animated container">#}
+                                {#                        <div class="new_title">#}
+                                {#                            {% if blog_section.href %}#}
+                                {#                                <a href="{{ blog_section.href }}">#}
+                                {#                                    <h2>{{ blog_section.title }}</h2>#}
+                                {#                                </a>#}
+                                {#                            {% else %}#}
+                                {#                                <h2>{{ blog_section.title }}</h2>#}
+                                {#                            {% endif %}#}
+                                {#                        </div>#}
+                                {#                        <div class="blog_block">#}
+                                {#                            <div class="blog_block_inner">#}
+                                {#                                {% with blog_post=blog_section.blog_posts[0] %}#}
+                                {#                                    {% include "components/blog_post_preview.html" %}#}
+                                {#                                {% endwith %}#}
+                                {#                                {% if blog_section.blog_posts|length == 2 %}#}
+                                {#                                    {% with blog_post=blog_section.blog_posts[1] %}#}
+                                {#                                        {% include "components/blog_post_preview.html" %}#}
+                                {#                                    {% endwith %}#}
+                                {#                                {% endif %}#}
+                                {#                            </div>#}
+                                {#                        </div>#}
+                                {#                    </div>#}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
