@@ -22,9 +22,9 @@
                 <div class="item-price">
                     {% if product.has_discount %}
                         <span class="original-price"><strike>{{ product.get_formatted_price(include_rs=True) }}</strike></span><br>
-                        <span class="big-price discount-price"><b>{{ product.price_with_discount_as_string(include_rs=True) }}</b></span>
+                        <span class="big-price discount-price">{{ product.price_with_discount_as_string(include_rs=True) }}</span>
                     {% else %}
-                        <span class="big-price"><b>{{ product.get_formatted_price(include_rs=True) }}</b></span>
+                        <span class="big-price">{{ product.get_formatted_price(include_rs=True) }}</span>
                     {% endif %}
                 </div>
                 {% if product.is_available_to_client %}
@@ -35,7 +35,7 @@
                                   data-product-title="{{ product.title }}"
                                   class="add-to-cart">
                                 {{ submit_form.csrf_token }}
-                                <button class="button" type="submit"
+                                <button class="button buy-button" type="submit"
                                         title="{{ R.string.add_to_cart }}">{{ R.string.buy }}</button>
                             </form>
                         </div>

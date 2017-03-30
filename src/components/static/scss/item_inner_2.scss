@@ -17,7 +17,7 @@ $top-color: rgba(255,255,255,255);
   .grow:hover {
     overflow: visible;
     transform: scale(1.04);
-    box-shadow: 0 8px 20px black;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
   }
 
   .item-img-info a {
@@ -33,7 +33,8 @@ $top-color: rgba(255,255,255,255);
   }
 
   button {
-    border-radius: 8px;
+    border-bottom-left-radius: $product-container-border-radius;
+    border-bottom-right-radius: $product-container-border-radius;
     margin-top: 6px;
   }
 
@@ -74,5 +75,41 @@ $top-color: rgba(255,255,255,255);
       background: radial-gradient($top-color, $bottom-color); /* Standard syntax */
       opacity: 0.7;
     }
+  }
+
+  .item-title a {
+    font-family: "OpenSans";
+    font-size: 20px;
+  }
+
+  .original-price {
+    font-family: "OpenSans";
+    font-size: 20px;
+  }
+
+  .big-price {
+    font-family: "OpenSans";
+    font-size: 50px !important;
+    line-height: 50px;
+    font-weight: bold;
+  }
+
+  .buy-button {
+    width: 100%;
+    margin: 0;
+    margin-top: 12px;
+    font-family: "HappyBirthdayBaby";
+    font-size: 48px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .info-inner {
+    padding: 0 !important;
+  }
+
+  .item-title {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }

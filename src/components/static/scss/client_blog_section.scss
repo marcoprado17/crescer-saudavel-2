@@ -4,12 +4,13 @@ $translucent-color: rgba(255,255,255,0);
 .__components__.__client_blog_section__ {
   .grow {
     transition: all .2s ease-in-out;
+    box-shadow: 0 3px 8px -4px rgba(0, 0, 0, 0.15);
   }
 
   .grow:hover {
     overflow: visible;
     transform: scale(1.02);
-    box-shadow: 0 8px 20px black;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
   }
 
   .blog-post-container {

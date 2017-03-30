@@ -200,7 +200,8 @@ gulp.task("append_sys_path_to_build_init", function () {
 gulp.task("copy_fonts_to_build_dir", function () {
     return gulp.src([
         "bower_components/bootstrap/dist/fonts/*",
-        "bower_components/components-font-awesome/fonts/*"
+        "bower_components/components-font-awesome/fonts/*",
+        "fonts/**/*.*"
     ])
         .pipe(gulp.dest("build/static/fonts"));
 });

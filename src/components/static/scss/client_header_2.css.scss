@@ -27,6 +27,8 @@
     border: 0;
     box-shadow: none;
     padding-left: 8px;
+    font-family: "OpenSans";
+    font-size: 18px;
   }
 
   #custom-search-input button {
@@ -60,6 +62,8 @@
 
   .account-col{
     margin-top: 8px;
+    font-family: "OpenSans";
+    font-size: 18px;
 
     .text-container {
       text-align: right;
@@ -130,6 +134,24 @@
   img.logo {
     padding-bottom: 0;
     display: block !important;
+  }
+
+  .mega-menu {
+    span.menu-item {
+      font-family: "OpenSans";
+      font-size: 20px;
+    }
+
+    span.children1 {
+      font-family: "OpenSans";
+      font-size: 20px;
+    }
+
+    span.children2 {
+      font-family: "OpenSans";
+      font-size: 18px;
+      font-weight:normal;
+    }
   }
 
   @media screen and (max-width: 768px){

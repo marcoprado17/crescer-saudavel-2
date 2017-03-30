@@ -102,4 +102,25 @@
       }
     }
   }
+
+  .glyphicon-chevron-left:before {
+    font-size: 55px;
+    font-weight: bold;
+  }
+
+  .glyphicon-chevron-right:before {
+    font-size: 55px;
+    font-weight: bold;
+  }
+
+  .carousel-caption .title {
+    font-family: "OpenSans";
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .carousel-caption .subtitle {
+    font-family: "OpenSans";
+    font-size: 18px;
+  }
 }
