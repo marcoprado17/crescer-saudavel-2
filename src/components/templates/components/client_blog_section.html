@@ -19,7 +19,7 @@
                              alt="{{ R.string.post_thumbnail }}">
                             <div class="gradient-top"></div>
                             <div class="gradient-bottom"></div>
-                            <span class="title">{{ utils.limited_text_tooltip(text="dkasd asukdnsa dsakud sadusad saods dusandsa doisand sdliasdas dsalid sadjlsa dlsajd asdas dsaidas dsaid sald sadsaind", max_length=R.dimen.blog_post_preview_title_max_length) }}</span>
+                            <span class="title">{{ utils.limited_text_tooltip(text=blog_post.title, max_length=R.dimen.blog_post_preview_title_max_length) }}</span>
                             <div class="day-month-container">
                                 <span class="day">{{ blog_post.get_day() }}</span><br>
                                 <span class="month">{{ blog_post.get_month() }}</span>
