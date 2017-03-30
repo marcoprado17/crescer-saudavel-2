@@ -1209,7 +1209,6 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         cache_timeout = 1
         link_max_length = 256
         item_inner_max_length = 36
-        blog_post_preview_title_max_length = 48
         day_in_seconds = 24*60*60
         max_value_of_int_field = 999999999
         min_value_of_int_field = -999999999
@@ -1226,6 +1225,8 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         tag_title_max_length = 32
         tag_subtitle_max_length = 128
+
+        blog_post_preview_title_max_length = 60
 
 
 R = Resources()

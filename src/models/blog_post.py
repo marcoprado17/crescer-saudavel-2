@@ -38,6 +38,22 @@ class BlogPost(BaseModel):
         (R.id.SORT_METHOD_OLDER, R.string.older, asc(datetime)),
     ])
 
+    months = [
+        "-",
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+    ]
+
     @hybrid_property
     def summary_markdown(self):
         return self._summary_markdown
@@ -103,7 +119,10 @@ class BlogPost(BaseModel):
         return self.datetime.strftime(R.string.day_format)
 
     def get_month(self):
-        return self.datetime.strftime(R.string.month_format)
+        try:
+            return self.months[self.datetime.month]
+        except:
+            return "Mês indefinido"
 
     def get_href(self):
         return url_for("client_blog.blog_post", **{R.string.blog_post_id_arg_name: self.id})

@@ -270,7 +270,7 @@ def create_home_content_data():
         home_content.blog_section_1_link = "/blog"
         home_content.blog_section_1_post_1_id = blog_posts[0].id
         if len(blog_posts) >= 2:
-            home_content.blog_section_1_post_2_id = blog_posts[0].id
+            home_content.blog_section_1_post_2_id = blog_posts[1].id
 
     db.session.add(home_content)
     db.session.commit()

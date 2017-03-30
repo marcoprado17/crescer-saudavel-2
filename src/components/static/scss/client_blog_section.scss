@@ -1,0 +1,77 @@
+$opaque-color: rgba(255,255,255,255);
+$translucent-color: rgba(255,255,255,0);
+
+.__components__.__client_blog_section__ {
+  .grow {
+    transition: all .2s ease-in-out;
+  }
+
+  .grow:hover {
+    overflow: visible;
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px black;
+  }
+
+  .blog-post-container {
+    border-radius: 16px;
+    position: relative;
+    margin-bottom: 24px;
+
+    img {
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    span.title {
+      position: absolute;
+      bottom: 5%;
+      left: 12px;
+      font-size: 36px;
+      width: 100%;
+      line-height: 36px;
+    }
+
+    .day-month-container {
+      position: absolute;
+      top: 5%;
+      left: 12px;
+      font-size: 36px;
+      width: 100%;
+      line-height: 36px;
+
+      span.day {
+        font-size: 64px;
+      }
+    }
+
+    .gradient-top {
+      border-radius: 16px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 36%;
+      width: 100%;
+      background: $translucent-color; /* For browsers that do not support gradients */
+      background: -webkit-linear-gradient($opaque-color, $translucent-color); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient($opaque-color, $translucent-color); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient($opaque-color, $translucent-color); /* For Firefox 3.6 to 15 */
+      background: linear-gradient($opaque-color, $translucent-color); /* Standard syntax */
+      opacity: 0.7;
+    }
+
+    .gradient-bottom {
+      border-radius: 16px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 38%;
+      width: 100%;
+      background: $translucent-color; /* For browsers that do not support gradients */
+      background: -webkit-linear-gradient($translucent-color, $opaque-color); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient($translucent-color, $opaque-color); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient($translucent-color, $opaque-color); /* For Firefox 3.6 to 15 */
+      background: linear-gradient($translucent-color, $opaque-color); /* Standard syntax */
+      opacity: 0.7;
+    }
+  }
+}

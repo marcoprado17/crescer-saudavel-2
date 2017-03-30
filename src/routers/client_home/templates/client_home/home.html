@@ -84,48 +84,9 @@
             {% if data.blog_sections and data.blog_sections|length > 0 %}
                 <div class="container">
                     {% for blog_section in data.blog_sections %}
-                        <div class="blog-section">
-                            <div class="new_title">
-                                {% if blog_section.href %}
-                                    <a href="{{ blog_section.href }}">
-                                        <h2>{{ blog_section.title }}</h2>
-                                    </a>
-                                {% else %}
-                                    <h2>{{ blog_section.title }}</h2>
-                                {% endif %}
-                            </div>
-                            <div class="row blog-posts">
-                                {% for blog_post in blog_section.blog_posts %}
-                                    <div class="col-md-6">
-                                        <img src="{{ blog_post.get_img_src_of_thumbnail() }}"
-                                             alt="{{ R.string.post_thumbnail }}">
-                                    </div>
-                                {% endfor %}
-                                {#                    <div class="latest-blog wow bounceInUp animated animated container">#}
-                                {#                        <div class="new_title">#}
-                                {#                            {% if blog_section.href %}#}
-                                {#                                <a href="{{ blog_section.href }}">#}
-                                {#                                    <h2>{{ blog_section.title }}</h2>#}
-                                {#                                </a>#}
-                                {#                            {% else %}#}
-                                {#                                <h2>{{ blog_section.title }}</h2>#}
-                                {#                            {% endif %}#}
-                                {#                        </div>#}
-                                {#                        <div class="blog_block">#}
-                                {#                            <div class="blog_block_inner">#}
-                                {#                                {% with blog_post=blog_section.blog_posts[0] %}#}
-                                {#                                    {% include "components/blog_post_preview.html" %}#}
-                                {#                                {% endwith %}#}
-                                {#                                {% if blog_section.blog_posts|length == 2 %}#}
-                                {#                                    {% with blog_post=blog_section.blog_posts[1] %}#}
-                                {#                                        {% include "components/blog_post_preview.html" %}#}
-                                {#                                    {% endwith %}#}
-                                {#                                {% endif %}#}
-                                {#                            </div>#}
-                                {#                        </div>#}
-                                {#                    </div>#}
-                            </div>
-                        </div>
+                        {% with blog_section=blog_section %}
+                            {% include "components/client_blog_section.html" %}
+                        {% endwith %}
                     {% endfor %}
                 </div>
             {% endif %}
