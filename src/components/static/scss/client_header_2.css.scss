@@ -15,15 +15,14 @@
   }
 
   #custom-search-input {
-    padding: 3px;
-    border: solid 1px #E4E4E4;
-    border-radius: 6px;
+    border: solid 1px black;
     background-color: #fff;
   }
 
   #custom-search-input input {
     border: 0;
     box-shadow: none;
+    padding-left: 0;
   }
 
   #custom-search-input button {
@@ -32,8 +31,14 @@
     box-shadow: none;
     border: 0;
     color: #666666;
-    padding: 0 8px 0 10px;
-    border-right: solid 2px #ccc;
+    border-right: solid 2px black;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    img {
+      height: 36px;
+    }
   }
 
   #custom-search-input .glyphicon-search {
