@@ -1226,7 +1226,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         tag_title_max_length = 32
         tag_subtitle_max_length = 128
 
-        blog_post_preview_title_max_length = 60
+        blog_post_preview_title_max_length = 48
 
 
 R = Resources()
