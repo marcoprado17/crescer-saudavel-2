@@ -54,9 +54,9 @@
             {% endif %}
 
             {% if data.more_categories and data.more_categories|length %}
-                <div class="container">
+                <div class="container more-categories">
                     <div class="additional-product-categories-and-subcategories-section-title-container">
-                        <h2>{{ R.string.what_do_we_have_more_for_you_title }}</h2>
+                        <h2 class="title">{{ R.string.what_do_we_have_more_for_you_title }}</h2>
                     </div>
                     <div class="row additional-product-categories-and-subcategories-section">
                         {% for category_data in data.more_categories %}
@@ -65,12 +65,12 @@
                                     <a href="{{ category_data.category_href }}"><img
                                             src="{{ category_data.image_src }}"></a>
                                 {% endif %}
-                                <a href="{{ category_data.category_href }}"><h3>{{ category_data.category_name }}</h3>
+                                <a href="{{ category_data.category_href }}"><p class="category-title">{{ category_data.category_name }}</p>
                                 </a>
                                 {% if category_data.subcategories and category_data.subcategories|length > 0 %}
                                     <ul>
                                         {% for subcategory_data in category_data.subcategories %}
-                                            <li><a href="{{ subcategory_data.href }}">{{ subcategory_data.name }}</a>
+                                            <li><a class="subcategory-title" href="{{ subcategory_data.href }}">{{ subcategory_data.name }}</a>
                                             </li>
                                         {% endfor %}
                                     </ul>

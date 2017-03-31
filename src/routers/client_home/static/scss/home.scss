@@ -123,4 +123,25 @@
     font-family: "OpenSans";
     font-size: 18px;
   }
+
+  .more-categories {
+    .title {
+      font-family: "HappyBirthdayBaby";
+      font-weight: bold;
+      font-size: 48px;
+      margin-top: 0;
+    }
+
+    .category-title {
+      font-family: "OpenSans";
+      font-size: 30px;
+      margin-top: 16px;
+      border-bottom: none;
+    }
+
+    .subcategory-title {
+      font-family: "OpenSans";
+      font-size: 18px;
+    }
+  }
 }
