@@ -116,6 +116,15 @@
     text-decoration: underline;
   }
 
+  .lower-text  {
+    background-color: #FFD700;
+    padding-top: 12px;
+  }
+
+  .payments-methods-container {
+    margin-bottom: 12px;
+  }
+
   @media screen and (max-width: 599px) {
     .row.newsletter-part {
 
