@@ -2,13 +2,19 @@
 <div class="__components__ __client_blog_section__">
     <div class="blog-section">
         <div class="new_title">
-            {% if blog_section.href %}
-                <a href="{{ blog_section.href }}">
-                    <h2 class="title">{{ blog_section.title }}</h2>
-                </a>
-            {% else %}
-                <h2 class="title">{{ blog_section.title }}</h2>
-            {% endif %}
+            <table>
+                <tr>
+                    <td>
+                        {% if blog_section.href %}
+                            <a href="{{ blog_section.href }}" class="blog-section-title">
+                                <h2 class="title">{{ blog_section.title }}</h2>
+                            </a>
+                        {% else %}
+                            <h2 class="title">{{ blog_section.title }}</h2>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="row blog-posts">
             {% for blog_post in blog_section.blog_posts %}

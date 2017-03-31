@@ -4,4 +4,13 @@
     font-weight: bold;
     font-size: 48px;
   }
+
+  a.section-title {
+    color: black;
+  }
+
+  a.section-title:hover {
+    text-decoration: underline;
+    color: black;
+  }
 }

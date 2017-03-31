@@ -109,6 +109,12 @@ $translucent-color: rgba(255,255,255,0);
     }
   }
 
+  .new_title {
+    a .title:hover {
+      text-decoration: underline;
+    }
+  }
+
   @media screen and (max-width: 1199px) {
     .blog-section {
       .blog-post-container {

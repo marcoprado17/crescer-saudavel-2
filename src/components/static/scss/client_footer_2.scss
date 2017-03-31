@@ -75,11 +75,22 @@
     input[type=submit] {
       font-family: "HappyBirthdayBaby";
       font-size: 36px;
-      line-height: 38px;
+      line-height: 42px;
       padding: 0;
       padding-left: 8px;
       padding-right: 8px;
       border-radius: 2px;
+      border: none;
+      background-color: #FFD700;
+    }
+
+    input[type=submit]:hover {
+      -webkit-transition: none;
+      -o-transition: none;
+      transition: all .2s ease-in-out;;
+      color: white;
+      border: none;
+      background-color: #333;
     }
   }
 
@@ -98,6 +109,11 @@
   .mini-content p, .mini-content a {
     font-family: "OpenSans";
     font-size: 12px;
+  }
+
+  a.content:hover {
+    color: black;
+    text-decoration: underline;
   }
 
   @media screen and (max-width: 599px) {

@@ -43,15 +43,15 @@
                                         <div class="my-account-container">
                                             {{ R.string.hello }}{% if data.name %},
                                                 {{ data.name }}{% endif %}!<br>
-                                            <a href="{{ url_for('client_account.my_account') }}"><b>{{ R.string.my_account }}</b></a> {{ R.string.or_word }}
-                                            <a href="{{ url_for('client_user_management.logout') }}"><b>{{ R.string.logout }}</b></a>
+                                            <a href="{{ url_for('client_account.my_account') }}">{{ R.string.my_account }}</a> {{ R.string.or_word }}
+                                            <a href="{{ url_for('client_user_management.logout') }}">{{ R.string.logout }}</a>
                                         </div>
                                     {% else %}
                                         <div class="enter-register-container">
                                             <a
-                                                    href="{{ url_for('client_user_management.login') }}"><b>{{ R.string.enter }}</b></a>
+                                                    href="{{ url_for('client_user_management.login') }}">{{ R.string.enter }}</a>
                                             {{ R.string.or_word }} <a
-                                                href="{{ url_for('client_user_management.register') }}"><b>{{ R.string.register }}</b></a>
+                                                href="{{ url_for('client_user_management.register') }}">{{ R.string.register }}</a>
                                         </div>
                                     {% endif %}
                                 </div>
@@ -73,7 +73,7 @@
                                                 {% for menu_item in data.menu_data %}
                                                     <li class="mega-menu">
                                                         <a href="{{ menu_item.href }}"
-                                                           class="level-top"><span class="menu-item">{{ menu_item.name }}</span></a>
+                                                           class="level-top"><span class="menu-item level-top">{{ menu_item.name }}</span></a>
                                                         {% if menu_item.children and menu_item.children|length > 0 %}
                                                             <div class="level0-wrapper dropdown-6col" style="left: 0;">
                                                                 <div class="container">

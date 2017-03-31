@@ -143,5 +143,13 @@
       font-family: "OpenSans";
       font-size: 18px;
     }
+
+    .category-title:hover {
+      text-decoration: underline;
+    }
+
+    .subcategory-title:hover {
+      text-decoration: underline;
+    }
   }
 }

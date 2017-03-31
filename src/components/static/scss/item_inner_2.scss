@@ -120,4 +120,37 @@ $top-color: rgba(255,255,255,10);
     padding-left: 16px;
     padding-right: 16px;
   }
+
+  #best-seller .owl-item .item .item-inner .item-info .info-inner .item-title a:hover {
+
+  }
+
+  .product-title {
+    color: black !important;
+  }
+
+  .product-title:hover {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+
+  .original-price, .big-price {
+    color: black;
+  }
+
+  .buy-button {
+    color: black;
+    background-color: #FFD700;
+    border: none;
+  }
+
+  .buy-button:hover {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: all .2s ease-in-out;;
+    box-shadow: none;
+    border: none;
+    color: white;
+    background-color: #333;
+  }
 }

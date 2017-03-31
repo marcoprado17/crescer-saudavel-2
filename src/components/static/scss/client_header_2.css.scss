@@ -160,6 +160,38 @@
     justify-content: space-between;
   }
 
+  .text-container {
+    a {
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  #nav > li > a {
+    color: black;
+  }
+
+  #nav > li:hover > a {
+    color: white;
+    text-decoration: underline !important;
+  }
+
+  #nav ul.level1 > li a:hover {
+    transition: none;
+    padding-left: 0;
+  }
+
+  .children2:hover {
+    text-decoration: underline;
+  }
+
+  .children1:hover {
+    text-decoration: underline;
+  }
+
   @media screen and (max-width: 768px){
     .account-col {
       margin-top: 18px;
