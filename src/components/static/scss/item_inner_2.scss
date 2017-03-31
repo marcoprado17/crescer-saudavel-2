@@ -1,5 +1,5 @@
-$bottom-color: rgba(255,255,255,50);
-$top-color: rgba(255,255,255,255);
+$bottom-color: rgba(255,255,255,10);
+$top-color: rgba(255,255,255,10);
 
 .__components__.__item_inner_2__ {
   .item-inner {
@@ -50,30 +50,38 @@ $top-color: rgba(255,255,255,255);
     margin-top: 10px;
   }
 
+  .img-container:hover span {
+    opacity: 0.4;
+  }
+
   .img-container {
     position: relative;
     width: 100%;
 
     span {
+      font-family: "HappyBirthdayBaby";
+      font-weight: bold;
+      color: black;
       position: absolute;
-      bottom: 15%;
+      bottom: 45%;
       left: 0;
-      font-size: 50px;
+      font-size: 100px;
       width: 100%;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
     }
 
     .gradient {
       position: absolute;
       bottom: 0;
       left: 0;
-      height: 40%;
+      height: 100%;
       width: 100%;
-      background: $top-color; /* For browsers that do not support gradients */
-      background: -webkit-radial-gradient($top-color, $bottom-color); /* For Safari 5.1 to 6.0 */
-      background: -o-radial-gradient($top-color, $bottom-color); /* For Opera 11.1 to 12.0 */
-      background: -moz-radial-gradient($top-color, $bottom-color); /* For Firefox 3.6 to 15 */
-      background: radial-gradient($top-color, $bottom-color); /* Standard syntax */
-      opacity: 0.7;
+      background: white; /* For browsers that do not support gradients */
+      //background: -webkit-radial-gradient($top-color, $bottom-color); /* For Safari 5.1 to 6.0 */
+      //background: -o-radial-gradient($top-color, $bottom-color); /* For Opera 11.1 to 12.0 */
+      //background: -moz-radial-gradient($top-color, $bottom-color); /* For Firefox 3.6 to 15 */
+      //background: radial-gradient($top-color, $bottom-color); /* Standard syntax */
+      opacity: 0.05;
     }
   }
 
