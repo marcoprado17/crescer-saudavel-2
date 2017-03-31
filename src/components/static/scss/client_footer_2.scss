@@ -51,6 +51,55 @@
     }
   }
 
+  .newsletter-part {
+    .stay-in {
+      font-family: "HappyBirthdayBaby";
+      font-size: 30px;
+      line-height: 20px;
+      color: black;
+    }
+
+    .auxiliar-message{
+      font-family: "OpenSans";
+      font-size: 18px;
+    }
+
+    input[type=text] {
+      font-family: "OpenSans";
+      font-size: 18px;
+      border-radius: 2px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    input[type=submit] {
+      font-family: "HappyBirthdayBaby";
+      font-size: 36px;
+      line-height: 38px;
+      padding: 0;
+      padding-left: 8px;
+      padding-right: 8px;
+      border-radius: 2px;
+    }
+  }
+
+  .title {
+    font-family: "HappyBirthdayBaby";
+    font-size: 48px;
+    color: black;
+    line-height: 36px;
+  }
+
+  .content, .content p, .content a {
+    font-family: "OpenSans";
+    font-size: 18px;
+  }
+
+  .mini-content p, .mini-content a {
+    font-family: "OpenSans";
+    font-size: 12px;
+  }
+
   @media screen and (max-width: 599px) {
     .row.newsletter-part {
 

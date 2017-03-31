@@ -5,8 +5,8 @@
         <div class="row newsletter-part">
             <div class="container">
                 <div class="col-xs-6">
-                    <h2>{{ R.string.stay_in }}</h2>
-                    <p>{{ R.string.stay_in_auxiliar_message }}</p>
+                    <h2 class="stay-in">{{ R.string.stay_in }}</h2>
+                    <p class="auxiliar-message">{{ R.string.stay_in_auxiliar_message }}</p>
                 </div>
                 <div class="col-xs-6 newsletter-sign">
                     <form action="{{ url_for("components.register_new_newsletter_email") }}" method="post" class="newsletter-sign"
@@ -28,15 +28,17 @@
         <div class="row">
             <div class="container">
                 <div class="col-md-6">
-                    <h2>{{ R.string.contact }}</h2>
+                    <h2 class="title">{{ R.string.contact }}</h2>
                     {% if data.tel %}
-                        <p>{{ data.tel }}</p>
+                        <p class="content">{{ data.tel }}</p>
                     {% endif %}
                     {% if data.email %}
-                        <p>{{ data.email }}</p>
+                        <p class="content">{{ data.email }}</p>
                     {% endif %}
                     {% if data.address_html %}
-                        {{ data.address_html|safe }}
+                        <div class="content">
+                            {{ data.address_html|safe }}
+                        </div>
                     {% endif %}
                     {% if data.social_networks and data.social_networks|length > 0 %}
                         {% for item in data.social_networks %}
@@ -64,17 +66,19 @@
                     {% endif %}
                 </div>
                 <div class="col-md-6">
-                    <h2>{{ R.string.about_us }}</h2>
-                    {{ data.about_us_summary_html|safe }}
-                    <div class="read-more-container">
-                        <a href="{{ url_for('client_about_us.about_us') }}">{{ R.string.read_more_plus }}</a>
+                    <h2 class="title">{{ R.string.about_us }}</h2>
+                    <div class="content">
+                        {{ data.about_us_summary_html|safe }}
                     </div>
-                    <h2>{{ R.string.utilities }}</h2>
-                    <a href="{{ url_for('client_faq.faq') }}">{{ R.string.faq }}</a><br>
-                    <a href="{{ url_for('client_payment.payment') }}">{{ R.string.payment }}</a><br>
-                    <a href="{{ url_for('client_dispatch.dispatch') }}">{{ R.string.dispatch }}</a><br>
-                    <a href="{{ url_for('client_exchanges_and_returns.exchanges_and_returns') }}">{{ R.string.exchanges_and_returns }}</a>
-                    <h2>{{ R.string.payment_methods }}</h2>
+                    <div class="read-more-container">
+                        <a href="{{ url_for('client_about_us.about_us') }}" class="content">{{ R.string.read_more_plus }}</a>
+                    </div>
+                    <h2 class="title">{{ R.string.utilities }}</h2>
+                    <a href="{{ url_for('client_faq.faq') }}" class="content">{{ R.string.faq }}</a><br>
+                    <a href="{{ url_for('client_payment.payment') }}" class="content">{{ R.string.payment }}</a><br>
+                    <a href="{{ url_for('client_dispatch.dispatch') }}" class="content">{{ R.string.dispatch }}</a><br>
+                    <a href="{{ url_for('client_exchanges_and_returns.exchanges_and_returns') }}" class="content">{{ R.string.exchanges_and_returns }}</a>
+                    <h2 class="title">{{ R.string.payment_methods }}</h2>
                     <div class="payments-methods-container">
                         <img src="{{ url_for('static', filename='imgs/master_card.png') }}">
                         <img src="{{ url_for('static', filename='imgs/visa.png') }}">
@@ -84,7 +88,7 @@
             </div>
         </div>
         <div class="row lower-text">
-            <div class="container">
+            <div class="container mini-content">
                 {{ data.lower_text_html|safe }}
             </div>
         </div>

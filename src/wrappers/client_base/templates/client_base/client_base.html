@@ -73,8 +73,6 @@
         initFooter();
 
         $(window).resize(function(){
-            console.log("resize");
-            console.log("screen.width: " + screen.width);
             if( screen.width < 350 ) {
                 $("input.search").attr("placeholder", "{{ R.string.search }}");
             }
