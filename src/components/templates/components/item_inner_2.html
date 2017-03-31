@@ -40,6 +40,13 @@
                             </form>
                         </div>
                     </div>
+                {% else %}
+                    <div class="add_cart_container">
+                        <div class="add_cart">
+                            <button class="button buy-button" type="submit"
+                                    title="{{ R.string.add_to_cart }}" disabled>{{ R.string.unavailable }}</button>
+                        </div>
+                    </div>
                 {% endif %}
             </div>
         </div>

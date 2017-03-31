@@ -525,6 +525,7 @@ class Resources(object):
         stay_in_auxiliar_message = "Assine nosso newsletter e receba nossas promoções e novidades."
         tags_content = "Conteúdo das tags"
         tags = "Tags"
+        unavailable = "Indisponível"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
