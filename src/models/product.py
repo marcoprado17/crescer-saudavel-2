@@ -118,7 +118,7 @@ class Product(BaseModel):
             s += "R$ "
         price_with_discount = self.price_with_discount
         if price_with_discount is not None:
-            s += str(price_with_discount)
+            s += str(price_with_discount).replace('.', ',')
         else:
             s = "-"
         return s
