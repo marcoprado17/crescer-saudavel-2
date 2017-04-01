@@ -28,7 +28,7 @@ def restart_images():
 
 
 def restart_images_implementation():
-    src_folder_path = "/vagrant/debug_images"
+    src_folder_path = "/vagrant/images"
     destiny_folder_path = current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH']
 
     if os.path.isdir(destiny_folder_path):
@@ -54,7 +54,7 @@ def create_resized_images():
 
 
 def create_products_images_implementation():
-    src_folder_path = "/vagrant/debug_images"
+    src_folder_path = "/vagrant/images"
     products_folder_path = current_app.config['PRODUCTS_IMAGES_FOLDER_FULL_PATH']
 
     if os.path.isdir(products_folder_path):
@@ -69,7 +69,7 @@ def create_products_images_implementation():
 
 
 def create_blog_thumbnails_images_implementation():
-    src_folder_path = "/vagrant/debug_images"
+    src_folder_path = "/vagrant/images"
     blog_thumbnails_folder_path = current_app.config['BLOG_THUMBNAILS_IMAGES_FOLDER_FULL_PATH']
 
     if os.path.isdir(blog_thumbnails_folder_path):

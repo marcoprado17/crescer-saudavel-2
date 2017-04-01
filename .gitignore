@@ -8,7 +8,6 @@ node_modules/
 .idea/
 playground/
 portuguese_brazil_dic/
-/debug_images/
 /configs/instance/instance_app_config.py
 /configs/instance/db_info.py
 build/
