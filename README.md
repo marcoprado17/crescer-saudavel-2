@@ -11,14 +11,19 @@ git status
 git checkout -b build{N}
 subl .
 ```
-
 3. Em configs/instance/instace_app_config.py:
 ```
 DEBUG = False
 ADMIN_MAIL = "crescer.saudavel.suporte@gmail.com"
 ```
-
-4. 
+4. Em .gitignore, remover as seguintes linhas:
+```
+build
+scripts/server_setups/export_db_info_result.txt
+/configs/instance/instance_app_config.py
+/configs/instance/db_info.py
+```
+5. 
 
 ```
 git status
@@ -26,8 +31,8 @@ git add .
 git commit -m "build{N}"
 git push origin build{N}
 ```
-5. 
-
+. 
+6
 ```
 ssh root@vps0048.publiccloud.com.br
 pkill gunicorn
@@ -37,7 +42,7 @@ cd /vagrant
 git clone -b build{N} https://github.com/marcoprado17/crescer-saudavel-2.git .
 ls
 ```
-6. 
+7. 
 
 ```
 scripts/server_setups/production_server_setup.sh
