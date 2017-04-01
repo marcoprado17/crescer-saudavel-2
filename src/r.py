@@ -526,6 +526,7 @@ class Resources(object):
         tags_content = "Conteúdo das tags"
         tags = "Tags"
         unavailable = "Indisponível"
+        your_email = "Seu email"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"

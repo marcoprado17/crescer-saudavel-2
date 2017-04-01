@@ -122,7 +122,12 @@
   }
 
   .payments-methods-container {
-    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+
+    img {
+      margin-bottom: 12px;
+    }
   }
 
   .social-icon {

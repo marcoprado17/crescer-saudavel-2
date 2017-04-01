@@ -58,9 +58,9 @@
                     <div class="additional-product-categories-and-subcategories-section-title-container">
                         <h2 class="title">{{ R.string.what_do_we_have_more_for_you_title }}</h2>
                     </div>
-                    <div class="row additional-product-categories-and-subcategories-section">
+                    <div class="additional-product-categories-and-subcategories-section">
                         {% for category_data in data.more_categories %}
-                            <div class="col col-xs-4 col-md-2">
+                            <div class="column">
                                 {% if category_data.image_src %}
                                     <a href="{{ category_data.category_href }}"><img
                                             src="{{ category_data.image_src }}"></a>

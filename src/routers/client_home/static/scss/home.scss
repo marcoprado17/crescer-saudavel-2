@@ -86,16 +86,21 @@
   }
 
   .additional-product-categories-and-subcategories-section {
-    .col {
-      text-align: center;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .column {
+      padding: 4px;
     }
 
     img {
-      width: 86px;
+      width: 128px;
     }
 
     ul {
       list-style-type: none;
+      padding-left: 0;
 
       li {
         text-align: left;
@@ -151,6 +156,16 @@
 
     .subcategory-title:hover {
       text-decoration: underline;
+    }
+  }
+
+  #myCarousel {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 767px) {
+    #myCarousel {
+      display: none;
     }
   }
 }

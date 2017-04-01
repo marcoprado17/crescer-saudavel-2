@@ -17,7 +17,7 @@
                         {{ data.newsletter_email_form.csrf_token() }}
                         <table>
                             <tr>
-                                <td class="email-input">{{ form_fields.string_field(field=data.newsletter_email_form.email, explicit_label=False, placeholder=R.string.enter_with_your_email) }}</td>
+                                <td class="email-input">{{ form_fields.string_field(field=data.newsletter_email_form.email, explicit_label=False, placeholder=R.string.enter_with_your_email, classes="newsletter-email") }}</td>
                                 <td>{{ form_fields.submit(field=data.newsletter_email_form.submit) }}</td>
                             </tr>
                         </table>

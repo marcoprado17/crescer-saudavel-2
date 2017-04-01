@@ -70,9 +70,7 @@
             });
         }
 
-        initFooter();
-
-        $(window).resize(function(){
+        function updateInputs() {
             if( screen.width < 350 ) {
                 $("input.search").attr("placeholder", "{{ R.string.search }}");
             }
@@ -80,6 +78,19 @@
                 $("input.search").attr("placeholder", "{{ R.string.how_can_we_help_you }}");
             }
 
+            if( screen.width < 690 ) {
+                $("input.newsletter-email").attr("placeholder", "{{ R.string.your_email }}");
+            }
+            else {
+                $("input.newsletter-email").attr("placeholder", "{{ R.string.enter_with_your_email }}");
+            }
+        }
+
+        initFooter();
+        updateInputs();
+
+        $(window).resize(function(){
+            updateInputs()
         });
 
         {{ messages.flash_toast() }}
