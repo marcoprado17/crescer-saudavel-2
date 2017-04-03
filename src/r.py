@@ -527,6 +527,9 @@ class Resources(object):
         tags = "Tags"
         unavailable = "Indisponível"
         your_email = "Seu email"
+        discount_from = "De: "
+        discount_to = "Por: "
+        buy_100_percent_safe = "Compra 100% segura"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
