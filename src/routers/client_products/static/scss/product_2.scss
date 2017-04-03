@@ -1,0 +1,31 @@
+.__client_products__.__product_2__{
+  .photos-container {
+    display: flex;
+    flex-wrap: nowrap;
+
+    .photo-catalog {
+      width: 22%;
+
+      img {
+        margin: 8px;
+        margin-right: 8px;
+        width: 110px;
+        border-radius: 4px;
+        margin-left: auto;
+        float: right;
+        cursor: pointer;
+      }
+    }
+
+    .main-photo {
+      width: 88%;
+
+      img {
+        margin: 8px;
+        margin-left: 0;
+        width: 500px;
+        border-radius: 4px;
+      }
+    }
+  }
+}

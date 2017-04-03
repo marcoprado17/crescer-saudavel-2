@@ -20,4 +20,4 @@ def products():
 @client_products_blueprint.route("/<int:product_id>")
 @safe_id_to_model_elem(model=Product)
 def product(product):
-    return render_template("client_products/product.html", data=client_product_data_provider.get_data(product))
+    return render_template("client_products/product_2.html", data=client_product_data_provider.get_data(product))

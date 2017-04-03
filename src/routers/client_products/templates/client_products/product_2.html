@@ -1,0 +1,50 @@
+{% extends "client_base/client_base.html" %}
+{% block title %}
+    {{ R.string.product }}
+{% endblock %}
+{% block content %}
+    <div class="__client_products__ __product_2__">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 photos-container">
+                    <div class="photo-catalog">
+                        {% for img_src in data.images_src %}
+                            {% if loop.index0 <= 3 %}
+                                <img cl src="{{ img_src }}" alt="{{ R.string.product_image }}"/>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="main-photo">
+                        <img src="{{ data.images_src[0] }}" alt="{{ R.string.product_image }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            $(".photo-catalog img").each(function () {
+                $(this).click(function () {
+                    $(".main-photo img").attr("src", $(this).attr("src"));
+                });
+            });
+        });
+{##}
+{#        $("form.add-to-cart").each(function () {#}
+{#            var form = $(this);#}
+{#            form.submit(function (event) {#}
+{#                var qty = $("#qty").val();#}
+{#                if (qty == 0) {#}
+{#                    event.preventDefault();#}
+{#                    return false;#}
+{#                }#}
+{#                form.attr("action", form.attr("action") + "&{0}={1}".f("{{ R.string.amount_arg_name }}", qty));#}
+{#            });#}
+{#        });#}
+    </script>
+{% endblock %}
