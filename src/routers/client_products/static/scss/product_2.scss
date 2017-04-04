@@ -8,6 +8,7 @@
 
   .photo-catalog {
     display: block;
+    margin-bottom: 8px;
 
     img {
       margin-top: 8px;
@@ -16,6 +17,15 @@
       cursor: pointer;
       max-width: 128px;
       min-width: 60px;
+      transition: all .2s ease-in-out;
+      box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.15);
+      margin-left: 12px;
+    }
+
+    img:hover {
+      overflow: visible;
+      transform: scale(1.02);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.75);
     }
   }
 
@@ -27,6 +37,7 @@
       width: 100%;
       border-radius: 4px;
       min-width: 280px;
+      box-shadow: 0 3px 8px 2px rgba(0, 0, 0, 0.15);
     }
   }
 
