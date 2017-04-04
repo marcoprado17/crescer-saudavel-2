@@ -4,6 +4,10 @@
 {% endblock %}
 {% block content %}
     <div class="__client_products__ __product_2__">
+        {% with data=data.page_heading_data %}
+            {% include "components/client_page_heading.html" %}
+        {% endwith %}
+
         <div class="container">
             <div class="photo-catalog-price-buy-box-container">
                 <div class="photo-catalog">
@@ -101,6 +105,19 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <section class="wow bounceInUp animated">
+                <div class="best-pro slider-items-products container">
+                    <div class="slider-top-hack-space">
+                    </div>
+                    <div class="what-do-we-have-more-for-you-title-container">
+                        <h1>{{ R.string.what_do_we_have_more_for_you_title }}</h1>
+                    </div>
+                    {% with products=data.more_products %}
+                        {% include "components/product_flexslider.html" %}
+                    {% endwith %}
+                </div>
+            </section>
             </div>
         </div>
     </div>

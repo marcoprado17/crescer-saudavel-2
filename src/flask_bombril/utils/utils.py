@@ -3,6 +3,7 @@
 # ======================================================================================================================
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+import random
 import unittest
 import math
 from unittest import TestSuite
@@ -109,3 +110,17 @@ def get_page_range(curr_page, per_page, min_page):
 def camel_case_to_snake_case(camel_case_word):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', camel_case_word)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
+def get_random_sublist(original_list, n):
+    if len(original_list) == 0 or n <= 0:
+        return []
+    random_sublist = []
+    possible_indexes = range(0, len(original_list))
+    random.shuffle(possible_indexes)
+    count = 0
+    for index in possible_indexes:
+        random_sublist.append(original_list[index])
+        count += 1
+        if count == n:
+            break
+    return random_sublist
