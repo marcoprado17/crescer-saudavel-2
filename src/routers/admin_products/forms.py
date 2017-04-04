@@ -214,7 +214,7 @@ class ProductForm(FlaskForm):
         )
     )
     summary = TextAreaField(
-        label=R.string.summary,
+        label=R.string.description,
         validators=[
             Required(),
             MarkdownValidator()

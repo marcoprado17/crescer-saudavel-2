@@ -530,6 +530,8 @@ class Resources(object):
         discount_from = "De: "
         discount_to = "Por: "
         buy_100_percent_safe = "Compra 100% segura"
+        description = "Descrição"
+        additional_information = "Informações Adicionais"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
