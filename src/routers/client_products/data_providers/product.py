@@ -134,28 +134,25 @@ class ClientProductDataProvider(object):
                     n=4 - len(products_of_same_subcategory))
 
         return dict(
-            page_heading_data=dict(
-                path=[
-                         dict(
-                             name=R.string.home,
-                             href=url_for("client_home.home")
-                         ),
-                         dict(
-                             name=R.string.products,
-                             href=url_for("client_products.products")
-                         ),
-                         dict(
-                             name=product.category.name,
-                             href=url_for("client_products.products",
-                                          **{R.string.category_id_arg_name: product.category_id})
-                         )
-                     ] + self.get_subcategory_dict(product=product) + [
-                         dict(
-                             name=product.title
-                         )
-                     ],
-                title=product.title
-            ),
+            breadcrumbs=[
+                 dict(
+                     name=R.string.home,
+                     href=url_for("client_home.home")
+                 ),
+                 dict(
+                     name=R.string.products,
+                     href=url_for("client_products.products")
+                 ),
+                 dict(
+                     name=product.category.name,
+                     href=url_for("client_products.products",
+                                  **{R.string.category_id_arg_name: product.category_id})
+                 )
+            ] + self.get_subcategory_dict(product=product) + [
+                 dict(
+                     name=product.title
+                 )
+            ],
             product=product,
             images_src=images_src,
             sections=sections,
