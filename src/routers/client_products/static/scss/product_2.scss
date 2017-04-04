@@ -72,7 +72,28 @@
   }
 
   .container.breadcrumbs.title {
+    margin-top: 48px;
+    margin-bottom: 48px;
     text-align: center;
+    color: black;
+    font-family: "OpenSans";
+    font-size: 18px;
+
+    .page-title h2 {
+      font-family: "OpenSans";
+      font-weight: bold;
+      font-size: 48px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    a, span, ul, li {
+      color: black;
+      font-family: "OpenSans";
+      font-size: 14px;
+    }
   }
 
   @media screen and (min-width: 768px) {
