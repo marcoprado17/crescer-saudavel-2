@@ -4,31 +4,29 @@
 {% endblock %}
 {% block content %}
     <div class="__client_products__ __product_2__">
-        <div class="breadcrumbs page-heading">
-            <div class="container">
-                <div class="row">
-                    {% if data.breadcrumbs and data.breadcrumbs|length > 0 %}
-                        <div>
-                            <ul>
-                                {% for item in data.breadcrumbs %}
-                                    <li>
-                                        {% if item.href %}
-                                            <a href="{{ item.href }}"
-                                               title="{{ item.name }}">{{ item.name }}</a>
-                                        {% else %}
-                                            {{ item.name }}
-                                        {% endif %}
-                                        {% if not loop.last %}
-                                            <span>&rsaquo; </span>
-                                        {% endif %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-                    <div class="page-title">
-                        <h2>{{ data.product.title }}</h2>
+        <div class="breadcrumbs title container">
+            <div class="row">
+                {% if data.breadcrumbs and data.breadcrumbs|length > 0 %}
+                    <div>
+                        <ul>
+                            {% for item in data.breadcrumbs %}
+                                <li>
+                                    {% if item.href %}
+                                        <a href="{{ item.href }}"
+                                           title="{{ item.name }}">{{ item.name }}</a>
+                                    {% else %}
+                                        {{ item.name }}
+                                    {% endif %}
+                                    {% if not loop.last %}
+                                        <span>&rsaquo; </span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
+                {% endif %}
+                <div class="page-title">
+                    <h2>{{ data.product.title }}</h2>
                 </div>
             </div>
         </div>
@@ -131,6 +129,7 @@
                     </div>
                 </div>
             </div>
+            {% include "components/tags_row.html" %}
             <section class="wow bounceInUp animated">
                 <div class="best-pro slider-items-products container">
                     <div class="slider-top-hack-space">
