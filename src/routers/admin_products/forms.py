@@ -224,12 +224,12 @@ class ProductForm(FlaskForm):
     image_2 = SelectField(label=R.string.n_image(2))
     image_3 = SelectField(label=R.string.n_image(3))
     image_4 = SelectField(label=R.string.n_image(4))
-    image_5 = SelectField(label=R.string.n_image(5))
-    image_6 = SelectField(label=R.string.n_image(6))
-    image_7 = SelectField(label=R.string.n_image(7))
-    image_8 = SelectField(label=R.string.n_image(8))
-    image_9 = SelectField(label=R.string.n_image(9))
-    image_10 = SelectField(label=R.string.n_image(10))
+    # image_5 = SelectField(label=R.string.n_image(5))
+    # image_6 = SelectField(label=R.string.n_image(6))
+    # image_7 = SelectField(label=R.string.n_image(7))
+    # image_8 = SelectField(label=R.string.n_image(8))
+    # image_9 = SelectField(label=R.string.n_image(9))
+    # image_10 = SelectField(label=R.string.n_image(10))
 
     tab_1_active = BooleanField(label=R.string.get_tab_n_active(1), default=False)
     tab_1_title = get_tab_title(1)
@@ -285,12 +285,12 @@ class ProductForm(FlaskForm):
         self.image_2.choices = image_choices_with_none
         self.image_3.choices = image_choices_with_none
         self.image_4.choices = image_choices_with_none
-        self.image_5.choices = image_choices_with_none
-        self.image_6.choices = image_choices_with_none
-        self.image_7.choices = image_choices_with_none
-        self.image_8.choices = image_choices_with_none
-        self.image_9.choices = image_choices_with_none
-        self.image_10.choices = image_choices_with_none
+        # self.image_5.choices = image_choices_with_none
+        # self.image_6.choices = image_choices_with_none
+        # self.image_7.choices = image_choices_with_none
+        # self.image_8.choices = image_choices_with_none
+        # self.image_9.choices = image_choices_with_none
+        # self.image_10.choices = image_choices_with_none
 
         # self.discount_percentage.data = 0
         self.price_with_discount.data = "-"
