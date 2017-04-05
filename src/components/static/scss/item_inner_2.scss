@@ -85,9 +85,18 @@ $top-color: rgba(255,255,255,10);
     }
   }
 
-  .item-title a {
+  .item-title {
+    display: block;
+    padding-top: 12px !important;
     font-family: "OpenSans";
-    font-size: 20px;
+    font-size: 20px !important;
+    height: 64px;
+    display: table;
+
+    a {
+      display: table-cell;
+      vertical-align: middle;
+    }
   }
 
   .original-price {

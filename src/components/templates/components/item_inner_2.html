@@ -17,7 +17,7 @@
         <div class="item-info">
             <div class="info-inner">
                 <div class="item-title">
-                    <a href="{{ product.get_href() }}" class="product-title">{{ utils.limited_text_tooltip(text=product.title, max_length=R.dimen.item_inner_max_length) }}</a>
+                    <a href="{{ product.get_href() }}" class="product-title"><p>{{ utils.limited_text_tooltip(text=product.title, max_length=R.dimen.item_inner_max_length) }}<p></a>
                 </div>
                 <div class="item-price">
                     {% if product.has_discount %}
