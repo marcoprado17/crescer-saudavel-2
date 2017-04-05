@@ -46,12 +46,10 @@
                 <div class="price-buy-box-col">
                     <div class="price-buy-box">
                         {% if data.product.has_discount %}
-                            <p>
-                                {{ R.string.discount_from }}{{ data.product.price_with_discount_as_string(include_rs=True) }}</p>
-                            <p>{{ R.string.discount_to }}
-                                <span class="price">{{ data.product.get_formatted_price(include_rs=True) }}</span></p>
+                            <div class="old-price"><p>{{ R.string.discount_from }}<strike>{{ data.product.get_formatted_price(include_rs=True) }}</strike></p></div>
+                            <p class="price-line">{{ R.string.discount_to }}<span class="price">{{ data.product.price_with_discount_as_string(include_rs=True) }}</span></p>
                         {% else %}
-                            <p><span class="price">{{ data.product.get_formatted_price(include_rs=True) }}</span></p>
+                            <p class="price-line price">{{ data.product.get_formatted_price(include_rs=True) }}</p>
                         {% endif %}
                         <hr>
                         <form class="add-to-cart" method="post"
@@ -75,12 +73,14 @@
                             <button class="button buy-button" type="submit"
                                     title="{{ R.string.add_to_cart }}">{{ R.string.buy }}</button>
                         </form>
-                        <img class="padlock"
+                        <div class="safe-buy-container">
+                            <img class="padlock"
                              src="{{ url_for('static', filename='imgs/password.png') }}">{{ R.string.buy_100_percent_safe }}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row description-and-additional-info-box">
                 <div class="col-md-6">
                     <h1>{{ R.string.description }}</h1>
                     {{ data.product.summary_html|safe }}
@@ -130,7 +130,7 @@
                 </div>
             </div>
             {% include "components/tags_row.html" %}
-            <section class="wow bounceInUp animated">
+            <section class="wow bounceInUp animated more-products">
                 <div class="best-pro slider-items-products container">
                     <div class="slider-top-hack-space">
                     </div>

@@ -15,7 +15,7 @@
       width: 100%;
       border-radius: 4px;
       cursor: pointer;
-      max-width: 128px;
+      max-width: 144px;
       min-width: 60px;
       transition: all .2s ease-in-out;
       box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.15);
@@ -51,8 +51,69 @@
   .price-buy-box {
     height: 100%;
     margin: 0;
-    border: 1px solid black;
     text-align: center;
+    background-color: white;
+    box-shadow: 0 3px 8px 2px rgba(0, 0, 0, 0.15);
+    margin-right: 8px;
+    margin-bottom: 12px;
+    font-family: "OpenSans";
+    padding: 8px;
+    padding-top: 36px;
+    max-width: 300px;
+
+    hr {
+      max-width: 240px;
+      height: 1px;
+      background-color: black;
+    }
+
+    .old-price p {
+      margin-bottom: 12px;
+    }
+
+    .price-line {
+      margin-bottom: 40px;
+    }
+
+    .buy-button {
+      margin-top: 18px;
+      margin-bottom: 12px;
+      font-family: "HappyBirthdayBaby";
+      border-radius: 6px;
+      width: 180px;
+      font-size: 36px;
+      height: 40px;
+      background-color: #FFD700;
+      border: none;
+      color: black;
+    }
+
+    .safe-buy-container {
+      margin-bottom: 36px;
+    }
+
+    //.buy-button:hover {
+    //  -webkit-transition: none;
+    //  -o-transition: none;
+    //  transition: all .2s ease-in-out;;
+    //  color: white;
+    //  border: none;
+    //  background-color: #333;
+    //}
+
+    button.items-count {
+      padding: 6px 8px;
+      margin-top: 20px;
+      color: black;
+    }
+
+    input.qty {
+      width: 64px;
+      height: 64px;
+      font-size: 28px;
+      font-family: "OpenSans";
+      color: black;
+    }
   }
 
   .pull-left {
@@ -104,6 +165,37 @@
       color: black;
       font-family: "OpenSans";
       font-size: 14px;
+    }
+  }
+
+  .description-and-additional-info-box {
+    font-family: "OpenSans";
+    font-size: 13px;
+    color: black;
+
+    h1 {
+      font-size: 48px;
+      font-family: "HappyBirthdayBaby";
+      color: black;
+    }
+  }
+
+  .product-tabs li a {
+    font-family: "OpenSans";
+  }
+
+  .more-products {
+    h1 {
+      font-family: "HappyBirthdayBaby";
+      font-size: 48px;
+      color: black;
+    }
+  }
+
+  @media screen and (max-width: 1199px) {
+    .price-buy-box {
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
