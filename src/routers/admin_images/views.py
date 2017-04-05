@@ -30,7 +30,8 @@ def images():
 @admin_required
 @valid_form(FormClass=SubmitForm)
 def remove_image(image_name, form):
-    if (image_name in admin_images_data_provider.fixed_images) or (image_name in admin_images_data_provider.irremovable_images):
+    if (image_name in admin_images_data_provider.fixed_images) or (
+        image_name in admin_images_data_provider.irremovable_images):
         return "", 403
 
     file_path = os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], image_name)
@@ -58,8 +59,15 @@ def add_image():
             image = request.files[upload_image_form.image.name]
             filename = secure_filename(image.filename)
             image.save(os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], filename))
-            create_product_image(os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], filename), filename)
-            flash(R.string.image_sent_successfully(filename), bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+            create_product_image(os.path.join(current_app.config['UPLOADED_IMAGES_FOLDER_FULL_PATH'], filename),
+                                 filename)
+            flash(R.string.image_sent_successfully(filename),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+            flash(R.string.image_sent_successfully(filename),
+                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_images.add_image"))
         else:
-            return render_template("admin_images/add_image.html", data=admin_add_image_data_provider.get_data(upload_image_form=upload_image_form))
+            flash(R.string.add_image_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
+            return render_template("admin_images/add_image.html",
+                                   data=admin_add_image_data_provider.get_data(upload_image_form=upload_image_form))

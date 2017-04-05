@@ -49,9 +49,13 @@ def add_product():
             print "add_product_form.discount_percentage.data: " + str(add_product_form.discount_percentage.data)
             product = Product.create_from_form(form=add_product_form)
             flash(R.string.product_sent_successfully(product),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+            flash(R.string.product_sent_successfully(product),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_product"))
         else:
+            flash(R.string.add_edit_form_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_products/add_product.html",
                                    data=admin_add_product_data_provider.get_data_when_post(add_product_form=add_product_form))
 
@@ -74,6 +78,8 @@ def edit_product(product):
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.products"))
         else:
+            flash(R.string.add_edit_form_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_products/edit_product.html",
                                    data=admin_edit_product_data_provider.get_data_when_post(
                                        edit_product_form=edit_product_form))
@@ -162,9 +168,13 @@ def add_category():
         if add_product_category_form.validate_on_submit():
             product_category = ProductCategory.create_from_form(form=add_product_category_form)
             flash(R.string.product_category_sent_successfully(product_category),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+            flash(R.string.product_category_sent_successfully(product_category),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_category"))
         else:
+            flash(R.string.add_edit_form_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_products/add_category.html",
                                    data=admin_add_product_category_data_provider.get_data_when_post(
                                        add_product_category_form=add_product_category_form))
@@ -188,6 +198,8 @@ def edit_category(product_category):
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.categories"))
         else:
+            flash(R.string.add_edit_form_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_products/edit_category.html",
                                    data=admin_edit_product_category_data_provider.get_data_when_post(
                                        edit_product_category_form=edit_product_category_form))
@@ -236,7 +248,11 @@ def add_subcategory():
             product_subcategory = ProductSubcategory.create_from_form(form=add_product_subcategory_form)
             flash(R.string.product_subcategory_sent_successfully(product_subcategory),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+            flash(R.string.product_subcategory_sent_successfully(product_subcategory),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.add_subcategory"))
+        flash(R.string.add_edit_form_error,
+              bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
         return render_template("admin_products/add_subcategory.html",
                                data=admin_add_product_subcategory_data_provider.get_data(
                                    add_product_subcategory_form=add_product_subcategory_form))
@@ -260,6 +276,8 @@ def edit_subcategory(product_subcategory):
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_products.subcategories"))
         else:
+            flash(R.string.add_edit_form_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_products/edit_subcategory.html",
                                    data=admin_edit_product_subcategory_data_provider.get_data_when_post(
                                        edit_product_subcategory_form=edit_product_subcategory_form))

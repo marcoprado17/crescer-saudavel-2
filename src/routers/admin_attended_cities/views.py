@@ -39,9 +39,13 @@ def add_city():
         if add_city_form.validate_on_submit():
             city = City.create_from_form(form=add_city_form)
             flash(R.string.city_sent_successfully(city),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+            flash(R.string.city_sent_successfully(city),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_attended_cities.add_city"))
         else:
+            flash(R.string.add_edit_form_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_attended_cities/add_city.html",
                                data=admin_add_city_data_provider.get_data_when_post(
                                    add_city_form=add_city_form))
@@ -65,6 +69,8 @@ def edit_city(city):
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_attended_cities.cities"))
         else:
+            flash(R.string.add_edit_form_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_attended_cities/edit_city.html",
                                    data=admin_edit_city_data_provider.get_data_when_post(
                                        edit_city_form=edit_city_form))

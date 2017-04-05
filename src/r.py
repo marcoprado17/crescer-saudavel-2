@@ -532,6 +532,8 @@ class Resources(object):
         buy_100_percent_safe = "Compra 100% segura"
         description = "Descrição"
         additional_information = "Informações Adicionais"
+        add_edit_form_error = "Erro! Por favor, cheque os campos e tente novamente."
+        add_image_error = "Erro ao se adicionar a imagem! Por favor, cheque o arquivo selecionado e tente novamente."
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"

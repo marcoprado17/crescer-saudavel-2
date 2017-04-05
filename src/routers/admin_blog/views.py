@@ -40,9 +40,13 @@ def add_post():
         if add_blog_post_form.validate_on_submit():
             blog_post = BlogPost.create_from_form(form=add_blog_post_form)
             flash(R.string.blog_post_sent_successfully(blog_post),
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+            flash(R.string.blog_post_sent_successfully(blog_post),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_blog.add_post"))
         else:
+            flash(R.string.add_edit_form_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_blog/add_post.html",
                                    data=admin_add_blog_post_data_provider.get_data_when_post(add_blog_post_form=add_blog_post_form))
 
@@ -65,6 +69,8 @@ def edit_post(blog_post):
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
             return redirect(url_for("admin_blog.posts"))
         else:
+            flash(R.string.add_edit_form_error,
+                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_blog/edit_post.html",
                                    data=admin_edit_post_data_provider.get_data_when_post(
                                        edit_post_form=edit_post_form))

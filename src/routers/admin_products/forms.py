@@ -319,12 +319,12 @@ class EditProductForm(ProductForm):
             self.image_2.data = product.image_2
             self.image_3.data = product.image_3
             self.image_4.data = product.image_4
-            self.image_5.data = product.image_5
-            self.image_6.data = product.image_6
-            self.image_7.data = product.image_7
-            self.image_8.data = product.image_8
-            self.image_9.data = product.image_9
-            self.image_10.data = product.image_10
+            # self.image_5.data = product.image_5
+            # self.image_6.data = product.image_6
+            # self.image_7.data = product.image_7
+            # self.image_8.data = product.image_8
+            # self.image_9.data = product.image_9
+            # self.image_10.data = product.image_10
 
             self.tab_1_active.data = product.tab_1_active
             self.tab_1_title.data = product.tab_1_title

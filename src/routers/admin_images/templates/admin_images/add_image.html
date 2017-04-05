@@ -29,6 +29,7 @@
 {% endblock %}
 {% block script %}
     <script>
+        {{ messages.flash_toast() }}
         initVerticalFluid();
     </script>
 {% endblock %}

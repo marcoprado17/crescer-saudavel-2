@@ -1,4 +1,5 @@
 {% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
 {% block subtitle %}
     {{ R.string.edit_product_subcategory }}
 {% endblock %}
@@ -16,6 +17,7 @@
 {% endblock %}
 {% block script %}
     <script>
+        {{ messages.flash_toast() }}
         initVerticalFluid();
     </script>
 {% endblock %}
