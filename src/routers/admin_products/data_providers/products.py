@@ -74,6 +74,7 @@ class AdminProductsDataProvider(object):
                 product.subcategory.name if product.subcategory else R.string.empty_symbol,
                 product.title,
                 product.get_formatted_price(),
+                product.price_with_discount_as_string(),
                 product.stock,
                 product.available,
                 product.reserved,
@@ -182,6 +183,12 @@ class AdminProductsDataProvider(object):
                 dict(
                     id=R.string.product_price_col_id,
                     title=R.string.price,
+                    type=R.id.COL_TYPE_TEXT,
+                    tooltip=R.string.price_in_real
+                ),
+                dict(
+                    id="price-with-discount",
+                    title=R.string.price_with_discount,
                     type=R.id.COL_TYPE_TEXT,
                     tooltip=R.string.price_in_real
                 ),
