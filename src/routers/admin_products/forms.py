@@ -5,6 +5,7 @@
 # ======================================================================================================================
 import json
 
+from flask import request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, SelectField, IntegerField, TextAreaField
 
@@ -292,8 +293,9 @@ class ProductForm(FlaskForm):
         # self.image_9.choices = image_choices_with_none
         # self.image_10.choices = image_choices_with_none
 
-        # self.discount_percentage.data = 0
-        self.price_with_discount.data = "-"
+        if request.method == "GET":
+            self.discount_percentage.data = 0
+            self.price_with_discount.data = "-"
 
 
 class AddProductForm(ProductForm):

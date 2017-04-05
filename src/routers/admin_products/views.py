@@ -45,8 +45,6 @@ def add_product():
     else:
         add_product_form = AddProductForm()
         if add_product_form.validate_on_submit():
-            print "###"
-            print "add_product_form.discount_percentage.data: " + str(add_product_form.discount_percentage.data)
             product = Product.create_from_form(form=add_product_form)
             flash(R.string.product_sent_successfully(product),
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
@@ -54,6 +52,10 @@ def add_product():
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(url_for("admin_products.add_product"))
         else:
+            print "###"
+            print "erro"
+            print add_product_form.errors
+            print add_product_form.discount_percentage.data
             flash(R.string.add_edit_form_error,
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.error))
             return render_template("admin_products/add_product.html",
