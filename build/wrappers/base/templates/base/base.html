@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+
+    <link rel="icon" href="#" type="image/x-icon">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+
+    {% block css_bundle %}
+    {% endblock %}
+</head>
+<body class="__base__">
+    {% block body %}
+    {% endblock %}
+    {% block js_bundle %}
+    {% endblock %}
+    {% block script %}
+    {% endblock %}
+</body>
+</html>

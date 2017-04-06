@@ -1,0 +1,12 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/utils.html" as utils with context %}
+{% block subtitle %}
+    {{ R.string.home }}
+{% endblock %}
+{% block content %}
+    <div class="__admin_home__ __index__ container">
+        {{ utils.page_header(R.string.home) }}
+        <p>{{ R.string.admin_welcome_message }}</p>
+        <p>{{ R.string.get_admin_home_new_orders_message(data.new_orders_href, data.n_new_orders)|safe }}</p>
+    </div>
+{% endblock %}

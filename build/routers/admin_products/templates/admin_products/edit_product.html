@@ -1,0 +1,27 @@
+{% extends "admin_base/admin_base.html" %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block subtitle %}
+    {{ R.string.edit_product }}
+{% endblock %}
+{% block content %}
+    <div class="vertical-fluid"></div>
+    <div class="__admin_products__ __edit_product__ container hidden">
+        {% with data=dict(
+            title=R.string.edit_product,
+            product_form=data.edit_product_form
+        )%}
+            {% include "components/product_panel_form.html" %}
+        {% endwith %}
+    </div>
+    <div class="vertical-fluid"></div>
+{% endblock %}
+{% block script %}
+    <script>
+        {{ messages.flash_toast() }}
+        initDynamicSelects();
+        initVerticalFluid();
+        initTooltips();
+        initAllMarkdownTextArea();
+        initPriceWithDiscountCalc();
+    </script>
+{% endblock %}
