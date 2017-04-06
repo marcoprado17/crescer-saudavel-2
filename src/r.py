@@ -1217,7 +1217,7 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         # TODO: Change timeout in production
         cache_timeout = 1
         link_max_length = 256
-        item_inner_max_length = 32
+        item_inner_max_length = 38
         day_in_seconds = 24*60*60
         max_value_of_int_field = 999999999
         min_value_of_int_field = -999999999

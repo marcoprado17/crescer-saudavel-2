@@ -20,12 +20,15 @@
                     <a href="{{ product.get_href() }}" class="product-title"><p>{{ utils.limited_text_tooltip(text=product.title, max_length=R.dimen.item_inner_max_length) }}<p></a>
                 </div>
                 <div class="item-price">
-                    {% if product.has_discount %}
-                        <span class="original-price"><strike>{{ product.get_formatted_price(include_rs=True) }}</strike></span><br>
-                        <span class="big-price discount-price">{{ product.price_with_discount_as_string(include_rs=True) }}</span>
-                    {% else %}
-                        <span class="big-price">{{ product.get_formatted_price(include_rs=True) }}</span>
-                    {% endif %}
+                    <div class="prices-container">
+                        {% if product.has_discount %}
+                            <span class="original-price"><strike>{{ product.get_formatted_price(include_rs=True) }}</strike></span><br>
+                            <span class="big-price discount-price">{{ product.price_with_discount_as_string(include_rs=True) }}</span>
+                        {% else %}
+                            <span class="big-price">{{ product.get_formatted_price(include_rs=True) }}</span>
+                        {% endif %}
+                    </div>
+
                 </div>
                 {% if product.is_available_to_client %}
                     <div class="add_cart_container">

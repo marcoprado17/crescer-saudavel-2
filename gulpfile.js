@@ -16,13 +16,13 @@ var insert = require('gulp-insert');
 gulp.task("watch", function () {
     gulp.watch("src/**/*.scss", ["make_css_bundles"]);
     gulp.watch("src/**/*.js", ["make_js_bundles"]);
-    gulp.watch("src/**/*.html", ["refresh_page"]);
-    gulp.watch("build/static/**/*.css", ["refresh_page"]);
-    gulp.watch("build/static/**/*.js", ["refresh_page"]);
-    gulp.watch("src/**/*.py", function () {
-        delay(750);
-        runSequence("refresh_page");
-    });
+    // gulp.watch("src/**/*.html", ["refresh_page"]);
+    // gulp.watch("build/static/**/*.css", ["refresh_page"]);
+    // gulp.watch("build/static/**/*.js", ["refresh_page"]);
+    // gulp.watch("src/**/*.py", function () {
+    //     delay(750);
+    //     runSequence("refresh_page");
+    // });
 });
 
 gulp.task("make_css_bundles", function (callback) {

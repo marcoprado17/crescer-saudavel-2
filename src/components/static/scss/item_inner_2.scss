@@ -86,14 +86,27 @@ $top-color: rgba(255,255,255,10);
   }
 
   .item-title {
-    display: block;
     padding-top: 12px !important;
     font-family: "OpenSans";
     font-size: 20px !important;
-    height: 64px;
+    height: 84px;
     display: table;
+    width: 100%;
+    margin-bottom: 0 !important;
 
     a {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .item-price {
+    height: 80px;
+    display: table;
+    width: 100%;
+    margin-bottom: 12px;
+
+    .prices-container {
       display: table-cell;
       vertical-align: middle;
     }
