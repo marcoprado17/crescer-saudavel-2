@@ -125,10 +125,7 @@ class ClientProductDataProvider(object):
             if len(products_of_same_subcategory) >= 4:
                 more_products = get_random_sublist(original_list=products_of_same_subcategory, n=4)
             else:
-                products_of_same_category_but_not_same_subcategory = Product.query.filter(
-                    Product.is_available_to_client == True, Product.id != product.id,
-                    Product.category_id == product.category_id,
-                    Product.subcategory_id != product.subcategory_id).all()
+                products_of_same_category_but_not_same_subcategory = [x for x in products_of_same_category if x.subcategory_id != product.subcategory_id]
                 more_products = products_of_same_subcategory + get_random_sublist(
                     original_list=products_of_same_category_but_not_same_subcategory,
                     n=4 - len(products_of_same_subcategory))
