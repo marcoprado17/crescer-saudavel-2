@@ -534,6 +534,8 @@ class Resources(object):
         additional_information = "Informações Adicionais"
         add_edit_form_error = "Erro! Por favor, cheque os campos e tente novamente."
         add_image_error = "Erro ao se adicionar a imagem! Por favor, cheque o arquivo selecionado e tente novamente."
+        new_password = "Nova senha"
+        new_password_confirmation = "Confirmação da nova senha"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"

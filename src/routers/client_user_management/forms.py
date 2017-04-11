@@ -101,7 +101,7 @@ class RedefinePasswordForm(FlaskForm):
         ]
     )
     password = PasswordField(
-        label=R.string.password,
+        label=R.string.new_password,
         validators=[
             Required(),
             Length(min_length=R.dimen.password_min_length, max_length=R.dimen.password_max_length,
@@ -110,7 +110,7 @@ class RedefinePasswordForm(FlaskForm):
         ]
     )
     password_confirmation = PasswordField(
-        label='Confirmação de senha',
+        label=R.string.new_password_confirmation,
         validators=[
             Required()
         ]
