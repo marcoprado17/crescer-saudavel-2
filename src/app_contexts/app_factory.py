@@ -86,24 +86,24 @@ def create_app():
     #
     # Admin Routers
     #
-    from routers.admin_attended_cities import admin_attended_cities_blueprint
-    app.register_blueprint(admin_attended_cities_blueprint, url_prefix="/admin/cidades-atendidas")
-    from routers.admin_blog import admin_blog_blueprint
-    app.register_blueprint(admin_blog_blueprint, url_prefix="/admin/blog")
-    from routers.admin_content import admin_content_blueprint
-    app.register_blueprint(admin_content_blueprint, url_prefix="/admin/conteudo")
-    from routers.admin_clients import admin_clients_blueprint
-    app.register_blueprint(admin_clients_blueprint, url_prefix="/admin/clientes")
-    from routers.admin_home import admin_home_blueprint
-    app.register_blueprint(admin_home_blueprint, url_prefix="/admin/home")
-    from routers.admin_images import admin_images_blueprint
-    app.register_blueprint(admin_images_blueprint, url_prefix="/admin/imagens")
-    from routers.admin_orders import admin_orders_blueprint
-    app.register_blueprint(admin_orders_blueprint, url_prefix="/admin/pedidos")
-    from routers.admin_products import admin_products_blueprint
-    app.register_blueprint(admin_products_blueprint, url_prefix="/admin/produtos")
-    from routers.admin_utils import admin_utils_blueprint
-    app.register_blueprint(admin_utils_blueprint, url_prefix="/admin/utils")
+    # from routers.admin_attended_cities import admin_attended_cities_blueprint
+    # app.register_blueprint(admin_attended_cities_blueprint, url_prefix="/admin/cidades-atendidas")
+    # from routers.admin_blog import admin_blog_blueprint
+    # app.register_blueprint(admin_blog_blueprint, url_prefix="/admin/blog")
+    # from routers.admin_content import admin_content_blueprint
+    # app.register_blueprint(admin_content_blueprint, url_prefix="/admin/conteudo")
+    # from routers.admin_clients import admin_clients_blueprint
+    # app.register_blueprint(admin_clients_blueprint, url_prefix="/admin/clientes")
+    # from routers.admin_home import admin_home_blueprint
+    # app.register_blueprint(admin_home_blueprint, url_prefix="/admin/home")
+    # from routers.admin_images import admin_images_blueprint
+    # app.register_blueprint(admin_images_blueprint, url_prefix="/admin/imagens")
+    # from routers.admin_orders import admin_orders_blueprint
+    # app.register_blueprint(admin_orders_blueprint, url_prefix="/admin/pedidos")
+    # from routers.admin_products import admin_products_blueprint
+    # app.register_blueprint(admin_products_blueprint, url_prefix="/admin/produtos")
+    # from routers.admin_utils import admin_utils_blueprint
+    # app.register_blueprint(admin_utils_blueprint, url_prefix="/admin/utils")
     #
     # Client Routers
     #
@@ -144,8 +144,8 @@ def create_app():
     #
     from wrappers.base import base_blueprint
     app.register_blueprint(base_blueprint, url_prefix="/base")
-    from wrappers.admin_base import admin_base_blueprint
-    app.register_blueprint(admin_base_blueprint, url_prefix="/admin-base")
+    # from wrappers.admin_base import admin_base_blueprint
+    # app.register_blueprint(admin_base_blueprint, url_prefix="/admin-base")
     from wrappers.client_base import client_base_blueprint
     app.register_blueprint(client_base_blueprint, url_prefix="/client-base")
     #
@@ -276,6 +276,14 @@ def create_app():
     def after_request(response):
         db.session.remove()
         return response
+
+    from proj_extensions import admin
+    from models.city import City
+    from models.state import State
+    from flask_admin.contrib.sqla import ModelView
+    admin.init_app(app)
+    admin.add_view(ModelView(City, db.session))
+    admin.add_view(ModelView(State, db.session))
 
     return app
 
