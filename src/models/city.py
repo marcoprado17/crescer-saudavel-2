@@ -3,13 +3,24 @@
 # ======================================================================================================================
 # Created at 10/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from flask_admin.contrib.sqla import ModelView
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy.orm import relationship
+
+from flask_bombril.utils.utils import merge_dicts
 from proj_extensions import db
-from models.base import BaseModel
+from models.base import BaseModel, ProjBaseView
 from proj_utils import SortMethodMap
 from r import R
+
+
+class CityView(ProjBaseView):
+    column_labels = merge_dicts(ProjBaseView.column_labels, dict(active=R.string.active_in_female))
+
+    def __init__(self, *args, **kwargs):
+        kwargs["name"] = R.string.city
+        super(CityView, self).__init__(*args, **kwargs)
 
 
 class City(BaseModel):

@@ -6,9 +6,16 @@
 from sqlalchemy import asc
 from sqlalchemy.orm import relationship
 from proj_extensions import db
-from models.base import BaseModel
+from models.base import BaseModel, ProjBaseView
 from models.city import City
 from r import R
+
+
+class StateView(ProjBaseView):
+
+    def __init__(self, *args, **kwargs):
+        kwargs["name"] = R.string.state
+        super(StateView, self).__init__(*args, **kwargs)
 
 
 class State(BaseModel):

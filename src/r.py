@@ -12,6 +12,15 @@ from flask_bombril.utils import stringfy_list
 
 class Resources(object):
     # noinspection PyPep8Naming
+    class dict(object):
+        column_labels = dict(
+            name="Nome",
+            active="Ativo",
+            state="Estado",
+            cities="Cidades"
+        )
+
+    # noinspection PyPep8Naming
     class string(object):
         my_information = "Minhas informações"
         resend_confirmation_email_query = "Deseja reenviar o email de confirmação?"

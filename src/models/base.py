@@ -3,8 +3,14 @@
 # ======================================================================================================================
 # Created at 22/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from flask_admin.contrib.sqla import ModelView
 from sqlalchemy import desc
 from proj_extensions import db
+from r import R
+
+
+class ProjBaseView(ModelView):
+    column_labels = R.dict.column_labels
 
 
 class BaseModel(db.Model):

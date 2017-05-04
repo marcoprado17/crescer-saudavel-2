@@ -60,6 +60,8 @@ def __create_app(configs):
     login_manager.anonymous_user = AnonymousUser
     whooshalchemy.whoosh_index(app, Product)
     whooshalchemy.whoosh_index(app, BlogPost)
+    from proj_extensions import babel
+    babel.init_app(app)
 
     return app
 
@@ -278,12 +280,19 @@ def create_app():
         return response
 
     from proj_extensions import admin
-    from models.city import City
-    from models.state import State
-    from flask_admin.contrib.sqla import ModelView
+    from models.city import CityView, City
+    from models.state import StateView, State
     admin.init_app(app)
-    admin.add_view(ModelView(City, db.session))
-    admin.add_view(ModelView(State, db.session))
+    admin.add_view(CityView(City, db.session))
+    admin.add_view(StateView(State, db.session))
+
+    from proj_extensions import babel
+
+    @babel.localeselector
+    def get_locale():
+        if request.args.get('lang'):
+            session['lang'] = request.args.get('lang')
+        return session.get('lang', 'pt_BR')
 
     return app
 
