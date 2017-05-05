@@ -442,7 +442,7 @@ def get_random_valid_state_id():
 def get_random_valid_product_subcategory_id(category_id):
     try:
         return random.choice(
-            ProductSubcategory.query.filter(ProductSubcategory.category_id == category_id).with_entities(
+            ProductSubcategory.query.filter(ProductSubcategory.product_category_id == category_id).with_entities(
                 ProductSubcategory.id).all())
     except Exception:
         return None

@@ -19,9 +19,10 @@ from r import R
 
 class ProductCategoryView(ProjBaseView):
     column_labels = merge_dicts(ProjBaseView.column_labels, dict(active=R.string.active_in_female))
+    column_list = ['active', 'name', 'priority']
     column_filters = ['active']
     column_editable_list = ['name', 'priority', 'active']
-    form_excluded_columns = ['subcategories', 'products']
+    form_excluded_columns = ['product_subcategories', 'products']
     form_args = dict(
         priority=dict(
             validators=[Required()]
@@ -44,7 +45,7 @@ class ProductCategory(BaseModel):
     name = db.Column(db.String(R.dimen.product_category_name_max_length), nullable=False)
     priority = db.Column(db.Integer, default=R.dimen.default_product_category_priority, nullable=False)
     active = db.Column(db.Boolean, default=False, nullable=False)
-    subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="category")
+    product_subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="product_category")
     products = relationship("Product", order_by=Product.title, back_populates="category")
 
     sort_method_map = SortMethodMap([
@@ -52,6 +53,9 @@ class ProductCategory(BaseModel):
         (R.id.SORT_METHOD_NAME, R.string.category_name, asc(name)),
         (R.id.SORT_METHOD_PRIORITY, R.string.priority, desc(priority)),
     ])
+
+    def __repr__(self):
+        return self.name
 
     @staticmethod
     def get_attrs_from_form(form):

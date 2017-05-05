@@ -20,7 +20,9 @@ class Resources(object):
             cities="Cidades",
             subcategories="Subcategorias",
             products="Produtos",
-            priority="Prioridade"
+            priority="Prioridade",
+            category="Categoria",
+            product_category="Categoria de produto"
         )
 
     # noinspection PyPep8Naming

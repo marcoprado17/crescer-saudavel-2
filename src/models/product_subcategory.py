@@ -6,11 +6,27 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy.orm import relationship
+
+from flask_bombril.utils.utils import merge_dicts
 from proj_extensions import db
-from models.base import BaseModel
+from models.base import BaseModel, ProjBaseView
 from models.product import Product
 from proj_utils import SortMethodMap
 from r import R
+
+
+class ProductSubcategoryView(ProjBaseView):
+    column_labels = merge_dicts(ProjBaseView.column_labels, dict(active=R.string.active_in_female))
+    column_list = ['active', 'name', 'product_category']
+    column_filters = ['active', 'product_category']
+    column_editable_list = ['name', 'product_category', 'active']
+    form_excluded_columns = ['products']
+
+    def __init__(self, *args, **kwargs):
+        kwargs["name"] = R.string.product_subcategories
+        kwargs["endpoint"] = R.string.product_subcategories.lower().replace(' ', '-')
+        kwargs["category"] = R.string.products
+        super(ProductSubcategoryView, self).__init__(*args, **kwargs)
 
 
 class ProductSubcategory(BaseModel):
@@ -18,8 +34,8 @@ class ProductSubcategory(BaseModel):
 
     name = db.Column(db.String(R.dimen.product_subcategory_name_max_length), nullable=False)
     active = db.Column(db.Boolean, default=False, nullable=False)
-    category_id = db.Column(db.Integer, ForeignKey("product_category.id"), nullable=False)
-    category = relationship("ProductCategory", back_populates="subcategories")
+    product_category_id = db.Column(db.Integer, ForeignKey("product_category.id"), nullable=False)
+    product_category = relationship("ProductCategory", back_populates="product_subcategories")
     products = relationship("Product", order_by=Product.title, back_populates="subcategory")
 
     sort_method_map = SortMethodMap([

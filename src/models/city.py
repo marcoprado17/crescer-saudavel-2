@@ -16,6 +16,7 @@ from r import R
 
 class CityView(ProjBaseView):
     column_labels = merge_dicts(ProjBaseView.column_labels, dict(active=R.string.active_in_female, name=R.string.name))
+    column_list = ['active', 'name', 'state']
     column_filters = ['active', 'state']
     column_editable_list = ['name', 'state', 'active']
 

@@ -289,9 +289,11 @@ def create_app():
     from proj_extensions import admin
     from models.city import CityView, City
     from models.product_category import ProductCategoryView, ProductCategory
+    from models.product_subcategory import ProductSubcategoryView, ProductSubcategory
     admin.init_app(app)
     admin.add_view(CityView(City, db.session))
     admin.add_view(ProductCategoryView(ProductCategory, db.session))
+    admin.add_view(ProductSubcategoryView(ProductSubcategory, db.session))
 
     from proj_extensions import babel
 

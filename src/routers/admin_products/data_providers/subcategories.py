@@ -29,7 +29,7 @@ class AdminProductSubcategoriesDataProvider(object):
         self.q = ProductSubcategory.query
         self.q = self.q.filter(ProductSubcategory.active == active)
         if category_id != 0:
-            self.q = self.q.filter(ProductSubcategory.category_id == category_id)
+            self.q = self.q.filter(ProductSubcategory.product_category_id == category_id)
         self.q = self.q.order_by(*ProductSubcategory.sort_method_map.order(sort_method_id))
 
         n_subcategories = self.q.count()
