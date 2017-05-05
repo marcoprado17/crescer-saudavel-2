@@ -281,10 +281,8 @@ def create_app():
 
     from proj_extensions import admin
     from models.city import CityView, City
-    from models.state import StateView, State
     admin.init_app(app)
     admin.add_view(CityView(City, db.session))
-    admin.add_view(StateView(State, db.session))
 
     from proj_extensions import babel
 

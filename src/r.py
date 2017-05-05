@@ -545,6 +545,8 @@ class Resources(object):
         add_image_error = "Erro ao se adicionar a imagem! Por favor, cheque o arquivo selecionado e tente novamente."
         new_password = "Nova senha"
         new_password_confirmation = "Confirmação da nova senha"
+        states = "Estados"
+        cities = "Cidades"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"

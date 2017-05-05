@@ -11,19 +11,14 @@ from models.city import City
 from r import R
 
 
-class StateView(ProjBaseView):
-
-    def __init__(self, *args, **kwargs):
-        kwargs["name"] = R.string.state
-        super(StateView, self).__init__(*args, **kwargs)
-
-
 class State(BaseModel):
     __tablename__ = "state"
 
-    name = db.Column(db.String(R.dimen.state_name_max_length))
-    active = db.Column(db.Boolean, default=False, nullable=False)
+    name = db.Column(db.String(R.dimen.state_name_max_length), nullable=False)
     cities = relationship("City", order_by=City.name, back_populates="state")
+
+    def __repr__(self):
+        return self.name
 
     @staticmethod
     def get_choices(include_undefined=False, include_all=False):
