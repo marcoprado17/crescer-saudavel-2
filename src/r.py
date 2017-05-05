@@ -17,7 +17,10 @@ class Resources(object):
             name="Nome",
             active="Ativo",
             state="Estado",
-            cities="Cidades"
+            cities="Cidades",
+            subcategories="Subcategorias",
+            products="Produtos",
+            priority="Prioridade"
         )
 
     # noinspection PyPep8Naming

@@ -279,10 +279,19 @@ def create_app():
         db.session.remove()
         return response
 
+    # ==================================================================================================================
+    #
+    #
+    #
+    #
+    # Declaring admin panel definitions
+    # ==================================================================================================================
     from proj_extensions import admin
     from models.city import CityView, City
+    from models.product_category import ProductCategoryView, ProductCategory
     admin.init_app(app)
     admin.add_view(CityView(City, db.session))
+    admin.add_view(ProductCategoryView(ProductCategory, db.session))
 
     from proj_extensions import babel
 

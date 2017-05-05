@@ -22,7 +22,6 @@ class CityView(ProjBaseView):
     def __init__(self, *args, **kwargs):
         kwargs["name"] = R.string.attended_cities
         kwargs["endpoint"] = R.string.cities.lower()
-        # kwargs["category"] = "Category Name"
         super(CityView, self).__init__(*args, **kwargs)
 
 
