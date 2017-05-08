@@ -290,10 +290,12 @@ def create_app():
     from models.city import CityView, City
     from models.product_category import ProductCategoryView, ProductCategory
     from models.product_subcategory import ProductSubcategoryView, ProductSubcategory
+    from models.product import ProductView, Product
     admin.init_app(app)
     admin.add_view(CityView(City, db.session))
     admin.add_view(ProductCategoryView(ProductCategory, db.session))
     admin.add_view(ProductSubcategoryView(ProductSubcategory, db.session))
+    admin.add_view(ProductView(Product, db.session))
 
     from proj_extensions import babel
 

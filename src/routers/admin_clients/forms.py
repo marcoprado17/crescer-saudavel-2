@@ -10,7 +10,7 @@ from wtforms import StringField, BooleanField, SelectField, IntegerField, Submit
 
 from flask_bombril.form_validators.phone_fomat.phone_format import PhoneFormat
 from flask_bombril.cep_format.cep_format import CepFormat
-from flask_bombril.form_validators import Required
+from flask_bombril.form_validators.required.required import Required
 from flask_bombril.form_fields import SelectFieldWithClasses
 from models.city import City
 from models.state import State

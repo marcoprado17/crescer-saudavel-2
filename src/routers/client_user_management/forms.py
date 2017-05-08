@@ -6,11 +6,11 @@
 from flask.ext.wtf import FlaskForm
 from wtforms import StringField, PasswordField
 
-from flask_bombril.form_validators import Unique
-from flask_bombril.form_validators import EmailFormat
-from flask_bombril.form_validators import EqualTo
-from flask_bombril.form_validators import Length
-from flask_bombril.form_validators import Required
+from flask_bombril.form_validators.unique.unique import Unique
+from flask_bombril.form_validators.email_format.email_format import EmailFormat
+from flask_bombril.form_validators.equal_to.equal_to import EqualTo
+from flask_bombril.form_validators.length.length import Length
+from flask_bombril.form_validators.required.required import Required
 from models.user import User
 from r import R
 

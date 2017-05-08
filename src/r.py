@@ -22,7 +22,13 @@ class Resources(object):
             products="Produtos",
             priority="Prioridade",
             category="Categoria",
-            product_category="Categoria de produto"
+            product_category="Categoria de produto",
+            title="Título",
+            price="Preço",
+            has_discount="Possui desconto",
+            discount_percentage="Percentual de desconto",
+            stock="Estoque",
+            subcategory="Subcategoria"
         )
 
     # noinspection PyPep8Naming

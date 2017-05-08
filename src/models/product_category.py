@@ -7,7 +7,7 @@ from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.orm import relationship
 
-from flask_bombril.form_validators import Required
+from flask_bombril.form_validators.required.required import Required
 from flask_bombril.utils.utils import merge_dicts
 from models.base import BaseModel, ProjBaseView
 from proj_extensions import db

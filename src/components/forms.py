@@ -6,9 +6,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
-from flask.ext.bombril.form_validators import EmailFormat
-from flask.ext.bombril.form_validators import Length
-from flask.ext.bombril.form_validators import Required
+from flask.ext.bombril.form_validators.email_format.email_format import EmailFormat
+from flask.ext.bombril.form_validators.length.length import Length
+from flask.ext.bombril.form_validators.required.required import Required
 from r import R
 
 
