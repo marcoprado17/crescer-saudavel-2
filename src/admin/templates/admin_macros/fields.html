@@ -1,0 +1,73 @@
+{% macro markdown_text(field, form, kwargs) %}
+    {% if field.render_kw and "example" in field.render_kw %}
+        <div id="example-modal-{{ field.id }}" class="markdown modal fade large" role="dialog">
+            <div class="modal-dialog large">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{ R.string.example }}</h4>
+                    </div>
+                    <div class="modal-body example markdown">{{ field.render_kw.example }}</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">{{ R.string.close }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div id="preview-modal-{{ field.id }}" class="markdown modal fade large" role="dialog">
+        <div class="modal-dialog large">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{ R.string.preview }}</h4>
+                </div>
+                <div class="modal-body markdown-parsed-container">
+                    {{ R.string.loading }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ R.string.close }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="control-label">
+            <label for="{{ field.name }}">
+                {{ field.label.text }}{{ ' <strong style="color: red">*</strong>'|if(field.flags.required)|safe }}</label>
+        </div>
+        <div class="controls">
+            <div>
+                <textarea id="{{ field.id }}" name="{{ field.name }}" class="markdown"
+                          rows="5">{{ field.data|if(field.data or field.data==0) }}</textarea>
+            </div>
+            {% if field.errors and field.errors|length > 0 %}
+                <ul class="input-errors">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <div class="markdown-buttons-container">
+                {% if field.render_kw and "example" in field.render_kw %}
+                    <button type="button" class="btn" data-toggle="modal"
+                            data-target="#example-modal-{{ field.id }}">{{ R.string.example }}</button>
+                {% endif %}
+                <button type="button" class="btn markdown preview" data-toggle="modal"
+                        data-url="{{ url_for('admin_proj.markdown_parse') }}"
+                        data-target="#preview-modal-{{ field.id }}" data-textarea="#{{ field.id }}"
+                        data-loading-message="{{ R.string.loading }}"
+                        data-error-message="{{ R.string.markdown_preview_error }}"
+                >
+                    {{ R.string.preview }}
+                </button>
+                <a href="{{ R.string.markdown_href }}" target="_blank" class="markdown"><span
+                        class="btn btn-primary">{{ R.string.markdown }}</span></a>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

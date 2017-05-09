@@ -136,6 +136,7 @@ function setAjaxButtonHandlers(data) {
             contentType: 'application/json;charset=UTF-8',
             async: true,
             success: function (data) {
+                console.log(data);
                 var postReturnTime = (new Date()).getTime();
                 var delay = minResponseTime - (postReturnTime - button.clickTime);
                 setTimeout(function () {

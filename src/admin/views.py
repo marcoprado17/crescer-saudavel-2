@@ -7,11 +7,11 @@ from flask import json
 from flask import request
 from flask_login import login_required
 from proj_decorators import admin_required
-from routers.admin_utils import admin_utils_blueprint
+from admin import admin_proj_blueprint
 from proj_utils import parse_markdown
 
 
-@admin_utils_blueprint.route("/traduzir-markdown", methods=["POST"])
+@admin_proj_blueprint.route("/traduzir-markdown", methods=["POST"])
 @login_required
 @admin_required
 def markdown_parse():

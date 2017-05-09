@@ -1,0 +1,20 @@
+.modal-body.markdown.example, textarea.markdown {
+  font-family: 'Lucida Console', Monaco, monospace !important;
+}
+
+.markdown-buttons-container {
+  margin-top: 8px;
+}
+
+.modal-backdrop {
+  background-color: RGBA(0,0,0,0.9);
+}
+
+@media screen and (min-width: 768px) {
+  .markdown.modal {
+    width: auto;
+    left: 20px;
+    right: 20px;
+    margin: 0;
+  }
+}

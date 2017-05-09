@@ -14,6 +14,7 @@ subl .
 3. Em configs/instance/instace_app_config.py:
 ```
 DEBUG = False
+TEMPLATE_FOLDER = "/vagrant/build/templates"
 ADMIN_MAIL = "crescer.saudavel.suporte@gmail.com"
 ```
 4. Em .gitignore, remover as seguintes linhas:

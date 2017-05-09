@@ -6,6 +6,7 @@
 import random
 from decimal import Decimal
 from flask import url_for
+from flask_admin.form import rules
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy import desc
@@ -26,14 +27,25 @@ class ProductView(ProjBaseView):
     column_list = ['active', 'title']
     column_filters = ['active']
     column_editable_list = ['title', 'active']
-    form_excluded_columns = ['sales_number']
+    form_excluded_columns = ['sales_number', "summary_html"]
     form_args = dict(
         price=dict(
             validators=[Required()]
+        ),
+        summary_markdown=dict(
+            render_kw=dict(
+                example=R.string.product_example_summary
+            )
         )
     )
+    form_rules = (
+        'title',
+        'active',
+        'category',
+        'subcategory',
+        rules.Field('summary_markdown', render_field='markdown_text'))
     column_descriptions = dict(
-        price=R.string.product_price_tooltip
+        price=R.string.product_price_tooltip,
     )
 
     def __init__(self, *args, **kwargs):
@@ -74,8 +86,8 @@ class Product(BaseModel):
     _reserved = db.Column(db.Integer, default=0, nullable=False)
     min_available = db.Column(db.Integer, nullable=False)
     is_available_to_client = db.Column(db.Boolean, nullable=False)
-    _summary_markdown = db.Column(db.UnicodeText, nullable=False)
-    summary_html = db.Column(db.UnicodeText, nullable=False)
+    summary_markdown = db.Column(db.UnicodeText, nullable=False)
+    summary_html = db.Column(db.UnicodeText, default="")
     sales_number = db.Column(db.Integer, default=0)
 
     image_1 = db.Column(db.Text)
@@ -236,15 +248,6 @@ class Product(BaseModel):
     def tab_10_content_markdown(self, value):
         self._tab_10_content_markdown = value
         self.tab_10_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def summary_markdown(self):
-        return self._summary_markdown
-
-    @summary_markdown.setter
-    def summary_markdown(self, value):
-        self._summary_markdown = value
-        self.summary_html = parse_markdown(value)
 
     @hybrid_property
     def reserved(self):

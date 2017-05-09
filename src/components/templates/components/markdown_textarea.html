@@ -48,7 +48,7 @@
                 {% endif %}
             </div>
         {% endif %}
-        <textarea id="{{ data.field.id }}" name="{{ data.field.name }}" class="form-control"
+        <textarea id="{{ data.field.id }}" name="{{ data.field.name }}" class="form-control markdown"
                   rows="{{ data.rows|if(data.rows, 5) }}">{{ data.field.data|if(data.field.data or data.field.data==0) }}</textarea>
         {{ form_fields.render_errors(data.field.errors) }}
 

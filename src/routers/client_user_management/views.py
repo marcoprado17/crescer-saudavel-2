@@ -84,7 +84,7 @@ def login(base_user):
             return redirect(next)
 
         if user.email == current_app.config["ADMIN_MAIL"]:
-            return redirect(url_for('admin_home.home'))
+            return redirect(url_for('admin.index'))
         else:
             flash(R.string.successful_login,
                   bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))

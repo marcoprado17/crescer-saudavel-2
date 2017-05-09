@@ -28,7 +28,8 @@ class Resources(object):
             has_discount="Possui desconto",
             discount_percentage="Percentual de desconto",
             stock="Estoque",
-            subcategory="Subcategoria"
+            subcategory="Subcategoria",
+            summary_markdown="Resumo"
         )
 
     # noinspection PyPep8Naming

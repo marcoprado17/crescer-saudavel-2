@@ -33,22 +33,8 @@ gulp.task("make_css_bundles", function (callback) {
 
 gulp.task("make_admin_css_bundle", function(){
     return gulp.src([
-        "bower_components/bootstrap/dist/css/bootstrap.css",
-        "bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css",
-        "bower_components/toastr/toastr.css",
         "src/front_bombril/utils.scss",
-        "src/wrappers/base/**/*.scss",
-        "src/wrappers/admin_base/**/*.scss",
-        "src/components/**/*.scss",
-        "src/routers/admin_attended_cities/**/*.scss",
-        "src/routers/admin_blog/**/*.scss",
-        "src/routers/admin_clients/**/*.scss",
-        "src/routers/admin_content/**/*.scss",
-        "src/routers/admin_home/**/*.scss",
-        "src/routers/admin_images/**/*.scss",
-        "src/routers/admin_orders/**/*.scss",
-        "src/routers/admin_products/**/*.scss",
-        "src/routers/admin_utils/**/*.scss"
+        "src/admin/**/*.scss"
     ])
         .pipe(concat("admin_bundle.css"))
         .pipe(sass().on('error', sass.logError))
@@ -97,25 +83,8 @@ gulp.task("make_js_bundles", function (callback) {
 
 gulp.task("make_admin_js_bundle", function () {
     return gulp.src([
-        "bower_components/jquery/dist/jquery.js",
-        "bower_components/moment/min/moment-with-locales.js",
-        "bower_components/bootstrap/dist/js/bootstrap.js",
-        "bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js",
-        "bower_components/bootstrap-filestyle/src/bootstrap-filestyle.js",
-        "bower_components/toastr/toastr.js",
         "src/front_bombril/utils.js",
-        "src/wrappers/base/**/*.js",
-        "src/wrappers/admin_base/**/*.js",
-        "src/components/**/*.js",
-        "src/routers/admin_attended_cities/**/*.js",
-        "src/routers/admin_blog/**/*.js",
-        "src/routers/admin_clients/**/*.js",
-        "src/routers/admin_content/**/*.js",
-        "src/routers/admin_home/**/*.js",
-        "src/routers/admin_images/**/*.js",
-        "src/routers/admin_orders/**/*.js",
-        "src/routers/admin_products/**/*.js",
-        "src/routers/admin_utils/**/*.js"
+        "src/admin/**/*.js"
     ])
         .pipe(concat("admin_bundle.js"))
         .pipe(gulp.dest("build/static/js"));

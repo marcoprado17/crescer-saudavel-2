@@ -5,4 +5,4 @@
 # ======================================================================================================================
 from flask import Blueprint
 
-macros_blueprint = Blueprint("macros", __name__, static_folder="static", template_folder="templates")
+macros_blueprint = Blueprint("admin_macros", __name__, static_folder="static", template_folder="templates")

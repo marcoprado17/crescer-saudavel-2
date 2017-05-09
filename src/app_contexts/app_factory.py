@@ -19,7 +19,7 @@ if sys.version_info.major < 3:
     reload(sys)
 sys.setdefaultencoding("utf8")
 
-from flask import Flask, redirect, request, url_for
+from flask import Flask, redirect, request
 
 from configs import default_app_config
 from configs.instance import instance_app_config
@@ -33,11 +33,14 @@ import flask_whooshalchemy as whooshalchemy
 
 def __create_app(configs):
     static_folder = None
+    template_folder = None
     for config in configs:
         if hasattr(config, "STATIC_FOLDER"):
             static_folder = config.STATIC_FOLDER
+        if hasattr(config, "TEMPLATE_FOLDER"):
+            template_folder = config.TEMPLATE_FOLDER
 
-    app = Flask(__name__, instance_relative_config=True, static_folder=static_folder)
+    app = Flask(__name__, instance_relative_config=True, static_folder=static_folder, template_folder=template_folder)
 
     for config in configs:
         app.config.from_object(config)
@@ -104,8 +107,8 @@ def create_app():
     # app.register_blueprint(admin_orders_blueprint, url_prefix="/admin/pedidos")
     # from routers.admin_products import admin_products_blueprint
     # app.register_blueprint(admin_products_blueprint, url_prefix="/admin/produtos")
-    # from routers.admin_utils import admin_utils_blueprint
-    # app.register_blueprint(admin_utils_blueprint, url_prefix="/admin/utils")
+    from admin import admin_proj_blueprint
+    app.register_blueprint(admin_proj_blueprint, url_prefix="/admin-proj")
     #
     # Client Routers
     #
