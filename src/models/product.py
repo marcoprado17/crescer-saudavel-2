@@ -4,6 +4,7 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import random
+
 from decimal import Decimal
 from flask import url_for
 from flask_admin.form import rules
@@ -36,16 +37,24 @@ class ProductView(ProjBaseView):
             render_kw=dict(
                 example=R.string.product_example_summary
             )
-        )
+        ),
+
     )
     form_rules = (
         'title',
         'active',
         'category',
         'subcategory',
-        rules.Field('summary_markdown', render_field='markdown_text'))
+        rules.Field('summary_markdown', render_field='markdown_text'),
+        'price',
+        'has_discount',
+        'discount_percentage',
+        'stock',
+        'min_available'
+    )
     column_descriptions = dict(
         price=R.string.product_price_tooltip,
+        min_available=R.string.min_available_tooltip
     )
 
     def __init__(self, *args, **kwargs):
@@ -85,7 +94,6 @@ class Product(BaseModel):
     stock = db.Column(db.Integer, nullable=False)
     _reserved = db.Column(db.Integer, default=0, nullable=False)
     min_available = db.Column(db.Integer, nullable=False)
-    is_available_to_client = db.Column(db.Boolean, nullable=False)
     summary_markdown = db.Column(db.UnicodeText, nullable=False)
     summary_html = db.Column(db.UnicodeText, default="")
     sales_number = db.Column(db.Integer, default=0)
@@ -257,15 +265,6 @@ class Product(BaseModel):
     def reserved(self, new_reserved):
         self._reserved = new_reserved
         self.update_available()
-        self.update_is_available_to_client()
-
-    @hybrid_property
-    def min_available(self):
-        return self._min_available
-
-    @min_available.setter
-    def min_available(self, new_min_available):
-        self._min_available = new_min_available
         self.update_is_available_to_client()
 
     @hybrid_property
