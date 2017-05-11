@@ -298,7 +298,8 @@ def create_app():
     from models_view.product_subcategory_view import ProductSubcategoryView
     from models.product import Product
     from models_view.product_view import ProductView
-    admin.init_app(app)
+    from models_view.my_admin_index_view import MyAdminIndexView
+    admin.init_app(app, index_view=MyAdminIndexView())
     admin.add_view(CityView(City, db.session))
     admin.add_view(ProductCategoryView(ProductCategory, db.session))
     admin.add_view(ProductSubcategoryView(ProductSubcategory, db.session))
