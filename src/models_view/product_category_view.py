@@ -1,6 +1,6 @@
 from flask_bombril.form_validators.required.required import Required
 from flask_bombril.utils.utils import merge_dicts
-from models.base import ProjBaseView
+from models_view.proj_base_view import ProjBaseView
 from r import R
 
 

@@ -47,7 +47,7 @@ class ClientHeaderDataProvider(object):
         for category in self.get_product_categories_sorted_by_priority():
             if category.active:
                 children = []
-                for subcategory in category.subcategories:
+                for subcategory in category.product_subcategories:
                     if subcategory.active:
                         children.append(
                             dict(

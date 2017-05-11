@@ -6,7 +6,7 @@
 from sqlalchemy import asc
 from sqlalchemy.orm import relationship
 from proj_extensions import db
-from models.base import BaseModel, ProjBaseView
+from models.base import BaseModel
 from models.city import City
 from r import R
 

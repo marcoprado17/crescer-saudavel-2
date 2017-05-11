@@ -1,5 +1,5 @@
 from flask_bombril.utils.utils import merge_dicts
-from models.base import ProjBaseView
+from models_view.proj_base_view import ProjBaseView
 from r import R
 
 
