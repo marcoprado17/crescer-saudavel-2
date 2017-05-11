@@ -153,7 +153,7 @@ def create_home_content_data():
         home_content.more_categories_section_category_1_id = category.id
         home_content.more_categories_section_category_1_image = "baby-1.png"
         active_subcategories = []
-        for subcategory in category.subcategories:
+        for subcategory in category.product_subcategories:
             if subcategory.active:
                 active_subcategories.append(subcategory)
         if len(active_subcategories) >= 1:
@@ -172,7 +172,7 @@ def create_home_content_data():
         home_content.more_categories_section_category_2_id = category.id
         home_content.more_categories_section_category_2_image = "baby-2.png"
         active_subcategories = []
-        for subcategory in category.subcategories:
+        for subcategory in category.product_subcategories:
             if subcategory.active:
                 active_subcategories.append(subcategory)
         if len(active_subcategories) >= 1:
@@ -191,7 +191,7 @@ def create_home_content_data():
         home_content.more_categories_section_category_3_id = category.id
         home_content.more_categories_section_category_3_image = "baby-3.png"
         active_subcategories = []
-        for subcategory in category.subcategories:
+        for subcategory in category.product_subcategories:
             if subcategory.active:
                 active_subcategories.append(subcategory)
         if len(active_subcategories) >= 1:
@@ -210,7 +210,7 @@ def create_home_content_data():
         home_content.more_categories_section_category_4_id = category.id
         home_content.more_categories_section_category_4_image = "baby-4.png"
         active_subcategories = []
-        for subcategory in category.subcategories:
+        for subcategory in category.product_subcategories:
             if subcategory.active:
                 active_subcategories.append(subcategory)
         if len(active_subcategories) >= 1:
@@ -229,7 +229,7 @@ def create_home_content_data():
         home_content.more_categories_section_category_5_id = category.id
         home_content.more_categories_section_category_5_image = "baby-5.png"
         active_subcategories = []
-        for subcategory in category.subcategories:
+        for subcategory in category.product_subcategories:
             if subcategory.active:
                 active_subcategories.append(subcategory)
         if len(active_subcategories) >= 1:
@@ -248,7 +248,7 @@ def create_home_content_data():
         home_content.more_categories_section_category_6_id = category.id
         home_content.more_categories_section_category_6_image = "baby-6.png"
         active_subcategories = []
-        for subcategory in category.subcategories:
+        for subcategory in category.product_subcategories:
             if subcategory.active:
                 active_subcategories.append(subcategory)
         if len(active_subcategories) >= 1:

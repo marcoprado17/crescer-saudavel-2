@@ -6,7 +6,7 @@ click==6.6
 coverage==4.2
 enum34==1.1.6
 Flask==0.10.1
-Flask-Admin==1.5.0
+-e git+https://github.com/marcoprado17/flask-admin@d3f718d7f458683f5a04f0600b2025bd3c1bc9cf#egg=Flask_Admin
 Flask-API==0.6.9
 Flask-BabelEx==0.9.3
 Flask-Bcrypt==0.7.1

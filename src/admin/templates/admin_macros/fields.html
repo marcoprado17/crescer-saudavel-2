@@ -36,10 +36,7 @@
     </div>
 
     <div class="control-group">
-        <div class="control-label">
-            <label for="{{ field.name }}">
-                {{ field.label.text }}{{ ' <strong style="color: red">*</strong>'|if(field.flags.required)|safe }}</label>
-        </div>
+        {{ label(field=field) }}
         <div class="controls">
             <div>
                 <textarea id="{{ field.id }}" name="{{ field.name }}" class="markdown"
@@ -69,5 +66,12 @@
                         class="btn btn-primary">{{ R.string.markdown }}</span></a>
             </div>
         </div>
+    </div>
+{% endmacro %}
+
+{% macro label(field) %}
+    <div class="control-label">
+        <label for="{{ field.name }}">
+            {{ field.label.text }}{{ ' <strong style="color: red">*</strong>'|if(field.flags.required)|safe }}</label>
     </div>
 {% endmacro %}

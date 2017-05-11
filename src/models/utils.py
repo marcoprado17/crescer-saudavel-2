@@ -6,6 +6,7 @@
 import os
 import random
 import string
+import traceback
 from decimal import Decimal
 
 import datetime
@@ -387,7 +388,7 @@ def get_random_product_subcategory():
     return ProductSubcategory(
         name=get_random_string(random.randint(4, 8))[0:R.dimen.product_subcategory_name_max_length],
         active=random.choice([True, False]),
-        category_id=get_random_valid_product_category_id()
+        product_category_id=get_random_valid_product_category_id()
     )
 
 

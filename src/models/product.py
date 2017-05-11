@@ -7,61 +7,18 @@ import random
 
 from decimal import Decimal
 from flask import url_for
-from flask_admin.form import rules
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
-from flask_bombril.form_validators.required.required import Required
-from flask_bombril.utils.utils import merge_dicts
+
 from proj_exceptions import InvalidNUnitsError
 from proj_extensions import db
-from models.base import BaseModel, ProjBaseView
+from models.base import BaseModel
 from r import R
 from proj_utils import parse_markdown, SortMethodMap
-
-
-class ProductView(ProjBaseView):
-    column_labels = merge_dicts(ProjBaseView.column_labels)
-    column_list = ['active', 'title']
-    column_filters = ['active']
-    column_editable_list = ['title', 'active']
-    form_excluded_columns = ['sales_number', "summary_html"]
-    form_args = dict(
-        price=dict(
-            validators=[Required()]
-        ),
-        summary_markdown=dict(
-            render_kw=dict(
-                example=R.string.product_example_summary
-            )
-        ),
-
-    )
-    form_rules = (
-        'title',
-        'active',
-        'category',
-        'subcategory',
-        rules.Field('summary_markdown', render_field='markdown_text'),
-        'price',
-        'has_discount',
-        'discount_percentage',
-        'stock',
-        'min_available'
-    )
-    column_descriptions = dict(
-        price=R.string.product_price_tooltip,
-        min_available=R.string.min_available_tooltip
-    )
-
-    def __init__(self, *args, **kwargs):
-        kwargs["name"] = R.string.products
-        kwargs["endpoint"] = R.string.products.lower()
-        kwargs["category"] = R.string.products
-        super(ProductView, self).__init__(*args, **kwargs)
 
 
 class Product(BaseModel):
@@ -92,7 +49,7 @@ class Product(BaseModel):
     has_discount = db.Column(db.Boolean, default=False, nullable=False)
     discount_percentage = db.Column(db.Integer, default=0, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
-    _reserved = db.Column(db.Integer, default=0, nullable=False)
+    reserved = db.Column(db.Integer, default=0, nullable=False)
     min_available = db.Column(db.Integer, nullable=False)
     summary_markdown = db.Column(db.UnicodeText, nullable=False)
     summary_html = db.Column(db.UnicodeText, default="")
@@ -258,20 +215,6 @@ class Product(BaseModel):
         self.tab_10_content_html = parse_markdown(value)
 
     @hybrid_property
-    def reserved(self):
-        return self._reserved
-
-    @reserved.setter
-    def reserved(self, new_reserved):
-        self._reserved = new_reserved
-        self.update_available()
-        self.update_is_available_to_client()
-
-    @hybrid_property
-    def available(self):
-        return self._available
-
-    @hybrid_property
     def id_formatted(self):
         return R.string.id_prefix + str(self.id)
 
@@ -284,8 +227,8 @@ class Product(BaseModel):
         # (R.id.SORT_METHOD_HIGHER_STOCK,     R.string.higher_stock,          desc(_stock)),
         # (R.id.SORT_METHOD_LOWEST_AVAILABLE, R.string.lowest_available,      asc(_available)),
         # (R.id.SORT_METHOD_HIGHER_AVAILABLE, R.string.higher_available,      desc(_available)),
-        (R.id.SORT_METHOD_LOWEST_RESERVED,  R.string.lowest_reserved,       asc(_reserved)),
-        (R.id.SORT_METHOD_HIGHER_RESERVED,  R.string.higher_reserved,       desc(_reserved)),
+        # (R.id.SORT_METHOD_LOWEST_RESERVED,  R.string.lowest_reserved,       asc(_reserved)),
+        # (R.id.SORT_METHOD_HIGHER_RESERVED,  R.string.higher_reserved,       desc(_reserved)),
         (R.id.SORT_METHOD_BEST_SELLER,      R.string.best_seller,           desc(sales_number)),
         (R.id.SORT_METHOD_LESS_SOLD,        R.string.less_sold,             asc(sales_number))
     ])
@@ -427,15 +370,15 @@ class Product(BaseModel):
 
     @hybrid_property
     def available(self):
-        if self.stock is not None and self._reserved is not None:
-            return self.stock - self._reserved
+        if self.stock is not None and self.reserved is not None:
+            return self.stock - self.reserved
         else:
             return None
 
     @hybrid_property
     def is_available_to_client(self):
         if self.active is not None and self.available is not None and self.min_available is not None:
-            if self.active and self.available > self.min_available:
+            if self.active is True and (self.available > self.min_available):
                 return True
             else:
                 return False

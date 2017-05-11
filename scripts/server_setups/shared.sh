@@ -5,6 +5,8 @@ sudo apt-get install -y python-pip;
 sudo apt-get install -y python-dev;
 sudo apt-get install -y postgresql;
 sudo apt-get install -y python-psycopg2;
+sudo apt-get install -y git
+
 
 sudo pip install --upgrade pip
 sudo pip install -r /vagrant/requirements.txt;

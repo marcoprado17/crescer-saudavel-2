@@ -293,7 +293,8 @@ def create_app():
     from models.city import CityView, City
     from models.product_category import ProductCategoryView, ProductCategory
     from models.product_subcategory import ProductSubcategoryView, ProductSubcategory
-    from models.product import ProductView, Product
+    from models.product import Product
+    from models_view.product_view import ProductView
     admin.init_app(app)
     admin.add_view(CityView(City, db.session))
     admin.add_view(ProductCategoryView(ProductCategory, db.session))

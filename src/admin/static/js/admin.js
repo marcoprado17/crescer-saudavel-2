@@ -1,10 +1,8 @@
 /**
  * Created by marco on 09/05/17.
  */
-function initAllMarkdownTextArea(){
-    console.log("initAllMarkdownTextArea called");
-
-    $("button.markdown.preview").each(function(){
+function initAllMarkdownTextArea() {
+    $("button.markdown.preview").each(function () {
         var button = $(this);
         var modal = $("{0}".f(button.attr("data-target")));
         var url = button.attr("data-url");
@@ -25,7 +23,7 @@ function initAllMarkdownTextArea(){
                 return JSON.stringify({"markdown_text": textarea.val()}, null, '\t')
             },
             success: function (data) {
-                if(data != null && "markdown_html" in data){
+                if (data != null && "markdown_html" in data) {
                     modal_body.html(data.markdown_html);
                 }
                 else {
@@ -38,4 +36,28 @@ function initAllMarkdownTextArea(){
             }
         })
     });
+}
+
+function initAllDynamicSelects() {
+    $("select.dynamic").each(function () {
+        var dynamicSelect = $(this);
+        var determinantSelect = $("select[id={0}]".f(dynamicSelect.attr("determinant-select-id")));
+        onDeterminantSelectChange(dynamicSelect, determinantSelect);
+        determinantSelect.on("change", function () {
+            onDeterminantSelectChange(dynamicSelect, determinantSelect);
+        });
+    });
+}
+
+function onDeterminantSelectChange(dynamicSelect, determinantSelect) {
+    var newDeterminantSelectValue = determinantSelect.val();
+    if(newDeterminantSelectValue != null){
+        var dynamicChoicesData = JSON.parse(dynamicSelect.attr("dynamic-choices-data"));
+        options = [];
+        dynamicChoicesData[newDeterminantSelectValue.toString()].forEach(function (element) {
+            options.push(new Option(element[1], parseInt(element[0])));
+        });
+        dynamicSelect.find("option[value]").remove();
+        dynamicSelect.append(options).val("").trigger("change");
+    }
 }

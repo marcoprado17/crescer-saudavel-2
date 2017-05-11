@@ -43,6 +43,9 @@ class ProductSubcategory(BaseModel):
         (R.id.SORT_METHOD_NAME, R.string.category_name, asc(name)),
     ])
 
+    def __repr__(self):
+        return self.name
+
     @staticmethod
     def get_attrs_from_form(form):
         return dict(

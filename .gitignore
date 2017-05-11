@@ -12,3 +12,4 @@ portuguese_brazil_dic/
 /configs/instance/db_info.py
 build/
 search.db/
+src/flask-admin

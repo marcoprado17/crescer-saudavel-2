@@ -130,8 +130,22 @@ gulp.task("refresh_page", shell.task([
 gulp.task("build", function (callback) {
     runSequence(
         "delete_old_build",
-        ["copy_html_files_to_build_dir", "copy_py_files_to_build_dir", "make_css_bundles", "make_js_bundles", "copy_fonts_to_build_dir", "copy_flipmart_fonts_to_build_dir", "copy_images_to_build_dir"],
-        ["minify_admin_css_bundle", "minify_admin_js_bundle", "minify_client_css_bundle", "minify_client_js_bundle"],
+        [
+            "copy_html_files_to_build_dir",
+            "copy_py_files_to_build_dir",
+            "make_css_bundles",
+            "make_js_bundles",
+            "copy_fonts_to_build_dir",
+            "copy_flipmart_fonts_to_build_dir",
+            "copy_images_to_build_dir",
+            "copy_flask_admin_to_build_dir"
+        ],
+        [
+            "minify_admin_css_bundle",
+            "minify_admin_js_bundle",
+            "minify_client_css_bundle",
+            "minify_client_js_bundle"
+        ],
         ["append_sys_path_to_build_init"],
         callback
     );
@@ -140,6 +154,11 @@ gulp.task("build", function (callback) {
 gulp.task("delete_old_build", function () {
     return gulp.src("build", {read: false})
         .pipe(clean());
+});
+
+gulp.task("copy_flask_admin_to_build_dir", function () {
+    return gulp.src(["src/flask-admin/**/*"])
+        .pipe(gulp.dest("build/flask-admin"));
 });
 
 gulp.task("copy_html_files_to_build_dir", function () {
