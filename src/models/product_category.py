@@ -6,37 +6,12 @@
 from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.orm import relationship
-
-from flask_bombril.form_validators.required.required import Required
-from flask_bombril.utils.utils import merge_dicts
-from models.base import BaseModel, ProjBaseView
+from models.base import BaseModel
 from proj_extensions import db
 from models.product import Product
 from models.product_subcategory import ProductSubcategory
 from proj_utils import SortMethodMap
 from r import R
-
-
-class ProductCategoryView(ProjBaseView):
-    column_labels = merge_dicts(ProjBaseView.column_labels, dict(active=R.string.active_in_female))
-    column_list = ['active', 'name', 'priority']
-    column_filters = ['active']
-    column_editable_list = ['name', 'priority', 'active']
-    form_excluded_columns = ['product_subcategories', 'products']
-    form_args = dict(
-        priority=dict(
-            validators=[Required()]
-        )
-    )
-    column_descriptions = dict(
-        priority=R.string.product_category_priority_tooltip
-    )
-
-    def __init__(self, *args, **kwargs):
-        kwargs["name"] = R.string.product_categories
-        kwargs["endpoint"] = R.string.product_categories.lower().replace(' ', '-')
-        kwargs["category"] = R.string.products
-        super(ProductCategoryView, self).__init__(*args, **kwargs)
 
 
 class ProductCategory(BaseModel):

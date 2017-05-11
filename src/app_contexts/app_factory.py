@@ -290,9 +290,12 @@ def create_app():
     # Declaring admin panel definitions
     # ==================================================================================================================
     from proj_extensions import admin
-    from models.city import CityView, City
-    from models.product_category import ProductCategoryView, ProductCategory
-    from models.product_subcategory import ProductSubcategoryView, ProductSubcategory
+    from models.city import City
+    from models_view.city_view import CityView
+    from models.product_category import ProductCategory
+    from models_view.product_category_view import ProductCategoryView
+    from models.product_subcategory import ProductSubcategory
+    from models_view.product_subcategory_view import ProductSubcategoryView
     from models.product import Product
     from models_view.product_view import ProductView
     admin.init_app(app)

@@ -6,27 +6,11 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy.orm import relationship
-
-from flask_bombril.utils.utils import merge_dicts
 from proj_extensions import db
-from models.base import BaseModel, ProjBaseView
+from models.base import BaseModel
 from models.product import Product
 from proj_utils import SortMethodMap
 from r import R
-
-
-class ProductSubcategoryView(ProjBaseView):
-    column_labels = merge_dicts(ProjBaseView.column_labels, dict(active=R.string.active_in_female))
-    column_list = ['active', 'name', 'product_category']
-    column_filters = ['active', 'product_category']
-    column_editable_list = ['name', 'product_category', 'active']
-    form_excluded_columns = ['products']
-
-    def __init__(self, *args, **kwargs):
-        kwargs["name"] = R.string.product_subcategories
-        kwargs["endpoint"] = R.string.product_subcategories.lower().replace(' ', '-')
-        kwargs["category"] = R.string.products
-        super(ProductSubcategoryView, self).__init__(*args, **kwargs)
 
 
 class ProductSubcategory(BaseModel):
