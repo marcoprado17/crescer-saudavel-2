@@ -23,6 +23,7 @@ class ProductView(ProjBaseView):
             }
         )
 
+    can_delete = False
     column_labels = merge_dicts(ProjBaseView.column_labels)
     column_list = ['active', 'title']
     column_filters = ['active']

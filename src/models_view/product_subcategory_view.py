@@ -4,6 +4,7 @@ from r import R
 
 
 class ProductSubcategoryView(ProjBaseView):
+    can_delete = False
     column_labels = merge_dicts(ProjBaseView.column_labels, dict(active=R.string.active_in_female))
     column_list = ['active', 'name', 'product_category']
     column_filters = ['active', 'product_category']
