@@ -30,7 +30,10 @@ class Resources(object):
             stock="Estoque",
             subcategory="Subcategoria",
             summary_markdown="Resumo",
-            min_available="Mín. disponíveis"
+            min_available="Mín. disponíveis",
+            image_type="Tipo",
+            filename="Nome do arquivo",
+            image="Imagem"
         )
 
     # noinspection PyPep8Naming
@@ -76,6 +79,8 @@ class Resources(object):
         default_carousel_image_name = "carousel_default.jpg"
         unavailable_product_at_moment = "Produto indisponível no momento."
         product_image = "Imagem do produto"
+        product_images = "Imagens dos produtos"
+        product_images_endpoint = "imagens-de-produto"
         add_to_cart = "Adicionar ao carrinho"
         default_product_image_name = "product_default.jpg"
         back_to_blog = "Voltar ao blog"
@@ -560,6 +565,15 @@ class Resources(object):
         new_password_confirmation = "Confirmação da nova senha"
         states = "Estados"
         cities = "Cidades"
+        blog_thumbnail = "Thumbnail do blog"
+        other = "Outro"
+        filename_already_exist = "Um arquivo com o mesmo nome já existe."
+        blog_thumbnail_images = "Imagens das thumbnails do blog"
+        blog_thumbnail_images_endpoint = "imagens-das-thumbnails-do-blog"
+        carousel_images = "Imagens do carousel"
+        carousel_images_endpoint = "imagens-do-carrossel"
+        other_images = "Outras imagens"
+        other_images_endpoint = "outras-imagens"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -1262,6 +1276,8 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         tag_subtitle_max_length = 128
 
         blog_post_preview_title_max_length = 48
+        image_name_max_size = 64
+        image_path_max_size = 128
 
 
 R = Resources()

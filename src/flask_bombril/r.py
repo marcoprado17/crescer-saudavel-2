@@ -44,6 +44,7 @@ class Resources(object):
         invalid_file_extension = "Formato de arquivo inválido."
         invalid_phone_format = "Formato de telefone inválido."
         invalid_cep_format = "Formato de cep inválido. Ex.: 12210-250"
+        unique_filename = "Um arquivo com o mesmo nome já existe."
 
         a = "a"
         b = "b"

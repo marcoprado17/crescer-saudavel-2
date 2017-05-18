@@ -14,6 +14,18 @@ log = logging.getLogger("flask-admin.sqla")
 
 class ProjBaseView(ModelView):
     column_labels = R.dict.column_labels
+    name = None
+    endpoint = None
+    category = None
+
+    def __init__(self, *args, **kwargs):
+        if self.name:
+            kwargs["name"] = self.name
+        if self.endpoint:
+            kwargs["endpoint"] = self.endpoint
+        if self.category:
+            kwargs["category"] = self.category
+        super(ProjBaseView, self).__init__(*args, **kwargs)
 
     def create_model(self, form):
         try:

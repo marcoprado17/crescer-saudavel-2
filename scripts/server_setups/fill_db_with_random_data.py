@@ -25,6 +25,7 @@ from models.product import Product
 from models.product_category import ProductCategory
 from models.tags_row import TagsRow
 
+
 def fill_db_with_random_data():
     with app.app_context():
         create_random_product_categories()

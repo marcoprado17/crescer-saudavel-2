@@ -38,6 +38,7 @@ def restart_db():
         create_exchanges_and_returns()
         create_header()
         create_footer()
+
         print "Db restarted."
 
 if __name__ == "__main__":
