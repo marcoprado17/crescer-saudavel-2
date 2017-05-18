@@ -36,11 +36,6 @@ MAIL_USERNAME = "crescer.saudavel.suporte@gmail.com"
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
 
-UPLOADED_IMAGES_FOLDER = "imgs"
-UPLOADED_IMAGES_FOLDER_FULL_PATH = "/vagrant/build/static/imgs"
-PRODUCTS_IMAGES_FOLDER_FULL_PATH = "/vagrant/build/static/imgs/products"
-BLOG_THUMBNAILS_IMAGES_FOLDER_FULL_PATH = "/vagrant/build/static/imgs/blog_thumbnails"
-
 DEFAULT_PER_PAGE = 20
 ORDERS_TABLE_PER_PAGE = 10
 CLIENTS_TABLE_PER_PAGE = 10
@@ -56,4 +51,5 @@ BLOG_THUMBNAIL_IMAGE_HEIGHT = 500
 CAROUSEL_IMAGE_WIDTH = 2560
 CAROUSEL_IMAGE_HEIGHT = 500
 
-WHOOSH_BASE = "/vagrant/search.db"
+# WHOOSH_BASE name can't be renamed. It's used by whoosh library.
+WHOOSH_BASE = "/vagrant/whoosh_index"

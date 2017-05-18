@@ -11,5 +11,5 @@ portuguese_brazil_dic/
 /configs/instance/instance_app_config.py
 /configs/instance/db_info.py
 build/
-search.db/
+whoosh_index/
 src/flask-admin
