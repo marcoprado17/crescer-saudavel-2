@@ -140,11 +140,6 @@ def create_app():
     from routers.client_user_management import client_user_management_blueprint
     app.register_blueprint(client_user_management_blueprint, url_prefix="/conta")
 
-
-    if app.config["DEBUG"]:
-        from routers.debug import debug_blueprint
-        app.register_blueprint(debug_blueprint, url_prefix="/debug")
-
     #
     # Wrappers
     #
@@ -292,6 +287,8 @@ def create_app():
     # ==================================================================================================================
     from proj_extensions import admin
     from models.city import City
+    # The import above it's not used, but is necessary declare it here
+    from models.order import Order
     from models_view.city_view import CityView
     from models.product_category import ProductCategory
     from models_view.product_category_view import ProductCategoryView
