@@ -6,6 +6,7 @@
 import os
 import sys
 import shutil
+import datetime
 
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
@@ -24,6 +25,7 @@ from models.home_content import HomeContent
 from models.newsletter_emails import NewsletterEmails
 from models.payment import Payment
 from models.tags_row import TagsRow
+from models.user import User
 
 
 def restart_db():
@@ -47,6 +49,9 @@ def restart_db():
         create_exchanges_and_returns()
         create_header()
         create_footer()
+
+        if app.config["DEBUG"]:
+            create_admin_user()
 
         print "Db restarted."
 
@@ -169,6 +174,19 @@ def create_footer():
     db.session.commit()
     print "Footer created."
     return footer
+
+
+def create_admin_user():
+    user = User(
+        email=app.config["ADMIN_MAIL"],
+        password="aaaaaa",
+        email_confirmed=True,
+        register_datetime=datetime.datetime.now(),
+    )
+    db.session.add(user)
+    db.session.commit()
+    print "Admin user created."
+    return user
 
 if __name__ == "__main__":
     restart_db()
