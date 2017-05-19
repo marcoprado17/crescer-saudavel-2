@@ -7,7 +7,7 @@ from os.path import join
 
 DEBUG = False
 
-STATIC_FOLDER = "/vagrant/build/static"
+STATIC_FOLDER = "static"
 STATIC_FULL_PATH = "/vagrant/build/static"
 IMAGES_FOLDER = "imgs"
 IMAGES_FULL_PATH = join(STATIC_FULL_PATH, IMAGES_FOLDER)

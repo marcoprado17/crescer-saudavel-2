@@ -3,15 +3,15 @@
 # ======================================================================================================================
 # Created at 12/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+import datetime
 import os
 import random
 import sys
-import datetime
 
-from models.blog_thumbnail_image import BlogThumbnailImage
-from models.carousel_image import CarouselImage
-from models.other_image import OtherImage
-from models.product_image import ProductImage
+from models.images.blog_thumbnail_image import BlogThumbnailImage
+from models.images.carousel_image import CarouselImage
+from models.images.other_image import OtherImage
+from models.images.product_image import ProductImage
 from r import R
 
 sys.path.append("/vagrant")

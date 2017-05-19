@@ -1,10 +1,9 @@
 from os.path import join
 
-from models.other_image import OtherImage
-from models.product_image import ProductImage
-from models_view.image_view import ImageView
-from r import R
 from configs import default_app_config as config
+from models.images.other_image import OtherImage
+from models_view.images.image_view import ImageView
+from r import R
 
 
 class OtherImageView(ImageView):

@@ -3,9 +3,9 @@
 # ======================================================================================================================
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-import random
 
 from decimal import Decimal
+
 from flask import url_for
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
@@ -13,12 +13,11 @@ from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
-from models.product_image import ProductImage
+from models.base import BaseModel
 from proj_exceptions import InvalidNUnitsError
 from proj_extensions import db
-from models.base import BaseModel
-from r import R
 from proj_utils import parse_markdown, SortMethodMap
+from r import R
 
 
 class Product(BaseModel):

@@ -1,10 +1,9 @@
 from os.path import join
 
-from models.carousel_image import CarouselImage
-from models.product_image import ProductImage
-from models_view.image_view import ImageView
-from r import R
 from configs import default_app_config as config
+from models.images.carousel_image import CarouselImage
+from models_view.images.image_view import ImageView
+from r import R
 
 
 class CarouselImageView(ImageView):

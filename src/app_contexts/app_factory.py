@@ -6,9 +6,8 @@
 import random
 import string
 import sys
-from urlparse import urljoin
 
-from flask import session, Blueprint
+from flask import session
 
 from models.anonymous_user import AnonymousUser
 from models.blog_post import BlogPost
@@ -36,8 +35,8 @@ def __create_app(configs):
     static_folder = None
     template_folder = None
     for config in configs:
-        if hasattr(config, "STATIC_FOLDER"):
-            static_folder = config.STATIC_FOLDER
+        if hasattr(config, "STATIC_FULL_PATH"):
+            static_folder = config.STATIC_FULL_PATH
         if hasattr(config, "TEMPLATE_FOLDER"):
             template_folder = config.TEMPLATE_FOLDER
 
@@ -286,9 +285,10 @@ def create_app():
     # Declaring admin panel definitions
     # ==================================================================================================================
     from proj_extensions import admin
-    from models.city import City
-    # The import above it's not used, but is necessary declare it here
     from models.order import Order
+    from models.user import User
+    # The import above it's not used, but is necessary declare it here
+    from models.city import City
     from models_view.city_view import CityView
     from models.product_category import ProductCategory
     from models_view.product_category_view import ProductCategoryView
@@ -297,14 +297,14 @@ def create_app():
     from models.product import Product
     from models_view.product_view import ProductView
     from models_view.my_admin_index_view import MyAdminIndexView
-    from models.product_image import ProductImage
-    from models_view.product_image_view import ProductImageView
-    from models.blog_thumbnail_image import BlogThumbnailImage
-    from models_view.blog_thumbnail_image_view import BlogThumbnailImageView
-    from models.carousel_image import CarouselImage
-    from models_view.carousel_image_view import CarouselImageView
-    from models.other_image import OtherImage
-    from models_view.other_image_view import OtherImageView
+    from models.images.product_image import ProductImage
+    from models_view.images.product_image_view import ProductImageView
+    from models.images.blog_thumbnail_image import BlogThumbnailImage
+    from models_view.images.blog_thumbnail_image_view import BlogThumbnailImageView
+    from models.images.carousel_image import CarouselImage
+    from models_view.images.carousel_image_view import CarouselImageView
+    from models.images.other_image import OtherImage
+    from models_view.images.other_image_view import OtherImageView
     admin.init_app(app, index_view=MyAdminIndexView())
     admin.add_view(CityView(City, db.session))
     admin.add_view(ProductCategoryView(ProductCategory, db.session))

@@ -12,17 +12,22 @@ from PIL import Image as ImagePIL
 
 class Image(BaseModel):
     __abstract__ = True
+
     full_path = config.IMAGES_FULL_PATH
+    path_from_static = config.IMAGES_FOLDER
 
     filename = db.Column(db.String(R.dimen.image_path_max_size), unique=True)
 
-    def html_preview(self):
+    def get_html_preview(self):
         if os.path.basename(self.full_path) == config.IMAGES_FOLDER:
             url = url_for("static", filename=os.path.join(config.IMAGES_FOLDER, self.filename))
         else:
             path_from_static = os.path.join(config.IMAGES_FOLDER, os.path.basename(self.full_path))
             url = url_for("static", filename=os.path.join(path_from_static, self.filename))
         return Markup("<img style='max-width: 100px;max-height: 100px;' src='%s'>" % url)
+
+    def get_link(self):
+        return os.path.join("/", config.STATIC_FOLDER, self.path_from_static, self.filename)
 
     def delete_file(self):
         image_full_path = os.path.join(self.full_path, self.filename)

@@ -33,7 +33,8 @@ class Resources(object):
             min_available="Mín. disponíveis",
             image_type="Tipo",
             filename="Nome do arquivo",
-            image="Imagem"
+            image="Imagem",
+            link="Link"
         )
 
     # noinspection PyPep8Naming
