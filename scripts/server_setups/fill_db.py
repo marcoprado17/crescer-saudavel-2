@@ -8,6 +8,10 @@ import random
 import sys
 import datetime
 
+from models.blog_thumbnail_image import BlogThumbnailImage
+from models.carousel_image import CarouselImage
+from models.other_image import OtherImage
+from models.product_image import ProductImage
 from r import R
 
 sys.path.append("/vagrant")
@@ -80,6 +84,11 @@ datetime_4 = datetime.datetime.now()
 
 def fill_db():
     with app.app_context():
+        create_product_image_example()
+        create_blog_thumbnail_image_example()
+        create_carousel_image_example()
+        create_blog_link_example_image()
+
         create_random_product_categories()
         create_random_product_subcategories()
         create_random_products()
@@ -93,6 +102,30 @@ def fill_db():
         create_about_us_data()
         create_tags_row_data()
         create_home_content_data()
+
+
+def create_product_image_example():
+    db.session.add(ProductImage(filename="example.jpg"))
+    print "ProductImage example.jpg created."
+    db.session.commit()
+
+
+def create_carousel_image_example():
+    db.session.add(CarouselImage(filename="example.jpg"))
+    print "CarouselImage example.jpg created."
+    db.session.commit()
+
+
+def create_blog_thumbnail_image_example():
+    db.session.add(BlogThumbnailImage(filename="example.jpg"))
+    print "BlogThumbnailImage example.jpg created."
+    db.session.commit()
+
+
+def create_blog_link_example_image():
+    db.session.add(OtherImage(filename="post_link_example.jpg"))
+    print "OtherImage post_link_example.jpg created."
+    db.session.commit()
 
 
 def create_random_product_categories():

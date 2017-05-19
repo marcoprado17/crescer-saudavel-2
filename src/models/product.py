@@ -13,7 +13,7 @@ from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
-
+from models.product_image import ProductImage
 from proj_exceptions import InvalidNUnitsError
 from proj_extensions import db
 from models.base import BaseModel
@@ -54,6 +54,8 @@ class Product(BaseModel):
     summary_markdown = db.Column(db.UnicodeText, nullable=False)
     summary_html = db.Column(db.UnicodeText, default="")
     sales_number = db.Column(db.Integer, default=0)
+
+    images = db.Column(db.ARRAY(db.Boolean))
 
     image_1 = db.Column(db.Text)
     image_2 = db.Column(db.Text)

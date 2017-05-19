@@ -50,7 +50,8 @@ class ProductView(ProjBaseView):
         'has_discount',
         'discount_percentage',
         'stock',
-        'min_available'
+        'min_available',
+        'images'
     )
     column_descriptions = dict(
         price=R.string.product_price_tooltip,

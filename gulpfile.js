@@ -170,7 +170,7 @@ gulp.task("copy_html_files_to_build_dir", function () {
 });
 
 gulp.task("copy_images_to_build_dir", function () {
-    return gulp.src(["images/*"])
+    return gulp.src(["images/**/*.*"])
         .pipe(gulp.dest("build/static/imgs"));
 });
 
