@@ -20,17 +20,13 @@ class ImageView(ProjBaseView):
         return model.get_src()
 
     can_edit = False
+
     column_labels = merge_dicts(ProjBaseView.column_labels)
     column_list = ["filename", "link", "image"]
-
     column_formatters = dict(
         image=_image_formatter,
         link=_link_formatter
     )
-
-    @staticmethod
-    def build_form_create_rules(tooltip):
-        return 'filename', rules.Text(tooltip)
 
     @staticmethod
     def build_form_extra_fields(folder_full_path, folder_name, model, field):

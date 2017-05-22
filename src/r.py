@@ -599,6 +599,7 @@ class Resources(object):
         blog_thumbnail_images_endpoint = "imagens-das-thumbnails-do-blog"
         product_subcategories_endpoint = "subcategorias-de-produto"
         product_categories_endpoint = "categorias-de-produto"
+        cities_endpoint = "cidades"
         carousel_images = "Imagens do carousel"
         carousel_images_endpoint = "imagens-do-carrossel"
         other_images = "Outras imagens"

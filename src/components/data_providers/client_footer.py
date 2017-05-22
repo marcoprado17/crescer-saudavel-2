@@ -5,7 +5,6 @@
 # ======================================================================================================================
 from flask import url_for
 from sqlalchemy import desc
-
 from components.forms import NewsletterEmailForm
 from models.about_us import AboutUs
 from models.blog_post import BlogPost
@@ -18,18 +17,6 @@ from r import R
 class ClientFooterDataProvider(object):
     def get_data(self):
         chosen_categories = []
-        categories = ProductCategory.get_all()
-        categories_sorted = sorted(categories,
-                                   key=lambda category: category.get_n_active_products() if category.active else -1,
-                                   reverse=True)
-        for category in categories_sorted[0:4]:
-            if category.active:
-                chosen_categories.append(
-                    dict(
-                        name=category.name,
-                        href=url_for("client_products.products", **{R.string.category_id_arg_name: category.id})
-                    )
-                )
 
         chosen_blog_posts = []
         q = BlogPost.query
@@ -83,7 +70,6 @@ class ClientFooterDataProvider(object):
                     href=contact.pintrest_link,
                 ),
             ],
-            chosen_categories=chosen_categories,
             chosen_blog_posts=chosen_blog_posts,
             lower_text_html=Footer.get().lower_text_html,
             newsletter_email_form=NewsletterEmailForm()

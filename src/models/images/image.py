@@ -12,7 +12,7 @@ class Image(BaseModel):
     full_path = config.IMAGES_FULL_PATH
     path_from_static = config.IMAGES_FOLDER
 
-    filename = db.Column(db.String(R.dimen.filename_max_size))
+    filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
 
     def get_src(self):
         return os.path.join("/", config.OTHER_IMAGES_FROM_STATIC_PATH, self.filename)

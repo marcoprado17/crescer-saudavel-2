@@ -7,10 +7,12 @@ from r import R
 
 
 class OtherImageView(ImageView):
+    name = R.string.images
+    endpoint = R.string.images_endpoint
+
     folder_path_from_static = join(config.IMAGES_FOLDER, config.OTHER_IMAGES_FOLDER)
+
     form_extra_fields = ImageView.build_form_extra_fields(folder_full_path=config.OTHER_IMAGES_FULL_PATH,
                                                           folder_name=config.OTHER_IMAGES_FOLDER,
                                                           model=OtherImage,
                                                           field=OtherImage.filename)
-    name = R.string.images
-    endpoint = R.string.images_endpoint
