@@ -597,6 +597,7 @@ class Resources(object):
         filename_already_exist = "Um arquivo com o mesmo nome já existe."
         blog_thumbnail_images = "Imagens das thumbnails do blog"
         blog_thumbnail_images_endpoint = "imagens-das-thumbnails-do-blog"
+        product_subcategories_endpoint = "subcategorias-de-produto"
         carousel_images = "Imagens do carousel"
         carousel_images_endpoint = "imagens-do-carrossel"
         other_images = "Outras imagens"
