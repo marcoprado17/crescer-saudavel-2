@@ -23,6 +23,7 @@ class Resources(object):
             priority="Prioridade",
             category="Categoria",
             product_category="Categoria de produto",
+            product_subcategory="Subcategoria de produto",
             title="Título",
             price="Preço",
             has_discount="Possui desconto",
@@ -53,7 +54,10 @@ class Resources(object):
             tab_2_content_markdown="Conteúdo da tab 2",
             tab_3_content_markdown="Conteúdo da tab 3",
             tab_4_content_markdown="Conteúdo da tab 4",
-            tab_5_content_markdown="Conteúdo da tab 5"
+            tab_5_content_markdown="Conteúdo da tab 5",
+            price_with_discount="Preço com desconto",
+            reserved="Reservadas",
+            n_units_available="Num. de unidades disponíveis"
         )
 
     # noinspection PyPep8Naming
@@ -338,6 +342,7 @@ class Resources(object):
         sort_method_label = "Ordenar por:"
         empty_symbol = "-"
         id_prefix = "#"
+        product_default_filename = "product_default.jpg"
 
         lowest_price = "Menor preço"
         higher_price = "Maior preço"
@@ -489,7 +494,7 @@ class Resources(object):
         available = "Disponíveis"
         available_tooltip = "Número de unidades disponíveis do produto, equivale ao número de unidades no estoque menos o número de unidades reservadas."
         reserved = "Reservadas"
-        reserved_tooltip = "Número de unidades reservadas do produto, já foram vendidas, mas ainda não foram enviadas."
+        reserved_description = "Número de unidades reservadas do produto, já foram vendidas, mas ainda não foram enviadas."
         cancel = "Cancelar"
 
         first_name_placeholder="Ex.: João"
@@ -1185,6 +1190,14 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         @staticmethod
         def product_image_prefix(product_id):
             return "produto_" + str(product_id) + "_"
+
+        @staticmethod
+        def format_price(price, include_rs=True):
+            s = ""
+            if include_rs:
+                s += "R$ "
+            s += str(price).replace('.', ',')
+            return s
 
     # noinspection PyPep8Naming
     @unique

@@ -134,3 +134,9 @@ def merge_dicts(*dict_args):
     for dictionary in dict_args:
         result.update(dictionary)
     return result
+
+def clamp_integer(n, min_value, max_value):
+    returned_value = n
+    returned_value = min(returned_value, max_value)
+    returned_value = max(min_value, returned_value)
+    return returned_value

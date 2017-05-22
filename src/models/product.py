@@ -4,19 +4,14 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
-from flask import url_for
 from sqlalchemy import ForeignKey
-from sqlalchemy import asc
-from sqlalchemy import desc
-from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from models.base import BaseModel
-from proj_exceptions import InvalidNUnitsError
 from proj_extensions import db
-from proj_utils import SortMethodMap
 from r import R
-from os.path import join
+from os.path import join, isfile
 from configs import default_app_config as config
+from flask_bombril.utils.utils import clamp_integer
 
 
 class Product(BaseModel):
@@ -54,7 +49,11 @@ class Product(BaseModel):
         return getattr(self, "image_" + str(n) + "_filename")
 
     def get_image_n_src(self, n):
-        return join(config.PRODUCT_IMAGES_FULL_PATH, self.get_image_n_filename(n))
+        image_n_filename = self.get_image_n_filename(n)
+        if image_n_filename is not None and isfile(join(config.PRODUCT_IMAGES_FULL_PATH, image_n_filename)):
+            return join("/", config.PRODUCT_IMAGES_FROM_STATIC_PATH, image_n_filename)
+        else:
+            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.product_default_filename)
 
     tab_1_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_1_title = db.Column(db.String(R.dimen.tab_title_max_length), default="", nullable=False)
@@ -90,188 +89,25 @@ class Product(BaseModel):
     def get_tab_n_content_html(self, n):
         return getattr(self, "tab_" + str(n) + "_content_html")
 
-    @hybrid_property
-    def price_with_discount(self):
+    def get_price_with_discount(self):
         if not self.has_discount:
             return None
         return Product.calculate_price_with_discount(price=self.price, discount_percentage=self.discount_percentage)
 
-    def price_with_discount_as_string(self, include_rs=False):
-        s = ""
-        if include_rs:
-            s += "R$ "
-        price_with_discount = self.price_with_discount
-        if price_with_discount is not None:
-            s += str(price_with_discount).replace('.', ',')
-        else:
-            s = "-"
-        return s
-
-    @hybrid_property
-    def id_formatted(self):
-        return R.string.id_prefix + str(self.id)
-
-    sort_method_map = SortMethodMap([
-        (R.id.SORT_METHOD_ID,               R.string.id,                    asc("id")),
-        (R.id.SORT_METHOD_TITLE,            R.string.title,                 asc(title)),
-        (R.id.SORT_METHOD_LOWEST_PRICE,     R.string.lowest_price,          asc(price)),
-        (R.id.SORT_METHOD_HIGHER_PRICE,     R.string.higher_price,          desc(price)),
-        # (R.id.SORT_METHOD_LOWEST_STOCK,     R.string.lowest_stock,          asc(_stock)),
-        # (R.id.SORT_METHOD_HIGHER_STOCK,     R.string.higher_stock,          desc(_stock)),
-        # (R.id.SORT_METHOD_LOWEST_AVAILABLE, R.string.lowest_available,      asc(_available)),
-        # (R.id.SORT_METHOD_HIGHER_AVAILABLE, R.string.higher_available,      desc(_available)),
-        # (R.id.SORT_METHOD_LOWEST_RESERVED,  R.string.lowest_reserved,       asc(_reserved)),
-        # (R.id.SORT_METHOD_HIGHER_RESERVED,  R.string.higher_reserved,       desc(_reserved)),
-        (R.id.SORT_METHOD_BEST_SELLER,      R.string.best_seller,           desc(sales_number)),
-        (R.id.SORT_METHOD_LESS_SOLD,        R.string.less_sold,             asc(sales_number))
-    ])
-
-    client_sort_method_map = SortMethodMap([
-        (R.id.SORT_METHOD_NAME,             R.string.name,                  asc(title)),
-        (R.id.SORT_METHOD_BEST_SELLER,      R.string.best_seller,           desc(sales_number)),
-        (R.id.SORT_METHOD_LOWEST_PRICE,     R.string.lowest_price,          asc(price)),
-        (R.id.SORT_METHOD_HIGHER_PRICE,     R.string.higher_price,          desc(price)),
-    ])
-
     @staticmethod
     def calculate_price_with_discount(price, discount_percentage):
-        assert isinstance(price, Decimal)
-        assert isinstance(discount_percentage, int) and discount_percentage >= 0 and discount_percentage <= 100
-        return (price * Decimal(str((100.0 - discount_percentage) / 100.0))).quantize(Decimal("0.01"))
+        return (price * Decimal(str((100.0 - clamp_integer(discount_percentage, 0, 100)) / 100.0))).quantize(Decimal("0.01"))
 
-    @staticmethod
-    def get_attrs_from_form(form):
-        print "get_attrs called"
-        print "form.discount_percentage.data: " + str(form.discount_percentage.data)
-
-        return dict(
-            title=form.title.data,
-            active=form.active.data,
-            category_id=int(form.category_id.data),
-            subcategory_id=int(form.subcategory_id.data) if int(form.subcategory_id.data) != 0 else None,
-            price=Decimal(form.price.data.replace(',', '.')),
-            has_discount=form.has_discount.data,
-            discount_percentage=int(form.discount_percentage.data),
-            stock=int(form.stock.data),
-            min_available=int(form.min_available.data),
-            summary_markdown=form.summary.data,
-
-            image_1=form.image_1.data,
-            image_2=form.image_2.data,
-            image_3=form.image_3.data,
-            image_4=form.image_4.data,
-            # image_5=form.image_5.data,
-            # image_6=form.image_6.data,
-            # image_7=form.image_7.data,
-            # image_8=form.image_8.data,
-            # image_9=form.image_9.data,
-            # image_10=form.image_10.data,
-
-            tab_1_active=form.tab_1_active.data,
-            tab_1_title=form.tab_1_title.data,
-            tab_1_content_markdown=form.tab_1_content.data,
-            tab_2_active=form.tab_2_active.data,
-            tab_2_title=form.tab_2_title.data,
-            tab_2_content_markdown=form.tab_2_content.data,
-            tab_3_active=form.tab_3_active.data,
-            tab_3_title=form.tab_3_title.data,
-            tab_3_content_markdown=form.tab_3_content.data,
-            tab_4_active=form.tab_4_active.data,
-            tab_4_title=form.tab_4_title.data,
-            tab_4_content_markdown=form.tab_4_content.data,
-            tab_5_active=form.tab_5_active.data,
-            tab_5_title=form.tab_5_title.data,
-            tab_5_content_markdown=form.tab_5_content.data,
-            tab_6_active=form.tab_6_active.data,
-            tab_6_title=form.tab_6_title.data,
-            tab_6_content_markdown=form.tab_6_content.data,
-            tab_7_active=form.tab_7_active.data,
-            tab_7_title=form.tab_7_title.data,
-            tab_7_content_markdown=form.tab_7_content.data,
-            tab_8_active=form.tab_8_active.data,
-            tab_8_title=form.tab_8_title.data,
-            tab_8_content_markdown=form.tab_8_content.data,
-            tab_9_active=form.tab_9_active.data,
-            tab_9_title=form.tab_9_title.data,
-            tab_9_content_markdown=form.tab_9_content.data,
-            tab_10_active=form.tab_10_active.data,
-            tab_10_title=form.tab_10_title.data,
-            tab_10_content_markdown=form.tab_10_content.data
-        )
-
-    @staticmethod
-    def get_choices(include_none=False, only_active=False):
-        product_choices = []
-        if include_none:
-            product_choices = [(str(0), R.string.none_in_masculine)]
-
-        for (id, title, active) in Product.query.order_by(Product.title).with_entities(Product.id, Product.title, Product.active).all():
-            if not only_active or (only_active and active):
-                product_choices.append((str(id), title))
-
-        return product_choices
-
-    def disable(self):
-        self.active = False
-        db.session.add(self)
-        db.session.commit()
-
-    def to_activate(self):
-        self.active = True
-        db.session.add(self)
-        db.session.commit()
-
-    def add_to_stock(self, value):
-        self.stock += value
-        db.session.add(self)
-        db.session.commit()
-
-    def remove_from_stock(self, value):
-        self.stock -= value
-
-        if self.stock < 0:
-            self.stock = 0
-
-        db.session.add(self)
-        db.session.commit()
-
-    def update_stock(self, value):
-        self.stock = value
-        db.session.add(self)
-        db.session.commit()
-
-    def get_href(self):
-        return url_for("client_products.product", **{R.string.product_id_arg_name: self.id})
-
-    def get_main_image_src(self):
-        image_name = self.image_1
-        if image_name is None or image_name == "":
-            image_name = R.string.default_product_image_name
-        return url_for("static", filename="imgs/products/" + image_name)
-
-    def get_price(self, n_units=1):
-        if not isinstance(n_units, int) or n_units < 0:
-            raise InvalidNUnitsError
-        return self.price * Decimal(str(n_units))
-
-    def get_formatted_price(self, n_units=1, include_rs=False):
-        formatted_price = ""
-        if include_rs:
-            formatted_price += "R$ "
-        formatted_price += str(self.get_price(n_units=n_units)).replace(".", ",")
-        return formatted_price
-
-    @hybrid_property
-    def available(self):
+    def get_n_units_available(self):
         if self.stock is not None and self.reserved is not None:
             return self.stock - self.reserved
         else:
             return None
 
-    @hybrid_property
     def is_available_to_client(self):
-        if self.active is not None and self.available is not None and self.min_available is not None:
-            if self.active is True and (self.available > self.min_available):
+        n_units_available = self.get_n_units_available()
+        if self.active is not None and n_units_available is not None and self.min_available is not None:
+            if self.active is True and (n_units_available > self.min_available):
                 return True
             else:
                 return False

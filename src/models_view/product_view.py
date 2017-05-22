@@ -1,4 +1,5 @@
 from flask_admin.form import rules
+from markupsafe import Markup
 from werkzeug.utils import secure_filename
 from models.product_category import ProductCategory
 from models_view.proj_base_view import ProjBaseView
@@ -25,6 +26,31 @@ def build_image_upload_field_for_product_images(label):
 
 
 class ProductView(ProjBaseView):
+    def _image_formatter(view, context, model, name):
+        return Markup("<img style='max-width: 64px;max-height: 64px;' src='%s'>" % model.get_image_n_src(1))
+
+    def _price_with_discount_formatter(view, context, model, name):
+        if model.has_discount:
+            return R.string.format_price(model.get_price_with_discount())
+        else:
+            return R.string.empty_symbol
+
+    def _price_formatter(view, context, model, name):
+        return R.string.format_price(model.price)
+
+    def _subcategory_formatter(view, context, model, name):
+        if model.subcategory is not None:
+            return model.subcategory.name
+        else:
+            return R.string.empty_symbol
+
+    def _n_units_available_formatter(view, context, model, name):
+        n_units_available = model.get_n_units_available()
+        if n_units_available is not None:
+            return n_units_available
+        else:
+            return R.string.empty_symbol
+
     @staticmethod
     def get_form_widget_args():
         dynamic_choices_data = dict()
@@ -41,10 +67,28 @@ class ProductView(ProjBaseView):
             }
         )
 
+    name = R.string.products
+    endpoint = R.string.products_endpoint
+    category = R.string.products
+
     can_delete = False
-    column_list = ['active', 'title']
-    column_filters = ['active']
-    column_editable_list = ['title', 'active']
+
+    column_list = ['active', 'image', 'category', 'subcategory', 'title', 'price', 'price_with_discount', 'stock', 'reserved', 'n_units_available', 'min_available']
+    column_filters = ['active', 'category', 'subcategory', 'price', 'stock', 'reserved', 'min_available']
+    column_editable_list = ['active', 'stock']
+    column_formatters = dict(
+        image=_image_formatter,
+        price_with_discount=_price_with_discount_formatter,
+        price=_price_formatter,
+        subcategory=_subcategory_formatter,
+        n_units_available=_n_units_available_formatter
+    )
+    column_descriptions = dict(
+        price=R.string.product_price_description,
+        min_available=R.string.min_available_description,
+        reserved=R.string.reserved_description
+    )
+
     form_excluded_columns = ['sales_number', "summary_html"]
     form_args = dict(
         title=dict(
@@ -159,11 +203,3 @@ class ProductView(ProjBaseView):
         image_3_filename=build_image_upload_field_for_product_images(R.string.image_3),
         image_4_filename=build_image_upload_field_for_product_images(R.string.image_4)
     )
-    column_descriptions = dict(
-        price=R.string.product_price_description,
-        min_available=R.string.min_available_description
-    )
-
-    name = R.string.products
-    endpoint = R.string.products_endpoint
-    category = R.string.products
