@@ -22,8 +22,6 @@ class ImageView(ProjBaseView):
     column_labels = merge_dicts(ProjBaseView.column_labels)
     column_list = ["filename", "link", "image"]
 
-    category = R.string.images
-
     column_formatters = dict(
         image=_image_formatter,
         link=_link_formatter
@@ -50,6 +48,3 @@ class ImageView(ProjBaseView):
 
     def after_model_delete(self, model):
         model.delete_file()
-
-    def after_model_change(self, form, model, is_created):
-        model.resize()

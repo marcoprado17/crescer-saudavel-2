@@ -1,9 +1,29 @@
 from flask_admin.form import rules
+from werkzeug.utils import secure_filename
 from flask_bombril.form_validators.required.required import Required
 from flask_bombril.utils.utils import merge_dicts
 from models.product_category import ProductCategory
 from models_view.proj_base_view import ProjBaseView
 from r import R
+from flask_admin import form
+from configs import default_app_config as config
+from os.path import join, splitext
+from uuid import uuid4
+
+
+def build_image_upload_field_for_product_images(label):
+    def namegen(_, file_data):
+        extension = splitext(file_data.filename)[-1]
+        return secure_filename(str(uuid4())+extension)
+
+    return form.ImageUploadField(label,
+                                 namegen=namegen,
+                                 base_path=config.PRODUCT_IMAGES_FULL_PATH,
+                                 size=(config.PRODUCT_IMAGE_WIDTH, config.PRODUCT_IMAGE_HEIGHT),
+                                 url_relative_path=join(
+                                     config.IMAGES_FOLDER,
+                                     config.PRODUCT_IMAGES_FOLDER,
+                                     config.PRODUCT_IMAGES_FOLDER))
 
 
 class ProductView(ProjBaseView):
@@ -51,7 +71,14 @@ class ProductView(ProjBaseView):
         'discount_percentage',
         'stock',
         'min_available',
-        'images'
+        rules.FieldSet(('image_1_filename', 'image_2_filename', 'image_3_filename', 'image_4_filename'),
+                       header=R.string.images)
+    )
+    form_extra_fields = dict(
+        image_1_filename=build_image_upload_field_for_product_images(R.string.image_1),
+        image_2_filename=build_image_upload_field_for_product_images(R.string.image_2),
+        image_3_filename=build_image_upload_field_for_product_images(R.string.image_3),
+        image_4_filename=build_image_upload_field_for_product_images(R.string.image_4)
     )
     column_descriptions = dict(
         price=R.string.product_price_tooltip,

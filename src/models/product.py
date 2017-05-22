@@ -54,18 +54,16 @@ class Product(BaseModel):
     summary_html = db.Column(db.UnicodeText, default="")
     sales_number = db.Column(db.Integer, default=0)
 
-    images = db.Column(db.ARRAY(db.Boolean))
+    image_1_filename = db.Column(db.String(R.dimen.filename_max_size))
+    image_2_filename = db.Column(db.String(R.dimen.filename_max_size))
+    image_3_filename = db.Column(db.String(R.dimen.filename_max_size))
+    image_4_filename = db.Column(db.String(R.dimen.filename_max_size))
 
-    image_1 = db.Column(db.Text)
-    image_2 = db.Column(db.Text)
-    image_3 = db.Column(db.Text)
-    image_4 = db.Column(db.Text)
-    image_5 = db.Column(db.Text)
-    image_6 = db.Column(db.Text)
-    image_7 = db.Column(db.Text)
-    image_8 = db.Column(db.Text)
-    image_9 = db.Column(db.Text)
-    image_10 = db.Column(db.Text)
+    def get_image(self, n):
+        return getattr(self, "image_" + str(n) + "_filename")
+
+    def set_image(self, n, value):
+        setattr(self, "image_" + str(n) + "_filename", value)
 
     tab_1_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_1_title = db.Column(db.String(R.dimen.tab_title_max_length))

@@ -16,15 +16,10 @@ class Image(BaseModel):
     full_path = config.IMAGES_FULL_PATH
     path_from_static = config.IMAGES_FOLDER
 
-    filename = db.Column(db.String(R.dimen.image_path_max_size), unique=True)
+    filename = db.Column(db.String(R.dimen.filename_max_size))
 
     def get_html_preview(self):
-        if os.path.basename(self.full_path) == config.IMAGES_FOLDER:
-            url = url_for("static", filename=os.path.join(config.IMAGES_FOLDER, self.filename))
-        else:
-            path_from_static = os.path.join(config.IMAGES_FOLDER, os.path.basename(self.full_path))
-            url = url_for("static", filename=os.path.join(path_from_static, self.filename))
-        return Markup("<img style='max-width: 100px;max-height: 100px;' src='%s'>" % url)
+        return Markup("<img style='max-width: 100px;max-height: 100px;' src='%s'>" % self.get_link())
 
     def get_link(self):
         return os.path.join("/", config.STATIC_FOLDER, self.path_from_static, self.filename)
@@ -33,29 +28,3 @@ class Image(BaseModel):
         image_full_path = os.path.join(self.full_path, self.filename)
         if os.path.exists(image_full_path):
             os.remove(image_full_path)
-
-    def resize(self):
-        pass
-
-    def resize_to(self, width, height):
-        if not os.path.exists(self.full_path):
-            os.makedirs(self.full_path)
-
-        image_full_path = os.path.join(self.full_path, self.filename)
-        if os.path.exists(image_full_path):
-            image = ImagePIL.open(image_full_path)
-            old_width = image.size[0]
-            old_height = image.size[1]
-            if old_width >= old_height:
-                new_height = height
-                new_width = int(new_height * float(old_width) / float(old_height))
-            else:
-                new_width = width
-                new_height = int(new_width * float(old_height) / float(old_width))
-            image = image.resize((new_width, new_height), ImagePIL.ANTIALIAS)
-            left = (new_width - width) / 2
-            top = (new_height - height) / 2
-            right = (new_width + width) / 2
-            bottom = (new_height + height) / 2
-            image = image.crop((left, top, right, bottom))
-            image.save(image_full_path)

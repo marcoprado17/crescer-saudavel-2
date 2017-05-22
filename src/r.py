@@ -34,7 +34,11 @@ class Resources(object):
             image_type="Tipo",
             filename="Nome do arquivo",
             image="Imagem",
-            link="Link"
+            link="Link",
+            image_1="Imagem 1",
+            image_2="Imagem 2",
+            image_3="Imagem 3",
+            image_4="Imagem 4",
         )
 
     # noinspection PyPep8Naming
@@ -82,6 +86,7 @@ class Resources(object):
         product_image = "Imagem do produto"
         product_images = "Imagens dos produtos"
         product_images_endpoint = "imagens-de-produto"
+        images_endpoint = "imagens"
         add_to_cart = "Adicionar ao carrinho"
         default_product_image_name = "product_default.jpg"
         back_to_blog = "Voltar ao blog"
@@ -575,6 +580,10 @@ class Resources(object):
         carousel_images_endpoint = "imagens-do-carrossel"
         other_images = "Outras imagens"
         other_images_endpoint = "outras-imagens"
+        image_1 = "Imagem 1"
+        image_2 = "Imagem 2"
+        image_3 = "Imagem 3"
+        image_4 = "Imagem 4"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -1153,6 +1162,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
         def subtitle_of_tag_n(n):
             return "Subtítulo da tag %s" % n
 
+        @staticmethod
+        def product_image_prefix(product_id):
+            return "produto_" + str(product_id) + "_"
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -1278,7 +1291,12 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         blog_post_preview_title_max_length = 48
         image_name_max_size = 64
-        image_path_max_size = 128
+        filename_max_size = 128
+
+        n_max_images_per_product = 4
+
+        product_image_width = 400
+        product_image_height = 400
 
 
 R = Resources()

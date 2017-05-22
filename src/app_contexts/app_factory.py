@@ -297,12 +297,7 @@ def create_app():
     from models.product import Product
     from models_view.product_view import ProductView
     from models_view.my_admin_index_view import MyAdminIndexView
-    from models.images.product_image import ProductImage
-    from models_view.images.product_image_view import ProductImageView
-    from models.images.blog_thumbnail_image import BlogThumbnailImage
-    from models_view.images.blog_thumbnail_image_view import BlogThumbnailImageView
-    from models.images.carousel_image import CarouselImage
-    from models_view.images.carousel_image_view import CarouselImageView
+
     from models.images.other_image import OtherImage
     from models_view.images.other_image_view import OtherImageView
     admin.init_app(app, index_view=MyAdminIndexView())
@@ -310,9 +305,6 @@ def create_app():
     admin.add_view(ProductCategoryView(ProductCategory, db.session))
     admin.add_view(ProductSubcategoryView(ProductSubcategory, db.session))
     admin.add_view(ProductView(Product, db.session))
-    admin.add_view(ProductImageView(ProductImage, db.session))
-    admin.add_view(BlogThumbnailImageView(BlogThumbnailImage, db.session))
-    admin.add_view(CarouselImageView(CarouselImage, db.session))
     admin.add_view(OtherImageView(OtherImage, db.session))
 
     from proj_extensions import babel

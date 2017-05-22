@@ -84,9 +84,6 @@ datetime_4 = datetime.datetime.now()
 
 def fill_db():
     with app.app_context():
-        create_product_image_example()
-        create_blog_thumbnail_image_example()
-        create_carousel_image_example()
         create_blog_link_example_image()
 
         create_random_product_categories()
@@ -102,24 +99,6 @@ def fill_db():
         create_about_us_data()
         create_tags_row_data()
         create_home_content_data()
-
-
-def create_product_image_example():
-    db.session.add(ProductImage(filename="example.jpg"))
-    print "ProductImage example.jpg created."
-    db.session.commit()
-
-
-def create_carousel_image_example():
-    db.session.add(CarouselImage(filename="example.jpg"))
-    print "CarouselImage example.jpg created."
-    db.session.commit()
-
-
-def create_blog_thumbnail_image_example():
-    db.session.add(BlogThumbnailImage(filename="example.jpg"))
-    print "BlogThumbnailImage example.jpg created."
-    db.session.commit()
 
 
 def create_blog_link_example_image():
@@ -192,8 +171,7 @@ def get_random_product():
         stock=stock,
         min_available=random.randint(2, 20),
         summary_markdown=random.choice(text_key_words) + " " + get_random_phrase((4, 10 + 1), (20, 40 + 1)),
-        sales_number=random.randint(0, 500),
-        **get_random_images_dic()
+        sales_number=random.randint(0, 500)
     )
 
 
@@ -258,7 +236,7 @@ def get_random_client():
 
 
 def create_random_orders():
-    for i in range(0, 50):
+    for i in range(0, 10):
         try:
             get_random_order()
             print "Order " + str(i) + " created."
@@ -314,7 +292,6 @@ def get_random_blog_post():
         active=random.choice([True, False]),
         title=random.choice(title_key_words) + " " + get_random_phrase((3,8), (3, 6)),
         datetime=get_random_datetime(datetime_1, datetime_2),
-        thumbnail=get_random_image_name(),
         summary_markdown=random.choice(text_key_words) + " " + get_random_phrase((3,8), (16, 30)),
         content_markdown=random.choice(text_key_words) + " " + get_random_phrase((3,8), (50, 150))
     )
@@ -359,32 +336,6 @@ def get_random_valid_city_id_or_none(state_id):
         return random.choice(City.query.filter(City.state_id == state_id).with_entities(City.id).all())
     except Exception:
         return None
-
-
-images_key_list = [
-    "image_1",
-    "image_2",
-    "image_3",
-    "image_4",
-    "image_5",
-    "image_6",
-    "image_7",
-    "image_8",
-    "image_9",
-    "image_10",
-]
-
-
-def get_random_images_dic():
-    images_key_list_copy = list(images_key_list)
-    dic = {images_key_list_copy.pop(0): get_random_image_name()}
-    for i in range(0, random.choice(range(0, 10))):
-        dic[images_key_list_copy.pop(random.randint(0, len(images_key_list_copy) - 1))] = get_random_image_name()
-    return dic
-
-
-def get_random_image_name():
-    return random.choice(os.listdir(current_app.config["IMAGES_FULL_PATH"]))
 
 
 def create_footer_data():
@@ -449,11 +400,9 @@ def create_home_content_data():
     home_content.carousel_item_1_title = "Título 1"
     home_content.carousel_item_1_subtitle = "Subtítulo 1"
     home_content.carousel_item_1_link = "/blog"
-    home_content.carousel_item_1_image = "carousel_default.jpg"
 
     home_content.carousel_item_2_active = True
     home_content.carousel_item_2_title = "Título 2"
-    home_content.carousel_item_2_image = "carousel_default.jpg"
 
     products = Product.query.filter(Product.is_available_to_client == True, Product.has_discount == False).all()
 

@@ -12,5 +12,5 @@ class OtherImageView(ImageView):
                                                           folder_name=config.OTHER_IMAGES_FOLDER,
                                                           model=OtherImage,
                                                           field=OtherImage.filename)
-    name = R.string.other_images
-    endpoint = R.string.other_images_endpoint
+    name = R.string.images
+    endpoint = R.string.images_endpoint

@@ -188,5 +188,6 @@ def create_admin_user():
     print "Admin user created."
     return user
 
+
 if __name__ == "__main__":
     restart_db()
