@@ -1,7 +1,5 @@
 from flask_admin.form import rules
 from werkzeug.utils import secure_filename
-from flask_bombril.form_validators.required.required import Required
-from flask_bombril.utils.utils import merge_dicts
 from models.product_category import ProductCategory
 from models_view.proj_base_view import ProjBaseView
 from r import R
@@ -49,12 +47,34 @@ class ProductView(ProjBaseView):
     column_editable_list = ['title', 'active']
     form_excluded_columns = ['sales_number', "summary_html"]
     form_args = dict(
+        title=dict(
+            render_kw=dict(
+                placeholder=R.string.product_title_placeholder
+            )
+        ),
         price=dict(
-            validators=[Required()]
+            render_kw=dict(
+                placeholder=R.string.product_price_placeholder
+            )
+        ),
+        stock=dict(
+            render_kw=dict(
+                placeholder=R.string.product_stock_quantity_placeholder
+            )
+        ),
+        min_available=dict(
+            render_kw=dict(
+                placeholder=R.string.product_stop_sell_stock_quantity_placeholder
+            )
         ),
         summary_markdown=dict(
             render_kw=dict(
                 example=R.string.product_example_summary
+            )
+        ),
+        tab_1_title=dict(
+            render_kw=dict(
+                placeholder=R.string.tab_title_placeholder
             )
         ),
         tab_1_content_markdown=dict(
@@ -62,9 +82,19 @@ class ProductView(ProjBaseView):
                 example=R.string.tab_content_example
             )
         ),
+        tab_2_title=dict(
+            render_kw=dict(
+                placeholder=R.string.tab_title_placeholder
+            )
+        ),
         tab_2_content_markdown=dict(
             render_kw=dict(
                 example=R.string.tab_content_example
+            )
+        ),
+        tab_3_title=dict(
+            render_kw=dict(
+                placeholder=R.string.tab_title_placeholder
             )
         ),
         tab_3_content_markdown=dict(
@@ -72,9 +102,19 @@ class ProductView(ProjBaseView):
                 example=R.string.tab_content_example
             )
         ),
+        tab_4_title=dict(
+            render_kw=dict(
+                placeholder=R.string.tab_title_placeholder
+            )
+        ),
         tab_4_content_markdown=dict(
             render_kw=dict(
                 example=R.string.tab_content_example
+            )
+        ),
+        tab_5_title=dict(
+            render_kw=dict(
+                placeholder=R.string.tab_title_placeholder
             )
         ),
         tab_5_content_markdown=dict(
@@ -120,8 +160,8 @@ class ProductView(ProjBaseView):
         image_4_filename=build_image_upload_field_for_product_images(R.string.image_4)
     )
     column_descriptions = dict(
-        price=R.string.product_price_tooltip,
-        min_available=R.string.min_available_tooltip
+        price=R.string.product_price_description,
+        min_available=R.string.min_available_description
     )
 
     name = R.string.products
