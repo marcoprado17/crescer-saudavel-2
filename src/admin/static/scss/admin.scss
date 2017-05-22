@@ -2,6 +2,14 @@
   font-family: 'Lucida Console', Monaco, monospace !important;
 }
 
+.modal-body.markdown.example {
+  white-space: pre-wrap;
+}
+
+.modal-body.markdown.preview {
+  white-space: pre-wrap;
+}
+
 .markdown-buttons-container {
   margin-top: 8px;
 }

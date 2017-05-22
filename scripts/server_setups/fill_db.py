@@ -4,14 +4,10 @@
 # Created at 12/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import datetime
-import os
 import random
 import sys
 
-from models.images.blog_thumbnail_image import BlogThumbnailImage
-from models.images.carousel_image import CarouselImage
 from models.images.other_image import OtherImage
-from models.images.product_image import ProductImage
 from r import R
 
 sys.path.append("/vagrant")
@@ -35,7 +31,13 @@ from models.state import State
 from models.user import User
 from random_bombril import get_random_string, get_random_price, get_random_phrase, get_random_cep, get_random_tel, \
     get_random_datetime
-from flask import current_app
+
+n_product_categories = 5
+n_product_subcategories = 10
+n_products = 10
+n_clients = 10
+n_orders = 5
+n_blog_posts = 10
 
 title_key_words = [
     "banana",
@@ -108,7 +110,7 @@ def create_blog_link_example_image():
 
 
 def create_random_product_categories():
-    for i in range(0, 25):
+    for i in range(0, n_product_categories):
         db.session.add(get_random_product_category())
         print "Product category " + str(i) + " created."
     db.session.commit()
@@ -122,7 +124,7 @@ def get_random_product_category():
 
 
 def create_random_product_subcategories():
-    for i in range(0, 150):
+    for i in range(0, n_product_subcategories):
         db.session.add(get_random_product_subcategory())
         print "Product subcategory " + str(i) + " created."
     db.session.commit()
@@ -137,7 +139,7 @@ def get_random_product_subcategory():
 
 
 def create_random_products():
-    for i in range(0, 300):
+    for i in range(0, n_products):
         db.session.add(get_random_product())
         print "Product " + str(i) + " created."
     db.session.commit()
@@ -202,7 +204,7 @@ def create_specif_cities():
 
 
 def create_random_clients():
-    for i in range(0, 300):
+    for i in range(0, n_clients):
         db.session.add(get_random_client())
         print "Client " + str(i) + " created."
     db.session.commit()
@@ -236,7 +238,7 @@ def get_random_client():
 
 
 def create_random_orders():
-    for i in range(0, 10):
+    for i in range(0, n_orders):
         try:
             get_random_order()
             print "Order " + str(i) + " created."
@@ -281,7 +283,7 @@ def get_random_order_datetimes(status):
 
 
 def create_random_blog_posts():
-    for i in range(0, 300):
+    for i in range(0, n_blog_posts):
         db.session.add(get_random_blog_post())
         print "Blog post " + str(i) + " created."
     db.session.commit()

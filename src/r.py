@@ -39,6 +39,21 @@ class Resources(object):
             image_2="Imagem 2",
             image_3="Imagem 3",
             image_4="Imagem 4",
+            tab_1_active="Tab 1 ativa",
+            tab_2_active="Tab 2 ativa",
+            tab_3_active="Tab 3 ativa",
+            tab_4_active="Tab 4 ativa",
+            tab_5_active="Tab 5 ativa",
+            tab_1_title="Título da tab 1",
+            tab_2_title="Título da tab 2",
+            tab_3_title="Título da tab 3",
+            tab_4_title="Título da tab 4",
+            tab_5_title="Título da tab 5",
+            tab_1_content_markdown="Conteúdo da tab 1",
+            tab_2_content_markdown="Conteúdo da tab 2",
+            tab_3_content_markdown="Conteúdo da tab 3",
+            tab_4_content_markdown="Conteúdo da tab 4",
+            tab_5_content_markdown="Conteúdo da tab 5"
         )
 
     # noinspection PyPep8Naming
@@ -86,6 +101,7 @@ class Resources(object):
         product_image = "Imagem do produto"
         product_images = "Imagens dos produtos"
         product_images_endpoint = "imagens-de-produto"
+        products_endpoint="produtos"
         images_endpoint = "imagens"
         add_to_cart = "Adicionar ao carrinho"
         default_product_image_name = "product_default.jpg"
@@ -995,6 +1011,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
                 "###" + R.string.product_example_tab_5_title + "\n" + \
                 "***" + "\n" + \
                 R.string.product_example_tab_5_content + "\n"
+
+        @staticmethod
+        def tab_n(n):
+            return "Tab %s" % str(n)
 
         @staticmethod
         def get_tab_n_active(n):

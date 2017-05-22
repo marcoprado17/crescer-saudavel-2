@@ -3,21 +3,20 @@
 # ======================================================================================================================
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-
 from decimal import Decimal
-
 from flask import url_for
 from sqlalchemy import ForeignKey
 from sqlalchemy import asc
 from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
-
 from models.base import BaseModel
 from proj_exceptions import InvalidNUnitsError
 from proj_extensions import db
-from proj_utils import parse_markdown, SortMethodMap
+from proj_utils import SortMethodMap
 from r import R
+from os.path import join
+from configs import default_app_config as config
 
 
 class Product(BaseModel):
@@ -28,14 +27,6 @@ class Product(BaseModel):
         "summary_html",
         "tab_1_content_html",
         "tab_2_content_html",
-        "tab_3_content_html",
-        "tab_4_content_html",
-        "tab_5_content_html",
-        "tab_6_content_html",
-        "tab_7_content_html",
-        "tab_8_content_html",
-        "tab_9_content_html",
-        "tab_10_content_html"
     ]
 
     title = db.Column(db.String(R.dimen.product_title_max_length), nullable=False)
@@ -50,61 +41,54 @@ class Product(BaseModel):
     stock = db.Column(db.Integer, nullable=False)
     reserved = db.Column(db.Integer, default=0, nullable=False)
     min_available = db.Column(db.Integer, nullable=False)
-    summary_markdown = db.Column(db.UnicodeText, nullable=False)
-    summary_html = db.Column(db.UnicodeText, default="")
+    summary_markdown = db.Column(db.UnicodeText, nullable=False, default="")
+    summary_html = db.Column(db.UnicodeText, nullable=False, default="")
     sales_number = db.Column(db.Integer, default=0)
 
-    image_1_filename = db.Column(db.String(R.dimen.filename_max_size))
-    image_2_filename = db.Column(db.String(R.dimen.filename_max_size))
-    image_3_filename = db.Column(db.String(R.dimen.filename_max_size))
-    image_4_filename = db.Column(db.String(R.dimen.filename_max_size))
+    image_1_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+    image_2_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+    image_3_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+    image_4_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
 
-    def get_image(self, n):
+    def get_image_n_filename(self, n):
         return getattr(self, "image_" + str(n) + "_filename")
 
-    def set_image(self, n, value):
-        setattr(self, "image_" + str(n) + "_filename", value)
+    def get_image_n_src(self, n):
+        return join(config.PRODUCT_IMAGES_FULL_PATH, self.get_image_n_filename(n))
 
     tab_1_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_1_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_1_content_markdown = db.Column(db.UnicodeText)
-    tab_1_content_html = db.Column(db.UnicodeText)
+    tab_1_title = db.Column(db.String(R.dimen.tab_title_max_length), default="", nullable=False)
+    tab_1_content_markdown = db.Column(db.UnicodeText, default="", nullable=False)
+    tab_1_content_html = db.Column(db.UnicodeText, default="", nullable=False)
+
     tab_2_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_2_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_2_content_markdown = db.Column(db.UnicodeText)
-    tab_2_content_html = db.Column(db.UnicodeText)
+    tab_2_title = db.Column(db.String(R.dimen.tab_title_max_length), default="", nullable=False)
+    tab_2_content_markdown = db.Column(db.UnicodeText, default="", nullable=False)
+    tab_2_content_html = db.Column(db.UnicodeText, default="", nullable=False)
+
     tab_3_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_3_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_3_content_markdown = db.Column(db.UnicodeText)
-    tab_3_content_html = db.Column(db.UnicodeText)
+    tab_3_title = db.Column(db.String(R.dimen.tab_title_max_length), default="", nullable=False)
+    tab_3_content_markdown = db.Column(db.UnicodeText, default="", nullable=False)
+    tab_3_content_html = db.Column(db.UnicodeText, default="", nullable=False)
+
     tab_4_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_4_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_4_content_markdown = db.Column(db.UnicodeText)
-    tab_4_content_html = db.Column(db.UnicodeText)
+    tab_4_title = db.Column(db.String(R.dimen.tab_title_max_length), default="", nullable=False)
+    tab_4_content_markdown = db.Column(db.UnicodeText, default="", nullable=False)
+    tab_4_content_html = db.Column(db.UnicodeText, default="", nullable=False)
+
     tab_5_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_5_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_5_content_markdown = db.Column(db.UnicodeText)
-    tab_5_content_html = db.Column(db.UnicodeText)
-    tab_6_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_6_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_6_content_markdown = db.Column(db.UnicodeText)
-    tab_6_content_html = db.Column(db.UnicodeText)
-    tab_7_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_7_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_7_content_markdown = db.Column(db.UnicodeText)
-    tab_7_content_html = db.Column(db.UnicodeText)
-    tab_8_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_8_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_8_content_markdown = db.Column(db.UnicodeText)
-    tab_8_content_html = db.Column(db.UnicodeText)
-    tab_9_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_9_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_9_content_markdown = db.Column(db.UnicodeText)
-    tab_9_content_html = db.Column(db.UnicodeText)
-    tab_10_active = db.Column(db.Boolean, default=False, nullable=False)
-    tab_10_title = db.Column(db.String(R.dimen.tab_title_max_length))
-    _tab_10_content_markdown = db.Column(db.UnicodeText)
-    tab_10_content_html = db.Column(db.UnicodeText)
+    tab_5_title = db.Column(db.String(R.dimen.tab_title_max_length), default="", nullable=False)
+    tab_5_content_markdown = db.Column(db.UnicodeText, default="", nullable=False)
+    tab_5_content_html = db.Column(db.UnicodeText, default="", nullable=False)
+
+    def get_tab_n_active(self, n):
+        return getattr(self, "tab_" + str(n) + "_active")
+
+    def get_tab_n_title(self, n):
+        return getattr(self, "tab_" + str(n) + "_title")
+
+    def get_tab_n_content_html(self, n):
+        return getattr(self, "tab_" + str(n) + "_content_html")
 
     @hybrid_property
     def price_with_discount(self):
@@ -122,96 +106,6 @@ class Product(BaseModel):
         else:
             s = "-"
         return s
-
-    @hybrid_property
-    def tab_1_content_markdown(self):
-        return self._tab_1_content_markdown
-
-    @tab_1_content_markdown.setter
-    def tab_1_content_markdown(self, value):
-        self._tab_1_content_markdown = value
-        self.tab_1_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def tab_2_content_markdown(self):
-        return self._tab_2_content_markdown
-
-    @tab_2_content_markdown.setter
-    def tab_2_content_markdown(self, value):
-        self._tab_2_content_markdown = value
-        self.tab_2_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def tab_3_content_markdown(self):
-        return self._tab_3_content_markdown
-
-    @tab_3_content_markdown.setter
-    def tab_3_content_markdown(self, value):
-        self._tab_3_content_markdown = value
-        self.tab_3_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def tab_4_content_markdown(self):
-        return self._tab_4_content_markdown
-
-    @tab_4_content_markdown.setter
-    def tab_4_content_markdown(self, value):
-        self._tab_4_content_markdown = value
-        self.tab_4_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def tab_5_content_markdown(self):
-        return self._tab_5_content_markdown
-
-    @tab_5_content_markdown.setter
-    def tab_5_content_markdown(self, value):
-        self._tab_5_content_markdown = value
-        self.tab_5_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def tab_6_content_markdown(self):
-        return self._tab_6_content_markdown
-
-    @tab_6_content_markdown.setter
-    def tab_6_content_markdown(self, value):
-        self._tab_6_content_markdown = value
-        self.tab_6_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def tab_7_content_markdown(self):
-        return self._tab_7_content_markdown
-
-    @tab_7_content_markdown.setter
-    def tab_7_content_markdown(self, value):
-        self._tab_7_content_markdown = value
-        self.tab_7_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def tab_8_content_markdown(self):
-        return self._tab_8_content_markdown
-
-    @tab_8_content_markdown.setter
-    def tab_8_content_markdown(self, value):
-        self._tab_8_content_markdown = value
-        self.tab_8_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def tab_9_content_markdown(self):
-        return self._tab_9_content_markdown
-
-    @tab_9_content_markdown.setter
-    def tab_9_content_markdown(self, value):
-        self._tab_9_content_markdown = value
-        self.tab_9_content_html = parse_markdown(value)
-
-    @hybrid_property
-    def tab_10_content_markdown(self):
-        return self._tab_10_content_markdown
-
-    @tab_10_content_markdown.setter
-    def tab_10_content_markdown(self, value):
-        self._tab_10_content_markdown = value
-        self.tab_10_content_html = parse_markdown(value)
 
     @hybrid_property
     def id_formatted(self):

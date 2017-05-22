@@ -14,7 +14,7 @@ from uuid import uuid4
 def build_image_upload_field_for_product_images(label):
     def namegen(_, file_data):
         extension = splitext(file_data.filename)[-1]
-        return secure_filename(str(uuid4())+extension)
+        return secure_filename(str(uuid4()) + extension)
 
     return form.ImageUploadField(label,
                                  namegen=namegen,
@@ -44,7 +44,6 @@ class ProductView(ProjBaseView):
         )
 
     can_delete = False
-    column_labels = merge_dicts(ProjBaseView.column_labels)
     column_list = ['active', 'title']
     column_filters = ['active']
     column_editable_list = ['title', 'active']
@@ -56,6 +55,31 @@ class ProductView(ProjBaseView):
         summary_markdown=dict(
             render_kw=dict(
                 example=R.string.product_example_summary
+            )
+        ),
+        tab_1_content_markdown=dict(
+            render_kw=dict(
+                example=R.string.tab_content_example
+            )
+        ),
+        tab_2_content_markdown=dict(
+            render_kw=dict(
+                example=R.string.tab_content_example
+            )
+        ),
+        tab_3_content_markdown=dict(
+            render_kw=dict(
+                example=R.string.tab_content_example
+            )
+        ),
+        tab_4_content_markdown=dict(
+            render_kw=dict(
+                example=R.string.tab_content_example
+            )
+        ),
+        tab_5_content_markdown=dict(
+            render_kw=dict(
+                example=R.string.tab_content_example
             )
         ),
     )
@@ -72,7 +96,22 @@ class ProductView(ProjBaseView):
         'stock',
         'min_available',
         rules.FieldSet(('image_1_filename', 'image_2_filename', 'image_3_filename', 'image_4_filename'),
-                       header=R.string.images)
+                       header=R.string.images),
+        rules.FieldSet(
+            ('tab_1_active', 'tab_1_title', rules.Field('tab_1_content_markdown', render_field='markdown_text')),
+            header=R.string.tab_n(1)),
+        rules.FieldSet(
+            ('tab_2_active', 'tab_2_title', rules.Field('tab_2_content_markdown', render_field='markdown_text')),
+            header=R.string.tab_n(2)),
+        rules.FieldSet(
+            ('tab_3_active', 'tab_3_title', rules.Field('tab_3_content_markdown', render_field='markdown_text')),
+            header=R.string.tab_n(3)),
+        rules.FieldSet(
+            ('tab_4_active', 'tab_4_title', rules.Field('tab_4_content_markdown', render_field='markdown_text')),
+            header=R.string.tab_n(4)),
+        rules.FieldSet(
+            ('tab_5_active', 'tab_5_title', rules.Field('tab_5_content_markdown', render_field='markdown_text')),
+            header=R.string.tab_n(5))
     )
     form_extra_fields = dict(
         image_1_filename=build_image_upload_field_for_product_images(R.string.image_1),
@@ -85,8 +124,6 @@ class ProductView(ProjBaseView):
         min_available=R.string.min_available_tooltip
     )
 
-    def __init__(self, *args, **kwargs):
-        kwargs["name"] = R.string.products
-        kwargs["endpoint"] = R.string.products.lower()
-        kwargs["category"] = R.string.products
-        super(ProductView, self).__init__(*args, **kwargs)
+    name = R.string.products
+    endpoint = R.string.products_endpoint
+    category = R.string.products

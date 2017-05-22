@@ -1,6 +1,6 @@
 {% macro markdown_text(field, form, kwargs) %}
     {% if field.render_kw and "example" in field.render_kw %}
-        <div id="example-modal-{{ field.id }}" class="markdown modal fade large" role="dialog">
+        <div id="example-modal-{{ field.id }}" class="markdown modal fade large" role="dialog" style="display: none;">
             <div class="modal-dialog large">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -17,7 +17,7 @@
         </div>
     {% endif %}
 
-    <div id="preview-modal-{{ field.id }}" class="markdown modal fade large" role="dialog">
+    <div id="preview-modal-{{ field.id }}" class="markdown modal fade large" role="dialog" style="display: none;">
         <div class="modal-dialog large">
             <div class="modal-content">
                 <div class="modal-header">
@@ -51,7 +51,7 @@
             {% endif %}
             <div class="markdown-buttons-container">
                 {% if field.render_kw and "example" in field.render_kw %}
-                    <button type="button" class="btn" data-toggle="modal"
+                    <button type="button" class="btn markdown example" data-toggle="modal"
                             data-target="#example-modal-{{ field.id }}">{{ R.string.example }}</button>
                 {% endif %}
                 <button type="button" class="btn markdown preview" data-toggle="modal"
