@@ -86,7 +86,7 @@ class ProductView(ProjBaseView):
     column_descriptions = dict(
         price=R.string.product_price_description,
         min_available=R.string.min_available_description,
-        reserved=R.string.reserved_description
+        reserved=R.string.reserved_description,
     )
 
     form_excluded_columns = ['sales_number', "summary_html"]
@@ -179,7 +179,7 @@ class ProductView(ProjBaseView):
         'discount_percentage',
         'stock',
         'min_available',
-        rules.FieldSet(('image_1_filename', 'image_2_filename', 'image_3_filename', 'image_4_filename'),
+        rules.FieldSet((rules.Text(R.string.product_images_text, escape=False), 'image_1_filename', 'image_2_filename', 'image_3_filename', 'image_4_filename'),
                        header=R.string.images),
         rules.FieldSet(
             ('tab_1_active', 'tab_1_title', rules.Field('tab_1_content_markdown', render_field='markdown_text')),

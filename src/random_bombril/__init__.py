@@ -65,3 +65,8 @@ def get_random_datetime(start, end):
     int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
     random_second = random.randrange(int_delta)
     return start + datetime.timedelta(seconds=random_second)
+
+
+def get_random_date(start, end):
+    temp_datetime = get_random_datetime(start, end)
+    return temp_datetime.date()

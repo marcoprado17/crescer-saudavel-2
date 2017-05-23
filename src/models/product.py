@@ -22,6 +22,9 @@ class Product(BaseModel):
         "summary_html",
         "tab_1_content_html",
         "tab_2_content_html",
+        "tab_3_content_html",
+        "tab_4_content_html",
+        "tab_5_content_html",
     ]
 
     title = db.Column(db.String(R.dimen.product_title_max_length), nullable=False)

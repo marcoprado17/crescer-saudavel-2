@@ -21,7 +21,7 @@ class ClientFooterDataProvider(object):
         chosen_blog_posts = []
         q = BlogPost.query
         q = q.filter(BlogPost.active == True)
-        q = q.order_by(desc(BlogPost.datetime), desc("id"))
+        q = q.order_by(desc(BlogPost.date), desc("id"))
 
         for blog_post in q.slice(0, 4):
             chosen_blog_posts.append(

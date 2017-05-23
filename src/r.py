@@ -4,6 +4,8 @@
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
+from time import strftime
+
 from enum import Enum, unique
 from flask import url_for
 
@@ -57,7 +59,9 @@ class Resources(object):
             tab_5_content_markdown="Conteúdo da tab 5",
             price_with_discount="Preço com desconto",
             reserved="Reservadas",
-            n_units_available="Num. de unidades disponíveis"
+            n_units_available="Num. de unidades disponíveis",
+            date="Data",
+            content_markdown="Conteúdo"
         )
 
     # noinspection PyPep8Naming
@@ -93,13 +97,13 @@ class Resources(object):
         password_confirmation = "Confirmação de senha"
         email_example_placeholder = "Ex.: exemplo@gmail.com"
         without_stock = "Sem estoque"
-        ideal_product_image_size_auxiliar_text = "Tamanho ideal das imagens de produto: 600 x 600."
-        ideal_blog_thumbnail_size_auxiliar_text = "Tamanho ideal das thumbnails do blog: 900 x 500."
-        ideal_carousel_images_size_auxiliar_text = "Tamanho ideal das imagens do carousel: 2560 x 500."
+        product_images_text = "Tamanho ideal das imagens de produto: 600 x 600.<br><br>"
+        blog_thumbnail_text = "Tamanho ideal das thumbnails do blog: 900 x 500.<br><br>"
+        carousel_image_description = "Tamanho ideal das imagens do carousel: 2560 x 500."
         post_thumbnail = "Thumbnail do post"
         order_by = "Ordenar por: "
         inner_link_example = "Ex.: /produtos/?category_id=1"
-        default_blog_post_thumbnail_name = "blog_post_thumbnail_default.jpg"
+        blog_thumbnail_default_filename = "blog_thumbnail_default.jpg"
         default_carousel_image_name = "carousel_default.jpg"
         unavailable_product_at_moment = "Produto indisponível no momento."
         product_image = "Imagem do produto"
@@ -472,7 +476,7 @@ class Resources(object):
         product_category = "Categoria de produto"
         tel_example = "(12) 2352-2458"
         email_example = "contato@crescersaudavel.com"
-        blog_post_title_example = "Ex.: Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
+        blog_post_title_placeholder = "Ex.: Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
         thumbnail_alt = "Imagem principal do post"
 
         blog_example_title = "Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
@@ -604,6 +608,7 @@ class Resources(object):
         carousel_images_endpoint = "imagens-do-carrossel"
         other_images = "Outras imagens"
         other_images_endpoint = "outras-imagens"
+        blog_posts_endpoint = "posts-do-blog"
         image_1 = "Imagem 1"
         image_2 = "Imagem 2"
         image_3 = "Imagem 3"
@@ -760,7 +765,7 @@ O primeiro tipo de alimento para uma papinha é o tubérculo ou raiz, como batat
 
 Depois de introduzido o tubérculo, é hora de acrescentar um legume. Pode ser: chuchu, abóbora, abobrinha, cenoura, tomate, vagem e até jiló. Quanto ao jiló, que tem um sabor mais amargo, Karin afirma que é importante as crianças conhecerem todos os alimentos e sabores.
 
-![Abóbora](/static/imgs/post_exemplo_abobora.jpg "Abóbora")
+![Abóbora](/static/imgs/other/post_link_example.jpg "Abóbora")
 
 Os próximos alimentos a serem introduzidos, conforme a nutricionista, são as verduras: brócolis, couve, almeirão. Neste caso, as folhas devem ser acrescentadas no fim do preparo, ficando no fogo por no máximo oito minutos. A verdura deve ser batida no liquidificador com parte do caldo da sopa.
 
@@ -1201,6 +1206,10 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
                 s += "R$ "
             s += str(price).replace('.', ',')
             return s
+
+        @staticmethod
+        def default_date_format(datetime):
+            return datetime.strftime("%d/%m/%Y")
 
     # noinspection PyPep8Naming
     @unique

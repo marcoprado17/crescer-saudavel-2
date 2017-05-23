@@ -30,7 +30,7 @@ from models.product_subcategory import ProductSubcategory
 from models.state import State
 from models.user import User
 from random_bombril import get_random_string, get_random_price, get_random_phrase, get_random_cep, get_random_tel, \
-    get_random_datetime
+    get_random_datetime, get_random_date
 
 n_product_categories = 5
 n_product_subcategories = 10
@@ -292,10 +292,10 @@ def create_random_blog_posts():
 def get_random_blog_post():
     return BlogPost(
         active=random.choice([True, False]),
-        title=random.choice(title_key_words) + " " + get_random_phrase((3,8), (3, 6)),
-        datetime=get_random_datetime(datetime_1, datetime_2),
-        summary_markdown=random.choice(text_key_words) + " " + get_random_phrase((3,8), (16, 30)),
-        content_markdown=random.choice(text_key_words) + " " + get_random_phrase((3,8), (50, 150))
+        title=random.choice(title_key_words) + " " + get_random_phrase((3, 8), (3, 6)),
+        date=get_random_date(datetime_1, datetime_2),
+        summary_markdown=random.choice(text_key_words) + " " + get_random_phrase((3, 8), (16, 30)),
+        content_markdown=random.choice(text_key_words) + " " + get_random_phrase((3, 8), (50, 150))
     )
 
 

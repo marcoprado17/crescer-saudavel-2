@@ -297,6 +297,8 @@ def create_app():
     from models.product import Product
     from models_view.product_view import ProductView
     from models_view.my_admin_index_view import MyAdminIndexView
+    from models.blog_post import BlogPost
+    from models_view.blog_post_view import BlogPostView
 
     from models.images.other_image import OtherImage
     from models_view.images.other_image_view import OtherImageView
@@ -306,6 +308,7 @@ def create_app():
     admin.add_view(ProductSubcategoryView(ProductSubcategory, db.session))
     admin.add_view(ProductView(Product, db.session))
     admin.add_view(OtherImageView(OtherImage, db.session))
+    admin.add_view(BlogPostView(BlogPost, db.session))
 
     from proj_extensions import babel
 
