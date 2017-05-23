@@ -90,6 +90,7 @@ datetime_4 = datetime.datetime.now()
 def fill_db():
     with app.app_context():
         create_blog_link_example_image()
+        create_cute_baby_image()
 
         create_random_product_categories()
         create_random_product_subcategories()
@@ -110,6 +111,12 @@ def fill_db():
 def create_blog_link_example_image():
     db.session.add(OtherImage(filename="post_link_example.jpg"))
     print "OtherImage post_link_example.jpg created."
+    db.session.commit()
+
+
+def create_cute_baby_image():
+    db.session.add(OtherImage(filename="bebe_fofo.jpg"))
+    print "OtherImage bebe_fofo.jpg created."
     db.session.commit()
 
 

@@ -304,6 +304,8 @@ def create_app():
     from models_view.images.other_image_view import OtherImageView
     from models.content.about_us import AboutUs
     from models_view.content.about_us_view import AboutUsView
+    from models.content.dispatch import Dispatch
+    from models_view.content.dispatch_view import DispatchView
     admin.init_app(app, index_view=MyAdminIndexView())
     admin.add_view(CityView(City, db.session))
     admin.add_view(ProductCategoryView(ProductCategory, db.session))
@@ -313,6 +315,7 @@ def create_app():
     admin.add_view(BlogPostView(BlogPost, db.session))
     admin.add_view(BlogTagView(BlogTag, db.session))
     admin.add_view(AboutUsView(AboutUs, db.session))
+    admin.add_view(DispatchView(Dispatch, db.session))
 
     from proj_extensions import babel
 

@@ -1,15 +1,12 @@
 from flask_admin.form import rules
+from models_view.content.base_content_view import BaseContentView
 from models_view.proj_base_view import ProjBaseView
 from r import R
 
 
-class AboutUsView(ProjBaseView):
+class AboutUsView(BaseContentView):
     name = R.string.about_us
     endpoint = R.string.about_us_endpoint
-    category = R.string.content
-
-    can_delete = False
-    can_create = False
 
     column_list = ['summary_html', 'content_html']
     column_formatters = dict(
