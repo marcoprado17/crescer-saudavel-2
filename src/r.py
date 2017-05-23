@@ -190,6 +190,7 @@ class Resources(object):
         content = "Conteúdo"
         about_us = "Sobre nós"
         faq = "FAQ"
+        faq_endpoint = "faq"
         attended_cities = "Cidades atendidas"
         add_new_city = "Adicionar nova cidade"
         cities_table = "Tabela de cidades"

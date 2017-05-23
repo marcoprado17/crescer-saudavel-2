@@ -308,7 +308,11 @@ def create_app():
     from models_view.content.dispatch_view import DispatchView
     from models.content.exchanges_and_returns import ExchangesAndReturns
     from models_view.content.exchanges_and_returns_view import ExchangesAndReturnsView
+    from models.content.faq import Faq
+    from models_view.content.faq_view import FaqView
+
     admin.init_app(app, index_view=MyAdminIndexView())
+
     admin.add_view(CityView(City, db.session))
     admin.add_view(ProductCategoryView(ProductCategory, db.session))
     admin.add_view(ProductSubcategoryView(ProductSubcategory, db.session))
@@ -319,6 +323,7 @@ def create_app():
     admin.add_view(AboutUsView(AboutUs, db.session))
     admin.add_view(DispatchView(Dispatch, db.session))
     admin.add_view(ExchangesAndReturnsView(ExchangesAndReturns, db.session))
+    admin.add_view(FaqView(Faq, db.session))
 
     from proj_extensions import babel
 
