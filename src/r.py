@@ -547,6 +547,7 @@ class Resources(object):
         confirm_purchase = "Confirmar compra"
         edit_items = "Editar items"
         payment = "Pagamento"
+        payment_endpoint = "pagamento"
         fix_form_errors_before_proceed = "Conserte os erros no formulário antes de prosseguir."
         product_not_found = "Nenhum produto foi encontrado."
         blog_posts = "Posts do Blog"

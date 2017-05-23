@@ -314,6 +314,8 @@ def create_app():
     from models.content.footer import Footer
     from models_view.content.header_view import HeaderView
     from models.content.header import Header
+    from models_view.content.payment_view import PaymentView
+    from models.content.payment import Payment
 
     admin.init_app(app, index_view=MyAdminIndexView())
 
@@ -330,6 +332,7 @@ def create_app():
     admin.add_view(FaqView(Faq, db.session))
     admin.add_view(FooterView(Footer, db.session))
     admin.add_view(HeaderView(Header, db.session))
+    admin.add_view(PaymentView(Payment, db.session))
 
     from proj_extensions import babel
 
