@@ -577,6 +577,7 @@ class Resources(object):
         dispatch = "Envio"
         dispatch_endpoint = "envio"
         exchanges_and_returns = "Trocas & Devoluções"
+        exchanges_and_returns_endpoint = "trocas-e-devolucoes"
         read_more_plus = "Leia mais +"
         utilities = "Utilidades"
         payment_methods = "Formas de pagamento"
