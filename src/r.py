@@ -65,7 +65,8 @@ class Resources(object):
             summary_html="Resumo",
             content_html="Conteúdo",
             lower_text_html="Texto inferior",
-            lower_text_markdown="Texto inferior"
+            lower_text_markdown="Texto inferior",
+            n_visible_categories="Número de categorias visíveis"
         )
 
     # noinspection PyPep8Naming
@@ -567,7 +568,9 @@ class Resources(object):
         hello = "Olá"
         others = "Outros"
         n_visible_categories = "Número de categorias visíveis"
+        n_visible_categories_placeholder = "Ex.: 5"
         header = "Cabeçalho"
+        header_endpoint = "cabecalho"
         priority = "Prioridade"
         product_category_priority_tooltip = "Prioridade na exibição dessa categoria de produto no menu de navegação, a categoria com maior prioridade será exibida primeiro e a categoria com menor prioridade será exibida por último."
         product_category_priority_placeholder = "Ex.: 10"

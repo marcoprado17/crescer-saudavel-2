@@ -8,6 +8,8 @@ import os
 import shutil
 import sys
 
+from r import R
+
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
 
@@ -162,6 +164,7 @@ def create_exchanges_and_returns():
 
 def create_header():
     header = Header()
+    header.n_visible_categories = R.dimen.default_n_visible_categories
     db.session.add(header)
     db.session.commit()
     print "Header created."
