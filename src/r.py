@@ -63,7 +63,9 @@ class Resources(object):
             date="Data",
             content_markdown="Conteúdo",
             summary_html="Resumo",
-            content_html="Conteúdo"
+            content_html="Conteúdo",
+            lower_text_html="Texto inferior",
+            lower_text_markdown="Texto inferior"
         )
 
     # noinspection PyPep8Naming
@@ -143,7 +145,7 @@ class Resources(object):
         can_not_be_removed = "Não pode ser removida"
         test_price = "1,11"
         test1 = "test1"
-        footer_lower_text = "Crescer saudável - CNPJ 01.517.384/0001-87 -  © 2016 - 2017 "
+        footer_lower_text_example = "Crescer saudável - CNPJ 01.517.384/0001-87 -  © 2016 - 2017 "
         lower_text = "Texto inferior"
         edit_footer = "Editar rodapé"
         edit_header = "Editar cabeçalho"
@@ -466,6 +468,7 @@ class Resources(object):
         edit_dispatch_page_content = 'Editar conteúdo da página "Envio"'
         edit_exchanges_and_returns_page_content = 'Editar conteúdo da página "Trocas & Devoluções"'
         footer = "Rodapé"
+        footer_endpoint = "rodape"
         date = "Data"
         default_date_format = "%d/%m/%Y"
         default_datetime_format = "%d/%m/%Y\n%H:%M"
@@ -492,7 +495,6 @@ class Resources(object):
         tel_placeholder = "Ex.: " + tel_example
         email_placeholder = "Ex.: " + email_example
         link_placeholder = "Ex.: https://www.google.com.br"
-        footer_lower_text_placeholder = "Ex.: " + footer_lower_text
         city_placeholder = "Ex.: São José dos Campos"
         category_name = "Nome da categoria"
         subcategory_name = "Nome da subcategoria"

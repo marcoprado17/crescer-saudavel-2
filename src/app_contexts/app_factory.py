@@ -310,6 +310,8 @@ def create_app():
     from models_view.content.exchanges_and_returns_view import ExchangesAndReturnsView
     from models.content.faq import Faq
     from models_view.content.faq_view import FaqView
+    from models_view.content.footer_view import FooterView
+    from models.content.footer import Footer
 
     admin.init_app(app, index_view=MyAdminIndexView())
 
@@ -324,6 +326,7 @@ def create_app():
     admin.add_view(DispatchView(Dispatch, db.session))
     admin.add_view(ExchangesAndReturnsView(ExchangesAndReturns, db.session))
     admin.add_view(FaqView(Faq, db.session))
+    admin.add_view(FooterView(Footer, db.session))
 
     from proj_extensions import babel
 

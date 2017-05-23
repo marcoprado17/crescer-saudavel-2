@@ -371,7 +371,10 @@ def get_random_valid_city_id_or_none(state_id):
 
 def create_footer_data():
     footer = Footer.get()
-    footer.lower_text_markdown = "Crescer Saudável  \nCNPJ 01.517.384/0001-87  \nITA Júnior © 2016 - 2017"
+
+    footer.lower_text_markdown = R.string.footer_lower_text_example
+    footer.lower_text_html = parse_markdown(footer.lower_text_markdown)
+
     db.session.add(footer)
     db.session.commit()
 
