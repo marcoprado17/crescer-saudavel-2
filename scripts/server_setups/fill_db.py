@@ -13,24 +13,26 @@ sys.path.append("/vagrant/build")
 from decimal import Decimal
 from app_contexts.app import app
 from proj_extensions import db
-from models.about_us import AboutUs
+from models.content.about_us import AboutUs
 from models.blog.blog_post import BlogPost
-from models.contact import Contact
-from models.footer import Footer
-from models.home_content import HomeContent
-from models.product import Product
-from models.product_category import ProductCategory
-from models.tags_row import TagsRow
+from models.content.contact import Contact
+from models.content.footer import Footer
+from models.content.home_content import HomeContent
+from models.product.product import Product
+from models.product.product_category import ProductCategory
+from models.content.tags_row import TagsRow
 from models.city import City
 from models.order import Order
-from models.product_subcategory import ProductSubcategory
+from models.product.product_subcategory import ProductSubcategory
 from models.state import State
-from models.user import User
+from models.user.user import User
 from random_bombril import get_random_string, get_random_price, get_random_phrase, get_random_cep, get_random_tel, \
     get_random_datetime, get_random_date
 from models.blog.blog_tag import BlogTag
 from models.images.other_image import OtherImage
 from r import R
+from proj_utils import parse_markdown
+
 
 n_product_categories = 5
 n_product_subcategories = 10
@@ -309,9 +311,6 @@ def get_random_blog_post():
     n_tags = min(random.choice(range(0, 5+1)), BlogTag.count()+1)
     blog_tags = BlogTag.query.all()
     random.shuffle(blog_tags)
-    from pprint import pprint
-    pprint(blog_tags)
-    pprint(n_tags)
     return BlogPost(
         active=random.choice([True, False]),
         title=random.choice(title_key_words) + " " + get_random_phrase((3, 8), (3, 6)),
@@ -393,7 +392,10 @@ def create_contact_data():
 def create_about_us_data():
     about_us = AboutUs.get()
 
-    about_us.summary_markdown = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    about_us.summary_markdown = R.string.about_us_summary_example
+    about_us.summary_html = parse_markdown(about_us.summary_markdown)
+    about_us.content_markdown = R.string.about_us_content_example
+    about_us.content_html = parse_markdown(about_us.content_markdown)
 
     db.session.add(about_us)
     db.session.commit()

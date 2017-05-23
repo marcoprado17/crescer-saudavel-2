@@ -5,18 +5,19 @@
 # ======================================================================================================================
 import os
 import shutil
-
-from unittest import TestCase as BaseTestCase
 from datetime import datetime
+from unittest import TestCase as BaseTestCase
+
 from flask import url_for
-from app_contexts.app import app
-from models.user import User
-from models.order import Order
-from proj_exceptions import InvalidOrderError, InvalidOrderStatusChange, InsufficientStockToSendOrder
-from proj_extensions import db
-from models.product import Product
-from models.product_subcategory import ProductSubcategory
 from models.product_category import ProductCategory
+
+from app_contexts.app import app
+from models.order import Order
+from models.product import Product
+from models.product.product_subcategory import ProductSubcategory
+from models.user import User
+from proj_exceptions import InvalidOrderError, InvalidOrderStatusChange
+from proj_extensions import db
 from r import R
 
 

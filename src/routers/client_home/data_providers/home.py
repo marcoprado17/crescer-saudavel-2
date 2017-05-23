@@ -4,10 +4,10 @@
 # Created at 29/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask import url_for
+from models.product.product_category import ProductCategory
 
-from models.home_content import HomeContent
-from models.product_category import ProductCategory
-from models.product_subcategory import ProductSubcategory
+from models.content.home_content import HomeContent
+from models.product.product_subcategory import ProductSubcategory
 from r import R
 
 

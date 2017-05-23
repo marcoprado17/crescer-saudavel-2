@@ -6,7 +6,7 @@
 from flask import url_for
 
 from flask.ext.bombril.utils.utils import get_random_sublist
-from models.product import Product
+from models.product.product import Product
 from r import R
 
 

@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 13/02/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.base_user import BaseUser
+from models.user.base_user import BaseUser
 
 
 class AnonymousUser(BaseUser):

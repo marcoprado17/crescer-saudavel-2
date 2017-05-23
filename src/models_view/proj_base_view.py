@@ -2,6 +2,8 @@ import logging
 
 from flask import flash, redirect, url_for, request
 from flask_admin.contrib.sqla import ModelView
+from markupsafe import Markup
+
 from proj_utils import parse_markdown
 from r import R
 from flask_admin.babel import gettext
@@ -80,3 +82,7 @@ class ProjBaseView(ModelView):
 
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for("client_user_management.login", next=request.url))
+
+    @staticmethod
+    def html_formatter(view, context, model, name):
+        return Markup(getattr(model, name))

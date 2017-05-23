@@ -8,7 +8,7 @@ from sqlalchemy import ForeignKey
 
 from models.base import BaseModel
 from models.blog.blog_post import BlogPost
-from models.product import Product
+from models.product.product import Product
 from proj_exceptions import InconsistentDataBaseError
 from proj_extensions import db
 from proj_utils import safe_id

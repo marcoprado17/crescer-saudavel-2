@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 26/03/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.payment import Payment
+from models.content.payment import Payment
 from routers.admin_content.forms import PaymentForm
 
 

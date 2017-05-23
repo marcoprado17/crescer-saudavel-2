@@ -18,7 +18,7 @@ from flask_login import login_required
 from itsdangerous import URLSafeTimedSerializer
 from email_blueprint import email_manager
 from flask_bombril.utils import get_url_arg
-from models.user import User
+from models.user.user import User
 from proj_decorators import login_or_anonymous, protect_against_csrf
 from proj_extensions import db
 from r import R

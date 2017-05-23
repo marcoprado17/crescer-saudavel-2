@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 22/03/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.header import Header
+from models.content.header import Header
 from routers.admin_content.forms import HeaderForm
 
 

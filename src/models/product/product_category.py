@@ -4,10 +4,11 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from sqlalchemy.orm import relationship
+
 from models.base import BaseModel
+from models.product.product import Product
+from models.product.product_subcategory import ProductSubcategory
 from proj_extensions import db
-from models.product import Product
-from models.product_subcategory import ProductSubcategory
 from r import R
 
 

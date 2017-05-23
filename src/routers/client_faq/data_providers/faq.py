@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 25/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.faq import Faq
+from models.content.faq import Faq
 
 
 class ClientFaqDataProvider(object):

@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 16/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.about_us import AboutUs
+from models.content.about_us import AboutUs
 from routers.admin_content.forms import AboutUsForm
 
 

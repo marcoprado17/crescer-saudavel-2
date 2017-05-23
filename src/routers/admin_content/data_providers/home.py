@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.home_content import HomeContent
+from models.content.home_content import HomeContent
 from routers.admin_content.forms import CarouselForm, ProductSectionForm, BlogSectionForm, \
     MoreCategoriesSectionForm
 

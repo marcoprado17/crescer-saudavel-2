@@ -9,9 +9,9 @@ import sys
 
 from flask import session
 
-from models.anonymous_user import AnonymousUser
 from models.blog.blog_post import BlogPost
-from models.product import Product
+from models.product.product import Product
+from models.user.anonymous_user import AnonymousUser
 from proj_forms import SubmitForm
 from r import R
 
@@ -289,12 +289,12 @@ def create_app():
     # The import above it's not used, but is necessary declare it here
     from models.city import City
     from models_view.city_view import CityView
-    from models.product_category import ProductCategory
-    from models_view.product_category_view import ProductCategoryView
-    from models.product_subcategory import ProductSubcategory
-    from models_view.product_subcategory_view import ProductSubcategoryView
-    from models.product import Product
-    from models_view.product_view import ProductView
+    from models.product.product_category import ProductCategory
+    from models_view.product.product_category_view import ProductCategoryView
+    from models.product.product_subcategory import ProductSubcategory
+    from models_view.product.product_subcategory_view import ProductSubcategoryView
+    from models.product.product import Product
+    from models_view.product.product_view import ProductView
     from models_view.my_admin_index_view import MyAdminIndexView
     from models.blog.blog_tag import BlogTag
     from models_view.blog.blog_tag_view import BlogTagView
@@ -302,6 +302,8 @@ def create_app():
     from models_view.blog.blog_post_view import BlogPostView
     from models.images.other_image import OtherImage
     from models_view.images.other_image_view import OtherImageView
+    from models.content.about_us import AboutUs
+    from models_view.content.about_us_view import AboutUsView
     admin.init_app(app, index_view=MyAdminIndexView())
     admin.add_view(CityView(City, db.session))
     admin.add_view(ProductCategoryView(ProductCategory, db.session))
@@ -310,6 +312,7 @@ def create_app():
     admin.add_view(OtherImageView(OtherImage, db.session))
     admin.add_view(BlogPostView(BlogPost, db.session))
     admin.add_view(BlogTagView(BlogTag, db.session))
+    admin.add_view(AboutUsView(AboutUs, db.session))
 
     from proj_extensions import babel
 

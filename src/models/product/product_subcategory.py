@@ -7,7 +7,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from proj_extensions import db
 from models.base import BaseModel
-from models.product import Product
+from models.product.product import Product
 from r import R
 
 

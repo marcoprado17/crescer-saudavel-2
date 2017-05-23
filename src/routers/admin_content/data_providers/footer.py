@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 16/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.footer import Footer
+from models.content.footer import Footer
 from routers.admin_content.forms import FooterForm
 
 

@@ -5,17 +5,18 @@
 # ======================================================================================================================
 from flask import current_app
 from flask import url_for
+from models.product_category import ProductCategory
+
 from components.data_providers.paginator import paginator_data_provider
-from flask_bombril.utils import n_pages
 from flask_bombril.url_args import get_boolean_url_arg
 from flask_bombril.url_args import get_valid_enum
 from flask_bombril.url_args import get_valid_model_id
 from flask_bombril.url_args import get_valid_page
 from flask_bombril.utils import get_page_range
-from proj_forms import SubmitForm
+from flask_bombril.utils import n_pages
 from models.product import Product
-from models.product_category import ProductCategory
-from models.product_subcategory import ProductSubcategory
+from models.product.product_subcategory import ProductSubcategory
+from proj_forms import SubmitForm
 from proj_utils import get_sort_methods_data
 from r import R
 from routers.admin_products.forms import ProductFilterForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm

@@ -11,7 +11,7 @@ from flask_bombril.utils import get_page_range
 from flask_bombril.url_args import get_valid_page
 from flask_bombril.url_args import get_valid_enum
 from models.city import City
-from models.user import User
+from models.user.user import User
 from models.state import State
 from proj_utils import get_sort_methods_data
 from r import R

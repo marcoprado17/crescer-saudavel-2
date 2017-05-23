@@ -6,6 +6,7 @@
 import json
 
 from flask_wtf import FlaskForm
+from models.product_category import ProductCategory
 from wtforms import BooleanField, StringField, SelectField, SubmitField, TextAreaField, IntegerField
 from wtforms.fields.html5 import TelField
 
@@ -16,8 +17,7 @@ from flask_bombril.form_validators import MarkdownValidator
 from flask_bombril.form_validators.phone_fomat.phone_format import PhoneFormat
 from models.blog.blog_post import BlogPost
 from models.product import Product
-from models.product_category import ProductCategory
-from models.product_subcategory import ProductSubcategory
+from models.product.product_subcategory import ProductSubcategory
 from proj_utils import get_image_choices, safe_string
 from r import R
 

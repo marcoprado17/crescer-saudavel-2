@@ -7,6 +7,7 @@ import json
 
 from flask import request
 from flask_wtf import FlaskForm
+from models.product_category import ProductCategory
 from wtforms import StringField, SubmitField, BooleanField, SelectField, IntegerField, TextAreaField
 
 from flask.ext.bombril.form_validators.integer_in_range.integer_in_range import IntegerInRange
@@ -16,10 +17,9 @@ from flask_bombril.form_validators import MarkdownValidator
 from flask_bombril.form_validators import NotNegativeInteger
 from flask_bombril.form_validators import Price
 from flask_bombril.form_validators import Required
-from models.product_category import ProductCategory
-from models.product_subcategory import ProductSubcategory
-from r import R
+from models.product.product_subcategory import ProductSubcategory
 from proj_utils import get_image_choices
+from r import R
 
 
 class ProductCategoryForm(FlaskForm):

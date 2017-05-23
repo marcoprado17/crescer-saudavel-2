@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 26/03/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.exchanges_and_returns import ExchangesAndReturns
+from models.content.exchanges_and_returns import ExchangesAndReturns
 
 
 class ClientExchangesAndReturnsDataProvider(object):

@@ -13,7 +13,7 @@ from flask import url_for
 from flask_bombril.url_args import get_boolean_url_arg
 from flask_bombril.url_args import get_valid_integer
 from flask_bombril.url_args import get_valid_model_id
-from models.product import Product
+from models.product.product import Product
 from proj_decorators import login_or_anonymous, valid_form
 from proj_forms import SubmitForm
 from r import R

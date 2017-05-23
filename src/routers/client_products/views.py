@@ -4,7 +4,7 @@
 # Created at 26/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask import render_template
-from models.product import Product
+from models.product.product import Product
 from proj_decorators import safe_id_to_model_elem
 from routers.client_products import client_products_blueprint
 from routers.client_products.data_providers.product import client_product_data_provider

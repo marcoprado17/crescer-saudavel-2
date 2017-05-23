@@ -15,8 +15,8 @@ from sqlalchemy.orm import relationship
 from proj_extensions import db
 from sqlalchemy.dialects.postgresql import JSON
 from models.base import BaseModel
-from models.user import User
-from models.product import Product
+from models.user.user import User
+from models.product.product import Product
 from proj_exceptions import InvalidOrderStatusIdError, InvalidOrderStatusChange, InsufficientStockToSendOrder, \
     InconsistentDataBaseError, InvalidClientToOrder, InvalidOrderError
 from proj_utils import SortMethodMap

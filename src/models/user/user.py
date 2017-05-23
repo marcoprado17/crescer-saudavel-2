@@ -5,8 +5,8 @@
 # ======================================================================================================================
 import random
 import string
-
 from datetime import datetime
+
 from flask import current_app
 from flask_login import login_user
 from sqlalchemy import ForeignKey
@@ -15,7 +15,8 @@ from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm.attributes import flag_modified
-from models.base_user import BaseUser
+
+from models.user.base_user import BaseUser
 from proj_extensions import db, bcrypt, login_manager
 from proj_utils import SortMethodMap
 from r import R

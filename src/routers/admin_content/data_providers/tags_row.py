@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 28/03/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.tags_row import TagsRow
+from models.content.tags_row import TagsRow
 from routers.admin_content.forms import TagsRowForm
 
 

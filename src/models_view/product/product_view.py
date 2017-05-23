@@ -1,13 +1,15 @@
+from os.path import join, splitext
+from uuid import uuid4
+
+from flask_admin import form
 from flask_admin.form import rules
 from markupsafe import Markup
 from werkzeug.utils import secure_filename
-from models.product_category import ProductCategory
+
+from configs import default_app_config as config
+from models.product.product_category import ProductCategory
 from models_view.proj_base_view import ProjBaseView
 from r import R
-from flask_admin import form
-from configs import default_app_config as config
-from os.path import join, splitext
-from uuid import uuid4
 
 
 def build_image_upload_field_for_product_images(label):

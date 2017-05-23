@@ -4,16 +4,18 @@
 # Created at 22/12/16 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import json
+from decimal import Decimal
 
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import login_required
-from data_providers import admin_add_product_category_data_provider, admin_product_categories_data_provider
-from proj_decorators import valid_form, safe_id_to_model_elem, admin_required
-from flask_bombril.r import R as bombril_R
-from proj_forms import SubmitForm
-from models.product import Product
 from models.product_category import ProductCategory
-from models.product_subcategory import ProductSubcategory
+
+from data_providers import admin_add_product_category_data_provider, admin_product_categories_data_provider
+from flask_bombril.r import R as bombril_R
+from models.product import Product
+from models.product.product_subcategory import ProductSubcategory
+from proj_decorators import valid_form, safe_id_to_model_elem, admin_required
+from proj_forms import SubmitForm
 from r import R
 from routers.admin_products import admin_products_blueprint
 from routers.admin_products.data_providers.add_product import admin_add_product_data_provider
@@ -26,7 +28,6 @@ from routers.admin_products.data_providers.subcategories import admin_product_su
 from routers.admin_products.forms import AddProductCategoryForm, EditProductCategoryForm, AddProductSubcategoryForm, \
     EditProductSubcategoryForm, AddProductForm, AddToStockForm, RemoveFromStockForm, UpdateStockForm, EditProductForm
 from routers.client_products.data_providers.product import client_product_data_provider
-from decimal import Decimal
 
 
 @admin_products_blueprint.route("/")

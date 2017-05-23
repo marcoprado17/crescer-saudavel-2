@@ -5,15 +5,16 @@
 # ======================================================================================================================
 import os
 import shutil
-
 from decimal import Decimal
 from unittest import TestCase as BaseTestCase
+
 from flask import url_for
-from app_contexts.app import app
-from proj_extensions import db
-from models.product import Product
-from models.product_subcategory import ProductSubcategory
 from models.product_category import ProductCategory
+
+from app_contexts.app import app
+from models.product import Product
+from models.product.product_subcategory import ProductSubcategory
+from proj_extensions import db
 from r import R
 
 

@@ -7,16 +7,17 @@ from flask import json
 from flask import render_template
 from flask import request
 from flask_login import login_required
-from models.about_us import AboutUs
-from models.contact import Contact
-from models.dispatch import Dispatch
-from models.exchanges_and_returns import ExchangesAndReturns
-from models.faq import Faq
-from models.footer import Footer
-from models.header import Header
-from models.home_content import HomeContent
-from models.payment import Payment
-from models.tags_row import TagsRow
+
+from models.content.about_us import AboutUs
+from models.content.contact import Contact
+from models.content.dispatch import Dispatch
+from models.content.exchanges_and_returns import ExchangesAndReturns
+from models.content.faq import Faq
+from models.content.footer import Footer
+from models.content.header import Header
+from models.content.home_content import HomeContent
+from models.content.payment import Payment
+from models.content.tags_row import TagsRow
 from proj_decorators import admin_required
 from routers.admin_content import admin_content_blueprint
 from routers.admin_content.data_providers.about_us import admin_about_us_data_provider

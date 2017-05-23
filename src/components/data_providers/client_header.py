@@ -6,11 +6,11 @@
 from flask import flash
 from flask import url_for
 
-from models.header import Header
-from models.product_category import ProductCategory
+from flask_bombril.r import R as bombril_R
+from models.content.header import Header
+from models.product.product_category import ProductCategory
 from proj_decorators import login_or_anonymous
 from r import R
-from flask_bombril.r import R as bombril_R
 
 
 class ClientHeaderDataProvider(object):

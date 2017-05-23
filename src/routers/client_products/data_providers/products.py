@@ -3,23 +3,22 @@
 # ======================================================================================================================
 # Created at 28/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from pprint import pprint
 
 from flask import current_app
 from flask import url_for
+from models.product.product_category import ProductCategory
 from sqlalchemy import desc
 
 from components.data_providers.paginator import paginator_data_provider
-from flask_bombril.utils import get_page_range
-from flask_bombril.utils import n_pages
-from flask_bombril.utils import get_url_args
 from flask_bombril.url_args import get_valid_enum
-from flask_bombril.url_args import get_valid_page
-from flask_bombril.utils import get_url_arg
 from flask_bombril.url_args import get_valid_model_id
-from models.product import Product
-from models.product_category import ProductCategory
-from models.product_subcategory import ProductSubcategory
+from flask_bombril.url_args import get_valid_page
+from flask_bombril.utils import get_page_range
+from flask_bombril.utils import get_url_arg
+from flask_bombril.utils import get_url_args
+from flask_bombril.utils import n_pages
+from models.product.product import Product
+from models.product.product_subcategory import ProductSubcategory
 from r import R
 
 

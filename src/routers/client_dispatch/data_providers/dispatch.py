@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 26/03/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from models.dispatch import Dispatch
+from models.content.dispatch import Dispatch
 
 
 class ClientDispatchDataProvider(object):

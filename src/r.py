@@ -61,7 +61,9 @@ class Resources(object):
             reserved="Reservadas",
             n_units_available="Num. de unidades disponíveis",
             date="Data",
-            content_markdown="Conteúdo"
+            content_markdown="Conteúdo",
+            summary_html="Resumo",
+            content_html="Conteúdo"
         )
 
     # noinspection PyPep8Naming
@@ -616,6 +618,7 @@ class Resources(object):
         blog_tags = "Tags do blog"
         blog_tags_endpoint = "tags-do-blog"
         blog_tag_name_placeholder = "Ex.: Comidas saudáveis"
+        about_us_endpoint = "sobre-nos"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -725,6 +728,10 @@ Content Cell | Content Cell"""
 
         paragraph_example = \
 """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+"""
+
+        about_us_summary_example = \
+"""Lorem ipsum dolor sit amet, vitae in etiam. Dignissim rutrum, phasellus arcu nibh hendrerit vel ridiculus eget, eget sit. Feugiat scelerisque risus. Fusce sit quis massa, wisi eu mauris curabitur. Et turpis in lectus neque, wisi eget, turpis in sed elementum, donec sed, nisl non odio eget. Magna maecenas aliquam, posuere viverra ante, turpis ipsum sociis vel porta. Mauris varius velit morbi non blandit sem, in tincidunt, ligula luctus orci condimentum risus ipsum, lacus lacus luctus. Lacinia parturient pellentesque duis. Dolor scelerisque odio eu pede at, integer vitae nunc tenetur wisi, dui cubilia tempor ullamcorper.
 """
 
         about_us_content_example = \

@@ -7,7 +7,7 @@ from decimal import Decimal
 from flask import g
 from sqlalchemy.orm.attributes import flag_modified
 from models.base import BaseModel
-from models.product import Product
+from models.product.product import Product
 from proj_extensions import db
 from r import R
 

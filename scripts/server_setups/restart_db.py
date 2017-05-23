@@ -3,10 +3,10 @@
 # ======================================================================================================================
 # Created at 12/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-import os
-import sys
-import shutil
 import datetime
+import os
+import shutil
+import sys
 
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
@@ -14,18 +14,18 @@ sys.path.append("/vagrant/build")
 from app_contexts.app import app
 from proj_extensions import db
 from models.state import State
-from models.about_us import AboutUs
-from models.contact import Contact
-from models.dispatch import Dispatch
-from models.exchanges_and_returns import ExchangesAndReturns
-from models.faq import Faq
-from models.footer import Footer
-from models.header import Header
-from models.home_content import HomeContent
+from models.content.about_us import AboutUs
+from models.content.contact import Contact
+from models.content.dispatch import Dispatch
+from models.content.exchanges_and_returns import ExchangesAndReturns
+from models.content.faq import Faq
+from models.content.footer import Footer
+from models.content.header import Header
+from models.content.home_content import HomeContent
 from models.newsletter_emails import NewsletterEmails
-from models.payment import Payment
-from models.tags_row import TagsRow
-from models.user import User
+from models.content.payment import Payment
+from models.content.tags_row import TagsRow
+from models.user.user import User
 
 
 def restart_db():
