@@ -613,6 +613,9 @@ class Resources(object):
         image_2 = "Imagem 2"
         image_3 = "Imagem 3"
         image_4 = "Imagem 4"
+        blog_tags = "Tags do blog"
+        blog_tags_endpoint = "tags-do-blog"
+        blog_tag_name_placeholder = "Ex.: Comidas saudáveis"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -1342,6 +1345,8 @@ A nutricionista faz ressalvas quanto a alguns alimentos. Beterraba, espinafre, a
 
         product_image_width = 400
         product_image_height = 400
+
+        blog_tag_max_length = 128
 
 
 R = Resources()

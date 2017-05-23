@@ -5,12 +5,12 @@
 # ======================================================================================================================
 from flask import url_for
 from sqlalchemy import desc
+
 from components.forms import NewsletterEmailForm
 from models.about_us import AboutUs
-from models.blog_post import BlogPost
+from models.blog.blog_post import BlogPost
 from models.contact import Contact
 from models.footer import Footer
-from models.product_category import ProductCategory
 from r import R
 
 

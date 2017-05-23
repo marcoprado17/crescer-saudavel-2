@@ -14,12 +14,12 @@ from flask_bombril.form_validators import EmailFormat
 from flask_bombril.form_validators import Length
 from flask_bombril.form_validators import MarkdownValidator
 from flask_bombril.form_validators.phone_fomat.phone_format import PhoneFormat
-from models.blog_post import BlogPost
+from models.blog.blog_post import BlogPost
 from models.product import Product
 from models.product_category import ProductCategory
 from models.product_subcategory import ProductSubcategory
-from r import R
 from proj_utils import get_image_choices, safe_string
+from r import R
 
 
 class CarouselForm(FlaskForm):

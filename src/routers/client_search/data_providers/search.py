@@ -4,9 +4,8 @@
 # Created at 20/02/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask import url_for
-from sqlalchemy import desc
 
-from models.blog_post import BlogPost
+from models.blog.blog_post import BlogPost
 from models.product import Product
 from r import R
 

@@ -69,6 +69,7 @@ class BlogPostView(ProjBaseView):
         'date',
         'thumbnail_filename',
         rules.Text(R.string.blog_thumbnail_text, escape=False),
+        'tags',
         rules.Field('summary_markdown', render_field='markdown_text'),
         rules.Field('content_markdown', render_field='markdown_text'),
     )

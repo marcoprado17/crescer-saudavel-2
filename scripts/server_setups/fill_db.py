@@ -7,9 +7,6 @@ import datetime
 import random
 import sys
 
-from models.images.other_image import OtherImage
-from r import R
-
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
 
@@ -17,7 +14,7 @@ from decimal import Decimal
 from app_contexts.app import app
 from proj_extensions import db
 from models.about_us import AboutUs
-from models.blog_post import BlogPost
+from models.blog.blog_post import BlogPost
 from models.contact import Contact
 from models.footer import Footer
 from models.home_content import HomeContent
@@ -31,12 +28,16 @@ from models.state import State
 from models.user import User
 from random_bombril import get_random_string, get_random_price, get_random_phrase, get_random_cep, get_random_tel, \
     get_random_datetime, get_random_date
+from models.blog.blog_tag import BlogTag
+from models.images.other_image import OtherImage
+from r import R
 
 n_product_categories = 5
 n_product_subcategories = 10
 n_products = 10
 n_clients = 10
 n_orders = 5
+n_blog_tags = 5
 n_blog_posts = 10
 
 title_key_words = [
@@ -94,6 +95,7 @@ def fill_db():
         create_specif_cities()
         create_random_clients()
         create_random_orders()
+        create_random_blog_tags()
         create_random_blog_posts()
 
         create_footer_data()
@@ -282,6 +284,20 @@ def get_random_order_datetimes(status):
     return order_datetimes
 
 
+def create_random_blog_tags():
+    for i in range(0, n_blog_tags):
+        db.session.add(get_random_blog_tag())
+        print "Blog tag " + str(i) + " created."
+    db.session.commit()
+
+
+def get_random_blog_tag():
+    return BlogTag(
+        name=get_random_string(12),
+        active=random.choice([True, False])
+    )
+
+
 def create_random_blog_posts():
     for i in range(0, n_blog_posts):
         db.session.add(get_random_blog_post())
@@ -290,12 +306,19 @@ def create_random_blog_posts():
 
 
 def get_random_blog_post():
+    n_tags = min(random.choice(range(0, 5+1)), BlogTag.count()+1)
+    blog_tags = BlogTag.query.all()
+    random.shuffle(blog_tags)
+    from pprint import pprint
+    pprint(blog_tags)
+    pprint(n_tags)
     return BlogPost(
         active=random.choice([True, False]),
         title=random.choice(title_key_words) + " " + get_random_phrase((3, 8), (3, 6)),
         date=get_random_date(datetime_1, datetime_2),
         summary_markdown=random.choice(text_key_words) + " " + get_random_phrase((3, 8), (16, 30)),
-        content_markdown=random.choice(text_key_words) + " " + get_random_phrase((3, 8), (50, 150))
+        content_markdown=random.choice(text_key_words) + " " + get_random_phrase((3, 8), (50, 150)),
+        tags=blog_tags[0:n_tags]
     )
 
 

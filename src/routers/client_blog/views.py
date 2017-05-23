@@ -4,7 +4,8 @@
 # Created at 26/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask import render_template
-from models.blog_post import BlogPost
+
+from models.blog.blog_post import BlogPost
 from proj_decorators import safe_id_to_model_elem
 from routers.client_blog import client_blog_blueprint
 from routers.client_blog.data_providers.blog import blog_data_provider

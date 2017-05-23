@@ -4,6 +4,10 @@
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from os.path import isfile, join
+
+from sqlalchemy.orm import relationship
+
+from models.blog.association import association_table
 from proj_extensions import db
 from models.base import BaseModel
 from r import R
@@ -27,6 +31,7 @@ class BlogPost(BaseModel):
     summary_html = db.Column(db.UnicodeText, nullable=False, default="")
     content_markdown = db.Column(db.UnicodeText, nullable=False, default="")
     content_html = db.Column(db.UnicodeText, nullable=False, default="")
+    tags = relationship("BlogTag", secondary=association_table, back_populates="blog_posts")
 
     def get_thumbnail_src(self):
         if self.thumbnail_filename is not None and isfile(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, self.thumbnail_filename)):

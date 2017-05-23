@@ -5,14 +5,15 @@
 # ======================================================================================================================
 from flask import current_app
 from flask import url_for
+
 from components.data_providers.paginator import paginator_data_provider
 from flask_bombril.url_args import get_boolean_url_arg
 from flask_bombril.url_args import get_valid_enum
 from flask_bombril.url_args import get_valid_page
 from flask_bombril.utils import get_page_range
 from flask_bombril.utils import n_pages
+from models.blog.blog_post import BlogPost
 from proj_forms import SubmitForm
-from models.blog_post import BlogPost
 from proj_utils import get_sort_methods_data
 from r import R
 from routers.admin_blog.forms import BlogPostFilterForm

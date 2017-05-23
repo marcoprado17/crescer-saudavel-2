@@ -6,13 +6,13 @@
 from flask import url_for
 from sqlalchemy import ForeignKey
 
-from models.blog_post import BlogPost
+from models.base import BaseModel
+from models.blog.blog_post import BlogPost
 from models.product import Product
 from proj_exceptions import InconsistentDataBaseError
 from proj_extensions import db
-from models.base import BaseModel
-from r import R
 from proj_utils import safe_id
+from r import R
 
 
 class HomeContent(BaseModel):

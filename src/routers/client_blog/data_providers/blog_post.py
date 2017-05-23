@@ -7,7 +7,7 @@ from flask import current_app
 from flask import url_for
 
 from flask_bombril.url_args import get_valid_page
-from models.blog_post import BlogPost
+from models.blog.blog_post import BlogPost
 from r import R
 
 
