@@ -382,18 +382,19 @@ def create_footer_data():
 def create_contact_data():
     contact = Contact.get()
 
-    contact.address_markdown = "Centervale Shopping  \nAv. Dep. Benedito Matarazzo, 9403  \nSão José dos Campos - SP"
-    contact.tel = "(12) 32131-2321"
-    contact.email = "contato@crescersaudavel.com"
+    contact.address_markdown = R.string.address_example
+    contact.address_html = parse_markdown(contact.address_markdown)
+    contact.tel = R.string.tel_example
+    contact.email = R.string.email_example
 
     contact.facebook_active = True
-    contact.facebook_link = "https://www.facebook.com/crescersaudavelni/"
+    contact.facebook_link = R.string.facebook_link_example
 
     contact.youtube_active = True
-    contact.youtube_link = "https://www.youtube.com/"
+    contact.youtube_link = R.string.youtube_link_example
 
     contact.twitter_active = True
-    contact.twitter_link = "https://twitter.com/"
+    contact.twitter_link = R.string.twitter_link_example
 
     db.session.add(contact)
     db.session.commit()

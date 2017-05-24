@@ -66,7 +66,19 @@ class Resources(object):
             content_html="Conteúdo",
             lower_text_html="Texto inferior",
             lower_text_markdown="Texto inferior",
-            n_visible_categories="Número de categorias visíveis"
+            n_visible_categories="Número de categorias visíveis",
+            address_html="Endereço",
+            facebook_active="Facebook",
+            youtube_active="Youtube",
+            twitter_active="Twitter",
+            googleplus_active="Google+",
+            pintrest_active="Pintrest",
+            address_markdown="Endereço",
+            facebook_link="Facebook link",
+            youtube_link="Youtube link",
+            twitter_link="Twitter link",
+            googleplus_link="Google+ link",
+            pintrest_link="Pintrest link"
         )
 
     # noinspection PyPep8Naming
@@ -142,6 +154,7 @@ class Resources(object):
         newsletter_sign_success_msg = "O email <b>{0}</b> foi registrado com sucesso em nossa newsletter!"
         sign = "Assinar"
         contact = "Contato"
+        contact_endpoint = "contato"
         company = "Empresa"
         can_not_be_removed = "Não pode ser removida"
         test_price = "1,11"
@@ -493,8 +506,8 @@ class Resources(object):
         carousel_subtitle_example = "Ex.: Localização: Shopping Centervale - São José dos Campos"
         product_section_name_example = "Ex.: Novidades"
         blog_section_name_example = "Ex.: Posts mais recentes"
-        tel_placeholder = "Ex.: " + tel_example
-        email_placeholder = "Ex.: " + email_example
+        tel_placeholder = "Ex.: (12) 2352-2458"
+        email_placeholder = "Ex.: contato@crescersaudavel.com"
         link_placeholder = "Ex.: https://www.google.com.br"
         city_placeholder = "Ex.: São José dos Campos"
         category_name = "Nome da categoria"
@@ -506,6 +519,11 @@ class Resources(object):
         reserved = "Reservadas"
         reserved_description = "Número de unidades reservadas do produto, já foram vendidas, mas ainda não foram enviadas."
         cancel = "Cancelar"
+        facebook_link_placeholder = "Ex.: https://www.facebook.com"
+        youtube_link_placeholder = "Ex.: https://www.youtube.com"
+        twitter_link_placeholder = "Ex.: https://twitter.com"
+        googleplus_link_placeholder = "Ex.: https://plus.google.com/?hl=pt_BR"
+        pintrest_link_placeholder = "Ex.: https://br.pinterest.com/"
 
         first_name_placeholder="Ex.: João"
         last_name_placeholder="Ex.: Silva Mendes"
@@ -628,6 +646,10 @@ class Resources(object):
         blog_tags_endpoint = "tags-do-blog"
         blog_tag_name_placeholder = "Ex.: Comidas saudáveis"
         about_us_endpoint = "sobre-nos"
+
+        facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
+        youtube_link_example = "https://www.youtube.com/"
+        twitter_link_example = "https://twitter.com/"
 
         product_example_title = "Banana orgânica 100g"
         product_example_image_1 = "banana_exemplo_1.jpg"
@@ -1454,6 +1476,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
         product_image_height = 400
 
         blog_tag_max_length = 128
+        link_max_length = 1024
 
 
 R = Resources()
