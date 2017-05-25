@@ -4,8 +4,12 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
+
+from markupsafe import Markup
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
+
+# from models.associations import home_content_and_product_association_of_section_1_table
 from models.base import BaseModel
 from proj_extensions import db
 from r import R
@@ -82,6 +86,18 @@ class Product(BaseModel):
     tab_5_title = db.Column(db.String(R.dimen.tab_title_max_length), default="", nullable=False)
     tab_5_content_markdown = db.Column(db.UnicodeText, default="", nullable=False)
     tab_5_content_html = db.Column(db.UnicodeText, default="", nullable=False)
+
+    home_content_id = db.Column(db.Integer, ForeignKey("home_content.id"))
+
+    def __repr__(self):
+        s = ""
+        s += "<table>"
+        s += "<tr>"
+        s += "<td style='width: 48px; vertical-align: top;'><img src='%s'></td>"
+        s += "<td style='padding-left: 4px;'><b><searchable>#%s</searchable></b><br><searchable>%s</searchable></td>"
+        s += "</tr>"
+        s += "</table>"
+        return Markup(s % (self.get_image_n_src(1), self.id, self.title))
 
     def get_tab_n_active(self, n):
         return getattr(self, "tab_" + str(n) + "_active")

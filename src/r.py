@@ -78,7 +78,45 @@ class Resources(object):
             youtube_link="Youtube link",
             twitter_link="Twitter link",
             googleplus_link="Google+ link",
-            pintrest_link="Pintrest link"
+            pintrest_link="Pintrest link",
+            carousel_1_image_filename="Imagem do carrossel 1",
+            carousel_1_active="Carrossel 1 ativo",
+            carousel_1_title="Título do carrossel 1",
+            carousel_1_subtitle="Subtítulo do carrossel 1",
+            carousel_1_link="Link do carrossel 1",
+            carousel_2_image_filename="Imagem do carrossel 2",
+            carousel_2_active="Carrossel 2 ativo",
+            carousel_2_title="Título do carrossel 2",
+            carousel_2_subtitle="Subtítulo do carrossel 2",
+            carousel_2_link="Link do carrossel 2",
+            carousel_3_image_filename="Imagem do carrossel 3",
+            carousel_3_active="Carrossel 3 ativo",
+            carousel_3_title="Título do carrossel 3",
+            carousel_3_subtitle="Subtítulo do carrossel 3",
+            carousel_3_link="Link do carrossel 3",
+            product_section_1_active="Seção de produto 1 ativa",
+            product_section_1_name="Nome da seção de produto 1",
+            product_section_1_link="Link da seção de produto 1",
+            products_of_section_1="Produtos da seção 1",
+            product_section_2_active="Seção de produto 2 ativa",
+            product_section_2_name="Nome da seção de produto 2",
+            product_section_2_link="Link da seção de produto 2",
+            products_of_section_2="Produtos da seção 2",
+            product_section_3_active="Seção de produto 3 ativa",
+            product_section_3_name="Nome da seção de produto 3",
+            product_section_3_link="Link da seção de produto 3",
+            products_of_section_3="Produtos da seção 3",
+            product_section_4_active="Seção de produto 4 ativa",
+            product_section_4_name="Nome da seção de produto 4",
+            product_section_4_link="Link da seção de produto 4",
+            products_of_section_4="Produtos da seção 4",
+            product_section_5_active="Seção de produto 5 ativa",
+            product_section_5_name="Nome da seção de produto 5",
+            product_section_5_link="Link da seção de produto 5",
+            products_of_section_5="Produtos da seção 5",
+            more_categories_section_category_1="Categoria 1 da seção 'Mais para você'",
+            more_categories_section_category_1_image_filename="Imagem da categoria 1 da seção 'Mais para você'",
+            more_categories_section_category_1_subcategories="Subcategorias da categoria 1 da seção 'Mais para você'"
         )
 
     # noinspection PyPep8Naming
@@ -116,12 +154,13 @@ class Resources(object):
         without_stock = "Sem estoque"
         product_images_text = "Tamanho ideal das imagens de produto: 600 x 600.<br><br>"
         blog_thumbnail_text = "Tamanho ideal das thumbnails do blog: 900 x 500.<br><br>"
-        carousel_image_description = "Tamanho ideal das imagens do carousel: 2560 x 500."
+        carousel_image_text = "Tamanho ideal das imagens do carrossel: 2560 x 500."
+        more_categories_image_text = "Tamanho ideal das imagens: 512 x 512."
         post_thumbnail = "Thumbnail do post"
         order_by = "Ordenar por: "
         inner_link_example = "Ex.: /produtos/?category_id=1"
         blog_thumbnail_default_filename = "blog_thumbnail_default.jpg"
-        default_carousel_image_name = "carousel_default.jpg"
+        carousel_default_filename = "carousel_default.jpg"
         unavailable_product_at_moment = "Produto indisponível no momento."
         product_image = "Imagem do produto"
         product_images = "Imagens dos produtos"
@@ -502,9 +541,11 @@ class Resources(object):
         blog_example_title = "Nutricionista fala sobre introdução dos alimentos nas papinhas dos bebês"
         blog_example_thumbnail = "post_exemplo_bebe_comendo.jpg"
         product_category_example_name = "Frutas"
-        carousel_title_example = "Ex.: Conheça nossa loja física"
-        carousel_subtitle_example = "Ex.: Localização: Shopping Centervale - São José dos Campos"
-        product_section_name_example = "Ex.: Novidades"
+        carousel_title_placeholder = "Ex.: Conheça nossa loja física"
+        carousel_subtitle_placeholder = "Ex.: Localização: Shopping Centervale - São José dos Campos"
+        carousel_link_placeholder = "Ex.: /blog"
+        product_section_name_placeholder = "Ex.: Novidades"
+        product_section_link_placeholder = "Ex.: /blog"
         blog_section_name_example = "Ex.: Posts mais recentes"
         tel_placeholder = "Ex.: (12) 2352-2458"
         email_placeholder = "Ex.: contato@crescersaudavel.com"
@@ -646,6 +687,8 @@ class Resources(object):
         blog_tags_endpoint = "tags-do-blog"
         blog_tag_name_placeholder = "Ex.: Comidas saudáveis"
         about_us_endpoint = "sobre-nos"
+        home_content = "Conteúdo da home"
+        home_content_endpoint = "conteudo-da-home"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1343,6 +1386,10 @@ There's actually a lot more to Markdown than this. See the official [introductio
         def default_date_format(datetime):
             return datetime.strftime("%d/%m/%Y")
 
+        @staticmethod
+        def get_additional_categories(n):
+            return "Categoria " + str(n) + " da seção 'Mais para você'"
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -1447,7 +1494,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
         super_table_text_max_length = 32
         # TODO: Change timeout in production
         cache_timeout = 1
-        link_max_length = 256
+        link_max_length = 1024
         item_inner_max_length = 38
         day_in_seconds = 24*60*60
         max_value_of_int_field = 999999999
@@ -1476,7 +1523,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
         product_image_height = 400
 
         blog_tag_max_length = 128
-        link_max_length = 1024
+        id_with_hashtag_max_size = 32
 
 
 R = Resources()

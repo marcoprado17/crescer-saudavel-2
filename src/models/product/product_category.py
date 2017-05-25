@@ -3,6 +3,8 @@
 # ======================================================================================================================
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from markupsafe import Markup
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
 from models.base import BaseModel
@@ -20,6 +22,9 @@ class ProductCategory(BaseModel):
     active = db.Column(db.Boolean, default=False, nullable=False)
     product_subcategories = relationship("ProductSubcategory", order_by=ProductSubcategory.name, back_populates="product_category")
     products = relationship("Product", order_by=Product.title, back_populates="category")
+    home_content_id = db.Column(db.Integer, ForeignKey("home_content.id"))
 
     def __repr__(self):
-        return self.name
+        s = ""
+        s += "<b><searchable>#%s</searchable></b> | <searchable>%s</searchable>" % (self.id, self.name)
+        return Markup(s)

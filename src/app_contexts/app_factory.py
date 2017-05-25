@@ -318,6 +318,8 @@ def create_app():
     from models.content.payment import Payment
     from models.content.contact import Contact
     from models_view.content.contact_view import ContactView
+    from models.content.home_content import HomeContent
+    from models_view.content.home_content_view import HomeContentView
 
     admin.init_app(app, index_view=MyAdminIndexView())
 
@@ -336,6 +338,7 @@ def create_app():
     admin.add_view(HeaderView(Header, db.session))
     admin.add_view(PaymentView(Payment, db.session))
     admin.add_view(ContactView(Contact, db.session))
+    admin.add_view(HomeContentView(HomeContent, db.session))
 
     from proj_extensions import babel
 
