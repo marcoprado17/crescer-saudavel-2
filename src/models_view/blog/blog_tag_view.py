@@ -3,16 +3,16 @@ from r import R
 
 
 class BlogTagView(ProjBaseView):
-
     name = R.string.blog_tags
     endpoint = R.string.blog_tags_endpoint
     category = R.string.blog
 
     can_delete = False
 
-    column_list = ['active', 'name']
+    column_editable_list = ['active', 'name']
     column_filters = ['active']
-    column_editable_list = ['active']
+    column_list = ['id', 'active', 'name']
+    column_sortable_list = ['id', 'active', 'name']
 
     form_args = dict(
         name=dict(
@@ -21,4 +21,5 @@ class BlogTagView(ProjBaseView):
             )
         ),
     )
+    form_columns = ['active', 'name']
     form_excluded_columns = ['blog_posts']

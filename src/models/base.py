@@ -13,23 +13,6 @@ class BaseModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     @classmethod
-    def create_from_form(cls, form, other_attrs=None):
-        attrs = cls.get_attrs_from_form(form=form)
-        if other_attrs != None and isinstance(other_attrs, dict):
-            for key, val in other_attrs.iteritems():
-                attrs[key] = val
-        model_elem = cls(
-            **attrs
-        )
-        db.session.add(model_elem)
-        db.session.commit()
-        return model_elem
-
-    @staticmethod
-    def get_attrs_from_form(form):
-        raise NotImplementedError
-
-    @classmethod
     def get_all(cls):
         return cls.query.all()
 
@@ -41,13 +24,7 @@ class BaseModel(db.Model):
     def get_last(cls):
         return cls.query.order_by(desc(cls.id)).first()
 
+    # noinspection PyShadowingBuiltins
     @classmethod
     def get(cls, id):
         return cls.query.filter_by(id=id).one_or_none()
-
-    def update_from_form(self, form):
-        attrs_dict = self.__class__.get_attrs_from_form(form)
-        for key, val in attrs_dict.iteritems():
-            setattr(self, key, val)
-        db.session.add(self)
-        db.session.commit()

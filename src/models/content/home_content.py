@@ -23,9 +23,7 @@ from models.associations import home_content_products_of_section_1_association_t
     home_content_blog_section_1_post_1_association_table, home_content_blog_section_1_post_2_association_table, \
     home_content_blog_section_2_post_1_association_table, home_content_blog_section_2_post_2_association_table, \
     home_content_blog_section_3_post_1_association_table, home_content_blog_section_3_post_2_association_table
-from models.blog.blog_post import BlogPost
 from models.content.base_content import BaseContent
-from models.product.product import Product
 from proj_extensions import db
 from r import R
 from configs import default_app_config as config
