@@ -30,6 +30,14 @@ th .tooltip {
   background-color: RGBA(0,0,0,0.9);
 }
 
+.select2-container.select2-allowclear.form-control {
+  height: auto !important;
+
+  a.select2-choice {
+    height: auto !important;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .markdown.modal {
     width: auto;

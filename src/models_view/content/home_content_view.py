@@ -79,6 +79,10 @@ class HomeContentView(BaseContentView):
         n = [int(s) for s in name.split('_') if s.isdigit()][0]
         return Markup("<img style='max-width: 256px;max-height: 256px;' src='%s'>" % model.get_carousel_n_img_src(n))
 
+    def _more_categories_image_formatter(view, context, model, name):
+        n = [int(s) for s in name.split('_') if s.isdigit()][0]
+        return Markup("<img style='max-width: 128px;max-height: 128px;' src='%s'>" % model.get_more_categories_n_img_src(n))
+
     name = R.string.home_content
     endpoint = R.string.home_content_endpoint
     category = R.string.content
@@ -90,8 +94,13 @@ class HomeContentView(BaseContentView):
     column_formatters = dict(
         carousel_1_image_filename=_carousel_image_formatter,
         carousel_2_image_filename=_carousel_image_formatter,
-        carousel_3_image_filename=_carousel_image_formatter
-
+        carousel_3_image_filename=_carousel_image_formatter,
+        more_categories_section_category_1_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_2_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_3_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_4_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_5_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_6_image_filename=_more_categories_image_formatter,
     )
 
     carousel_title_arg = dict(
@@ -273,7 +282,28 @@ class HomeContentView(BaseContentView):
             "more_categories_section_category_6",
             "more_categories_section_category_6_subcategories",
             "more_categories_section_category_6_image_filename", rules.HTML(R.string.more_categories_image_text)),
-            header=R.string.get_additional_categories(6))
+            header=R.string.get_additional_categories(6)),
+        rules.FieldSet((
+            "blog_section_1_active",
+            "blog_section_1_name",
+            "blog_section_1_link",
+            "blog_section_1_post_1",
+            "blog_section_1_post_2"),
+            header=R.string.get_blog_section_n(1)),
+        rules.FieldSet((
+            "blog_section_2_active",
+            "blog_section_2_name",
+            "blog_section_2_link",
+            "blog_section_2_post_1",
+            "blog_section_2_post_2"),
+            header=R.string.get_blog_section_n(2)),
+        rules.FieldSet((
+            "blog_section_3_active",
+            "blog_section_3_name",
+            "blog_section_3_link",
+            "blog_section_3_post_1",
+            "blog_section_3_post_2"),
+            header=R.string.get_blog_section_n(3))
     )
     form_extra_fields = dict(
         carousel_1_image_filename=build_image_upload_field_for_carousel_images(
@@ -303,6 +333,10 @@ class HomeContentView(BaseContentView):
         fields=["name", "id"],
         page_size=10
     )
+    blog_post_ajax_dic = dict(
+        fields=["title", "id"],
+        page_size=10
+    )
     form_ajax_refs = dict(
         products_of_section_1=product_section_ajax_dic,
         products_of_section_2=product_section_ajax_dic,
@@ -327,4 +361,10 @@ class HomeContentView(BaseContentView):
         more_categories_section_category_6=product_category_ajax_dic,
         more_categories_section_category_6_subcategories=QuerySubcategoriesForMoreCategoriesSection(
             'more_categories_section_category_6_subcategories'),
+        blog_section_1_post_1=blog_post_ajax_dic,
+        blog_section_1_post_2=blog_post_ajax_dic,
+        blog_section_2_post_1=blog_post_ajax_dic,
+        blog_section_2_post_2=blog_post_ajax_dic,
+        blog_section_3_post_1=blog_post_ajax_dic,
+        blog_section_3_post_2=blog_post_ajax_dic,
     )

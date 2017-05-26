@@ -133,3 +133,45 @@ home_content_more_categories_section_category_6_subcategories_association_table 
               Column('left_id', Integer, ForeignKey('home_content.id')),
               Column('right_id', Integer, ForeignKey('product_subcategory.id'))
               )
+
+home_content_blog_section_1_post_1_association_table = \
+    Table('home_content_blog_section_1_post_1_association',
+              db.Model.metadata,
+              Column('left_id', Integer, ForeignKey('home_content.id')),
+              Column('right_id', Integer, ForeignKey('blog_post.id'))
+              )
+
+home_content_blog_section_1_post_2_association_table = \
+    Table('home_content_blog_section_1_post_2_association',
+              db.Model.metadata,
+              Column('left_id', Integer, ForeignKey('home_content.id')),
+              Column('right_id', Integer, ForeignKey('blog_post.id'))
+              )
+
+home_content_blog_section_2_post_1_association_table = \
+    Table('home_content_blog_section_2_post_1_association',
+              db.Model.metadata,
+              Column('left_id', Integer, ForeignKey('home_content.id')),
+              Column('right_id', Integer, ForeignKey('blog_post.id'))
+              )
+
+home_content_blog_section_2_post_2_association_table = \
+    Table('home_content_blog_section_2_post_2_association',
+              db.Model.metadata,
+              Column('left_id', Integer, ForeignKey('home_content.id')),
+              Column('right_id', Integer, ForeignKey('blog_post.id'))
+              )
+
+home_content_blog_section_3_post_1_association_table = \
+    Table('home_content_blog_section_3_post_1_association',
+              db.Model.metadata,
+              Column('left_id', Integer, ForeignKey('home_content.id')),
+              Column('right_id', Integer, ForeignKey('blog_post.id'))
+              )
+
+home_content_blog_section_3_post_2_association_table = \
+    Table('home_content_blog_section_3_post_2_association',
+              db.Model.metadata,
+              Column('left_id', Integer, ForeignKey('home_content.id')),
+              Column('right_id', Integer, ForeignKey('blog_post.id'))
+              )

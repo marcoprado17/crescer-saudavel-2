@@ -5,6 +5,7 @@
 # ======================================================================================================================
 from os.path import isfile, join
 
+from markupsafe import Markup
 from sqlalchemy.orm import relationship
 
 from configs import default_app_config as config
@@ -32,6 +33,16 @@ class BlogPost(BaseModel):
     content_markdown = db.Column(db.UnicodeText, nullable=False, default="")
     content_html = db.Column(db.UnicodeText, nullable=False, default="")
     tags = relationship("BlogTag", secondary=blog_post_and_blog_tag_association_table, back_populates="blog_posts")
+
+    def __repr__(self):
+        s = ""
+        s += "<table>"
+        s += "<tr>"
+        s += "<td style='vertical-align: top;'><img src='%s' style='max-width: 96px;'></td>"
+        s += "<td style='padding-left: 4px;'><b><searchable>#%s</searchable></b><br><searchable>%s</searchable></td>"
+        s += "</tr>"
+        s += "</table>"
+        return Markup(s % (self.get_thumbnail_src(), self.id, self.title))
 
     def get_thumbnail_src(self):
         if self.thumbnail_filename is not None and isfile(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, self.thumbnail_filename)):

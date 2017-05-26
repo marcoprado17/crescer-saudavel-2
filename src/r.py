@@ -132,6 +132,21 @@ class Resources(object):
             more_categories_section_category_6="Categoria 6 da seção 'Mais para você'",
             more_categories_section_category_6_image_filename="Imagem da categoria 6 da seção 'Mais para você'",
             more_categories_section_category_6_subcategories="Subcategorias da categoria 6 da seção 'Mais para você'",
+            blog_section_1_active="Seção 1 do blog ativa",
+            blog_section_1_name="Nome da seção 1 de blog",
+            blog_section_1_link="Link da seção 1 de blog",
+            blog_section_1_post_1="Post 1 da seção 1 de blog",
+            blog_section_1_post_2="Post 2 da seção 1 de blog",
+            blog_section_2_active="Seção 2 do blog ativa",
+            blog_section_2_name="Nome da seção 2 de blog",
+            blog_section_2_link="Link da seção 2 de blog",
+            blog_section_2_post_1="Post 1 da seção 2 de blog",
+            blog_section_2_post_2="Post 2 da seção 2 de blog",
+            blog_section_3_active="Seção 3 do blog ativa",
+            blog_section_3_name="Nome da seção 3 de blog",
+            blog_section_3_link="Link da seção 3 de blog",
+            blog_section_3_post_1="Post 1 da seção 3 de blog",
+            blog_section_3_post_2="Post 2 da seção 3 de blog",
         )
 
     # noinspection PyPep8Naming
@@ -176,6 +191,7 @@ class Resources(object):
         inner_link_example = "Ex.: /produtos/?category_id=1"
         blog_thumbnail_default_filename = "blog_thumbnail_default.jpg"
         carousel_default_filename = "carousel_default.jpg"
+        more_categories_default_filename = "more_categories_default.jpg"
         unavailable_product_at_moment = "Produto indisponível no momento."
         product_image = "Imagem do produto"
         product_images = "Imagens dos produtos"
