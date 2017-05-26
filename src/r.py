@@ -116,7 +116,22 @@ class Resources(object):
             products_of_section_5="Produtos da seção 5",
             more_categories_section_category_1="Categoria 1 da seção 'Mais para você'",
             more_categories_section_category_1_image_filename="Imagem da categoria 1 da seção 'Mais para você'",
-            more_categories_section_category_1_subcategories="Subcategorias da categoria 1 da seção 'Mais para você'"
+            more_categories_section_category_1_subcategories="Subcategorias da categoria 1 da seção 'Mais para você'",
+            more_categories_section_category_2="Categoria 2 da seção 'Mais para você'",
+            more_categories_section_category_2_image_filename="Imagem da categoria 2 da seção 'Mais para você'",
+            more_categories_section_category_2_subcategories="Subcategorias da categoria 2 da seção 'Mais para você'",
+            more_categories_section_category_3="Categoria 3 da seção 'Mais para você'",
+            more_categories_section_category_3_image_filename="Imagem da categoria 3 da seção 'Mais para você'",
+            more_categories_section_category_3_subcategories="Subcategorias da categoria 3 da seção 'Mais para você'",
+            more_categories_section_category_4="Categoria 4 da seção 'Mais para você'",
+            more_categories_section_category_4_image_filename="Imagem da categoria 4 da seção 'Mais para você'",
+            more_categories_section_category_4_subcategories="Subcategorias da categoria 4 da seção 'Mais para você'",
+            more_categories_section_category_5="Categoria 5 da seção 'Mais para você'",
+            more_categories_section_category_5_image_filename="Imagem da categoria 5 da seção 'Mais para você'",
+            more_categories_section_category_5_subcategories="Subcategorias da categoria 5 da seção 'Mais para você'",
+            more_categories_section_category_6="Categoria 6 da seção 'Mais para você'",
+            more_categories_section_category_6_image_filename="Imagem da categoria 6 da seção 'Mais para você'",
+            more_categories_section_category_6_subcategories="Subcategorias da categoria 6 da seção 'Mais para você'",
         )
 
     # noinspection PyPep8Naming
@@ -155,7 +170,7 @@ class Resources(object):
         product_images_text = "Tamanho ideal das imagens de produto: 600 x 600.<br><br>"
         blog_thumbnail_text = "Tamanho ideal das thumbnails do blog: 900 x 500.<br><br>"
         carousel_image_text = "Tamanho ideal das imagens do carrossel: 2560 x 500."
-        more_categories_image_text = "Tamanho ideal das imagens: 512 x 512."
+        more_categories_image_text = "Tamanho ideal da imagem: 512 x 512."
         post_thumbnail = "Thumbnail do post"
         order_by = "Ordenar por: "
         inner_link_example = "Ex.: /produtos/?category_id=1"

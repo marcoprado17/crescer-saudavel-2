@@ -4,12 +4,12 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
-
 from markupsafe import Markup
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-
-# from models.associations import home_content_and_product_association_of_section_1_table
+from models.associations import home_content_products_of_section_1_association_table, \
+    home_content_products_of_section_2_association_table, home_content_products_of_section_3_association_table, \
+    home_content_products_of_section_5_association_table, home_content_products_of_section_4_association_table
 from models.base import BaseModel
 from proj_extensions import db
 from r import R
@@ -87,13 +87,27 @@ class Product(BaseModel):
     tab_5_content_markdown = db.Column(db.UnicodeText, default="", nullable=False)
     tab_5_content_html = db.Column(db.UnicodeText, default="", nullable=False)
 
-    home_content_id = db.Column(db.Integer, ForeignKey("home_content.id"))
+    home_content_products_of_section_1 = relationship("HomeContent",
+                                                      secondary=home_content_products_of_section_1_association_table,
+                                                      back_populates="products_of_section_1")
+    home_content_products_of_section_2 = relationship("HomeContent",
+                                                      secondary=home_content_products_of_section_2_association_table,
+                                                      back_populates="products_of_section_2")
+    home_content_products_of_section_3 = relationship("HomeContent",
+                                                      secondary=home_content_products_of_section_3_association_table,
+                                                      back_populates="products_of_section_3")
+    home_content_products_of_section_4 = relationship("HomeContent",
+                                                      secondary=home_content_products_of_section_4_association_table,
+                                                      back_populates="products_of_section_4")
+    home_content_products_of_section_5 = relationship("HomeContent",
+                                                      secondary=home_content_products_of_section_5_association_table,
+                                                      back_populates="products_of_section_5")
 
     def __repr__(self):
         s = ""
         s += "<table>"
         s += "<tr>"
-        s += "<td style='width: 48px; vertical-align: top;'><img src='%s'></td>"
+        s += "<td style='vertical-align: top;'><img src='%s' style='max-width: 48px;'></td>"
         s += "<td style='padding-left: 4px;'><b><searchable>#%s</searchable></b><br><searchable>%s</searchable></td>"
         s += "</tr>"
         s += "</table>"
@@ -115,7 +129,8 @@ class Product(BaseModel):
 
     @staticmethod
     def calculate_price_with_discount(price, discount_percentage):
-        return (price * Decimal(str((100.0 - clamp_integer(discount_percentage, 0, 100)) / 100.0))).quantize(Decimal("0.01"))
+        return (price * Decimal(str((100.0 - clamp_integer(discount_percentage, 0, 100)) / 100.0))).quantize(
+            Decimal("0.01"))
 
     def get_n_units_available(self):
         if self.stock is not None and self.reserved is not None:

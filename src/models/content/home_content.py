@@ -4,9 +4,22 @@
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from os.path import isfile, join
-
-from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
+from models.associations import home_content_products_of_section_1_association_table, \
+    home_content_products_of_section_2_association_table, home_content_products_of_section_3_association_table, \
+    home_content_products_of_section_4_association_table, home_content_products_of_section_5_association_table, \
+    home_content_more_categories_section_category_1_association_table, \
+    home_content_more_categories_section_category_2_association_table, \
+    home_content_more_categories_section_category_3_association_table, \
+    home_content_more_categories_section_category_4_association_table, \
+    home_content_more_categories_section_category_5_association_table, \
+    home_content_more_categories_section_category_6_association_table, \
+    home_content_more_categories_section_category_1_subcategories_association_table, \
+    home_content_more_categories_section_category_2_subcategories_association_table, \
+    home_content_more_categories_section_category_3_subcategories_association_table, \
+    home_content_more_categories_section_category_4_subcategories_association_table, \
+    home_content_more_categories_section_category_5_subcategories_association_table, \
+    home_content_more_categories_section_category_6_subcategories_association_table
 from models.blog.blog_post import BlogPost
 from models.content.base_content import BaseContent
 from models.product.product import Product
@@ -39,72 +52,93 @@ class HomeContent(BaseContent):
     product_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_1_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_1_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_1 = relationship("Product")
+    products_of_section_1 = relationship("Product", secondary=home_content_products_of_section_1_association_table,
+                                         back_populates="home_content_products_of_section_1")
 
     product_section_2_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_2_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_2_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_2 = relationship("Product")
+    products_of_section_2 = relationship("Product", secondary=home_content_products_of_section_2_association_table,
+                                         back_populates="home_content_products_of_section_2")
 
     product_section_3_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_3_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_3_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_3 = relationship("Product")
+    products_of_section_3 = relationship("Product", secondary=home_content_products_of_section_3_association_table,
+                                         back_populates="home_content_products_of_section_3")
 
     product_section_4_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_4_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_4_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_4 = relationship("Product")
+    products_of_section_4 = relationship("Product", secondary=home_content_products_of_section_4_association_table,
+                                         back_populates="home_content_products_of_section_4")
 
     product_section_5_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_5_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_5_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_5 = relationship("Product")
+    products_of_section_5 = relationship("Product", secondary=home_content_products_of_section_5_association_table,
+                                         back_populates="home_content_products_of_section_5")
 
-    more_categories_section_category_1 = relationship("ProductCategory", uselist=False)
+    more_categories_section_category_1 = \
+        relationship("ProductCategory", uselist=False,
+                     secondary=home_content_more_categories_section_category_1_association_table,
+                     back_populates="home_content_more_categories_section_category_1")
     more_categories_section_category_1_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
-    more_categories_section_category_1_subcategories = relationship("ProductSubcategory")
+    more_categories_section_category_1_subcategories = \
+        relationship("ProductSubcategory",
+                     secondary=home_content_more_categories_section_category_1_subcategories_association_table,
+                     back_populates="home_content_more_categories_section_category_1_subcategories")
 
-    # more_categories_section_category_2_id = db.Column(db.Integer, ForeignKey("product_category.id"))
-    # more_categories_section_category_2_image = db.Column(db.Text)
-    # more_categories_section_subcategory_1_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_2_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_3_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_4_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_5_of_category_2_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    #
-    # more_categories_section_category_3_id = db.Column(db.Integer, ForeignKey("product_category.id"))
-    # more_categories_section_category_3_image = db.Column(db.Text)
-    # more_categories_section_subcategory_1_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_2_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_3_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_4_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_5_of_category_3_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    #
-    # more_categories_section_category_4_id = db.Column(db.Integer, ForeignKey("product_category.id"))
-    # more_categories_section_category_4_image = db.Column(db.Text)
-    # more_categories_section_subcategory_1_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_2_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_3_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_4_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_5_of_category_4_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    #
-    # more_categories_section_category_5_id = db.Column(db.Integer, ForeignKey("product_category.id"))
-    # more_categories_section_category_5_image = db.Column(db.Text)
-    # more_categories_section_subcategory_1_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_2_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_3_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_4_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_5_of_category_5_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    #
-    # more_categories_section_category_6_id = db.Column(db.Integer, ForeignKey("product_category.id"))
-    # more_categories_section_category_6_image = db.Column(db.Text)
-    # more_categories_section_subcategory_1_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_2_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_3_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_4_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    # more_categories_section_subcategory_5_of_category_6_id = db.Column(db.Integer, ForeignKey("product_subcategory.id"))
-    #
+    more_categories_section_category_2 = \
+        relationship("ProductCategory", uselist=False,
+                     secondary=home_content_more_categories_section_category_2_association_table,
+                     back_populates="home_content_more_categories_section_category_2")
+    more_categories_section_category_2_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+    more_categories_section_category_2_subcategories = \
+        relationship("ProductSubcategory",
+                     secondary=home_content_more_categories_section_category_2_subcategories_association_table,
+                     back_populates="home_content_more_categories_section_category_2_subcategories")
+
+    more_categories_section_category_3 = \
+        relationship("ProductCategory", uselist=False,
+                     secondary=home_content_more_categories_section_category_3_association_table,
+                     back_populates="home_content_more_categories_section_category_3")
+    more_categories_section_category_3_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+    more_categories_section_category_3_subcategories = \
+        relationship("ProductSubcategory",
+                     secondary=home_content_more_categories_section_category_3_subcategories_association_table,
+                     back_populates="home_content_more_categories_section_category_3_subcategories")
+
+    more_categories_section_category_4 = \
+        relationship("ProductCategory", uselist=False,
+                     secondary=home_content_more_categories_section_category_4_association_table,
+                     back_populates="home_content_more_categories_section_category_4")
+    more_categories_section_category_4_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+    more_categories_section_category_4_subcategories = \
+        relationship("ProductSubcategory",
+                     secondary=home_content_more_categories_section_category_4_subcategories_association_table,
+                     back_populates="home_content_more_categories_section_category_4_subcategories")
+
+    more_categories_section_category_5 = \
+        relationship("ProductCategory", uselist=False,
+                     secondary=home_content_more_categories_section_category_5_association_table,
+                     back_populates="home_content_more_categories_section_category_5")
+    more_categories_section_category_5_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+    more_categories_section_category_5_subcategories = \
+        relationship("ProductSubcategory",
+                     secondary=home_content_more_categories_section_category_5_subcategories_association_table,
+                     back_populates="home_content_more_categories_section_category_5_subcategories")
+
+    more_categories_section_category_6 = \
+        relationship("ProductCategory", uselist=False,
+                     secondary=home_content_more_categories_section_category_6_association_table,
+                     back_populates="home_content_more_categories_section_category_6")
+    more_categories_section_category_6_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+    more_categories_section_category_6_subcategories = \
+        relationship("ProductSubcategory",
+                     secondary=home_content_more_categories_section_category_6_subcategories_association_table,
+                     back_populates="home_content_more_categories_section_category_6_subcategories")
+
     # blog_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
     # blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
     # blog_section_1_link = db.Column(db.String(R.dimen.link_max_length), default="", nullable=False)
@@ -128,7 +162,8 @@ class HomeContent(BaseContent):
 
     def get_carousel_n_img_src(self, n):
         carousel_n_image_filename = self.get_carousel_n_image_filename(n)
-        if carousel_n_image_filename is not None and isfile(join(config.CAROUSEL_IMAGES_FULL_PATH, carousel_n_image_filename)):
+        if carousel_n_image_filename is not None and isfile(
+                join(config.CAROUSEL_IMAGES_FULL_PATH, carousel_n_image_filename)):
             return join("/", config.CAROUSEL_IMAGES_FROM_STATIC_PATH, carousel_n_image_filename)
         else:
             return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.carousel_default_filename)
@@ -155,7 +190,8 @@ class HomeContent(BaseContent):
         return getattr(self, "product_section_" + str(section_number) + "_product_" + str(product_number) + "_id", 0)
 
     def get_blog_post_of_section(self, section_number, blog_post_number):
-        return BlogPost.get(self.get_blog_post_id_of_section(section_number=section_number, blog_post_number=blog_post_number))
+        return BlogPost.get(
+            self.get_blog_post_id_of_section(section_number=section_number, blog_post_number=blog_post_number))
 
     def get_blog_post_id_of_section(self, section_number, blog_post_number):
         return getattr(self, "blog_section_" + str(section_number) + "_post_" + str(blog_post_number) + "_id", 0)
