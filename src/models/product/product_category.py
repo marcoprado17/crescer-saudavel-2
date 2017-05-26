@@ -5,12 +5,6 @@
 # ======================================================================================================================
 from markupsafe import Markup
 from sqlalchemy.orm import relationship
-from models.associations import home_content_more_categories_section_category_1_association_table, \
-    home_content_more_categories_section_category_2_association_table, \
-    home_content_more_categories_section_category_3_association_table, \
-    home_content_more_categories_section_category_4_association_table, \
-    home_content_more_categories_section_category_5_association_table, \
-    home_content_more_categories_section_category_6_association_table
 from models.base import BaseModel
 from models.product.product import Product
 from models.product.product_subcategory import ProductSubcategory
@@ -29,6 +23,4 @@ class ProductCategory(BaseModel):
     products = relationship("Product", order_by=Product.title, back_populates="category")
 
     def __repr__(self):
-        s = ""
-        s += "<b><searchable>#%s</searchable></b> | <searchable>%s</searchable>" % (self.id, self.name)
-        return Markup(s)
+        return Markup("<b><searchable>#%s</searchable></b> | <searchable>%s</searchable>" % (self.id, self.name))

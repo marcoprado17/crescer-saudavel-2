@@ -10,16 +10,18 @@ class ProductCategoryView(ProjBaseView):
 
     can_delete = False
 
-    column_list = ['active', 'name', 'priority']
-    column_filters = ['active']
-    column_editable_list = ['name', 'priority', 'active']
     column_descriptions = dict(
         priority=R.string.product_category_priority_tooltip
     )
+    column_editable_list = ["name", "priority", "active"]
+    column_filters = ["active"]
+    column_list = ["id", "active", "name", "priority"]
+    column_sortable_list = ["id", "active", "name", "priority"]
 
-    form_excluded_columns = ['product_subcategories', 'products']
     form_args = dict(
         priority=dict(
             validators=[Required()]
         )
     )
+    form_columns = ["active", "name", "priority"]
+    form_excluded_columns = ["product_subcategories", "products"]
