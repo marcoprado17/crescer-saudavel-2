@@ -87,22 +87,6 @@ class Product(BaseModel):
     tab_5_content_markdown = db.Column(db.UnicodeText, default="", nullable=False)
     tab_5_content_html = db.Column(db.UnicodeText, default="", nullable=False)
 
-    home_content_products_of_section_1 = relationship("HomeContent",
-                                                      secondary=home_content_products_of_section_1_association_table,
-                                                      back_populates="products_of_section_1")
-    home_content_products_of_section_2 = relationship("HomeContent",
-                                                      secondary=home_content_products_of_section_2_association_table,
-                                                      back_populates="products_of_section_2")
-    home_content_products_of_section_3 = relationship("HomeContent",
-                                                      secondary=home_content_products_of_section_3_association_table,
-                                                      back_populates="products_of_section_3")
-    home_content_products_of_section_4 = relationship("HomeContent",
-                                                      secondary=home_content_products_of_section_4_association_table,
-                                                      back_populates="products_of_section_4")
-    home_content_products_of_section_5 = relationship("HomeContent",
-                                                      secondary=home_content_products_of_section_5_association_table,
-                                                      back_populates="products_of_section_5")
-
     def __repr__(self):
         s = ""
         s += "<table>"

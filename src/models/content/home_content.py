@@ -55,92 +55,75 @@ class HomeContent(BaseContent):
     product_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_1_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_1_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_1 = relationship("Product", secondary=home_content_products_of_section_1_association_table,
-                                         back_populates="home_content_products_of_section_1")
+    products_of_section_1 = relationship("Product", secondary=home_content_products_of_section_1_association_table)
 
     product_section_2_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_2_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_2_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_2 = relationship("Product", secondary=home_content_products_of_section_2_association_table,
-                                         back_populates="home_content_products_of_section_2")
+    products_of_section_2 = relationship("Product", secondary=home_content_products_of_section_2_association_table)
 
     product_section_3_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_3_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_3_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_3 = relationship("Product", secondary=home_content_products_of_section_3_association_table,
-                                         back_populates="home_content_products_of_section_3")
+    products_of_section_3 = relationship("Product", secondary=home_content_products_of_section_3_association_table)
 
     product_section_4_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_4_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_4_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_4 = relationship("Product", secondary=home_content_products_of_section_4_association_table,
-                                         back_populates="home_content_products_of_section_4")
+    products_of_section_4 = relationship("Product", secondary=home_content_products_of_section_4_association_table)
 
     product_section_5_active = db.Column(db.Boolean, default=False, nullable=False)
     product_section_5_name = db.Column(db.String(R.dimen.product_section_name_max_length), default="", nullable=False)
     product_section_5_link = db.Column(db.String(R.dimen.link_max_length))
-    products_of_section_5 = relationship("Product", secondary=home_content_products_of_section_5_association_table,
-                                         back_populates="home_content_products_of_section_5")
+    products_of_section_5 = relationship("Product", secondary=home_content_products_of_section_5_association_table)
 
     more_categories_section_category_1 = \
         relationship("ProductCategory", uselist=False,
-                     secondary=home_content_more_categories_section_category_1_association_table,
-                     back_populates="home_content_more_categories_section_category_1")
+                     secondary=home_content_more_categories_section_category_1_association_table)
     more_categories_section_category_1_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     more_categories_section_category_1_subcategories = \
         relationship("ProductSubcategory",
-                     secondary=home_content_more_categories_section_category_1_subcategories_association_table,
-                     back_populates="home_content_more_categories_section_category_1_subcategories")
+                     secondary=home_content_more_categories_section_category_1_subcategories_association_table)
 
     more_categories_section_category_2 = \
         relationship("ProductCategory", uselist=False,
-                     secondary=home_content_more_categories_section_category_2_association_table,
-                     back_populates="home_content_more_categories_section_category_2")
+                     secondary=home_content_more_categories_section_category_2_association_table)
     more_categories_section_category_2_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     more_categories_section_category_2_subcategories = \
         relationship("ProductSubcategory",
-                     secondary=home_content_more_categories_section_category_2_subcategories_association_table,
-                     back_populates="home_content_more_categories_section_category_2_subcategories")
+                     secondary=home_content_more_categories_section_category_2_subcategories_association_table)
 
     more_categories_section_category_3 = \
         relationship("ProductCategory", uselist=False,
-                     secondary=home_content_more_categories_section_category_3_association_table,
-                     back_populates="home_content_more_categories_section_category_3")
+                     secondary=home_content_more_categories_section_category_3_association_table)
     more_categories_section_category_3_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     more_categories_section_category_3_subcategories = \
         relationship("ProductSubcategory",
-                     secondary=home_content_more_categories_section_category_3_subcategories_association_table,
-                     back_populates="home_content_more_categories_section_category_3_subcategories")
+                     secondary=home_content_more_categories_section_category_3_subcategories_association_table)
 
     more_categories_section_category_4 = \
         relationship("ProductCategory", uselist=False,
-                     secondary=home_content_more_categories_section_category_4_association_table,
-                     back_populates="home_content_more_categories_section_category_4")
+                     secondary=home_content_more_categories_section_category_4_association_table)
     more_categories_section_category_4_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     more_categories_section_category_4_subcategories = \
         relationship("ProductSubcategory",
-                     secondary=home_content_more_categories_section_category_4_subcategories_association_table,
-                     back_populates="home_content_more_categories_section_category_4_subcategories")
+                     secondary=home_content_more_categories_section_category_4_subcategories_association_table)
 
     more_categories_section_category_5 = \
         relationship("ProductCategory", uselist=False,
-                     secondary=home_content_more_categories_section_category_5_association_table,
-                     back_populates="home_content_more_categories_section_category_5")
+                     secondary=home_content_more_categories_section_category_5_association_table)
     more_categories_section_category_5_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     more_categories_section_category_5_subcategories = \
         relationship("ProductSubcategory",
-                     secondary=home_content_more_categories_section_category_5_subcategories_association_table,
-                     back_populates="home_content_more_categories_section_category_5_subcategories")
+                     secondary=home_content_more_categories_section_category_5_subcategories_association_table)
 
     more_categories_section_category_6 = \
         relationship("ProductCategory", uselist=False,
-                     secondary=home_content_more_categories_section_category_6_association_table,
-                     back_populates="home_content_more_categories_section_category_6")
+                     secondary=home_content_more_categories_section_category_6_association_table)
     more_categories_section_category_6_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     more_categories_section_category_6_subcategories = \
         relationship("ProductSubcategory",
-                     secondary=home_content_more_categories_section_category_6_subcategories_association_table,
-                     back_populates="home_content_more_categories_section_category_6_subcategories")
+                     secondary=home_content_more_categories_section_category_6_subcategories_association_table)
 
     blog_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
     blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
@@ -209,15 +192,5 @@ class HomeContent(BaseContent):
     def get_blog_section_title(self, section_number):
         return getattr(self, "blog_section_" + str(section_number) + "_name", "")
 
-    def get_product_of_section(self, section_number, product_number):
-        return Product.get(self.get_product_id_of_section(section_number=section_number, product_number=product_number))
-
-    def get_product_id_of_section(self, section_number, product_number):
-        return getattr(self, "product_section_" + str(section_number) + "_product_" + str(product_number) + "_id", 0)
-
     def get_blog_post_of_section(self, section_number, blog_post_number):
-        return BlogPost.get(
-            self.get_blog_post_id_of_section(section_number=section_number, blog_post_number=blog_post_number))
-
-    def get_blog_post_id_of_section(self, section_number, blog_post_number):
-        return getattr(self, "blog_section_" + str(section_number) + "_post_" + str(blog_post_number) + "_id", 0)
+        return getattr(self, "blog_section_" + str(section_number) + "_post_" + str(blog_post_number))

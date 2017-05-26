@@ -28,31 +28,6 @@ class ProductSubcategory(BaseModel):
     product_category = relationship("ProductCategory", back_populates="product_subcategories")
     products = relationship("Product", order_by=Product.title, back_populates="subcategory")
 
-    home_content_more_categories_section_category_1_subcategories = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_1_subcategories_association_table,
-                     back_populates="more_categories_section_category_1_subcategories")
-    home_content_more_categories_section_category_2_subcategories = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_2_subcategories_association_table,
-                     back_populates="more_categories_section_category_2_subcategories")
-    home_content_more_categories_section_category_3_subcategories = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_3_subcategories_association_table,
-                     back_populates="more_categories_section_category_3_subcategories")
-    home_content_more_categories_section_category_4_subcategories = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_4_subcategories_association_table,
-                     back_populates="more_categories_section_category_4_subcategories")
-    home_content_more_categories_section_category_5_subcategories = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_5_subcategories_association_table,
-                     back_populates="more_categories_section_category_5_subcategories")
-    home_content_more_categories_section_category_6_subcategories = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_6_subcategories_association_table,
-                     back_populates="more_categories_section_category_6_subcategories")
-
     def __repr__(self):
         s = ""
         s += "<b><searchable>#%s</searchable></b> | <searchable>%s</searchable>" % (self.id, self.name)

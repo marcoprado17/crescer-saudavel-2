@@ -28,31 +28,6 @@ class ProductCategory(BaseModel):
                                          back_populates="product_category")
     products = relationship("Product", order_by=Product.title, back_populates="category")
 
-    home_content_more_categories_section_category_1 = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_1_association_table,
-                     back_populates="more_categories_section_category_1")
-    home_content_more_categories_section_category_2 = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_2_association_table,
-                     back_populates="more_categories_section_category_2")
-    home_content_more_categories_section_category_3 = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_3_association_table,
-                     back_populates="more_categories_section_category_3")
-    home_content_more_categories_section_category_4 = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_4_association_table,
-                     back_populates="more_categories_section_category_4")
-    home_content_more_categories_section_category_5 = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_5_association_table,
-                     back_populates="more_categories_section_category_5")
-    home_content_more_categories_section_category_6 = \
-        relationship("HomeContent",
-                     secondary=home_content_more_categories_section_category_6_association_table,
-                     back_populates="more_categories_section_category_6")
-
     def __repr__(self):
         s = ""
         s += "<b><searchable>#%s</searchable></b> | <searchable>%s</searchable>" % (self.id, self.name)
