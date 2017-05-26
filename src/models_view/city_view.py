@@ -8,6 +8,6 @@ class CityView(ProjBaseView):
 
     can_delete = False
 
-    column_list = ['active', 'state', 'name']
-    column_filters = ['active', 'state']
-    column_editable_list = ['name', 'state', 'active']
+    column_editable_list = ["name", "state", "active"]
+    column_filters = ["active", "state"]
+    column_list = ["active", "state", "name"]
