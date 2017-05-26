@@ -90,7 +90,7 @@ class HomeContentView(BaseContentView):
     can_delete = False
     can_view_details = True
 
-    column_list = ["carousel_1_image_filename"]
+    column_list = ["carousel_1_active", "carousel_1_title", "product_section_1_active", "product_section_1_name", "blog_section_1_active", "blog_section_1_name"]
     column_formatters = dict(
         carousel_1_image_filename=_carousel_image_formatter,
         carousel_2_image_filename=_carousel_image_formatter,
