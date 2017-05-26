@@ -11,7 +11,12 @@ from sqlalchemy import desc
 from sqlalchemy.sql.elements import UnaryExpression
 from PIL import Image
 from proj_exceptions import InvalidSortMapError
+from werkzeug.utils import secure_filename
 from r import R
+from flask_admin import form
+from configs import default_app_config as config
+from os.path import join, splitext
+from uuid import uuid4
 
 
 def get_image_choices(include_none=False):
@@ -126,3 +131,18 @@ def create_blog_thumbnail_image(file_path, file_name):
         image = image.crop(
             ((new_width - 900) / 2, (new_height - 500) / 2, (new_width + 900) / 2, (new_height + 500) / 2))
         image.save(os.path.join(os.path.join(blog_thumbnails_folder_path, file_name)))
+
+
+def build_image_upload_field(label, full_path, folder, width, height):
+    def namegen(_, file_data):
+        extension = splitext(file_data.filename)[-1]
+        return secure_filename(str(uuid4()) + extension)
+
+    return form.ImageUploadField(label,
+                                 namegen=namegen,
+                                 base_path=full_path,
+                                 size=(width, height),
+                                 url_relative_path=join(
+                                     config.IMAGES_FOLDER,
+                                     folder,
+                                     folder))

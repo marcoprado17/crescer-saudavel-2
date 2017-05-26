@@ -38,6 +38,10 @@ th .tooltip {
   }
 }
 
+.select2-container.select2-container-multi.form-control {
+  width: auto !important;
+}
+
 @media screen and (min-width: 768px) {
   .markdown.modal {
     width: auto;

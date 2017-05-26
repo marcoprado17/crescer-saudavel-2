@@ -9,10 +9,10 @@ class BlogTagView(ProjBaseView):
 
     can_delete = False
 
-    column_editable_list = ['active', 'name']
-    column_filters = ['active']
-    column_list = ['id', 'active', 'name']
-    column_sortable_list = ['id', 'active', 'name']
+    column_editable_list = ["active", "name"]
+    column_filters = ["active"]
+    column_list = ["id", "active", "name"]
+    column_sortable_list = ["id", "active", "name"]
 
     form_args = dict(
         name=dict(
@@ -21,5 +21,5 @@ class BlogTagView(ProjBaseView):
             )
         ),
     )
-    form_columns = ['active', 'name']
-    form_excluded_columns = ['blog_posts']
+    form_columns = ["active", "name"]
+    form_excluded_columns = ["blog_posts"]

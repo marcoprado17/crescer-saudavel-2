@@ -4,10 +4,8 @@
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from os.path import isfile, join
-
 from markupsafe import Markup
 from sqlalchemy.orm import relationship
-
 from configs import default_app_config as config
 from models.associations import blog_post_and_blog_tag_association_table
 from models.base import BaseModel
@@ -35,20 +33,24 @@ class BlogPost(BaseModel):
     tags = relationship("BlogTag", secondary=blog_post_and_blog_tag_association_table, back_populates="blog_posts")
 
     def __repr__(self):
-        s = ""
-        s += "<table>"
-        s += "<tr>"
-        s += "<td style='vertical-align: top;'><img src='%s' style='max-width: 96px;'></td>"
-        s += "<td style='padding-left: 4px;'><b><searchable>#%s</searchable></b><br><searchable>%s</searchable></td>"
-        s += "</tr>"
-        s += "</table>"
-        return Markup(s % (self.get_thumbnail_src(), self.id, self.title))
+        html = [
+            "<table>",
+            "   <tr>",
+            "       <td style='vertical-align: top;'><img src='%s' style='max-width: 96px;'></td>",
+            "       <td style='padding-left: 4px;'>",
+            "           <b><searchable>#%s</searchable></b><br><searchable>%s</searchable>",
+            "       </td>",
+            "   <tr>",
+            "</table>"
+        ]
+        return Markup(''.join(html) % (self.get_thumbnail_src(), self.id, self.title))
 
     def get_thumbnail_src(self):
-        if self.thumbnail_filename is not None and isfile(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, self.thumbnail_filename)):
+        if (self.thumbnail_filename is not None) and \
+                isfile(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, self.thumbnail_filename)):
             return join("/", config.BLOG_THUMBNAIL_IMAGES_FROM_STATIC_PATH, self.thumbnail_filename)
         else:
             return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.blog_thumbnail_default_filename)
 
     def get_href(self):
-        return None
+        raise NotImplementedError

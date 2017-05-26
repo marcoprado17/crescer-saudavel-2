@@ -35,26 +35,37 @@
         </div>
     </div>
 
-    <div class="control-group">
-        {{ label(field=field) }}
-        <div class="controls">
+    <div class="form-group{{ ' has-error' if (field.errors and field.errors|length > 0) else '' }}">
+        <label for="{{ field.id }}" class="col-md-2 control-label">{{ field.label.text }}
+            {% if field.flags.required %}
+                <strong style="color: red">&#42;</strong>
+            {%- else -%}
+                &nbsp;
+            {%- endif %}
+        </label>
+        <div class="col-md-10">
             <div>
-                <textarea id="{{ field.id }}" name="{{ field.name }}" class="markdown"
-                          rows="5">{{ field.data|if(field.data or field.data==0) }}</textarea>
+                <textarea id="{{ field.id }}" name="{{ field.name }}" class="markdown form-control"
+                          rows="5" style="resize: vertical;">
+                    {{ field.data|if(field.data or field.data==0) }}
+                </textarea>
             </div>
-            {% if field.errors and field.errors|length > 0 %}
-                <ul class="input-errors">
-                    {% for error in field.errors %}
-                        <li>{{ error }}</li>
+            {% if field.description %}
+                <p class="help-block">{{ field.description|safe }}</p>
+            {% endif %}
+            {% if (field.errors and field.errors|length > 0) %}
+                <ul class="help-block input-errors">
+                    {% for e in field.errors if e is string %}
+                        <li>{{ e }}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
             <div class="markdown-buttons-container">
                 {% if field.render_kw and "example" in field.render_kw %}
-                    <button type="button" class="btn markdown example" data-toggle="modal"
+                    <button type="button" class="btn btn-default markdown example" data-toggle="modal"
                             data-target="#example-modal-{{ field.id }}">{{ R.string.example }}</button>
                 {% endif %}
-                <button type="button" class="btn markdown preview" data-toggle="modal"
+                <button type="button" class="btn btn-default markdown preview" data-toggle="modal"
                         data-url="{{ url_for('admin_proj.markdown_parse') }}"
                         data-target="#preview-modal-{{ field.id }}" data-textarea="#{{ field.id }}"
                         data-loading-message="{{ R.string.loading }}"

@@ -147,6 +147,7 @@ class Resources(object):
             blog_section_3_link="Link da seção 3 de blog",
             blog_section_3_post_1="Post 1 da seção 3 de blog",
             blog_section_3_post_2="Post 2 da seção 3 de blog",
+            thumbnail_image="Imagem da thumbnail"
         )
 
     # noinspection PyPep8Naming
@@ -701,6 +702,7 @@ class Resources(object):
         other = "Outro"
         filename_already_exist = "Um arquivo com o mesmo nome já existe."
         blog_thumbnail_images = "Imagens das thumbnails do blog"
+        blog_thumbnail_image = "Imagem da thumbnail"
         blog_thumbnail_images_endpoint = "imagens-das-thumbnails-do-blog"
         product_subcategories_endpoint = "subcategorias-de-produto"
         product_categories_endpoint = "categorias-de-produto"
