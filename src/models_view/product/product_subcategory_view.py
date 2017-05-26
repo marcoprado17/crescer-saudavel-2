@@ -9,8 +9,13 @@ class ProductSubcategoryView(ProjBaseView):
 
     can_delete = False
 
-    column_list = ['active', 'product_category', 'name']
-    column_filters = ['active', 'product_category']
-    column_editable_list = ['name', 'product_category', 'active']
+    column_editable_list = ["name", "active"]
+    column_filters = ["active", "product_category"]
+    column_formatters = dict(
+        product_category=lambda view, context, model, name:
+        model.product_category.name
+    )
+    column_list = ["id", "active", "product_category", "name"]
+    column_sortable_list = ["id", "active", "name"]
 
-    form_excluded_columns = ['products']
+    form_excluded_columns = ["products"]
