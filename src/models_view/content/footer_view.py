@@ -8,12 +8,11 @@ class FooterView(BaseContentView):
     name = R.string.footer
     endpoint = R.string.footer_endpoint
 
-    column_list = ['lower_text_html']
     column_formatters = dict(
         lower_text_html=ProjBaseView.html_formatter
     )
+    column_list = ['lower_text_html']
 
-    form_excluded_columns = ["lower_text_html"]
     form_args = dict(
         lower_text_markdown=dict(
             render_kw=dict(
@@ -21,6 +20,7 @@ class FooterView(BaseContentView):
             )
         )
     )
+    form_excluded_columns = ["lower_text_html"]
     form_rules = (
         rules.Field('lower_text_markdown', render_field='markdown_text'),
     )
