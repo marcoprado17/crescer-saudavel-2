@@ -7,9 +7,6 @@ from decimal import Decimal
 from markupsafe import Markup
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-from models.associations import home_content_products_of_section_1_association_table, \
-    home_content_products_of_section_2_association_table, home_content_products_of_section_3_association_table, \
-    home_content_products_of_section_5_association_table, home_content_products_of_section_4_association_table
 from models.base import BaseModel
 from proj_extensions import db
 from r import R
@@ -40,7 +37,7 @@ class Product(BaseModel):
     price = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
     has_discount = db.Column(db.Boolean, default=False, nullable=False)
     discount_percentage = db.Column(db.Integer, default=0, nullable=False)
-    stock = db.Column(db.Integer, nullable=False)
+    stock = db.Column(db.Integer, nullable=False, default=0)
     reserved = db.Column(db.Integer, default=0, nullable=False)
     min_available = db.Column(db.Integer, nullable=False)
     summary_markdown = db.Column(db.UnicodeText, nullable=False, default="")
@@ -51,16 +48,6 @@ class Product(BaseModel):
     image_2_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     image_3_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     image_4_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
-
-    def get_image_n_filename(self, n):
-        return getattr(self, "image_" + str(n) + "_filename")
-
-    def get_image_n_src(self, n):
-        image_n_filename = self.get_image_n_filename(n)
-        if image_n_filename is not None and isfile(join(config.PRODUCT_IMAGES_FULL_PATH, image_n_filename)):
-            return join("/", config.PRODUCT_IMAGES_FROM_STATIC_PATH, image_n_filename)
-        else:
-            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.product_default_filename)
 
     tab_1_active = db.Column(db.Boolean, default=False, nullable=False)
     tab_1_title = db.Column(db.String(R.dimen.tab_title_max_length), default="", nullable=False)
@@ -88,14 +75,27 @@ class Product(BaseModel):
     tab_5_content_html = db.Column(db.UnicodeText, default="", nullable=False)
 
     def __repr__(self):
-        s = ""
-        s += "<table>"
-        s += "<tr>"
-        s += "<td style='vertical-align: top;'><img src='%s' style='max-width: 48px;'></td>"
-        s += "<td style='padding-left: 4px;'><b><searchable>#%s</searchable></b><br><searchable>%s</searchable></td>"
-        s += "</tr>"
-        s += "</table>"
-        return Markup(s % (self.get_image_n_src(1), self.id, self.title))
+        html = [
+            "<table>",
+            "   <tr>",
+            "       <td style='vertical-align: top;'><img src='%s' style='max-width: 48px;'></td>",
+            "       <td style='padding-left: 4px;'>",
+            "           <b><searchable>#%s</searchable></b><br><searchable>%s</searchable>"
+            "       </td>"
+            "   </tr>",
+            "</table>"
+        ]
+        return Markup(''.join(html) % (self.get_image_n_src(1), self.id, self.title))
+
+    def get_image_n_filename(self, n):
+        return getattr(self, "image_" + str(n) + "_filename")
+
+    def get_image_n_src(self, n):
+        image_n_filename = self.get_image_n_filename(n)
+        if image_n_filename is not None and isfile(join(config.PRODUCT_IMAGES_FULL_PATH, image_n_filename)):
+            return join("/", config.PRODUCT_IMAGES_FROM_STATIC_PATH, image_n_filename)
+        else:
+            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.product_default_filename)
 
     def get_tab_n_active(self, n):
         return getattr(self, "tab_" + str(n) + "_active")

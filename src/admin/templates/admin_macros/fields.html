@@ -46,9 +46,7 @@
         <div class="col-md-10">
             <div>
                 <textarea id="{{ field.id }}" name="{{ field.name }}" class="markdown form-control"
-                          rows="5" style="resize: vertical;">
-                    {{ field.data|if(field.data or field.data==0) }}
-                </textarea>
+                          rows="5" style="resize: vertical;">{{ field.data|if(field.data or field.data==0) }}</textarea>
             </div>
             {% if field.description %}
                 <p class="help-block">{{ field.description|safe }}</p>

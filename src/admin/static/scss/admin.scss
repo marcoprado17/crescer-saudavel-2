@@ -10,7 +10,7 @@
   white-space: pre-wrap;
 }
 
-.controls .help-block {
+.col-md-10 p.help-block {
   white-space: pre-wrap;
 }
 
@@ -40,6 +40,10 @@ th .tooltip {
 
 .select2-container.select2-container-multi.form-control {
   width: auto !important;
+}
+
+td.col-stock .popover{
+  position: relative;
 }
 
 @media screen and (min-width: 768px) {

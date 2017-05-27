@@ -147,7 +147,17 @@ class Resources(object):
             blog_section_3_link="Link da seção 3 de blog",
             blog_section_3_post_1="Post 1 da seção 3 de blog",
             blog_section_3_post_2="Post 2 da seção 3 de blog",
-            thumbnail_image="Imagem da thumbnail"
+            thumbnail_image="Imagem da thumbnail",
+            image_1_filename="Imagem 1",
+            image_2_filename="Imagem 2",
+            image_3_filename="Imagem 3",
+            image_4_filename="Imagem 4",
+            sales_number="Número de vendas",
+            tab_1_content_html="Conteúdo da tab 1",
+            tab_2_content_html="Conteúdo da tab 2",
+            tab_3_content_html="Conteúdo da tab 3",
+            tab_4_content_html="Conteúdo da tab 4",
+            tab_5_content_html="Conteúdo da tab 5",
         )
 
     # noinspection PyPep8Naming

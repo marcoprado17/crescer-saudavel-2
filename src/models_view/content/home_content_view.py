@@ -27,8 +27,6 @@ class QuerySubcategoriesForMoreCategoriesSection(QueryAjaxModelLoader):
         except:
             return []
 
-        print "v0: " + str(v0)
-
         query = query.filter(ProductSubcategory.product_category_id == v0)
 
         filters = (cast(field, String).ilike(u'%%%s%%' % term) for field in self._cached_fields)
