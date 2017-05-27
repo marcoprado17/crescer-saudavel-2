@@ -1,9 +1,11 @@
 from proj_exceptions import InconsistentDataBaseError
-from models.base import BaseModel
+from proj_extensions import db
 
 
-class BaseContent(BaseModel):
+class BaseContent(db.Model):
     __abstract__ = True
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     @classmethod
     def get(cls):
