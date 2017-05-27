@@ -1,14 +1,11 @@
-from os.path import join, splitext
-from uuid import uuid4
-from flask_admin import form
 from flask_admin.contrib.sqla.ajax import QueryAjaxModelLoader
 from flask_admin.form import rules
 from markupsafe import Markup
-from werkzeug.utils import secure_filename
 from configs import default_app_config as config
 from models.product.product_subcategory import ProductSubcategory
 from models_view.content.base_content_view import BaseContentView
 from proj_extensions import db
+from proj_utils import build_image_upload_field
 from r import R
 from flask_admin.model.ajax import DEFAULT_PAGE_SIZE
 from sqlalchemy import or_, and_, cast, String
@@ -24,7 +21,7 @@ class QuerySubcategoriesForMoreCategoriesSection(QueryAjaxModelLoader):
 
         try:
             v0 = int(v0)
-        except:
+        except ValueError:
             return []
 
         query = query.filter(ProductSubcategory.product_category_id == v0)
@@ -42,44 +39,17 @@ class QuerySubcategoriesForMoreCategoriesSection(QueryAjaxModelLoader):
         return query.offset(offset).limit(limit).all()
 
 
-def build_image_upload_field_for_carousel_images(label):
-    def namegen(_, file_data):
-        extension = splitext(file_data.filename)[-1]
-        return secure_filename(str(uuid4()) + extension)
-
-    return form.ImageUploadField(label,
-                                 namegen=namegen,
-                                 base_path=config.CAROUSEL_IMAGES_FULL_PATH,
-                                 size=(config.CAROUSEL_IMAGE_WIDTH, config.CAROUSEL_IMAGE_HEIGHT),
-                                 url_relative_path=join(
-                                     config.IMAGES_FOLDER,
-                                     config.CAROUSEL_IMAGES_FOLDER,
-                                     config.CAROUSEL_IMAGES_FOLDER))
-
-
-def build_image_upload_field_for_more_categories_images(label):
-    def namegen(_, file_data):
-        extension = splitext(file_data.filename)[-1]
-        return secure_filename(str(uuid4()) + extension)
-
-    return form.ImageUploadField(label,
-                                 namegen=namegen,
-                                 base_path=config.MORE_CATEGORIES_IMAGES_FULL_PATH,
-                                 size=(config.MORE_CATEGORIES_IMAGE_WIDTH, config.MORE_CATEGORIES_IMAGE_HEIGHT),
-                                 url_relative_path=join(
-                                     config.IMAGES_FOLDER,
-                                     config.MORE_CATEGORIES_IMAGES_FOLDER,
-                                     config.MORE_CATEGORIES_IMAGES_FOLDER))
-
-
 class HomeContentView(BaseContentView):
-    def _carousel_image_formatter(view, context, model, name):
+    # noinspection PyMethodMayBeStatic
+    def _carousel_image_formatter(self, _, model, name):
         n = [int(s) for s in name.split('_') if s.isdigit()][0]
         return Markup("<img style='max-width: 256px;max-height: 256px;' src='%s'>" % model.get_carousel_n_img_src(n))
 
-    def _more_categories_image_formatter(view, context, model, name):
+    # noinspection PyMethodMayBeStatic
+    def _more_categories_image_formatter(self, _, model, name):
         n = [int(s) for s in name.split('_') if s.isdigit()][0]
-        return Markup("<img style='max-width: 128px;max-height: 128px;' src='%s'>" % model.get_more_categories_n_img_src(n))
+        return Markup(
+            "<img style='max-width: 128px;max-height: 128px;' src='%s'>" % model.get_more_categories_n_img_src(n))
 
     name = R.string.home_content
     endpoint = R.string.home_content_endpoint
@@ -87,19 +57,6 @@ class HomeContentView(BaseContentView):
 
     can_delete = False
     can_view_details = True
-
-    column_list = ["carousel_1_active", "carousel_1_title", "product_section_1_active", "product_section_1_name", "blog_section_1_active", "blog_section_1_name"]
-    column_formatters = dict(
-        carousel_1_image_filename=_carousel_image_formatter,
-        carousel_2_image_filename=_carousel_image_formatter,
-        carousel_3_image_filename=_carousel_image_formatter,
-        more_categories_section_category_1_image_filename=_more_categories_image_formatter,
-        more_categories_section_category_2_image_filename=_more_categories_image_formatter,
-        more_categories_section_category_3_image_filename=_more_categories_image_formatter,
-        more_categories_section_category_4_image_filename=_more_categories_image_formatter,
-        more_categories_section_category_5_image_filename=_more_categories_image_formatter,
-        more_categories_section_category_6_image_filename=_more_categories_image_formatter,
-    )
 
     carousel_title_arg = dict(
         render_kw=dict(
@@ -126,6 +83,82 @@ class HomeContentView(BaseContentView):
             placeholder=R.string.product_section_link_placeholder
         )
     )
+    product_section_ajax_dic = {
+        "fields": ["title", "id"],
+        "page_size": 10
+    }
+    product_category_ajax_dic = {
+        "fields": ["name", "id"],
+        "page_size": 10
+    }
+    blog_post_ajax_dic = {
+        "fields": ["title", "id"],
+        "page_size": 10
+    }
+    carousel_image_upload_field_args = dict(
+        full_path=config.CAROUSEL_IMAGES_FULL_PATH,
+        folder=config.CAROUSEL_IMAGES_FOLDER,
+        width=config.CAROUSEL_IMAGE_WIDTH,
+        height=config.CAROUSEL_IMAGE_HEIGHT
+    )
+    more_categories_image_upload_field_args = dict(
+        full_path=config.MORE_CATEGORIES_IMAGES_FULL_PATH,
+        folder=config.MORE_CATEGORIES_IMAGES_FOLDER,
+        width=config.MORE_CATEGORIES_IMAGE_WIDTH,
+        height=config.MORE_CATEGORIES_IMAGE_HEIGHT
+    )
+
+    column_formatters = dict(
+        carousel_1_image_filename=_carousel_image_formatter,
+        carousel_2_image_filename=_carousel_image_formatter,
+        carousel_3_image_filename=_carousel_image_formatter,
+        more_categories_section_category_1_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_2_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_3_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_4_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_5_image_filename=_more_categories_image_formatter,
+        more_categories_section_category_6_image_filename=_more_categories_image_formatter,
+    )
+    column_list = [
+        "carousel_1_active",
+        "carousel_1_title",
+        "product_section_1_active",
+        "product_section_1_name",
+        "blog_section_1_active",
+        "blog_section_1_name"
+    ]
+
+    form_ajax_refs = {
+        "products_of_section_1": product_section_ajax_dic,
+        "products_of_section_2": product_section_ajax_dic,
+        "products_of_section_3": product_section_ajax_dic,
+        "products_of_section_4": product_section_ajax_dic,
+        "products_of_section_5": product_section_ajax_dic,
+        "more_categories_section_category_1": product_category_ajax_dic,
+        "more_categories_section_category_1_subcategories": QuerySubcategoriesForMoreCategoriesSection(
+            "more_categories_section_category_1_subcategories"),
+        "more_categories_section_category_2": product_category_ajax_dic,
+        "more_categories_section_category_2_subcategories": QuerySubcategoriesForMoreCategoriesSection(
+            "more_categories_section_category_2_subcategories"),
+        "more_categories_section_category_3": product_category_ajax_dic,
+        "more_categories_section_category_3_subcategories": QuerySubcategoriesForMoreCategoriesSection(
+            "more_categories_section_category_3_subcategories"),
+        "more_categories_section_category_4": product_category_ajax_dic,
+        "more_categories_section_category_4_subcategories": QuerySubcategoriesForMoreCategoriesSection(
+            "more_categories_section_category_4_subcategories"),
+        "more_categories_section_category_5": product_category_ajax_dic,
+        "more_categories_section_category_5_subcategories": QuerySubcategoriesForMoreCategoriesSection(
+            "more_categories_section_category_5_subcategories"),
+        "more_categories_section_category_6": product_category_ajax_dic,
+        "more_categories_section_category_6_subcategories": QuerySubcategoriesForMoreCategoriesSection(
+            "more_categories_section_category_6_subcategories"),
+        "blog_section_1_post_1": blog_post_ajax_dic,
+        "blog_section_1_post_2": blog_post_ajax_dic,
+        "blog_section_2_post_1": blog_post_ajax_dic,
+        "blog_section_2_post_2": blog_post_ajax_dic,
+        "blog_section_3_post_1": blog_post_ajax_dic,
+        "blog_section_3_post_2": blog_post_ajax_dic,
+    }
     form_args = dict(
         carousel_1_title=carousel_title_arg,
         carousel_2_title=carousel_title_arg,
@@ -198,6 +231,32 @@ class HomeContentView(BaseContentView):
                 "v0-data-depends-on": "#more_categories_section_category_6",
             }
         ),
+    )
+    form_extra_fields = dict(
+        carousel_1_image_filename=build_image_upload_field(
+            label=R.dict.column_labels["carousel_1_image_filename"], **carousel_image_upload_field_args),
+        carousel_2_image_filename=build_image_upload_field(
+            label=R.dict.column_labels["carousel_2_image_filename"], **carousel_image_upload_field_args),
+        carousel_3_image_filename=build_image_upload_field(
+            label=R.dict.column_labels["carousel_3_image_filename"], **carousel_image_upload_field_args),
+        more_categories_section_category_1_image_filename=build_image_upload_field(
+            label=R.dict.column_labels["more_categories_section_category_1_image_filename"],
+            **more_categories_image_upload_field_args),
+        more_categories_section_category_2_image_filename=build_image_upload_field(
+            label=R.dict.column_labels["more_categories_section_category_2_image_filename"],
+            **more_categories_image_upload_field_args),
+        more_categories_section_category_3_image_filename=build_image_upload_field(
+            label=R.dict.column_labels["more_categories_section_category_3_image_filename"],
+            **more_categories_image_upload_field_args),
+        more_categories_section_category_4_image_filename=build_image_upload_field(
+            label=R.dict.column_labels["more_categories_section_category_4_image_filename"],
+            **more_categories_image_upload_field_args),
+        more_categories_section_category_5_image_filename=build_image_upload_field(
+            label=R.dict.column_labels["more_categories_section_category_5_image_filename"],
+            **more_categories_image_upload_field_args),
+        more_categories_section_category_6_image_filename=build_image_upload_field(
+            label=R.dict.column_labels["more_categories_section_category_6_image_filename"],
+            **more_categories_image_upload_field_args)
     )
     form_rules = (
         rules.FieldSet((
@@ -302,67 +361,4 @@ class HomeContentView(BaseContentView):
             "blog_section_3_post_1",
             "blog_section_3_post_2"),
             header=R.string.get_blog_section_n(3))
-    )
-    form_extra_fields = dict(
-        carousel_1_image_filename=build_image_upload_field_for_carousel_images(
-            R.dict.column_labels["carousel_1_image_filename"]),
-        carousel_2_image_filename=build_image_upload_field_for_carousel_images(
-            R.dict.column_labels["carousel_2_image_filename"]),
-        carousel_3_image_filename=build_image_upload_field_for_carousel_images(
-            R.dict.column_labels["carousel_3_image_filename"]),
-        more_categories_section_category_1_image_filename=build_image_upload_field_for_more_categories_images(
-            R.dict.column_labels["more_categories_section_category_1_image_filename"]),
-        more_categories_section_category_2_image_filename=build_image_upload_field_for_more_categories_images(
-            R.dict.column_labels["more_categories_section_category_2_image_filename"]),
-        more_categories_section_category_3_image_filename=build_image_upload_field_for_more_categories_images(
-            R.dict.column_labels["more_categories_section_category_3_image_filename"]),
-        more_categories_section_category_4_image_filename=build_image_upload_field_for_more_categories_images(
-            R.dict.column_labels["more_categories_section_category_4_image_filename"]),
-        more_categories_section_category_5_image_filename=build_image_upload_field_for_more_categories_images(
-            R.dict.column_labels["more_categories_section_category_5_image_filename"]),
-        more_categories_section_category_6_image_filename=build_image_upload_field_for_more_categories_images(
-            R.dict.column_labels["more_categories_section_category_6_image_filename"]),
-    )
-    product_section_ajax_dic = dict(
-        fields=["title", "id"],
-        page_size=10
-    )
-    product_category_ajax_dic = dict(
-        fields=["name", "id"],
-        page_size=10
-    )
-    blog_post_ajax_dic = dict(
-        fields=["title", "id"],
-        page_size=10
-    )
-    form_ajax_refs = dict(
-        products_of_section_1=product_section_ajax_dic,
-        products_of_section_2=product_section_ajax_dic,
-        products_of_section_3=product_section_ajax_dic,
-        products_of_section_4=product_section_ajax_dic,
-        products_of_section_5=product_section_ajax_dic,
-        more_categories_section_category_1=product_category_ajax_dic,
-        more_categories_section_category_1_subcategories=QuerySubcategoriesForMoreCategoriesSection(
-            'more_categories_section_category_1_subcategories'),
-        more_categories_section_category_2=product_category_ajax_dic,
-        more_categories_section_category_2_subcategories=QuerySubcategoriesForMoreCategoriesSection(
-            'more_categories_section_category_2_subcategories'),
-        more_categories_section_category_3=product_category_ajax_dic,
-        more_categories_section_category_3_subcategories=QuerySubcategoriesForMoreCategoriesSection(
-            'more_categories_section_category_3_subcategories'),
-        more_categories_section_category_4=product_category_ajax_dic,
-        more_categories_section_category_4_subcategories=QuerySubcategoriesForMoreCategoriesSection(
-            'more_categories_section_category_4_subcategories'),
-        more_categories_section_category_5=product_category_ajax_dic,
-        more_categories_section_category_5_subcategories=QuerySubcategoriesForMoreCategoriesSection(
-            'more_categories_section_category_5_subcategories'),
-        more_categories_section_category_6=product_category_ajax_dic,
-        more_categories_section_category_6_subcategories=QuerySubcategoriesForMoreCategoriesSection(
-            'more_categories_section_category_6_subcategories'),
-        blog_section_1_post_1=blog_post_ajax_dic,
-        blog_section_1_post_2=blog_post_ajax_dic,
-        blog_section_2_post_1=blog_post_ajax_dic,
-        blog_section_2_post_2=blog_post_ajax_dic,
-        blog_section_3_post_1=blog_post_ajax_dic,
-        blog_section_3_post_2=blog_post_ajax_dic,
     )
