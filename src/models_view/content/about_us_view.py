@@ -8,13 +8,12 @@ class AboutUsView(BaseContentView):
     name = R.string.about_us
     endpoint = R.string.about_us_endpoint
 
-    column_list = ['summary_html', 'content_html']
     column_formatters = dict(
         summary_html=ProjBaseView.html_formatter,
         content_html=ProjBaseView.html_formatter
     )
+    column_list = ['summary_html', 'content_html']
 
-    form_excluded_columns = ['summary_html', "content_html"]
     form_args = dict(
         summary_markdown=dict(
             render_kw=dict(
@@ -27,6 +26,7 @@ class AboutUsView(BaseContentView):
             )
         )
     )
+    form_excluded_columns = ['summary_html', "content_html"]
     form_rules = (
         rules.Field('summary_markdown', render_field='markdown_text'),
         rules.Field('content_markdown', render_field='markdown_text'),
