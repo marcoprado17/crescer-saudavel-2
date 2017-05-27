@@ -12,7 +12,7 @@ class Contact(BaseContent):
     __tablename__ = "contact"
 
     address_markdown = db.Column(db.UnicodeText, default="")
-    address_html = db.Column(db.UnicodeText, default=u"")
+    address_html = db.Column(db.UnicodeText, default="")
     tel = db.Column(db.String(R.dimen.tel_max_length), default="")
     email = db.Column(db.String(R.dimen.email_max_length), default="")
 

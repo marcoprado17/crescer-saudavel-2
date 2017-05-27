@@ -1,5 +1,4 @@
 from flask_admin.form import rules
-
 from models_view.content.base_content_view import BaseContentView
 from models_view.proj_base_view import ProjBaseView
 from r import R
@@ -11,6 +10,10 @@ class ContactView(BaseContentView):
 
     can_view_details = True
 
+    column_details_exclude_list = ["address_markdown"]
+    column_formatters = dict(
+        address_html=ProjBaseView.html_formatter
+    )
     column_list = [
         'address_html',
         'tel',
@@ -21,12 +24,7 @@ class ContactView(BaseContentView):
         'googleplus_active',
         'pintrest_active'
     ]
-    column_formatters = dict(
-        address_html=ProjBaseView.html_formatter
-    )
-    column_details_exclude_list = ["address_markdown"]
 
-    form_excluded_columns = ["address_html"]
     form_args = dict(
         address_markdown=dict(
             render_kw=dict(
@@ -69,11 +67,31 @@ class ContactView(BaseContentView):
             )
         )
     )
+    form_excluded_columns = ["address_html"]
     form_rules = (
-        rules.FieldSet((rules.Field('address_markdown', render_field='markdown_text'), 'tel', 'email'), header=R.string.main_info),
-        rules.FieldSet(('facebook_active', 'facebook_link'), header=R.string.facebook),
-        rules.FieldSet(('youtube_active', 'youtube_link'), header=R.string.youtube),
-        rules.FieldSet(('twitter_active', 'twitter_link'), header=R.string.twitter),
-        rules.FieldSet(('googleplus_active', 'googleplus_link'), header=R.string.google_plus),
-        rules.FieldSet(('pintrest_active', 'pintrest_link'), header=R.string.pintrest),
+        rules.FieldSet((
+            rules.Field('address_markdown', render_field='markdown_text'),
+            'tel',
+            'email'),
+            header=R.string.main_info),
+        rules.FieldSet((
+            'facebook_active',
+            'facebook_link'),
+            header=R.string.facebook),
+        rules.FieldSet((
+            'youtube_active',
+            'youtube_link'),
+            header=R.string.youtube),
+        rules.FieldSet((
+            'twitter_active',
+            'twitter_link'),
+            header=R.string.twitter),
+        rules.FieldSet((
+            'googleplus_active',
+            'googleplus_link'),
+            header=R.string.google_plus),
+        rules.FieldSet((
+            'pintrest_active',
+            'pintrest_link'),
+            header=R.string.pintrest),
     )
