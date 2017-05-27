@@ -6,8 +6,8 @@ class HeaderView(BaseContentView):
     name = R.string.header
     endpoint = R.string.header_endpoint
 
-    column_list = ['n_visible_categories']
     column_editable_list = ['n_visible_categories']
+    column_list = ['n_visible_categories']
 
     form_args = dict(
         n_visible_categories=dict(
