@@ -322,6 +322,8 @@ def create_app():
     from models_view.content.home_content_view import HomeContentView
     from models.content.tags_row import TagsRow
     from models_view.content.tags_row_view import TagsRowView
+    from models.user.user import User
+    from models_view.user_view import UserView
 
     admin.init_app(app, index_view=MyAdminIndexView())
 
@@ -342,6 +344,7 @@ def create_app():
     admin.add_view(ContactView(Contact, db.session))
     admin.add_view(HomeContentView(HomeContent, db.session))
     admin.add_view(TagsRowView(TagsRow, db.session))
+    admin.add_view(UserView(User, db.session))
 
     from proj_extensions import babel
 

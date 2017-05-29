@@ -173,7 +173,15 @@ class Resources(object):
             tag_4_active="Tag 4 ativa",
             tag_4_image_filename="Imagem da tag 4",
             tag_4_title="Título da tag 4",
-            tag_4_subtitle="Subtítulo da tag 4"
+            tag_4_subtitle="Subtítulo da tag 4",
+            city="Cidade",
+            email_confirmed="Email confirmado",
+            register_datetime="Hora e dia do registro",
+            first_name="Nome",
+            last_name="Sobrenome",
+            address="Endereço",
+            address_number="Número",
+            address_complement="Complemento",
         )
 
     # noinspection PyPep8Naming
@@ -534,6 +542,7 @@ class Resources(object):
         order_total_value = "Valor total do pedido"
         register_date = "Data de cadastro"
         clients = "Clientes"
+        clients_endpoint = "clientes"
         orders_of_client = "Pedidos do cliente"
         no_orders_registered = "Nenhum pedido cadastrado."
         product = "Produto"
@@ -1448,6 +1457,10 @@ There's actually a lot more to Markdown than this. See the official [introductio
         @staticmethod
         def default_date_format(datetime):
             return datetime.strftime("%d/%m/%Y")
+
+        @staticmethod
+        def default_datetime_format(datetime):
+            return datetime.strftime("%d/%m/%Y\n%H:%M")
 
         @staticmethod
         def get_additional_categories(n):

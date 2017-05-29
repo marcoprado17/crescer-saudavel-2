@@ -22,4 +22,4 @@ class AnonymousUser(BaseUser):
         return True
 
     def get_id(self):
-        return
+        return self.id

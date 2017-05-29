@@ -6,19 +6,14 @@
 import random
 import string
 from datetime import datetime
-
 from flask import current_app
 from flask_login import login_user
 from sqlalchemy import ForeignKey
-from sqlalchemy import asc
-from sqlalchemy import desc
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm.attributes import flag_modified
-
 from models.user.base_user import BaseUser
 from proj_extensions import db, bcrypt, login_manager
-from proj_utils import SortMethodMap
 from r import R
 from routers.admin_clients.forms import UserForm
 
@@ -47,18 +42,11 @@ class User(BaseUser):
     cep = db.Column(db.String(R.dimen.cep_max_length))
     tel = db.Column(db.String(R.dimen.tel_max_length))
 
-    sort_method_map = SortMethodMap([
-        (R.id.SORT_METHOD_CLIENT_NAME,      R.string.client_name,       asc(first_name)),
-        (R.id.SORT_METHOD_CLIENT_EMAIL,     R.string.client_email,      asc(email)),
-        (R.id.SORT_METHOD_NEWEST,           R.string.newest_register,   desc(register_datetime)),
-        (R.id.SORT_METHOD_OLDER,            R.string.older_register,    asc(register_datetime)),
-    ])
-
     @hybrid_property
     def name(self):
-        if self.first_name is not None and isinstance(self.first_name, basestring):
+        if self.first_name is not None:
             return self.first_name
-        elif self.email is not None and isinstance(self.email, basestring):
+        elif self.email is not None:
             return self.email.split('@')[0]
         else:
             return None
@@ -97,6 +85,7 @@ class User(BaseUser):
     def is_anonymous(self):
         return False
 
+    # noinspection PyMethodParameters
     @login_manager.user_loader
     def load_user(user_id):
         return User.get(user_id)
@@ -107,7 +96,7 @@ class User(BaseUser):
             email=form.email.data,
             password=form.password.data
         )
-        if other_attrs != None and isinstance(other_attrs, dict):
+        if other_attrs is not None and isinstance(other_attrs, dict):
             for key, val in other_attrs.iteritems():
                 attrs[key] = val
         model_elem = cls(
@@ -119,13 +108,14 @@ class User(BaseUser):
 
     @classmethod
     def create_user_with_facebook_login(cls, email):
-        random_password = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(R.dimen.password_max_length))
+        random_password = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in
+                                  range(R.dimen.password_max_length))
         user = User(
             email=email,
             password=random_password,
             email_confirmed=True,
             facebook_login=True,
-            register_datetime = datetime.now()
+            register_datetime=datetime.now()
         )
         db.session.add(user)
         db.session.commit()
