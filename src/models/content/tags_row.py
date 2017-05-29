@@ -3,51 +3,64 @@
 # ======================================================================================================================
 # Created at 28/03/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-# !/usr/bin/env python
-# -*- coding: utf-8 -*-
-# ======================================================================================================================
-# Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
-# ======================================================================================================================
-from proj_exceptions import InconsistentDataBaseError
+from os.path import isfile, join
+from models.content.base_content import BaseContent
 from proj_extensions import db
-from models.base import BaseModel
 from r import R
+from configs import default_app_config as config
 
 
-class TagsRow(BaseModel):
+class TagsRow(BaseContent):
     __tablename__ = "tags_row"
 
-    tag_1_image = db.Column(db.Text, default="", nullable=False)
+    tag_1_active = db.Column(db.Boolean, default=False, nullable=False)
+    tag_1_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     tag_1_title = db.Column(db.String(R.dimen.tag_title_max_length), default="", nullable=False)
     tag_1_subtitle = db.Column(db.String(R.dimen.tag_subtitle_max_length), default="", nullable=False)
 
-    tag_2_image = db.Column(db.Text, default="", nullable=False)
+    tag_2_active = db.Column(db.Boolean, default=False, nullable=False)
+    tag_2_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     tag_2_title = db.Column(db.String(R.dimen.tag_title_max_length), default="", nullable=False)
     tag_2_subtitle = db.Column(db.String(R.dimen.tag_subtitle_max_length), default="", nullable=False)
 
-    tag_3_image = db.Column(db.Text, default="", nullable=False)
+    tag_3_active = db.Column(db.Boolean, default=False, nullable=False)
+    tag_3_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
     tag_3_title = db.Column(db.String(R.dimen.tag_title_max_length), default="", nullable=False)
     tag_3_subtitle = db.Column(db.String(R.dimen.tag_subtitle_max_length), default="", nullable=False)
 
-    @staticmethod
-    def get():
-        tags_rows = TagsRow.query.all()
-        if len(tags_rows) != 1:
-            raise InconsistentDataBaseError
-        return tags_rows[0]
+    tag_4_active = db.Column(db.Boolean, default=False, nullable=False)
+    tag_4_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+    tag_4_title = db.Column(db.String(R.dimen.tag_title_max_length), default="", nullable=False)
+    tag_4_subtitle = db.Column(db.String(R.dimen.tag_subtitle_max_length), default="", nullable=False)
 
-    @staticmethod
-    def get_attrs_from_form(form):
-        return dict(
-            tag_1_image=form.tag_1_image.data,
-            tag_1_title=form.tag_1_title.data,
-            tag_1_subtitle=form.tag_1_subtitle.data,
+    def get_tag_n_image_filename(self, n):
+        return getattr(self, "tag_" + str(n) + "_image_filename")
 
-            tag_2_image=form.tag_2_image.data,
-            tag_2_title=form.tag_2_title.data,
-            tag_2_subtitle=form.tag_2_subtitle.data,
+    def get_tag_n_image_src(self, n):
+        tag_n_image_filename = self.get_tag_n_image_filename(n)
+        if tag_n_image_filename is not None and isfile(
+                join(config.TAG_IMAGES_FULL_PATH, tag_n_image_filename)):
+            return join("/", config.TAG_IMAGES_FROM_STATIC_PATH, tag_n_image_filename)
+        else:
+            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.tag_default_filename)
 
-            tag_3_image=form.tag_3_image.data,
-            tag_3_title=form.tag_3_title.data,
-            tag_3_subtitle=form.tag_3_subtitle.data
-        )
+    def active_tags(self):
+        l = []
+        if self.tag_1_active:
+            l.append(1)
+        if self.tag_2_active:
+            l.append(2)
+        if self.tag_3_active:
+            l.append(3)
+        if self.tag_4_active:
+            l.append(4)
+        return l
+
+    def get_tag_n_has_image(self, n):
+        return self.get_tag_n_image_filename(n) is not None
+
+    def get_tag_n_title(self, n):
+        return getattr(self, "tag_" + str(n) + "_title")
+
+    def get_tag_n_subtitle(self, n):
+        return getattr(self, "tag_" + str(n) + "_subtitle")

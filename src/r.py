@@ -158,6 +158,22 @@ class Resources(object):
             tab_3_content_html="Conteúdo da tab 3",
             tab_4_content_html="Conteúdo da tab 4",
             tab_5_content_html="Conteúdo da tab 5",
+            tag_1_active="Tag 1 ativa",
+            tag_1_image_filename="Imagem da tag 1",
+            tag_1_title="Título da tag 1",
+            tag_1_subtitle="Subtítulo da tag 1",
+            tag_2_active="Tag 2 ativa",
+            tag_2_image_filename="Imagem da tag 2",
+            tag_2_title="Título da tag 2",
+            tag_2_subtitle="Subtítulo da tag 2",
+            tag_3_active="Tag 3 ativa",
+            tag_3_image_filename="Imagem da tag 3",
+            tag_3_title="Título da tag 3",
+            tag_3_subtitle="Subtítulo da tag 3",
+            tag_4_active="Tag 4 ativa",
+            tag_4_image_filename="Imagem da tag 4",
+            tag_4_title="Título da tag 4",
+            tag_4_subtitle="Subtítulo da tag 4"
         )
 
     # noinspection PyPep8Naming
@@ -447,6 +463,7 @@ class Resources(object):
         empty_symbol = "-"
         id_prefix = "#"
         product_default_filename = "product_default.jpg"
+        tag_default_filename = "tag_default.jpg"
 
         lowest_price = "Menor preço"
         higher_price = "Maior preço"
@@ -695,6 +712,7 @@ class Resources(object):
         stay_in_auxiliar_message = "Assine nosso newsletter e receba nossas promoções e novidades."
         tags_content = "Conteúdo das tags"
         tags = "Tags"
+        tags_endpoint = "tags"
         unavailable = "Indisponível"
         your_email = "Seu email"
         discount_from = "De: "
@@ -732,6 +750,8 @@ class Resources(object):
         about_us_endpoint = "sobre-nos"
         home_content = "Conteúdo da home"
         home_content_endpoint = "conteudo-da-home"
+        tag_title_placeholder = "Ex.: Frete grátis"
+        tag_subtitle_placeholder = "Ex.: Para São José dos Campos para compras acima de R$ 50,00"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1432,6 +1452,10 @@ There's actually a lot more to Markdown than this. See the official [introductio
         @staticmethod
         def get_additional_categories(n):
             return "Categoria " + str(n) + " da seção 'Mais para você'"
+
+        @staticmethod
+        def tag_n_header(n):
+            return "Tag " + str(n)
 
     # noinspection PyPep8Naming
     @unique
