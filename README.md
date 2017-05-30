@@ -48,6 +48,6 @@ ls
 ```
 scripts/server_setups/production_server_setup.sh
 python scripts/server_setups/restart_db.py
-python scripts/server_setups/fill_db_with_random_data.py
+python scripts/server_setups/fill_db.py
 scripts/start_server/start_production_server.sh
 ```
