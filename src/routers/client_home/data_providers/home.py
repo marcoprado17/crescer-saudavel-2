@@ -17,31 +17,31 @@ class ClientHomeDataProvider(object):
 
         home_content = HomeContent.get()
 
-        if home_content.carousel_item_1_active:
+        if home_content.carousel_1_active:
             carousel.append(
                 dict(
-                    title=home_content.carousel_item_1_title,
-                    subtitle=home_content.carousel_item_1_subtitle,
-                    img_src=home_content.get_carousel_img_src(carousel_number=1),
-                    href=home_content.carousel_item_1_link if home_content.carousel_item_1_link is not None and home_content.carousel_item_1_link != "" else None
+                    title=home_content.carousel_1_title,
+                    subtitle=home_content.carousel_1_subtitle,
+                    img_src=home_content.get_carousel_n_img_src(n=1),
+                    href=home_content.carousel_1_link if home_content.carousel_1_link is not None and home_content.carousel_1_link != "" else None
                 )
             )
-        if home_content.carousel_item_2_active:
+        if home_content.carousel_2_active:
             carousel.append(
                 dict(
-                    title=home_content.carousel_item_2_title,
-                    subtitle=home_content.carousel_item_2_subtitle,
-                    img_src=home_content.get_carousel_img_src(carousel_number=2),
-                    href=home_content.carousel_item_2_link if home_content.carousel_item_2_link is not None and home_content.carousel_item_2_link != "" else None
+                    title=home_content.carousel_2_title,
+                    subtitle=home_content.carousel_2_subtitle,
+                    img_src=home_content.get_carousel_n_img_src(n=2),
+                    href=home_content.carousel_2_link if home_content.carousel_2_link is not None and home_content.carousel_2_link != "" else None
                 )
             )
-        if home_content.carousel_item_3_active:
+        if home_content.carousel_3_active:
             carousel.append(
                 dict(
-                    title=home_content.carousel_item_3_title,
-                    subtitle=home_content.carousel_item_3_subtitle,
-                    img_src=home_content.get_carousel_img_src(carousel_number=3),
-                    href=home_content.carousel_item_3_link if home_content.carousel_item_3_link is not None and home_content.carousel_item_3_link != "" else None
+                    title=home_content.carousel_3_title,
+                    subtitle=home_content.carousel_3_subtitle,
+                    img_src=home_content.get_carousel_n_img_src(n=3),
+                    href=home_content.carousel_3_link if home_content.carousel_3_link is not None and home_content.carousel_3_link != "" else None
                 )
             )
 

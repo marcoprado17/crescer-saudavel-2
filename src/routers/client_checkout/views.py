@@ -12,7 +12,7 @@ from flask_login import current_user
 from flask_login import login_required
 from flask_bombril.url_args import get_valid_integer
 from r import R
-from routers.admin_clients.forms import UserForm
+from routers.client_account.forms import UserForm
 from routers.client_checkout import client_checkout_blueprint
 from routers.client_checkout.data_providers.checkout import client_checkout_data_provider
 from flask_bombril.r import R as bombril_R

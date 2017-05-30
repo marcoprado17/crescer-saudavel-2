@@ -1,13 +1,7 @@
-# !/usr/bin/env python
-# -*- coding: utf-8 -*-
-# ======================================================================================================================
-# Created at 11/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
-# ======================================================================================================================
 import json
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, SelectField, IntegerField, SubmitField
-
 from flask_bombril.form_validators.phone_fomat.phone_format import PhoneFormat
 from flask_bombril.cep_format.cep_format import CepFormat
 from flask_bombril.form_validators.required.required import Required
@@ -66,35 +60,3 @@ class UserForm(FlaskForm):
 
         if edit:
             self.city_id.classes = "dynamic"
-
-
-class AdminClientFilterForm(FlaskForm):
-    state_id = SelectField(
-        label=R.string.state
-    )
-    city_id = SelectFieldWithClasses(
-        label=R.string.city,
-        classes="dynamic"
-    )
-    filter = SubmitField(label=R.string.filter)
-
-    def __init__(self, **kwargs):
-        super(AdminClientFilterForm, self).__init__(**kwargs)
-        self.state_id.choices = State.get_choices(include_all=True)
-        self.city_id.choices = City.get_choices(include_all=True)
-        dependent_choices = {}
-        dependent_choices[str(0)] = [(str(0), R.string.all)]
-        for state in State.get_all():
-            choices = []
-            choices.append((str(0), R.string.all))
-            for city in state.cities:
-                choices.append((str(city.id), city.name))
-            dependent_choices[str(state.id)] = choices
-        self.city_id.render_kw = dict(
-            depends_on="state_id",
-            dependent_choices=json.dumps(dependent_choices)
-        )
-
-    def set_values(self, state_id, city_id):
-        self.state_id.data = str(state_id)
-        self.city_id.data = str(city_id)

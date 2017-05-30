@@ -11,9 +11,9 @@ from flask_login import current_user
 from flask_login import login_required
 from flask_bombril.url_args import get_boolean_url_arg
 from r import R
-from routers.admin_clients.forms import UserForm
 from routers.client_account import client_account_blueprint
 from routers.client_account.data_providers.my_account import client_my_account_data_provider
+from routers.client_account.forms import UserForm
 
 
 @client_account_blueprint.route("/", methods=["GET", "POST"])

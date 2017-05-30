@@ -434,13 +434,13 @@ def create_tags_row_data():
 def create_home_content_data():
     home_content = HomeContent.get()
 
-    home_content.carousel_item_1_active = True
-    home_content.carousel_item_1_title = "Título 1"
-    home_content.carousel_item_1_subtitle = "Subtítulo 1"
-    home_content.carousel_item_1_link = "/blog"
+    home_content.carousel_1_active = True
+    home_content.carousel_1_title = "Título 1"
+    home_content.carousel_1_subtitle = "Subtítulo 1"
+    home_content.carousel_1_link = "/blog"
 
-    home_content.carousel_item_2_active = True
-    home_content.carousel_item_2_title = "Título 2"
+    home_content.carousel_2_active = True
+    home_content.carousel_2_title = "Título 2"
 
     products = Product.query.filter(Product.is_available_to_client == True, Product.has_discount == False).all()
 

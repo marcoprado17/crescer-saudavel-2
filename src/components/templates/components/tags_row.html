@@ -9,7 +9,7 @@
                             <tr>
                                 <td>
                                     {% if tags_row.tag_1_image != "" %}
-                                        <img src="{{ url_for('static', filename='imgs/' + tags_row.tag_1_image) }}">
+                                        <img src="{{ tags_row.get_tag_n_image_src(1) }}">
                                     {% endif %}
                                 </td>
                                 <td>
@@ -31,7 +31,7 @@
                             <tr>
                                 <td>
                                     {% if tags_row.tag_2_image != "" %}
-                                        <img src="{{ url_for('static', filename='imgs/' + tags_row.tag_2_image) }}">
+                                        <img src="{{ tags_row.get_tag_n_image_src(2) }}">
                                     {% endif %}
                                 </td>
                                 <td>
@@ -53,7 +53,7 @@
                             <tr>
                                 <td>
                                     {% if tags_row.tag_3_image != "" %}
-                                        <img src="{{ url_for('static', filename='imgs/' + tags_row.tag_3_image) }}">
+                                        <img src="{{ tags_row.get_tag_n_image_src(3) }}">
                                     {% endif %}
                                 </td>
                                 <td>

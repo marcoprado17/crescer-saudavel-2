@@ -15,7 +15,7 @@ from sqlalchemy.orm.attributes import flag_modified
 from models.user.base_user import BaseUser
 from proj_extensions import db, bcrypt, login_manager
 from r import R
-from routers.admin_clients.forms import UserForm
+from routers.client_account.forms import UserForm
 
 
 class User(BaseUser):
