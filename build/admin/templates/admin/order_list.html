@@ -1,0 +1,59 @@
+{% extends "admin/model/list.html" %}
+
+{% block list_row_actions %}
+    {{ super() }}
+    {% set order = row %}
+    <a href="" onclick="
+            $('#change-status-action-container-{{ order.id }}').toggle();
+            $('#change-status-action-plus-{{ order.id }}').toggle();
+            $('#change-status-action-minus-{{ order.id }}').toggle();
+            return false;"
+       style="color: #333;">
+        <span id="change-status-action-plus-{{ order.id }}"
+              class="glyphicon glyphicon-plus"
+              aria-hidden="true">
+        </span>
+        <span id="change-status-action-minus-{{ order.id }}"
+              class="glyphicon glyphicon-minus"
+              aria-hidden="true" style="display: none;">
+        </span>
+    </a>
+    <div id="change-status-action-container-{{ order.id }}"
+         style="display: none;"
+         class="panel panel-default">
+        <div class="panel-body">
+            <form method="POST" action="{{ get_url(".change_status") }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="url" value="{{ request.url }}"/>
+                <input type="hidden" name="order_id" value="{{ order.id }}"/>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" name="send_email" class="form-check-input">
+                        {{ R.string.send_email_when_update_order_status }}
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="new-status-{{ order.id }}">{{ R.string.new_status }}</label>
+                    <select id="new-status-{{ order.id }}" name="new_status" class="form-control">
+                        {% if order.status == R.id.ORDER_STATUS_CANCELED %}
+                            <option value="{{ R.id.ORDER_STATUS_PAID.value }}">{{ R.string.paid }}</option>
+                        {% elif order.status == R.id.ORDER_STATUS_PAID %}
+                            <option value="{{ R.id.ORDER_STATUS_SENT.value }}">{{ R.string.sent }}</option>
+                            <option value="{{ R.id.ORDER_STATUS_CANCELED.value }}">{{ R.string.canceled }}</option>
+                        {% elif order.status == R.id.ORDER_STATUS_SENT %}
+                            <option value="{{ R.id.ORDER_STATUS_PAID.value }}">{{ R.string.paid }}</option>
+                            <option value="{{ R.id.ORDER_STATUS_DELIVERED.value }}">{{ R.string.delivered }}</option>
+                        {% elif order.status == R.id.ORDER_STATUS_DELIVERED %}
+                            <option value="{{ R.id.ORDER_STATUS_SENT.value }}">{{ R.string.sent }}</option>
+                        {% endif %}
+                    </select>
+                </div>
+                <button onclick='return safeConfirm("{{ R.string.change_order_status_confirmation_message }}".f("{{ order.id }}", $("#new-status-{{ order.id }} option:selected").text()));'
+                        title="{{ R.string.change_status }}"
+                        class="btn btn-default">
+                    {{ R.string.change_status }}
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

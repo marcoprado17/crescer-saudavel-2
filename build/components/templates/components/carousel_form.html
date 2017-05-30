@@ -1,0 +1,18 @@
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+<div class="__components__ __carousel_form__">
+    {% with title = R.string.get_carousel_n(data.carousel_number) %}
+        {% include "components/panel_section_separator.html" %}
+    {% endwith %}
+    <form action="{{ url_for("admin_content.save_carousel", carousel_number=data.carousel_number) }}" method="post" enctype=multipart/form-data class="save"
+    data-save-text="{{ R.string.save }}" data-saving-text="{{ R.string.saving }}"
+    data-error-msg="{{ R.string.get_save_carousel_error_msg(data.carousel_number) }}"
+    data-success-msg="{{ R.string.get_save_carousel_success_msg(data.carousel_number) }}">
+        {{ data.carousel_form.csrf_token }}
+        {{ form_fields.boolean_field(field=data.carousel_form.active) }}
+        {{ form_fields.string_field(field=data.carousel_form.title, max_length=R.dimen.carousel_title_max_length, explicit_label=True, placeholder=R.string.carousel_title_example) }}
+        {{ form_fields.string_field(field=data.carousel_form.subtitle, max_length=R.dimen.carousel_subtitle_max_length, explicit_label=True, placeholder=R.string.carousel_subtitle_example) }}
+        {{ form_fields.string_field(field=data.carousel_form.link, max_length=R.dimen.link_max_length, explicit_label=True, placeholder=R.string.inner_link_example) }}
+        {{ form_fields.select_field(field=data.carousel_form.image, explicit_label=True) }}
+        {{ form_fields.submit(field=data.carousel_form.submit) }}
+    </form>
+</div>

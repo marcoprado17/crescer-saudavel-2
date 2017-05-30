@@ -4,12 +4,8 @@ bower_components/
 node_modules/
 /logs/*
 !/logs/.gitkeep
-/scripts/server_setups/export_db_info_result.txt
 .idea/
 playground/
 portuguese_brazil_dic/
-/configs/instance/instance_app_config.py
-/configs/instance/db_info.py
-build/
 whoosh_index/
 src/flask-admin
