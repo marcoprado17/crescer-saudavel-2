@@ -251,34 +251,34 @@ def get_random_client():
 def create_random_orders():
     for i in range(0, n_orders):
         try:
-            get_random_order()
+            create_random_order()
             print "Order " + str(i) + " created."
         except Exception as e:
             print "Order " + str(i) + " creation fail."
 
 
-def get_random_order():
+def create_random_order():
     status = random.choice(
         filter(lambda order_status_id: order_status_id != R.id.ORDER_STATUS_ANY, Order.order_status_map.keys()))
     Order.create_new(
         client_id=get_random_valid_client_id_or_none(address_defined=True),
         status=status,
-        amount_by_product_id=get_random_order_amount_by_product_id(),
+        product_ids_and_amount=get_random_product_ids_and_amount(),
         **get_random_order_datetimes(status)
     )
 
 
-def get_random_order_amount_by_product_id():
-    amount_by_product_id = {}
-    n_products = random.randint(1, 10)
+def get_random_product_ids_and_amount():
+    product_ids_and_amount = []
+    n_products_in_order = random.randint(1, 10)
     products = Product.query.all()
     random.shuffle(products)
-    chosen_products = products[0:n_products]
+    chosen_products = products[0:n_products_in_order]
     for product in chosen_products:
-        amount = random.randint(1, product.available)
-        amount_by_product_id[product.id] = amount
-    assert len(amount_by_product_id) >= 1
-    return amount_by_product_id
+        amount = random.randint(1, product.get_n_units_available())
+        product_ids_and_amount.append((product.id, amount))
+    assert len(product_ids_and_amount) >= 1
+    return product_ids_and_amount
 
 
 def get_random_order_datetimes(status):

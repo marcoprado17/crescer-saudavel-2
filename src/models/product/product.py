@@ -111,6 +111,9 @@ class Product(BaseModel):
             return None
         return Product.calculate_price_with_discount(price=self.price, discount_percentage=self.discount_percentage)
 
+    def get_price(self, n_units):
+        return n_units*self.price
+
     @staticmethod
     def calculate_price_with_discount(price, discount_percentage):
         return (price * Decimal(str((100.0 - clamp_integer(discount_percentage, 0, 100)) / 100.0))).quantize(

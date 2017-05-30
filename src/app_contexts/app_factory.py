@@ -286,7 +286,7 @@ def create_app():
     # ==================================================================================================================
     from proj_extensions import admin
     from models.order import Order
-    # The import above it's not used, but is necessary declare it here
+    from models_view.order_view import OrderView
     from models.city import City
     from models_view.city_view import CityView
     from models.product.product_category import ProductCategory
@@ -334,6 +334,8 @@ def create_app():
     admin.add_view(OtherImageView(OtherImage, db.session))
     admin.add_view(BlogPostView(BlogPost, db.session))
     admin.add_view(BlogTagView(BlogTag, db.session))
+    admin.add_view(UserView(User, db.session))
+    admin.add_view(OrderView(Order, db.session))
     admin.add_view(AboutUsView(AboutUs, db.session))
     admin.add_view(DispatchView(Dispatch, db.session))
     admin.add_view(ExchangesAndReturnsView(ExchangesAndReturns, db.session))
@@ -344,7 +346,6 @@ def create_app():
     admin.add_view(ContactView(Contact, db.session))
     admin.add_view(HomeContentView(HomeContent, db.session))
     admin.add_view(TagsRowView(TagsRow, db.session))
-    admin.add_view(UserView(User, db.session))
 
     from proj_extensions import babel
 

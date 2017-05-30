@@ -5,21 +5,17 @@
 # ======================================================================================================================
 import uuid
 
-from decimal import Decimal
 from collections import OrderedDict
+from decimal import Decimal
 from datetime import datetime
 from sqlalchemy import ForeignKey
-from sqlalchemy import asc
-from sqlalchemy import desc
 from sqlalchemy.orm import relationship
 from proj_extensions import db
-from sqlalchemy.dialects.postgresql import JSON
 from models.base import BaseModel
 from models.user.user import User
 from models.product.product import Product
 from proj_exceptions import InvalidOrderStatusIdError, InvalidOrderStatusChange, InsufficientStockToSendOrder, \
     InconsistentDataBaseError, InvalidClientToOrder, InvalidOrderError
-from proj_utils import SortMethodMap
 from r import R
 
 
@@ -34,19 +30,9 @@ class Order(BaseModel):
     paid_datetime = db.Column(db.DateTime, nullable=False)
     sent_datetime = db.Column(db.DateTime)
     delivered_datetime = db.Column(db.DateTime)
-    amount_by_product_id = db.Column(JSON, nullable=False)
     products_total_price = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
     freight = db.Column(db.Numeric(precision=12, scale=2), nullable=False)
-    products_table_data = db.Column(db.JSON, nullable=False)
-    total_table_data = db.Column(db.JSON, nullable=False)
-
-    sort_method_map = SortMethodMap([
-        (R.id.SORT_METHOD_CLIENT_EMAIL,         R.string.client_email,          asc(client_email)),
-        (R.id.SORT_METHOD_NEWEST,               R.string.newest,                desc(paid_datetime)),
-        (R.id.SORT_METHOD_OLDER,                R.string.older,                 asc(paid_datetime)),
-        (R.id.SORT_METHOD_LOWER_TOTAL_PRICE,    R.string.lowest_total_price,    asc(products_total_price)),
-        (R.id.SORT_METHOD_HIGHER_TOTAL_PRICE,   R.string.higher_total_price,    desc(products_total_price)),
-    ])
+    products_data = db.Column(db.JSON, nullable=False)
 
     order_status_map = OrderedDict()
     order_status_map[R.id.ORDER_STATUS_ANY] = R.string.any
@@ -55,13 +41,20 @@ class Order(BaseModel):
     order_status_map[R.id.ORDER_STATUS_SENT] = R.string.sent
     order_status_map[R.id.ORDER_STATUS_DELIVERED] = R.string.delivered
 
+    def __init__(self, client_id, status, product_ids_and_amount, **kwargs):
+        self.client_id = client_id
+        self.status = status
+        self.product_ids_and_amount = product_ids_and_amount
+        super(Order, self).__init__(**kwargs)
+
     @staticmethod
     def create_new(**kwargs):
         order = Order(**kwargs)
         client = User.get(order.client_id)
-        if client == None:
+        if client is None:
             raise InvalidClientToOrder
         order.client_email = client.email
+        order.freight = client.get_freight()
 
         products_amounts_zip = order.get_products_amounts_zip()
 
@@ -70,8 +63,7 @@ class Order(BaseModel):
                 raise InvalidOrderError
 
         order.products_total_price = order._get_products_total_price(products_amounts_zip)
-        order.products_table_data = order._get_products_table_data(products_amounts_zip)
-        order.total_table_data = order._get_total_table_data(products_amounts_zip=products_amounts_zip, client=client)
+        order.products_data = order._get_products_data(products_amounts_zip)
         order.inc_products_reserved(products_amounts_zip)
         order.uuid = str(uuid.uuid4())
 
@@ -83,16 +75,29 @@ class Order(BaseModel):
         products = []
         amounts = []
 
-        for product_id, amount in self.amount_by_product_id.iteritems():
-            product = Product.get(product_id)
-            if product == None:
-                raise InvalidOrderError
-            products.append(product)
-            amounts.append(amount)
+        if hasattr(self, "product_ids_and_amount"):
+            for product_id, amount in self.product_ids_and_amount:
+                product = Product.get(product_id)
+                if product is None:
+                    raise InvalidOrderError
+                products.append(product)
+                amounts.append(amount)
+        elif self.products_data is not None:
+            for row in self.products_data:
+                product_id = row[0]
+                amount = row[3]
+                product = Product.get(product_id)
+                if product is None:
+                    raise InvalidOrderError
+                products.append(product)
+                amounts.append(amount)
+        else:
+            raise InvalidOrderError
 
         return zip(products, amounts)
 
-    def inc_products_reserved(self, products_amounts_zip):
+    @staticmethod
+    def inc_products_reserved(products_amounts_zip):
         for product, amount in products_amounts_zip:
             product.reserved += amount
             db.session.add(product)
@@ -131,82 +136,25 @@ class Order(BaseModel):
             choices.append((str(order_status_id.value), order_status_name))
         return choices
 
-    def _get_products_total_price(self, products_amounts_zip):
+    @staticmethod
+    def _get_products_total_price(products_amounts_zip):
         products_total_price = Decimal("0.00")
         for product, amount in products_amounts_zip:
             products_total_price += product.get_price(n_units=amount)
         return products_total_price
 
-    def _get_products_table_data(self, products_amounts_zip):
+    @staticmethod
+    def _get_products_data(products_amounts_zip):
         rows = []
         for product, amount in products_amounts_zip:
             rows.append([
-                "#" + str(product.id),
+                product.id,
                 product.title,
-                product.get_formatted_price(),
+                R.string.format_price(product.price),
                 amount,
-                product.get_formatted_price(n_units=amount)
+                R.string.format_price(product.get_price(n_units=amount))
             ])
-
-        return dict(
-            table_data=dict(
-                id="products-table",
-                cols=[
-                    dict(
-                        id="product-id",
-                        title=R.string.id,
-                        type=R.id.COL_TYPE_TEXT.value
-                    ),
-                    dict(
-                        id="product-title",
-                        title=R.string.product_title,
-                        type=R.id.COL_TYPE_TEXT.value
-                    ),
-                    dict(
-                        id="product-price",
-                        title=R.string.price,
-                        type=R.id.COL_TYPE_TEXT.value,
-                        tooltip=R.string.product_price_tooltip
-                    ),
-                    dict(
-                        id="product-amount",
-                        title=R.string.amount,
-                        type=R.id.COL_TYPE_TEXT.value
-                    ),
-                    dict(
-                        id="product-subtotal",
-                        title=R.string.subtotal,
-                        type=R.id.COL_TYPE_TEXT.value,
-                        tooltip=R.string.subtotal_tooltip
-                    ),
-                ],
-                rows=rows
-            )
-        )
-
-    def _get_total_table_data(self, products_amounts_zip, client):
-        self.freight = client.get_freight()
-        return dict(
-            table_data=dict(
-                no_head = True,
-                bordered = True,
-                classes="products-total-table",
-                id="total-table",
-                cols=[
-                    dict(
-                        type=R.id.COL_TYPE_TEXT.value
-                    ),
-                    dict(
-                        type=R.id.COL_TYPE_TEXT.value,
-                    )
-                ],
-                rows=[
-                    [R.string.products, R.string.price_with_rs(self.products_total_price)],
-                    [R.string.freight, R.string.price_with_rs(self.freight)],
-                    [R.string.total, R.string.price_with_rs(self.products_total_price + self.freight)]
-                ]
-            )
-        )
+        return rows
 
     def get_formatted_total_price(self, include_rs=False):
         s = ""
@@ -237,8 +185,8 @@ class Order(BaseModel):
         if self.status != R.id.ORDER_STATUS_SENT:
             raise InvalidOrderStatusChange
 
-        self.status=R.id.ORDER_STATUS_PAID
-        self.sent_datetime=None
+        self.status = R.id.ORDER_STATUS_PAID
+        self.sent_datetime = None
 
         for product, amount in self.get_products_amounts_zip():
             product.reserved += amount
@@ -274,7 +222,7 @@ class Order(BaseModel):
         if self.status != R.id.ORDER_STATUS_PAID:
             raise InvalidOrderStatusChange
 
-        self.status=R.id.ORDER_STATUS_CANCELED
+        self.status = R.id.ORDER_STATUS_CANCELED
 
         for product, amount in self.get_products_amounts_zip():
             product.reserved -= amount
@@ -289,7 +237,7 @@ class Order(BaseModel):
         if self.status != R.id.ORDER_STATUS_CANCELED:
             raise InvalidOrderStatusChange
 
-        self.status=R.id.ORDER_STATUS_PAID
+        self.status = R.id.ORDER_STATUS_PAID
 
         for product, amount in self.get_products_amounts_zip():
             product.reserved += amount
@@ -300,6 +248,6 @@ class Order(BaseModel):
 
     @staticmethod
     def get_n_orders(status):
-        if not status in Order.order_status_map.keys():
+        if status not in Order.order_status_map.keys():
             raise InvalidOrderStatusIdError
         return Order.query.filter(Order.status == status).count()

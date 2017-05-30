@@ -83,7 +83,7 @@ def protect_against_csrf(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         token = session.pop('_csrf_token', None)
-        if not token or token != request.args.get(R.string.csrf_token):
+        if not token or (token != request.args.get(R.string.csrf_token) and token != request.form.get(R.string.csrf_token)):
             abort(403)
         return func(*args, **kwargs)
     return decorated_function

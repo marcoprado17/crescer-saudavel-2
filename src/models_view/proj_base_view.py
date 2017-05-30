@@ -2,6 +2,7 @@ import logging
 
 from flask import flash, redirect, url_for, request
 from flask_admin.contrib.sqla import ModelView
+from flask_admin.form import SecureForm
 from markupsafe import Markup
 
 from proj_utils import parse_markdown
@@ -16,6 +17,7 @@ log = logging.getLogger("flask-admin.sqla")
 
 class ProjBaseView(ModelView):
     column_labels = R.dict.column_labels
+
     name = None
     endpoint = None
     category = None

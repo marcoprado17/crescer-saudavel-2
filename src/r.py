@@ -182,10 +182,18 @@ class Resources(object):
             address="Endereço",
             address_number="Número",
             address_complement="Complemento",
+            client_email="Email do cliente",
+            paid_datetime="Data e hora do pagamento",
+            sent_datetime="Data e hora do envio",
+            delivered_datetime="Data e hora da entrega",
+            total_price="Valor total do pedido",
+            products_total_price="Preço total dos produtos",
+            freight="Frete"
         )
 
     # noinspection PyPep8Naming
     class string(object):
+        change_status = "mudar-status"
         my_information = "Minhas informações"
         resend_confirmation_email_query = "Deseja reenviar o email de confirmação?"
         resend_confirmation_email_auxiliar_text = "Entre com o email cadastrado, reenviaremos o link para confirmação do email."
@@ -301,6 +309,7 @@ class Resources(object):
         add_new_subcategory = "Adicionar nova subcategoria"
         subcategories_table = "Tabela de subcategorias"
         orders = "Pedidos"
+        orders_endpoint = "pedidos"
         blog = "Blog"
         add_new_post = "Adicionar novo post"
         posts_table = "Tabela de posts"
@@ -761,6 +770,10 @@ class Resources(object):
         home_content_endpoint = "conteudo-da-home"
         tag_title_placeholder = "Ex.: Frete grátis"
         tag_subtitle_placeholder = "Ex.: Para São José dos Campos para compras acima de R$ 50,00"
+        send_email_when_update_order_status = "Enviar email para o cliente ao alterar o status"
+        change_status = "Alterar status"
+        new_status = "Novo status:"
+        change_order_status_confirmation_message = "Você tem certeza que deseja alterar o status do pedido '#{0}' para '{1}'?"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1469,6 +1482,28 @@ There's actually a lot more to Markdown than this. See the official [introductio
         @staticmethod
         def tag_n_header(n):
             return "Tag " + str(n)
+
+        @staticmethod
+        def order_status_successfully_changed_message(order_id, new_status):
+            return "O pedido '#%s' alterou com sucesso seu status para '%s'" % (
+                str(order_id),
+                R.string.get_order_status_as_string(new_status)
+            )
+
+        @staticmethod
+        def get_order_status_as_string(order_status):
+            if order_status == R.id.ORDER_STATUS_ANY:
+                return R.string.any
+            if order_status == R.id.ORDER_STATUS_CANCELED:
+                return R.string.canceled
+            elif order_status == R.id.ORDER_STATUS_PAID:
+                return R.string.paid
+            elif order_status == R.id.ORDER_STATUS_SENT:
+                return R.string.sent
+            elif order_status == R.id.ORDER_STATUS_DELIVERED:
+                return R.string.delivered
+            else:
+                return order_status
 
     # noinspection PyPep8Naming
     @unique
