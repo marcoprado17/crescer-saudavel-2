@@ -17,3 +17,6 @@ class City(BaseModel):
     active = db.Column(db.Boolean, default=False, nullable=False)
     state_id = db.Column(db.Integer, ForeignKey("state.id"), nullable=False)
     state = relationship("State", uselist=False)
+
+    def __repr__(self):
+        return self.name
