@@ -5,28 +5,26 @@
 # ======================================================================================================================
 from flask import flash
 from flask import url_for
-
-from flask_bombril.r import R as bombril_R
 from models.content.header import Header
 from models.product.product_category import ProductCategory
 from proj_decorators import login_or_anonymous
 from r import R
 
 
-class ClientHeaderDataProvider(object):
+class HeaderDataProvider(object):
     @login_or_anonymous
     def get_data(self, base_user):
-        carta_data=base_user.get_cart_data()
+        cart_data = base_user.get_cart_data()
         cart_update_messages = base_user.get_cart_update_messages()
         for message in cart_update_messages:
-            flash(message, bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.info))
+            flash(message, "toast-info")
         return dict(
             logged=(not base_user.is_anonymous) and base_user.is_authenticated,
-            name= getattr(base_user, "name", None),
+            name=getattr(base_user, "name", None),
             menu_data=self.get_menu_data(),
-            cart_data=carta_data,
+            cart_data=cart_data,
             n_items=base_user.get_n_items(),
-            product_total_price_as_string=base_user.get_cart_products_total_as_string(include_rs=True)
+            products_total_price_as_string=base_user.get_cart_products_total_as_string(include_rs=True)
         )
 
     def get_menu_data(self):
@@ -38,7 +36,7 @@ class ClientHeaderDataProvider(object):
             ),
             dict(
                 name=R.string.blog,
-                href=url_for("client_blog.blog"),
+                href=url_for("blog.blog"),
             ),
         ]
 
@@ -52,7 +50,8 @@ class ClientHeaderDataProvider(object):
                         children.append(
                             dict(
                                 name=subcategory.name,
-                                href=url_for("client_products.products", **{R.string.subcategory_id_arg_name: subcategory.id})
+                                href=url_for("client_products.products",
+                                             **{R.string.subcategory_id_arg_name: subcategory.id})
                             )
                         )
                 menu_tree.append(
@@ -64,8 +63,9 @@ class ClientHeaderDataProvider(object):
                 )
         return menu_tree
 
-    def get_product_categories_sorted_by_priority(self):
+    @staticmethod
+    def get_product_categories_sorted_by_priority():
         return sorted(ProductCategory.get_all(), key=lambda product_category: product_category.priority, reverse=True)
 
 
-client_header_data_provider = ClientHeaderDataProvider()
+header_data_provider = HeaderDataProvider()

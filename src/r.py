@@ -774,6 +774,8 @@ class Resources(object):
         change_status = "Alterar status"
         new_status = "Novo status:"
         change_order_status_confirmation_message = "Você tem certeza que deseja alterar o status do pedido '#{0}' para '{1}'?"
+        shop_diminutive = "Lojinha"
+        who_we_are = "Quem somos"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"

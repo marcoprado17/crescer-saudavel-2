@@ -27,7 +27,7 @@ class ClientFooterDataProvider(object):
             chosen_blog_posts.append(
                 dict(
                     title=blog_post.title,
-                    href=url_for("client_blog.blog_post", **{R.string.blog_post_id_arg_name: blog_post.id}),
+                    href=url_for("blog.blog_post", **{R.string.blog_post_id_arg_name: blog_post.id}),
                 )
             )
 

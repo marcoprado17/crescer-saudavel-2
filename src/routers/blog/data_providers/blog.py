@@ -35,7 +35,7 @@ class BlogDataProvider(object):
                     ),
                     dict(
                         name=R.string.blog,
-                        href=url_for("client_blog.blog")
+                        href=url_for("blog.blog")
                     )
                 ],
                 title=R.string.blog

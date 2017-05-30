@@ -18,7 +18,7 @@ class ClientBlogPostDataProvider(object):
         n_active_posts = q.count()
         per_page = current_app.config["CLIENT_BLOG_POSTS_PER_PAGE"]
         page_to_return = get_valid_page(page_arg_name=R.string.page_arg_name, per_page=per_page, n_items=n_active_posts)
-        blog_href_to_return = url_for("client_blog.blog", **{R.string.page_arg_name: page_to_return})
+        blog_href_to_return = url_for("blog.blog", **{R.string.page_arg_name: page_to_return})
         return dict(
             page_heading_data=dict(
                 path=[

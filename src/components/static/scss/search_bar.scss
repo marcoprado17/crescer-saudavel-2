@@ -1,0 +1,36 @@
+.__components__.__search_bar__ {
+  width: 280px;
+
+  .input-group {
+    border: solid 1px $proj-gray;
+
+    .input-group-btn {
+      padding-top: 0;
+
+      button {
+        background: none;
+        box-shadow: none;
+        border: 0;
+        border-right: solid 1px $proj-gray;
+        padding: 4px;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin: 0 !important;
+
+        img {
+          height: 28px;
+        }
+      }
+    }
+
+    input {
+      border: 0;
+      box-shadow: none;
+      padding-left: 8px;
+      font-size: 14px;
+      padding-top: 0;
+      padding-bottom: 0;
+      height: 42px;
+    }
+  }
+}

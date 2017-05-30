@@ -45,15 +45,15 @@ gulp.task("make_client_css_bundle", function(){
     return gulp.src([
         "bower_components/bootstrap/dist/css/bootstrap.css",
         "bower_components/toastr/toastr.css",
-        "bower_components/flipmart-v5/css/font-awesome.css",
-        "bower_components/flipmart-v5/css/revslider.css",
-        "bower_components/flipmart-v5/css/owl.carousel.css",
-        "bower_components/flipmart-v5/css/owl.theme.css",
-        "bower_components/flipmart-v5/css/jquery.bxslider.css",
-        "bower_components/flipmart-v5/css/jquery.mobile-menu.css",
-        "bower_components/flipmart-v5/css/style.css",
-        "bower_components/flipmart-v5/css/flexslider.css",
-        "bower_components/flipmart-v5/css/responsive.css",
+        // "bower_components/flipmart-v5/css/font-awesome.css",
+        // "bower_components/flipmart-v5/css/revslider.css",
+        // "bower_components/flipmart-v5/css/owl.carousel.css",
+        // "bower_components/flipmart-v5/css/owl.theme.css",
+        // "bower_components/flipmart-v5/css/jquery.bxslider.css",
+        // "bower_components/flipmart-v5/css/jquery.mobile-menu.css",
+        // "bower_components/flipmart-v5/css/style.css",
+        // "bower_components/flipmart-v5/css/flexslider.css",
+        // "bower_components/flipmart-v5/css/responsive.css",
         "bower_components/components-font-awesome/css/font-awesome.css",
         "bower_components/bootstrap-social/bootstrap-social.css",
         "src/front_bombril/utils.scss",
@@ -62,7 +62,7 @@ gulp.task("make_client_css_bundle", function(){
         "src/components/**/*.scss",
         "src/routers/client_about_us/**/*.scss",
         "src/routers/client_account/**/*.scss",
-        "src/routers/client_blog/**/*.scss",
+        "src/routers/blog/**/*.scss",
         "src/routers/client_cart/**/*.scss",
         "src/routers/client_checkout/**/*.scss",
         "src/routers/client_faq/**/*.scss",
@@ -95,15 +95,15 @@ gulp.task("make_client_js_bundle", function () {
         "bower_components/jquery/dist/jquery.js",
         "bower_components/bootstrap/dist/js/bootstrap.js",
         "bower_components/toastr/toastr.js",
-        "bower_components/flipmart-v5/js/parallax.js",
-        "bower_components/flipmart-v5/js/revslider.js",
-        "bower_components/flipmart-v5/js/common.js",
-        "bower_components/flipmart-v5/js/jquery.bxslider.min.js",
-        "bower_components/flipmart-v5/js/jquery.flexslider.js",
-        "bower_components/flipmart-v5/js/cloud-zoom.js",
-        "bower_components/flipmart-v5/js/countdown.js",
-        "bower_components/flipmart-v5/js/owl.carousel.min.js",
-        "bower_components/flipmart-v5/js/jquery.mobile-menu.min.js",
+        // "bower_components/flipmart-v5/js/parallax.js",
+        // "bower_components/flipmart-v5/js/revslider.js",
+        // "bower_components/flipmart-v5/js/common.js",
+        // "bower_components/flipmart-v5/js/jquery.bxslider.min.js",
+        // "bower_components/flipmart-v5/js/jquery.flexslider.js",
+        // "bower_components/flipmart-v5/js/cloud-zoom.js",
+        // "bower_components/flipmart-v5/js/countdown.js",
+        // "bower_components/flipmart-v5/js/owl.carousel.min.js",
+        // "bower_components/flipmart-v5/js/jquery.mobile-menu.min.js",
         "bower_components/bignumber.js/bignumber.js",
         "src/front_bombril/utils.js",
         "src/wrappers/base/**/*.js",
@@ -111,7 +111,7 @@ gulp.task("make_client_js_bundle", function () {
         "src/components/**/*.js",
         "src/routers/client_about_us/**/*.js",
         "src/routers/client_account/**/*.js",
-        "src/routers/client_blog/**/*.js",
+        "src/routers/blog/**/*.js",
         "src/routers/client_cart/**/*.js",
         "src/routers/client_checkout/**/*.js",
         "src/routers/client_faq/**/*.js",
@@ -136,7 +136,7 @@ gulp.task("build", function (callback) {
             "make_css_bundles",
             "make_js_bundles",
             "copy_fonts_to_build_dir",
-            "copy_flipmart_fonts_to_build_dir",
+            // "copy_flipmart_fonts_to_build_dir",
             "copy_images_to_build_dir",
             "copy_flask_admin_to_build_dir"
         ],
@@ -194,10 +194,10 @@ gulp.task("copy_fonts_to_build_dir", function () {
         .pipe(gulp.dest("build/static/fonts"));
 });
 
-gulp.task("copy_flipmart_fonts_to_build_dir", function () {
-    return gulp.src(["bower_components/flipmart-v5/fonts/*"])
-        .pipe(gulp.dest("build/static/fonts"));
-});
+// gulp.task("copy_flipmart_fonts_to_build_dir", function () {
+//     return gulp.src(["bower_components/flipmart-v5/fonts/*"])
+//         .pipe(gulp.dest("build/static/fonts"));
+// });
 
 gulp.task("minify_admin_css_bundle", function () {
     return gulp.src("build/static/css/admin_bundle.css")

@@ -91,12 +91,12 @@
                         </div>
 
                         <div class="footer-column">
-                            <a href="{{ url_for("client_blog.blog") }}" class="col-title"><h4>{{ R.string.blog }}</h4></a>
+                            <a href="{{ url_for("blog.blog") }}" class="col-title"><h4>{{ R.string.blog }}</h4></a>
                             <ul class="links">
                                 {% for item in data.chosen_blog_posts %}
                                     <li><a href="{{ item.href }}" title="{{ item.title }}">{{ item.title }}</a></li>
                                 {% endfor %}
-                                <li><a href="{{ url_for("client_blog.blog") }}" title="...">...</a></li>
+                                <li><a href="{{ url_for("blog.blog") }}" title="...">...</a></li>
                             </ul>
                         </div>
                     </div>

@@ -116,7 +116,7 @@ def create_app():
     app.register_blueprint(client_about_us_blueprint, url_prefix="/sobre-nos")
     from routers.client_account import client_account_blueprint
     app.register_blueprint(client_account_blueprint, url_prefix="/minha-conta")
-    from routers.client_blog import client_blog_blueprint
+    from routers.blog import client_blog_blueprint
     app.register_blueprint(client_blog_blueprint, url_prefix="/blog")
     from routers.client_cart import client_cart_blueprint
     app.register_blueprint(client_cart_blueprint, url_prefix="/carrinho")
@@ -199,7 +199,7 @@ def create_app():
     from flask_bombril import R as bombril_R
     from components.data_providers import admin_navbar_data_provider
     from components.data_providers.client_footer import client_footer_data_provider
-    from components.data_providers.client_header import client_header_data_provider
+    from components.data_providers.client_header import header_data_provider
     from components.data_providers.tags_row import tags_row_data_provider
 
     def generate_csrf_token():
@@ -213,9 +213,9 @@ def create_app():
             R=R,
             bombril_R=bombril_R,
             get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data(),
-            get_components_client_header_data=lambda: client_header_data_provider.get_data(),
+            get_components_client_header_data=lambda: header_data_provider.get_data(),
             get_components_client_footer_data=lambda: client_footer_data_provider.get_data(),
-            get_components_client_mobile_menu_data=lambda: client_header_data_provider.get_menu_data(),
+            get_components_client_mobile_menu_data=lambda: header_data_provider.get_menu_data(),
             get_components_tags_row_data=lambda: tags_row_data_provider.get_data(),
             submit_form=SubmitForm(),
             csrf_token=generate_csrf_token
