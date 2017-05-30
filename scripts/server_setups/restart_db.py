@@ -8,8 +8,6 @@ import os
 import shutil
 import sys
 
-from r import R
-
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
 
@@ -28,6 +26,7 @@ from models.newsletter_emails import NewsletterEmails
 from models.content.payment import Payment
 from models.content.tags_row import TagsRow
 from models.user.user import User
+from r import R
 
 
 def restart_db():
