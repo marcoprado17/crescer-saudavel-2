@@ -15,7 +15,8 @@ from routers.blog.data_providers.blog_post import client_blog_post_data_provider
 @blog_blueprint.route("/")
 def blog():
     recent_blog_posts = BlogPost.query.order_by(desc(BlogPost.date)).filter_by(active=True).limit(2).all()
-    return render_template("blog/blog.html", recent_blog_posts=recent_blog_posts)
+    previous_posts = BlogPost.query.order_by(desc(BlogPost.date)).filter_by(active=True).offset(2).all()
+    return render_template("blog/blog.html", recent_blog_posts=recent_blog_posts, previous_posts=previous_posts)
 
 
 # noinspection PyUnresolvedReferences

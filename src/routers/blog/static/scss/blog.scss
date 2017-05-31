@@ -37,4 +37,33 @@
   .blog-main-img {
     margin-bottom: 28px;
   }
+
+  .strike-left {
+    display: block;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: "HappyBirthdayBabyMedium";
+    font-size: 24px;
+    margin-bottom: 28px;
+  }
+
+  .strike-left > span {
+    position: relative;
+    display: inline-block;
+  }
+
+  .strike-left > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: $proj-gray-color;
+  }
+
+  .strike-left > span:after {
+    left: 100%;
+    margin-left: 15px;
+  }
 }

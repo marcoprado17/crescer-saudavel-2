@@ -233,6 +233,7 @@ class Resources(object):
         order_by = "Ordenar por: "
         inner_link_example = "Ex.: /produtos/?category_id=1"
         blog_thumbnail_default_filename = "blog_thumbnail_default.jpg"
+        blog_thumbnail_wide_default_filename = "blog_thumbnail_wide_default.jpg"
         carousel_default_filename = "carousel_default.jpg"
         more_categories_default_filename = "more_categories_default.jpg"
         unavailable_product_at_moment = "Produto indisponível no momento."
@@ -283,6 +284,7 @@ class Resources(object):
         fixed_images_tooltip = "Imagens fixas não podem ser removidas e nem atualizadas."
         irremovable = "Irremovível"
         irremovable_images_tooltip = "Imagens irremovíveis não podem ser removidas, mas podem ser atualizadas ao se adicionar uma nova imagem com o mesmo nome."
+        previous_posts = "Posts anteriores"
 
         lowest_reserved = "Menor nº de unid. reservadas"
         higher_reserved = "Maior nº de unid. reservadas"

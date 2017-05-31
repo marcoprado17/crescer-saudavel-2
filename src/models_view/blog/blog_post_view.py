@@ -1,9 +1,12 @@
 from flask_admin.form import rules
 from markupsafe import Markup
+from os.path import join
+
 from models_view.proj_base_view import ProjBaseView
 from proj_utils import build_image_upload_field
 from r import R
 from configs import default_app_config as config
+from PIL import Image, ImageOps
 
 
 class BlogPostView(ProjBaseView):
@@ -60,3 +63,14 @@ class BlogPostView(ProjBaseView):
         rules.Field("summary_markdown", render_field="markdown_text"),
         rules.Field("content_markdown", render_field="markdown_text"),
     )
+
+    def on_model_change(self, form, model, is_created):
+        if model.has_thumbnail_image():
+            image = Image.open(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, model.thumbnail_filename))
+            image_wide = ImageOps.fit(
+                image,
+                (config.BLOG_THUMBNAIL_WIDE_IMAGE_WIDTH, config.BLOG_THUMBNAIL_WIDE_IMAGE_HEIGHT),
+                Image.ANTIALIAS
+            )
+            with open(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, model.get_thumbnail_wide_filename()), 'wb') as fp:
+                image_wide.save(fp, "JPEG")

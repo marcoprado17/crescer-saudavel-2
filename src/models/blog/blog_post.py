@@ -48,11 +48,30 @@ class BlogPost(BaseModel):
         return Markup(''.join(html) % (self.get_thumbnail_src(), self.id, self.title))
 
     def get_thumbnail_src(self):
-        if (self.thumbnail_filename is not None) and \
-                isfile(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, self.thumbnail_filename)):
+        if self.has_thumbnail_image():
             return join("/", config.BLOG_THUMBNAIL_IMAGES_FROM_STATIC_PATH, self.thumbnail_filename)
         else:
             return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.blog_thumbnail_default_filename)
 
     def get_href(self):
         return url_for("blog.blog_post", blog_post_id=self.id)
+
+    def get_thumbnail_wide_filename(self):
+        if self.thumbnail_filename:
+            return self.thumbnail_filename.split('.')[0] + "-wide." + self.thumbnail_filename.split('.')[1]
+        return None
+
+    def get_thumbnail_wide_src(self):
+        if self.has_thumbnail_wide_image():
+            return join("/", config.BLOG_THUMBNAIL_IMAGES_FROM_STATIC_PATH, self.get_thumbnail_wide_filename())
+        else:
+            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.blog_thumbnail_wide_default_filename)
+
+    def has_thumbnail_image(self):
+        return (self.thumbnail_filename is not None) and \
+               isfile(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, self.thumbnail_filename))
+
+    def has_thumbnail_wide_image(self):
+        thumbnail_wide_filename = self.get_thumbnail_wide_filename()
+        return (thumbnail_wide_filename is not None) and \
+               isfile(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, thumbnail_wide_filename))
