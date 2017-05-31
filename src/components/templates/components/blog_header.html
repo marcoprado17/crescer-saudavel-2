@@ -3,7 +3,9 @@
     <div class="container">
       {#    TODO: Put the logo image and find a way to let the admin change the logo image #}
       {#    <img src="..">#}
-      <div class="logo" style="width: 200px; height: 60px; background-color: #35B149;"></div>
+      <a href="{{ url_for('client_home.home') }}">
+        <div class="logo" style="width: 200px; height: 60px; background-color: #35B149;"></div>
+      </a>
       {% include "components/search_bar.html" %}
       <div class="links-container">
         <a href="{{ url_for('blog.blog') }}">{{ R.string.blog }}</a>
