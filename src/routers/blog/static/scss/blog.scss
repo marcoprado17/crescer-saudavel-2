@@ -91,4 +91,15 @@
       border-bottom-color: white;
     }
   }
+
+  .tags-section {
+    h2 {
+      font-family: "HappyBirthdayBabyMedium";
+      font-size: 24px;
+    }
+
+    a {
+      color: $proj-gray-color;
+    }
+  }
 }

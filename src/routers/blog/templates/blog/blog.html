@@ -59,6 +59,13 @@
       </div>
       <div class="col-md-4">
         <div id="datetimepicker12"></div>
+        <div class="tags-section">
+          <h2>{{ R.string.tags }}</h2>
+          <a href="" onclick="return false;">{{ R.string.none }}</a><br>
+          {% for blog_tag in blog_tags %}
+            <a href="" onclick="return false;">{{ blog_tag.name }}</a><br>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>

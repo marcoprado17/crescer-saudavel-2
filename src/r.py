@@ -483,6 +483,8 @@ class Resources(object):
         id_prefix = "#"
         product_default_filename = "product_default.jpg"
         tag_default_filename = "tag_default.jpg"
+        categories = "Categorias"
+        none = "Nenhuma"
 
         lowest_price = "Menor preço"
         higher_price = "Maior preço"

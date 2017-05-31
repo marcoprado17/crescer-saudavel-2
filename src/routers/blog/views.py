@@ -7,6 +7,7 @@ from flask import render_template
 from sqlalchemy import desc
 
 from models.blog.blog_post import BlogPost
+from models.blog.blog_tag import BlogTag
 from proj_decorators import safe_id_to_model_elem
 from routers.blog import blog_blueprint
 from routers.blog.data_providers.blog_post import client_blog_post_data_provider
@@ -16,7 +17,13 @@ from routers.blog.data_providers.blog_post import client_blog_post_data_provider
 def blog():
     recent_blog_posts = BlogPost.query.order_by(desc(BlogPost.date)).filter_by(active=True).limit(2).all()
     previous_posts = BlogPost.query.order_by(desc(BlogPost.date)).filter_by(active=True).offset(2).all()
-    return render_template("blog/blog.html", recent_blog_posts=recent_blog_posts, previous_posts=previous_posts)
+    blog_tags = BlogTag.query.filter_by(active=True).all()
+    return render_template(
+        "blog/blog.html",
+        recent_blog_posts=recent_blog_posts,
+        previous_posts=previous_posts,
+        blog_tags=blog_tags
+    )
 
 
 # noinspection PyUnresolvedReferences
