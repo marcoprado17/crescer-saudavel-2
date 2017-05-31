@@ -66,4 +66,29 @@
     left: 100%;
     margin-left: 15px;
   }
+
+  #datetimepicker12 {
+    background-color: $calendar-background-color;
+    color: white !important;
+    font-family: "OpenSans";
+    font-size: 16px;
+    padding: 8px;
+    border-radius: $default-border-radius;
+
+    .bootstrap-datetimepicker-widget table td.old, .bootstrap-datetimepicker-widget table td.new {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .bootstrap-datetimepicker-widget table td.active, .bootstrap-datetimepicker-widget table td.active:hover {
+      background-color: $dark-green;
+    }
+
+    .bootstrap-datetimepicker-widget table td.today:before {
+      border-bottom-color: $dark-green;
+    }
+
+    .bootstrap-datetimepicker-widget table td.active.today:before {
+      border-bottom-color: white;
+    }
+  }
 }

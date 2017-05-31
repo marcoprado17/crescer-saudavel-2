@@ -56,6 +56,7 @@ gulp.task("make_client_css_bundle", function(){
         // "bower_components/flipmart-v5/css/responsive.css",
         "bower_components/components-font-awesome/css/font-awesome.css",
         "bower_components/bootstrap-social/bootstrap-social.css",
+        "bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css",
         "src/front_bombril/utils.scss",
         "src/wrappers/base/**/*.scss",
         "src/wrappers/client_base/**/*.scss",
@@ -93,6 +94,7 @@ gulp.task("make_admin_js_bundle", function () {
 gulp.task("make_client_js_bundle", function () {
     return gulp.src([
         "bower_components/jquery/dist/jquery.js",
+        "bower_components/moment/min/moment.min.js",
         "bower_components/bootstrap/dist/js/bootstrap.js",
         "bower_components/toastr/toastr.js",
         // "bower_components/flipmart-v5/js/parallax.js",
@@ -105,6 +107,7 @@ gulp.task("make_client_js_bundle", function () {
         // "bower_components/flipmart-v5/js/owl.carousel.min.js",
         // "bower_components/flipmart-v5/js/jquery.mobile-menu.min.js",
         "bower_components/bignumber.js/bignumber.js",
+        "bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js",
         "src/front_bombril/utils.js",
         "src/wrappers/base/**/*.js",
         "src/wrappers/client_base/**/*.js",
