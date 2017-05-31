@@ -1,0 +1,30 @@
+.__components__.__blog_post_preview_date__ {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 6px;
+  margin-right: 6px;
+  padding: 8px 8px;
+  border: 2px solid white;
+  text-align: center;
+  font-family: "HappyBirthdayBabyMedium";
+  background-color: $blog-text-background-color;
+  color: white;
+  line-height: 1;
+
+  .day {
+    font-size: 36px;
+  }
+
+  .month {
+    font-size: 20px;
+  }
+
+  .divisor {
+    margin-top: 2px;
+    margin-bottom: 4px;
+    height: 2px;
+    background-color: white;
+    border-radius: 1px;
+  }
+}

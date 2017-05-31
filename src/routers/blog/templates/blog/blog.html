@@ -6,6 +6,32 @@
   {% include "components/blog_header.html" %}
 {% endblock %}
 {% block content %}
-    <div class="__blog__ __blog__">
+    <div class="__blog__ __blog__ container">
+      {#    TODO: Put the blog image and find a way to let the admin change the logo image #}
+      {#    <img src="..">#}
+      <div class="blog-main-img" style="width: 100%; height: 400px; background-color: #99CCFF;"></div>
+      {% if recent_blog_posts and recent_blog_posts|length > 0 %}
+        <div class="more-recent-posts">
+          <div class="strike">
+            <span>{{ R.string.more_recent_posts }}</span>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              {% with blog_post=recent_blog_posts[0] %}
+                {% include "components/blog_post_preview.html" %}
+              {% endwith %}
+            </div>
+            {% if recent_blog_posts|length > 1 %}
+              <div class="col-md-6">
+                {% with blog_post=recent_blog_posts[1] %}
+                  {% include "components/blog_post_preview.html" %}
+                {% endwith %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
     </div>
+{% endblock %}
+{% block mobile_menu %}
 {% endblock %}

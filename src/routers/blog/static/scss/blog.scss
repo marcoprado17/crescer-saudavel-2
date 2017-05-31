@@ -1,17 +1,44 @@
 .__blog__.__blog__ {
-  .featured-thumb a img {
-    max-height: 500px;
+  .strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: "HappyBirthdayBabyMedium";
+    font-size: 24px;
+    margin-bottom: 28px;
   }
 
-  .centered-content-container {
-    margin-top: 12px;
+  .strike > span {
+    position: relative;
+    display: inline-block;
   }
 
-  .blog-wrapper {
-    margin-bottom: 0;
+  .strike > span:before,
+  .strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: $proj-gray-color;
   }
 
-  .pager {
-    margin-bottom: 20px;
+  .strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+  }
+
+  .strike > span:after {
+    left: 100%;
+    margin-left: 15px;
+  }
+
+  .blog-main-img {
+    margin-bottom: 28px;
+  }
+
+  .more-recent-posts {
+    margin-bottom: 28px;
   }
 }

@@ -1,3 +1,38 @@
 .__components__.__blog_post_preview__ {
+  .blog-post-container {
+    transition: all .2s ease-in-out;
+    border-radius: $default-border-radius;
+  }
 
+  .blog-post-container:hover {
+    overflow: visible;
+    transform: scale(1.04);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
+  }
+
+  .blog-post-image {
+    position: relative;
+    width: 100%;
+
+    img {
+      width: 100%;
+      border-radius: $default-border-radius;
+    }
+
+    .title-container {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      height: 80px;
+      background-color: $blog-text-background-color;
+      padding: 8px 16px;
+      border-bottom-left-radius: $default-border-radius;
+      border-bottom-right-radius: $default-border-radius;
+
+      span {
+        font-size: 22px;
+        color: white;
+      }
+    }
+  }
 }

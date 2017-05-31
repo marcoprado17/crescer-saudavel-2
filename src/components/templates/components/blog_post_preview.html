@@ -1,20 +1,16 @@
 {% import "flask_bombril_macros/utils.html" as utils with context %}
-    <div class="__components__ __blog_post_preview__ col-lg-6 col-md-6 col-xs-12 col-sm-6 blog-post">
-        <h3>
-            <a href="{{ blog_post.get_href() }}">{{ utils.limited_text_tooltip(text=blog_post.title, max_length=R.dimen.blog_post_preview_title_max_length) }}</a>
-        </h3>
-        <div class="blog_inner">
-            <div class="blog-img">
-                <a href="{{ blog_post.get_href() }}"><img src="{{ blog_post.get_img_src_of_thumbnail() }}"
-                                                          alt="{{ R.string.post_thumbnail }}"></a>
-                <div class="mask"><a class="info" href="{{ blog_post.get_href() }}">{{ R.string.read_more }}</a></div>
-            </div>
-            <div class="blog-info">
-                <div class="post-date">
-                    <time class="entry-date" datetime="2015-05-11T11:07:27+00:00">
-                        <span>{{ blog_post.get_day() }}</span><br>{{ blog_post.get_month() }}
-                    </time>
-                </div>
-            </div>
+<div class="__components__ __blog_post_preview__">
+  <div class="blog-post-container">
+    <a href="{{ blog_post.get_href() }}">
+      <div class="blog-post-image">
+        <img src="{{ blog_post.get_thumbnail_src() }}">
+        <div class="title-container">
+          {{ utils.limited_text_tooltip(text=blog_post.title, max_length=64) }}
         </div>
-    </div>
+        {% with date=blog_post.date %}
+          {% include "components/blog_post_preview_date.html" %}
+        {% endwith %}
+      </div>
+    </a>
+  </div>
+</div>

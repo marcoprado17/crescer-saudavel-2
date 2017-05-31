@@ -116,8 +116,8 @@ def create_app():
     app.register_blueprint(client_about_us_blueprint, url_prefix="/sobre-nos")
     from routers.client_account import client_account_blueprint
     app.register_blueprint(client_account_blueprint, url_prefix="/minha-conta")
-    from routers.blog import client_blog_blueprint
-    app.register_blueprint(client_blog_blueprint, url_prefix="/blog")
+    from routers.blog import blog_blueprint
+    app.register_blueprint(blog_blueprint, url_prefix="/blog")
     from routers.client_cart import client_cart_blueprint
     app.register_blueprint(client_cart_blueprint, url_prefix="/carrinho")
     from routers.client_checkout import client_checkout_blueprint

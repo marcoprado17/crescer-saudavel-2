@@ -4,6 +4,8 @@
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from os.path import isfile, join
+
+from flask import url_for
 from markupsafe import Markup
 from sqlalchemy.orm import relationship
 from configs import default_app_config as config
@@ -53,4 +55,4 @@ class BlogPost(BaseModel):
             return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.blog_thumbnail_default_filename)
 
     def get_href(self):
-        raise NotImplementedError
+        return url_for("blog.blog_post", blog_post_id=self.id)

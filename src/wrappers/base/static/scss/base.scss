@@ -1,6 +1,8 @@
 $product-container-border-radius: 5px;
 $item-price-border-radius: 5px;
-$proj-gray: #888888;
+$proj-gray-color: #888888;
+$blog-text-background-color: rgba(1,1,1,0.4);
+$default-border-radius: 4px;
 
 @font-face {
   font-family: 'HappyBirthdayBaby';
@@ -34,7 +36,7 @@ $proj-gray: #888888;
   min-height: 100%;
   background-color: white;
   font-family: "OpenSans";
-  color: $proj-gray;
+  color: $proj-gray-color;
 
   .right-indent {
     margin-left: 26px;

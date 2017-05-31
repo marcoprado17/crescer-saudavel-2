@@ -28,7 +28,9 @@
     {% block footer %}
         {% include "components/client_footer_2.html" %}
     {% endblock %}
-    {% include "components/client_mobile_menu.html" %}
+    {% block mobile_menu %}
+      {% include "components/client_mobile_menu.html" %}
+    {% endblock %}
 {% endblock %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/client_bundle.js') }}"></script>
 <script>

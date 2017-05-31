@@ -2,7 +2,7 @@
   width: 280px;
 
   .input-group {
-    border: solid 1px $proj-gray;
+    border: solid 1px $proj-gray-color;
 
     .input-group-btn {
       padding-top: 0;
@@ -11,7 +11,7 @@
         background: none;
         box-shadow: none;
         border: 0;
-        border-right: solid 1px $proj-gray;
+        border-right: solid 1px $proj-gray-color;
         padding: 4px;
         padding-left: 8px;
         padding-right: 8px;
