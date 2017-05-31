@@ -144,10 +144,6 @@ def create_app():
     #
     from wrappers.base import base_blueprint
     app.register_blueprint(base_blueprint, url_prefix="/base")
-    # from wrappers.admin_base import admin_base_blueprint
-    # app.register_blueprint(admin_base_blueprint, url_prefix="/admin-base")
-    from wrappers.client_base import client_base_blueprint
-    app.register_blueprint(client_base_blueprint, url_prefix="/client-base")
     #
     # Macros
     #
@@ -159,7 +155,7 @@ def create_app():
     # Email
     #
     from email_blueprint import email_blueprint
-    app.register_blueprint(email_blueprint)
+    app.register_blueprint(email_blueprint, url_prefix="/email")
 
     # ==================================================================================================================
     #
@@ -198,7 +194,7 @@ def create_app():
     from r import R
     from flask_bombril import R as bombril_R
     from components.data_providers import admin_navbar_data_provider
-    from components.data_providers.client_footer import client_footer_data_provider
+    from components.data_providers.footer import footer_data_provider
     from components.data_providers.client_header import header_data_provider
     from components.data_providers.tags_row import tags_row_data_provider
 
@@ -214,7 +210,7 @@ def create_app():
             bombril_R=bombril_R,
             get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data(),
             get_components_client_header_data=lambda: header_data_provider.get_data(),
-            get_components_client_footer_data=lambda: client_footer_data_provider.get_data(),
+            get_footer_data=lambda: footer_data_provider.get_data(),
             get_components_client_mobile_menu_data=lambda: header_data_provider.get_menu_data(),
             get_components_tags_row_data=lambda: tags_row_data_provider.get_data(),
             submit_form=SubmitForm(),

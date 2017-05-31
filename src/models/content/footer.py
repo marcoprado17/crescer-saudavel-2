@@ -10,5 +10,5 @@ from proj_extensions import db
 class Footer(BaseContent):
     __tablename__ = "footer"
 
-    lower_text_markdown = db.Column(db.UnicodeText, default=u"")
-    lower_text_html = db.Column(db.UnicodeText, default=u"")
+    lower_text_markdown = db.Column(db.UnicodeText, default="")
+    lower_text_html = db.Column(db.UnicodeText, default="")

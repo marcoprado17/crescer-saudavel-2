@@ -26,7 +26,7 @@
     {% block content %}
     {% endblock %}
     {% block footer %}
-        {% include "components/client_footer_2.html" %}
+        {% include "components/footer.html" %}
     {% endblock %}
     {% block mobile_menu %}
       {% include "components/client_mobile_menu.html" %}
@@ -84,21 +84,7 @@
         });
     }
 
-    function updateInputs() {
-        if (screen.width < 690) {
-            $("input.newsletter-email").attr("placeholder", "{{ R.string.your_email }}");
-        }
-        else {
-            $("input.newsletter-email").attr("placeholder", "{{ R.string.enter_with_your_email }}");
-        }
-    }
-
     initFooter();
-    updateInputs();
-
-    $(window).resize(function () {
-        updateInputs()
-    });
 
     {{ messages.flash_toast() }}
 </script>

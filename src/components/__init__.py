@@ -6,5 +6,3 @@
 from flask import Blueprint
 
 components_blueprint = Blueprint("components", __name__, static_folder="static", template_folder="templates")
-
-import views

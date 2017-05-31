@@ -2,6 +2,7 @@
   .blog-post-container {
     transition: all .2s ease-in-out;
     border-radius: $default-border-radius;
+    margin-bottom: 28px;
   }
 
   .blog-post-container:hover {
