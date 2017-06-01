@@ -77,10 +77,3 @@
         </div>
     </div>
 {% endmacro %}
-
-{% macro label(field) %}
-    <div class="control-label">
-        <label for="{{ field.name }}">
-            {{ field.label.text }}{{ ' <strong style="color: red">*</strong>'|if(field.flags.required)|safe }}</label>
-    </div>
-{% endmacro %}
