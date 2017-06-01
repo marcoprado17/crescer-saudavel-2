@@ -1,0 +1,95 @@
+{% set data=get_footer_data() %}
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+<div class="__components__ __footer__">
+  <footer>
+    <div class="newsletter-part-full-container">
+      <div class="container">
+        <div class="row newsletter-part">
+          <div class="messages">
+            <h2 class="stay-in">{{ R.string.stay_in }}</h2>
+            <p class="auxiliar-message">{{ R.string.stay_in_auxiliar_message }}</p>
+          </div>
+          <div class="newsletter-sign">
+            <form action="{{ url_for("email.register_new_newsletter_email") }}" method="post" class="newsletter-sign"
+                  enctype=multipart/form-data data-sign-text="{{ R.string.sign }}"
+                  data-signing-text="{{ R.string.signing }}"
+                  data-error-msg="{{ R.string.newsletter_sign_error_msg }}"
+                  data-success-msg="{{ R.string.newsletter_sign_success_msg }}">
+              {{ data.newsletter_email_form.csrf_token() }}
+              <table>
+                <tr>
+                  <td class="email-input">{{ form_fields.string_field(field=data.newsletter_email_form.email, explicit_label=False, placeholder=R.string.enter_with_your_email, classes="newsletter-email") }}</td>
+                  <td>{{ form_fields.submit(field=data.newsletter_email_form.submit) }}</td>
+                </tr>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-part-container">
+      <div class="container">
+      <div class="row main">
+        <div class="col-md-6 contact-container">
+          <h2 class="title about-us">{{ R.string.about_us }}</h2>
+          <div class="content">
+            {{ data.about_us.summary_html|safe }}
+          </div>
+          <div class="read-more-container">
+            <a href="{{ url_for('client_about_us.about_us') }}" class="content">{{ R.string.read_more_plus }}</a>
+          </div>
+          <h2 class="title">{{ R.string.contact }}</h2>
+          {% if data.contact.tel %}
+            <div class="content">
+              <img src="{{ url_for('static', filename='imgs/support.png') }}">
+              {{ data.contact.tel }}
+            </div>
+          {% endif %}
+          {% if data.contact.email %}
+            <div class="content">
+              <img src="{{ url_for('static', filename='imgs/conversation.png') }}">
+              {{ data.contact.email }}
+            </div>
+          {% endif %}
+          {% if data.contact.address_html %}
+            <div class="content address">
+              <img src="{{ url_for('static', filename='imgs/home.png') }}">
+              <span>
+                {{ data.contact.address_html|safe }}
+              </span>
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <div class="fb-page"
+               data-href="{{ data.contact.facebook_link }}"
+               data-adapt-container-width="true"
+               data-width="500"
+               data-hide-cover="false"
+               data-show-facepile="true">
+          </div>
+          <h2 class="title utilities">{{ R.string.utilities }}</h2>
+          <a href="{{ url_for('client_faq.faq') }}" class="content">{{ R.string.faq }}</a><br>
+          <a href="{{ url_for('client_payment.payment') }}" class="content">{{ R.string.payment }}</a><br>
+          <a href="{{ url_for('client_dispatch.dispatch') }}" class="content">{{ R.string.dispatch }}</a><br>
+          <a href="{{ url_for('client_exchanges_and_returns.exchanges_and_returns') }}"
+             class="content">{{ R.string.exchanges_and_returns }}</a>
+          <h2 class="title payment-methods">{{ R.string.payment_methods }}</h2>
+          <div class="payments-methods-container">
+            <img src="{{ url_for('static', filename='imgs/mastercard.png') }}">
+            <img src="{{ url_for('static', filename='imgs/visa.png') }}">
+            <img src="{{ url_for('static', filename='imgs/boleto.png') }}">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="lower-text-container">
+      <div class="mini-content container">
+        <div class="row lower-text">
+          {{ data.footer.lower_text_html|safe }}
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
