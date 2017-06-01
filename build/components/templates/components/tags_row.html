@@ -1,0 +1,74 @@
+{% set tags_row = get_components_tags_row_data|assert_defined|assert_callable|call %}
+{% if tags_row.tag_1_image != "" or tags_row.tag_1_title != "" or tags_row.tag_1_subtitle != "" or tags_row.tag_2_image != "" or tags_row.tag_2_title != "" or tags_row.tag_2_subtitle != "" or tags_row.tag_3_image != "" or tags_row.tag_3_title != "" or tags_row.tag_3_subtitle != "" %}
+    <div class="__components__ __tags_row__">
+        <div class="container">
+            <div class="row">
+                {% if tags_row.tag_1_image != "" or tags_row.tag_1_title != "" or tags_row.tag_1_subtitle != "" %}
+                    <div class="column col-xs-4">
+                        <table>
+                            <tr>
+                                <td>
+                                    {% if tags_row.tag_1_image != "" %}
+                                        <img src="{{ tags_row.get_tag_n_image_src(1) }}">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if tags_row.tag_1_title != "" %}
+                                        <h2 class="tag-title">{{ tags_row.tag_1_title }}</h2>
+                                    {% endif %}
+                                    {% if tags_row.tag_1_subtitle != "" %}
+                                        <p class="tag-subtitle">{{ tags_row.tag_1_subtitle }}</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endif %}
+
+                {% if tags_row.tag_2_image != "" or tags_row.tag_2_title != "" or tags_row.tag_2_subtitle != "" %}
+                    <div class="column col-xs-4">
+                        <table>
+                            <tr>
+                                <td>
+                                    {% if tags_row.tag_2_image != "" %}
+                                        <img src="{{ tags_row.get_tag_n_image_src(2) }}">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if tags_row.tag_2_title != "" %}
+                                        <h2 class="tag-title">{{ tags_row.tag_2_title }}</h2>
+                                    {% endif %}
+                                    {% if tags_row.tag_2_subtitle != "" %}
+                                        <p class="tag-subtitle">{{ tags_row.tag_2_subtitle }}</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endif %}
+
+                {% if tags_row.tag_3_image != "" or tags_row.tag_3_title != "" or tags_row.tag_3_subtitle != "" %}
+                    <div class="column col-xs-4">
+                        <table>
+                            <tr>
+                                <td>
+                                    {% if tags_row.tag_3_image != "" %}
+                                        <img src="{{ tags_row.get_tag_n_image_src(3) }}">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if tags_row.tag_3_title != "" %}
+                                        <h2 class="tag-title">{{ tags_row.tag_3_title }}</h2>
+                                    {% endif %}
+                                    {% if tags_row.tag_3_subtitle != "" %}
+                                        <p class="tag-subtitle">{{ tags_row.tag_3_subtitle }}</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
