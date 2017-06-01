@@ -1,0 +1,39 @@
+{% import "flask_bombril_macros/utils.html" as utils with context %}
+<div class="__components__ __client_blog_section__">
+    <div class="blog-section">
+        <div class="new_title">
+            <table>
+                <tr>
+                    <td>
+                        {% if blog_section.href %}
+                            <a href="{{ blog_section.href }}" class="blog-section-title">
+                                <h1 class="title">{{ blog_section.title }}</h1>
+                            </a>
+                        {% else %}
+                            <h1 class="title">{{ blog_section.title }}</h1>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="row blog-posts">
+            {% for blog_post in blog_section.blog_posts %}
+                <div class="col-md-6">
+                    <a href="{{ blog_post.get_href() }}">
+                        <div class="blog-post-container grow">
+                            <img src="{{ blog_post.get_img_src_of_thumbnail() }}"
+                             alt="{{ R.string.post_thumbnail }}">
+                            <div class="gradient-top"></div>
+                            <div class="gradient-bottom"></div>
+                            <span class="title">{{ utils.limited_text_tooltip(text=blog_post.title, max_length=R.dimen.blog_post_preview_title_max_length) }}</span>
+                            <div class="day-month-container">
+                                <span class="day">{{ blog_post.get_day() }}</span><br>
+                                <span class="month">{{ blog_post.get_month() }}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
