@@ -1,0 +1,74 @@
+{% extends "client_base/client_base.html" %}
+{% block title %}
+    {{ R.string.search }}
+{% endblock %}
+{% block content %}
+    <div class="__client_search__ __search__">
+        {% with data=data.page_heading_data %}
+            {% include "components/client_page_heading.html" %}
+        {% endwith %}
+
+        {% if data.products and data.products|length > 0 %}
+            <section class=" wow bounceInUp animated">
+                <div class="best-pro slider-items-products container">
+                    <div class="new_title">
+                        <h2>{{ R.string.products }}:</h2>
+                    </div>
+                    {% with products=data.products[0:4] %}
+                        {% include "components/product_flexslider.html" %}
+                    {% endwith %}
+                    {% with products=data.products[4:8] %}
+                        {% include "components/product_flexslider.html" %}
+                    {% endwith %}
+                    {% with products=data.products[8:12] %}
+                        {% include "components/product_flexslider.html" %}
+                    {% endwith %}
+                </div>
+            </section>
+        {% endif %}
+
+        {% if data.blog_posts and data.blog_posts|length > 0 %}
+            <div class="latest-blog wow bounceInUp animated animated container">
+                <div class="new_title">
+                    <h2>{{ R.string.blog_posts }}:</h2>
+                </div>
+                <div class="blog_block">
+                    <div class="blog_block_inner">
+                        {% with blog_post=data.blog_posts[0] %}
+                            {% include "components/blog_post_preview.html" %}
+                        {% endwith %}
+                        {% if data.blog_posts|length >= 2 %}
+                            {% with blog_post=data.blog_posts[1] %}
+                                {% include "components/blog_post_preview.html" %}
+                            {% endwith %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% if data.blog_posts|length > 2 %}
+                    <div class="blog_block">
+                        <div class="blog_block_inner">
+                            {% with blog_post=data.blog_posts[2] %}
+                                {% include "components/blog_post_preview.html" %}
+                            {% endwith %}
+                            {% if data.blog_posts|length >= 4 %}
+                                {% with blog_post=data.blog_posts[3] %}
+                                    {% include "components/blog_post_preview.html" %}
+                                {% endwith %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if (data.products == None or data.products|length == 0) and (data.blog_posts == None or data.blog_posts|length == 0) %}
+            {% with msg=R.string.no_results_were_found %}
+                {% include "components/client_empty.html" %}
+            {% endwith %}
+        {% endif %}
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+    </script>
+{% endblock %}

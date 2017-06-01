@@ -1,0 +1,9 @@
+<div>
+    <button class="btn btn-block btn-social btn-facebook" type="button"
+            data-error-msg="{{ error_msg }}"
+            data-connect-url="{{ connect_url }}"
+            data-home-url="{{ url_for('client_home.home') }}">
+        <i class="fa fa-facebook"></i>{{ button_text }}
+    </button>
+    <div class="loading-text hidden">{{ loading_text }}</div>
+</div>
