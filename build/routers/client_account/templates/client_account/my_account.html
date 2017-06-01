@@ -1,0 +1,147 @@
+{% extends "client_base/client_base.html" %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% import "flask_bombril_macros/utils.html" as utils with context %}
+{% block title %}
+    {{ R.string.my_account }}
+{% endblock %}
+{% block content %}
+    <div class="__components__ __my_account__">
+{#        <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">#}
+            <div class="container">
+                {% for order in data.orders %}
+                    <div id="modal-{{ loop.index0 }}" class="modal fade details" role="dialog">
+                        <div class="modal-dialog large">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                            data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">
+                                        {{ R.string.details_of_order_space_at_end }}{{ utils.min_uuid(order.uuid) }}</h4>
+                                </div>
+                                <div class="modal-body example">
+                                    <div class="page-header">
+                                        <h5><b>{{ R.string.basic_info }}</b></h5>
+                                    </div>
+                                    <p><b>{{ R.string.status_label }}</b><i>{{ order.get_status_as_string() }}</i></p>
+                                    <p>
+                                        <b>{{ R.string.paid_date_label }}</b>{{ order.get_formatted_paid_datetime(with_hifen=True) }}
+                                    </p>
+                                    <p>
+                                        <b>{{ R.string.sent_date_label }}</b>{{ order.get_formatted_sent_datetime(with_hifen=True) }}
+                                    </p>
+                                    <p>
+                                        <b>{{ R.string.delivered_date_label }}</b>{{ order.get_formatted_delivered_datetime(with_hifen=True) }}
+                                    </p>
+                                    <div class="page-header">
+                                        <h5><b>{{ R.string.products_of_order }}</b></h5>
+                                    </div>
+                                    {% with data=order.products_table_data %}
+                                        {% include "components/super_table.html" %}
+                                    {% endwith %}
+                                    {% with data=order.total_table_data %}
+                                        {% include "components/super_table.html" %}
+                                    {% endwith %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            data-dismiss="modal">{{ R.string.close }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="std">
+                    <div class="wrapper_bl" style="margin-top: 1px;">
+                        <div class="form_background">
+                            <div class="col-main">
+                                <div class="dashboard">
+                                    <div class="box-account">
+                                        <div class="page-title">
+                                            <div class="page-header">
+                                                <h1>{{ R.string.my_account }}</h1>
+                                            </div>
+                                            <h2>{{ R.string.my_information }}</h2>
+                                            <form method="post">
+                                                <div class="group-select">
+                                                    {% with client_form=data.user_form, edit=data.edit, include_email_confirmed=False %}
+                                                        {% include "components/client_info_form_fields.html" %}
+                                                    {% endwith %}
+                                                    <div class="buttons-set account-info-buttons-container">
+                                                        {% if data.edit %}
+                                                            <button type="submit" class="button save">
+                                                                <span>{{ R.string.save }}</span>
+                                                            </button>
+                                                            <a href="{{ url_for('client_account.my_account') }}">
+                                                                <button type="button" class="button cancel">
+                                                                    <span>{{ R.string.cancel }}</span></button>
+                                                            </a>
+                                                        {% else %}
+                                                            <a href="{{ url_for('client_account.my_account', **{R.string.edit_arg_name: True}) }}">
+                                                                <button type="button" class="button edit">
+                                                                    <span>{{ R.string.edit }}</span></button>
+                                                            </a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="recent-orders">
+                                                <div class="title-buttons"><strong>{{ R.string.my_orders }}</strong>
+                                                </div>
+                                                {% if data.orders and data.orders|length > 0 %}
+                                                    <div class="table-responsive">
+                                                        <table class="data-table table-striped" id="my-orders-table">
+                                                            <thead>
+                                                            <tr class="first last">
+                                                                <th>{{ R.string.id }}</th>
+                                                                <th>{{ R.string.date }}</th>
+                                                                <th><span class="nobr">{{ R.string.total }}</span></th>
+                                                                <th>{{ R.string.status }}</th>
+                                                                <th>&nbsp;</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for order in data.orders %}
+                                                                <tr>
+                                                                    <td>{{ utils.min_uuid(order.uuid) }}</td>
+                                                                    <td><span
+                                                                            class="nobr datetime-container">{{ order.get_formatted_paid_datetime() }}</span>
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="price">{{ order.get_formatted_total_price(include_rs=True) }}</span>
+                                                                    </td>
+                                                                    <td><em>{{ order.get_status_as_string() }}</em></td>
+                                                                    <td class="a-center last">
+                                                                        <span class="nobr">
+                                                                            <a data-toggle="modal"
+                                                                               href="#modal-{{ loop.index0 }}">{{ R.string.details }}</a>
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                {% else %}
+                                                    <p class="none-order-registered">{{ R.string.none_order_registered }}</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{#    </div>#}
+{% endblock %}
+{% block script %}
+    <script>
+        initTooltips();
+        initAllTelInput();
+        initAllCepInput();
+        initDynamicSelects();
+    </script>
+{% endblock %}
