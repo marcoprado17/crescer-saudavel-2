@@ -9,6 +9,7 @@ import sys
 
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
+sys.path.append("/vagrant/build/flask-admin")
 
 from decimal import Decimal
 from app_contexts.app import app

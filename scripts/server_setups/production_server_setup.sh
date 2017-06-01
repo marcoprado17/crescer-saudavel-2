@@ -6,6 +6,8 @@ chmod +x ${SHARED_SERVER_SETUP_FULL_PATH};
 ${SHARED_SERVER_SETUP_FULL_PATH};
 chmod -x ${SHARED_SERVER_SETUP_FULL_PATH};
 
+sudo rm -rf /vagrant/src
+
 sudo apt-get install -y python nginx gunicorn;
 sudo /etc/init.d/nginx start;
 sudo rm /etc/nginx/sites-enabled/default;
