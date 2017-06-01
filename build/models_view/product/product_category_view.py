@@ -1,0 +1,27 @@
+from flask_bombril.form_validators.required.required import Required
+from models_view.proj_base_view import ProjBaseView
+from r import R
+
+
+class ProductCategoryView(ProjBaseView):
+    name = R.string.product_categories
+    endpoint = R.string.product_categories_endpoint
+    category = R.string.products
+
+    can_delete = False
+
+    column_descriptions = dict(
+        priority=R.string.product_category_priority_tooltip
+    )
+    column_editable_list = ["name", "priority", "active"]
+    column_filters = ["active"]
+    column_list = ["id", "active", "name", "priority"]
+    column_sortable_list = ["id", "active", "name", "priority"]
+
+    form_args = dict(
+        priority=dict(
+            validators=[Required()]
+        )
+    )
+    form_columns = ["active", "name", "priority"]
+    form_excluded_columns = ["product_subcategories", "products"]
