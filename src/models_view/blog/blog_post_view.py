@@ -60,8 +60,8 @@ class BlogPostView(ProjBaseView):
         "thumbnail_filename",
         rules.HTML(R.string.blog_thumbnail_text),
         "tags",
-        rules.Field("summary_markdown", render_field="markdown_text"),
-        rules.Field("content_markdown", render_field="markdown_text"),
+        rules.Field("summary_markdown", render_field="additional_fields.markdown_text"),
+        rules.Field("content_markdown", render_field="additional_fields.markdown_text"),
     )
 
     def on_model_change(self, form, model, is_created):

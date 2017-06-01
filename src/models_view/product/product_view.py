@@ -223,7 +223,7 @@ class ProductView(ProjBaseView):
         "title",
         "category",
         "subcategory",
-        rules.Field("summary_markdown", render_field="markdown_text"),
+        rules.Field("summary_markdown", render_field="additional_fields.markdown_text"),
         "price",
         "has_discount",
         "discount_percentage",
@@ -237,18 +237,18 @@ class ProductView(ProjBaseView):
             "image_4_filename"),
             header=R.string.images),
         rules.FieldSet(
-            ("tab_1_active", "tab_1_title", rules.Field("tab_1_content_markdown", render_field="markdown_text")),
+            ("tab_1_active", "tab_1_title", rules.Field("tab_1_content_markdown", render_field="additional_fields.markdown_text")),
             header=R.string.tab_n(1)),
         rules.FieldSet(
-            ("tab_2_active", "tab_2_title", rules.Field("tab_2_content_markdown", render_field="markdown_text")),
+            ("tab_2_active", "tab_2_title", rules.Field("tab_2_content_markdown", render_field="additional_fields.markdown_text")),
             header=R.string.tab_n(2)),
         rules.FieldSet(
-            ("tab_3_active", "tab_3_title", rules.Field("tab_3_content_markdown", render_field="markdown_text")),
+            ("tab_3_active", "tab_3_title", rules.Field("tab_3_content_markdown", render_field="additional_fields.markdown_text")),
             header=R.string.tab_n(3)),
         rules.FieldSet(
-            ("tab_4_active", "tab_4_title", rules.Field("tab_4_content_markdown", render_field="markdown_text")),
+            ("tab_4_active", "tab_4_title", rules.Field("tab_4_content_markdown", render_field="additional_fields.markdown_text")),
             header=R.string.tab_n(4)),
         rules.FieldSet(
-            ("tab_5_active", "tab_5_title", rules.Field("tab_5_content_markdown", render_field="markdown_text")),
+            ("tab_5_active", "tab_5_title", rules.Field("tab_5_content_markdown", render_field="additional_fields.markdown_text")),
             header=R.string.tab_n(5))
     )

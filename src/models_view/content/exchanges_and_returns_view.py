@@ -23,5 +23,5 @@ class ExchangesAndReturnsView(BaseContentView):
     )
     form_excluded_columns = ["content_html"]
     form_rules = (
-        rules.Field('content_markdown', render_field='markdown_text'),
+        rules.Field('content_markdown', render_field='additional_fields.markdown_text'),
     )

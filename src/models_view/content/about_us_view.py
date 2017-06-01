@@ -28,6 +28,6 @@ class AboutUsView(BaseContentView):
     )
     form_excluded_columns = ['summary_html', "content_html"]
     form_rules = (
-        rules.Field('summary_markdown', render_field='markdown_text'),
-        rules.Field('content_markdown', render_field='markdown_text'),
+        rules.Field('summary_markdown', render_field='additional_fields.markdown_text'),
+        rules.Field('content_markdown', render_field='additional_fields.markdown_text'),
     )

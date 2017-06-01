@@ -22,5 +22,5 @@ class FooterView(BaseContentView):
     )
     form_excluded_columns = ["lower_text_html"]
     form_rules = (
-        rules.Field('lower_text_markdown', render_field='markdown_text'),
+        rules.Field('lower_text_markdown', render_field='additional_fields.markdown_text'),
     )

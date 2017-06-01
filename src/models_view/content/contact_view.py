@@ -70,7 +70,7 @@ class ContactView(BaseContentView):
     form_excluded_columns = ["address_html"]
     form_rules = (
         rules.FieldSet((
-            rules.Field('address_markdown', render_field='markdown_text'),
+            rules.Field('address_markdown', render_field='additional_fields.markdown_text'),
             'tel',
             'email'),
             header=R.string.main_info),
