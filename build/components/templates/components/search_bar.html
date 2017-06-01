@@ -1,0 +1,16 @@
+<div class="__components__ __search_bar__">
+  <form action="{{ url }}"
+        role="search"
+        method="get">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-lg" type="submit">
+          <img src="{{ url_for('static', filename='imgs/lupa.png') }}">
+        </button>
+      </span>
+      <input name="{{ R.string.search_query_arg_name }}" type="text"
+             class="form-control input-lg search"
+             placeholder="{{ R.string.how_can_we_help_you }}"/>
+    </div>
+  </form>
+</div>

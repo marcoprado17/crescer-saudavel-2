@@ -1,0 +1,171 @@
+{% extends "client_base/client_base.html" %}
+{% block title %}
+    {{ R.string.product }}
+{% endblock %}
+{% block content %}
+    <div class="__client_products__ __product_2__">
+        <div class="breadcrumbs title container">
+            <div class="row">
+                {% if data.breadcrumbs and data.breadcrumbs|length > 0 %}
+                    <div>
+                        <ul>
+                            {% for item in data.breadcrumbs %}
+                                <li>
+                                    {% if item.href %}
+                                        <a href="{{ item.href }}"
+                                           title="{{ item.name }}">{{ item.name }}</a>
+                                    {% else %}
+                                        {{ item.name }}
+                                    {% endif %}
+                                    {% if not loop.last %}
+                                        <span>&rsaquo; </span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="page-title">
+                    <h2>{{ data.product.title }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="photo-catalog-price-buy-box-container">
+                <div class="photo-catalog">
+                    {% for img_src in data.images_src %}
+                        {% if loop.index0 <= 3 %}
+                            <img src="{{ img_src }}" alt="{{ R.string.product_image }}"/><br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="main-photo">
+                    <img src="{{ data.images_src[0] }}" alt="{{ R.string.product_image }}">
+                </div>
+                <div class="price-buy-box-col">
+                    <div class="price-buy-box">
+                        {% if data.product.has_discount %}
+                            <div class="old-price"><p>{{ R.string.discount_from }}<strike>{{ data.product.get_formatted_price(include_rs=True) }}</strike></p></div>
+                            <p class="price-line">{{ R.string.discount_to }}<span class="price">{{ data.product.price_with_discount_as_string(include_rs=True) }}</span></p>
+                        {% else %}
+                            <p class="price-line price">{{ data.product.get_formatted_price(include_rs=True) }}</p>
+                        {% endif %}
+                        <hr>
+                        <form class="add-to-cart" method="post"
+                              action="{{ url_for('client_cart.add_to_cart', **{R.string.product_id_arg_name: data.product.id}) }}">
+                            <div class="pull-left">
+                                <div class="custom pull-left">
+                                    <button
+                                            onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;"
+                                            class="increase items-count" type="button"><i
+                                            class="icon-plus"></i></button>
+                                    <input type="text" name="qty" id="qty" maxlength="12"
+                                           value="1" title="Quantity:"
+                                           class="input-text qty">
+                                    <button
+                                            onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) result.value--;return false;"
+                                            class="reduced items-count" type="button"><i
+                                            class="icon-minus"></i></button>
+                                </div>
+                            </div>
+                            {{ submit_form.csrf_token() }}
+                            <button class="button buy-button" type="submit"
+                                    title="{{ R.string.add_to_cart }}">{{ R.string.buy }}</button>
+                        </form>
+                        <div class="safe-buy-container">
+                            <img class="padlock"
+                             src="{{ url_for('static', filename='imgs/password.png') }}">{{ R.string.buy_100_percent_safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row description-and-additional-info-box">
+                <div class="col-md-6">
+                    <h1>{{ R.string.description }}</h1>
+                    {{ data.product.summary_html|safe }}
+                </div>
+                <div class="col-md-6">
+                    <h1>{{ R.string.additional_information }}</h1>
+                    <div class="product-collateral">
+                        <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
+                            {% if data.sections and data.sections|length > 0 %}
+                                {% for section in data.sections %}
+                                    <li class="{{ 'active'|if(loop.first) }}">
+                                        <a href={{ "#" + section.id }} data-toggle="tab">{{ section.title }}</a>
+                                    </li>
+                                    <div class="mobile-tab-content markdown-parsed-container">
+                                        {{ section.content|safe }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <li class="{{ 'active'|if(not data.sections or data.sections|length == 0) }}">
+                                <a href={{ "#comments-section" }} data-toggle="tab">{{ R.string.comments }}</a>
+                            </li>
+                            <div class="mobile-tab-content markdown-parsed-container">
+                                <div class="fb-comments" data-href="{{ request.url }}"
+                                     data-numposts="{{ R.dimen.blog_post_n_comments }}" data-width="100%"></div>
+                            </div>
+                        </ul>
+                        <div id="productTabContent" class="tab-content no-mobile">
+                            {% if data.sections and data.sections|length > 0 %}
+                                {% for section in data.sections %}
+                                    <div class="tab-pane fade in {{ 'active'|if(loop.first) }}"
+                                         id="{{ section.id }}">
+                                        <div class="std markdown-parsed-container">
+                                            {{ section.content|safe }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="tab-pane fade in {{ 'active'|if(not data.sections or data.sections|length == 0) }}"
+                                 id="comments-section">
+                                <div class="std markdown-parsed-container">
+                                    <div class="fb-comments" data-href="{{ request.url }}"
+                                         data-numposts="{{ R.dimen.blog_post_n_comments }}" data-width="100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include "components/tags_row.html" %}
+            <section class="wow bounceInUp animated more-products">
+                <div class="best-pro slider-items-products container">
+                    <div class="slider-top-hack-space">
+                    </div>
+                    <div class="what-do-we-have-more-for-you-title-container">
+                        <h1>{{ R.string.what_do_we_have_more_for_you_title }}</h1>
+                    </div>
+                    {% with products=data.more_products %}
+                        {% include "components/product_flexslider.html" %}
+                    {% endwith %}
+                </div>
+            </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            $(".photo-catalog img").each(function () {
+                $(this).click(function () {
+                    $(".main-photo img").attr("src", $(this).attr("src"));
+                });
+            });
+        });
+        {##}
+        {#        $("form.add-to-cart").each(function () {#}
+        {#            var form = $(this);#}
+        {#            form.submit(function (event) {#}
+        {#                var qty = $("#qty").val();#}
+        {#                if (qty == 0) {#}
+        {#                    event.preventDefault();#}
+        {#                    return false;#}
+        {#                }#}
+        {#                form.attr("action", form.attr("action") + "&{0}={1}".f("{{ R.string.amount_arg_name }}", qty));#}
+        {#            });#}
+        {#        });#}
+    </script>
+{% endblock %}
