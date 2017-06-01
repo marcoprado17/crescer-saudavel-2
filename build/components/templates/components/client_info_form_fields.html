@@ -1,0 +1,43 @@
+{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
+<div class="__components__ __client_info_form_fields__">
+    {{ client_form.csrf_token() }}
+    {{ form_fields.string_field(field=client_form.email, explicit_label=True, readonly=True) }}
+    {% if include_email_confirmed %}
+        {{ form_fields.boolean_field(field=client_form.email_confirmed, readonly=not edit) }}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_fields.string_field(field=client_form.first_name, explicit_label=True, readonly=not edit, placeholder=R.string.first_name_placeholder, max_length=R.dimen.first_name_max_length) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_fields.string_field(field=client_form.last_name, explicit_label=True, readonly=not edit, placeholder=R.string.last_name_placeholder, max_length=R.dimen.last_name_max_length) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_fields.cep_field(field=client_form.cep, explicit_label=True, readonly=not edit, classes="cep", placeholder=R.string.cep_placeholder) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_fields.select_field(field=client_form.state_id, explicit_label=True, readonly=not edit) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_fields.select_field(field=client_form.city_id, explicit_label=True, readonly=not edit) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_fields.string_field(field=client_form.address, explicit_label=True, readonly=not edit, placeholder=R.string.user_info_address_placeholder, max_length=R.dimen.address_max_length) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_fields.integer_field(field=client_form.address_number, explicit_label=True, readonly=not edit, placeholder=R.string.number_placeholder, max_length=R.dimen.address_number_max_length) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_fields.string_field(field=client_form.address_complement, explicit_label=True, readonly=not edit, placeholder=R.string.address_complement_placeholder, max_length=R.dimen.address_complement_max_length) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_fields.tel_field(field=client_form.tel, explicit_label=True, readonly=not edit, placeholder=R.string.tel_placeholder) }}
+        </div>
+    </div>
+</div>

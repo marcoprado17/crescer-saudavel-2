@@ -1,0 +1,17 @@
+<div class="__components__ __blog_header__">
+  <header>
+    <div class="container">
+      {#    TODO: Put the logo image and find a way to let the admin change the logo image #}
+      {#    <img src="..">#}
+      <a href="{{ url_for('client_home.home') }}">
+        <div class="logo" style="width: 200px; height: 60px; background-color: #35B149;"></div>
+      </a>
+      {% include "components/search_bar.html" %}
+      <div class="links-container">
+        <a href="{{ url_for('blog.blog') }}">{{ R.string.blog }}</a>
+        <a href="{{ url_for('client_home.home') }}">{{ R.string.shop_diminutive }}</a>
+        <a href="{{ url_for('client_about_us.about_us') }}">{{ R.string.who_we_are }}</a>
+      </div>
+    </div>
+  </header>
+</div>

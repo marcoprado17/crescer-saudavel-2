@@ -1,0 +1,9 @@
+{% macro info(text, data_html="false") -%}
+    <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="{{ text }}"
+          data-html="{{ data_html }}"></span>
+{%- endmacro %}
+
+{% macro asterisk(text, data_html="false") -%}
+    <span class="glyphicon glyphicon-asterisk" data-toggle="tooltip" title="{{ text }}"
+          data-html="{{ data_html }}"></span>
+{%- endmacro %}
