@@ -1,0 +1,116 @@
+{% set data = get_components_client_header_data|assert_defined|assert_callable|call %}
+<div class="__components__ __client_header_2__">
+    <header>
+        <div id="header">
+            <div class="header-account">
+                <div class="header-main">
+                    <div class="header-container container">
+                        <div class="row first">
+                            <div class="col-md-5 col-sm-12">
+                                <form action="{{ url_for('client_search.search') }}" class="navbar-form search"
+                                      role="search"
+                                      method="get">
+                                    <div id="custom-search-input">
+                                        <div class="input-group col-md-12">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-lg" type="submit">
+                                                    <img src="{{ url_for('static', filename='imgs/search.png') }}">
+                                                </button>
+                                            </span>
+                                            <input name="{{ R.string.search_query_arg_name }}" type="text"
+                                                   class="form-control input-lg search"
+                                                   placeholder="{{ R.string.how_can_we_help_you }}"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <a href="{{ url_for('client_home.home') }}">
+                                    <img class="logo logo-img" src="{{ url_for('static', filename='imgs/logo.png') }}"
+                                         alt="{{ R.string.store_logo }}">
+                                </a>
+                            </div>
+                            <div class="col-md-4 col-sm-12 account-col">
+                                <div class="item">
+                                    <a href="{{ url_for('client_cart.cart') }}" title="{{ R.string.cart }}">
+                                        <span class="notify-badge cart-n-items-badge">{{ data.n_items }}</span>
+                                        <img src="{{ url_for('static', filename='imgs/stroller.png') }}"/>
+                                    </a>
+                                </div>
+                                <a href="{{ url_for("client_account.my_account") }}" title="{{ R.string.my_account }}"><img src="{{ url_for('static', filename='imgs/baby-3.png') }}"/></a>
+                                <div class="text-container">
+                                    {% if data.logged %}
+                                        <div class="my-account-container">
+                                            {{ R.string.hello }}{% if data.name %},
+                                                {{ data.name }}{% endif %}!<br>
+                                            <a href="{{ url_for('client_account.my_account') }}">{{ R.string.my_account }}</a> {{ R.string.or_word }}
+                                            <a href="{{ url_for('client_user_management.logout') }}">{{ R.string.logout }}</a>
+                                        </div>
+                                    {% else %}
+                                        <div class="enter-register-container">
+                                            <a
+                                                    href="{{ url_for('client_user_management.login') }}">{{ R.string.enter }}</a>
+                                            {{ R.string.or_word }} <a
+                                                href="{{ url_for('client_user_management.register') }}">{{ R.string.register }}</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row separator">
+                        </div>
+                        <div class="row">
+                            <div class="fl-nav-menu">
+                                <nav>
+                                    <div class="mm-toggle-wrap">
+                                        <div class="mm-toggle">
+                                            <i class="icon-align-justify"></i><span class="mm-label"></span>
+                                        </div>
+                                    </div>
+                                    <div class="nav-inner">
+                                        {% if data.menu_data and data.menu_data|length > 0 %}
+                                            <ul id="nav" class="hidden-xs">
+                                                {% for menu_item in data.menu_data %}
+                                                    <li class="mega-menu">
+                                                        <a href="{{ menu_item.href }}"
+                                                           class="level-top"><span class="menu-item level-top">{{ menu_item.name }}</span></a>
+                                                        {% if menu_item.children and menu_item.children|length > 0 %}
+                                                            <div class="level0-wrapper dropdown-6col" style="left: 0;">
+                                                                <div class="container">
+                                                                    <div class="level0-wrapper2">
+                                                                        <div class="nav-block nav-block-center">
+                                                                            <ul class="level0">
+                                                                                {% for children1 in menu_item.children %}
+                                                                                    <li class="level1 nav-6-1 parent item">
+                                                                                        <a href="{{ children1.href }}"><span class={{ "children1"|if(children1.children and children1.children|length > 0, "children2") }}>{{ children1.name }}</span></a>
+                                                                                        {% if children1.children and children1.children|length > 0 %}
+                                                                                            <ul class="level1">
+                                                                                                {% for children2 in children1.children %}
+                                                                                                    <li class="level2 nav-6-1-1">
+                                                                                                        <a href="{{ children2.href }}"><span class="children2">{{ children2.name }}</span></a>
+                                                                                                    </li>
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                        {% endif %}
+                                                                                    </li>
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

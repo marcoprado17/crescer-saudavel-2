@@ -1,0 +1,17 @@
+{% from "admin/proj_fields.html" import markdown_text with context %}
+
+{% extends admin_base_template %}
+
+{% block head_css %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/admin_bundle.min.css') }}">
+{% endblock %}
+
+{% block tail %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/admin_bundle.min.js') }}"></script>
+    <script>
+        initAllMarkdownTextArea();
+        initAllDynamicSelects();
+    </script>
+{% endblock %}
