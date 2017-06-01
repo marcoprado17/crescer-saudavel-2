@@ -7,6 +7,8 @@ import random
 import string
 import sys
 
+sys.path.append("/vagrant/build/flask-admin")
+
 from flask import session
 
 from models.blog.blog_post import BlogPost
