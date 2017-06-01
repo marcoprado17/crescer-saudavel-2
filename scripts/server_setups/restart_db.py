@@ -10,6 +10,7 @@ import sys
 
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
+sys.path.append("/vagrant/build/flask-admin")
 
 from app_contexts.app import app
 from proj_extensions import db
