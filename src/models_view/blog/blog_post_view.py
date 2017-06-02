@@ -25,7 +25,7 @@ class BlogPostView(ProjBaseView):
     can_delete = False
 
     column_editable_list = ["active"]
-    column_filters = ["active", "tags"]
+    column_filters = ["active", "tags", "date"]
     column_formatters = dict(
         thumbnail_image=lambda view, context, model, name:
         Markup("<img style='max-width: 90px;max-height: 50px;' src='%s'>" % model.get_thumbnail_src()),

@@ -373,6 +373,7 @@ class Resources(object):
         step_arg_name = "passo"
         search_query_arg_name = "q"
         tag_id_arg_name = "tag_id"
+        datetime_arg_name = "data"
 
         name = "Nome"
         section_name = "Nome de seção"
@@ -786,7 +787,7 @@ class Resources(object):
         more_recent_posts = "Posts mais recentes"
         order_id = "Id do pedido"
         product_total_price = "Preço total dos produtos"
-        no_posts_found = "Nenhum post encontrado."
+        no_posts_found = "Nenhum post foi encontrado."
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"

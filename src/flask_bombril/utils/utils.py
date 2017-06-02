@@ -9,6 +9,7 @@ import math
 import urlparse
 import re
 
+from datetime import datetime
 from unittest import TestSuite
 from flask import request
 from wtforms.validators import StopValidation, ValidationError
@@ -159,8 +160,22 @@ def current_url(query_params={}, fragment=None):
     return urlparse.urlunparse(url_parts)
 
 
-def get_int_request_arg(arg_name, default=None):
+def get_int_from_request_arg(arg_name, default=None):
     try:
         return int(request.args.get(arg_name))
+    except:
+        return default
+
+
+def get_string_from_request_arg(arg_name, default=None):
+    try:
+        return str(request.args.get(arg_name))
+    except:
+        return default
+
+
+def get_datetime_from_request_arg_as_unix_ms_timestamp(arg_name, default=None):
+    try:
+        return datetime.fromtimestamp(int(request.args.get(arg_name))/1000)
     except:
         return default

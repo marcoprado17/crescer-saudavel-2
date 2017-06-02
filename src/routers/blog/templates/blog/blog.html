@@ -32,7 +32,7 @@
       </div>
     {% endif %}
     <div class="strike-left">
-      <span id="posts-anteriores">{{ R.string.previous_posts }}</span>
+      <span id="posts">{{ R.string.previous_posts }}</span>
     </div>
     <div class="row">
       <div class="col-md-8">
@@ -42,7 +42,7 @@
               {% include "components/blog_post_preview_wide.html" %}
             {% endwith %}
           {% endfor %}
-          {% with pagination=previous_posts_pagination, fragment="posts-anteriores" %}
+          {% with pagination=previous_posts_pagination, fragment="posts" %}
             {% include "components/pagination.html" %}
           {% endwith %}
         {% else %}
@@ -53,7 +53,7 @@
         <div id="datetimepicker12"></div>
         <div class="tags-section">
           <h2>{{ R.string.tags }}</h2>
-          <a href="{{ current_url(query_params={R.string.tag_id_arg_name: 0}, fragment="posts-anteriores") }}">
+          <a href="{{ current_url(query_params={R.string.tag_id_arg_name: 0}, fragment="posts") }}">
             {{ R.string.none }}
           </a>
           {% if current_tag_id == 0 %}
@@ -61,7 +61,7 @@
           {% endif %}
           <br>
           {% for blog_tag in blog_tags %}
-            <a href="{{ current_url(query_params={R.string.tag_id_arg_name: blog_tag.id, R.string.page_arg_name: 1}, fragment="posts-anteriores") }}">
+            <a href="{{ current_url(query_params={R.string.tag_id_arg_name: blog_tag.id, R.string.page_arg_name: 1}, fragment="posts") }}">
               {{ blog_tag.name }}
             </a>
             {% if current_tag_id == blog_tag.id %}
@@ -85,7 +85,18 @@
               format: 'DD/MM/YYYY',
               maxDate: 'now',
               useCurrent: true,
-              maxDate: moment().add(1, 'millisecond')
+              maxDate: moment().add(1, 'millisecond'),
+              defaultDate: "{{ date }}"
+          });
+      });
+
+      $(document).ready(function () {
+          $("#datetimepicker12").datetimepicker().on("dp.change", function(e){
+              window.location.hash = "#posts"
+              var url = window.location.href;
+              var newUrl = addOrReplaceParam(url, "{{ R.string.datetime_arg_name }}", Date.parse(e.date));
+              newUrl = addOrReplaceParam(newUrl, "{{ R.string.page_arg_name }}", "1");
+              window.location = newUrl
           });
       });
   </script>

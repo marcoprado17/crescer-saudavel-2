@@ -20,7 +20,6 @@ function initFacebookLoginButton() {
         var errorMsg = button.attr("data-error-msg");
         var loadingText = button.siblings(".loading-text");
         var connectFbUrl = button.attr("data-connect-url");
-        console.log(connectFbUrl);
         var homeUrl = button.attr("data-home-url");
         button.click(function () {
             FB.login(function (response) {
@@ -136,7 +135,6 @@ function setAjaxButtonHandlers(data) {
             contentType: 'application/json;charset=UTF-8',
             async: true,
             success: function (data) {
-                console.log(data);
                 var postReturnTime = (new Date()).getTime();
                 var delay = minResponseTime - (postReturnTime - button.clickTime);
                 setTimeout(function () {
@@ -440,19 +438,18 @@ function initPriceWithDiscountCalc() {
         }
     });
     $("input[type=number].change-price-with-discount").bind("keyup mouseup", function () {
-        if($("input[type=checkbox].change-price-with-discount").prop("checked")){
+        if ($("input[type=checkbox].change-price-with-discount").prop("checked")) {
             recalcPriceWithDiscount();
         }
     });
     $("input[type=text].change-price-with-discount").bind("keyup", function () {
-        if($("input[type=checkbox].change-price-with-discount").prop("checked")){
+        if ($("input[type=checkbox].change-price-with-discount").prop("checked")) {
             recalcPriceWithDiscount();
         }
     });
 }
 
 function recalcPriceWithDiscount() {
-    console.log("Recalculando preço com desconto");
     var priceWithDiscountInput = $("input.price-with-discount");
     var price = $("input.price").val();
     var discountPercentage = $("input.discount-percentage").val();
@@ -473,4 +470,34 @@ function recalcPriceWithDiscount() {
             priceWithDiscountInput.val("Erro!");
         }
     });
+}
+
+function addOrReplaceParam(url, key, value) {
+    if (!url) url = window.location.href;
+    var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
+        hash;
+
+    if (re.test(url)) {
+        if (typeof value !== 'undefined' && value !== null)
+            return url.replace(re, '$1' + key + "=" + value + '$2$3');
+        else {
+            hash = url.split('#');
+            url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '');
+            if (typeof hash[1] !== 'undefined' && hash[1] !== null)
+                url += '#' + hash[1];
+            return url;
+        }
+    }
+    else {
+        if (typeof value !== 'undefined' && value !== null) {
+            var separator = url.indexOf('?') !== -1 ? '&' : '?';
+            hash = url.split('#');
+            url = hash[0] + separator + key + '=' + value;
+            if (typeof hash[1] !== 'undefined' && hash[1] !== null)
+                url += '#' + hash[1];
+            return url;
+        }
+        else
+            return url;
+    }
 }
