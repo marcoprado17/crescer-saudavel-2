@@ -35,6 +35,13 @@
       <span id="posts">{{ R.string.previous_posts }}</span>
     </div>
     <div class="row">
+      <div class="col-md-12">
+        {% with pagination=previous_posts_pagination, fragment="posts" %}
+          {% include "components/pagination.html" %}
+        {% endwith %}
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-8">
         {% if previous_posts_pagination.total > 0 %}
           {% for blog_post in previous_posts_pagination.items %}
