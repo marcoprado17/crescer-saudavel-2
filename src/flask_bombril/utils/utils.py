@@ -6,16 +6,16 @@
 import random
 import unittest
 import math
-from unittest import TestSuite
-
+import urlparse
 import re
+
+from unittest import TestSuite
 from flask import request
-
-from flask_bombril.r import R
-
 from wtforms.validators import StopValidation, ValidationError
 from flask_bombril.r import R
 from proj_extensions import db
+from urllib import urlencode
+
 
 class TestUser(db.Model):
     email = db.Column(db.String(), primary_key=True, unique=True)
@@ -94,22 +94,26 @@ def get_url_args():
         url_args[key] = val
     return url_args
 
+
 def get_url_arg(arg_name, default=None):
     url_args = get_url_args()
     if arg_name in url_args:
         return url_args[arg_name]
-    elif default != None:
+    elif default is not None:
         return default
     return None
+
 
 def get_page_range(curr_page, per_page, min_page):
     first = (curr_page - min_page) * per_page
     last_plus_one = first + per_page
-    return (first, last_plus_one)
+    return first, last_plus_one
+
 
 def camel_case_to_snake_case(camel_case_word):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', camel_case_word)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
 
 def get_random_sublist(original_list, n):
     if len(original_list) == 0 or n <= 0:
@@ -125,6 +129,7 @@ def get_random_sublist(original_list, n):
             break
     return random_sublist
 
+
 def merge_dicts(*dict_args):
     """
     Given any number of dicts, shallow copy and merge into a new dict,
@@ -135,8 +140,25 @@ def merge_dicts(*dict_args):
         result.update(dictionary)
     return result
 
+
 def clamp_integer(n, min_value, max_value):
     returned_value = n
     returned_value = min(returned_value, max_value)
     returned_value = max(min_value, returned_value)
     return returned_value
+
+
+def current_url(**query_params):
+    url = request.url
+    url_parts = list(urlparse.urlparse(url))
+    query = dict(urlparse.parse_qsl(url_parts[4]))
+    query.update(query_params)
+    url_parts[4] = urlencode(query)
+    return urlparse.urlunparse(url_parts)
+
+
+def get_int_request_arg(arg_name, default=None):
+    try:
+        return int(request.args.get(arg_name))
+    except:
+        return default

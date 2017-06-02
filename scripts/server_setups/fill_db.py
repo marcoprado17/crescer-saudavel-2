@@ -35,13 +35,13 @@ from r import R
 from proj_utils import parse_markdown
 
 
-n_product_categories = 5
-n_product_subcategories = 10
-n_products = 10
-n_clients = 10
-n_orders = 5
-n_blog_tags = 5
-n_blog_posts = 10
+n_product_categories = 25
+n_product_subcategories = 200
+n_products = 800
+n_clients = 200
+n_orders = 500
+n_blog_tags = 20
+n_blog_posts = 300
 
 title_key_words = [
     "banana",

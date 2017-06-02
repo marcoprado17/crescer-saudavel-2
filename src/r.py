@@ -352,7 +352,7 @@ class Resources(object):
         image_name_meta_data_key = "data-image-name"
 
         # Args name
-        page_arg_name = "page"
+        page_arg_name = "pagina"
         category_active_arg_name = "active"
         sort_method_arg_name = "sort_method"
         subcategory_active_arg_name = "active"
@@ -784,6 +784,7 @@ class Resources(object):
         more_recent_posts = "Posts mais recentes"
         order_id = "Id do pedido"
         product_total_price = "Preço total dos produtos"
+        no_posts_found = "Nenhum post encontrado."
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1673,6 +1674,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
 
         blog_tag_max_length = 128
         id_with_hashtag_max_size = 32
+        n_blog_posts_per_page = 4
 
 
 R = Resources()

@@ -32,29 +32,21 @@
       </div>
     {% endif %}
     <div class="strike-left">
-      <span>{{ R.string.previous_posts }}</span>
+      <span id="posts-anteriores">{{ R.string.previous_posts }}</span>
     </div>
     <div class="row">
       <div class="col-md-8">
-        {% if previous_posts and previous_posts|length > 0 %}
-          {% with blog_post=previous_posts[0] %}
-            {% include "components/blog_post_preview_wide.html" %}
+        {% if previous_posts_pagination.total > 0 %}
+          {% for blog_post in previous_posts_pagination.items %}
+            {% with blog_post=blog_post %}
+              {% include "components/blog_post_preview_wide.html" %}
+            {% endwith %}
+          {% endfor %}
+          {% with pagination=previous_posts_pagination, fragment="posts-anteriores" %}
+            {% include "components/pagination.html" %}
           {% endwith %}
-        {% endif %}
-        {% if previous_posts and previous_posts|length > 1 %}
-          {% with blog_post=previous_posts[1] %}
-            {% include "components/blog_post_preview_wide.html" %}
-          {% endwith %}
-        {% endif %}
-        {% if previous_posts and previous_posts|length > 2 %}
-          {% with blog_post=previous_posts[2] %}
-            {% include "components/blog_post_preview_wide.html" %}
-          {% endwith %}
-        {% endif %}
-        {% if previous_posts and previous_posts|length > 3 %}
-          {% with blog_post=previous_posts[3] %}
-            {% include "components/blog_post_preview_wide.html" %}
-          {% endwith %}
+        {% else %}
+          R.string.no_posts_found
         {% endif %}
       </div>
       <div class="col-md-4">

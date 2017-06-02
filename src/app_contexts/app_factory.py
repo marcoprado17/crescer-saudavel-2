@@ -199,6 +199,7 @@ def create_app():
     from components.data_providers.footer import footer_data_provider
     from components.data_providers.client_header import header_data_provider
     from components.data_providers.tags_row import tags_row_data_provider
+    from flask_bombril.utils.utils import current_url
 
     def generate_csrf_token():
         if '_csrf_token' not in session:
@@ -216,7 +217,8 @@ def create_app():
             get_components_client_mobile_menu_data=lambda: header_data_provider.get_menu_data(),
             get_components_tags_row_data=lambda: tags_row_data_provider.get_data(),
             submit_form=SubmitForm(),
-            csrf_token=generate_csrf_token
+            csrf_token=generate_csrf_token,
+            current_url=current_url
         )
 
     # ==================================================================================================================
