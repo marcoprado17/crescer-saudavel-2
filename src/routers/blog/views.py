@@ -17,6 +17,7 @@ from routers.blog.data_providers.blog_post import client_blog_post_data_provider
 @blog_blueprint.route("/")
 def blog():
     page = get_int_request_arg(R.string.page_arg_name, 1)
+    tag_id = get_int_request_arg(R.string.tag_id_arg_name, 0)
 
     recent_blog_posts = BlogPost.query.order_by(desc(BlogPost.date), BlogPost.id).filter_by(active=True).limit(2).all()
 
@@ -26,6 +27,9 @@ def blog():
     if len(recent_blog_posts) > 1:
         previous_posts_query = previous_posts_query.filter(BlogPost.id != recent_blog_posts[1].id)
 
+    if tag_id != 0:
+        previous_posts_query = previous_posts_query.filter(BlogPost.tags.any(BlogTag.id == tag_id))
+
     previous_posts_pagination = previous_posts_query.paginate(page=page, per_page=R.dimen.n_blog_posts_per_page)
 
     blog_tags = BlogTag.query.filter_by(active=True).all()
@@ -34,7 +38,8 @@ def blog():
         "blog/blog.html",
         recent_blog_posts=recent_blog_posts,
         previous_posts_pagination=previous_posts_pagination,
-        blog_tags=blog_tags
+        blog_tags=blog_tags,
+        current_tag_id=tag_id
     )
 
 

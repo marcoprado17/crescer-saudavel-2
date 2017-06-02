@@ -2,11 +2,7 @@
   {%- for page in pagination.iter_pages(left_edge=1, right_current=3, right_edge=1) %}
     {% if page %}
       {% if page != pagination.page %}
-        {% set href=current_url(**{R.string.page_arg_name: page}) %}
-        {% if fragment %}
-          {% set href=href+"#"+fragment %}
-        {% endif %}
-        <a href="{{ href }}">{{ page }}</a>
+        <a href="{{ current_url(query_params={R.string.page_arg_name: page}, fragment=fragment) }}">{{ page }}</a>
       {% else %}
         <a href="" onclick="return false" class="active">{{ page }}</a>
       {% endif %}

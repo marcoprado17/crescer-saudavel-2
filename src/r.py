@@ -189,7 +189,8 @@ class Resources(object):
             total_price="Valor total do pedido",
             products_total_price="Preço total dos produtos",
             freight="Frete",
-            orders="Pedidos"
+            orders="Pedidos",
+            blog_tag="Tag"
         )
 
     # noinspection PyPep8Naming
@@ -371,6 +372,7 @@ class Resources(object):
         redirect_to_cart_arg_name = "redirecionar_ao_carrinho"
         step_arg_name = "passo"
         search_query_arg_name = "q"
+        tag_id_arg_name = "tag_id"
 
         name = "Nome"
         section_name = "Nome de seção"

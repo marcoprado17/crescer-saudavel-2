@@ -93,6 +93,8 @@
   }
 
   .tags-section {
+    margin-bottom: 24px;
+
     h2 {
       font-family: "HappyBirthdayBabyMedium";
       font-size: 24px;
@@ -100,6 +102,11 @@
 
     a {
       color: $proj-gray-color;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   }
 

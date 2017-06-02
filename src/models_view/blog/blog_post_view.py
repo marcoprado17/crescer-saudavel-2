@@ -10,6 +10,14 @@ from PIL import Image, ImageOps
 
 
 class BlogPostView(ProjBaseView):
+    # noinspection PyMethodParameters
+    def _tags_formatter(view, context, model, name):
+        html = "<div style='max-width: 400px'>"
+        for blog_tag in model.tags:
+            html += "<span style='margin-right: 6px; margin-bottom: 6px;' class='btn btn-default btn-sm'>%s</span>" % blog_tag.name
+        html += "</div>"
+        return Markup(html)
+
     name = R.string.blog_posts
     endpoint = R.string.blog_posts_endpoint
     category = R.string.blog
@@ -17,14 +25,16 @@ class BlogPostView(ProjBaseView):
     can_delete = False
 
     column_editable_list = ["active"]
-    column_filters = ["active"]
+    column_filters = ["active", "tags"]
     column_formatters = dict(
         thumbnail_image=lambda view, context, model, name:
         Markup("<img style='max-width: 90px;max-height: 50px;' src='%s'>" % model.get_thumbnail_src()),
         date=lambda view, context, model, name:
-        R.string.default_date_format(model.date)
+        R.string.default_date_format(model.date),
+        tags=_tags_formatter
     )
-    column_list = ["active", "thumbnail_image", "title", "date"]
+    column_list = ["active", "id", "thumbnail_image", "title", "tags", "date"]
+    column_sortable_list = ["active", "id", "title", "date"]
 
     form_args = dict(
         title=dict(

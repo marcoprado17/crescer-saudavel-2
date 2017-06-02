@@ -148,12 +148,14 @@ def clamp_integer(n, min_value, max_value):
     return returned_value
 
 
-def current_url(**query_params):
+def current_url(query_params={}, fragment=None):
     url = request.url
     url_parts = list(urlparse.urlparse(url))
     query = dict(urlparse.parse_qsl(url_parts[4]))
     query.update(query_params)
     url_parts[4] = urlencode(query)
+    if fragment:
+        url_parts[5] = fragment
     return urlparse.urlunparse(url_parts)
 
 
