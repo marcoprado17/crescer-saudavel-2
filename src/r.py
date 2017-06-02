@@ -845,52 +845,51 @@ Nenhum produto após o descongelamento poderá ser recongelado."""
         lower_text_example = "Crescer Saudável  \nCNPJ 01.517.384/0001-87  \nITA Júnior © 2016 - 2017"
 
         tab_content_example = \
-"""An h1 header
-============
+"""##Preparação
+#### Produto Congelado:
+1. Retirar o rótulo e a tampa.
+2. Aquecer em microondas por 01 minuto ou em banho maria por 15 minutos, mexendo de vez em quando.
+3. Verifique a temperatura. Antes de consumir, misturar uniformemente o conteúdo.
 
-Paragraphs are separated by a blank line.
+#### Produto descongelado (em refrigeração por 12 horas):
+1. Retirar o rótulo e a tampa.
+2. Aquecer em microondas por 01 minuto ou em banho maria por 10 minutos mexendo de vez em quando.
+3. Verifique a temperatura. Antes de consumir, misturar uniformemente o conteúdo.
+___
+##Ingredientes
+\* Para uma porção de **100g**
 
-2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
-look like:
+Ingrediente     | Quantidade
+--------------- | ----------
+Banana orgânica | 75g
+Água            | 20ml
+Açúcar mascavo  | 5g
 
-  * this one
-  * that one
-  * the other one
+___
+##Informação Nutricional
+\* Para uma porção de **100g**
 
-Note that --- not considering the asterisk --- the actual text
-content starts at 4-columns in.
+Tipo de nutriente  | Quantidade
+------------------ | ----------
+Carboidratos       | 87g
+Proteínas          | 9,2g
+Gorduras totais    | 0g
+Gorduras saturadas | 0g
+Gorduras trans     | 0g
+Fibra alimentar    | 3,8g
 
-> Block quotes are
-> written like so.
->
-> They can span multiple paragraphs,
-> if you like.
-
-Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
-in chapters 12--14"). Three dots ... will be converted to an ellipsis.
-Unicode is supported.
-
-
-
-An h2 header
-------------
-
-Here's a numbered list:
-
- 1. first item
- 2. second item
- 3. third item
-
-Note again how the actual text starts at 4 columns in (4 characters
-from the left side). Here's a code sample:
-
-    # Let me re-iterate ...
-    for i in 1 .. 10 { do-something(i) }
-
-First Header | Second Header
------------- | -------------
-Content Cell | Content Cell
-Content Cell | Content Cell"""
+Valor energético: 94 kcal
+___
+##Benefícios
+* Rica em potássio, perfeita para baixar a pressão arterial.
+* Ricas em fibras, a inclusão de bananas nas dietas ajuda a normalizar o trânsito intestinal, permitindo melhorar os
+problemas de constipação sem o uso de laxantes.
+* A banana acalma o estômago e ajuda na digestão.
+___
+##Conservação
+Conservar este produto congelado até o seu uso. Após Aberto e descongelado, consumir em até 12 horas.
+Nenhum produto após o descongelamento poderá ser recongelado.
+"""
 
         paragraph_example = \
 """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

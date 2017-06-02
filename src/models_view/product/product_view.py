@@ -3,6 +3,7 @@ from flask_admin.form import rules
 from flask_admin.model.ajax import DEFAULT_PAGE_SIZE
 from markupsafe import Markup
 from sqlalchemy import cast, String, or_, and_
+from admin.fields import MarkdownTextField
 from configs import default_app_config as config
 from models.product.product_subcategory import ProductSubcategory
 from models_view.proj_base_view import ProjBaseView
@@ -155,19 +156,9 @@ class ProductView(ProjBaseView):
                 placeholder=R.string.product_stop_sell_stock_quantity_placeholder
             )
         ),
-        summary_markdown=dict(
-            render_kw=dict(
-                example=R.string.product_example_summary
-            )
-        ),
         tab_1_title=dict(
             render_kw=dict(
                 placeholder=R.string.tab_title_placeholder
-            )
-        ),
-        tab_1_content_markdown=dict(
-            render_kw=dict(
-                example=R.string.tab_content_example
             )
         ),
         tab_2_title=dict(
@@ -175,19 +166,9 @@ class ProductView(ProjBaseView):
                 placeholder=R.string.tab_title_placeholder
             )
         ),
-        tab_2_content_markdown=dict(
-            render_kw=dict(
-                example=R.string.tab_content_example
-            )
-        ),
         tab_3_title=dict(
             render_kw=dict(
                 placeholder=R.string.tab_title_placeholder
-            )
-        ),
-        tab_3_content_markdown=dict(
-            render_kw=dict(
-                example=R.string.tab_content_example
             )
         ),
         tab_4_title=dict(
@@ -195,21 +176,11 @@ class ProductView(ProjBaseView):
                 placeholder=R.string.tab_title_placeholder
             )
         ),
-        tab_4_content_markdown=dict(
-            render_kw=dict(
-                example=R.string.tab_content_example
-            )
-        ),
         tab_5_title=dict(
             render_kw=dict(
                 placeholder=R.string.tab_title_placeholder
             )
-        ),
-        tab_5_content_markdown=dict(
-            render_kw=dict(
-                example=R.string.tab_content_example
-            )
-        ),
+        )
     )
     form_excluded_columns = ["sales_number", "summary_html"]
     form_extra_fields = dict(
@@ -217,13 +188,19 @@ class ProductView(ProjBaseView):
         image_2_filename=build_image_upload_field(label=R.string.image_2, **image_upload_field_args),
         image_3_filename=build_image_upload_field(label=R.string.image_3, **image_upload_field_args),
         image_4_filename=build_image_upload_field(label=R.string.image_4, **image_upload_field_args),
+        summary_markdown=MarkdownTextField(label=R.string.summary, example=R.string.product_example_summary),
+        tab_1_content_markdown=MarkdownTextField(label=R.string.n_tab_content(1), example=R.string.tab_content_example),
+        tab_2_content_markdown=MarkdownTextField(label=R.string.n_tab_content(2), example=R.string.tab_content_example),
+        tab_3_content_markdown=MarkdownTextField(label=R.string.n_tab_content(3), example=R.string.tab_content_example),
+        tab_4_content_markdown=MarkdownTextField(label=R.string.n_tab_content(4), example=R.string.tab_content_example),
+        tab_5_content_markdown=MarkdownTextField(label=R.string.n_tab_content(5), example=R.string.tab_content_example)
     )
     form_rules = (
         "active",
         "title",
         "category",
         "subcategory",
-        rules.Field("summary_markdown", render_field="additional_fields.markdown_text"),
+        "summary_markdown",
         "price",
         "has_discount",
         "discount_percentage",
@@ -237,18 +214,18 @@ class ProductView(ProjBaseView):
             "image_4_filename"),
             header=R.string.images),
         rules.FieldSet(
-            ("tab_1_active", "tab_1_title", rules.Field("tab_1_content_markdown", render_field="additional_fields.markdown_text")),
+            ("tab_1_active", "tab_1_title", "tab_1_content_markdown"),
             header=R.string.tab_n(1)),
         rules.FieldSet(
-            ("tab_2_active", "tab_2_title", rules.Field("tab_2_content_markdown", render_field="additional_fields.markdown_text")),
+            ("tab_2_active", "tab_2_title", "tab_2_content_markdown"),
             header=R.string.tab_n(2)),
         rules.FieldSet(
-            ("tab_3_active", "tab_3_title", rules.Field("tab_3_content_markdown", render_field="additional_fields.markdown_text")),
+            ("tab_3_active", "tab_3_title", "tab_3_content_markdown"),
             header=R.string.tab_n(3)),
         rules.FieldSet(
-            ("tab_4_active", "tab_4_title", rules.Field("tab_4_content_markdown", render_field="additional_fields.markdown_text")),
+            ("tab_4_active", "tab_4_title", "tab_4_content_markdown"),
             header=R.string.tab_n(4)),
         rules.FieldSet(
-            ("tab_5_active", "tab_5_title", rules.Field("tab_5_content_markdown", render_field="additional_fields.markdown_text")),
+            ("tab_5_active", "tab_5_title", "tab_5_content_markdown"),
             header=R.string.tab_n(5))
     )

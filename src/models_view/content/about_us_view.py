@@ -1,4 +1,4 @@
-from flask_admin.form import rules
+from admin.fields import MarkdownTextField
 from models_view.content.base_content_view import BaseContentView
 from models_view.proj_base_view import ProjBaseView
 from r import R
@@ -14,20 +14,12 @@ class AboutUsView(BaseContentView):
     )
     column_list = ['summary_html', 'content_html']
 
-    form_args = dict(
-        summary_markdown=dict(
-            render_kw=dict(
-                example=R.string.about_us_summary_example
-            )
-        ),
-        content_markdown=dict(
-            render_kw=dict(
-                example=R.string.about_us_content_example
-            )
-        )
-    )
     form_excluded_columns = ['summary_html', "content_html"]
+    form_extra_fields = dict(
+        summary_markdown=MarkdownTextField(label=R.string.summary, example=R.string.about_us_summary_example),
+        content_markdown=MarkdownTextField(label=R.string.content, example=R.string.about_us_content_example)
+    )
     form_rules = (
-        rules.Field('summary_markdown', render_field='additional_fields.markdown_text'),
-        rules.Field('content_markdown', render_field='additional_fields.markdown_text'),
+        "summary_markdown",
+        "content_markdown"
     )

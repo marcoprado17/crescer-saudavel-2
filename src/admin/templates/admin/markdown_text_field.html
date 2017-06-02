@@ -1,0 +1,55 @@
+{% if field.example %}
+  <div id="example-modal-{{ field.id }}" class="markdown modal fade large" role="dialog" style="display: none;">
+    <div class="modal-dialog large">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{ R.string.example }}</h4>
+        </div>
+        <div class="modal-body example markdown">{{ field.example }}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default"
+                  data-dismiss="modal">{{ R.string.close }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div id="preview-modal-{{ field.id }}" class="markdown modal fade large" role="dialog" style="display: none;">
+  <div class="modal-dialog large">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{ R.string.preview }}</h4>
+      </div>
+      <div class="modal-body markdown-parsed-container">
+        {{ R.string.loading }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"
+                data-dismiss="modal">{{ R.string.close }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<textarea id="{{ field.id }}" name="{{ field.name }}" class="markdown form-control"
+          rows="5" style="resize: vertical;">{{ field.data|if(field.data or field.data==0) }}</textarea>
+<div class="markdown-buttons-container">
+  {% if field.example %}
+    <button type="button" class="btn btn-default markdown example" data-toggle="modal"
+            data-target="#example-modal-{{ field.id }}">{{ R.string.example }}</button>
+  {% endif %}
+  <button type="button" class="btn btn-default markdown preview" data-toggle="modal"
+          data-url="{{ url_for('admin_proj.markdown_parse') }}"
+          data-target="#preview-modal-{{ field.id }}" data-textarea="#{{ field.id }}"
+          data-loading-message="{{ R.string.loading }}"
+          data-error-message="{{ R.string.markdown_preview_error }}"
+  >
+    {{ R.string.preview }}
+  </button>
+  <a href="{{ R.string.markdown_href }}" target="_blank" class="markdown"><span
+      class="btn btn-primary">{{ R.string.markdown }}</span></a>
+</div>

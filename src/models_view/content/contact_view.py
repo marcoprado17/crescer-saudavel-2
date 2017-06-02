@@ -1,4 +1,5 @@
 from flask_admin.form import rules
+from admin.fields import MarkdownTextField
 from models_view.content.base_content_view import BaseContentView
 from models_view.proj_base_view import ProjBaseView
 from r import R
@@ -26,11 +27,6 @@ class ContactView(BaseContentView):
     ]
 
     form_args = dict(
-        address_markdown=dict(
-            render_kw=dict(
-                example=R.string.address_example
-            )
-        ),
         tel=dict(
             render_kw=dict(
                 placeholder=R.string.tel_placeholder
@@ -68,9 +64,12 @@ class ContactView(BaseContentView):
         )
     )
     form_excluded_columns = ["address_html"]
+    form_extra_fields = dict(
+        address_markdown=MarkdownTextField(label=R.string.address, example=R.string.address_example),
+    )
     form_rules = (
         rules.FieldSet((
-            rules.Field('address_markdown', render_field='additional_fields.markdown_text'),
+            "address_markdown",
             'tel',
             'email'),
             header=R.string.main_info),

@@ -1,7 +1,7 @@
 from flask_admin.form import rules
 from markupsafe import Markup
 from os.path import join
-
+from admin.fields import MarkdownTextField
 from models_view.proj_base_view import ProjBaseView
 from proj_utils import build_image_upload_field
 from r import R
@@ -31,16 +31,6 @@ class BlogPostView(ProjBaseView):
             render_kw=dict(
                 placeholder=R.string.blog_post_title_placeholder
             )
-        ),
-        summary_markdown=dict(
-            render_kw=dict(
-                example=R.string.blog_post_summary_example
-            )
-        ),
-        content_markdown=dict(
-            render_kw=dict(
-                example=R.string.blog_post_content_example
-            )
         )
     )
     form_excluded_columns = ["summary_html", "content_html"]
@@ -52,6 +42,8 @@ class BlogPostView(ProjBaseView):
             width=config.BLOG_THUMBNAIL_IMAGE_WIDTH,
             height=config.BLOG_THUMBNAIL_IMAGE_HEIGHT
         ),
+        summary_markdown=MarkdownTextField(label=R.string.summary, example=R.string.blog_post_summary_example),
+        content_markdown=MarkdownTextField(label=R.string.content, example=R.string.blog_post_content_example)
     )
     form_rules = (
         "title",
@@ -60,11 +52,15 @@ class BlogPostView(ProjBaseView):
         "thumbnail_filename",
         rules.HTML(R.string.blog_thumbnail_text),
         "tags",
-        rules.Field("summary_markdown", render_field="additional_fields.markdown_text"),
-        rules.Field("content_markdown", render_field="additional_fields.markdown_text"),
+        "summary_markdown",
+        "content_markdown"
     )
 
     def on_model_change(self, form, model, is_created):
+        self.create_wide_thumbnail(model=model)
+
+    @staticmethod
+    def create_wide_thumbnail(model):
         if model.has_thumbnail_image():
             image = Image.open(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, model.thumbnail_filename))
             image_wide = ImageOps.fit(
