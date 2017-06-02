@@ -188,7 +188,8 @@ class Resources(object):
             delivered_datetime="Data e hora da entrega",
             total_price="Valor total do pedido",
             products_total_price="Preço total dos produtos",
-            freight="Frete"
+            freight="Frete",
+            orders="Pedidos"
         )
 
     # noinspection PyPep8Naming
@@ -781,6 +782,8 @@ class Resources(object):
         shop_diminutive = "Lojinha"
         who_we_are = "Quem somos"
         more_recent_posts = "Posts mais recentes"
+        order_id = "Id do pedido"
+        product_total_price = "Preço total dos produtos"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1203,10 +1206,6 @@ There's actually a lot more to Markdown than this. See the official [introductio
                 return "Detalhes do cliente " + str(client_first_name)
             else:
                 return "Detalhes do cliente"
-
-        @staticmethod
-        def get_formatted_date(paid_datetime):
-            return str(paid_datetime)[0:10]
 
         @staticmethod
         def get_product_n(n):
