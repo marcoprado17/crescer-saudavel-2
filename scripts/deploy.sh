@@ -47,7 +47,7 @@ git checkout -b build$IDENTIFIER
 echo "
 
 DEBUG = False
-TEMPLATE_FOLDER = '/vagrant/build/templates'
+TEMPLATE_FOLDER = '/vagrant/build/admin/templates'
 ADMIN_MAIL = 'crescer.saudavel.suporte@gmail.com'
 " >> ~/PycharmProjects/crescer-saudavel-2-build$IDENTIFIER/configs/instance/instance_app_config.py
 echo "
