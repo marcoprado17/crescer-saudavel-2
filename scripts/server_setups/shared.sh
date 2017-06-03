@@ -10,7 +10,7 @@ sudo apt-get install -y git
 TIMEZONE=America/Sao_Paulo
 sudo timedatectl set-timezone ${TIMEZONE}
 export TZ=${TIMEZONE}
-sudo apt-get install language-pack-pt
+sudo apt-get install -y language-pack-pt
 
 sudo pip install --upgrade pip
 sudo pip install -r /vagrant/requirements.txt;

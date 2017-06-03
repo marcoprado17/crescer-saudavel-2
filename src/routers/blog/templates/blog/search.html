@@ -1,0 +1,49 @@
+{% extends "base/base.html" %}
+{% block title %}
+  {{ R.string.blog_search }}
+{% endblock %}
+{% block header %}
+  {% include "components/blog_header.html" %}
+{% endblock %}
+{% block content %}
+  <div class="__blog__ __search__ container">
+    <div class="strike-left">
+      <span id="posts">{{ R.string.search_for(q) }}</span>
+    </div>
+      {% if blog_posts_pagination.total > 0 %}
+        {% with pagination=blog_posts_pagination %}
+          {% include "components/pagination.html" %}
+        {% endwith %}
+        {% for i in range(blog_posts_pagination.items|length) %}
+          <div class="row">
+            {% set index_left = 2*i %}
+            {% set index_right = index_left + 1 %}
+            <div class="col-md-6">
+              {% if index_left < blog_posts_pagination.items|length %}
+                {% with blog_post=blog_posts_pagination.items[index_left] %}
+                  {% include "components/blog_post_preview.html" %}
+                {% endwith %}
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              {% if index_right < blog_posts_pagination.items|length %}
+                {% with blog_post=blog_posts_pagination.items[index_right] %}
+                  {% include "components/blog_post_preview.html" %}
+                {% endwith %}
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+        {% with pagination=blog_posts_pagination %}
+          {% include "components/pagination.html" %}
+        {% endwith %}
+      {% else %}
+        <div class="no-posts-found-message">{{ R.string.no_posts_found }}</div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+{% block mobile_menu %}
+{% endblock %}
+{% block script %}
+{% endblock %}

@@ -1,4 +1,3 @@
-PIL
 Babel==2.4.0
 bcrypt==3.1.1
 blinker==1.3
@@ -7,7 +6,7 @@ click==6.6
 coverage==4.2
 enum34==1.1.6
 Flask==0.10.1
--e git+https://github.com/marcoprado17/flask-admin#egg=Flask_Admin
+-e git+https://github.com/marcoprado17/flask-admin@ff9c5a8904f3122f262c7553aa17e690b57b1f40#egg=Flask_Admin
 Flask-API==0.6.9
 Flask-BabelEx==0.9.3
 Flask-Bcrypt==0.7.1
@@ -16,7 +15,7 @@ Flask-Login==0.4.0
 Flask-Mail==0.9.1
 Flask-Session==0.3.1
 Flask-SQLAlchemy==1.0
-Flask-WhooshAlchemy==0.56
+Flask-WhooshAlchemy-Redux==0.7.1
 Flask-WTF==0.13.1
 httplib2==0.10.3
 itsdangerous==0.24

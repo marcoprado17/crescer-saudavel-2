@@ -6,7 +6,8 @@
 from datetime import datetime
 from flask import render_template
 from sqlalchemy import desc
-from flask_bombril.utils.utils import get_int_from_request_arg, get_datetime_from_request_arg_as_unix_ms_timestamp
+from flask_bombril.utils.utils import get_int_from_request_arg, get_datetime_from_request_arg_as_unix_ms_timestamp, \
+    get_string_from_request_arg
 from models.blog.blog_post import BlogPost
 from models.blog.blog_tag import BlogTag
 from proj_decorators import safe_id_to_model_elem
@@ -23,7 +24,7 @@ def blog():
 
     recent_blog_posts = BlogPost.query.order_by(desc(BlogPost.date), BlogPost.id).filter_by(active=True).limit(2).all()
 
-    previous_posts_query = BlogPost.query.order_by(desc(BlogPost.date)).filter_by(active=True)
+    previous_posts_query = BlogPost.query.order_by(desc(BlogPost.date), BlogPost.id).filter_by(active=True)
     if len(recent_blog_posts) > 0:
         previous_posts_query = previous_posts_query.filter(BlogPost.id != recent_blog_posts[0].id)
     if len(recent_blog_posts) > 1:
@@ -46,6 +47,20 @@ def blog():
         current_tag_id=tag_id,
         date=date
     )
+
+
+@blog_blueprint.route("/busca")
+def search():
+    q = get_string_from_request_arg(R.string.search_query_arg_name, "")
+    page = get_int_from_request_arg(R.string.page_arg_name, 1)
+
+    blog_posts_query = BlogPost.query.order_by(desc(BlogPost.date), BlogPost.id) \
+        .whoosh_search(q, or_=True)\
+        .filter_by(active=True)
+
+    blog_posts_pagination = blog_posts_query.paginate(page=page, per_page=R.dimen.n_blog_posts_per_page_in_search)
+
+    return render_template("blog/search.html", q=q, blog_posts_pagination=blog_posts_pagination)
 
 
 # noinspection PyUnresolvedReferences
