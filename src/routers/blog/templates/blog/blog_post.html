@@ -8,6 +8,9 @@
 {% endblock %}
 {% block content %}
   <div class="__blog__ __blog_post__ container">
+    <div class="strike">
+      <span>{{ R.string.blog_post_title_and_date(blog_post) }}</span>
+    </div>
     <div class="cardview">
       <div class="blog-post-image">
         <img src="{{ blog_post.get_thumbnail_wide_src() }}">

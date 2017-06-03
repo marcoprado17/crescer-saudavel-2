@@ -1558,6 +1558,10 @@ There's actually a lot more to Markdown than this. See the official [introductio
         def blog_post_title(blog_post_title):
             return "Post do blog - %s" % blog_post_title
 
+        @staticmethod
+        def blog_post_title_and_date(blog_post):
+            return "%s - %s" % (blog_post.title, R.string.default_date_format(blog_post.date))
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
