@@ -7,9 +7,9 @@
 {% endblock %}
 {% block content %}
   <div class="__blog__ __blog__ container">
-    {#    TODO: Put the blog image and find a way to let the admin change the logo image #}
-    {#    <img src="..">#}
-    <div class="blog-main-img" style="width: 100%; height: 400px; background-color: #99CCFF;"></div>
+    {% if blog_content.main_image_active %}
+      <img class="main-image" src="{{ blog_content.get_main_image_src() }}">
+    {% endif %}
     {% if recent_blog_posts and recent_blog_posts|length > 0 %}
       <div class="more-recent-posts">
         <div class="strike">

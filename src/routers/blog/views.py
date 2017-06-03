@@ -10,10 +10,9 @@ from flask_bombril.utils.utils import get_int_from_request_arg, get_datetime_fro
     get_string_from_request_arg
 from models.blog.blog_post import BlogPost
 from models.blog.blog_tag import BlogTag
-from proj_decorators import safe_id_to_model_elem
+from models.content.blog import BlogContent
 from r import R
 from routers.blog import blog_blueprint
-from routers.blog.data_providers.blog_post import client_blog_post_data_provider
 
 
 @blog_blueprint.route("/")
@@ -45,7 +44,8 @@ def blog():
         previous_posts_pagination=previous_posts_pagination,
         blog_tags=blog_tags,
         current_tag_id=tag_id,
-        date=date
+        date=date,
+        blog_content=BlogContent.get()
     )
 
 

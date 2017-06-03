@@ -27,6 +27,7 @@ from models.newsletter_emails import NewsletterEmails
 from models.content.payment import Payment
 from models.content.tags_row import TagsRow
 from models.user.user import User
+from models.content.blog import BlogContent
 from r import R
 
 
@@ -51,6 +52,7 @@ def restart_db():
         create_exchanges_and_returns()
         create_header()
         create_footer()
+        create_blog_content()
 
         if app.config["DEBUG"]:
             create_admin_user()
@@ -177,6 +179,14 @@ def create_footer():
     db.session.commit()
     print "Footer created."
     return footer
+
+
+def create_blog_content():
+    blog_content = BlogContent()
+    db.session.add(blog_content)
+    db.session.commit()
+    print "BlogContent created."
+    return blog_content
 
 
 def create_admin_user():

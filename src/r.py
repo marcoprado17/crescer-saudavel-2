@@ -190,7 +190,9 @@ class Resources(object):
             products_total_price="Preço total dos produtos",
             freight="Frete",
             orders="Pedidos",
-            blog_tag="Tag"
+            blog_tag="Tag",
+            main_image_filename="Imagem principal",
+            main_image_active="Imagem principal ativa"
         )
 
     # noinspection PyPep8Naming
@@ -237,6 +239,7 @@ class Resources(object):
         blog_thumbnail_default_filename = "blog_thumbnail_default.jpg"
         blog_thumbnail_wide_default_filename = "blog_thumbnail_wide_default.jpg"
         blog_thumbnail_super_wide_default_filename = "blog_thumbnail_super_wide_default.jpg"
+        blog_main_image_default_filename = "blog_main_image_default.jpg"
         carousel_default_filename = "carousel_default.jpg"
         blog_search = "Busca no blog"
         more_categories_default_filename = "more_categories_default.jpg"
@@ -790,6 +793,8 @@ class Resources(object):
         order_id = "Id do pedido"
         product_total_price = "Preço total dos produtos"
         no_posts_found = "Nenhum post foi encontrado."
+        blog_content = "Conteúdo do blog"
+        blog_content_endpoint = "conteudo-do-blog"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"

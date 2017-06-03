@@ -140,7 +140,6 @@ def create_app():
     app.register_blueprint(client_search_blueprint, url_prefix="/busca")
     from routers.client_user_management import client_user_management_blueprint
     app.register_blueprint(client_user_management_blueprint, url_prefix="/conta")
-
     #
     # Wrappers
     #
@@ -324,6 +323,8 @@ def create_app():
     from models_view.content.tags_row_view import TagsRowView
     from models.user.user import User
     from models_view.user_view import UserView
+    from models.content.blog import BlogContent
+    from models_view.content.blog_view import BlogContentView
 
     admin.init_app(app, index_view=MyAdminIndexView())
 
@@ -346,6 +347,7 @@ def create_app():
     admin.add_view(ContactView(Contact, db.session))
     admin.add_view(HomeContentView(HomeContent, db.session))
     admin.add_view(TagsRowView(TagsRow, db.session))
+    admin.add_view(BlogContentView(BlogContent, db.session))
 
     from proj_extensions import babel
 
