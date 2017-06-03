@@ -13,7 +13,7 @@
     border-radius: $default-border-radius;
 
     .bootstrap-datetimepicker-widget table td.old, .bootstrap-datetimepicker-widget table td.new {
-      color: rgba(255,255,255,0.6);
+      color: rgba(255, 255, 255, 0.6);
     }
 
     .bootstrap-datetimepicker-widget table td.active, .bootstrap-datetimepicker-widget table td.active:hover {
@@ -51,7 +51,7 @@
     margin-top: 0;
 
     a {
-      display:inline-block;
+      display: inline-block;
       font-family: "HappyBirthdayBabyMedium";
       text-align: center;
       vertical-align: middle;
@@ -78,6 +78,75 @@
 
     .ellipsis {
       margin-right: 6px;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .more-recent-posts {
+      .title-container {
+        height: $blog-post-preview-small-container-height;
+        span {
+          font-size: $blog-post-preview-small-title-size;
+        }
+      }
+
+      .__blog_post_preview_date__ {
+        .day {
+          font-size: $blog-post-preview-small-day-size;
+        }
+
+        .month {
+          font-size: $blog-post-preview-small-month-size;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .main-image-container {
+      display: none;
+    }
+
+    .__blog_post_preview_wide__ {
+      .title-container {
+        height: $blog-post-preview-wide-small-container-height;
+        width: $blog-post-preview-wide-small-container-width-percentage;
+        span {
+          font-size: $blog-post-preview-wide-small-title-size;
+        }
+      }
+
+      .__blog_post_preview_date__ {
+        .day {
+          font-size: $blog-post-preview-wide-small-day-size;
+        }
+
+        .month {
+          font-size: $blog-post-preview-wide-small-month-size;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 399px) {
+    .__blog_post_preview_wide__ {
+      .title-container {
+        height: $blog-post-preview-wide-ultra-small-container-height;
+        width: $blog-post-preview-wide-ultra-small-container-width-percentage;
+        span {
+          font-size: $blog-post-preview-wide-ultra-small-title-size;
+        }
+      }
+
+      .__blog_post_preview_date__ {
+        .day {
+          font-size: $blog-post-preview-wide-ultra-small-day-size;
+        }
+
+        .month {
+          font-size: $blog-post-preview-wide-ultra-small-month-size;
+        }
+      }
     }
   }
 }

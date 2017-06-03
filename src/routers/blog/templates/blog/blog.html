@@ -8,7 +8,9 @@
 {% block content %}
   <div class="__blog__ __blog__ container">
     {% if blog_content.main_image_active %}
-      <img class="main-image" src="{{ blog_content.get_main_image_src() }}">
+      <div class="main-image-container">
+        <img class="main-image" src="{{ blog_content.get_main_image_src() }}">
+      </div>
     {% endif %}
     {% if recent_blog_posts and recent_blog_posts|length > 0 %}
       <div class="more-recent-posts">
@@ -16,13 +18,13 @@
           <span>{{ R.string.more_recent_posts }}</span>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-sm-6">
             {% with blog_post=recent_blog_posts[0] %}
               {% include "components/blog_post_preview.html" %}
             {% endwith %}
           </div>
           {% if recent_blog_posts|length > 1 %}
-            <div class="col-md-6">
+            <div class="col-sm-6">
               {% with blog_post=recent_blog_posts[1] %}
                 {% include "components/blog_post_preview.html" %}
               {% endwith %}
