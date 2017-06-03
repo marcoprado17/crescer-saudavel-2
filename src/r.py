@@ -236,6 +236,7 @@ class Resources(object):
         inner_link_example = "Ex.: /produtos/?category_id=1"
         blog_thumbnail_default_filename = "blog_thumbnail_default.jpg"
         blog_thumbnail_wide_default_filename = "blog_thumbnail_wide_default.jpg"
+        blog_thumbnail_super_wide_default_filename = "blog_thumbnail_super_wide_default.jpg"
         carousel_default_filename = "carousel_default.jpg"
         blog_search = "Busca no blog"
         more_categories_default_filename = "more_categories_default.jpg"
@@ -1547,6 +1548,10 @@ There's actually a lot more to Markdown than this. See the official [introductio
         @staticmethod
         def search_for(q):
             return "Busca por: \"" + q + "\""
+
+        @staticmethod
+        def blog_post_title(blog_post_title):
+            return "Post do blog - %s" % blog_post_title
 
     # noinspection PyPep8Naming
     @unique

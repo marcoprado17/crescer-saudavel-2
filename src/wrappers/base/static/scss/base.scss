@@ -2,10 +2,11 @@ $product-container-border-radius: 5px;
 $item-price-border-radius: 5px;
 $proj-gray-color: #888888;
 $proj-gray-color-half-transparent: rgba(136, 136, 136, 0.5);
+$proj-dark-gray-color: #444444;
 $dark-green: #056B38;
 $green: #35B149;
 $dark-yellow: #FCE20D;
-$blog-text-background-color: rgba(1,1,1,0.4);
+$blog-text-background-color: rgba(1, 1, 1, 0.4);
 $calendar-background-color: rgba(4, 106, 54, 0.5);
 $default-border-radius: 4px;
 
@@ -111,7 +112,7 @@ $default-border-radius: 4px;
     }
 
     a:hover {
-        text-decoration: underline;
+      text-decoration: underline;
     }
   }
 
@@ -177,6 +178,41 @@ $default-border-radius: 4px;
   .strike-left > span:after {
     left: 100%;
     margin-left: 15px;
+  }
+
+  .cardview {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.75);
+    margin-bottom: 24px;
+  }
+
+  .button.personalized {
+    font-family: "HappyBirthdayBaby";
+    font-size: 24px;
+    line-height: 42px;
+    padding: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 2px;
+    border: none;
+    background-color: $dark-yellow;
+    color: $proj-dark-gray-color;
+  }
+
+  .button.personalized.white {
+    border: 1px solid $proj-dark-gray-color;
+    background-color: white;
+  }
+
+  .button.personalized.green {
+    border: 1px solid $dark-green;
+    color: white;
+    background-color: $dark-green;
+  }
+
+  .button.personalized:hover {
+    transition: all .2s ease-in-out;
+    color: white;
+    background-color: $proj-dark-gray-color;
   }
 
   @media screen and (min-width: 992px) {

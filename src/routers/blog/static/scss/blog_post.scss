@@ -1,5 +1,44 @@
-.__blog__.__blog_post__{
-  button {
-    margin-top: 8px;
+.__blog__.__blog_post__ {
+  .cardview {
+    margin-bottom: 32px;
+  }
+
+  .content-container {
+    padding: 18px;
+    color: $proj-dark-gray-color;
+
+    .back-blog-button-container {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+  }
+
+  .blog-post-image {
+    position: relative;
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
+
+    .title-container {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      height: 120px;
+      background-color: $blog-text-background-color;
+      background-color: $blog-text-background-color;
+      padding: 8px 16px;
+      overflow: hidden;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        font-size: 32px;
+        color: white;
+      }
+    }
   }
 }

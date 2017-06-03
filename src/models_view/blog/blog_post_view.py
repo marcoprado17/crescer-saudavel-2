@@ -10,7 +10,7 @@ from PIL import Image, ImageOps
 
 
 class BlogPostView(ProjBaseView):
-    # noinspection PyMethodParameters
+    # noinspection PyMethodParameters,PyUnusedLocal
     def _tags_formatter(view, context, model, name):
         html = "<div style='max-width: 400px'>"
         for blog_tag in model.tags:

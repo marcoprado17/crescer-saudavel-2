@@ -65,6 +65,8 @@ def search():
 
 # noinspection PyUnresolvedReferences
 @blog_blueprint.route("/post/<int:blog_post_id>")
-@safe_id_to_model_elem(model=BlogPost)
-def blog_post(blog_post):
-    return render_template("blog/blog_post.html", data=client_blog_post_data_provider.get_data(blog_post=blog_post))
+def blog_post(blog_post_id):
+    blog_post = BlogPost.get(blog_post_id)
+    if not blog_post:
+        abort(404)
+    return render_template("blog/blog_post.html", blog_post=blog_post)
