@@ -21,7 +21,7 @@ from models.content.dispatch import Dispatch
 from models.content.exchanges_and_returns import ExchangesAndReturns
 from models.content.faq import Faq
 from models.content.footer import Footer
-from models.content.header import Header
+from models.content.header import HeaderContent
 from models.content.home_content import HomeContent
 from models.newsletter_emails import NewsletterEmails
 from models.content.payment import Payment
@@ -165,7 +165,7 @@ def create_exchanges_and_returns():
 
 
 def create_header():
-    header = Header()
+    header = HeaderContent()
     header.n_visible_categories = R.dimen.default_n_visible_categories
     db.session.add(header)
     db.session.commit()

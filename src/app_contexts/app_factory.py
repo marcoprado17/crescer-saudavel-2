@@ -215,6 +215,7 @@ def create_app():
             get_footer_data=lambda: footer_data_provider.get_data(),
             get_components_client_mobile_menu_data=lambda: header_data_provider.get_menu_data(),
             get_components_tags_row_data=lambda: tags_row_data_provider.get_data(),
+            get_header_content=lambda: HeaderContent.get(),
             submit_form=SubmitForm(),
             csrf_token=generate_csrf_token,
             current_url=current_url
@@ -311,8 +312,8 @@ def create_app():
     from models_view.content.faq_view import FaqView
     from models_view.content.footer_view import FooterView
     from models.content.footer import Footer
-    from models_view.content.header_view import HeaderView
-    from models.content.header import Header
+    from models_view.content.header_view import HeaderContentView
+    from models.content.header import HeaderContent
     from models_view.content.payment_view import PaymentView
     from models.content.payment import Payment
     from models.content.contact import Contact
@@ -342,7 +343,7 @@ def create_app():
     admin.add_view(ExchangesAndReturnsView(ExchangesAndReturns, db.session))
     admin.add_view(FaqView(Faq, db.session))
     admin.add_view(FooterView(Footer, db.session))
-    admin.add_view(HeaderView(Header, db.session))
+    admin.add_view(HeaderContentView(HeaderContent, db.session))
     admin.add_view(PaymentView(Payment, db.session))
     admin.add_view(ContactView(Contact, db.session))
     admin.add_view(HomeContentView(HomeContent, db.session))

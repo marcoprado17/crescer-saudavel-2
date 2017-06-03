@@ -5,7 +5,7 @@
 # ======================================================================================================================
 from flask import flash
 from flask import url_for
-from models.content.header import Header
+from models.content.header import HeaderContent
 from models.product.product_category import ProductCategory
 from proj_decorators import login_or_anonymous
 from r import R
@@ -28,7 +28,7 @@ class HeaderDataProvider(object):
         )
 
     def get_menu_data(self):
-        return self.get_products_menu_tree()[0:Header.get().n_visible_categories] + [
+        return self.get_products_menu_tree()[0:HeaderContent.get().n_visible_categories] + [
             dict(
                 name=R.string.others,
                 children=self.get_products_menu_tree(),

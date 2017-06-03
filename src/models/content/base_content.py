@@ -1,12 +1,11 @@
+from models.base import BaseModel
 from proj_exceptions import InconsistentDataBaseError
-from proj_extensions import db
 
 
-class BaseContent(db.Model):
+class BaseContent(BaseModel):
     __abstract__ = True
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
+    # noinspection PyMethodOverriding
     @classmethod
     def get(cls):
         models = cls.query.all()

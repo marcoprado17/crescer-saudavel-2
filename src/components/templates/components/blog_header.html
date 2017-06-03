@@ -1,10 +1,9 @@
+{% set header_content=get_header_content() %}
 <div class="__components__ __blog_header__">
   <header>
     <div class="container">
-      {#    TODO: Put the logo image and find a way to let the admin change the logo image #}
-      {#    <img src="..">#}
       <a href="{{ url_for('client_home.home') }}">
-        <div class="logo" style="width: 200px; height: 60px; background-color: #35B149;"></div>
+        <img class="logo" src="{{ header_content.get_logo_img_src() }}">
       </a>
       {% with url=url_for("blog.search") %}
         {% include "components/search_bar.html" %}

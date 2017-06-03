@@ -5,9 +5,14 @@
 # ======================================================================================================================
 from models.content.base_content import BaseContent
 from proj_extensions import db
+from r import R
 
 
-class Header(BaseContent):
-    __tablename__ = "header"
+class HeaderContent(BaseContent):
+    __tablename__ = "header_content"
 
     n_visible_categories = db.Column(db.Integer, nullable=False)
+    logo_image_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
+
+    def get_logo_img_src(self):
+        return self.get_img_src(self.logo_image_filename, R.string.default_logo_image_filename)

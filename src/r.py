@@ -243,6 +243,7 @@ class Resources(object):
         carousel_default_filename = "carousel_default.jpg"
         blog_search = "Busca no blog"
         more_categories_default_filename = "more_categories_default.jpg"
+        default_logo_image_filename = "logo_default.jpg"
         unavailable_product_at_moment = "Produto indisponível no momento."
         product_image = "Imagem do produto"
         product_images = "Imagens dos produtos"
@@ -320,6 +321,7 @@ class Resources(object):
         orders = "Pedidos"
         orders_endpoint = "pedidos"
         blog = "Blog"
+        blog_content_endpoint = "conteudo-do-blog"
         add_new_post = "Adicionar novo post"
         posts_table = "Tabela de posts"
         customers = "Clientes"
@@ -796,6 +798,7 @@ class Resources(object):
         no_posts_found = "Nenhum post foi encontrado."
         blog_content = "Conteúdo do blog"
         blog_content_endpoint = "conteudo-do-blog"
+        logo_image = "Imagem do logo"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"

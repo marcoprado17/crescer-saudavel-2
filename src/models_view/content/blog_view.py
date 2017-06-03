@@ -5,7 +5,7 @@ from r import R
 
 
 class BlogContentView(BaseContentView):
-    name = R.string.blog_content
+    name = R.string.blog
     endpoint = R.string.blog_content_endpoint
 
     column_editable_list = ["main_image_active"]
