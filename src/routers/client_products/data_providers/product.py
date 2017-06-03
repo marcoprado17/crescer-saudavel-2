@@ -15,23 +15,23 @@ class ClientProductDataProvider(object):
         images_src = []
         images_src.append(product.get_main_image_src())
         if product.image_2 is not None and product.image_2 != "": images_src.append(
-            url_for("static", filename="imgs/products/" + product.image_2))
+            url_for("static", filename="imagens/products/" + product.image_2))
         if product.image_3 is not None and product.image_3 != "": images_src.append(
-            url_for("static", filename="imgs/products/" + product.image_3))
+            url_for("static", filename="imagens/products/" + product.image_3))
         if product.image_4 is not None and product.image_4 != "": images_src.append(
-            url_for("static", filename="imgs/products/" + product.image_4))
+            url_for("static", filename="imagens/products/" + product.image_4))
         if product.image_5 is not None and product.image_5 != "": images_src.append(
-            url_for("static", filename="imgs/products/" + product.image_5))
+            url_for("static", filename="imagens/products/" + product.image_5))
         if product.image_6 is not None and product.image_6 != "": images_src.append(
-            url_for("static", filename="imgs/products/" + product.image_6))
+            url_for("static", filename="imagens/products/" + product.image_6))
         if product.image_7 is not None and product.image_7 != "": images_src.append(
-            url_for("static", filename="imgs/products/" + product.image_7))
+            url_for("static", filename="imagens/products/" + product.image_7))
         if product.image_8 is not None and product.image_8 != "": images_src.append(
-            url_for("static", filename="imgs/products/" + product.image_8))
+            url_for("static", filename="imagens/products/" + product.image_8))
         if product.image_9 is not None and product.image_9 != "": images_src.append(
-            url_for("static", filename="imgs/products/" + product.image_9))
+            url_for("static", filename="imagens/products/" + product.image_9))
         if product.image_10 is not None and product.image_10 != "": images_src.append(
-            url_for("static", filename="imgs/products/" + product.image_10))
+            url_for("static", filename="imagens/products/" + product.image_10))
 
         sections = []
         if product.tab_1_active:

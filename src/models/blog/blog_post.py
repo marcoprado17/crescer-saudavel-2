@@ -3,12 +3,9 @@
 # ======================================================================================================================
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from os.path import isfile, join
-
 from flask import url_for
 from markupsafe import Markup
 from sqlalchemy.orm import relationship
-from configs import default_app_config as config
 from models.associations import blog_post_and_blog_tag_association_table
 from models.base import BaseModel
 from proj_extensions import db
@@ -48,10 +45,7 @@ class BlogPost(BaseModel):
         return Markup(''.join(html) % (self.get_thumbnail_src(), self.id, self.title))
 
     def get_thumbnail_src(self):
-        if self.has_thumbnail_image():
-            return join("/", config.BLOG_THUMBNAIL_IMAGES_FROM_STATIC_PATH, self.thumbnail_filename)
-        else:
-            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.blog_thumbnail_default_filename)
+        return self.get_img_src(self.thumbnail_filename, R.string.blog_thumbnail_default_filename)
 
     def get_href(self):
         return url_for("blog.blog_post", blog_post_id=self.id)
@@ -62,16 +56,4 @@ class BlogPost(BaseModel):
         return None
 
     def get_thumbnail_wide_src(self):
-        if self.has_thumbnail_wide_image():
-            return join("/", config.BLOG_THUMBNAIL_IMAGES_FROM_STATIC_PATH, self.get_thumbnail_wide_filename())
-        else:
-            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.blog_thumbnail_wide_default_filename)
-
-    def has_thumbnail_image(self):
-        return (self.thumbnail_filename is not None) and \
-               isfile(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, self.thumbnail_filename))
-
-    def has_thumbnail_wide_image(self):
-        thumbnail_wide_filename = self.get_thumbnail_wide_filename()
-        return (thumbnail_wide_filename is not None) and \
-               isfile(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, thumbnail_wide_filename))
+        return self.get_img_src(self.get_thumbnail_wide_filename(), R.string.blog_thumbnail_wide_default_filename)

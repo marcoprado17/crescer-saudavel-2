@@ -133,21 +133,16 @@ def create_blog_thumbnail_image(file_path, file_name):
         image.save(os.path.join(os.path.join(blog_thumbnails_folder_path, file_name)))
 
 
-def build_image_upload_field(label, full_path, folder, width=None, height=None):
+def build_model_image_upload_field(label, size=None):
     def namegen(_, file_data):
         extension = splitext(file_data.filename)[-1]
         return secure_filename(str(uuid4()) + extension)
 
-    if width is not None and height is not None:
-        size = (width, height)
-    else:
-        size = None
-
     return form.ImageUploadField(label,
                                  namegen=namegen,
-                                 base_path=full_path,
+                                 base_path=config.MODEL_IMAGES_FULL_PATH,
                                  size=size,
                                  url_relative_path=join(
                                      config.IMAGES_FOLDER,
-                                     folder,
-                                     folder))
+                                     config.MODEL_IMAGES_FOLDER,
+                                     config.MODEL_IMAGES_FOLDER))

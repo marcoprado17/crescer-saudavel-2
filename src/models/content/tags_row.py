@@ -37,12 +37,7 @@ class TagsRow(BaseContent):
         return getattr(self, "tag_" + str(n) + "_image_filename")
 
     def get_tag_n_image_src(self, n):
-        tag_n_image_filename = self.get_tag_n_image_filename(n)
-        if tag_n_image_filename is not None and isfile(
-                join(config.TAG_IMAGES_FULL_PATH, tag_n_image_filename)):
-            return join("/", config.TAG_IMAGES_FROM_STATIC_PATH, tag_n_image_filename)
-        else:
-            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.tag_default_filename)
+        return self.get_img_src(self.get_tag_n_image_filename(n), R.string.tag_default_filename)
 
     def active_tags(self):
         l = []
@@ -55,9 +50,6 @@ class TagsRow(BaseContent):
         if self.tag_4_active:
             l.append(4)
         return l
-
-    def get_tag_n_has_image(self, n):
-        return self.get_tag_n_image_filename(n) is not None
 
     def get_tag_n_title(self, n):
         return getattr(self, "tag_" + str(n) + "_title")

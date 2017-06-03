@@ -4,6 +4,8 @@
 # Created at 22/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from sqlalchemy import desc
+from os.path import isfile, join
+from configs import default_app_config as config
 from proj_extensions import db
 
 
@@ -28,3 +30,17 @@ class BaseModel(db.Model):
     @classmethod
     def get(cls, id):
         return cls.query.filter_by(id=id).one_or_none()
+
+    @classmethod
+    def has_image(cls, image_filename):
+        return (image_filename is not None) and \
+               isfile(join(config.MODEL_IMAGES_FULL_PATH, image_filename))
+
+    @classmethod
+    def get_img_src(cls, image_filename, default_image_filename=None):
+        if cls.has_image(image_filename):
+            return join("/", config.MODEL_IMAGES_FROM_STATIC_PATH, image_filename)
+        elif default_image_filename is not None:
+            return join("/", config.IMAGES_FROM_STATIC_PATH, default_image_filename)
+        else:
+            return ""

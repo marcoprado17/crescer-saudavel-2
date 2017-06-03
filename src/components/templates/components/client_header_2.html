@@ -14,7 +14,7 @@
                                         <div class="input-group col-md-12">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-lg" type="submit">
-                                                    <img src="{{ url_for('static', filename='imgs/search.png') }}">
+                                                    <img src="{{ url_for('static', filename='imagens/search.png') }}">
                                                 </button>
                                             </span>
                                             <input name="{{ R.string.search_query_arg_name }}" type="text"
@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-md-3 col-sm-12">
                                 <a href="{{ url_for('client_home.home') }}">
-                                    <img class="logo logo-img" src="{{ url_for('static', filename='imgs/logo.png') }}"
+                                    <img class="logo logo-img" src="{{ url_for('static', filename='imagens/logo.png') }}"
                                          alt="{{ R.string.store_logo }}">
                                 </a>
                             </div>
@@ -34,10 +34,10 @@
                                 <div class="item">
                                     <a href="{{ url_for('client_cart.cart') }}" title="{{ R.string.cart }}">
                                         <span class="notify-badge cart-n-items-badge">{{ data.n_items }}</span>
-                                        <img src="{{ url_for('static', filename='imgs/stroller.png') }}"/>
+                                        <img src="{{ url_for('static', filename='imagens/stroller.png') }}"/>
                                     </a>
                                 </div>
-                                <a href="{{ url_for("client_account.my_account") }}" title="{{ R.string.my_account }}"><img src="{{ url_for('static', filename='imgs/baby-3.png') }}"/></a>
+                                <a href="{{ url_for("client_account.my_account") }}" title="{{ R.string.my_account }}"><img src="{{ url_for('static', filename='imagens/baby-3.png') }}"/></a>
                                 <div class="text-container">
                                     {% if data.logged %}
                                         <div class="my-account-container">

@@ -91,11 +91,7 @@ class Product(BaseModel):
         return getattr(self, "image_" + str(n) + "_filename")
 
     def get_image_n_src(self, n):
-        image_n_filename = self.get_image_n_filename(n)
-        if image_n_filename is not None and isfile(join(config.PRODUCT_IMAGES_FULL_PATH, image_n_filename)):
-            return join("/", config.PRODUCT_IMAGES_FROM_STATIC_PATH, image_n_filename)
-        else:
-            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.product_default_filename)
+        return self.get_image_src(self.get_image_n_filename(n), R.string.product_default_filename)
 
     def get_tab_n_active(self, n):
         return getattr(self, "tab_" + str(n) + "_active")

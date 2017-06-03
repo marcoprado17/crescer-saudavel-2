@@ -17,7 +17,7 @@ class EmailManager(object):
         subject = "Crescer Saudável | Confirme seu endereço de e-mail"
         token = ts.dumps(receiver_email, salt=current_app.config["EMAIL_TOKEN_SALT"])
         confirm_url = url_for("client_user_management.email_confirmed", token=token, _external=True)
-        logo_url = url_for("static", filename="imgs/logo.png", _external=True)
+        logo_url = url_for("static", filename="imagens/logo.png", _external=True)
         data = dict(
             confirm_url= confirm_url,
             logo_url= logo_url,
@@ -32,7 +32,7 @@ class EmailManager(object):
         ts = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
         token = ts.dumps(receiver_email, salt=current_app.config["EMAIL_TOKEN_SALT"])
         recover_url = url_for("client_user_management.redefine_password", token=token, _external=True)
-        logo_url = url_for("static", filename="imgs/logo.png", _external=True)
+        logo_url = url_for("static", filename="imagens/logo.png", _external=True)
         data = dict(
             recover_url=recover_url,
             logo_url=logo_url

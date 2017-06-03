@@ -143,7 +143,7 @@ class ClientHomeDataProvider(object):
         return dict(
             category_name=category.name,
             category_href=url_for("client_products.products", **{R.string.category_id_arg_name: category_id}),
-            image_src=url_for("static", filename="imgs/%s" % image_name) if image_name is not None and image_name != "" else None,
+            image_src=url_for("static", filename="imagens/%s" % image_name) if image_name is not None and image_name != "" else None,
             subcategories=subcategories
         )
 

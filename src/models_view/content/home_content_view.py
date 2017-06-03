@@ -1,11 +1,10 @@
 from flask_admin.contrib.sqla.ajax import QueryAjaxModelLoader
 from flask_admin.form import rules
 from markupsafe import Markup
-from configs import default_app_config as config
 from models.product.product_subcategory import ProductSubcategory
 from models_view.content.base_content_view import BaseContentView
 from proj_extensions import db
-from proj_utils import build_image_upload_field
+from proj_utils import build_model_image_upload_field
 from r import R
 from flask_admin.model.ajax import DEFAULT_PAGE_SIZE
 from sqlalchemy import or_, and_, cast, String
@@ -95,18 +94,6 @@ class HomeContentView(BaseContentView):
         "fields": ["title", "id"],
         "page_size": 10
     }
-    carousel_image_upload_field_args = dict(
-        full_path=config.CAROUSEL_IMAGES_FULL_PATH,
-        folder=config.CAROUSEL_IMAGES_FOLDER,
-        width=config.CAROUSEL_IMAGE_WIDTH,
-        height=config.CAROUSEL_IMAGE_HEIGHT
-    )
-    more_categories_image_upload_field_args = dict(
-        full_path=config.MORE_CATEGORIES_IMAGES_FULL_PATH,
-        folder=config.MORE_CATEGORIES_IMAGES_FOLDER,
-        width=config.MORE_CATEGORIES_IMAGE_WIDTH,
-        height=config.MORE_CATEGORIES_IMAGE_HEIGHT
-    )
 
     column_formatters = dict(
         carousel_1_image_filename=_carousel_image_formatter,
@@ -233,30 +220,30 @@ class HomeContentView(BaseContentView):
         ),
     )
     form_extra_fields = dict(
-        carousel_1_image_filename=build_image_upload_field(
-            label=R.dict.column_labels["carousel_1_image_filename"], **carousel_image_upload_field_args),
-        carousel_2_image_filename=build_image_upload_field(
-            label=R.dict.column_labels["carousel_2_image_filename"], **carousel_image_upload_field_args),
-        carousel_3_image_filename=build_image_upload_field(
-            label=R.dict.column_labels["carousel_3_image_filename"], **carousel_image_upload_field_args),
-        more_categories_section_category_1_image_filename=build_image_upload_field(
+        carousel_1_image_filename=build_model_image_upload_field(
+            label=R.dict.column_labels["carousel_1_image_filename"], size=R.dimen.carousel_image_size),
+        carousel_2_image_filename=build_model_image_upload_field(
+            label=R.dict.column_labels["carousel_2_image_filename"], size=R.dimen.carousel_image_size),
+        carousel_3_image_filename=build_model_image_upload_field(
+            label=R.dict.column_labels["carousel_3_image_filename"], size=R.dimen.carousel_image_size),
+        more_categories_section_category_1_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["more_categories_section_category_1_image_filename"],
-            **more_categories_image_upload_field_args),
-        more_categories_section_category_2_image_filename=build_image_upload_field(
+            size=R.dimen.more_categories_image_size),
+        more_categories_section_category_2_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["more_categories_section_category_2_image_filename"],
-            **more_categories_image_upload_field_args),
-        more_categories_section_category_3_image_filename=build_image_upload_field(
+            size=R.dimen.more_categories_image_size),
+        more_categories_section_category_3_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["more_categories_section_category_3_image_filename"],
-            **more_categories_image_upload_field_args),
-        more_categories_section_category_4_image_filename=build_image_upload_field(
+            size=R.dimen.more_categories_image_size),
+        more_categories_section_category_4_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["more_categories_section_category_4_image_filename"],
-            **more_categories_image_upload_field_args),
-        more_categories_section_category_5_image_filename=build_image_upload_field(
+            size=R.dimen.more_categories_image_size),
+        more_categories_section_category_5_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["more_categories_section_category_5_image_filename"],
-            **more_categories_image_upload_field_args),
-        more_categories_section_category_6_image_filename=build_image_upload_field(
+            size=R.dimen.more_categories_image_size),
+        more_categories_section_category_6_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["more_categories_section_category_6_image_filename"],
-            **more_categories_image_upload_field_args)
+            size=R.dimen.more_categories_image_size)
     )
     form_rules = (
         rules.FieldSet((

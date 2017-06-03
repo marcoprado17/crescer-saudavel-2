@@ -4,11 +4,10 @@ from flask_admin.model.ajax import DEFAULT_PAGE_SIZE
 from markupsafe import Markup
 from sqlalchemy import cast, String, or_, and_
 from admin.fields import MarkdownTextField
-from configs import default_app_config as config
 from models.product.product_subcategory import ProductSubcategory
 from models_view.proj_base_view import ProjBaseView
 from proj_extensions import db
-from proj_utils import build_image_upload_field
+from proj_utils import build_model_image_upload_field
 from r import R
 
 
@@ -46,13 +45,6 @@ class ProductView(ProjBaseView):
 
     can_delete = False
     can_view_details = True
-
-    image_upload_field_args = dict(
-        full_path=config.PRODUCT_IMAGES_FULL_PATH,
-        folder=config.PRODUCT_IMAGES_FOLDER,
-        width=config.PRODUCT_IMAGE_WIDTH,
-        height=config.PRODUCT_IMAGE_HEIGHT
-    )
 
     column_descriptions = dict(
         price=R.string.product_price_description,
@@ -184,10 +176,10 @@ class ProductView(ProjBaseView):
     )
     form_excluded_columns = ["sales_number", "summary_html"]
     form_extra_fields = dict(
-        image_1_filename=build_image_upload_field(label=R.string.image_1, **image_upload_field_args),
-        image_2_filename=build_image_upload_field(label=R.string.image_2, **image_upload_field_args),
-        image_3_filename=build_image_upload_field(label=R.string.image_3, **image_upload_field_args),
-        image_4_filename=build_image_upload_field(label=R.string.image_4, **image_upload_field_args),
+        image_1_filename=build_model_image_upload_field(label=R.string.image_1, size=R.dimen.product_image_size),
+        image_2_filename=build_model_image_upload_field(label=R.string.image_1, size=R.dimen.product_image_size),
+        image_3_filename=build_model_image_upload_field(label=R.string.image_1, size=R.dimen.product_image_size),
+        image_4_filename=build_model_image_upload_field(label=R.string.image_1, size=R.dimen.product_image_size),
         summary_markdown=MarkdownTextField(label=R.string.summary, example=R.string.product_example_summary),
         tab_1_content_markdown=MarkdownTextField(label=R.string.n_tab_content(1), example=R.string.tab_content_example),
         tab_2_content_markdown=MarkdownTextField(label=R.string.n_tab_content(2), example=R.string.tab_content_example),

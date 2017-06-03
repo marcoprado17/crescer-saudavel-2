@@ -3,18 +3,20 @@ from markupsafe import Markup
 from os.path import join
 from admin.fields import MarkdownTextField
 from models_view.proj_base_view import ProjBaseView
-from proj_utils import build_image_upload_field
+from proj_utils import build_model_image_upload_field
 from r import R
 from configs import default_app_config as config
 from PIL import Image, ImageOps
 
 
 class BlogPostView(ProjBaseView):
-    # noinspection PyMethodParameters,PyUnusedLocal
+    # noinspection PyMethodParameters, PyUnusedLocal, PyMethodMayBeStatic
     def _tags_formatter(view, context, model, name):
         html = "<div style='max-width: 400px'>"
         for blog_tag in model.tags:
-            html += "<span style='margin-right: 6px; margin-bottom: 6px;' class='btn btn-default btn-sm'>%s</span>" % blog_tag.name
+            html += "<span style='margin-right: 6px; margin-bottom: 6px;' class='btn btn-default btn-sm'>"
+            html += "%s" % blog_tag.name
+            html += "</span>"
         html += "</div>"
         return Markup(html)
 
@@ -45,12 +47,9 @@ class BlogPostView(ProjBaseView):
     )
     form_excluded_columns = ["summary_html", "content_html"]
     form_extra_fields = dict(
-        thumbnail_filename=build_image_upload_field(
+        thumbnail_filename=build_model_image_upload_field(
             label=R.string.blog_thumbnail_image,
-            full_path=config.BLOG_THUMBNAIL_IMAGES_FULL_PATH,
-            folder=config.BLOG_THUMBNAIL_IMAGES_FOLDER,
-            width=config.BLOG_THUMBNAIL_IMAGE_WIDTH,
-            height=config.BLOG_THUMBNAIL_IMAGE_HEIGHT
+            size=R.dimen.blog_thumbnail_image_size
         ),
         summary_markdown=MarkdownTextField(label=R.string.summary, example=R.string.blog_post_summary_example),
         content_markdown=MarkdownTextField(label=R.string.content, example=R.string.blog_post_content_example)
@@ -71,12 +70,12 @@ class BlogPostView(ProjBaseView):
 
     @staticmethod
     def create_wide_thumbnail(model):
-        if model.has_thumbnail_image():
-            image = Image.open(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, model.thumbnail_filename))
+        if model.has_image(model.thumbnail_filename):
+            image = Image.open(join(config.MODEL_IMAGES_FULL_PATH, model.thumbnail_filename))
             image_wide = ImageOps.fit(
                 image,
-                (config.BLOG_THUMBNAIL_WIDE_IMAGE_WIDTH, config.BLOG_THUMBNAIL_WIDE_IMAGE_HEIGHT),
+                R.dimen.blog_thumbnail_wide_image_size,
                 Image.ANTIALIAS
             )
-            with open(join(config.BLOG_THUMBNAIL_IMAGES_FULL_PATH, model.get_thumbnail_wide_filename()), 'wb') as fp:
+            with open(join(config.MODEL_IMAGES_FULL_PATH, model.get_thumbnail_wide_filename()), 'wb') as fp:
                 image_wide.save(fp, "JPEG")

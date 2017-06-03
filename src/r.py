@@ -485,6 +485,7 @@ class Resources(object):
         product_min_stock_col_id = "product-min-stock-col"
         min_available = "Mín. Disponíveis"
         min_available_description = "Quando o número de unidades disponíveis do produto atingir o valor estabelecido em mín. disponíveis, o produto não será mais disponibilizado para venda na loja virtual."
+        blog_main_image_description = "Tamanho ideal da imagem principal do blog: 1200x400"
         product_sales_number_col_id = "product-sales-number-col"
         sales = "Vendas"
         sort_method_label = "Ordenar por:"
@@ -954,7 +955,7 @@ O primeiro tipo de alimento para uma papinha é o tubérculo ou raiz, como batat
 
 Depois de introduzido o tubérculo, é hora de acrescentar um legume. Pode ser: chuchu, abóbora, abobrinha, cenoura, tomate, vagem e até jiló. Quanto ao jiló, que tem um sabor mais amargo, Karin afirma que é importante as crianças conhecerem todos os alimentos e sabores.
 
-![Abóbora](/static/imgs/other/post_link_example.jpg "Abóbora")
+![Abóbora](/static/imagens/other/post_link_example.jpg "Abóbora")
 
 Os próximos alimentos a serem introduzidos, conforme a nutricionista, são as verduras: brócolis, couve, almeirão. Neste caso, as folhas devem ser acrescentadas no fim do preparo, ficando no fogo por no máximo oito minutos. A verdura deve ser batida no liquidificador com parte do caldo da sopa.
 
@@ -1072,7 +1073,7 @@ It's sometimes handy for breaking things up.
 
 ___
 
-![Bebê](/static/imgs/other/bebe_fofo.jpg "Babê")
+![Bebê](/static/imagens/other/bebe_fofo.jpg "Babê")
 
 ## Finally
 
@@ -1698,6 +1699,13 @@ There's actually a lot more to Markdown than this. See the official [introductio
         id_with_hashtag_max_size = 32
         n_blog_posts_per_page = 4
         n_blog_posts_per_page_in_search = 6
+
+        product_image_size = (600, 600)
+        blog_thumbnail_image_size = (900, 500)
+        carousel_image_size = (2560, 500)
+        more_categories_image_size = (512, 512)
+        tag_image_size = (128, 128)
+        blog_thumbnail_wide_image_size = (540, 160)
 
 
 R = Resources()

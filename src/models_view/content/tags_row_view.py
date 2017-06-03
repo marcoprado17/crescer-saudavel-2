@@ -1,9 +1,8 @@
 from flask_admin.form import rules
 from markupsafe import Markup
 from models_view.content.base_content_view import BaseContentView
-from proj_utils import build_image_upload_field
+from proj_utils import build_model_image_upload_field
 from r import R
-from configs import default_app_config as config
 
 
 class TagsRowView(BaseContentView):
@@ -21,12 +20,6 @@ class TagsRowView(BaseContentView):
         render_kw=dict(
             placeholder=R.string.tag_subtitle_placeholder
         )
-    )
-    image_upload_field_args = dict(
-        full_path=config.TAG_IMAGES_FULL_PATH,
-        folder=config.TAG_IMAGES_FOLDER,
-        width=config.TAG_IMAGE_WIDTH,
-        height=config.TAG_IMAGE_HEIGHT
     )
 
     column_formatters = dict(
@@ -50,21 +43,21 @@ class TagsRowView(BaseContentView):
         tag_3_subtitle=tag_subtitle_arg,
     )
     form_extra_fields = dict(
-        tag_1_image_filename=build_image_upload_field(
+        tag_1_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["tag_1_image_filename"],
-            **image_upload_field_args
+            size=R.dimen.tag_image_size
         ),
-        tag_2_image_filename=build_image_upload_field(
+        tag_2_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["tag_2_image_filename"],
-            **image_upload_field_args
+            size=R.dimen.tag_image_size
         ),
-        tag_3_image_filename=build_image_upload_field(
+        tag_3_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["tag_3_image_filename"],
-            **image_upload_field_args
+            size=R.dimen.tag_image_size
         ),
-        tag_4_image_filename=build_image_upload_field(
+        tag_4_image_filename=build_model_image_upload_field(
             label=R.dict.column_labels["tag_4_image_filename"],
-            **image_upload_field_args
+            size=R.dimen.tag_image_size
         )
     )
     form_rules = (

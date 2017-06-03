@@ -3,7 +3,6 @@
 # ======================================================================================================================
 # Created at 13/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from os.path import isfile, join
 from sqlalchemy.orm import relationship
 from models.associations import home_content_products_of_section_1_association_table, \
     home_content_products_of_section_2_association_table, home_content_products_of_section_3_association_table, \
@@ -26,7 +25,6 @@ from models.associations import home_content_products_of_section_1_association_t
 from models.content.base_content import BaseContent
 from proj_extensions import db
 from r import R
-from configs import default_app_config as config
 
 
 class HomeContent(BaseContent):
@@ -157,23 +155,13 @@ class HomeContent(BaseContent):
         return getattr(self, "carousel_" + str(n) + "_image_filename")
 
     def get_carousel_n_img_src(self, n):
-        carousel_n_image_filename = self.get_carousel_n_image_filename(n)
-        if carousel_n_image_filename is not None and isfile(
-                join(config.CAROUSEL_IMAGES_FULL_PATH, carousel_n_image_filename)):
-            return join("/", config.CAROUSEL_IMAGES_FROM_STATIC_PATH, carousel_n_image_filename)
-        else:
-            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.carousel_default_filename)
+        return self.get_img_src(self.get_carousel_n_image_filename(n), R.string.carousel_default_filename)
 
     def get_more_categories_n_image_filename(self, n):
         return getattr(self, "more_categories_section_category_" + str(n) + "_image_filename")
 
     def get_more_categories_n_img_src(self, n):
-        more_categories_n_image_filename = self.get_more_categories_n_image_filename(n)
-        if more_categories_n_image_filename is not None and isfile(
-                join(config.MORE_CATEGORIES_IMAGES_FULL_PATH, more_categories_n_image_filename)):
-            return join("/", config.MORE_CATEGORIES_FROM_STATIC_PATH, more_categories_n_image_filename)
-        else:
-            return join("/", config.IMAGES_FROM_STATIC_PATH, R.string.more_categories_default_filename)
+        return self.get_img_src(self.get_more_categories_n_image_filename(n), R.string.more_categories_default_filename)
 
     def get_section_is_active(self, section_number):
         return getattr(self, "product_section_" + str(section_number) + "_active", "")
