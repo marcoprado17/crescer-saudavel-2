@@ -45,13 +45,12 @@ class BlogPostView(ProjBaseView):
             )
         )
     )
-    form_excluded_columns = ["summary_html", "content_html"]
+    form_excluded_columns = ["content_html"]
     form_extra_fields = dict(
         thumbnail_filename=build_model_image_upload_field(
             label=R.string.blog_thumbnail_image,
             size=R.dimen.blog_thumbnail_image_size
         ),
-        summary_markdown=MarkdownTextField(label=R.string.summary, example=R.string.blog_post_summary_example),
         content_markdown=MarkdownTextField(label=R.string.content, example=R.string.blog_post_content_example)
     )
     form_rules = (
@@ -61,7 +60,6 @@ class BlogPostView(ProjBaseView):
         "thumbnail_filename",
         rules.HTML(R.string.blog_thumbnail_text),
         "tags",
-        "summary_markdown",
         "content_markdown"
     )
 

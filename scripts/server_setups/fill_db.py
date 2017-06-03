@@ -330,7 +330,6 @@ def get_random_blog_post():
         active=random.choice([True, False]),
         title=random.choice(title_key_words) + " " + get_random_phrase((3, 8), (3, 6)),
         date=get_random_date(datetime_1, datetime_2),
-        summary_markdown=random.choice(text_key_words) + " " + get_random_phrase((3, 8), (16, 30)),
         content_markdown=random.choice(text_key_words) + " " + get_random_phrase((3, 8), (50, 150)),
         tags=blog_tags[0:n_tags]
     )

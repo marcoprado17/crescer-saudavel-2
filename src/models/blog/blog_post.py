@@ -17,7 +17,6 @@ class BlogPost(BaseModel):
 
     __searchable__ = [
         "title",
-        "summary_html",
         "content_html"
     ]
 
@@ -25,8 +24,6 @@ class BlogPost(BaseModel):
     title = db.Column(db.String(R.dimen.blog_post_title_max_length), nullable=False)
     date = db.Column(db.Date, nullable=False)
     thumbnail_filename = db.Column(db.String(R.dimen.filename_max_size), unique=True)
-    summary_markdown = db.Column(db.UnicodeText, nullable=False, default="")
-    summary_html = db.Column(db.UnicodeText, nullable=False, default="")
     content_markdown = db.Column(db.UnicodeText, nullable=False, default="")
     content_html = db.Column(db.UnicodeText, nullable=False, default="")
     tags = relationship("BlogTag", secondary=blog_post_and_blog_tag_association_table, back_populates="blog_posts")
