@@ -41,19 +41,19 @@
           <h2 class="title">{{ R.string.contact }}</h2>
           {% if data.contact.tel %}
             <div class="content">
-              <img src="{{ url_for('static', filename='imagens/support.png') }}">
+              <img src="{{ url_for('static', filename='imgs/support.png') }}">
               {{ data.contact.tel }}
             </div>
           {% endif %}
           {% if data.contact.email %}
             <div class="content">
-              <img src="{{ url_for('static', filename='imagens/conversation.png') }}">
+              <img src="{{ url_for('static', filename='imgs/conversation.png') }}">
               {{ data.contact.email }}
             </div>
           {% endif %}
           {% if data.contact.address_html %}
             <div class="content address">
-              <img src="{{ url_for('static', filename='imagens/home.png') }}">
+              <img src="{{ url_for('static', filename='imgs/home.png') }}">
               <span>
                 {{ data.contact.address_html|safe }}
               </span>
@@ -76,9 +76,9 @@
              class="content">{{ R.string.exchanges_and_returns }}</a>
           <h2 class="title payment-methods">{{ R.string.payment_methods }}</h2>
           <div class="payments-methods-container">
-            <img src="{{ url_for('static', filename='imagens/mastercard.png') }}">
-            <img src="{{ url_for('static', filename='imagens/visa.png') }}">
-            <img src="{{ url_for('static', filename='imagens/boleto.png') }}">
+            <img src="{{ url_for('static', filename='imgs/mastercard.png') }}">
+            <img src="{{ url_for('static', filename='imgs/visa.png') }}">
+            <img src="{{ url_for('static', filename='imgs/boleto.png') }}">
           </div>
         </div>
       </div>

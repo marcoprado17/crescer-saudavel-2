@@ -33,3 +33,25 @@ html, body {
 .zero-margin-bottom {
   margin-bottom: 0;
 }
+
+.markdown-parsed-container {
+  .table {
+    width: auto !important;
+  }
+
+  p.image-container {
+    text-align: center;
+  }
+
+  img {
+    max-width: 90%;
+  }
+
+  a {
+    color: #337ab7 !important;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}

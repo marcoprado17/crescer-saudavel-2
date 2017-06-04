@@ -958,7 +958,7 @@ O primeiro tipo de alimento para uma papinha é o tubérculo ou raiz, como batat
 
 Depois de introduzido o tubérculo, é hora de acrescentar um legume. Pode ser: chuchu, abóbora, abobrinha, cenoura, tomate, vagem e até jiló. Quanto ao jiló, que tem um sabor mais amargo, Karin afirma que é importante as crianças conhecerem todos os alimentos e sabores.
 
-![Abóbora](/static/imagens/other/post_link_example.jpg "Abóbora")
+![Abóbora](/static/imgs/other/post_link_example.jpg "Abóbora")
 
 Os próximos alimentos a serem introduzidos, conforme a nutricionista, são as verduras: brócolis, couve, almeirão. Neste caso, as folhas devem ser acrescentadas no fim do preparo, ficando no fogo por no máximo oito minutos. A verdura deve ser batida no liquidificador com parte do caldo da sopa.
 

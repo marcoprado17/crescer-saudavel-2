@@ -8,14 +8,15 @@
 {% endblock %}
 {% block content %}
   <div class="__blog__ __blog_post__ container">
-    <div class="strike">
-      <span>{{ R.string.blog_post_title_and_date(blog_post) }}</span>
-    </div>
+    {% with text=R.string.blog_post_title_and_date(blog_post), class="title" %}
+      {% include "components/striked_text.html" %}
+    {% endwith %}
     <div class="cardview">
       <div class="blog-post-image">
-        <img src="{{ blog_post.get_thumbnail_wide_src() }}">
+        <img class="wide" src="{{ blog_post.get_thumbnail_wide_src() }}">
+        <img class="not-wide" src="{{ blog_post.get_thumbnail_src() }}">
         <div class="title-container">
-          {{ utils.limited_text_tooltip(text=blog_post.title, max_length=96) }}
+          {{ utils.limited_text_tooltip(text=blog_post.title+"skl asid saidsa disad sapid sadpisa dsapd as skjnd skudsa dosa dsaod sausdf sduonsoun osun dsouncdsocndsocn dss", max_length=96) }}
         </div>
         {% with date=blog_post.date %}
           {% include "components/blog_post_preview_date.html" %}
@@ -23,9 +24,9 @@
       </div>
       <div class="content-container markdown-parsed-container">
         {{ blog_post.content_html|safe }}
-        <div class="strike">
-          <span>{{ R.string.comments }}</span>
-        </div>
+        {% with text=R.string.comments, class="title" %}
+          {% include "components/striked_text.html" %}
+        {% endwith %}
         <div class="fb-comments" data-href="{{ request.url }}" data-numposts="{{ R.dimen.blog_post_n_comments }}"
              data-width="100%"></div>
         <div class="back-blog-button-container">
