@@ -16,7 +16,7 @@
         <img class="wide" src="{{ blog_post.get_thumbnail_wide_src() }}">
         <img class="not-wide" src="{{ blog_post.get_thumbnail_src() }}">
         <div class="title-container">
-          {{ utils.limited_text_tooltip(text=blog_post.title+"skl asid saidsa disad sapid sadpisa dsapd as skjnd skudsa dosa dsaod sausdf sduonsoun osun dsouncdsocndsocn dss", max_length=96) }}
+          {{ utils.limited_text_tooltip(text=blog_post.title, max_length=96) }}
         </div>
         {% with date=blog_post.date %}
           {% include "components/blog_post_preview_date.html" %}
