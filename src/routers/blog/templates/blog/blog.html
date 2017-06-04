@@ -14,9 +14,9 @@
     {% endif %}
     {% if recent_blog_posts and recent_blog_posts|length > 0 %}
       <div class="more-recent-posts">
-        <div class="strike">
-          <span>{{ R.string.more_recent_posts }}</span>
-        </div>
+        {% with title=R.string.more_recent_posts %}
+          {% include "components/center_striked_title.html" %}
+        {% endwith %}
         <div class="row">
           <div class="col-sm-6">
             {% with blog_post=recent_blog_posts[0] %}
