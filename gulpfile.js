@@ -108,6 +108,8 @@ gulp.task("make_client_js_bundle", function () {
         // "bower_components/flipmart-v5/js/jquery.mobile-menu.min.js",
         "bower_components/bignumber.js/bignumber.js",
         "bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js",
+        "bower_components/css-element-queries/src/ResizeSensor.js",
+        "bower_components/css-element-queries/src/ElementQueries.js",
         "src/front_bombril/utils.js",
         "src/wrappers/base/**/*.js",
         "src/wrappers/client_base/**/*.js",

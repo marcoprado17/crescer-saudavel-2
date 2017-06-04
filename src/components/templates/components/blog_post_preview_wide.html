@@ -1,16 +1,14 @@
 {% import "flask_bombril_macros/utils.html" as utils with context %}
 <div class="__components__ __blog_post_preview_wide__">
-  <div class="blog-post-container">
-    <a href="{{ blog_post.get_href() }}">
-      <div class="blog-post-image">
-        <img src="{{ blog_post.get_thumbnail_wide_src() }}">
-        <div class="title-container">
-          {{ utils.limited_text_tooltip(text=blog_post.title, max_length=32) }}
-        </div>
-        {% with date=blog_post.date %}
-          {% include "components/blog_post_preview_date.html" %}
-        {% endwith %}
+  <a href="{{ blog_post.get_href() }}">
+    <div class="image-container">
+      <img src="{{ blog_post.get_thumbnail_wide_src() }}">
+      <div class="title-container">
+        {{ utils.limited_text_tooltip(text=blog_post.title, max_length=32) }}
       </div>
-    </a>
-  </div>
+      {% with date=blog_post.date %}
+        {% include "components/blog_post_preview_date.html" %}
+      {% endwith %}
+    </div>
+  </a>
 </div>

@@ -29,6 +29,7 @@
     "flipmart-v5": "https://github.com/marcoprado17/flipmart-v5.git",
     "bignumber.js": "^4.0.0",
     "components-font-awesome": "^4.7.0",
-    "bootstrap-social": "^5.1.1"
+    "bootstrap-social": "^5.1.1",
+    "css-element-queries": "https://github.com/marcj/css-element-queries.git#0.4.0"
   }
 }
