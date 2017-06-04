@@ -33,9 +33,11 @@
         </div>
       </div>
     {% endif %}
-    {% with text=R.string.previous_posts, class="title", left=True %}
-      {% include "components/striked_text.html" %}
-    {% endwith %}
+    <div id="posts">
+      {% with text=R.string.previous_posts, class="title", left=True %}
+        {% include "components/striked_text.html" %}
+      {% endwith %}
+    </div>
     <div class="row">
       <div class="col-md-12">
         {% with pagination=previous_posts_pagination, fragment="posts" %}
