@@ -234,6 +234,15 @@ $blog-post-preview-wide-ultra-small-container-width-percentage: 65%;
     background-color: $proj-dark-gray-color;
   }
 
+  .__components__.__striked_text__.title {
+    margin-bottom: 28px;
+
+    .text {
+      font-size: 24px;
+      font-family: "HappyBirthdayBabyMedium";
+    }
+  }
+
   @media screen and (min-width: 992px) {
     .modal-dialog.large {
       width: 900px;

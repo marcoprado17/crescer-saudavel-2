@@ -1,8 +1,7 @@
-.__components__.__center_striked_title__ {
+.__components__.__striked_text__ {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px;
 
   .line {
     height: 1px;
@@ -10,9 +9,7 @@
     flex-grow: 1;
   }
 
-  .title {
-    font-size: 24px;
-    font-family: "HappyBirthdayBabyMedium";
+  .text {
     margin-left: 12px;
     margin-right: 12px;
   }
