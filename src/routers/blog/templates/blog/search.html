@@ -7,9 +7,9 @@
 {% endblock %}
 {% block content %}
   <div class="__blog__ __search__ container">
-    <div class="strike">
-      <span id="posts">{{ R.string.search_for(q) }}</span>
-    </div>
+    {% with text=R.string.search_for(q), class="title" %}
+      {% include "components/striked_text.html" %}
+    {% endwith %}
       {% if blog_posts_pagination.total > 0 %}
         {% with pagination=blog_posts_pagination %}
           {% include "components/pagination.html" %}
