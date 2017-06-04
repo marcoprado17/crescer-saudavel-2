@@ -4,6 +4,12 @@
     width: 100%;
   }
 
+  .main-image-container[max-width~="700px"] {
+    .main-image {
+      display: none;
+    }
+  }
+
   #datetimepicker12 {
     background-color: $calendar-background-color;
     color: white !important;

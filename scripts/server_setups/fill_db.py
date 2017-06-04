@@ -34,21 +34,21 @@ from models.images.other_image import OtherImage
 from r import R
 from proj_utils import parse_markdown
 
-n_product_categories = 5
-n_product_subcategories = 20
-n_products = 50
-n_clients = 50
-n_orders = 30
-n_blog_tags = 10
-n_blog_posts = 30
+# n_product_categories = 5
+# n_product_subcategories = 20
+# n_products = 50
+# n_clients = 50
+# n_orders = 30
+# n_blog_tags = 10
+# n_blog_posts = 30
 
-# n_product_categories = 25
-# n_product_subcategories = 200
-# n_products = 800
-# n_clients = 200
-# n_orders = 500
-# n_blog_tags = 20
-# n_blog_posts = 300
+n_product_categories = 25
+n_product_subcategories = 200
+n_products = 800
+n_clients = 200
+n_orders = 100
+n_blog_tags = 20
+n_blog_posts = 300
 
 title_key_words = [
     "banana",
@@ -326,11 +326,13 @@ def get_random_blog_post():
     n_tags = min(random.choice(range(0, 5+1)), BlogTag.count()+1)
     blog_tags = BlogTag.query.all()
     random.shuffle(blog_tags)
+    content_markdown=random.choice(text_key_words) + " " + get_random_phrase((3, 8), (50, 150))
     return BlogPost(
         active=random.choice([True, False]),
         title=random.choice(title_key_words) + " " + get_random_phrase((3, 8), (3, 6)),
         date=get_random_date(datetime_1, datetime_2),
-        content_markdown=random.choice(text_key_words) + " " + get_random_phrase((3, 8), (50, 150)),
+        content_markdown=content_markdown,
+        content_html=parse_markdown(content_markdown),
         tags=blog_tags[0:n_tags]
     )
 

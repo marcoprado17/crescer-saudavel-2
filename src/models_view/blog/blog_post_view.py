@@ -36,6 +36,7 @@ class BlogPostView(ProjBaseView):
         tags=_tags_formatter
     )
     column_list = ["active", "id", "thumbnail_image", "title", "tags", "date"]
+    column_searchable_list = ["id", "title"]
     column_sortable_list = ["active", "id", "title", "date"]
 
     form_args = dict(
