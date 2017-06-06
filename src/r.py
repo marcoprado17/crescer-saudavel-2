@@ -1632,6 +1632,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
         example = 42
         min_page = 1
 
+        model_type_max_length = 48
         product_category_name_max_length = 48
         product_subcategory_name_max_length = 48
         tab_title_max_length = 48

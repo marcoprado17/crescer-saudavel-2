@@ -14,7 +14,7 @@ sys.path.append("/vagrant/build/flask-admin")
 from decimal import Decimal
 from app_contexts.app import app
 from proj_extensions import db
-from models.content.about_us import AboutUs
+from models.content.about_us import AboutUsContent
 from models.blog.blog_post import BlogPost
 from models.content.contact import Contact
 from models.content.footer import Footer
@@ -410,7 +410,7 @@ def create_contact_data():
 
 
 def create_about_us_data():
-    about_us = AboutUs.get()
+    about_us = AboutUsContent.get()
 
     about_us.summary_markdown = R.string.about_us_summary_example
     about_us.summary_html = parse_markdown(about_us.summary_markdown)

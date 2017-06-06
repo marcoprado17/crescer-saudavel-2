@@ -12,15 +12,19 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm.attributes import flag_modified
-from models.user.base_user import BaseUser
+from models.user.anonymous_user import AnonymousUser
 from proj_extensions import db, bcrypt, login_manager
 from r import R
-from routers.client_account.forms import UserForm
+from routes.client_account.forms import UserForm
 
 
-class User(BaseUser):
+class User(AnonymousUser):
     __tablename__ = "user"
+    __mapper_args__ = {
+        'polymorphic_identity': 'user',
+    }
 
+    id = db.Column(db.Integer, ForeignKey('anonymous_user.id'), primary_key=True)
     email = db.Column(db.String(R.dimen.email_max_length), unique=True, nullable=False)
     _password = db.Column(db.Text, nullable=False)
     email_confirmed = db.Column(db.Boolean, default=False, nullable=False)

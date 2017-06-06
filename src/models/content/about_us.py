@@ -7,8 +7,8 @@ from models.content.base_content import BaseContent
 from proj_extensions import db
 
 
-class AboutUs(BaseContent):
-    __tablename__ = "about_us"
+class AboutUsContent(BaseContent):
+    __tablename__ = "about_us_content"
 
     summary_markdown = db.Column(db.UnicodeText, default="")
     summary_html = db.Column(db.UnicodeText, default="")

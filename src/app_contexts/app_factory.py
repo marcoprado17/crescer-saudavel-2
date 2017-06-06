@@ -91,54 +91,38 @@ def create_app():
     from components import components_blueprint
     app.register_blueprint(components_blueprint, url_prefix="/componentes")
     #
-    # Admin Routers
+    # Admin
     #
-    # from routers.admin_attended_cities import admin_attended_cities_blueprint
-    # app.register_blueprint(admin_attended_cities_blueprint, url_prefix="/admin/cidades-atendidas")
-    # from routers.admin_blog import admin_blog_blueprint
-    # app.register_blueprint(admin_blog_blueprint, url_prefix="/admin/blog")
-    # from routers.admin_content import admin_content_blueprint
-    # app.register_blueprint(admin_content_blueprint, url_prefix="/admin/conteudo")
-    # from routers.admin_clients import admin_clients_blueprint
-    # app.register_blueprint(admin_clients_blueprint, url_prefix="/admin/clientes")
-    # from routers.admin_home import admin_home_blueprint
-    # app.register_blueprint(admin_home_blueprint, url_prefix="/admin/home")
-    # from routers.admin_images import admin_images_blueprint
-    # app.register_blueprint(admin_images_blueprint, url_prefix="/admin/imagens")
-    # from routers.admin_orders import admin_orders_blueprint
-    # app.register_blueprint(admin_orders_blueprint, url_prefix="/admin/pedidos")
-    # from routers.admin_products import admin_products_blueprint
-    # app.register_blueprint(admin_products_blueprint, url_prefix="/admin/produtos")
     from admin import admin_proj_blueprint
     app.register_blueprint(admin_proj_blueprint, url_prefix="/admin-proj")
     #
     # Client Routers
     #
-    from routers.client_about_us import client_about_us_blueprint
-    app.register_blueprint(client_about_us_blueprint, url_prefix="/sobre-nos")
-    from routers.client_account import client_account_blueprint
+    from routes.simple_content_page import simple_content_page_blueprint
+    app.register_blueprint(simple_content_page_blueprint, url_prefix="/conteudo")
+    from routes.client_account import client_account_blueprint
     app.register_blueprint(client_account_blueprint, url_prefix="/minha-conta")
-    from routers.blog import blog_blueprint
+    from routes.blog import blog_blueprint
     app.register_blueprint(blog_blueprint, url_prefix="/blog")
-    from routers.client_cart import client_cart_blueprint
+    from routes.client_cart import client_cart_blueprint
     app.register_blueprint(client_cart_blueprint, url_prefix="/carrinho")
-    from routers.client_checkout import client_checkout_blueprint
+    from routes.client_checkout import client_checkout_blueprint
     app.register_blueprint(client_checkout_blueprint, url_prefix="/finalizacao-de-compra")
-    from routers.client_faq import client_faq_blueprint
+    from routes.client_faq import client_faq_blueprint
     app.register_blueprint(client_faq_blueprint, url_prefix="/faq")
-    from routers.client_payment import client_payment_blueprint
+    from routes.client_payment import client_payment_blueprint
     app.register_blueprint(client_payment_blueprint, url_prefix="/pagamento")
-    from routers.client_dispatch import client_dispatch_blueprint
+    from routes.client_dispatch import client_dispatch_blueprint
     app.register_blueprint(client_dispatch_blueprint, url_prefix="/envio")
-    from routers.client_exchanges_and_returns import client_exchanges_and_returns_blueprint
+    from routes.client_exchanges_and_returns import client_exchanges_and_returns_blueprint
     app.register_blueprint(client_exchanges_and_returns_blueprint, url_prefix="/trocas-e-devolucoes")
-    from routers.client_home import client_home_blueprint
+    from routes.client_home import client_home_blueprint
     app.register_blueprint(client_home_blueprint, url_prefix="/home")
-    from routers.client_products import client_products_blueprint
+    from routes.client_products import client_products_blueprint
     app.register_blueprint(client_products_blueprint, url_prefix="/produtos")
-    from routers.client_search import client_search_blueprint
+    from routes.client_search import client_search_blueprint
     app.register_blueprint(client_search_blueprint, url_prefix="/busca")
-    from routers.client_user_management import client_user_management_blueprint
+    from routes.client_user_management import client_user_management_blueprint
     app.register_blueprint(client_user_management_blueprint, url_prefix="/conta")
     #
     # Wrappers
@@ -196,11 +180,10 @@ def create_app():
     from flask_bombril import R as bombril_R
     from components.data_providers import admin_navbar_data_provider
     from components.data_providers.footer import footer_data_provider
-    from components.data_providers.client_header import header_data_provider
     from components.data_providers.tags_row import tags_row_data_provider
     from flask_bombril.utils.utils import current_url
 
-    def generate_csrf_token():
+    def _generate_csrf_token():
         if '_csrf_token' not in session:
             session['_csrf_token'] = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(R.dimen.csrf_length))
         return session['_csrf_token']
@@ -211,13 +194,13 @@ def create_app():
             R=R,
             bombril_R=bombril_R,
             get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data(),
-            get_components_client_header_data=lambda: header_data_provider.get_data(),
             get_footer_data=lambda: footer_data_provider.get_data(),
-            get_components_client_mobile_menu_data=lambda: header_data_provider.get_menu_data(),
             get_components_tags_row_data=lambda: tags_row_data_provider.get_data(),
             get_header_content=lambda: HeaderContent.get(),
+            get_base_user=lambda: AnonymousUser.get(),
+            get_product_categories=lambda: ProductCategory.query.all(),
             submit_form=SubmitForm(),
-            csrf_token=generate_csrf_token,
+            csrf_token=_generate_csrf_token,
             current_url=current_url
         )
 
@@ -302,7 +285,7 @@ def create_app():
     from models_view.blog.blog_post_view import BlogPostView
     from models.images.other_image import OtherImage
     from models_view.images.other_image_view import OtherImageView
-    from models.content.about_us import AboutUs
+    from models.content.about_us import AboutUsContent
     from models_view.content.about_us_view import AboutUsView
     from models.content.dispatch import Dispatch
     from models_view.content.dispatch_view import DispatchView
@@ -338,7 +321,7 @@ def create_app():
     admin.add_view(BlogTagView(BlogTag, db.session))
     admin.add_view(UserView(User, db.session))
     admin.add_view(OrderView(Order, db.session))
-    admin.add_view(AboutUsView(AboutUs, db.session))
+    admin.add_view(AboutUsView(AboutUsContent, db.session))
     admin.add_view(DispatchView(Dispatch, db.session))
     admin.add_view(ExchangesAndReturnsView(ExchangesAndReturns, db.session))
     admin.add_view(FaqView(Faq, db.session))

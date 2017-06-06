@@ -19,7 +19,7 @@
 {% block body %}
     {% include "components/facebook_skd.html" %}
     {% block header %}
-        {% include "components/client_header_2.html" %}
+        {% include "components/header.html" %}
     {% endblock %}
     {% block above_content %}
     {% endblock %}
@@ -28,9 +28,9 @@
     {% block footer %}
         {% include "components/footer.html" %}
     {% endblock %}
-    {% block mobile_menu %}
-      {% include "components/client_mobile_menu.html" %}
-    {% endblock %}
+{#    {% block mobile_menu %}#}
+{#      {% include "components/client_mobile_menu.html" %}#}
+{#    {% endblock %}#}
 {% endblock %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/client_bundle.js') }}"></script>
 <script>

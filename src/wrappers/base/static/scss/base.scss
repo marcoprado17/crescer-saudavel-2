@@ -28,6 +28,8 @@ $blog-post-preview-wide-ultra-small-day-size: 20px;
 $blog-post-preview-wide-ultra-small-month-size: 14px;
 $blog-post-preview-wide-ultra-small-container-width-percentage: 65%;
 
+$cardview-padding: 18px;
+
 
 @font-face {
   font-family: 'HappyBirthdayBaby';
@@ -115,7 +117,7 @@ $blog-post-preview-wide-ultra-small-container-width-percentage: 65%;
 
   .cardview {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.75);
-    margin-bottom: 24px;
+    margin-bottom: 32px;
   }
 
   .button.personalized {

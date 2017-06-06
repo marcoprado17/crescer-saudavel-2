@@ -36,7 +36,7 @@
             {{ data.about_us.summary_html|safe }}
           </div>
           <div class="read-more-container">
-            <a href="{{ url_for('client_about_us.about_us') }}" class="content">{{ R.string.read_more_plus }}</a>
+            <a href="{{ url_for('simple_content_page.about_us') }}" class="content">{{ R.string.read_more_plus }}</a>
           </div>
           <h2 class="title">{{ R.string.contact }}</h2>
           {% if data.contact.tel %}

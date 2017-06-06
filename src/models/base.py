@@ -28,8 +28,11 @@ class BaseModel(db.Model):
 
     # noinspection PyShadowingBuiltins
     @classmethod
-    def get(cls, id):
-        return cls.query.filter_by(id=id).one_or_none()
+    def get(cls, id=None):
+        if id is None:
+            return cls.query.one_or_none()
+        else:
+            return cls.query.filter_by(id=id).one_or_none()
 
     @classmethod
     def has_image(cls, image_filename):

@@ -58,18 +58,9 @@ gulp.task("make_client_css_bundle", function(){
         "bower_components/bootstrap-social/bootstrap-social.css",
         "bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css",
         "src/front_bombril/utils.scss",
-        "src/wrappers/base/**/*.scss",
-        "src/wrappers/client_base/**/*.scss",
+        "src/wrappers/**/*.scss",
         "src/components/**/*.scss",
-        "src/routers/client_about_us/**/*.scss",
-        "src/routers/client_account/**/*.scss",
-        "src/routers/blog/**/*.scss",
-        "src/routers/client_cart/**/*.scss",
-        "src/routers/client_checkout/**/*.scss",
-        "src/routers/client_faq/**/*.scss",
-        "src/routers/client_home/**/*.scss",
-        "src/routers/client_products/**/*.scss",
-        "src/routers/client_user_management/**/*.scss"
+        "src/routes/**/*.scss",
     ])
         .pipe(concat("client_bundle.css"))
         .pipe(sass().on('error', sass.logError))

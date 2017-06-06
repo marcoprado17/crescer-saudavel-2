@@ -15,7 +15,7 @@ sys.path.append("/vagrant/build/flask-admin")
 from app_contexts.app import app
 from proj_extensions import db
 from models.state import State
-from models.content.about_us import AboutUs
+from models.content.about_us import AboutUsContent
 from models.content.contact import Contact
 from models.content.dispatch import Dispatch
 from models.content.exchanges_and_returns import ExchangesAndReturns
@@ -125,7 +125,7 @@ def create_contact():
 
 
 def create_about_us():
-    about_us = AboutUs()
+    about_us = AboutUsContent()
     db.session.add(about_us)
     db.session.commit()
     print "AboutUs created."

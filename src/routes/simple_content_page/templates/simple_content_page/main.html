@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+{% block title %}
+  {{ R.string.about_us }}
+{% endblock %}
+{% block content %}
+  <div class="__simple_content_page__ __main__">
+    <div class="container">
+      <div class="cardview">
+        <h2>{{ title }}</h2>
+        <hr>
+        {{ content_html|safe }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
