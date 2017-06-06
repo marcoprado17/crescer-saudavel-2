@@ -40,6 +40,36 @@
     }
   }
 
+  .second-row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 24px;
+
+    .menu-item-container {
+      position: relative;
+
+      .link-container {
+        height: 30px;
+      }
+    }
+
+    .expandable-box {
+      display: none;
+      position: absolute;
+      top: -60px;
+      left: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .popover-content {
+      display: none;
+    }
+
+    .menu-item-container:hover .expandable-box {
+      display: block;
+    }
+  }
+
 
   @media screen and (min-width: 768px){
     nav {

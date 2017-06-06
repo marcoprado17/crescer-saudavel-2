@@ -1,6 +1,4 @@
-{% set header_content=get_header_content() %}
-{% set product_categories=get_product_categories() %}
-{% set user=current_user %}
+{% set data=get_header_data() %}
 <div class="__components__ __header__">
   <header>
     <div class="container">
@@ -14,7 +12,7 @@
             <span class="icon-bar"></span>
           </button>
           <a href="{{ url_for('client_home.home') }}">
-            <img class="logo" src="{{ header_content.get_logo_img_src() }}">
+            <img class="logo" src="{{ data.header_content.get_logo_img_src() }}">
           </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -39,15 +37,15 @@
       </nav>
       <div class="first-row">
         <a class="logo" href="{{ url_for('client_home.home') }}">
-          <img class="logo" src="{{ header_content.get_logo_img_src() }}">
+          <img class="logo" src="{{ data.header_content.get_logo_img_src() }}">
         </a>
         {% include "components/search_bar.html" %}
         <div class="right-part">
           <div>
-            {% if (not user.is_anonymous) and user.is_authenticated %}
-              {{ R.string.logged_header_hello(user)|safe }}
+            {% if (not data.user.is_anonymous) and data.user.is_authenticated %}
+              {{ R.string.logged_header_hello(data.user)|safe }}
             {% else %}
-              {{ R.string.unlogged_header_hello(user)|safe }}
+              {{ R.string.unlogged_header_hello(data.user)|safe }}
             {% endif %}
           </div>
           <a href="{{ url_for("client_account.my_account") }}">
@@ -57,6 +55,30 @@
             <img class="cart" src="{{ url_for('static', filename='imgs/stroller.png') }}">
           </a>
         </div>
+      </div>
+      <div class="second-row">
+        {% for product_category in data.product_categories %}
+          {% if loop.index0 < data.header_content.n_visible_categories %}
+            <a data-content-id="popover-content-{{ product_category.id }}" class="hover-popover" href="#"
+               data-container="body" data-placement="bottom">{{ product_category.name }}</a>
+            {% if product_category.has_active_subcategory() %}
+              <div id="popover-content-{{ product_category.id }}" class="popover-content">
+              {% for product_subcategory in product_category.product_subcategories %}
+                {% if product_subcategory.active %}
+                  <a href="{{ product_subcategory.get_href() }}">{{ product_subcategory.name }}</a><br>
+                {% endif %}
+              {% endfor %}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {#        TODO: Get the correct href#}
+        <a href="#">
+          {{ R.string.others }}
+        </a>
+        <a href="{{ url_for("blog.main") }}">
+          {{ R.string.blog }}
+        </a>
       </div>
     </div>
   </header>

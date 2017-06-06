@@ -181,6 +181,7 @@ def create_app():
     from components.data_providers import admin_navbar_data_provider
     from components.data_providers.footer import footer_data_provider
     from components.data_providers.tags_row import tags_row_data_provider
+    from components.data_providers.header import header_data_provider
     from flask_bombril.utils.utils import current_url
 
     def _generate_csrf_token():
@@ -196,10 +197,9 @@ def create_app():
             get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data(),
             get_footer_data=lambda: footer_data_provider.get_data(),
             get_components_tags_row_data=lambda: tags_row_data_provider.get_data(),
-            get_header_content=lambda: HeaderContent.get(),
-            get_user=lambda: AnonymousUser.get(),
-            get_product_categories=lambda: ProductCategory.query.all(),
             submit_form=SubmitForm(),
+            get_header_data=lambda: header_data_provider.get_data(),
+            get_header_content=lambda: HeaderContent.get(),
             csrf_token=_generate_csrf_token,
             current_url=current_url
         )

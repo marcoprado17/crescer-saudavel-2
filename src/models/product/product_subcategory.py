@@ -23,3 +23,7 @@ class ProductSubcategory(BaseModel):
 
     def __repr__(self):
         return Markup("<b><searchable>#%s</searchable></b> | <searchable>%s</searchable>" % (self.id, self.name))
+
+    # Provide the correct href
+    def get_href(self):
+        return "#"

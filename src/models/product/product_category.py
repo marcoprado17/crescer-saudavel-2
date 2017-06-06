@@ -24,3 +24,13 @@ class ProductCategory(BaseModel):
 
     def __repr__(self):
         return Markup("<b><searchable>#%s</searchable></b> | <searchable>%s</searchable>" % (self.id, self.name))
+
+    # TODO: Get the correct href
+    def get_href(self):
+        return "#"
+
+    def has_active_subcategory(self):
+        has_active_subcategory = ProductSubcategory.query.filter(ProductSubcategory.product_category_id == self.id)\
+                   .filter(ProductSubcategory.active == True).count() > 0
+        print "has_active_subcategory: " + str(has_active_subcategory)
+        return has_active_subcategory

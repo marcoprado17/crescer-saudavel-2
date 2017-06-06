@@ -40,3 +40,31 @@ function initAddToCartForms() {
         })
     });
 }
+
+function initHoverPopover() {
+    $(".hover-popover").popover({
+        trigger: "manual",
+        html: true,
+        animation: false,
+        content: function(){
+            var contentContainer = $("#{0}".f($(this).attr("data-content-id")));
+            if(contentContainer.length !== 0) {
+                return contentContainer.html();
+            }
+        }
+    })
+        .on("mouseenter", function () {
+            var _this = this;
+            $(this).popover("show");
+            $(".popover").on("mouseleave", function () {
+                $(_this).popover('hide');
+            });
+        }).on("mouseleave", function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!$(".popover:hover").length) {
+                $(_this).popover("hide");
+            }
+        }, 300);
+    });
+}
