@@ -6,7 +6,7 @@
   {% include "components/blog_header.html" %}
 {% endblock %}
 {% block content %}
-  <div class="__blog__ __blog__ container">
+  <div class="__blog__ __main__ container">
     {% if blog_content.main_image_active %}
       <div class="main-image-container">
         <img class="main-image" src="{{ blog_content.get_main_image_src() }}">

@@ -4,7 +4,7 @@
 # Created at 26/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from datetime import datetime
-from flask import render_template
+from flask import render_template, abort
 from sqlalchemy import desc
 from flask_bombril.utils.utils import get_int_from_request_arg, get_datetime_from_request_arg_as_unix_ms_timestamp, \
     get_string_from_request_arg
@@ -16,7 +16,7 @@ from routers.blog import blog_blueprint
 
 
 @blog_blueprint.route("/")
-def blog():
+def main():
     page = get_int_from_request_arg(R.string.page_arg_name, 1)
     tag_id = get_int_from_request_arg(R.string.tag_id_arg_name, 0)
     date = get_datetime_from_request_arg_as_unix_ms_timestamp(R.string.datetime_arg_name, datetime.now()).date()
@@ -39,7 +39,7 @@ def blog():
     blog_tags = BlogTag.query.filter_by(active=True).all()
 
     return render_template(
-        "blog/blog.html",
+        "blog/main.html",
         recent_blog_posts=recent_blog_posts,
         previous_posts_pagination=previous_posts_pagination,
         blog_tags=blog_tags,
@@ -63,10 +63,10 @@ def search():
     return render_template("blog/search.html", q=q, blog_posts_pagination=blog_posts_pagination)
 
 
-# noinspection PyUnresolvedReferences
-@blog_blueprint.route("/post/<int:blog_post_id>")
-def blog_post(blog_post_id):
-    blog_post = BlogPost.get(blog_post_id)
+# noinspection PyShadowingBuiltins
+@blog_blueprint.route("/post/<int:id>")
+def post(id):
+    blog_post = BlogPost.get(id)
     if not blog_post:
         abort(404)
-    return render_template("blog/blog_post.html", blog_post=blog_post)
+    return render_template("blog/post.html", blog_post=blog_post)

@@ -45,7 +45,7 @@ class BlogPost(BaseModel):
         return self.get_img_src(self.thumbnail_filename, R.string.blog_thumbnail_default_filename)
 
     def get_href(self):
-        return url_for("blog.blog_post", blog_post_id=self.id)
+        return url_for("blog.post", id=self.id)
 
     def get_thumbnail_wide_filename(self):
         if self.thumbnail_filename:

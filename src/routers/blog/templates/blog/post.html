@@ -7,7 +7,7 @@
   {% include "components/blog_header.html" %}
 {% endblock %}
 {% block content %}
-  <div class="__blog__ __blog_post__ container">
+  <div class="__blog__ __post__ container">
     {% with text=R.string.blog_post_title_and_date(blog_post), class="title" %}
       {% include "components/striked_text.html" %}
     {% endwith %}
@@ -30,7 +30,7 @@
         <div class="fb-comments" data-href="{{ request.url }}" data-numposts="{{ R.dimen.blog_post_n_comments }}"
              data-width="100%"></div>
         <div class="back-blog-button-container">
-          <a href="{{ url_for("blog.blog") }}">
+          <a href="{{ url_for("blog.main") }}">
             <button class="button personalized green">
               <span>{{ R.string.back_to_blog }}</span>
             </button>

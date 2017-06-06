@@ -1,4 +1,4 @@
-.__blog__.__blog__ {
+.__blog__.__main__ {
   .main-image {
     margin-bottom: 28px;
     width: 100%;
@@ -50,40 +50,6 @@
 
     a:hover {
       text-decoration: underline;
-    }
-  }
-
-  .pagination {
-    margin-top: 0;
-
-    a {
-      display: inline-block;
-      font-family: "HappyBirthdayBabyMedium";
-      text-align: center;
-      vertical-align: middle;
-      font-size: 22px;
-      border: 1px solid $proj-gray-color;
-      border-radius: 30px;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      color: $proj-gray-color;
-      margin-right: 6px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    a.active {
-      background-color: $proj-gray-color-half-transparent;
-    }
-
-    a:hover {
-      color: white;
-      background-color: $proj-gray-color;
-    }
-
-    .ellipsis {
-      margin-right: 6px;
     }
   }
 }
