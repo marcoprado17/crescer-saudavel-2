@@ -30,7 +30,7 @@ class BaseModel(db.Model):
     @classmethod
     def get(cls, id=None):
         if id is None:
-            return cls.query.one_or_none()
+            return cls.query.one()
         else:
             return cls.query.filter_by(id=id).one_or_none()
 

@@ -1566,6 +1566,17 @@ There's actually a lot more to Markdown than this. See the official [introductio
         def blog_post_title_and_date(blog_post):
             return "%s - %s" % (blog_post.title, R.string.default_date_format(blog_post.date))
 
+        @staticmethod
+        def logged_header_hello(user):
+            return "Olá, %s<br><a href='%s'>Minha conta</a>" % (user.get_name(), url_for("client_account.my_account"))
+
+        @staticmethod
+        def unlogged_header_hello(user):
+            return "Seja bem vindo!<br><a href='%s'>Entre</a> ou <a href='%s'>Cadastre-se</a>" % (
+                url_for("client_user_management.login"),
+                url_for("client_user_management.register")
+            )
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):

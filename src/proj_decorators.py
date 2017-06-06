@@ -69,7 +69,9 @@ def login_or_anonymous(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         user = current_user
-        if user.is_anonymous and R.string.anonymous_user_id in session:
+        if user.is_anonymous and \
+                (R.string.anonymous_user_id in session) and \
+                (session[R.string.anonymous_user_id] is not None):
             user = AnonymousUser.get(session[R.string.anonymous_user_id])
             if user is None:
                 user = current_user

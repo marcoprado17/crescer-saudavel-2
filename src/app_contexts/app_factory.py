@@ -197,7 +197,7 @@ def create_app():
             get_footer_data=lambda: footer_data_provider.get_data(),
             get_components_tags_row_data=lambda: tags_row_data_provider.get_data(),
             get_header_content=lambda: HeaderContent.get(),
-            get_base_user=lambda: AnonymousUser.get(),
+            get_user=lambda: AnonymousUser.get(),
             get_product_categories=lambda: ProductCategory.query.all(),
             submit_form=SubmitForm(),
             csrf_token=_generate_csrf_token,

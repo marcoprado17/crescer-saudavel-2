@@ -39,22 +39,6 @@ class AnonymousUser(BaseModel):
     def get_id(self):
         return self.id
 
-    # noinspection PyShadowingBuiltins
-    @classmethod
-    def get(cls, id=None):
-        if id is None:
-            user = current_user
-            if user.is_anonymous:
-                if R.string.anonymous_user_id in session:
-                    user = AnonymousUser.get(session[R.string.anonymous_user_id])
-                else:
-                    session[R.string.anonymous_user_id] = user.id
-                if user is None:
-                    user = current_user
-            return user
-        else:
-            return AnonymousUser.query.filter(AnonymousUser.id == id).one_or_none()
-
     # noinspection PyMethodMayBeStatic
     def get_freight(self):
         return Decimal("0.00")

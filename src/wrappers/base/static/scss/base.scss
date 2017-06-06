@@ -118,6 +118,12 @@ $cardview-padding: 18px;
   .cardview {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.75);
     margin-bottom: 32px;
+    color: $proj-dark-gray-color;
+  }
+
+  img.logo {
+    max-width: 300px;
+    max-height: 100px;
   }
 
   .button.personalized {

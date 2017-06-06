@@ -46,8 +46,7 @@ class User(AnonymousUser):
     cep = db.Column(db.String(R.dimen.cep_max_length))
     tel = db.Column(db.String(R.dimen.tel_max_length))
 
-    @hybrid_property
-    def name(self):
+    def get_name(self):
         if self.first_name is not None:
             return self.first_name
         elif self.email is not None:

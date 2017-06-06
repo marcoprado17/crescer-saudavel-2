@@ -7,12 +7,10 @@
     align-items: center;
     flex-wrap: wrap;
 
-    .logo {
+    img.logo {
       order: 0;
       margin-right: 16px;
       margin-bottom: 16px;
-      max-width: 300px;
-      max-height: 100px;
     }
 
     .links-container {
