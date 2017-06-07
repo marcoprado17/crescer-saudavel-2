@@ -15,6 +15,10 @@
     margin-top: 18px;
     flex-wrap: wrap;
 
+    .right-part .text a {
+      color: $proj-gray-color;
+    }
+
     > * {
       margin-bottom: 18px;
     }

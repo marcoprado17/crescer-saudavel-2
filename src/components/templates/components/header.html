@@ -41,7 +41,7 @@
         </a>
         {% include "components/search_bar.html" %}
         <div class="right-part">
-          <div>
+          <div class="text">
             {% if (not data.user.is_anonymous) and data.user.is_authenticated %}
               {{ R.string.logged_header_hello(data.user)|safe }}
             {% else %}
