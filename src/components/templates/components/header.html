@@ -59,24 +59,29 @@
       <div class="second-row">
         {% for product_category in data.product_categories %}
           {% if loop.index0 < data.header_content.n_visible_categories %}
-            <a data-content-id="popover-content-{{ product_category.id }}" class="hover-popover" href="#"
-               data-container="body" data-placement="bottom">{{ product_category.name }}</a>
-            {% if product_category.has_active_subcategory() %}
-              <div id="popover-content-{{ product_category.id }}" class="popover-content">
-              {% for product_subcategory in product_category.product_subcategories %}
-                {% if product_subcategory.active %}
-                  <a href="{{ product_subcategory.get_href() }}">{{ product_subcategory.name }}</a><br>
-                {% endif %}
-              {% endfor %}
+            <div class="dropdown">
+              <a class="menu-item btn" href="#">{{ product_category.name }}</a>
+              <div class="dropdown-content">
+                <ul>
+                  {% for product_subcategory in product_category.product_subcategories %}
+                    {% if product_subcategory.active %}
+                      <a href="{{ product_subcategory.get_href() }}">
+                        <li>
+                          {{ product_subcategory.name }}
+                        </li>
+                      </a>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
               </div>
-            {% endif %}
+            </div>
           {% endif %}
         {% endfor %}
         {#        TODO: Get the correct href#}
-        <a href="#">
+        <a href="#" class="menu-item">
           {{ R.string.others }}
         </a>
-        <a href="{{ url_for("blog.main") }}">
+        <a href="{{ url_for("blog.main") }}" class="menu-item">
           {{ R.string.blog }}
         </a>
       </div>
