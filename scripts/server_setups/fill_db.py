@@ -283,7 +283,7 @@ def get_random_product_ids_and_amount():
     random.shuffle(products)
     chosen_products = products[0:n_products_in_order]
     for product in chosen_products:
-        amount = random.randint(1, product.get_n_units_available())
+        amount = random.randint(1, product.n_units_available)
         product_ids_and_amount.append((product.id, amount))
     assert len(product_ids_and_amount) >= 1
     return product_ids_and_amount
