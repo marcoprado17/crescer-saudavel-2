@@ -2,7 +2,7 @@
 <div class="__components__ __blog_header__">
   <header>
     <div class="container">
-      <a href="{{ url_for('client_home.home') }}">
+      <a href="{{ url_for('home.home') }}">
         <img class="logo" src="{{ header_content.get_logo_img_src() }}">
       </a>
       {% with url=url_for("blog.search") %}
@@ -10,7 +10,7 @@
       {% endwith %}
       <div class="links-container">
         <a href="{{ url_for('blog.main') }}">{{ R.string.blog }}</a>
-        <a href="{{ url_for('client_home.home') }}">{{ R.string.shop_diminutive }}</a>
+        <a href="{{ url_for('home.home') }}">{{ R.string.shop_diminutive }}</a>
         <a href="{{ url_for('simple_content_page.about_us') }}">{{ R.string.who_we_are }}</a>
       </div>
     </div>

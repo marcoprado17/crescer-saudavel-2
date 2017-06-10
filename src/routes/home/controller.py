@@ -4,11 +4,14 @@
 # Created at 26/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from flask import render_template
-from routes.client_home import client_home_blueprint
-from routes.client_home.data_providers.home import client_home_data_provider
+
+from models.content.home_content import HomeContent
+from routes.home import home_blueprint
 
 
-@client_home_blueprint.route("/")
+@home_blueprint.route("/")
 def home():
-    return render_template("client_home/home.html", data=client_home_data_provider.get_data())
-
+    return render_template(
+        "home/home.html",
+        content=HomeContent.get()
+    )

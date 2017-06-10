@@ -1,21 +1,29 @@
-.__client_home__.__home__ {
+.__home__ {
   $top-color: rgba(0, 0, 0, 0.0);
   $mid-color: rgba(0, 0, 0, 0.4);
   $bottom-color: rgba(0, 0, 0, 0.6);
 
-  .carousel-inner {
-    height: 500px;
-  }
-
   #myCarousel {
-    height: 500px;
+    width: 100%;
+    border-radius: $default-border-radius;
     img {
-      height: 500px;
+      width: 100%;
+      border-radius: $default-border-radius;
     }
   }
 
   .carousel-control {
     opacity: 0.4;
+  }
+
+  .carousel-control.left {
+    border-top-left-radius: $default-border-radius;
+    border-bottom-left-radius: $default-border-radius;
+  }
+
+  .carousel-control.right {
+    border-top-right-radius: $default-border-radius;
+    border-bottom-right-radius: $default-border-radius;
   }
 
   .carousel-control:hover {
@@ -28,7 +36,7 @@
     margin-bottom: 34px;
 
     div.img-container {
-      max-height: 450px;
+      max-height: 460px;
     }
 
     img {
@@ -62,7 +70,7 @@
   .carousel-caption {
     position: absolute;
     right: 0;
-    bottom: -50px;
+    bottom: 0;
     left: 0;
     z-index: 10;
     padding-top: 20px;
@@ -74,6 +82,8 @@
     background: -o-linear-gradient($top-color, $bottom-color); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient($top-color, $bottom-color); /* For Firefox 3.6 to 15 */
     background: linear-gradient($top-color, $bottom-color); /* Standard syntax */
+    border-bottom-left-radius: $default-border-radius;
+    border-bottom-right-radius: $default-border-radius;
   }
 
   .blog-img a.info {
@@ -109,12 +119,12 @@
   }
 
   .glyphicon-chevron-left:before {
-    font-size: 55px;
+    font-size: 24px;
     font-weight: bold;
   }
 
   .glyphicon-chevron-right:before {
-    font-size: 55px;
+    font-size: 24px;
     font-weight: bold;
   }
 

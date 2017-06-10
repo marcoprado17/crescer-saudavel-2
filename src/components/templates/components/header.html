@@ -23,7 +23,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="{{ url_for('client_home.home') }}">
+          <a href="{{ url_for('home.home') }}">
             <img class="logo" src="{{ data.header_content.get_logo_img_src() }}">
           </a>
         </div>
@@ -48,7 +48,7 @@
         </div>
       </nav>
       <div class="first-row">
-        <a class="logo" href="{{ url_for('client_home.home') }}">
+        <a class="logo" href="{{ url_for('home.home') }}">
           <img class="logo" src="{{ data.header_content.get_logo_img_src() }}">
         </a>
         {% include "components/search_bar.html" %}

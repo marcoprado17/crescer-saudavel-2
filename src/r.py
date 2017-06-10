@@ -231,7 +231,7 @@ class Resources(object):
         without_stock = "Sem estoque"
         product_images_text = "Tamanho ideal das imagens de produto: 600 x 600.<br><br>"
         blog_thumbnail_text = "Tamanho ideal das thumbnails do blog: 900 x 500.<br><br>"
-        carousel_image_text = "Tamanho ideal das imagens do carrossel: 2560 x 500."
+        carousel_image_text = "Tamanho ideal das imagens do carrossel: 1200 x 400."
         more_categories_image_text = "Tamanho ideal da imagem: 512 x 512."
         post_thumbnail = "Thumbnail do post"
         order_by = "Ordenar por: "
@@ -1717,7 +1717,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
 
         product_image_size = (600, 600)
         blog_thumbnail_image_size = (900, 500)
-        carousel_image_size = (2560, 500)
+        carousel_image_size = (1200, 400)
         more_categories_image_size = (512, 512)
         tag_image_size = (128, 128)
         blog_thumbnail_wide_image_size = (540, 160)

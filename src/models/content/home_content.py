@@ -151,6 +151,27 @@ class HomeContent(BaseContent):
         relationship("BlogPost", uselist=False,
                      secondary=home_content_blog_section_3_post_2_association_table)
 
+    def get_carousel_n_active(self, n):
+        return getattr(self, "carousel_" + str(n) + "_active")
+
+    def get_carousel_n_title(self, n):
+        return getattr(self, "carousel_" + str(n) + "_title")
+
+    def get_carousel_n_subtitle(self, n):
+        return getattr(self, "carousel_" + str(n) + "_subtitle")
+
+    def get_carousel_n_link(self, n):
+        return getattr(self, "carousel_" + str(n) + "_link")
+
+    def get_carousel_n_is_first(self, n):
+        if n == 1 :
+            return self.carousel_1_active
+        elif n == 2:
+            return self.carousel_2_active and (not self.carousel_1_active)
+        elif n == 3:
+            return self.carousel_3_active and (not self.carousel_1_active) and (not self.carousel_2_active)
+        return False
+
     def get_carousel_n_image_filename(self, n):
         return getattr(self, "carousel_" + str(n) + "_image_filename")
 
@@ -180,3 +201,13 @@ class HomeContent(BaseContent):
 
     def get_blog_post_of_section(self, section_number, blog_post_number):
         return getattr(self, "blog_section_" + str(section_number) + "_post_" + str(blog_post_number))
+
+    def n_carousel_active(self):
+        n = 0
+        if self.carousel_1_active:
+            n += 1
+        if self.carousel_2_active:
+            n += 1
+        if self.carousel_3_active:
+            n += 1
+        return n

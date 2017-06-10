@@ -116,8 +116,8 @@ def create_app():
     app.register_blueprint(client_dispatch_blueprint, url_prefix="/envio")
     from routes.client_exchanges_and_returns import client_exchanges_and_returns_blueprint
     app.register_blueprint(client_exchanges_and_returns_blueprint, url_prefix="/trocas-e-devolucoes")
-    from routes.client_home import client_home_blueprint
-    app.register_blueprint(client_home_blueprint, url_prefix="/home")
+    from routes.home import home_blueprint
+    app.register_blueprint(home_blueprint, url_prefix="/home")
     from routes.client_products import client_products_blueprint
     app.register_blueprint(client_products_blueprint, url_prefix="/produtos")
     from routes.client_search import client_search_blueprint
