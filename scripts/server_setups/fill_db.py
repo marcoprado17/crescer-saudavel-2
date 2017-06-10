@@ -471,15 +471,15 @@ def create_home_content_data():
                 subcategories[0:random.choice([3, 4, 5, 6, 7, 8])]
             )
 
-    # blog_posts = BlogPost.query.filter(BlogPost.active == True).all()
-    #
-    # if len(blog_posts) >= 1:
-    #     home_content.blog_section_1_active = True
-    #     home_content.blog_section_1_name = "Novidades do blog"
-    #     home_content.blog_section_1_link = "/blog"
-    #     home_content.blog_section_1_post_1_id = blog_posts[0].id
-    #     if len(blog_posts) >= 2:
-    #         home_content.blog_section_1_post_2_id = blog_posts[1].id
+    blog_posts = BlogPost.query.filter(BlogPost.active == True).all()
+
+    if len(blog_posts) >= 1:
+        home_content.blog_section_1_active = True
+        home_content.blog_section_1_title = "Novidades do blog"
+        home_content.blog_section_1_link = "/blog"
+        home_content.blog_section_1_post_1 = blog_posts[0]
+        if len(blog_posts) >= 2:
+            home_content.blog_section_1_post_2 = blog_posts[1]
 
     db.session.add(home_content)
     db.session.commit()

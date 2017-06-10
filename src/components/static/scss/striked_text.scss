@@ -13,4 +13,12 @@
     margin-left: 12px;
     margin-right: 12px;
   }
+
+  a {
+    color: $proj-gray-color;
+
+    :hover {
+      text-decoration: underline;
+    }
+  }
 }

@@ -2,7 +2,13 @@
   {% if not left %}
     <div class="left line"></div>
   {% endif %}
-  <div class="text">{{ text }}</div>
+  <div class="text">
+    {% if link %}
+      <a href="{{ link }}">{{ text }}</a>
+    {% else %}
+      {{ text }}
+    {% endif %}
+  </div>
   {% if not right %}
       <div class="right line"></div>
   {% endif %}

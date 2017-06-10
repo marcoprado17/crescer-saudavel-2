@@ -95,6 +95,16 @@
     margin-top: 14%;
   }
 
+  .__blog_post_preview_wide__ {
+    .title-container {
+      width: 100% !important;
+
+      span {
+        color: black;
+      }
+    }
+  }
+
   .additional-product-categories-and-subcategories-section-title-container {
     text-align: center;
     margin-bottom: 16px;

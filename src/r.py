@@ -1725,5 +1725,6 @@ There's actually a lot more to Markdown than this. See the official [introductio
         max_n_products_section = 5
         max_n_carousel = 3
         max_n_more_categories = 6
+        max_n_blog_sections = 3
 
 R = Resources()

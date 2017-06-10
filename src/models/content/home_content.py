@@ -122,8 +122,8 @@ class HomeContent(BaseContent):
                      secondary=home_content_more_categories_section_category_6_subcategories_association_table)
 
     blog_section_1_active = db.Column(db.Boolean, default=False, nullable=False)
-    blog_section_1_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
-    blog_section_1_link = db.Column(db.String(R.dimen.link_max_length))
+    blog_section_1_title = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
+    blog_section_1_link = db.Column(db.String(R.dimen.link_max_length), default="")
     blog_section_1_post_1 = \
         relationship("BlogPost", uselist=False,
                      secondary=home_content_blog_section_1_post_1_association_table)
@@ -132,8 +132,8 @@ class HomeContent(BaseContent):
                      secondary=home_content_blog_section_1_post_2_association_table)
 
     blog_section_2_active = db.Column(db.Boolean, default=False, nullable=False)
-    blog_section_2_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
-    blog_section_2_link = db.Column(db.String(R.dimen.link_max_length))
+    blog_section_2_title = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
+    blog_section_2_link = db.Column(db.String(R.dimen.link_max_length), default="")
     blog_section_2_post_1 = \
         relationship("BlogPost", uselist=False,
                      secondary=home_content_blog_section_2_post_1_association_table)
@@ -142,8 +142,8 @@ class HomeContent(BaseContent):
                      secondary=home_content_blog_section_2_post_2_association_table)
 
     blog_section_3_active = db.Column(db.Boolean, default=False, nullable=False)
-    blog_section_3_name = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
-    blog_section_3_link = db.Column(db.String(R.dimen.link_max_length))
+    blog_section_3_title = db.Column(db.String(R.dimen.blog_section_name_max_length), default="", nullable=False)
+    blog_section_3_link = db.Column(db.String(R.dimen.link_max_length), default="")
     blog_section_3_post_1 = \
         relationship("BlogPost", uselist=False,
                      secondary=home_content_blog_section_3_post_1_association_table)
@@ -208,11 +208,14 @@ class HomeContent(BaseContent):
     def get_products_of_section_n(self, n):
         return getattr(self, "products_of_section_" + str(n), None)
 
+    def get_blog_section_active(self, section_number):
+        return getattr(self, "blog_section_" + str(section_number) + "_active")
+
     def get_blog_section_link(self, section_number):
-        return getattr(self, "blog_section_" + str(section_number) + "_link", None)
+        return getattr(self, "blog_section_" + str(section_number) + "_link")
 
     def get_blog_section_title(self, section_number):
-        return getattr(self, "blog_section_" + str(section_number) + "_name", "")
+        return getattr(self, "blog_section_" + str(section_number) + "_title", "")
 
     def get_blog_post_of_section(self, section_number, blog_post_number):
         return getattr(self, "blog_section_" + str(section_number) + "_post_" + str(blog_post_number))
@@ -245,5 +248,11 @@ class HomeContent(BaseContent):
         for i in range(1, R.dimen.max_n_more_categories+1):
             category = self.get_more_categories_section_category_n(i)
             if category is not None and category.active:
+                return True
+        return False
+
+    def has_blog_section_active(self):
+        for i in range(1, R.dimen.max_n_blog_sections+1):
+            if self.get_blog_section_active(i):
                 return True
         return False

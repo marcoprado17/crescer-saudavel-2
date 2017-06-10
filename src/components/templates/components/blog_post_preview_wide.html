@@ -4,7 +4,10 @@
     <div class="image-container">
       <img src="{{ blog_post.get_thumbnail_wide_src() }}">
       <div class="title-container">
-        {{ utils.limited_text_tooltip(text=blog_post.title, max_length=32) }}
+        {% if not title_max_size %}
+          {% set title_max_size=32 %}
+        {% endif %}
+        {{ utils.limited_text_tooltip(text=blog_post.title, max_length=title_max_size) }}
       </div>
       {% with date=blog_post.date %}
         {% include "components/blog_post_preview_date.html" %}

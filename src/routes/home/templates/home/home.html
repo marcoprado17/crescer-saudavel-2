@@ -61,7 +61,7 @@
           {% set products=content.get_products_of_section_n(i) %}
           {% if active and products and products|length > 0 %}
             <div class="container">
-              {% with text=title, left=True, class="title" %}
+              {% with text=title, left=True, class="title", link=link %}
                 {% include "components/striked_text.html" %}
               {% endwith %}
               <div class="row">
@@ -111,16 +111,40 @@
           </div>
         </div>
       {% endif %}
-      {##}
-      {#            {% if data.blog_sections and data.blog_sections|length > 0 %}#}
-      {#                <div class="container">#}
-      {#                    {% for blog_section in data.blog_sections %}#}
-      {#                        {% with blog_section=blog_section %}#}
-      {#                            {% include "components/client_blog_section.html" %}#}
-      {#                        {% endwith %}#}
-      {#                    {% endfor %}#}
-      {#                </div>#}
-      {#            {% endif %}#}
+      {% if content.has_blog_section_active() %}
+        <div class="container">
+          {% for i in range(1, R.dimen.max_n_blog_sections + 1) %}
+            {% set active=content.get_blog_section_active(i) %}
+            {% set title=content.get_blog_section_title(i) %}
+            {% set link=content.get_blog_section_link(i) %}
+            {% set post1=content.get_blog_post_of_section(i, 1) %}
+            {% set post2=content.get_blog_post_of_section(i, 2) %}
+            {% if active %}
+              {% with text=title, left=True, class="title", link=link %}
+                {% include "components/striked_text.html" %}
+              {% endwith %}
+              {% if post1 or post2 %}
+                <div class="row">
+                  {% if post1 %}
+                    <div class="col-md-6">
+                      {% with blog_post=post1, title_max_size=R.dimen.home_blog_post_preview_title_max_size %}
+                        {% include "components/blog_post_preview_wide.html" %}
+                      {% endwith %}
+                    </div>
+                  {% endif %}
+                  {% if post2 %}
+                    <div class="col-md-6">
+                      {% with blog_post=post2, title_max_size=R.dimen.home_blog_post_preview_title_max_size %}
+                        {% include "components/blog_post_preview_wide.html" %}
+                      {% endwith %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
