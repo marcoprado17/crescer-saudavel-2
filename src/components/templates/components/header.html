@@ -13,6 +13,7 @@
 <div class="__components__ __header__">
   <header>
     <div class="container">
+{#      TODO: Implement the correct mobile nav#}
       <nav class="navbar navbar-default">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -76,22 +77,21 @@
         {% for product_category in data.product_categories %}
           {% if loop.index0 < data.header_content.n_visible_categories %}
             <div class="dropdown">
-              <a class="menu-item btn" href="#">{{ product_category.name }}</a>
+              <a class="menu-item btn" href="{{ product_category.get_href() }}">{{ product_category.name }}</a>
               <div class="dropdown-content">
                 {{ product_subcategories_list(product_category) }}
               </div>
             </div>
           {% endif %}
         {% endfor %}
-        {#        TODO: Get the correct href#}
         <div class="dropdown">
-          <a class="menu-item btn" href="#">{{ R.string.others }}</a>
+          <a class="menu-item btn" href="{{ url_for("client_products.products") }}">{{ R.string.others }}</a>
           <div class="dropdown-content others-section">
             {% for product_category_row in data.product_categories_by_4_grouped %}
               <div class="row">
                 {% for product_category in product_category_row %}
                   <div class="col-sm-3 col">
-                    <b><a href="#">{{ product_category.name }}</a></b><br>
+                    <b><a href="{{ product_category.get_href() }}">{{ product_category.name }}</a></b><br>
                     {{ product_subcategories_list(product_category) }}
                   </div>
                 {% endfor %}
