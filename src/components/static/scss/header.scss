@@ -105,26 +105,22 @@
       border-bottom-left-radius: $default-border-radius;
       border-bottom-right-radius: $default-border-radius;
       border-top-right-radius: $default-border-radius;
+      padding-top: 12px;
 
-      ul {
-        list-style-type: none;
-        padding-left: 0;
-        margin-bottom: 0;
+      > a:first-child li{
+        border-top-right-radius: $default-border-radius;
+      }
 
-        > a:first-child li{
-          border-top-right-radius: $default-border-radius;
-        }
+      a {
+        display: inline-block;
+        color: $proj-gray-color;
+        text-decoration: none;
+        padding-left: 16px;
+        margin-bottom: 12px;
+      }
 
-        li {
-          padding-top: 6px;
-          padding-left: 16px;
-          padding-bottom: 6px;
-        }
-
-        a {
-          color: $proj-gray-color;
-          text-decoration: none;
-        }
+      a:hover {
+        text-decoration: underline;
       }
     }
 
@@ -152,9 +148,52 @@
     }
   }
 
+  .dropdown-content.others-section {
+    width: 1000px;
+    right: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: $default-border-radius;
+    padding-top: 12px;
+
+    .row {
+      padding-left: 12px;
+      padding-right: 12px;
+      margin-bottom: 12px;
+    }
+
+    a {
+      padding-left: 0;
+      margin-left: 20%;
+    }
+  }
+
+  .btn.blog {
+    border-radius: $default-border-radius;
+  }
+
+
   @media screen and (min-width: 768px) {
     nav {
       display: none;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .__search_bar__ {
+      width: 360px;
+      margin-right: 0 !important;
+    }
+  }
+
+  @media screen and (max-width: 1199px) {
+    .dropdown-content.others-section {
+      width: 820px;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .dropdown-content.others-section {
+      width: 660px;
     }
   }
 
@@ -174,13 +213,6 @@
       .right-part {
         margin-left: auto;
       }
-    }
-  }
-
-  @media screen and (min-width: 992px) {
-    .__search_bar__ {
-      width: 360px;
-      margin-right: 0 !important;
     }
   }
 }

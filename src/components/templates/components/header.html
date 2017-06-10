@@ -1,4 +1,15 @@
 {% set data=get_header_data() %}
+
+{% macro product_subcategories_list(product_category) %}
+  {% for product_subcategory in product_category.product_subcategories %}
+    {% if product_subcategory.active %}
+      <a class="subcategory" href="{{ product_subcategory.get_href() }}">
+          {{ product_subcategory.name }}
+      </a><br>
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+
 <div class="__components__ __header__">
   <header>
     <div class="container">
@@ -57,34 +68,40 @@
         </div>
       </div>
       <div class="second-row">
+        <div class="dropdown">
+          <a class="menu-item btn blog" href="{{ url_for("blog.main") }}" class="menu-item">
+            {{ R.string.blog }}
+          </a>
+        </div>
         {% for product_category in data.product_categories %}
           {% if loop.index0 < data.header_content.n_visible_categories %}
             <div class="dropdown">
               <a class="menu-item btn" href="#">{{ product_category.name }}</a>
               <div class="dropdown-content">
-                <ul>
-                  {% for product_subcategory in product_category.product_subcategories %}
-                    {% if product_subcategory.active %}
-                      <a href="{{ product_subcategory.get_href() }}">
-                        <li>
-                          {{ product_subcategory.name }}
-                        </li>
-                      </a>
-                    {% endif %}
-                  {% endfor %}
-                </ul>
+                {{ product_subcategories_list(product_category) }}
               </div>
             </div>
           {% endif %}
         {% endfor %}
         {#        TODO: Get the correct href#}
-        <a href="#" class="menu-item">
-          {{ R.string.others }}
-        </a>
-        <a href="{{ url_for("blog.main") }}" class="menu-item">
-          {{ R.string.blog }}
-        </a>
+        <div class="dropdown">
+          <a class="menu-item btn" href="#">{{ R.string.others }}</a>
+          <div class="dropdown-content others-section">
+            {% for product_category_row in data.product_categories_by_4_grouped %}
+              <div class="row">
+                {% for product_category in product_category_row %}
+                  <div class="col-sm-3 col">
+                    <b><a href="#">{{ product_category.name }}</a></b><br>
+                    {{ product_subcategories_list(product_category) }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
       </div>
     </div>
   </header>
 </div>
+
+
