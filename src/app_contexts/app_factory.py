@@ -180,7 +180,6 @@ def create_app():
     from flask_bombril import R as bombril_R
     from components.data_providers import admin_navbar_data_provider
     from components.data_providers.footer import footer_data_provider
-    from components.data_providers.tags_row import tags_row_data_provider
     from components.data_providers.header import header_data_provider
     from flask_bombril.utils.utils import current_url
 
@@ -196,7 +195,7 @@ def create_app():
             bombril_R=bombril_R,
             get_components_admin_navbar_data=lambda:admin_navbar_data_provider.get_data(),
             get_footer_data=lambda: footer_data_provider.get_data(),
-            get_components_tags_row_data=lambda: tags_row_data_provider.get_data(),
+            get_tags_row=lambda: TagsRow.get(),
             submit_form=SubmitForm(),
             get_header_data=lambda: header_data_provider.get_data(),
             get_header_content=lambda: HeaderContent.get(),

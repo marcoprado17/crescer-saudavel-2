@@ -1,28 +1,45 @@
 .__components__.__tags_row__ {
-  .row {
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  td.image {
+    vertical-align: top;
+  }
+
+  .tag-container {
+    min-width: 220px;
+    max-width: 260px;
     margin-bottom: 12px;
   }
 
   img {
-    width: 128px;
+    width: 48px;
     margin-right: 8px;
-  }
-
-  .column {
-    margin-top: 12px;
-    min-width: 320px;
+    padding-top: 0;
   }
 
   .tag-title {
-    font-family: "OpenSans";
-    font-size: 30px;
+    font-size: 16px;
     font-weight: bold;
-    color: black;
+    margin-bottom: 2px;
   }
 
   .tag-subtitle {
-    font-family: "OpenSans";
-    font-size: 18px;
-    color: black;
+    font-size: 12px;
+  }
+
+  @media screen and (max-width: 1199px) {
+    .container {
+      justify-content: flex-start;
+
+      .tag-container {
+        max-width: none;
+        margin-right: 12px;
+      }
+    }
   }
 }

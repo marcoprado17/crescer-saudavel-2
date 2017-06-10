@@ -3,6 +3,10 @@
   $mid-color: rgba(0, 0, 0, 0.4);
   $bottom-color: rgba(0, 0, 0, 0.6);
 
+  .carousel.container {
+    margin-bottom: 20px;
+  }
+
   #myCarousel {
     width: 100%;
     border-radius: $default-border-radius;
@@ -10,6 +14,7 @@
       width: 100%;
       border-radius: $default-border-radius;
     }
+
   }
 
   .carousel-control {
@@ -174,7 +179,7 @@
   }
 
   @media screen and (max-width: 767px) {
-    #myCarousel {
+    .carousel.container {
       display: none;
     }
   }

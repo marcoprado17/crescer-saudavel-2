@@ -1719,7 +1719,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
         blog_thumbnail_image_size = (900, 500)
         carousel_image_size = (1200, 400)
         more_categories_image_size = (512, 512)
-        tag_image_size = (128, 128)
+        tag_image_size = (48, 48)
         blog_thumbnail_wide_image_size = (540, 160)
 
 
