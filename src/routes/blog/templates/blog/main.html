@@ -14,7 +14,7 @@
     {% endif %}
     {% if recent_blog_posts and recent_blog_posts|length > 0 %}
       <div class="more-recent-posts">
-        {% with text=R.string.more_recent_posts, class="title" %}
+        {% with text=R.string.more_recent_posts, class="title section-title" %}
           {% include "components/striked_text.html" %}
         {% endwith %}
         <div class="row">

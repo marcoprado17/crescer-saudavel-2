@@ -164,7 +164,7 @@ class HomeContent(BaseContent):
         return getattr(self, "carousel_" + str(n) + "_link")
 
     def get_carousel_n_is_first(self, n):
-        if n == 1 :
+        if n == 1:
             return self.carousel_1_active
         elif n == 2:
             return self.carousel_2_active and (not self.carousel_1_active)
@@ -193,6 +193,9 @@ class HomeContent(BaseContent):
     def get_product_section_link(self, section_number):
         return getattr(self, "product_section_" + str(section_number) + "_link", None)
 
+    def get_products_of_section_n(self, n):
+        return getattr(self, "products_of_section_" + str(n), None)
+
     def get_blog_section_link(self, section_number):
         return getattr(self, "blog_section_" + str(section_number) + "_link", None)
 
@@ -209,5 +212,19 @@ class HomeContent(BaseContent):
         if self.carousel_2_active:
             n += 1
         if self.carousel_3_active:
+            n += 1
+        return n
+
+    def n_product_sections_active(self):
+        n = 0
+        if self.product_section_1_active:
+            n += 1
+        if self.product_section_2_active:
+            n += 1
+        if self.product_section_3_active:
+            n += 1
+        if self.product_section_4_active:
+            n += 1
+        if self.product_section_5_active:
             n += 1
         return n

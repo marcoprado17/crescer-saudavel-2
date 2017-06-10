@@ -1,0 +1,193 @@
+$bottom-color: rgba(255,255,255,10);
+$top-color: rgba(255,255,255,10);
+
+.__components__.__product_box__ {
+  margin-bottom: 30px;
+
+  .item-inner {
+    border-radius: $product-container-border-radius !important;
+  }
+
+  .text-container {
+    white-space: pre-wrap;
+  }
+
+  .grow {
+    transition: all .2s ease-in-out;
+  }
+
+  .grow:hover {
+    overflow: visible;
+    transform: scale(1.04);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
+
+    .discount {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .item-img-info a {
+    border-top-left-radius: $product-container-border-radius;
+    border-top-right-radius: $product-container-border-radius;
+  }
+
+  .item-price {
+    text-align: center;
+    .big-price {
+      font-size: 22px;
+      font-weight: bold;
+    }
+  }
+
+  button {
+    border-radius: $buy-btn-radius;
+    margin-top: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .unavailable {
+    opacity: 0.6;
+
+    button.btn-cart {
+      visibility: hidden;
+    }
+  }
+
+  form.add-to-cart p {
+    margin-top: 10px;
+  }
+
+  .discount {
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    background-color: $dark-yellow;
+    color: $proj-gray-color;
+    font-family: "HappyBirthdayBaby";
+    font-size: 32px;
+    font-weight: bold;
+    padding: 2px 16px;
+    border-radius: $default-border-radius;
+  }
+
+  .img-container:hover span {
+    opacity: 0.4;
+  }
+
+  .img-container {
+    position: relative;
+    width: 100%;
+
+    img {
+      width: 100%;
+      border-top-right-radius: $default-border-radius;
+      border-top-left-radius: $default-border-radius;
+    }
+
+    span {
+      font-family: "HappyBirthdayBaby";
+      font-weight: bold;
+      position: absolute;
+      bottom: 45%;
+      left: 0;
+      font-size: 100px;
+      width: 100%;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
+    }
+
+    .gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: white;
+      opacity: 0.05;
+    }
+  }
+
+  .item-title {
+    padding-top: 12px;
+    font-size: 18px;
+    height: 84px;
+    display: table;
+    width: 100%;
+    margin-bottom: 0 !important;
+
+    a {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .text-container {
+      color: $proj-gray-color;
+    }
+  }
+
+  .item-price {
+    height: 60px;
+    display: table;
+    width: 100%;
+    margin-bottom: 12px;
+
+    .prices-container {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .original-price {
+    font-family: "OpenSans";
+    font-size: 18px;
+  }
+
+  .add_cart_container {
+    text-align: center;
+  }
+
+  .buy-button {
+    //width: 100%;
+    margin: 0;
+    margin-top: 12px;
+    font-family: "HappyBirthdayBaby";
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    line-height: 20px;
+  }
+
+  .info-inner {
+    padding: 0 !important;
+  }
+
+  .item-title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  #best-seller .owl-item .item .item-inner .item-info .info-inner .item-title a:hover {
+
+  }
+
+  .product-title:hover {
+    text-decoration: underline !important;
+  }
+
+  .buy-button {
+    background-color: white;
+    border: 1px solid $proj-gray-color;
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .buy-button:hover {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: all .2s ease-in-out;;
+    box-shadow: none;
+    border: 1px solid transparent;
+    background-color: $dark-yellow;
+  }
+}

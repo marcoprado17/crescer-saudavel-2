@@ -1679,11 +1679,11 @@ There's actually a lot more to Markdown than this. See the official [introductio
 
         test_stock = 42
         test_min_available = 12
-        super_table_text_max_length = 32
+        super_table_text_max_length = 30
         # TODO: Change timeout in production
         cache_timeout = 1
         link_max_length = 1024
-        item_inner_max_length = 38
+        item_inner_max_length = 32
         day_in_seconds = 24*60*60
         max_value_of_int_field = 999999999
         min_value_of_int_field = -999999999

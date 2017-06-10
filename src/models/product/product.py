@@ -10,8 +10,6 @@ from sqlalchemy.orm import relationship
 from models.base import BaseModel
 from proj_extensions import db
 from r import R
-from os.path import join, isfile
-from configs import default_app_config as config
 from flask_bombril.utils.utils import clamp_integer
 
 
@@ -91,7 +89,7 @@ class Product(BaseModel):
         return getattr(self, "image_" + str(n) + "_filename")
 
     def get_image_n_src(self, n):
-        return self.get_image_src(self.get_image_n_filename(n), R.string.product_default_filename)
+        return self.get_img_src(self.get_image_n_filename(n), R.string.product_default_filename)
 
     def get_tab_n_active(self, n):
         return getattr(self, "tab_" + str(n) + "_active")
@@ -107,8 +105,12 @@ class Product(BaseModel):
             return None
         return Product.calculate_price_with_discount(price=self.price, discount_percentage=self.discount_percentage)
 
-    def get_price(self, n_units):
+    def get_price(self, n_units=1):
         return n_units*self.price
+
+    # TODO: Implement the correct href
+    def get_href(self):
+        return "#"
 
     @staticmethod
     def calculate_price_with_discount(price, discount_percentage):

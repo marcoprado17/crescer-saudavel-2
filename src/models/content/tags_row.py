@@ -3,11 +3,9 @@
 # ======================================================================================================================
 # Created at 28/03/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from os.path import isfile, join
 from models.content.base_content import BaseContent
 from proj_extensions import db
 from r import R
-from configs import default_app_config as config
 
 
 class TagsRow(BaseContent):

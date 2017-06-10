@@ -101,6 +101,7 @@ class ProductView(ProjBaseView):
         "stock",
         "reserved"
     ]
+    column_searchable_list = ["id", "title"]
     column_sortable_list = [
         "id",
         "active",

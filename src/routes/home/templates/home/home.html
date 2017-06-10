@@ -53,6 +53,30 @@
       </div>
     {% endif %}
     {% include "components/tags_row.html" %}
+    {% if content.n_product_sections_active() > 0 %}
+      {% for i in range(1, 5 + 1) %}
+        {% set active=content.get_section_is_active(i) %}
+        {% set title=content.get_product_section_title(i) %}
+        {% set link=content.get_product_section_link(i) %}
+        {% set products=content.get_products_of_section_n(i) %}
+        {% if active and products and products|length > 0 %}
+          <div class="container">
+            {% with text=title, left=True, class="title" %}
+              {% include "components/striked_text.html" %}
+            {% endwith %}
+            <div class="row">
+              {% for product in products %}
+                <div class="col-sm-6 col-md-3">
+                  {% with product=product %}
+                    {% include "components/product_box.html" %}
+                  {% endwith %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
     {##}
     {#            {% if data.product_sections and data.product_sections|length > 0 %}#}
     {#                {% for product_section in data.product_sections %}#}
