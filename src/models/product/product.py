@@ -6,6 +6,7 @@
 from decimal import Decimal
 from markupsafe import Markup
 from sqlalchemy import ForeignKey
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from models.base import BaseModel
 from proj_extensions import db
@@ -117,18 +118,19 @@ class Product(BaseModel):
         return (price * Decimal(str((100.0 - clamp_integer(discount_percentage, 0, 100)) / 100.0))).quantize(
             Decimal("0.01"))
 
-    def get_n_units_available(self):
+    @hybrid_property
+    def n_units_available(self):
         if self.stock is not None and self.reserved is not None:
             return self.stock - self.reserved
         else:
             return None
 
+    @hybrid_property
     def is_available_to_client(self):
-        n_units_available = self.get_n_units_available()
-        if self.active is not None and n_units_available is not None and self.min_available is not None:
-            if self.active is True and (n_units_available > self.min_available):
+        if self.active is not None and self.n_units_available is not None and self.min_available is not None:
+            if self.active is True and (self.n_units_available > self.min_available):
                 return True
             else:
                 return False
         else:
-            return None
+            return False

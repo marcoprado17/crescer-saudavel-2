@@ -34,21 +34,21 @@ from models.images.other_image import OtherImage
 from r import R
 from proj_utils import parse_markdown
 
-n_product_categories = 5
-n_product_subcategories = 20
-n_products = 50
-n_clients = 50
-n_orders = 30
-n_blog_tags = 10
-n_blog_posts = 30
+# n_product_categories = 5
+# n_product_subcategories = 20
+# n_products = 50
+# n_clients = 50
+# n_orders = 30
+# n_blog_tags = 10
+# n_blog_posts = 30
 
-# n_product_categories = 25
-# n_product_subcategories = 200
-# n_products = 800
-# n_clients = 200
-# n_orders = 100
-# n_blog_tags = 20
-# n_blog_posts = 300
+n_product_categories = 25
+n_product_subcategories = 400
+n_products = 800
+n_clients = 200
+n_orders = 100
+n_blog_tags = 20
+n_blog_posts = 300
 
 title_key_words = [
     "banana",
@@ -444,176 +444,42 @@ def create_home_content_data():
     home_content = HomeContent.get()
 
     home_content.carousel_1_active = True
-    home_content.carousel_1_title = "Título 1"
-    home_content.carousel_1_subtitle = "Subtítulo 1"
     home_content.carousel_1_link = "/blog"
 
-    home_content.carousel_2_active = True
-    home_content.carousel_2_title = "Título 2"
-
-    products = Product.query.filter(Product.is_available_to_client == True, Product.has_discount == False).all()
-
-    if len(products) > 0:
+    products_1 = [p for p in Product.query.filter(Product.has_discount == False).all() if p.is_available_to_client]
+    if len(products_1) > 0:
         home_content.product_section_1_active = True
         home_content.product_section_1_name = "Novidades"
         home_content.product_section_1_link = "/produtos"
-        home_content.product_section_1_product_1_id = random.choice(products).id
-        home_content.product_section_1_product_2_id = random.choice(products).id
-        home_content.product_section_1_product_3_id = random.choice(products).id
-        home_content.product_section_1_product_4_id = random.choice(products).id
-        home_content.product_section_1_product_5_id = random.choice(products).id
-        home_content.product_section_1_product_6_id = random.choice(products).id
-        home_content.product_section_1_product_7_id = random.choice(products).id
-        home_content.product_section_1_product_8_id = random.choice(products).id
-        home_content.product_section_1_product_9_id = random.choice(products).id
-        home_content.product_section_1_product_10_id = random.choice(products).id
-        home_content.product_section_1_product_11_id = random.choice(products).id
-        home_content.product_section_1_product_12_id = random.choice(products).id
+        home_content.products_of_section_1 = products_1[:4]
 
-    products = Product.query.filter(Product.is_available_to_client == True, Product.has_discount == True).all()
-
-    if len(products) > 0:
+    products_2 = [p for p in Product.query.filter(Product.has_discount == True).all() if p.is_available_to_client]
+    if len(products_2) > 0:
         home_content.product_section_2_active = True
         home_content.product_section_2_name = "Promoções"
         home_content.product_section_2_link = "/produtos"
-        home_content.product_section_2_product_1_id = random.choice(products).id
-        home_content.product_section_2_product_2_id = random.choice(products).id
-        home_content.product_section_2_product_3_id = random.choice(products).id
-        home_content.product_section_2_product_4_id = random.choice(products).id
-        home_content.product_section_2_product_5_id = random.choice(products).id
-        home_content.product_section_2_product_6_id = random.choice(products).id
-        home_content.product_section_2_product_7_id = random.choice(products).id
-        home_content.product_section_2_product_8_id = random.choice(products).id
-        home_content.product_section_2_product_9_id = random.choice(products).id
-        home_content.product_section_2_product_10_id = random.choice(products).id
-        home_content.product_section_2_product_11_id = random.choice(products).id
-        home_content.product_section_2_product_12_id = random.choice(products).id
+        home_content.products_of_section_2 = products_2[:4]
 
     categories = ProductCategory.query.filter(ProductCategory.active == True).all()
+    for i in range(1, R.dimen.max_n_more_categories+1):
+        if len(categories) >= i:
+            category = categories[i-1]
+            home_content.set_more_categories_section_category_n(i, category)
+            subcategories = [s for s in category.product_subcategories if s.active]
+            home_content.set_more_categories_section_category_n_subcategories(
+                i,
+                subcategories[0:random.choice([3, 4, 5, 6, 7, 8])]
+            )
 
-    if len(categories) >= 1:
-        category = categories[0]
-        home_content.more_categories_section_category_1_id = category.id
-        home_content.more_categories_section_category_1_image = "baby-1.png"
-        active_subcategories = []
-        for subcategory in category.product_subcategories:
-            if subcategory.active:
-                active_subcategories.append(subcategory)
-        if len(active_subcategories) >= 1:
-            home_content.more_categories_section_subcategory_1_of_category_1_id = active_subcategories[0].id
-        if len(active_subcategories) >= 2:
-            home_content.more_categories_section_subcategory_2_of_category_1_id = active_subcategories[1].id
-        if len(active_subcategories) >= 3:
-            home_content.more_categories_section_subcategory_3_of_category_1_id = active_subcategories[2].id
-        if len(active_subcategories) >= 4:
-            home_content.more_categories_section_subcategory_4_of_category_1_id = active_subcategories[3].id
-        if len(active_subcategories) >= 5:
-            home_content.more_categories_section_subcategory_5_of_category_1_id = active_subcategories[4].id
-
-    if len(categories) >= 2:
-        category = categories[1]
-        home_content.more_categories_section_category_2_id = category.id
-        home_content.more_categories_section_category_2_image = "baby-2.png"
-        active_subcategories = []
-        for subcategory in category.product_subcategories:
-            if subcategory.active:
-                active_subcategories.append(subcategory)
-        if len(active_subcategories) >= 1:
-            home_content.more_categories_section_subcategory_1_of_category_2_id = active_subcategories[0].id
-        if len(active_subcategories) >= 2:
-            home_content.more_categories_section_subcategory_2_of_category_2_id = active_subcategories[1].id
-        if len(active_subcategories) >= 3:
-            home_content.more_categories_section_subcategory_3_of_category_2_id = active_subcategories[2].id
-        if len(active_subcategories) >= 4:
-            home_content.more_categories_section_subcategory_4_of_category_2_id = active_subcategories[3].id
-        if len(active_subcategories) >= 5:
-            home_content.more_categories_section_subcategory_5_of_category_2_id = active_subcategories[4].id
-
-    if len(categories) >= 3:
-        category = categories[2]
-        home_content.more_categories_section_category_3_id = category.id
-        home_content.more_categories_section_category_3_image = "baby-3.png"
-        active_subcategories = []
-        for subcategory in category.product_subcategories:
-            if subcategory.active:
-                active_subcategories.append(subcategory)
-        if len(active_subcategories) >= 1:
-            home_content.more_categories_section_subcategory_1_of_category_3_id = active_subcategories[0].id
-        if len(active_subcategories) >= 2:
-            home_content.more_categories_section_subcategory_2_of_category_3_id = active_subcategories[1].id
-        if len(active_subcategories) >= 3:
-            home_content.more_categories_section_subcategory_3_of_category_3_id = active_subcategories[2].id
-        if len(active_subcategories) >= 4:
-            home_content.more_categories_section_subcategory_4_of_category_3_id = active_subcategories[3].id
-        if len(active_subcategories) >= 5:
-            home_content.more_categories_section_subcategory_5_of_category_3_id = active_subcategories[4].id
-
-    if len(categories) >= 4:
-        category = categories[3]
-        home_content.more_categories_section_category_4_id = category.id
-        home_content.more_categories_section_category_4_image = "baby-4.png"
-        active_subcategories = []
-        for subcategory in category.product_subcategories:
-            if subcategory.active:
-                active_subcategories.append(subcategory)
-        if len(active_subcategories) >= 1:
-            home_content.more_categories_section_subcategory_1_of_category_4_id = active_subcategories[0].id
-        if len(active_subcategories) >= 2:
-            home_content.more_categories_section_subcategory_2_of_category_4_id = active_subcategories[1].id
-        if len(active_subcategories) >= 3:
-            home_content.more_categories_section_subcategory_3_of_category_4_id = active_subcategories[2].id
-        if len(active_subcategories) >= 4:
-            home_content.more_categories_section_subcategory_4_of_category_4_id = active_subcategories[3].id
-        if len(active_subcategories) >= 5:
-            home_content.more_categories_section_subcategory_5_of_category_4_id = active_subcategories[4].id
-
-    if len(categories) >= 5:
-        category = categories[4]
-        home_content.more_categories_section_category_5_id = category.id
-        home_content.more_categories_section_category_5_image = "baby-5.png"
-        active_subcategories = []
-        for subcategory in category.product_subcategories:
-            if subcategory.active:
-                active_subcategories.append(subcategory)
-        if len(active_subcategories) >= 1:
-            home_content.more_categories_section_subcategory_1_of_category_5_id = active_subcategories[0].id
-        if len(active_subcategories) >= 2:
-            home_content.more_categories_section_subcategory_2_of_category_5_id = active_subcategories[1].id
-        if len(active_subcategories) >= 3:
-            home_content.more_categories_section_subcategory_3_of_category_5_id = active_subcategories[2].id
-        if len(active_subcategories) >= 4:
-            home_content.more_categories_section_subcategory_4_of_category_5_id = active_subcategories[3].id
-        if len(active_subcategories) >= 5:
-            home_content.more_categories_section_subcategory_5_of_category_5_id = active_subcategories[4].id
-
-    if len(categories) >= 6:
-        category = categories[5]
-        home_content.more_categories_section_category_6_id = category.id
-        home_content.more_categories_section_category_6_image = "baby-6.png"
-        active_subcategories = []
-        for subcategory in category.product_subcategories:
-            if subcategory.active:
-                active_subcategories.append(subcategory)
-        if len(active_subcategories) >= 1:
-            home_content.more_categories_section_subcategory_1_of_category_6_id = active_subcategories[0].id
-        if len(active_subcategories) >= 2:
-            home_content.more_categories_section_subcategory_2_of_category_6_id = active_subcategories[1].id
-        if len(active_subcategories) >= 3:
-            home_content.more_categories_section_subcategory_3_of_category_6_id = active_subcategories[2].id
-        if len(active_subcategories) >= 4:
-            home_content.more_categories_section_subcategory_4_of_category_6_id = active_subcategories[3].id
-        if len(active_subcategories) >= 5:
-            home_content.more_categories_section_subcategory_5_of_category_6_id = active_subcategories[4].id
-
-    blog_posts = BlogPost.query.filter(BlogPost.active == True).all()
-
-    if len(blog_posts) >= 1:
-        home_content.blog_section_1_active = True
-        home_content.blog_section_1_name = "Novidades do blog"
-        home_content.blog_section_1_link = "/blog"
-        home_content.blog_section_1_post_1_id = blog_posts[0].id
-        if len(blog_posts) >= 2:
-            home_content.blog_section_1_post_2_id = blog_posts[1].id
+    # blog_posts = BlogPost.query.filter(BlogPost.active == True).all()
+    #
+    # if len(blog_posts) >= 1:
+    #     home_content.blog_section_1_active = True
+    #     home_content.blog_section_1_name = "Novidades do blog"
+    #     home_content.blog_section_1_link = "/blog"
+    #     home_content.blog_section_1_post_1_id = blog_posts[0].id
+    #     if len(blog_posts) >= 2:
+    #         home_content.blog_section_1_post_2_id = blog_posts[1].id
 
     db.session.add(home_content)
     db.session.commit()

@@ -184,6 +184,18 @@ class HomeContent(BaseContent):
     def get_more_categories_n_img_src(self, n):
         return self.get_img_src(self.get_more_categories_n_image_filename(n), R.string.more_categories_default_filename)
 
+    def get_more_categories_section_category_n(self, n):
+        return getattr(self, "more_categories_section_category_" + str(n))
+
+    def set_more_categories_section_category_n(self, n, category):
+        return setattr(self, "more_categories_section_category_" + str(n), category)
+
+    def get_more_categories_section_category_n_subcategories(self, n):
+        return getattr(self, "more_categories_section_category_" + str(n) + "_subcategories")
+
+    def set_more_categories_section_category_n_subcategories(self, n, subcategories):
+        return setattr(self, "more_categories_section_category_" + str(n) + "_subcategories", subcategories)
+
     def get_section_is_active(self, section_number):
         return getattr(self, "product_section_" + str(section_number) + "_active", "")
 
@@ -228,3 +240,10 @@ class HomeContent(BaseContent):
         if self.product_section_5_active:
             n += 1
         return n
+
+    def has_more_categories_section(self):
+        for i in range(1, R.dimen.max_n_more_categories+1):
+            category = self.get_more_categories_section_category_n(i)
+            if category is not None and category.active:
+                return True
+        return False

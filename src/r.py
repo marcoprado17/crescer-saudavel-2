@@ -1718,9 +1718,12 @@ There's actually a lot more to Markdown than this. See the official [introductio
         product_image_size = (600, 600)
         blog_thumbnail_image_size = (900, 500)
         carousel_image_size = (1200, 400)
-        more_categories_image_size = (512, 512)
+        more_categories_image_size = (96, 96)
         tag_image_size = (48, 48)
         blog_thumbnail_wide_image_size = (540, 160)
 
+        max_n_products_section = 5
+        max_n_carousel = 3
+        max_n_more_categories = 6
 
 R = Resources()

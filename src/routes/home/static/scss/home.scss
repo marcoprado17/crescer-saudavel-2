@@ -107,10 +107,11 @@
 
     .column {
       padding: 4px;
+      min-width: 128px;
     }
 
     img {
-      width: 128px;
+      width: 96px;
     }
 
     ul {
@@ -145,24 +146,19 @@
   }
 
   .more-categories {
-    .title {
-      font-family: "HappyBirthdayBaby";
-      font-weight: bold;
-      font-size: 48px;
-      margin-top: 0;
-    }
-
     .category-title {
       font-family: "OpenSans";
-      font-size: 30px;
+      font-size: 16px;
       margin-top: 16px;
       border-bottom: none;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      color: $proj-gray-color;
     }
 
     .subcategory-title {
       font-family: "OpenSans";
-      font-size: 18px;
+      font-size: 14px;
+      color: $proj-gray-color;
     }
 
     .category-title:hover {
