@@ -4,7 +4,7 @@ from models_view.proj_base_view import ProjBaseView
 from r import R
 
 
-class DispatchView(BaseContentView):
+class DispatchContentView(BaseContentView):
     name = R.string.dispatch
     endpoint = R.string.dispatch_endpoint
 

@@ -4,7 +4,7 @@ from models_view.proj_base_view import ProjBaseView
 from r import R
 
 
-class FaqView(BaseContentView):
+class FaqContentView(BaseContentView):
     name = R.string.faq
     endpoint = R.string.faq_endpoint
 

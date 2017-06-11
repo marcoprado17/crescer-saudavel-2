@@ -7,8 +7,8 @@ from models.content.base_content import BaseContent
 from proj_extensions import db
 
 
-class Dispatch(BaseContent):
-    __tablename__ = "dispatch"
+class DispatchContent(BaseContent):
+    __tablename__ = "dispatch_content"
 
     content_markdown = db.Column(db.UnicodeText, default="")
     content_html = db.Column(db.UnicodeText, default="")

@@ -7,8 +7,8 @@ from models.content.base_content import BaseContent
 from proj_extensions import db
 
 
-class ExchangesAndReturns(BaseContent):
-    __tablename__ = "exchanges_and_returns"
+class ExchangesAndReturnsContent(BaseContent):
+    __tablename__ = "exchanges_and_returns_content"
 
     content_markdown = db.Column(db.UnicodeText, default="")
     content_html = db.Column(db.UnicodeText, default="")

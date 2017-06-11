@@ -4,7 +4,7 @@ from models_view.proj_base_view import ProjBaseView
 from r import R
 
 
-class AboutUsView(BaseContentView):
+class AboutUsContentView(BaseContentView):
     name = R.string.about_us
     endpoint = R.string.about_us_endpoint
 

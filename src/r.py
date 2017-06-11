@@ -1019,7 +1019,7 @@ Paragraphs must be separated by a blank line. Basic formatting of *italics* and 
 1. Item 1
 2. A second item
 3. Number 3
-4. Ⅳ
+4. IV
 
 *Note: the fourth item uses the Unicode character for [Roman numeral four][2].*
 
@@ -1076,7 +1076,7 @@ It's sometimes handy for breaking things up.
 
 ___
 
-![Bebê](/static/imagens/other/bebe_fofo.jpg "Babê")
+![Bebê](/static/imgs/other/bebe_fofo.jpg "Babê")
 
 ## Finally
 

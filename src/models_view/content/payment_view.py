@@ -4,7 +4,7 @@ from models_view.proj_base_view import ProjBaseView
 from r import R
 
 
-class PaymentView(BaseContentView):
+class PaymentContentView(BaseContentView):
     name = R.string.payment
     endpoint = R.string.payment_endpoint
 

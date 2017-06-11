@@ -4,7 +4,7 @@ from models_view.proj_base_view import ProjBaseView
 from r import R
 
 
-class ExchangesAndReturnsView(BaseContentView):
+class ExchangesAndReturnsContentView(BaseContentView):
     name = R.string.exchanges_and_returns
     endpoint = R.string.exchanges_and_returns_endpoint
 

@@ -8,7 +8,9 @@
       <div class="cardview">
         <h2>{{ title }}</h2>
         <hr>
-        {{ content_html|safe }}
+        <div class="markdown-parsed-container">
+          {{ content_html|safe }}
+        </div>
       </div>
     </div>
   </div>

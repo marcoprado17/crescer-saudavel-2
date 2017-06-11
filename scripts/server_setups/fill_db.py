@@ -33,6 +33,10 @@ from models.blog.blog_tag import BlogTag
 from models.images.other_image import OtherImage
 from r import R
 from proj_utils import parse_markdown
+from models.content.faq import FaqContent
+from models.content.dispatch import DispatchContent
+from models.content.exchanges_and_returns import ExchangesAndReturnsContent
+from models.content.payment import PaymentContent
 
 # n_product_categories = 5
 # n_product_subcategories = 20
@@ -112,6 +116,10 @@ def fill_db():
         create_footer_data()
         create_contact_data()
         create_about_us_data()
+        create_faq_data()
+        create_payment_data()
+        create_dispatch_data()
+        create_exchanges_and_returns_data()
         create_tags_row_data()
         create_home_content_data()
 
@@ -410,14 +418,54 @@ def create_contact_data():
 
 
 def create_about_us_data():
-    about_us = AboutUsContent.get()
+    about_us_content = AboutUsContent.get()
 
-    about_us.summary_markdown = R.string.about_us_summary_example
-    about_us.summary_html = parse_markdown(about_us.summary_markdown)
-    about_us.content_markdown = R.string.about_us_content_example
-    about_us.content_html = parse_markdown(about_us.content_markdown)
+    about_us_content.summary_markdown = R.string.about_us_summary_example
+    about_us_content.summary_html = parse_markdown(about_us_content.summary_markdown)
+    about_us_content.content_markdown = R.string.about_us_content_example
+    about_us_content.content_html = parse_markdown(about_us_content.content_markdown)
 
-    db.session.add(about_us)
+    db.session.add(about_us_content)
+    db.session.commit()
+
+
+def create_faq_data():
+    faq_content = FaqContent.get()
+
+    faq_content.content_markdown = R.string.faq_content_example
+    faq_content.content_html = parse_markdown(faq_content.content_markdown)
+
+    db.session.add(faq_content)
+    db.session.commit()
+
+
+def create_payment_data():
+    payment_content = PaymentContent.get()
+
+    payment_content.content_markdown = R.string.markdown_example
+    payment_content.content_html = parse_markdown(payment_content.content_markdown)
+
+    db.session.add(payment_content)
+    db.session.commit()
+
+
+def create_dispatch_data():
+    dispatch_content = DispatchContent.get()
+
+    dispatch_content.content_markdown = R.string.markdown_example
+    dispatch_content.content_html = parse_markdown(dispatch_content.content_markdown)
+
+    db.session.add(dispatch_content)
+    db.session.commit()
+
+
+def create_exchanges_and_returns_data():
+    exchanges_and_returns_content = ExchangesAndReturnsContent.get()
+
+    exchanges_and_returns_content.content_markdown = R.string.markdown_example
+    exchanges_and_returns_content.content_html = parse_markdown(exchanges_and_returns_content.content_markdown)
+
+    db.session.add(exchanges_and_returns_content)
     db.session.commit()
 
 

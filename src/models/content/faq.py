@@ -7,8 +7,8 @@ from proj_extensions import db
 from models.base import BaseModel
 
 
-class Faq(BaseModel):
-    __tablename__ = "faq"
+class FaqContent(BaseModel):
+    __tablename__ = "faq_content"
 
     content_markdown = db.Column(db.UnicodeText, default="")
     content_html = db.Column(db.UnicodeText, default="")

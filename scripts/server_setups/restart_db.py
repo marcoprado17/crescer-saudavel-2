@@ -17,14 +17,14 @@ from proj_extensions import db
 from models.state import State
 from models.content.about_us import AboutUsContent
 from models.content.contact import Contact
-from models.content.dispatch import Dispatch
-from models.content.exchanges_and_returns import ExchangesAndReturns
-from models.content.faq import Faq
+from models.content.dispatch import DispatchContent
+from models.content.exchanges_and_returns import ExchangesAndReturnsContent
+from models.content.faq import FaqContent
 from models.content.footer import Footer
 from models.content.header import HeaderContent
 from models.content.home_content import HomeContent
 from models.newsletter_emails import NewsletterEmails
-from models.content.payment import Payment
+from models.content.payment import PaymentContent
 from models.content.tags_row import TagsRow
 from models.user.user import User
 from models.content.blog import BlogContent
@@ -133,7 +133,7 @@ def create_about_us():
 
 
 def create_faq():
-    faq = Faq()
+    faq = FaqContent()
     db.session.add(faq)
     db.session.commit()
     print "Faq created."
@@ -141,7 +141,7 @@ def create_faq():
 
 
 def create_payment():
-    payment = Payment()
+    payment = PaymentContent()
     db.session.add(payment)
     db.session.commit()
     print "Payment created."
@@ -149,7 +149,7 @@ def create_payment():
 
 
 def create_dispatch():
-    dispatch = Dispatch()
+    dispatch = DispatchContent()
     db.session.add(dispatch)
     db.session.commit()
     print "Dispatch created."
@@ -157,7 +157,7 @@ def create_dispatch():
 
 
 def create_exchanges_and_returns():
-    exchanges_and_returns = ExchangesAndReturns()
+    exchanges_and_returns = ExchangesAndReturnsContent()
     db.session.add(exchanges_and_returns)
     db.session.commit()
     print "ExchangesAndReturns created."

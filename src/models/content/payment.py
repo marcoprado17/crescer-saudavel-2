@@ -7,8 +7,8 @@ from models.content.base_content import BaseContent
 from proj_extensions import db
 
 
-class Payment(BaseContent):
-    __tablename__ = "payment"
+class PaymentContent(BaseContent):
+    __tablename__ = "payment_content"
 
     content_markdown = db.Column(db.UnicodeText, default="")
     content_html = db.Column(db.UnicodeText, default="")

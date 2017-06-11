@@ -108,14 +108,6 @@ def create_app():
     app.register_blueprint(client_cart_blueprint, url_prefix="/carrinho")
     from routes.client_checkout import client_checkout_blueprint
     app.register_blueprint(client_checkout_blueprint, url_prefix="/finalizacao-de-compra")
-    from routes.client_faq import client_faq_blueprint
-    app.register_blueprint(client_faq_blueprint, url_prefix="/faq")
-    from routes.client_payment import client_payment_blueprint
-    app.register_blueprint(client_payment_blueprint, url_prefix="/pagamento")
-    from routes.client_dispatch import client_dispatch_blueprint
-    app.register_blueprint(client_dispatch_blueprint, url_prefix="/envio")
-    from routes.client_exchanges_and_returns import client_exchanges_and_returns_blueprint
-    app.register_blueprint(client_exchanges_and_returns_blueprint, url_prefix="/trocas-e-devolucoes")
     from routes.home import home_blueprint
     app.register_blueprint(home_blueprint, url_prefix="/home")
     from routes.client_products import client_products_blueprint
@@ -285,19 +277,19 @@ def create_app():
     from models.images.other_image import OtherImage
     from models_view.images.other_image_view import OtherImageView
     from models.content.about_us import AboutUsContent
-    from models_view.content.about_us_view import AboutUsView
-    from models.content.dispatch import Dispatch
-    from models_view.content.dispatch_view import DispatchView
-    from models.content.exchanges_and_returns import ExchangesAndReturns
-    from models_view.content.exchanges_and_returns_view import ExchangesAndReturnsView
-    from models.content.faq import Faq
-    from models_view.content.faq_view import FaqView
+    from models_view.content.about_us_view import AboutUsContentView
+    from models.content.dispatch import DispatchContent
+    from models_view.content.dispatch_view import DispatchContentView
+    from models.content.exchanges_and_returns import ExchangesAndReturnsContent
+    from models_view.content.exchanges_and_returns_view import ExchangesAndReturnsContentView
+    from models.content.faq import FaqContent
+    from models_view.content.faq_view import FaqContentView
     from models_view.content.footer_view import FooterView
     from models.content.footer import Footer
     from models_view.content.header_view import HeaderContentView
     from models.content.header import HeaderContent
-    from models_view.content.payment_view import PaymentView
-    from models.content.payment import Payment
+    from models_view.content.payment_view import PaymentContentView
+    from models.content.payment import PaymentContent
     from models.content.contact import Contact
     from models_view.content.contact_view import ContactView
     from models.content.home_content import HomeContent
@@ -320,13 +312,13 @@ def create_app():
     admin.add_view(BlogTagView(BlogTag, db.session))
     admin.add_view(UserView(User, db.session))
     admin.add_view(OrderView(Order, db.session))
-    admin.add_view(AboutUsView(AboutUsContent, db.session))
-    admin.add_view(DispatchView(Dispatch, db.session))
-    admin.add_view(ExchangesAndReturnsView(ExchangesAndReturns, db.session))
-    admin.add_view(FaqView(Faq, db.session))
+    admin.add_view(AboutUsContentView(AboutUsContent, db.session))
+    admin.add_view(DispatchContentView(DispatchContent, db.session))
+    admin.add_view(ExchangesAndReturnsContentView(ExchangesAndReturnsContent, db.session))
+    admin.add_view(FaqContentView(FaqContent, db.session))
     admin.add_view(FooterView(Footer, db.session))
     admin.add_view(HeaderContentView(HeaderContent, db.session))
-    admin.add_view(PaymentView(Payment, db.session))
+    admin.add_view(PaymentContentView(PaymentContent, db.session))
     admin.add_view(ContactView(Contact, db.session))
     admin.add_view(HomeContentView(HomeContent, db.session))
     admin.add_view(TagsRowView(TagsRow, db.session))
