@@ -6,6 +6,8 @@
 import datetime
 import random
 import sys
+import os
+import shutil
 
 sys.path.append("/vagrant")
 sys.path.append("/vagrant/build")
@@ -32,11 +34,14 @@ from random_bombril import get_random_string, get_random_price, get_random_phras
 from models.blog.blog_tag import BlogTag
 from models.images.other_image import OtherImage
 from r import R
-from proj_utils import parse_markdown
+from proj_utils import parse_markdown, generate_uuid_filename
 from models.content.faq import FaqContent
 from models.content.dispatch import DispatchContent
 from models.content.exchanges_and_returns import ExchangesAndReturnsContent
 from models.content.payment import PaymentContent
+from configs import default_app_config as config
+from models.content.header import HeaderContent
+
 
 n_product_categories = 5
 n_product_subcategories = 20
@@ -122,6 +127,7 @@ def fill_db():
         create_exchanges_and_returns_data()
         create_tags_row_data()
         create_home_content_data()
+        create_header_content_data()
 
 
 def create_blog_link_example_image():
@@ -146,8 +152,23 @@ def create_random_product_categories():
 def get_random_product_category():
     return ProductCategory(
         name=get_random_string(random.randint(4, 8))[0:R.dimen.product_category_name_max_length],
-        active=random.choice([True, False])
+        active=random.choice([True, False]),
+        icon_filename=get_random_valid_menu_icon_filename_for_model()
     )
+
+
+def get_random_valid_menu_icon_filename_for_model():
+    src = config.MENU_ICON_IMGS_SRC_FULL_PATH
+    dest = config.MODEL_IMAGES_FULL_PATH
+    if not os.path.exists(dest):
+        os.makedirs(dest)
+    src_files = os.listdir(src)
+    old_filename = random.choice(src_files)
+    new_filename = generate_uuid_filename(old_filename)
+    full_file_name = os.path.join(src, old_filename)
+    if os.path.isfile(full_file_name):
+        shutil.copy(full_file_name, os.path.join(dest, new_filename))
+    return new_filename
 
 
 def create_random_product_subcategories():
@@ -530,6 +551,15 @@ def create_home_content_data():
             home_content.blog_section_1_post_2 = blog_posts[1]
 
     db.session.add(home_content)
+    db.session.commit()
+
+
+def create_header_content_data():
+    header_content = HeaderContent.get()
+
+    header_content.blog_menu_icon_image_filename = get_random_valid_menu_icon_filename_for_model()
+
+    db.session.add(header_content)
     db.session.commit()
 
 

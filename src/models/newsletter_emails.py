@@ -17,6 +17,7 @@ class NewsletterEmails(BaseModel):
 
     @staticmethod
     def get():
+        # type: () -> object
         newsletter_emails = NewsletterEmails.query.all()
         if len(newsletter_emails) != 1:
             raise InconsistentDataBaseError

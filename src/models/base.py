@@ -29,6 +29,7 @@ class BaseModel(db.Model):
     # noinspection PyShadowingBuiltins
     @classmethod
     def get(cls, id=None):
+        # type: (object) -> object
         if id is None:
             return cls.query.one()
         else:

@@ -8,6 +8,7 @@ class BaseContent(BaseModel):
     # noinspection PyMethodOverriding
     @classmethod
     def get(cls):
+        # type: () -> object
         models = cls.query.all()
         if len(models) != 1:
             raise InconsistentDataBaseError

@@ -133,10 +133,14 @@ def create_blog_thumbnail_image(file_path, file_name):
         image.save(os.path.join(os.path.join(blog_thumbnails_folder_path, file_name)))
 
 
+def generate_uuid_filename(old_filename):
+    extension = splitext(old_filename)[-1]
+    return secure_filename(str(uuid4()) + extension)
+
+
 def build_model_image_upload_field(label, size=None):
     def namegen(_, file_data):
-        extension = splitext(file_data.filename)[-1]
-        return secure_filename(str(uuid4()) + extension)
+        return generate_uuid_filename(file_data.filename)
 
     return form.ImageUploadField(label,
                                  namegen=namegen,
