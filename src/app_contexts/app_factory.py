@@ -180,6 +180,10 @@ def create_app():
             session['_csrf_token'] = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(R.dimen.csrf_length))
         return session['_csrf_token']
 
+    def _request_related_to_product_category(product_category):
+        # TODO: Implement it
+        return True
+
     @app.context_processor
     def _():
         return dict(
@@ -192,7 +196,8 @@ def create_app():
             get_header_data=lambda: header_data_provider.get_data(),
             get_header_content=lambda: HeaderContent.get(),
             csrf_token=_generate_csrf_token,
-            current_url=current_url
+            current_url=current_url,
+            request_related_to_product_category=_request_related_to_product_category
         )
 
     # ==================================================================================================================

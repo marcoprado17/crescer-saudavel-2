@@ -30,6 +30,7 @@
 
 <div class="__components__ __header__">
   <header>
+{#    TODO: Test if the active nav item is functioning for every pertinent case#}
     <nav class="navbar navbar-default">
       <div class="navbar-header">
         <div class="mobile-menu-row">
@@ -49,21 +50,42 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-          <li><a href="#">Link</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
+          <li class="{{ 'active'|if(request.path == url_for('home.home')) }}">
+            <a href="{{ url_for('home.home') }}">
+              {{ R.string.home }}
+            </a>
           </li>
+          {% if (not data.user.is_anonymous) and data.user.is_authenticated %}
+            <li class="{{ 'active'|if(request.path == url_for('client_account.my_account')) }}">
+              <a href="{{ url_for('client_account.my_account') }}">
+                {{ R.string.my_account }}
+              </a>
+            </li>
+          {% else %}
+            <li class="{{ 'active'|if(request.path == url_for('client_user_management.login')) }}">
+              <a href="{{ url_for('client_user_management.login') }}">
+                {{ R.string.enter }}
+              </a>
+            </li>
+            <li class="{{ 'active'|if(request.path == url_for('client_user_management.register')) }}">
+              <a href="{{ url_for('client_user_management.register') }}">
+                {{ R.string.register }}
+              </a>
+            </li>
+          {% endif %}
+          <li class="{{ 'active'|if(request.path == url_for('client_cart.cart')) }}">
+            <a href="{{ url_for('client_cart.cart') }}">
+              {{ R.string.cart }}
+            </a>
+          </li>
+          {% for product_category in data.product_categories %}
+            {% set is_active=request_related_to_product_category(product_category) %}
+            <li class="{{ 'active'|if(is_active)}}">
+              <a href="{{ product_category.get_href() }}">
+                {{ product_category.name }}
+              </a>
+            </li>
+          {% endfor %}
         </ul>
       </div>
     </nav>
