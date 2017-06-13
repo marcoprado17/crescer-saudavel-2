@@ -192,11 +192,14 @@ class Resources(object):
             orders="Pedidos",
             blog_tag="Tag",
             main_image_filename="Imagem principal",
-            main_image_active="Imagem principal ativa"
+            main_image_active="Imagem principal ativa",
+            icon_filename="Imagem do Ícone",
+            blog_menu_icon="Ícone do blog no menu"
         )
 
     # noinspection PyPep8Naming
     class string(object):
+        default_menu_icon_filename = "menu_icon_default.jpg"
         change_status = "mudar-status"
         my_information = "Minhas informações"
         resend_confirmation_email_query = "Deseja reenviar o email de confirmação?"
@@ -799,6 +802,8 @@ class Resources(object):
         blog_content = "Conteúdo do blog"
         blog_content_endpoint = "conteudo-do-blog"
         logo_image = "Imagem do logo"
+        menu_icon = "Ícone no menu"
+        blog_menu_icon = "Ícone do blog no menu"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1577,6 +1582,10 @@ There's actually a lot more to Markdown than this. See the official [introductio
                 url_for("client_user_management.register")
             )
 
+        @staticmethod
+        def menu_icon_tooltip(menu_icon_size):
+            return "Tamanho ideal dos ícones do menu: %sx%s" % menu_icon_size
+
     # noinspection PyPep8Naming
     @unique
     class id(Enum):
@@ -1721,6 +1730,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
         more_categories_image_size = (96, 96)
         tag_image_size = (48, 48)
         blog_thumbnail_wide_image_size = (540, 160)
+        menu_icon_size = (24, 24)
 
         max_n_products_section = 5
         max_n_carousel = 3

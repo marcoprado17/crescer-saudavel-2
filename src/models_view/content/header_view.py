@@ -13,8 +13,10 @@ class HeaderContentView(BaseContentView):
     column_formatters = dict(
         logo=lambda view, context, model, name:
         Markup("<img style='max-width: 150px;max-height: 50px;' src='%s'>" % model.get_logo_img_src()),
+        blog_menu_icon=lambda view, context, model, name:
+        Markup("<img src='%s'>" % model.get_blog_menu_icon_img_src()),
     )
-    column_list = ["n_visible_categories", "logo"]
+    column_list = ["n_visible_categories", "logo", "blog_menu_icon"]
 
     form_args = dict(
         n_visible_categories=dict(
@@ -24,5 +26,6 @@ class HeaderContentView(BaseContentView):
         )
     )
     form_extra_fields = dict(
-        logo_image_filename=build_model_image_upload_field(label=R.string.logo_image)
+        logo_image_filename=build_model_image_upload_field(label=R.string.logo_image),
+        blog_menu_icon_image_filename=build_model_image_upload_field(label=R.string.blog_menu_icon, size=R.dimen.menu_icon_size)
     )

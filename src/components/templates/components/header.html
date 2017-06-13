@@ -4,7 +4,7 @@
   {% for product_subcategory in product_category.product_subcategories %}
     {% if product_subcategory.active %}
       <a class="subcategory" href="{{ product_subcategory.get_href() }}">
-          {{ product_subcategory.name }}
+        {{ product_subcategory.name }}
       </a><br>
     {% endif %}
   {% endfor %}
@@ -13,7 +13,7 @@
 <div class="__components__ __header__">
   <header>
     <div class="container">
-{#      TODO: Implement the correct mobile nav#}
+      {#      TODO: Implement the correct mobile nav#}
       <nav class="navbar navbar-default">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -71,13 +71,21 @@
       <div class="second-row">
         <div class="dropdown">
           <a class="menu-item btn blog" href="{{ url_for("blog.main") }}" class="menu-item">
+            {% if data.header_content.has_blog_icon_img() %}
+              <img class="menu-icon" src="{{ data.header_content.get_blog_menu_icon_img_src() }}">
+            {% endif %}
             {{ R.string.blog }}
           </a>
         </div>
         {% for product_category in data.product_categories %}
           {% if loop.index0 < data.header_content.n_visible_categories %}
             <div class="dropdown">
-              <a class="menu-item btn" href="{{ product_category.get_href() }}">{{ product_category.name }}</a>
+              <a class="menu-item btn" href="{{ product_category.get_href() }}">
+                {% if product_category.has_menu_icon_image() %}
+                  <img class="menu-icon" src="{{ product_category.get_menu_icon_image_src() }}">
+                {% endif %}
+                {{ product_category.name }}
+              </a>
               <div class="dropdown-content">
                 {{ product_subcategories_list(product_category) }}
               </div>
