@@ -80,15 +80,18 @@
         {% for product_category in data.product_categories %}
           {% if loop.index0 < data.header_content.n_visible_categories %}
             <div class="dropdown">
-              <a class="menu-item btn" href="{{ product_category.get_href() }}">
+              {% set has_active_subcategory = product_category.has_active_subcategory() %}
+              <a class="menu-item btn {{ 'all-rounded'|if(not has_active_subcategory) }}" href="{{ product_category.get_href() }}">
                 {% if product_category.has_menu_icon_image() %}
                   <img class="menu-icon" src="{{ product_category.get_menu_icon_image_src() }}">
                 {% endif %}
                 {{ product_category.name }}
               </a>
-              <div class="dropdown-content">
-                {{ product_subcategories_list(product_category) }}
-              </div>
+              {% if has_active_subcategory %}
+                <div class="dropdown-content">
+                  {{ product_subcategories_list(product_category) }}
+                </div>
+              {% endif %}
             </div>
           {% endif %}
         {% endfor %}

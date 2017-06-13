@@ -33,7 +33,6 @@ class ProductCategory(BaseModel):
     def has_active_subcategory(self):
         has_active_subcategory = ProductSubcategory.query.filter(ProductSubcategory.product_category_id == self.id)\
                    .filter(ProductSubcategory.active == True).count() > 0
-        print "has_active_subcategory: " + str(has_active_subcategory)
         return has_active_subcategory
 
     def get_menu_icon_image_src(self):
