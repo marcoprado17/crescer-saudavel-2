@@ -1,0 +1,405 @@
+.__products__.__product__ {
+  $main-container-items-spacing: $sm-a-spacing;
+  $catalog-img-size: 140px;
+  $main-img-max-size: 4 * $catalog-img-size + 3 * $main-container-items-spacing;
+
+  .__striked_content__ {
+    margin-bottom: $lg-a-spacing;
+  }
+
+  .title-container {
+    text-align: center;
+    margin-bottom: $lg-a-spacing;
+  }
+
+  .main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main-container .catalog-imgs-container {
+    .catalog-img-container {
+      margin: $main-container-items-spacing;
+      max-width: $catalog-img-size;
+      max-height: $catalog-img-size;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .main-container .main-img-container {
+    max-width: $main-img-max-size;
+    max-height: $main-img-max-size;
+    margin: $main-container-items-spacing;
+    flex-grow: 2;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .main-container .buy-box-container {
+    padding: $md-a-spacing;
+    margin: $main-container-items-spacing;
+    flex-grow: 1;
+    text-align: center;
+    font-size: $md-c-font-size;
+
+    .big-price {
+      font-size: $lg-d-font-size;
+    }
+
+    .quantity-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: $md-a-spacing;
+    }
+
+    .quantity-container input.quantity {
+      $size: 65px;
+      width: $size;
+      height: $size;
+      text-align: center;
+      border-radius: $infinite-border-radius;
+      margin: 0 $sm-b-spacing;
+      font-size: $lg-a-font-size;
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+      }
+    }
+
+    .quantity-container .change-quantity {
+      $size: 40px;
+      width: $size;
+      height: $size;
+      border-radius: $infinite-border-radius;
+      border: none;
+      outline: none;
+      text-align: center;
+    }
+
+    button.buy {
+      border-radius: $md-c-border-radius;
+      padding: $sm-b-spacing $sm-c-spacing;
+      font-family: "HappyBirthdayBaby";
+      font-size: $md-e-font-size;
+      margin-bottom: $md-a-spacing;
+    }
+
+    .safe-buy-container {
+      margin-bottom: $md-a-spacing;
+
+      img {
+        width: 32px;
+      }
+    }
+  }
+
+  .description-and-additional-info-container {
+    display: flex;
+    margin-bottom: $lg-c-spacing;
+
+    .description, .additional-info {
+      padding: $sm-c-spacing;
+      margin: $main-container-items-spacing;
+
+      .title {
+        font-family: "HappyBirthdayBaby";
+        font-size: $lg-b-font-size;
+      }
+    }
+
+    .description {
+      flex-grow: 1;
+    }
+
+    .additional-info {
+      flex-grow: 1;
+      min-width: 55%;
+
+      .nav-tabs {
+        font-size: $md-b-font-size;
+        margin-bottom: $md-a-spacing;
+      }
+
+      a {
+        color: $text-color-dark;
+      }
+    }
+  }
+
+  .more-product-container {
+    .title {
+      font-family: "HappyBirthdayBabyMedium";
+      text-align: center;
+      color: $text-color-dark;
+      font-size: $lg-b-font-size;
+      margin-bottom: $md-b-spacing;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .main-container .catalog-imgs-container {
+      display: flex;
+
+      .catalog-img-container {
+        max-width: 96px;
+      }
+    }
+
+    .main-container .main-img-container {
+      width: 100%;
+      max-width: none;
+      max-height: none;
+    }
+
+    .description-and-additional-info-container {
+      flex-wrap: wrap;
+    }
+  }
+  //.photo-catalog-price-buy-box-container {
+  //  display: flex;
+  //  overflow: hidden;
+  //  flex-wrap: wrap;
+  //  justify-content: center;
+  //}
+  //
+  //.photo-catalog {
+  //  display: block;
+  //  margin-bottom: 8px;
+  //
+  //  img {
+  //    margin-top: 8px;
+  //    width: 100%;
+  //    cursor: pointer;
+  //    max-width: 144px;
+  //    min-width: 60px;
+  //    transition: all .2s ease-in-out;
+  //    margin-left: 12px;
+  //  }
+  //
+  //  img:hover {
+  //    overflow: visible;
+  //    transform: scale(1.02);
+  //    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.75);
+  //  }
+  //}
+  //
+  //.main-photo {
+  //  max-width: 900px;
+  //  margin: 8px;
+  //
+  //  img {
+  //    width: 100%;
+  //    min-width: 280px;
+  //  }
+  //}
+  //
+  //.price-buy-box-col {
+  //  flex: 1;
+  //  min-width: 280px;
+  //  padding-top: 8px;
+  //  padding-bottom: 8px;
+  //}
+  //
+  //.price-buy-box {
+  //  height: 100%;
+  //  margin: 0;
+  //  text-align: center;
+  //  background-color: white;
+  //  margin-right: 8px;
+  //  font-family: "OpenSans";
+  //  padding: 8px;
+  //  padding-top: 36px;
+  //  max-width: 600px;
+  //
+  //  hr {
+  //    max-width: 240px;
+  //    height: 1px;
+  //  }
+  //
+  //  .old-price p {
+  //    margin-bottom: 12px;
+  //  }
+  //
+  //  .price-line {
+  //    margin-bottom: 40px;
+  //  }
+  //
+  //  .safe-buy-container {
+  //    margin-bottom: 36px;
+  //  }
+  //
+  //  button.items-count {
+  //    padding: 6px 8px;
+  //    margin-top: 20px;
+  //  }
+  //
+  //  button.items-count:hover {
+  //    color: white;
+  //  }
+  //
+  //  input.qty {
+  //    width: 64px;
+  //    height: 64px;
+  //    font-size: 28px;
+  //    font-family: "OpenSans";
+  //  }
+  //}
+  //
+  //.page-title {
+  //  font-family: "OpenSans";
+  //  font-weight: bold;
+  //  font-size: 48px;
+  //  text-align: center;
+  //  margin-bottom: 40px;
+  //}
+  //
+  //.qtd-container {
+  //  display: flex;
+  //  align-items: center;
+  //  justify-content: center;
+  //  margin-top: 42px;
+  //
+  //  input.qty {
+  //    border-radius: 256px;
+  //    text-align: center;
+  //  }
+  //
+  //  button.items-count {
+  //    border-radius: 128px;
+  //    border: none;
+  //    background-color: $dark-yellow;
+  //    color: $proj-dark-gray-color;
+  //    margin-top: 0;
+  //    outline: none;
+  //
+  //    &:hover {
+  //      transition: all .2s ease-in-out;
+  //      background-color: $proj-dark-gray-color;
+  //      color: white;
+  //    }
+  //  }
+  //
+  //  button.plus {
+  //    margin-right: 10px;
+  //  }
+  //
+  //  button.minus {
+  //    margin-left: 10px;
+  //  }
+  //}
+  //
+  //button.buy {
+  //  margin-top: 36px;
+  //  margin-bottom: 12px;
+  //  font-family: "HappyBirthdayBaby";
+  //  border-radius: 6px;
+  //  width: 180px;
+  //  font-size: 36px;
+  //  height: 50px;
+  //  background-color: $dark-yellow;
+  //  border: none;
+  //  color: $proj-dark-gray-color;
+  //
+  //  &:hover {
+  //    background-color: $proj-dark-gray-color;
+  //    color: white;
+  //  }
+  //}
+  //
+  //.pull-left {
+  //  float: none !important;
+  //}
+  //
+  //.padlock {
+  //  width: 28px;
+  //  margin-left: 4px;
+  //}
+  //
+  //.price {
+  //  font-size: 42px;
+  //  font-weight: bold;
+  //}
+  //
+  //#product-detail-tab li {
+  //  margin-bottom: 8px;
+  //}
+  //
+  //.tab-content {
+  //  padding-top: 8px;
+  //}
+  //
+  //.what-do-we-have-more-for-you-title-container {
+  //  text-align: center;
+  //}
+  //
+  //.description-and-additional-info-box {
+  //  font-family: "OpenSans";
+  //  font-size: 13px;
+  //
+  //  h1 {
+  //    font-size: 48px;
+  //    font-family: "HappyBirthdayBaby";
+  //  }
+  //}
+  //
+  //.product-tabs li a {
+  //  font-family: "OpenSans";
+  //}
+  //
+  //.more-products {
+  //  h1 {
+  //    font-family: "HappyBirthdayBaby";
+  //    font-size: 48px;
+  //  }
+  //}
+  //
+  //@media screen and (max-width: 1199px) {
+  //  .price-buy-box {
+  //    margin-left: auto;
+  //    margin-right: auto;
+  //  }
+  //}
+  //
+  //@media screen and (min-width: 768px) {
+  //  .mobile-tab-content {
+  //    display: none;
+  //  }
+  //}
+  //
+  //@media screen and (max-width: 767px) {
+  //  .tab-content.no-mobile {
+  //    display: none;
+  //  }
+  //
+  //  #product-detail-tab li {
+  //    //margin-top: 8px;
+  //  }
+  //}
+  //
+  //@media screen and (max-width: 991px) {
+  //  .photo-catalog {
+  //    display: flex;
+  //    justify-content: center;
+  //    width: 100%;
+  //    img {
+  //      float: left;
+  //      width: 64px;
+  //      height: 64px;
+  //    }
+  //    img:not(:first-child){
+  //      margin-left: 8px;
+  //    }
+  //  }
+  //}
+}

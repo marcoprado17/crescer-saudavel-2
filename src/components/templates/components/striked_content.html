@@ -1,0 +1,31 @@
+<div class="__components__ __striked_content__ {{ class }}">
+  {% if not left %}
+    <div class="left line"></div>
+  {% endif %}
+  {% if text %}
+    <div class="content">
+      {% if link %}
+        <a href="{{ link }}">{{ text|safe }}</a>
+      {% else %}
+        {{ text|safe }}
+      {% endif %}
+    </div>
+  {% elif breadcumb and breadcumb|length > 0 %}
+    <div class="content">
+      {% for breadcumb_item in breadcumb %}
+        {% if breadcumb_item is string %}
+          {{ breadcumb_item }}
+        {% elif breadcumb_item|length == 2 %}
+          <a href="{{ breadcumb_item[1] }}">{{ breadcumb_item[0] }}</a>
+        {% endif %}
+        {% if not loop.last %}
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if not right %}
+      <div class="right line"></div>
+  {% endif %}
+</div>

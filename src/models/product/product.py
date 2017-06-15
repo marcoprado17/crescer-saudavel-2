@@ -4,6 +4,7 @@
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 from decimal import Decimal
+from flask import url_for
 from markupsafe import Markup
 from sqlalchemy import ForeignKey
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -92,6 +93,21 @@ class Product(BaseModel):
     def get_image_n_src(self, n):
         return self.get_img_src(self.get_image_n_filename(n), R.string.product_default_filename)
 
+    def get_imgs_src(self):
+        imgs_src = []
+        for i in range(1, R.dimen.max_n_product_img + 1):
+            if self.has_image(self.get_image_n_filename(i)):
+                imgs_src.append(self.get_image_n_src(i))
+        if len(imgs_src) == 0:
+            imgs_src.append(self.get_image_n_src(1))
+        return imgs_src
+
+    def get_main_img_src(self):
+        for i in range(1, R.dimen.max_n_product_img + 1):
+            if self.has_image(self.get_image_n_filename(i)):
+                return self.get_image_n_src(i)
+        return self.get_image_n_src(1)
+
     def get_tab_n_active(self, n):
         return getattr(self, "tab_" + str(n) + "_active")
 
@@ -109,9 +125,21 @@ class Product(BaseModel):
     def get_price(self, n_units=1):
         return n_units*self.price
 
-    # TODO: Implement the correct href
     def get_href(self):
-        return "#"
+        return url_for("products.product", **{R.string.product_id_arg_name: self.id})
+
+    def get_active_tabs(self):
+        active_tabs = []
+        for i in range(1, R.dimen.max_n_product_tabs + 1):
+            if self.get_tab_n_active(i):
+                active_tabs.append(i)
+        return active_tabs
+
+    def has_active_tab(self):
+        return len(self.get_active_tabs()) > 0
+
+    def has_description(self):
+        return self.summary_html
 
     @staticmethod
     def calculate_price_with_discount(price, discount_percentage):

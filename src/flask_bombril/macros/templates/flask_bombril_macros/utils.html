@@ -15,3 +15,7 @@
         <span class="text-container" data-toggle="tooltip" title="{{ text }}">{{ (text|string)[0:max_length-3] }}...</span>
     {% endif %}
 {%- endmacro %}
+
+{% macro csrf_input() %}
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+{% endmacro %}

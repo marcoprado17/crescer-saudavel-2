@@ -8,7 +8,7 @@
 {% block content %}
   <div class="__blog__ __search__ container">
     {% with text=R.string.search_for(q), class="title" %}
-      {% include "components/striked_text.html" %}
+      {% include "components/striked_content.html" %}
     {% endwith %}
       {% if blog_posts_pagination.total > 0 %}
         {% with pagination=blog_posts_pagination %}

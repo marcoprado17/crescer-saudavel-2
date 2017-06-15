@@ -110,8 +110,8 @@ def create_app():
     app.register_blueprint(client_checkout_blueprint, url_prefix="/finalizacao-de-compra")
     from routes.home import home_blueprint
     app.register_blueprint(home_blueprint, url_prefix="/home")
-    from routes.client_products import client_products_blueprint
-    app.register_blueprint(client_products_blueprint, url_prefix="/produtos")
+    from routes.products import products_blueprint
+    app.register_blueprint(products_blueprint, url_prefix="/produtos")
     from routes.client_search import client_search_blueprint
     app.register_blueprint(client_search_blueprint, url_prefix="/busca")
     from routes.client_user_management import client_user_management_blueprint

@@ -126,7 +126,7 @@
           {% endif %}
         {% endfor %}
         <div class="dropdown">
-          <a class="menu-item btn" href="{{ url_for("client_products.products") }}">{{ R.string.others }}</a>
+          <a class="menu-item btn" href="{{ url_for("products.products") }}">{{ R.string.others }}</a>
           <div class="dropdown-content others-section">
             {% for product_category_row in data.product_categories_by_4_grouped %}
               <div class="row">

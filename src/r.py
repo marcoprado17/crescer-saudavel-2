@@ -792,6 +792,7 @@ class Resources(object):
         send_email_when_update_order_status = "Enviar email para o cliente ao alterar o status"
         change_status = "Alterar status"
         new_status = "Novo status:"
+        additional_info = "Informações Adicionais"
         change_order_status_confirmation_message = "Você tem certeza que deseja alterar o status do pedido '#{0}' para '{1}'?"
         shop_diminutive = "Lojinha"
         who_we_are = "Quem somos"
@@ -804,6 +805,7 @@ class Resources(object):
         logo_image = "Imagem do logo"
         menu_icon = "Ícone no menu"
         blog_menu_icon = "Ícone do blog no menu"
+        more_products_for_you = "Olha só o que mais temos para você!"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1714,8 +1716,6 @@ There's actually a lot more to Markdown than this. See the official [introductio
         image_name_max_size = 64
         filename_max_size = 128
 
-        n_max_images_per_product = 4
-
         product_image_width = 400
         product_image_height = 400
 
@@ -1736,5 +1736,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
         max_n_carousel = 3
         max_n_more_categories = 6
         max_n_blog_sections = 3
+        max_n_product_img = 4
+        max_n_product_tabs = 5
 
 R = Resources()

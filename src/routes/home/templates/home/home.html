@@ -62,7 +62,7 @@
           {% if active and products and products|length > 0 %}
             <div class="container">
               {% with text=title, left=True, class="title", link=link %}
-                {% include "components/striked_text.html" %}
+                {% include "components/striked_content.html" %}
               {% endwith %}
               <div class="row">
                 {% for product in products %}
@@ -80,7 +80,7 @@
       {% if content.has_more_categories_section() %}
         <div class="container more-categories">
           {% with text=R.string.what_do_we_have_more_for_you_title, class="title" %}
-            {% include "components/striked_text.html" %}
+            {% include "components/striked_content.html" %}
           {% endwith %}
           <div class="additional-product-categories-and-subcategories-section">
             {% for i in range(1, R.dimen.max_n_more_categories + 1) %}
@@ -121,7 +121,7 @@
             {% set post2=content.get_blog_post_of_section(i, 2) %}
             {% if active %}
               {% with text=title, left=True, class="title", link=link %}
-                {% include "components/striked_text.html" %}
+                {% include "components/striked_content.html" %}
               {% endwith %}
               {% if post1 or post2 %}
                 <div class="row">

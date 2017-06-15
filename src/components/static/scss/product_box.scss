@@ -5,7 +5,7 @@ $top-color: rgba(255,255,255,10);
   margin-bottom: 30px;
 
   .item-inner {
-    border-radius: $product-container-border-radius !important;
+    border-radius: $default-border-radius !important;
   }
 
   .text-container {
@@ -27,8 +27,8 @@ $top-color: rgba(255,255,255,10);
   }
 
   .item-img-info a {
-    border-top-left-radius: $product-container-border-radius;
-    border-top-right-radius: $product-container-border-radius;
+    border-top-left-radius: $default-border-radius;
+    border-top-right-radius: $default-border-radius;
   }
 
   .item-price {
@@ -40,7 +40,7 @@ $top-color: rgba(255,255,255,10);
   }
 
   button {
-    border-radius: $buy-btn-radius;
+    border-radius: $default-border-radius;
     margin-top: 6px;
     padding-left: 12px;
     padding-right: 12px;

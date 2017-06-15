@@ -9,7 +9,7 @@
 {% block content %}
   <div class="__blog__ __post__ container">
     {% with text=R.string.blog_post_title_and_date(blog_post), class="title" %}
-      {% include "components/striked_text.html" %}
+      {% include "components/striked_content.html" %}
     {% endwith %}
     <div class="cardview">
       <div class="blog-post-image">
@@ -25,7 +25,7 @@
       <div class="content-container markdown-parsed-container">
         {{ blog_post.content_html|safe }}
         {% with text=R.string.comments, class="title" %}
-          {% include "components/striked_text.html" %}
+          {% include "components/striked_content.html" %}
         {% endwith %}
         <div class="fb-comments" data-href="{{ request.url }}" data-numposts="{{ R.dimen.blog_post_n_comments }}"
              data-width="100%"></div>

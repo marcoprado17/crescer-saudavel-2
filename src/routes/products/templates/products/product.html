@@ -1,0 +1,151 @@
+{% from "flask_bombril_macros/utils.html" import csrf_input with context %}
+
+{% extends "base/base.html" %}
+
+{% block title %}
+  {{ R.string.product }}
+{% endblock %}
+
+{% block content %}
+  <div class="__products__ __product__">
+    <div class="container">
+
+      {% with breadcumb=breadcumb %}
+        {% include "components/striked_content.html" %}
+      {% endwith %}
+
+      <div class="title-container">
+        <h2>{{ product.title }}</h2>
+      </div>
+
+      <div class="main-container">
+        <div class="catalog-imgs-container">
+          {% for img_src in product.get_imgs_src() %}
+            <div class="catalog-img-container grow-on-hover-a">
+              <img class="cardview" src="{{ img_src }}" alt="{{ R.string.product_image }}"/><br>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="main-img-container">
+          <img class="cardview" src="{{ product.get_main_img_src() }}" alt="{{ R.string.product_image }}"/>
+        </div>
+        <div class="buy-box-container cardview">
+          {% if product.has_discount %}
+            <div class="price-without-discount-container">
+              {{ R.string.discount_from }}<strike>{{ R.string.format_price(product.price) }}</strike>
+            </div>
+            <div class="price-discounted-container">
+              {{ R.string.discount_to }}<span
+                class="big-price">{{ R.string.format_price(product.get_price_with_discount()) }}</span>
+            </div>
+          {% else %}
+            <div class="price-container big-price">
+              {{ R.string.format_price(product.price) }}
+            </div>
+          {% endif %}
+          <hr>
+          <form method="post" action="{{ url_for("client_cart.add_to_cart") }}">
+            <div class="quantity-container">
+              <button
+                  onClick="var result = document.getElementById('{{ R.string.amount_arg_name }}'); var qty = result.value; if( !isNaN( qty ) && qty < 99) result.value++;return false;"
+                  class="plus change-quantity personalized accent-color-b-normal" type="button">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              </button>
+              <input type="number" name="{{ R.string.amount_arg_name }}" id="{{ R.string.amount_arg_name }}" max="99"
+                     value="1" title="{{ R.string.quantity }}"
+                     class="form-control quantity">
+              <button
+                  onClick="var result = document.getElementById('{{ R.string.amount_arg_name }}'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;"
+                  class="minus change-quantity personalized accent-color-b-normal" type="button">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+              </button>
+            </div>
+            {{ csrf_input() }}
+            <button class="button buy personalized accent-color-b-normal" type="submit"
+                    title="{{ R.string.add_to_cart }}">{{ R.string.buy }}</button>
+          </form>
+          <div class="safe-buy-container">
+            <img class="padlock"
+                 src="{{ url_for('static', filename='imgs/password.png') }}">{{ R.string.buy_100_percent_safe }}
+          </div>
+        </div>
+      </div>
+      <div class="description-and-additional-info-container">
+        {% if product.has_description() %}
+          <div class="cardview description">
+              <span class="title">
+                {{ R.string.description }}
+              </span>
+            <div class="markdown-parsed-container">
+              {{ product.summary_html|safe }}
+            </div>
+          </div>
+        {% endif %}
+        {% if product.has_active_tab() %}
+          <div class="cardview additional-info">
+              <span class="title">
+                {{ R.string.additional_info }}
+              </span>
+            <ul class="nav nav-tabs">
+              {% for i in product.get_active_tabs() %}
+                {% set tab_title=product.get_tab_n_title(i) %}
+                <li class="{{ 'active'|if(loop.first) }}">
+                  <a data-toggle="tab" href="#tab-{{ i }}">{{ tab_title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+            <div class="tab-content">
+              {% for i in product.get_active_tabs() %}
+                {% set tab_content_html=product.get_tab_n_content_html(i) %}
+                <div id="tab-{{ i }}" class="tab-pane fade markdown-parsed-container {{ 'in active'|if(loop.first) }}">
+                  {{ tab_content_html|safe }}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      {% include "components/tags_row.html" %}
+      {% if more_products and more_products|length > 0 %}
+        <div class="more-product-container">
+          <div class="title">{{ R.string.more_products_for_you }}</div>
+        </div>
+        <div class="row">
+          {% for product in more_products %}
+            <div class="col-sm-6 col-md-3">
+              {% with product=product %}
+                {% include "components/product_box.html" %}
+              {% endwith %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+      $(function () {
+          $(".catalog-imgs-container img").each(function () {
+              $(this).click(function () {
+                  $(".main-img-container img").attr("src", $(this).attr("src"));
+              });
+          });
+      });
+
+      {##}
+      {#        $("form.add-to-cart").each(function () {#}
+      {#            var form = $(this);#}
+      {#            form.submit(function (event) {#}
+      {#                var qty = $("#qty").val();#}
+      {#                if (qty == 0) {#}
+      {#                    event.preventDefault();#}
+      {#                    return false;#}
+      {#                }#}
+      {#                form.attr("action", form.attr("action") + "&{0}={1}".f("{{ R.string.amount_arg_name }}", qty));#}
+      {#            });#}
+      {#        });#}
+  </script>
+{% endblock %}

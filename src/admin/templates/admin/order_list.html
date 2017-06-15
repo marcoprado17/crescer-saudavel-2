@@ -1,3 +1,5 @@
+{% from "flask_bombril_macros/utils.html" import csrf_input with context %}
+
 {% extends "admin/model/list.html" %}
 
 {% block list_row_actions %}
@@ -23,7 +25,7 @@
          class="panel panel-default">
         <div class="panel-body">
             <form method="POST" action="{{ get_url(".change_status") }}">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                {{ csrf_input() }}
                 <input type="hidden" name="url" value="{{ request.url }}"/>
                 <input type="hidden" name="order_id" value="{{ order.id }}"/>
                 <div class="form-check">

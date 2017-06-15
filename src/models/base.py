@@ -26,14 +26,12 @@ class BaseModel(db.Model):
     def get_last(cls):
         return cls.query.order_by(desc(cls.id)).first()
 
-    # noinspection PyShadowingBuiltins
     @classmethod
-    def get(cls, id=None):
-        # type: (object) -> object
-        if id is None:
-            return cls.query.one()
+    def get(cls, model_id=None):
+        if model_id is None:
+            return cls.query.one_or_none()
         else:
-            return cls.query.filter_by(id=id).one_or_none()
+            return cls.query.filter_by(id=model_id).one_or_none()
 
     @classmethod
     def has_image(cls, image_filename):
