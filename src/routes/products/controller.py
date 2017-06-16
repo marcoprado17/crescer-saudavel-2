@@ -6,6 +6,7 @@
 from flask import render_template, abort, url_for
 from sqlalchemy import desc
 
+from components.data_providers.header import header_data_provider
 from flask_bombril.utils.utils import get_int_from_request_arg, get_string_from_request_arg
 from models.product.product import Product
 from models.product.product_category import ProductCategory
@@ -20,6 +21,7 @@ def products():
     sort_method_id = get_int_from_request_arg(R.string.sort_method_arg_name, R.id.SORT_METHOD_TITLE.value)
 
     category_id = get_int_from_request_arg(R.string.category_id_arg_name, 0)
+    header_data_provider.current_category_id = category_id
     subcategory_id = get_int_from_request_arg(R.string.subcategory_id_arg_name, 0)
     q = get_string_from_request_arg(R.string.search_query_arg_name, default="")
 
@@ -76,6 +78,8 @@ def product(product_id):
             (not product.category.active) or \
             (product.subcategory and not product.subcategory.active):
         abort(404)
+
+    header_data_provider.current_category_id = product.category_id
 
     breadcumb = [(R.string.home, url_for("home.home"))]
     if product.category is not None:

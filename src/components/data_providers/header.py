@@ -1,12 +1,13 @@
 from flask_login import current_user
 from sqlalchemy import desc
-
 from models.content.header import HeaderContent
 from models.product.product_category import ProductCategory
 
 
 class HeaderDataProvider(object):
-    # noinspection PyMethodMayBeStatic
+    def __init__(self):
+        self.current_category_id = None
+
     def get_data(self):
         product_categories = ProductCategory.query.filter_by(active=True).order_by(desc(ProductCategory.priority)).all()
         product_categories_by_4_grouped = []
@@ -24,7 +25,8 @@ class HeaderDataProvider(object):
             header_content=HeaderContent.get(),
             user=current_user,
             product_categories=product_categories,
-            product_categories_by_4_grouped=product_categories_by_4_grouped
+            product_categories_by_4_grouped=product_categories_by_4_grouped,
+            current_category_id=self.current_category_id
         )
 
 header_data_provider = HeaderDataProvider()

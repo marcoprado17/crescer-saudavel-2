@@ -81,7 +81,7 @@
             </a>
           </li>
           {% for product_category in data.product_categories %}
-            {% set is_active=request_related_to_product_category(product_category) %}
+            {% set is_active=data.current_category_id == product_category.id %}
             <li class="{{ 'active'|if(is_active)}}">
               <a href="{{ product_category.get_href() }}">
                 {{ product_category.name }}
