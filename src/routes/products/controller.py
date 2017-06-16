@@ -12,7 +12,6 @@ from models.product.product_category import ProductCategory
 from models.product.product_subcategory import ProductSubcategory
 from r import R
 from routes.products import products_blueprint
-from routes.products.data_providers.products import client_products_data_provider
 
 
 @products_blueprint.route("/")

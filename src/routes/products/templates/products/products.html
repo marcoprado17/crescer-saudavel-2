@@ -20,7 +20,9 @@
             {% include "components/pagination.html" %}
           {% endwith %}
           <div class="order-by-container">
-            {{ R.string.order_by }}
+            <div class="order-by-text">
+              {{ R.string.order_by }}
+            </div>
             <a class="btn btn-default personalized accent-color-c {{ 'selected'|if(sort_method_id == R.id.SORT_METHOD_TITLE.value) }}"
                href="{{ current_url(query_params={R.string.page_arg_name: 1, R.string.sort_method_arg_name: R.id.SORT_METHOD_TITLE.value}) }}">
               {{ R.string.title }}
@@ -63,94 +65,5 @@
 
 {% block script %}
   <script>
-
   </script>
 {% endblock %}
-
-{#{% extends "client_base/client_base.html" %}#}
-{#{% block title %}#}
-{#    {{ R.string.products }}#}
-{#{% endblock %}#}
-{#{% block content %}#}
-{#    <div class="__client_products__ __products__">#}
-{#        {% with data=data.page_heading_data %}#}
-{#            {% include "components/client_page_heading.html" %}#}
-{#        {% endwith %}#}
-{#        <section class="main-container col2-left-layout bounceInUp animated">#}
-{#            <div class="container">#}
-{#                <div class="row">#}
-{#                    <div class="col-main product-grid">#}
-{#                        <div class="pro-coloumn">#}
-{#                            <article class="col-main">#}
-{#                                <div class="toolbar">#}
-{#                                    <div class="pager">#}
-{#                                        {% if data.sort_methods and data.sort_methods|length > 0 %}#}
-{#                                            <div id="sort-by">#}
-{#                                                <label class="left">{{ R.string.order_by }}</label>#}
-{#                                                <ul>#}
-{#                                                    {% for sort_method in data.sort_methods %}#}
-{#                                                        <li class="{{ 'active'|if(sort_method.selected) }}">#}
-{#                                                            <a href="{{ sort_method.href }}">{{ sort_method.name }}</a>#}
-{#                                                        </li>#}
-{#                                                    {% endfor %}#}
-{#                                                </ul>#}
-{#                                            </div>#}
-{#                                        {% endif %}#}
-{#                                        {% with data=data.paginator_data %}#}
-{#                                            {% include "components/client_paginator.html" %}#}
-{#                                        {% endwith %}#}
-{#                                    </div>#}
-{#                                </div>#}
-{##}
-{#                                <section class="wow bounceInUp animated">#}
-{#                                    <div class="best-pro slider-items-products container">#}
-{#                                        <div class="slider-top-hack-space">#}
-{#                                            <h2></h2>#}
-{#                                        </div>#}
-{#                                        {% with products=data.products[0:4] %}#}
-{#                                            {% include "components/product_flexslider.html" %}#}
-{#                                        {% endwith %}#}
-{#                                    </div>#}
-{#                                </section>#}
-{##}
-{#                                <section class="wow bounceInUp animated">#}
-{#                                    <div class="best-pro slider-items-products container">#}
-{#                                        <div class="slider-top-hack-space">#}
-{#                                            <h2></h2>#}
-{#                                        </div>#}
-{#                                        {% with products=data.products[4:8] %}#}
-{#                                            {% include "components/product_flexslider.html" %}#}
-{#                                        {% endwith %}#}
-{#                                    </div>#}
-{#                                </section>#}
-{##}
-{#                                <section class="wow bounceInUp animated">#}
-{#                                    <div class="best-pro slider-items-products container">#}
-{#                                        <div class="slider-top-hack-space">#}
-{#                                            <h2></h2>#}
-{#                                        </div>#}
-{#                                        {% with products=data.products[8:12] %}#}
-{#                                            {% include "components/product_flexslider.html" %}#}
-{#                                        {% endwith %}#}
-{#                                    </div>#}
-{#                                </section>#}
-{##}
-{#                                <div class="toolbar">#}
-{#                                    <div class="pager">#}
-{#                                        {% with data=data.paginator_data %}#}
-{#                                            {% include "components/client_paginator.html" %}#}
-{#                                        {% endwith %}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </article>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </section>#}
-{#    </div>#}
-{#{% endblock %}#}
-{#{% block script %}#}
-{#    <script>#}
-{#    </script>#}
-{#{% endblock %}#}

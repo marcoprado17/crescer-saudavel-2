@@ -17,6 +17,20 @@
     .__components__.__pagination__ {
       margin-bottom: 0;
     }
+
+    .order-by-container {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .order-by-text, a.btn {
+        margin-bottom: $sm-b-spacing;
+      }
+
+      a.btn {
+        margin-left: $sm-a-spacing;
+      }
+    }
   }
 
   .__pagination__.last {
