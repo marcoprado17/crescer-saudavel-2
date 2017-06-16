@@ -1,10 +1,10 @@
-<div class="__components__ __pagination__">
+<div class="__components__ __pagination__ {{ class }}">
   {%- for page in pagination.iter_pages(left_edge=1, right_current=3, right_edge=1) %}
     {% if page %}
       {% if page != pagination.page %}
-        <a href="{{ current_url(query_params={R.string.page_arg_name: page}, fragment=fragment) }}">{{ page }}</a>
+        <a href="{{ current_url(query_params={R.string.page_arg_name: page}, fragment=fragment) }}" class="personalized accent-color-c">{{ page }}</a>
       {% else %}
-        <a href="" onclick="return false" class="active">{{ page }}</a>
+        <a href="" onclick="return false" class="selected personalized accent-color-c">{{ page }}</a>
       {% endif %}
     {% else %}
       <span class=ellipsis>…</span>

@@ -73,7 +73,7 @@ class ProductView(ProjBaseView):
         image_4_filename=lambda view, context, model, name:
         Markup("<img style='max-width: 64px;max-height: 64px;' src='%s'>" % model.get_image_n_src(4)),
         price_with_discount=lambda view, context, model, name:
-        R.string.format_price(model.get_price_with_discount()) if model.has_discount else R.string.empty_symbol,
+        R.string.format_price(model.price_with_discount) if model.has_discount else R.string.empty_symbol,
         price=lambda view, context, model, name:
         R.string.format_price(model.price),
         category=lambda view, context, model, name:

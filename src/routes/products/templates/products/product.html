@@ -36,7 +36,7 @@
             </div>
             <div class="price-discounted-container">
               {{ R.string.discount_to }}<span
-                class="big-price">{{ R.string.format_price(product.get_price_with_discount()) }}</span>
+                class="big-price">{{ R.string.format_price(product.price_with_discount) }}</span>
             </div>
           {% else %}
             <div class="price-container big-price">
@@ -48,21 +48,28 @@
             <div class="quantity-container">
               <button
                   onClick="var result = document.getElementById('{{ R.string.amount_arg_name }}'); var qty = result.value; if( !isNaN( qty ) && qty < 99) result.value++;return false;"
-                  class="plus change-quantity personalized accent-color-b-normal" type="button">
+                  class="plus change-quantity personalized accent-color-b-normal {{ 'disabled'|if(not product.is_available_to_client) }}"
+                  type="button" {{ 'disabled'|if(not product.is_available_to_client) }}>
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               </button>
               <input type="number" name="{{ R.string.amount_arg_name }}" id="{{ R.string.amount_arg_name }}" max="99"
                      value="1" title="{{ R.string.quantity }}"
-                     class="form-control quantity">
+                     class="form-control quantity" {{ 'disabled'|if(not product.is_available_to_client) }}>
               <button
                   onClick="var result = document.getElementById('{{ R.string.amount_arg_name }}'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;"
-                  class="minus change-quantity personalized accent-color-b-normal" type="button">
+                  class="minus change-quantity personalized accent-color-b-normal {{ 'disabled'|if(not product.is_available_to_client) }}"
+                  type="button" {{ 'disabled'|if(not product.is_available_to_client) }}>
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
               </button>
             </div>
             {{ csrf_input() }}
-            <button class="button buy personalized accent-color-b-normal" type="submit"
-                    title="{{ R.string.add_to_cart }}">{{ R.string.buy }}</button>
+            {% if product.is_available_to_client %}
+              <button class="button buy personalized accent-color-b-normal" type="submit"
+                      title="{{ R.string.add_to_cart }}">{{ R.string.buy }}</button>
+            {% else %}
+              <button class="button buy personalized accent-color-b-normal disabled" type="submit"
+                      title="{{ R.string.add_to_cart }}" disabled>{{ R.string.unavailable }}</button>
+            {% endif %}
           </form>
           <div class="safe-buy-container">
             <img class="padlock"

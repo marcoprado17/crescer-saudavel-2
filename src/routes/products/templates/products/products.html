@@ -1,87 +1,156 @@
-{% extends "client_base/client_base.html" %}
+{% from "flask_bombril_macros/utils.html" import csrf_input with context %}
+
+{% extends "base/base.html" %}
+
 {% block title %}
-    {{ R.string.products }}
+  {{ R.string.products }}
 {% endblock %}
+
 {% block content %}
-    <div class="__client_products__ __products__">
-        {% with data=data.page_heading_data %}
-            {% include "components/client_page_heading.html" %}
-        {% endwith %}
-        <section class="main-container col2-left-layout bounceInUp animated">
-            <div class="container">
-                <div class="row">
-                    <div class="col-main product-grid">
-                        <div class="pro-coloumn">
-                            <article class="col-main">
-                                <div class="toolbar">
-                                    <div class="pager">
-                                        {% if data.sort_methods and data.sort_methods|length > 0 %}
-                                            <div id="sort-by">
-                                                <label class="left">{{ R.string.order_by }}</label>
-                                                <ul>
-                                                    {% for sort_method in data.sort_methods %}
-                                                        <li class="{{ 'active'|if(sort_method.selected) }}">
-                                                            <a href="{{ sort_method.href }}">{{ sort_method.name }}</a>
-                                                        </li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
-                                        {% endif %}
-                                        {% with data=data.paginator_data %}
-                                            {% include "components/client_paginator.html" %}
-                                        {% endwith %}
-                                    </div>
-                                </div>
+  <div class="__products__ __products__">
+    <div class="container">
 
-                                <section class="wow bounceInUp animated">
-                                    <div class="best-pro slider-items-products container">
-                                        <div class="slider-top-hack-space">
-                                            <h2></h2>
-                                        </div>
-                                        {% with products=data.products[0:4] %}
-                                            {% include "components/product_flexslider.html" %}
-                                        {% endwith %}
-                                    </div>
-                                </section>
+      {% with breadcumb=breadcumb %}
+        {% include "components/striked_content.html" %}
+      {% endwith %}
 
-                                <section class="wow bounceInUp animated">
-                                    <div class="best-pro slider-items-products container">
-                                        <div class="slider-top-hack-space">
-                                            <h2></h2>
-                                        </div>
-                                        {% with products=data.products[4:8] %}
-                                            {% include "components/product_flexslider.html" %}
-                                        {% endwith %}
-                                    </div>
-                                </section>
-
-                                <section class="wow bounceInUp animated">
-                                    <div class="best-pro slider-items-products container">
-                                        <div class="slider-top-hack-space">
-                                            <h2></h2>
-                                        </div>
-                                        {% with products=data.products[8:12] %}
-                                            {% include "components/product_flexslider.html" %}
-                                        {% endwith %}
-                                    </div>
-                                </section>
-
-                                <div class="toolbar">
-                                    <div class="pager">
-                                        {% with data=data.paginator_data %}
-                                            {% include "components/client_paginator.html" %}
-                                        {% endwith %}
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                </div>
+      {% if products_pagination.total > 0 %}
+        <div class="order-by-pagination-container">
+          {% with pagination=products_pagination %}
+            {% include "components/pagination.html" %}
+          {% endwith %}
+          <div class="order-by-container">
+            {{ R.string.order_by }}
+            <a class="btn btn-default personalized accent-color-c {{ 'selected'|if(sort_method_id == R.id.SORT_METHOD_TITLE.value) }}"
+               href="{{ current_url(query_params={R.string.page_arg_name: 1, R.string.sort_method_arg_name: R.id.SORT_METHOD_TITLE.value}) }}">
+              {{ R.string.title }}
+            </a>
+            <a class="btn btn-default personalized accent-color-c {{ 'selected'|if(sort_method_id == R.id.SORT_METHOD_LOWEST_PRICE.value) }}"
+               href="{{ current_url(query_params={R.string.page_arg_name: 1, R.string.sort_method_arg_name: R.id.SORT_METHOD_LOWEST_PRICE.value}) }}">
+              {{ R.string.lowest_price }}
+            </a>
+            <a class="btn btn-default personalized accent-color-c {{ 'selected'|if(sort_method_id == R.id.SORT_METHOD_HIGHER_PRICE.value) }}"
+               href="{{ current_url(query_params={R.string.page_arg_name: 1, R.string.sort_method_arg_name: R.id.SORT_METHOD_HIGHER_PRICE.value}) }}">
+              {{ R.string.higher_price }}
+            </a>
+            <a class="btn btn-default personalized accent-color-c {{ 'selected'|if(sort_method_id == R.id.SORT_METHOD_BEST_SELLER.value) }}"
+               href="{{ current_url(query_params={R.string.page_arg_name: 1, R.string.sort_method_arg_name: R.id.SORT_METHOD_BEST_SELLER.value}) }}">
+              {{ R.string.best_seller }}
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          {% for product in products_pagination.items %}
+            <div class="col-sm-6 col-md-3">
+              {% with product=product %}
+                {% include "components/product_box.html" %}
+              {% endwith %}
             </div>
-        </section>
+          {% endfor %}
+        </div>
+        {% with pagination=products_pagination, class="last" %}
+          {% include "components/pagination.html" %}
+        {% endwith %}
+      {% else %}
+        <div class="no-products-found-msg">
+          {{ R.string.no_products_found }}
+        </div>
+      {% endif %}
     </div>
+  </div>
+  </div>
 {% endblock %}
+
 {% block script %}
-    <script>
-    </script>
+  <script>
+
+  </script>
 {% endblock %}
+
+{#{% extends "client_base/client_base.html" %}#}
+{#{% block title %}#}
+{#    {{ R.string.products }}#}
+{#{% endblock %}#}
+{#{% block content %}#}
+{#    <div class="__client_products__ __products__">#}
+{#        {% with data=data.page_heading_data %}#}
+{#            {% include "components/client_page_heading.html" %}#}
+{#        {% endwith %}#}
+{#        <section class="main-container col2-left-layout bounceInUp animated">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-main product-grid">#}
+{#                        <div class="pro-coloumn">#}
+{#                            <article class="col-main">#}
+{#                                <div class="toolbar">#}
+{#                                    <div class="pager">#}
+{#                                        {% if data.sort_methods and data.sort_methods|length > 0 %}#}
+{#                                            <div id="sort-by">#}
+{#                                                <label class="left">{{ R.string.order_by }}</label>#}
+{#                                                <ul>#}
+{#                                                    {% for sort_method in data.sort_methods %}#}
+{#                                                        <li class="{{ 'active'|if(sort_method.selected) }}">#}
+{#                                                            <a href="{{ sort_method.href }}">{{ sort_method.name }}</a>#}
+{#                                                        </li>#}
+{#                                                    {% endfor %}#}
+{#                                                </ul>#}
+{#                                            </div>#}
+{#                                        {% endif %}#}
+{#                                        {% with data=data.paginator_data %}#}
+{#                                            {% include "components/client_paginator.html" %}#}
+{#                                        {% endwith %}#}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{#                                <section class="wow bounceInUp animated">#}
+{#                                    <div class="best-pro slider-items-products container">#}
+{#                                        <div class="slider-top-hack-space">#}
+{#                                            <h2></h2>#}
+{#                                        </div>#}
+{#                                        {% with products=data.products[0:4] %}#}
+{#                                            {% include "components/product_flexslider.html" %}#}
+{#                                        {% endwith %}#}
+{#                                    </div>#}
+{#                                </section>#}
+{##}
+{#                                <section class="wow bounceInUp animated">#}
+{#                                    <div class="best-pro slider-items-products container">#}
+{#                                        <div class="slider-top-hack-space">#}
+{#                                            <h2></h2>#}
+{#                                        </div>#}
+{#                                        {% with products=data.products[4:8] %}#}
+{#                                            {% include "components/product_flexslider.html" %}#}
+{#                                        {% endwith %}#}
+{#                                    </div>#}
+{#                                </section>#}
+{##}
+{#                                <section class="wow bounceInUp animated">#}
+{#                                    <div class="best-pro slider-items-products container">#}
+{#                                        <div class="slider-top-hack-space">#}
+{#                                            <h2></h2>#}
+{#                                        </div>#}
+{#                                        {% with products=data.products[8:12] %}#}
+{#                                            {% include "components/product_flexslider.html" %}#}
+{#                                        {% endwith %}#}
+{#                                    </div>#}
+{#                                </section>#}
+{##}
+{#                                <div class="toolbar">#}
+{#                                    <div class="pager">#}
+{#                                        {% with data=data.paginator_data %}#}
+{#                                            {% include "components/client_paginator.html" %}#}
+{#                                        {% endwith %}#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </article>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </section>#}
+{#    </div>#}
+{#{% endblock %}#}
+{#{% block script %}#}
+{#    <script>#}
+{#    </script>#}
+{#{% endblock %}#}

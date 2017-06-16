@@ -806,6 +806,7 @@ class Resources(object):
         menu_icon = "Ícone no menu"
         blog_menu_icon = "Ícone do blog no menu"
         more_products_for_you = "Olha só o que mais temos para você!"
+        no_products_found = "Nenhum produto foi encontrado."
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1738,5 +1739,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
         max_n_blog_sections = 3
         max_n_product_img = 4
         max_n_product_tabs = 5
+
+        n_products_per_page = 12
 
 R = Resources()

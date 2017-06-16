@@ -3,12 +3,12 @@
 # ======================================================================================================================
 # Created at 04/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
+from flask import url_for
 from markupsafe import Markup
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from proj_extensions import db
 from models.base import BaseModel
-from models.product.product import Product
 from r import R
 
 
@@ -19,11 +19,10 @@ class ProductSubcategory(BaseModel):
     active = db.Column(db.Boolean, default=False, nullable=False)
     product_category_id = db.Column(db.Integer, ForeignKey("product_category.id"), nullable=False)
     product_category = relationship("ProductCategory", back_populates="product_subcategories")
-    products = relationship("Product", order_by=Product.title, back_populates="subcategory")
+    products = relationship("Product", back_populates="subcategory")
 
     def __repr__(self):
         return Markup("<b><searchable>#%s</searchable></b> | <searchable>%s</searchable>" % (self.id, self.name))
 
-    # Provide the correct href
     def get_href(self):
-        return "#"
+        return url_for("products.products", **{R.string.subcategory_id_arg_name: self.id})

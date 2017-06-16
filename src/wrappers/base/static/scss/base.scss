@@ -13,6 +13,9 @@ $accent-color-a-dark: $dark-green;
 $accent-color-b-light: black;
 $accent-color-b-normal: $normal-yellow;
 $accent-color-b-dark: black;
+$accent-color-c-1: white;
+$accent-color-c-2: rgba(210, 210, 210, 0.6);
+$accent-color-c-3: rgba(160, 160, 160, 1);
 $background-color-light: white;
 $background-color-normal: white;
 $background-color-dark: white;
@@ -120,24 +123,49 @@ $slow-transition: all .5s ease-in-out;
   font-family: "OpenSans";
   color: $proj-gray-color;
 
-  button.personalized, input[type=button].personalized {
+  button.personalized, input[type=button].personalized, a.personalized {
     color: $text-color-dark;
     transition: $default-transition;
     border-radius: $default-border-radius;
     border: none;
     padding: $sm-b-spacing;
 
+    &.disabled {
+      opacity: 0.5;
+    }
+
     &.accent-color-a-normal {
       background-color: $accent-color-a-normal;
+
+      &:hover {
+        color: whitesmoke;
+        background-color: $text-color-dark;
+      }
     }
 
     &.accent-color-b-normal {
       background-color: $accent-color-b-normal;
+
+      &:hover {
+        color: whitesmoke;
+        background-color: $text-color-dark;
+      }
     }
 
-    &:hover {
-      color: whitesmoke;
-      background-color: $text-color-dark;
+    &.accent-color-c {
+      background-color: $accent-color-c-1;
+      border: 1px solid $accent-color-c-3;
+      color: $text-color-normal;
+
+      &.selected {
+        color: $text-color-normal;
+        background-color: $accent-color-c-2;
+      }
+
+      &:hover {
+        color: white;
+        background-color: $accent-color-c-3;
+      }
     }
   }
 

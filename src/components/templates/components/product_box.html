@@ -21,8 +21,8 @@
                 <div class="item-price">
                     <div class="prices-container">
                         {% if product.has_discount %}
-                            <span class="original-price"><strike>{{ R.string.format_price(product.get_price(), include_rs=True) }}</strike></span><br>
-                            <span class="big-price discount-price">{{ R.string.format_price(product.get_price_with_discount(), include_rs=True) }}</span>
+                            <span class="original-price"><strike>{{ R.string.format_price(product.price, include_rs=True) }}</strike></span><br>
+                            <span class="big-price discount-price">{{ R.string.format_price(product.price_with_discount, include_rs=True) }}</span>
                         {% else %}
                             <span class="big-price">{{ R.string.format_price(product.get_price(), include_rs=True) }}</span>
                         {% endif %}

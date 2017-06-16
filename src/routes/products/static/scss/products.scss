@@ -1,5 +1,25 @@
-.__client_products__.__products__ {
-  .__components__.__client_paginator__ {
-      float: right;
+.__products__ {
+  .__striked_content__ {
+    margin-bottom: $lg-a-spacing;
+  }
+
+  .no-products-found-msg {
+    margin-bottom: $md-c-spacing;
+  }
+
+  .order-by-pagination-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: $md-c-spacing;
+
+    .__components__.__pagination__ {
+      margin-bottom: 0;
+    }
+  }
+
+  .__pagination__.last {
+    margin-bottom: $lg-a-spacing;
   }
 }

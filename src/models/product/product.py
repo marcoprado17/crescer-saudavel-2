@@ -6,13 +6,17 @@
 from decimal import Decimal
 from flask import url_for
 from markupsafe import Markup
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, exists, false
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from models.base import BaseModel
+from models.product.product_category import ProductCategory
+from models.product.product_subcategory import ProductSubcategory
 from proj_extensions import db
 from r import R
 from flask_bombril.utils.utils import clamp_integer
+from sqlalchemy import case, and_
+from sqlalchemy import func
 
 
 class Product(BaseModel):
@@ -117,13 +121,8 @@ class Product(BaseModel):
     def get_tab_n_content_html(self, n):
         return getattr(self, "tab_" + str(n) + "_content_html")
 
-    def get_price_with_discount(self):
-        if not self.has_discount:
-            return None
-        return Product.calculate_price_with_discount(price=self.price, discount_percentage=self.discount_percentage)
-
     def get_price(self, n_units=1):
-        return n_units*self.price
+        return n_units * self.price
 
     def get_href(self):
         return url_for("products.product", **{R.string.product_id_arg_name: self.id})
@@ -141,10 +140,26 @@ class Product(BaseModel):
     def has_description(self):
         return self.summary_html
 
-    @staticmethod
-    def calculate_price_with_discount(price, discount_percentage):
-        return (price * Decimal(str((100.0 - clamp_integer(discount_percentage, 0, 100)) / 100.0))).quantize(
-            Decimal("0.01"))
+    @hybrid_property
+    def price_with_discount(self):
+        if not self.has_discount:
+            return self.price
+        discount_percentage = clamp_integer(self.discount_percentage, 0, 100)
+        return (self.price * Decimal(str((100.0 - discount_percentage) / 100.0))).quantize(Decimal("0.01"))
+
+    @price_with_discount.expression
+    def price_with_discount(cls):
+        discount_percentage = case([(cls.discount_percentage > 100,
+            100)],
+        else_=
+            case([(cls.discount_percentage < 0,
+                0)],
+            else_=
+                cls.discount_percentage))
+        return case([(cls.has_discount,
+                func.round(cls.price * ((100-discount_percentage)/100.0), 2))],
+            else_=
+                cls.price)
 
     @hybrid_property
     def n_units_available(self):
@@ -157,8 +172,59 @@ class Product(BaseModel):
     def is_available_to_client(self):
         if self.active is not None and self.n_units_available is not None and self.min_available is not None:
             if self.active is True and (self.n_units_available > self.min_available):
-                return True
+                if self.category is not None:
+                    if self.subcategory is not None:
+                        return self.subcategory.active and self.category.active
+                    else:
+                        return self.category.active
+                else:
+                    return True
             else:
                 return False
         else:
             return False
+
+    @is_available_to_client.expression
+    def is_available_to_client(cls):
+        return \
+            case([(exists().where(and_(
+                ProductCategory.id == cls.category_id,
+                ProductCategory.active == False)),
+                   False)],
+                else_=
+                case([(exists().where(and_(
+                    ProductSubcategory.id == cls.subcategory_id,
+                    ProductSubcategory.active == False)),
+                       False)],
+                    else_=
+                    and_(cls.active, (cls.n_units_available > cls.min_available))))
+
+    @hybrid_property
+    def category_active(self):
+        return self.category.active
+
+    @category_active.expression
+    def category_active(cls):
+        return \
+            case([(exists().where(and_(
+                ProductCategory.id == cls.category_id,
+                ProductCategory.active == False)),
+                   False)],
+                else_=
+                True)
+
+    @hybrid_property
+    def subcategory_active(self):
+        if self.subcategory is not None:
+            return self.subcategory.active
+        return True
+
+    @subcategory_active.expression
+    def subcategory_active(cls):
+        return \
+            case([(exists().where(and_(
+                ProductSubcategory.id == cls.subcategory_id,
+                ProductSubcategory.active == False)),
+                   False)],
+                else_=
+                True)

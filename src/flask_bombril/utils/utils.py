@@ -169,7 +169,9 @@ def get_int_from_request_arg(arg_name, default=None):
 
 def get_string_from_request_arg(arg_name, default=None):
     try:
-        return str(request.args.get(arg_name))
+        value = request.args.get(arg_name)
+        assert(value is not None)
+        return str(value)
     except:
         return default
 

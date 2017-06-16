@@ -46,7 +46,9 @@
           </a>
           {{ right_part() }}
         </div>
-        {% include "components/search_bar.html" %}
+        {% with url=url_for("products.products") %}
+          {% include "components/search_bar.html" %}
+        {% endwith %}
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
@@ -94,7 +96,9 @@
         <a class="logo" href="{{ url_for('home.home') }}">
           <img class="logo" src="{{ data.header_content.get_logo_img_src() }}">
         </a>
-        {% include "components/search_bar.html" %}
+        {% with url=url_for("products.products") %}
+          {% include "components/search_bar.html" %}
+        {% endwith %}
         {{ right_part() }}
       </div>
       <div class="second-row">

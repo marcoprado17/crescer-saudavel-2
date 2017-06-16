@@ -43,21 +43,21 @@ from configs import default_app_config as config
 from models.content.header import HeaderContent
 
 
-n_product_categories = 5
-n_product_subcategories = 20
-n_products = 50
-n_clients = 50
-n_orders = 30
-n_blog_tags = 10
-n_blog_posts = 30
+# n_product_categories = 5
+# n_product_subcategories = 20
+# n_products = 50
+# n_clients = 50
+# n_orders = 30
+# n_blog_tags = 10
+# n_blog_posts = 30
 
-# n_product_categories = 25
-# n_product_subcategories = 400
-# n_products = 800
-# n_clients = 200
-# n_orders = 100
-# n_blog_tags = 20
-# n_blog_posts = 300
+n_product_categories = 25
+n_product_subcategories = 400
+n_products = 800
+n_clients = 200
+n_orders = 100
+n_blog_tags = 20
+n_blog_posts = 300
 
 title_key_words = [
     "banana",
