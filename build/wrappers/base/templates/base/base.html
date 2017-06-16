@@ -1,0 +1,94 @@
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+
+    <link rel="icon" href="#" type="image/x-icon">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/client_bundle.min.css') }}">
+</head>
+<body class="__base__">
+{% block body %}
+    {% include "components/facebook_skd.html" %}
+    {% block header %}
+        {% include "components/header.html" %}
+    {% endblock %}
+    {% block above_content %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    {% block footer %}
+        {% include "components/footer.html" %}
+    {% endblock %}
+{#    {% block mobile_menu %}#}
+{#      {% include "components/client_mobile_menu.html" %}#}
+{#    {% endblock %}#}
+{% endblock %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/client_bundle.min.js') }}"></script>
+<script>
+    function updateFooterPosition() {
+        footer = $("footer");
+        page = $("#page");
+        footer.removeClass("fixed-at-bottom");
+        page_height = page.height();
+        window_height = $(window).height();
+        if (window_height > page_height) {
+            footer.addClass("fixed-at-bottom");
+        }
+    }
+
+    function initFooter() {
+        updateFooterPosition();
+        $(window).resize(updateFooterPosition);
+
+        $("form.newsletter-sign").each(function () {
+            var form = $(this);
+            var submit_input = form.find("input[type='submit']");
+            var sign_text = form.attr("data-sign-text");
+            var signing_text = form.attr("data-signing-text");
+            var error_msg = form.attr("data-error-msg");
+            var success_msg = form.attr("data-success-msg");
+            var email_input = form.find("input[type='text']");
+
+            setAjaxFormHandlers({
+                form: form,
+                minResponseTime: 800,
+                onSubmit: function () {
+                    submit_input.val(signing_text);
+                    submit_input.prop("disabled", true);
+                },
+                success: function () {
+                    clearErrors(form);
+                    throwSuccessOpToast(success_msg.f(email_input.val()));
+                    email_input.val("")
+                },
+                error: function (status, dataAsObject) {
+                    if (status == 400 && dataAsObject != null && "errors" in dataAsObject) {
+                        showFormErrors(form, dataAsObject.errors);
+                    }
+                    throwErrorOpToast(error_msg)
+                },
+                complete: function () {
+                    submit_input.val(sign_text);
+                    submit_input.prop("disabled", false);
+                }
+            });
+        });
+    }
+
+    initFooter();
+
+    {{ messages.flash_toast() }}
+</script>
+{% block script %}
+{% endblock %}
+</body>
+</html>
