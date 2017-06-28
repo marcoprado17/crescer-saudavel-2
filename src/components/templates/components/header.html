@@ -102,13 +102,20 @@
         {{ right_part() }}
       </div>
       <div class="second-row">
-        <div class="dropdown">
-          <a class="menu-item btn blog" href="{{ url_for("blog.main") }}" class="menu-item">
-            {% if data.header_content.has_blog_icon_img() %}
-              <img class="menu-icon" src="{{ data.header_content.get_blog_menu_icon_img_src() }}">
-            {% endif %}
-            {{ R.string.blog }}
-          </a>
+        <div class="dropdown others-section">
+          <a class="menu-item btn" href="{{ url_for("products.products") }}">{{ R.string.others }}</a>
+          <div class="dropdown-content others-section">
+            {% for product_category_row in data.product_categories_by_4_grouped %}
+              <div class="row">
+                {% for product_category in product_category_row %}
+                  <div class="col-sm-3 col">
+                    <b><a href="{{ product_category.get_href() }}">{{ product_category.name }}</a></b><br>
+                    {{ product_subcategories_list(product_category) }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
         </div>
         {% for product_category in data.product_categories %}
           {% if loop.index0 < data.header_content.n_visible_categories %}
@@ -130,19 +137,12 @@
           {% endif %}
         {% endfor %}
         <div class="dropdown">
-          <a class="menu-item btn" href="{{ url_for("products.products") }}">{{ R.string.others }}</a>
-          <div class="dropdown-content others-section">
-            {% for product_category_row in data.product_categories_by_4_grouped %}
-              <div class="row">
-                {% for product_category in product_category_row %}
-                  <div class="col-sm-3 col">
-                    <b><a href="{{ product_category.get_href() }}">{{ product_category.name }}</a></b><br>
-                    {{ product_subcategories_list(product_category) }}
-                  </div>
-                {% endfor %}
-              </div>
-            {% endfor %}
-          </div>
+          <a class="menu-item btn blog" href="{{ url_for("blog.main") }}" class="menu-item">
+            {% if data.header_content.has_blog_icon_img() %}
+              <img class="menu-icon" src="{{ data.header_content.get_blog_menu_icon_img_src() }}">
+            {% endif %}
+            {{ R.string.blog }}
+          </a>
         </div>
       </div>
     </div>

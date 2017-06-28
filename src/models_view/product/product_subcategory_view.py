@@ -16,6 +16,7 @@ class ProductSubcategoryView(ProjBaseView):
         model.product_category.name
     )
     column_list = ["id", "active", "product_category", "name"]
+    column_searchable_list = ["id", "name"]
     column_sortable_list = ["id", "active", "name"]
 
     form_excluded_columns = ["products"]

@@ -24,6 +24,7 @@ class ProductCategoryView(ProjBaseView):
         Markup("<img style='max-width: 24px;max-height: 24px;' src='%s'>" % model.get_menu_icon_image_src())
     )
     column_list = ["id", "active", "icon_filename", "name", "priority"]
+    column_searchable_list = ["id", "name"]
     column_sortable_list = ["id", "active", "name", "priority"]
 
     form_args = dict(

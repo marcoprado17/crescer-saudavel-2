@@ -728,7 +728,7 @@ class Resources(object):
         header = "Cabeçalho"
         header_endpoint = "cabecalho"
         priority = "Prioridade"
-        product_category_priority_tooltip = "Prioridade na exibição dessa categoria de produto no menu de navegação, a categoria com maior prioridade será exibida primeiro e a categoria com menor prioridade será exibida por último."
+        product_category_priority_tooltip = "Prioridade na exibição dessa categoria de produto no menu de navegação, a categoria com maior prioridade será exibida primeiro (da direita para a esquerda) e a categoria com menor prioridade será exibida por último."
         product_category_priority_placeholder = "Ex.: 10"
         buy = "Comprar"
         product_active = "Produto ativo"

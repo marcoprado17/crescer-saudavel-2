@@ -71,9 +71,10 @@
 
   .second-row {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: 18px;
+    flex-direction: row-reverse;
 
     > a {
       padding-left: 8px;
@@ -125,7 +126,7 @@
       display: none;
       position: absolute;
       min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
       z-index: 1;
       background-color: white;
       border-bottom-left-radius: $default-border-radius;
@@ -175,7 +176,7 @@
   }
 
   .dropdown-content.others-section {
-    width: 1000px;
+    width: 1140px;
     right: 0;
     border-top-right-radius: 0;
     border-top-left-radius: $default-border-radius;
@@ -225,13 +226,13 @@
 
   @media screen and (max-width: 1199px) {
     .dropdown-content.others-section {
-      width: 820px;
+      width: 940px;
     }
   }
 
   @media screen and (max-width: 991px) {
     .dropdown-content.others-section {
-      width: 660px;
+      width: 720px;
     }
   }
 
