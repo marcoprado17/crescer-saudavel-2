@@ -3,18 +3,19 @@
 # ======================================================================================================================
 # Created at 07/02/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from routes.client_user_management.forms import ResendConfirmationEmailForm
+from routes.user_management.forms import WantRedefinePasswordForm
 
 
-class ClientResendConfirmationEmailDataProvider(object):
+class ClientWantRedefinePasswordDataProvider(object):
     def get_data_when_get(self):
         return dict(
-            resend_confirmation_email_form=ResendConfirmationEmailForm()
+            want_redefine_password_form=WantRedefinePasswordForm()
         )
 
-    def get_data_when_post(self, resend_confirmation_email_form):
+    def get_data_when_post(self, want_redefine_password_form):
         return dict(
-            resend_confirmation_email_form=resend_confirmation_email_form
+            want_redefine_password_form=want_redefine_password_form
         )
 
-client_resend_confirmation_email_data_provider = ClientResendConfirmationEmailDataProvider()
+
+client_want_redefine_password_data_provider = ClientWantRedefinePasswordDataProvider()

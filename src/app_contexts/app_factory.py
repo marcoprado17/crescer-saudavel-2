@@ -114,8 +114,8 @@ def create_app():
     app.register_blueprint(products_blueprint, url_prefix="/produtos")
     from routes.client_search import client_search_blueprint
     app.register_blueprint(client_search_blueprint, url_prefix="/busca")
-    from routes.client_user_management import client_user_management_blueprint
-    app.register_blueprint(client_user_management_blueprint, url_prefix="/conta")
+    from routes.user_management import user_management_blueprint
+    app.register_blueprint(user_management_blueprint, url_prefix="/conta")
     #
     # Wrappers
     #

@@ -1372,7 +1372,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
 
         @staticmethod
         def email_or_password_invalid():
-            return "Email ou senha incorretos. Caso tenha esquecido sua senha clique <a href='%s'>aqui</a>." % str(url_for("client_user_management.want_redefine_password"))
+            return "Email ou senha incorretos. Caso tenha esquecido sua senha clique <a href='%s'>aqui</a>." % str(url_for("user_management.want_redefine_password"))
 
         @staticmethod
         def email_not_confirmed(email):
@@ -1579,14 +1579,14 @@ There's actually a lot more to Markdown than this. See the official [introductio
             return "Olá, %s<br><a href='%s'><b>Minha conta</b></a> ou <a href='%s'><b>Sair</b></a>" % (
                 user.get_name(),
                 url_for("client_account.my_account"),
-                url_for("client_user_management.logout")
+                url_for("user_management.logout")
             )
 
         @staticmethod
         def unlogged_header_hello(user):
             return "Seja bem vindo!<br><a href='%s'><b>Entre</b></a> ou <a href='%s'><b>Cadastre-se</b></a>" % (
-                url_for("client_user_management.login"),
-                url_for("client_user_management.register")
+                url_for("user_management.login"),
+                url_for("user_management.register")
             )
 
         @staticmethod

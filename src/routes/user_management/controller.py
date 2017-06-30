@@ -22,31 +22,31 @@ from models.user.user import User
 from proj_decorators import login_or_anonymous, protect_against_csrf
 from proj_extensions import db
 from r import R
-from routes.client_user_management import client_user_management_blueprint
-from routes.client_user_management.data_providers.login import client_login_data_provider
-from routes.client_user_management.data_providers.redefine_password import client_redefine_password_data_provider
-from routes.client_user_management.data_providers.register import client_register_data_provider
-from routes.client_user_management.data_providers.resend_confirmation_email import \
+from routes.user_management import user_management_blueprint
+from routes.user_management.data_providers.login import client_login_data_provider
+from routes.user_management.data_providers.redefine_password import client_redefine_password_data_provider
+from routes.user_management.data_providers.register import client_register_data_provider
+from routes.user_management.data_providers.resend_confirmation_email import \
     client_resend_confirmation_email_data_provider
-from routes.client_user_management.data_providers.want_redefine_password import \
+from routes.user_management.data_providers.want_redefine_password import \
     client_want_redefine_password_data_provider
-from routes.client_user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm, RedefinePasswordForm, \
+from routes.user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm, RedefinePasswordForm, \
     ResendConfirmationEmailForm
 from flask_bombril.r import R as bombril_R
 
 
-@client_user_management_blueprint.route("/entrar", methods=["GET", "POST"])
+@user_management_blueprint.route("/entrar", methods=["GET", "POST"])
 @login_or_anonymous
 def login(base_user):
     if request.method == "GET":
         email = get_url_arg(R.string.email_arg_name)
-        return render_template("client_user_management/login.html",
+        return render_template("user_management/login.html",
                                data=client_login_data_provider.get_data_when_get(email))
     else:
         login_form = LoginForm()
 
         if not login_form.validate_on_submit():
-            return render_template("client_user_management/login.html",
+            return render_template("user_management/login.html",
                                    data=client_login_data_provider.get_data_when_post(login_form=login_form))
 
         user = User.get_by_email(login_form.email.data)
@@ -54,17 +54,17 @@ def login(base_user):
         if (user is not None) and user.facebook_login:
             flash(R.string.user_registered_with_facebook(user.email),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/login.html",
+            return render_template("user_management/login.html",
                                    data=client_login_data_provider.get_data_when_post(login_form=login_form))
         if (user is None) or (not user.is_correct_password(login_form.password.data)):
             flash(R.string.email_or_password_invalid(),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/login.html",
+            return render_template("user_management/login.html",
                                    data=client_login_data_provider.get_data_when_post(login_form=login_form))
         if not user.email_confirmed:
             flash(R.string.email_not_confirmed(email=login_form.email.data),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.info))
-            return render_template("client_user_management/login.html",
+            return render_template("user_management/login.html",
                                    data=client_login_data_provider.get_data_when_post(login_form=login_form))
 
         try:
@@ -76,7 +76,7 @@ def login(base_user):
             db.session.rollback()
             flash(R.string.login_error,
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/login.html",
+            return render_template("user_management/login.html",
                                    data=client_login_data_provider.get_data_when_post(login_form=login_form))
 
         next = get_url_arg("next")
@@ -91,11 +91,11 @@ def login(base_user):
             return redirect(url_for('client_home.home'))
 
 
-@client_user_management_blueprint.route("/cadastrar", methods=["GET", "POST"])
+@user_management_blueprint.route("/cadastrar", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
         email=get_url_arg(R.string.email_arg_name)
-        return render_template("client_user_management/register.html",
+        return render_template("user_management/register.html",
                                data=client_register_data_provider.get_data_when_get(email))
     else:
         register_form = RegisterForm()
@@ -105,7 +105,7 @@ def register():
             except:
                 flash(R.string.send_confirmation_email_error_message,
                       bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-                return render_template("client_user_management/register.html",
+                return render_template("user_management/register.html",
                                        data=client_register_data_provider.get_data_when_post(
                                            register_form=register_form))
             try:
@@ -113,19 +113,19 @@ def register():
             except:
                 flash(R.string.data_base_access_error_message,
                       bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-                return render_template("client_user_management/register.html",
+                return render_template("user_management/register.html",
                                        data=client_register_data_provider.get_data_when_post(
                                            register_form=register_form))
             flash(R.string.account_successful_created(email=register_form.email.data),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
             return redirect(
-                url_for("client_user_management.login", **{R.string.email_arg_name: register_form.email.data}))
+                url_for("user_management.login", **{R.string.email_arg_name: register_form.email.data}))
         else:
-            return render_template("client_user_management/register.html",
+            return render_template("user_management/register.html",
                                    data=client_register_data_provider.get_data_when_post(register_form=register_form))
 
 
-@client_user_management_blueprint.route("/email-confirmado/<string:token>")
+@user_management_blueprint.route("/email-confirmado/<string:token>")
 def email_confirmed(token):
     ts = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     try:
@@ -138,19 +138,19 @@ def email_confirmed(token):
     client.mark_email_as_confirmed()
     flash(R.string.email_successful_confirmed(email=email),
           bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
-    return redirect(url_for("client_user_management.login", **{R.string.email_arg_name: email}))
+    return redirect(url_for("user_management.login", **{R.string.email_arg_name: email}))
 
 
-@client_user_management_blueprint.route("/quero-redefinir-minha-senha", methods=["GET", "POST"])
+@user_management_blueprint.route("/quero-redefinir-minha-senha", methods=["GET", "POST"])
 def want_redefine_password():
     if request.method == "GET":
-        return render_template("client_user_management/want_redefine_password.html",
+        return render_template("user_management/want_redefine_password.html",
                                data=client_want_redefine_password_data_provider.get_data_when_get())
     else:
         want_redefine_password_form = WantRedefinePasswordForm()
 
         if not want_redefine_password_form.validate_on_submit():
-            return render_template("client_user_management/want_redefine_password.html",
+            return render_template("user_management/want_redefine_password.html",
                                    data=client_want_redefine_password_data_provider.get_data_when_post(
                                        want_redefine_password_form=want_redefine_password_form))
 
@@ -158,14 +158,14 @@ def want_redefine_password():
         if user == None:
             flash(R.string.email_not_found(email=want_redefine_password_form.email.data),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/want_redefine_password.html",
+            return render_template("user_management/want_redefine_password.html",
                                    data=client_want_redefine_password_data_provider.get_data_when_post(
                                        want_redefine_password_form=want_redefine_password_form))
 
         if user.facebook_login:
             flash(R.string.users_registered_with_facebook_cant_redefine_password,
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/want_redefine_password.html",
+            return render_template("user_management/want_redefine_password.html",
                                    data=client_want_redefine_password_data_provider.get_data_when_post(
                                        want_redefine_password_form=want_redefine_password_form))
 
@@ -174,16 +174,16 @@ def want_redefine_password():
         except:
             flash(R.string.send_redefine_password_email_error_message,
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/want_redefine_password.html",
+            return render_template("user_management/want_redefine_password.html",
                                    data=client_want_redefine_password_data_provider.get_data_when_post(
                                        want_redefine_password_form=want_redefine_password_form))
 
         flash(R.string.successful_send_redefine_password_email(email=want_redefine_password_form.email.data),
               bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
-        return redirect(url_for("client_user_management.login"))
+        return redirect(url_for("user_management.login"))
 
 
-@client_user_management_blueprint.route("/redefinir-senha/<string:token>", methods=["GET", "POST"])
+@user_management_blueprint.route("/redefinir-senha/<string:token>", methods=["GET", "POST"])
 def redefine_password(token):
     ts = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     try:
@@ -191,15 +191,15 @@ def redefine_password(token):
     except:
         flash(R.string.invalid_redefine_password_requisition,
               bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-        return redirect(url_for("client_user_management.want_redefine_password"))
+        return redirect(url_for("user_management.want_redefine_password"))
     if request.method == "GET":
-        return render_template("client_user_management/redefine_password.html",
+        return render_template("user_management/redefine_password.html",
                                data=client_redefine_password_data_provider.get_data_when_get(email=email))
     else:
         redefine_password_form = RedefinePasswordForm(email=email)
 
         if not redefine_password_form.validate_on_submit():
-            return render_template("client_user_management/redefine_password.html",
+            return render_template("user_management/redefine_password.html",
                                    data=client_redefine_password_data_provider.get_data_when_post(
                                        redefine_password_form=redefine_password_form))
 
@@ -210,7 +210,7 @@ def redefine_password(token):
         if user.facebook_login:
             flash(R.string.users_registered_with_facebook_cant_redefine_password,
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/redefine_password.html",
+            return render_template("user_management/redefine_password.html",
                                    data=client_redefine_password_data_provider.get_data_when_post(
                                        redefine_password_form=redefine_password_form))
 
@@ -218,33 +218,33 @@ def redefine_password(token):
 
         flash(R.string.password_successful_redefined,
               bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
-        return redirect(url_for("client_user_management.login", email=email))
+        return redirect(url_for("user_management.login", email=email))
 
 
-@client_user_management_blueprint.route("/reenviar-email-de-confirmacao", methods=["GET", "POST"])
+@user_management_blueprint.route("/reenviar-email-de-confirmacao", methods=["GET", "POST"])
 def resend_confirmation_email():
     if request.method == "GET":
-        return render_template("client_user_management/resend_confirmation_email.html",
+        return render_template("user_management/resend_confirmation_email.html",
                                data=client_resend_confirmation_email_data_provider.get_data_when_get())
     else:
         resend_confirmation_email_form = ResendConfirmationEmailForm()
 
         if not resend_confirmation_email_form.validate_on_submit():
-            return render_template("client_user_management/resend_confirmation_email.html",
+            return render_template("user_management/resend_confirmation_email.html",
                                    data=client_resend_confirmation_email_data_provider.get_data_when_post(resend_confirmation_email_form=resend_confirmation_email_form))
 
         user = User.get_by_email(resend_confirmation_email_form.email.data)
         if user is None:
             flash(R.string.account_never_created(email=resend_confirmation_email_form.email.data),
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/resend_confirmation_email.html",
+            return render_template("user_management/resend_confirmation_email.html",
                                    data=client_resend_confirmation_email_data_provider.get_data_when_post(
                                        resend_confirmation_email_form=resend_confirmation_email_form))
 
         if user.facebook_login:
             flash(R.string.users_registered_with_facebook_no_need_confirm_email,
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/resend_confirmation_email.html",
+            return render_template("user_management/resend_confirmation_email.html",
                                    data=client_resend_confirmation_email_data_provider.get_data_when_post(
                                        resend_confirmation_email_form=resend_confirmation_email_form))
 
@@ -253,23 +253,23 @@ def resend_confirmation_email():
         except:
             flash(R.string.send_confirmation_email_error_message,
                   bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("client_user_management/resend_confirmation_email.html",
+            return render_template("user_management/resend_confirmation_email.html",
                                    data=client_resend_confirmation_email_data_provider.get_data_when_post(
                                        resend_confirmation_email_form=resend_confirmation_email_form))
 
         flash(R.string.successful_resend_of_confirmation_email(email=user.email),
               bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
-        return redirect(url_for("client_user_management.login", **{R.string.email_arg_name: user.email}))
+        return redirect(url_for("user_management.login", **{R.string.email_arg_name: user.email}))
 
 
-@client_user_management_blueprint.route("/sair")
+@user_management_blueprint.route("/sair")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("home.home"))
 
 
-@client_user_management_blueprint.route("/entrar-com-facebook", methods=["POST"])
+@user_management_blueprint.route("/entrar-com-facebook", methods=["POST"])
 @protect_against_csrf
 @login_or_anonymous
 def facebook_login(base_user):

@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 06/02/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from routes.client_user_management.forms import RegisterForm
+from routes.user_management.forms import RegisterForm
 
 
 class ClientRegisterDataProvider(object):

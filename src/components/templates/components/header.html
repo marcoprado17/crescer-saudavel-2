@@ -64,13 +64,13 @@
               </a>
             </li>
           {% else %}
-            <li class="{{ 'active'|if(request.path == url_for('client_user_management.login')) }}">
-              <a href="{{ url_for('client_user_management.login') }}">
+            <li class="{{ 'active'|if(request.path == url_for('user_management.login')) }}">
+              <a href="{{ url_for('user_management.login') }}">
                 {{ R.string.enter }}
               </a>
             </li>
-            <li class="{{ 'active'|if(request.path == url_for('client_user_management.register')) }}">
-              <a href="{{ url_for('client_user_management.register') }}">
+            <li class="{{ 'active'|if(request.path == url_for('user_management.register')) }}">
+              <a href="{{ url_for('user_management.register') }}">
                 {{ R.string.register }}
               </a>
             </li>

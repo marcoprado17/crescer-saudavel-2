@@ -5,6 +5,6 @@
 # ======================================================================================================================
 from flask import Blueprint
 
-client_user_management_blueprint = Blueprint("client_user_management", __name__, static_folder="static", template_folder="templates")
+user_management_blueprint = Blueprint("user_management", __name__, static_folder="static", template_folder="templates")
 
-import views
+import controller

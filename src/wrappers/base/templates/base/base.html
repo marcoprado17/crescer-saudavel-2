@@ -2,36 +2,40 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <title>
-        {% block title %}{% endblock %}
-    </title>
+  <title>
+    {% block title %}{% endblock %}
+  </title>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
-    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
 
-    <link rel="icon" href="#" type="image/x-icon">
-    <link rel="shortcut icon" href="#" type="image/x-icon">
+  <link rel="icon" href="#" type="image/x-icon">
+  <link rel="shortcut icon" href="#" type="image/x-icon">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/client_bundle.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/client_bundle.css') }}">
 </head>
-<body class="__base__">
-{% block body %}
-    {% include "components/facebook_skd.html" %}
-    {% block header %}
+<body>
+<div class="__base__">
+  <div class="__base__">
+    {% block body %}
+      {% include "components/facebook_skd.html" %}
+      {% block header %}
         {% include "components/header.html" %}
-    {% endblock %}
-    {% block above_content %}
-    {% endblock %}
-    {% block content %}
-    {% endblock %}
-    {% block footer %}
+      {% endblock %}
+      {% block above_content %}
+      {% endblock %}
+      {% block content %}
+      {% endblock %}
+      {% block footer %}
         {% include "components/footer.html" %}
+      {% endblock %}
+      {#    {% block mobile_menu %}#}
+      {#      {% include "components/client_mobile_menu.html" %}#}
+      {#    {% endblock %}#}
     {% endblock %}
-{#    {% block mobile_menu %}#}
-{#      {% include "components/client_mobile_menu.html" %}#}
-{#    {% endblock %}#}
-{% endblock %}
+  </div>
+</div>
 <script type="text/javascript" src="{{ url_for('static', filename='js/client_bundle.js') }}"></script>
 <script>
     function updateFooterPosition() {

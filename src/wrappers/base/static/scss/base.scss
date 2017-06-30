@@ -116,7 +116,7 @@ $slow-transition: all .5s ease-in-out;
   font-weight: bold;
 }
 
-.__base__ {
+.__base__>.__base__ {
   height: 100%;
   min-height: 100%;
   background-color: white;
@@ -135,7 +135,8 @@ $slow-transition: all .5s ease-in-out;
     }
 
     &.accent-color-a-normal {
-      background-color: $accent-color-a-normal;
+      background-color: $accent-color-a-dark;
+      color: whitesmoke;
 
       &:hover {
         color: whitesmoke;

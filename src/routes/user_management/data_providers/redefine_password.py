@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Created at 07/02/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
-from routes.client_user_management.forms import RedefinePasswordForm
+from routes.user_management.forms import RedefinePasswordForm
 
 
 class ClientRedefinePasswordDataProvider(object):
