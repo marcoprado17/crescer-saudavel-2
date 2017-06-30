@@ -266,7 +266,7 @@ def resend_confirmation_email():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("client_home.home"))
+    return redirect(url_for("home.home"))
 
 
 @client_user_management_blueprint.route("/entrar-com-facebook", methods=["POST"])
