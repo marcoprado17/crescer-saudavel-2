@@ -26,8 +26,6 @@ from routes.user_management import user_management_blueprint
 from routes.user_management.data_providers.redefine_password import client_redefine_password_data_provider
 from routes.user_management.data_providers.resend_confirmation_email import \
     client_resend_confirmation_email_data_provider
-from routes.user_management.data_providers.want_redefine_password import \
-    client_want_redefine_password_data_provider
 from routes.user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm, RedefinePasswordForm, \
     ResendConfirmationEmailForm
 from flask_bombril.r import R as bombril_R
@@ -120,41 +118,34 @@ def email_confirmed(token):
 def want_redefine_password():
     if request.method == "GET":
         return render_template("user_management/want_redefine_password.html",
-                               data=client_want_redefine_password_data_provider.get_data_when_get())
+                               want_redefine_password_form=WantRedefinePasswordForm())
     else:
         want_redefine_password_form = WantRedefinePasswordForm()
 
         if not want_redefine_password_form.validate_on_submit():
             return render_template("user_management/want_redefine_password.html",
-                                   data=client_want_redefine_password_data_provider.get_data_when_post(
-                                       want_redefine_password_form=want_redefine_password_form))
+                                   want_redefine_password_form=want_redefine_password_form)
 
         user = User.get_by_email(want_redefine_password_form.email.data)
-        if user == None:
-            flash(R.string.email_not_found(email=want_redefine_password_form.email.data),
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+        if user is None:
+            flash(R.string.email_not_found(email=want_redefine_password_form.email.data), "static-error")
             return render_template("user_management/want_redefine_password.html",
-                                   data=client_want_redefine_password_data_provider.get_data_when_post(
-                                       want_redefine_password_form=want_redefine_password_form))
+                                   want_redefine_password_form=want_redefine_password_form)
 
         if user.facebook_login:
-            flash(R.string.users_registered_with_facebook_cant_redefine_password,
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            flash(R.string.users_registered_with_facebook_cant_redefine_password, "static-error")
             return render_template("user_management/want_redefine_password.html",
-                                   data=client_want_redefine_password_data_provider.get_data_when_post(
-                                       want_redefine_password_form=want_redefine_password_form))
+                                   want_redefine_password_form=want_redefine_password_form)
 
         try:
             email_manager.send_redefine_password_email(receiver_email=want_redefine_password_form.email.data)
         except:
-            flash(R.string.send_redefine_password_email_error_message,
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            flash(R.string.send_redefine_password_email_error_message, "static-error")
             return render_template("user_management/want_redefine_password.html",
-                                   data=client_want_redefine_password_data_provider.get_data_when_post(
-                                       want_redefine_password_form=want_redefine_password_form))
+                                   want_redefine_password_form=want_redefine_password_form)
 
         flash(R.string.successful_send_redefine_password_email(email=want_redefine_password_form.email.data),
-              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+              "static-success")
         return redirect(url_for("user_management.login"))
 
 
