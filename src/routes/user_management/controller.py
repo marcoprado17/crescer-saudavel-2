@@ -7,7 +7,7 @@ import json
 
 import httplib2
 from datetime import datetime
-from flask import current_app
+from flask import current_app, abort
 from flask import flash
 from flask import redirect
 from flask import render_template
@@ -103,16 +103,16 @@ def register():
 @user_management_blueprint.route("/email-confirmado/<string:token>")
 def email_confirmed(token):
     ts = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    email = None
     try:
         email = ts.loads(token, salt=current_app.config["EMAIL_TOKEN_SALT"])
     except:
-        return "", 400
+        abort(400)
     client = User.get_by_email(email)
-    if client == None:
-        return "", 404
+    if client is None:
+        abort(404)
     client.mark_email_as_confirmed()
-    flash(R.string.email_successful_confirmed(email=email),
-          bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+    flash(R.string.email_successful_confirmed(email=email), "static-success")
     return redirect(url_for("user_management.login", **{R.string.email_arg_name: email}))
 
 
