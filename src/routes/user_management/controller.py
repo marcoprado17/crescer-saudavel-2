@@ -4,8 +4,8 @@
 # Created at 26/01/17 by Marco Aurélio Prado - marco.pdsv@gmail.com
 # ======================================================================================================================
 import json
-
 import httplib2
+
 from datetime import datetime
 from flask import current_app, abort
 from flask import flash
@@ -23,7 +23,6 @@ from proj_decorators import login_or_anonymous, protect_against_csrf
 from proj_extensions import db
 from r import R
 from routes.user_management import user_management_blueprint
-from routes.user_management.data_providers.redefine_password import client_redefine_password_data_provider
 from routes.user_management.data_providers.resend_confirmation_email import \
     client_resend_confirmation_email_data_provider
 from routes.user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm, RedefinePasswordForm, \
@@ -139,7 +138,8 @@ def want_redefine_password():
 
         try:
             email_manager.send_redefine_password_email(receiver_email=want_redefine_password_form.email.data)
-        except:
+        except Exception as e:
+            import traceback
             flash(R.string.send_redefine_password_email_error_message, "static-error")
             return render_template("user_management/want_redefine_password.html",
                                    want_redefine_password_form=want_redefine_password_form)
@@ -155,35 +155,29 @@ def redefine_password(token):
     try:
         email = ts.loads(token, salt=current_app.config["EMAIL_TOKEN_SALT"], max_age=R.dimen.day_in_seconds)
     except:
-        flash(R.string.invalid_redefine_password_requisition,
-              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+        flash(R.string.invalid_redefine_password_requisition, "static-error")
         return redirect(url_for("user_management.want_redefine_password"))
     if request.method == "GET":
         return render_template("user_management/redefine_password.html",
-                               data=client_redefine_password_data_provider.get_data_when_get(email=email))
+                               redefine_password_form=RedefinePasswordForm(email=email))
     else:
         redefine_password_form = RedefinePasswordForm(email=email)
 
         if not redefine_password_form.validate_on_submit():
             return render_template("user_management/redefine_password.html",
-                                   data=client_redefine_password_data_provider.get_data_when_post(
-                                       redefine_password_form=redefine_password_form))
+                                   redefine_password_form=redefine_password_form)
 
         user = User.get_by_email(email)
-        if user == None:
-            return "", 400
+        if user is None:
+            abort(400)
 
         if user.facebook_login:
-            flash(R.string.users_registered_with_facebook_cant_redefine_password,
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            flash(R.string.users_registered_with_facebook_cant_redefine_password, "static-error")
             return render_template("user_management/redefine_password.html",
-                                   data=client_redefine_password_data_provider.get_data_when_post(
-                                       redefine_password_form=redefine_password_form))
+                                   redefine_password_form=redefine_password_form)
 
         user.change_password(redefine_password_form.password.data)
-
-        flash(R.string.password_successful_redefined,
-              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+        flash(R.string.password_successful_redefined, "static-success")
         return redirect(url_for("user_management.login", email=email))
 
 
