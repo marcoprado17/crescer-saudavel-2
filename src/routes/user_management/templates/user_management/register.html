@@ -1,61 +1,42 @@
-{% extends "base/base.html" %}
-{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
-{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% extends "user_management/base.html" %}
 {% block title %}
-    {{ R.string.register }}
+  {{ R.string.register }}
 {% endblock %}
-{% block content %}
-    <div class="__client_user_management__ __register__">
-        <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">
-            <div class="main">
-                <div class="account-login container">
-                    <div class="registered-users">
-                        {{ messages.flash_static() }}
-                        <strong>{{ R.string.new_account }}</strong>
-                        <div class="content">
-                            {% with
+{% block subcontent %}
+  <div class="__user_management__ __register__">
+    {{ messages.flash_static() }}
+    <div class="content">
+      {% with
                                     button_text=R.string.register_with_facebook,
                                     loading_text=R.string.registering,
                                     error_msg=R.string.facebook_register_error_msg,
-                                    connect_url=url_for("client_user_management.facebook_login", **{R.string.csrf_token: csrf_token()}) %}
-                                {% include "components/facebook_button.html" %}
-                            {% endwith %}
-                            <div class="or-text-container">
-                                {{ R.string.or_text }}
-                            </div>
-                            <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
-                                {{ data.register_form.csrf_token }}
-                                <ul class="form-list">
-                                    <li>
-                                        {{ form_fields.string_field(field=data.register_form.email, max_length=R.dimen.email_max_length, explicit_label=True) }}
-                                    </li>
-                                    <li>
-                                        {{ form_fields.password_field(field=data.register_form.password, explicit_label=True) }}
-                                    </li>
-                                    <li>
-                                        {{ form_fields.password_field(field=data.register_form.password_confirmation, explicit_label=True) }}
-                                    </li>
-                                </ul>
-                                <div class="buttons-set">
-                                    <button type="submit" class="button"><span>{{ R.string.to_register }}</span>
-                                    </button>
-                                    <div class="links-container">
-                                        <a href="{{ url_for('client_user_management.login') }}">{{ R.string.already_has_account }}</a>
-                                        <br>
-                                        <a href="{{ url_for('client_user_management.resend_confirmation_email') }}">{{ R.string.resend_confirmation_email_query }}</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                    connect_url=url_for("user_management.facebook_login", **{R.string.csrf_token: csrf_token()}) %}
+        {% include "components/facebook_button.html" %}
+      {% endwith %}
+      {% with text=R.string.or_text %}
+        {% include "components/striked_content.html" %}
+      {% endwith %}
+      <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
+        {{ data.register_form.csrf_token }}
+        {{ form_fields.string_field(field=data.register_form.email, max_length=R.dimen.email_max_length, explicit_label=True) }}
+        {{ form_fields.password_field(field=data.register_form.password, explicit_label=True) }}
+        {{ form_fields.password_field(field=data.register_form.password_confirmation, explicit_label=True) }}
+        <div class="buttons-set">
+          <button type="submit" class="button personalized accent-color-a-normal"><span>{{ R.string.to_register }}</span>
+          </button>
+          <div class="links-container">
+            <a href="{{ url_for('user_management.login') }}">{{ R.string.already_has_account }}</a>
+            <br>
+            <a href="{{ url_for('user_management.resend_confirmation_email') }}">{{ R.string.resend_confirmation_email_query }}</a>
+          </div>
         </div>
+      </form>
     </div>
+  </div>
 {% endblock %}
 {% block script %}
-    <script>
-        initTooltips();
-        initFacebookLoginButton();
-    </script>
+  <script>
+      initTooltips();
+      initFacebookLoginButton();
+  </script>
 {% endblock %}

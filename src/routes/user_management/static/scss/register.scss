@@ -1,13 +1,23 @@
-.__client_user_management__.__register__ {
+.__user_management__.__register__ {
+  $space: $md-a-spacing;
+
+  .__striked_content__ {
+    margin-top: $space;
+    margin-bottom: $space;
+  }
+
   .buttons-set {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
     .links-container {
+      margin-left: $sm-a-spacing;
+    }
+
+    .links-container a{
       float: right;
       text-align: right;
     }
-  }
-
-  .or-text-container {
-    text-align: center;
-    margin-bottom: 8px;
   }
 }
