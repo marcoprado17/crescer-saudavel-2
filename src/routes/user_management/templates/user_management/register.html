@@ -17,10 +17,10 @@
         {% include "components/striked_content.html" %}
       {% endwith %}
       <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
-        {{ data.register_form.csrf_token }}
-        {{ form_fields.string_field(field=data.register_form.email, max_length=R.dimen.email_max_length, explicit_label=True) }}
-        {{ form_fields.password_field(field=data.register_form.password, explicit_label=True) }}
-        {{ form_fields.password_field(field=data.register_form.password_confirmation, explicit_label=True) }}
+        {{ register_form.csrf_token }}
+        {{ form_fields.string_field(field=register_form.email, max_length=R.dimen.email_max_length, explicit_label=True) }}
+        {{ form_fields.password_field(field=register_form.password, explicit_label=True) }}
+        {{ form_fields.password_field(field=register_form.password_confirmation, explicit_label=True) }}
         <div class="buttons-set">
           <button type="submit" class="button personalized accent-color-a-normal"><span>{{ R.string.to_register }}</span>
           </button>

@@ -24,7 +24,6 @@ from proj_extensions import db
 from r import R
 from routes.user_management import user_management_blueprint
 from routes.user_management.data_providers.redefine_password import client_redefine_password_data_provider
-from routes.user_management.data_providers.register import client_register_data_provider
 from routes.user_management.data_providers.resend_confirmation_email import \
     client_resend_confirmation_email_data_provider
 from routes.user_management.data_providers.want_redefine_password import \
@@ -39,21 +38,18 @@ from flask_bombril.r import R as bombril_R
 def login(base_user):
     if request.method == "GET":
         email = get_url_arg(R.string.email_arg_name)
-        return render_template("user_management/login.html",
-                               login_form=LoginForm(email))
+        return render_template("user_management/login.html", login_form=LoginForm(email))
     else:
         login_form = LoginForm()
 
         if not login_form.validate_on_submit():
-            return render_template("user_management/login.html",
-                                   login_form=login_form)
+            return render_template("user_management/login.html", login_form=login_form)
 
         user = User.get_by_email(login_form.email.data)
 
         if (user is not None) and user.facebook_login:
             flash(R.string.user_registered_with_facebook(user.email), "static-error")
-            return render_template("user_management/login.html",
-                                   login_form=login_form)
+            return render_template("user_management/login.html", login_form=login_form)
         if (user is None) or (not user.is_correct_password(login_form.password.data)):
             flash(R.string.email_or_password_invalid(), "static-error")
             return render_template("user_management/login.html", login_form=login_form)
@@ -83,35 +79,25 @@ def login(base_user):
 @user_management_blueprint.route("/cadastrar", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
-        email=get_url_arg(R.string.email_arg_name)
-        return render_template("user_management/register.html",
-                               data=client_register_data_provider.get_data_when_get(email))
+        email = get_url_arg(R.string.email_arg_name)
+        return render_template("user_management/register.html", register_form=RegisterForm(email))
     else:
         register_form = RegisterForm()
         if register_form.validate_on_submit():
             try:
                 email_manager.send_create_account_confirmation_email(receiver_email=register_form.email.data)
             except:
-                flash(R.string.send_confirmation_email_error_message,
-                      bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-                return render_template("user_management/register.html",
-                                       data=client_register_data_provider.get_data_when_post(
-                                           register_form=register_form))
+                flash(R.string.send_confirmation_email_error_message, "static-error")
+                return render_template("user_management/register.html", register_form=register_form)
             try:
                 User.create_from_form(form=register_form, other_attrs=dict(register_datetime=datetime.now()))
             except:
-                flash(R.string.data_base_access_error_message,
-                      bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-                return render_template("user_management/register.html",
-                                       data=client_register_data_provider.get_data_when_post(
-                                           register_form=register_form))
-            flash(R.string.account_successful_created(email=register_form.email.data),
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
-            return redirect(
-                url_for("user_management.login", **{R.string.email_arg_name: register_form.email.data}))
+                flash(R.string.data_base_access_error_message, "static-error")
+                return render_template("user_management/register.html", register_form=register_form)
+            flash(R.string.account_successful_created(email=register_form.email.data), "static-success")
+            return redirect(url_for("user_management.login", **{R.string.email_arg_name: register_form.email.data}))
         else:
-            return render_template("user_management/register.html",
-                                   data=client_register_data_provider.get_data_when_post(register_form=register_form))
+            return render_template("user_management/register.html", register_form=register_form)
 
 
 @user_management_blueprint.route("/email-confirmado/<string:token>")
