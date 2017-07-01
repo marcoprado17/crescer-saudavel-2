@@ -1,39 +1,22 @@
-{% extends "client_base/client_base.html" %}
-{% import "flask_bombril_macros/form_fields.html" as form_fields with context %}
-{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% extends "user_management/base.html" %}
 {% block title %}
-    {{ R.string.resend_confirmation_email }}
+  {{ R.string.resend_confirmation_email }}
 {% endblock %}
-{% block content %}
-    <div class="__client_user_management__ __forgot_password__">
-        <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">
-            <div class="main">
-                <div class="account-login container">
-                    <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
-                        {{ data.resend_confirmation_email_form.csrf_token }}
-                        <div class="registered-users">
-                            {{ messages.flash_static() }}
-                            <strong>{{ R.string.resend_confirmation_email }}</strong>
-                            <div class="content">
-                                <ul class="form-list">
-                                    <li>
-                                        {{ form_fields.string_field(field=data.resend_confirmation_email_form.email, max_length=R.dimen.email_max_length, explicit_label=True, auxiliar_texts=[R.string.resend_confirmation_email_auxiliar_text]) }}
-                                    </li>
-                                </ul>
-                                <div class="buttons-set">
-                                    <button type="submit" class="button"><span>{{ R.string.resend_confirmation_email }}</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+{% block subcontent %}
+  <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
+    {{ resend_confirmation_email_form.csrf_token }}
+    <div class="registered-users">
+      {{ messages.flash_static() }}
+      {{ form_fields.string_field(field=resend_confirmation_email_form.email, max_length=R.dimen.email_max_length, explicit_label=True, auxiliar_texts=[R.string.resend_confirmation_email_auxiliar_text]) }}
+      <div class="buttons-set">
+        <button type="submit" class="button personalized accent-color-a-normal"><span>{{ R.string.resend_confirmation_email }}</span>
+        </button>
+      </div>
     </div>
+  </form>
 {% endblock %}
 {% block script %}
-    <script>
-        initTooltips();
-    </script>
+  <script>
+      initTooltips();
+  </script>
 {% endblock %}

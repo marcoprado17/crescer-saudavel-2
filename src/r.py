@@ -1388,7 +1388,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
 
         @staticmethod
         def account_never_created(email):
-            return "A conta com o email <b>%s</b> nunca foi criada, para criá-la clique <a href='%s'>aqui</a>." % (email, url_for("client_user_management.register", **{R.string.email_arg_name: email}))
+            return "A conta com o email <b>%s</b> nunca foi criada, para criá-la clique <a href='%s'>aqui</a>." % (email, url_for("user_management.register", **{R.string.email_arg_name: email}))
 
         @staticmethod
         def successful_resend_of_confirmation_email(email):

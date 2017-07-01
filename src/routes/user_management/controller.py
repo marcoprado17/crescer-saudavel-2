@@ -23,8 +23,6 @@ from proj_decorators import login_or_anonymous, protect_against_csrf
 from proj_extensions import db
 from r import R
 from routes.user_management import user_management_blueprint
-from routes.user_management.data_providers.resend_confirmation_email import \
-    client_resend_confirmation_email_data_provider
 from routes.user_management.forms import RegisterForm, LoginForm, WantRedefinePasswordForm, RedefinePasswordForm, \
     ResendConfirmationEmailForm
 from flask_bombril.r import R as bombril_R
@@ -185,40 +183,33 @@ def redefine_password(token):
 def resend_confirmation_email():
     if request.method == "GET":
         return render_template("user_management/resend_confirmation_email.html",
-                               data=client_resend_confirmation_email_data_provider.get_data_when_get())
+                               resend_confirmation_email_form=ResendConfirmationEmailForm())
     else:
         resend_confirmation_email_form = ResendConfirmationEmailForm()
 
         if not resend_confirmation_email_form.validate_on_submit():
             return render_template("user_management/resend_confirmation_email.html",
-                                   data=client_resend_confirmation_email_data_provider.get_data_when_post(resend_confirmation_email_form=resend_confirmation_email_form))
+                                   resend_confirmation_email_form=resend_confirmation_email_form)
 
         user = User.get_by_email(resend_confirmation_email_form.email.data)
         if user is None:
-            flash(R.string.account_never_created(email=resend_confirmation_email_form.email.data),
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            flash(R.string.account_never_created(email=resend_confirmation_email_form.email.data), "static-error")
             return render_template("user_management/resend_confirmation_email.html",
-                                   data=client_resend_confirmation_email_data_provider.get_data_when_post(
-                                       resend_confirmation_email_form=resend_confirmation_email_form))
+                                   resend_confirmation_email_form=resend_confirmation_email_form)
 
         if user.facebook_login:
-            flash(R.string.users_registered_with_facebook_no_need_confirm_email,
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            flash(R.string.users_registered_with_facebook_no_need_confirm_email, "static-error")
             return render_template("user_management/resend_confirmation_email.html",
-                                   data=client_resend_confirmation_email_data_provider.get_data_when_post(
-                                       resend_confirmation_email_form=resend_confirmation_email_form))
+                                   resend_confirmation_email_form=resend_confirmation_email_form)
 
         try:
             email_manager.send_create_account_confirmation_email(receiver_email=user.email)
         except:
-            flash(R.string.send_confirmation_email_error_message,
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            flash(R.string.send_confirmation_email_error_message, "static-error")
             return render_template("user_management/resend_confirmation_email.html",
-                                   data=client_resend_confirmation_email_data_provider.get_data_when_post(
-                                       resend_confirmation_email_form=resend_confirmation_email_form))
+                                   resend_confirmation_email_form=resend_confirmation_email_form)
 
-        flash(R.string.successful_resend_of_confirmation_email(email=user.email),
-              bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.success))
+        flash(R.string.successful_resend_of_confirmation_email(email=user.email), "static-success")
         return redirect(url_for("user_management.login", **{R.string.email_arg_name: user.email}))
 
 
