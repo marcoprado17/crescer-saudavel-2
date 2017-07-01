@@ -17,9 +17,9 @@
         {% include "components/striked_content.html" %}
       {% endwith %}
       <form action="{{ request.url }}" method="post" enctype=multipart/form-data>
-        {{ data.login_form.csrf_token }}
-        {{ form_fields.string_field(field=data.login_form.email, max_length=R.dimen.email_max_length, explicit_label=True) }}
-        {{ form_fields.password_field(field=data.login_form.password, explicit_label=True) }}
+        {{ login_form.csrf_token }}
+        {{ form_fields.string_field(field=login_form.email, max_length=R.dimen.email_max_length, explicit_label=True) }}
+        {{ form_fields.password_field(field=login_form.password, explicit_label=True) }}
         <div class="buttons-set">
           <button type="submit" class="button personalized accent-color-a-normal"><span>{{ R.string.to_enter }}</span>
           </button>

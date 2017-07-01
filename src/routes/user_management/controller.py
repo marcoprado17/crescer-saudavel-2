@@ -23,7 +23,6 @@ from proj_decorators import login_or_anonymous, protect_against_csrf
 from proj_extensions import db
 from r import R
 from routes.user_management import user_management_blueprint
-from routes.user_management.data_providers.login import client_login_data_provider
 from routes.user_management.data_providers.redefine_password import client_redefine_password_data_provider
 from routes.user_management.data_providers.register import client_register_data_provider
 from routes.user_management.data_providers.resend_confirmation_email import \
@@ -41,53 +40,43 @@ def login(base_user):
     if request.method == "GET":
         email = get_url_arg(R.string.email_arg_name)
         return render_template("user_management/login.html",
-                               data=client_login_data_provider.get_data_when_get(email))
+                               login_form=LoginForm(email))
     else:
         login_form = LoginForm()
 
         if not login_form.validate_on_submit():
             return render_template("user_management/login.html",
-                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
+                                   login_form=login_form)
 
         user = User.get_by_email(login_form.email.data)
 
         if (user is not None) and user.facebook_login:
-            flash(R.string.user_registered_with_facebook(user.email),
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
+            flash(R.string.user_registered_with_facebook(user.email), "static-error")
             return render_template("user_management/login.html",
-                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
+                                   login_form=login_form)
         if (user is None) or (not user.is_correct_password(login_form.password.data)):
-            flash(R.string.email_or_password_invalid(),
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("user_management/login.html",
-                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
+            flash(R.string.email_or_password_invalid(), "static-error")
+            return render_template("user_management/login.html", login_form=login_form)
         if not user.email_confirmed:
-            flash(R.string.email_not_confirmed(email=login_form.email.data),
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.info))
-            return render_template("user_management/login.html",
-                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
+            flash(R.string.email_not_confirmed(email=login_form.email.data), "static-info")
+            return render_template("user_management/login.html", login_form=login_form)
 
         try:
             logout_user()
             user.login_danger_danger(base_user)
         except Exception as e:
-            print "###"
-            print(e)
             db.session.rollback()
-            flash(R.string.login_error,
-                  bombril_R.string.get_message_category(bombril_R.string.static, bombril_R.string.error))
-            return render_template("user_management/login.html",
-                                   data=client_login_data_provider.get_data_when_post(login_form=login_form))
+            flash(R.string.login_error, "static-error")
+            return render_template("user_management/login.html", login_form=login_form)
 
-        next = get_url_arg("next")
-        if next:
-            return redirect(next)
+        next_url = get_url_arg("next")
+        if next_url:
+            return redirect(next_url)
 
         if user.email == current_app.config["ADMIN_MAIL"]:
             return redirect(url_for('admin.index'))
         else:
-            flash(R.string.successful_login,
-                  bombril_R.string.get_message_category(bombril_R.string.toast, bombril_R.string.success))
+            flash(R.string.successful_login, "toast-success")
             return redirect(url_for('client_home.home'))
 
 
