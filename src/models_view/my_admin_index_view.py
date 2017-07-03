@@ -9,4 +9,4 @@ class MyAdminIndexView(AdminIndexView):
         if current_user is not None and current_user.is_authenticated and current_user.email == current_app.config['ADMIN_MAIL']:
             return self.render("admin/index.html")
         else:
-            return redirect(url_for("client_user_management.login", next=request.url))
+            return redirect(url_for("user_management.login", next=request.url))

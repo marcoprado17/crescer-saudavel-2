@@ -100,8 +100,8 @@ def create_app():
     #
     from routes.simple_content_page import simple_content_page_blueprint
     app.register_blueprint(simple_content_page_blueprint, url_prefix="/conteudo")
-    from routes.client_account import client_account_blueprint
-    app.register_blueprint(client_account_blueprint, url_prefix="/minha-conta")
+    from routes.my_account import my_account_blueprint
+    app.register_blueprint(my_account_blueprint, url_prefix="/minha-conta")
     from routes.blog import blog_blueprint
     app.register_blueprint(blog_blueprint, url_prefix="/blog")
     from routes.client_cart import client_cart_blueprint
@@ -112,8 +112,6 @@ def create_app():
     app.register_blueprint(home_blueprint, url_prefix="/home")
     from routes.products import products_blueprint
     app.register_blueprint(products_blueprint, url_prefix="/produtos")
-    from routes.client_search import client_search_blueprint
-    app.register_blueprint(client_search_blueprint, url_prefix="/busca")
     from routes.user_management import user_management_blueprint
     app.register_blueprint(user_management_blueprint, url_prefix="/conta")
     #

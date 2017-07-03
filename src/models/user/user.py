@@ -15,7 +15,7 @@ from sqlalchemy.orm.attributes import flag_modified
 from models.user.anonymous_user import AnonymousUser
 from proj_extensions import db, bcrypt, login_manager
 from r import R
-from routes.client_account.forms import UserForm
+from routes.my_account.forms import UserForm
 
 
 class User(AnonymousUser):

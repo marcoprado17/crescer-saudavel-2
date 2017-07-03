@@ -807,6 +807,9 @@ class Resources(object):
         blog_menu_icon = "Ícone do blog no menu"
         more_products_for_you = "Olha só o que mais temos para você!"
         no_products_found = "Nenhum produto foi encontrado."
+        products_total_price_label = "Preço total dos produtos: "
+        freight_price_label = "Preço do frete: "
+        order_total_price_label = "Preço total do pedido: "
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1578,7 +1581,7 @@ There's actually a lot more to Markdown than this. See the official [introductio
         def logged_header_hello(user):
             return "Olá, %s<br><a href='%s'><b>Minha conta</b></a> ou <a href='%s'><b>Sair</b></a>" % (
                 user.get_name(),
-                url_for("client_account.my_account"),
+                url_for("my_account.my_account"),
                 url_for("user_management.logout")
             )
 
@@ -1592,6 +1595,10 @@ There's actually a lot more to Markdown than this. See the official [introductio
         @staticmethod
         def menu_icon_tooltip(menu_icon_size):
             return "Tamanho ideal dos ícones do menu: %sx%s" % menu_icon_size
+
+        @staticmethod
+        def order_title(uuid):
+            return "Pedido %s" % uuid
 
     # noinspection PyPep8Naming
     @unique

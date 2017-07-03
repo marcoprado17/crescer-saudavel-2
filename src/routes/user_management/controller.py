@@ -68,7 +68,7 @@ def login(base_user):
             return redirect(url_for('admin.index'))
         else:
             flash(R.string.successful_login, "toast-success")
-            return redirect(url_for('client_home.home'))
+            return redirect(url_for('home.home'))
 
 
 @user_management_blueprint.route("/cadastrar", methods=["GET", "POST"])

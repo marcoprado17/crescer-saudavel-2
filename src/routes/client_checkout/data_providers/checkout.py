@@ -25,7 +25,7 @@ class ClientCheckoutDataProvider(object):
                 path=[
                     dict(
                         name=R.string.home,
-                        href=url_for("client_home.home")
+                        href=url_for("home.home")
                     ),
                     dict(
                         name=R.string.cart,

@@ -1,6 +1,6 @@
 .__user_management__.__base__ {
   .cardview {
-    padding: $md-a-spacing;
+    padding: $cardview-padding;
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
@@ -8,17 +8,17 @@
   }
 
   .title-container {
-    font-size: $lg-a-font-size;
+    font-size: $cardview-title-font-size;
     font-family: "HappyBirthdayBabyMedium";
     text-align: center;
     margin-bottom: $sm-c-spacing;
   }
 
-  .main-title {
-    margin-bottom: $md-b-spacing;
-  }
-
   a {
     color: $text-color-dark;
+  }
+
+  button.personalized {
+    height: 36px;
   }
 }

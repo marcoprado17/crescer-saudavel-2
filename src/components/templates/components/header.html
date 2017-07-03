@@ -19,7 +19,7 @@
         {{ R.string.unlogged_header_hello(data.user)|safe }}
       {% endif %}
     </div>
-    <a href="{{ url_for("client_account.my_account") }}">
+    <a href="{{ url_for("my_account.my_account") }}">
       <img class="my-account" src="{{ url_for('static', filename='imgs/baby-3.png') }}">
     </a>
     <a href="{{ url_for("client_cart.cart") }}">
@@ -58,8 +58,8 @@
             </a>
           </li>
           {% if (not data.user.is_anonymous) and data.user.is_authenticated %}
-            <li class="{{ 'active'|if(request.path == url_for('client_account.my_account')) }}">
-              <a href="{{ url_for('client_account.my_account') }}">
+            <li class="{{ 'active'|if(request.path == url_for('my_account.my_account')) }}">
+              <a href="{{ url_for('my_account.my_account') }}">
                 {{ R.string.my_account }}
               </a>
             </li>

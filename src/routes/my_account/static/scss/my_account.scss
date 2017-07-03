@@ -1,0 +1,39 @@
+.__my_account_blueprint__.__my_account__ {
+  .datetime-container {
+    white-space: pre !important;
+  }
+
+  .modal-body {
+    padding-top: 0;
+  }
+
+  .page-header {
+    h5 {
+      margin-bottom: 0;
+    }
+  }
+
+  .cardview {
+    padding: $cardview-padding;
+    margin-bottom: $md-a-spacing;
+  }
+
+  .title-container {
+    font-size: $cardview-title-font-size;
+    font-family: "HappyBirthdayBabyMedium";
+    text-align: center;
+    margin-bottom: $sm-c-spacing;
+  }
+
+  .order-title-container {
+    //font-size: $md-c-font-size;
+    margin-bottom: $sm-c-spacing;
+  }
+
+  .order-container {
+    padding: $md-a-spacing;
+    border: 1px solid $light-border-color;
+    border-radius: $default-border-radius;
+    margin-bottom: $md-a-spacing;
+  }
+}

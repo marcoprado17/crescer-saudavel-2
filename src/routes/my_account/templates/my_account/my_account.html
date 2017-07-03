@@ -1,0 +1,111 @@
+{% extends "base/base.html" %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% import "flask_bombril_macros/utils.html" as utils with context %}
+{% block title %}
+  {{ R.string.my_account }}
+{% endblock %}
+{% block content %}
+  <div class="__my_account_blueprint__ __my_account__">
+    <div class="container">
+      <div class="cardview">
+        <div class="title-container">
+          {{ R.string.my_information }}
+        </div>
+        <form method="post">
+          <div class="group-select">
+            {% with client_form=user_form, edit=edit, include_email_confirmed=False %}
+              {% include "components/client_info_form_fields.html" %}
+            {% endwith %}
+            <div class="buttons-set account-info-buttons-container">
+              {% if edit %}
+                <button type="submit" class="button save personalized accent-color-a-normal">
+                  <span>{{ R.string.save }}</span>
+                </button>
+                <a href="{{ url_for('my_account.my_account') }}">
+                  <button type="button" class="button cancel personalized accent-color-a-normal">
+                    <span>{{ R.string.cancel }}</span></button>
+                </a>
+              {% else %}
+                <a href="{{ url_for('my_account.my_account', **{R.string.edit_arg_name: True}) }}">
+                  <button type="button" class="button edit personalized accent-color-a-normal">
+                    <span>{{ R.string.edit }}</span></button>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="cardview">
+        <div class="title-container">
+          {{ R.string.my_orders }}
+        </div>
+        {% if orders and orders|length > 0 %}
+          {% for order in orders %}
+            <div class="order-container">
+              <div class="order-title-container"><b>{{ R.string.order_title(order.uuid) }}</b></div>
+              <div class="row">
+                <div class="col-md-8">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <td><b>{{ R.string.product }}</b></td>
+                        <td><b>{{ R.string.price }}</b></td>
+                        <td><b>{{ R.string.quantity }}</b></td>
+                        <td><b>{{ R.string.subtotal }}</b></td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for product_attrs in order.products_data %}
+                        <tr>
+                          <td>
+                            <a href="{{ url_for('products.product', **{R.string.product_id_arg_name: product_attrs[0]}) }}">
+                              #{{ product_attrs[0] }} - {{ product_attrs[1] }}
+                            </a>
+                          </td>
+                          <td>{{ product_attrs[2] }}</td>
+                          <td>{{ product_attrs[3] }}</td>
+                          <td>{{ product_attrs[4] }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-4">
+                  <p><b>{{ R.string.status_label }}</b>{{ order.get_status_as_string() }}</p>
+                  <p>
+                    <b>{{ R.string.paid_date_label }}</b>{{ order.get_formatted_paid_datetime(with_hifen=True) }}
+                  </p>
+                  <p>
+                    <b>{{ R.string.sent_date_label }}</b>{{ order.get_formatted_sent_datetime(with_hifen=True) }}
+                  </p>
+                  <p>
+                    <b>{{ R.string.delivered_date_label }}</b>{{ order.get_formatted_delivered_datetime(with_hifen=True) }}
+                  </p>
+                  <p>
+                    <b>{{ R.string.order_total_price_label }}</b>{{ R.string.format_price(order.freight+order.products_total_price) }}
+                  </p>
+                  <p>
+                    <b>{{ R.string.products_total_price_label }}</b>{{ R.string.format_price(order.products_total_price) }}
+                  </p>
+                  <p>
+                    <b>{{ R.string.freight_price_label }}</b>{{ R.string.format_price(order.freight) }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="none-order-registered">{{ R.string.none_order_registered }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+  <script>
+      initTooltips();
+      initAllTelInput();
+      initAllCepInput();
+      initDynamicSelects();
+  </script>
+{% endblock %}
