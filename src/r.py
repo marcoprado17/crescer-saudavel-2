@@ -307,7 +307,6 @@ class Resources(object):
 
         and_word = "e"
         comma = ","
-        temp_error_html = "Ocorreu um erro inesperado em nossos servidores, nossa equipe técnica resolverá o problema assim que possível. Clique <a href=%(home_page_href)s>aqui</a> para voltar para a página inicial."
 
         admin = "Admin"
 
@@ -810,6 +809,12 @@ class Resources(object):
         products_total_price_label = "Preço total dos produtos: "
         freight_price_label = "Preço do frete: "
         order_total_price_label = "Preço total do pedido: "
+        error_404 = "Erro 404 !"
+        page_not_found = "404 - Página não encontrada"
+        internal_error = "500 - Erro interno"
+        error_500 = "Erro 500 !"
+        page_removed_410 = "410 - Página removida"
+        error_410 = "Erro 410 !"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1599,6 +1604,18 @@ There's actually a lot more to Markdown than this. See the official [introductio
         @staticmethod
         def order_title(uuid):
             return "Pedido %s" % uuid
+
+        @staticmethod
+        def error_404_detail():
+            return "A página em questão não foi encontrada. Clique <a href='%s'>aqui</a> para voltar para home." % url_for("home.home")
+
+        @staticmethod
+        def error_500_detail():
+            return "Ocorreu um erro inesperado em nossos servidores, nossa equipe técnica resolverá o problema assim que possível. Clique <a href='%s'>aqui</a> para voltar para a página inicial." % url_for("home.home")
+
+        @staticmethod
+        def error_410_detail():
+            return "A página e questão foi removida ou está inativa. Clique <a href='%s'>aqui</a> para voltar para a página inicial." % url_for("home.home")
 
     # noinspection PyPep8Naming
     @unique

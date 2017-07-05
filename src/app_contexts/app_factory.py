@@ -9,7 +9,7 @@ import sys
 
 sys.path.append("/vagrant/build/flask-admin")
 
-from flask import session
+from flask import session, render_template
 
 from models.blog.blog_post import BlogPost
 from models.product.product import Product
@@ -114,6 +114,8 @@ def create_app():
     app.register_blueprint(products_blueprint, url_prefix="/produtos")
     from routes.user_management import user_management_blueprint
     app.register_blueprint(user_management_blueprint, url_prefix="/conta")
+    from routes.error_pages import error_pages_blueprint
+    app.register_blueprint(error_pages_blueprint, url_prefix="/erro")
     #
     # Wrappers
     #
@@ -217,14 +219,21 @@ def create_app():
     #
     #
     #
-    # Registering 500 error handler
+    # Registering Error handlers
     # ==================================================================================================================
+    @app.errorhandler(404)
+    def error_404(error):
+        return render_template("error_pages/404.html"), 404
+
+    @app.errorhandler(410)
+    def error_410(error):
+        return render_template("error_pages/410.html"), 410
+
     @app.errorhandler(500)
-    def handle_error(error):
+    def error_500(error):
         db.session.rollback()
         log_request(app.logger.error)
-        # TODO: Add home page href
-        return R.string.temp_error_html % dict(home_page_href="#"), 500
+        return render_template("error_pages/500.html"), 500
 
     # ==================================================================================================================
     #

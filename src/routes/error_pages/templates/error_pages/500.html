@@ -1,0 +1,10 @@
+{% extends "error_pages/base.html" %}
+{% block title %}
+  {{ R.string.internal_error }}
+{% endblock %}
+{% block error_title %}
+  {{ R.string.error_500 }}
+{% endblock %}
+{% block error_detail %}
+  {{ R.string.error_500_detail()|safe }}
+{% endblock %}
