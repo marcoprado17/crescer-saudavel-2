@@ -11,8 +11,6 @@ from routes.home import home_blueprint
 
 @home_blueprint.route("/")
 def home():
-    from flask import abort
-    abort(410)
     return render_template(
         "home/home.html",
         content=HomeContent.get()

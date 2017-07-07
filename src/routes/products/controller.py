@@ -77,7 +77,7 @@ def product(product_id):
     if (product is None) or \
             (not product.category.active) or \
             (product.subcategory and not product.subcategory.active):
-        abort(404)
+        abort(410)
 
     header_data_provider.current_category_id = product.category_id
 

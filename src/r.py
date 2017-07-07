@@ -813,7 +813,7 @@ class Resources(object):
         page_not_found = "404 - Página não encontrada"
         internal_error = "500 - Erro interno"
         error_500 = "Erro 500 !"
-        page_removed_410 = "410 - Página removida"
+        page_removed_inactive_410 = "410 - Página removida/inativa"
         error_410 = "Erro 410 !"
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
