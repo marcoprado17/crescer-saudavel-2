@@ -46,7 +46,7 @@
               {% include "components/cart_total_table.html" %}
             {% endwith %}
 
-            <a href="{{ url_for("client_checkout.checkout") }}">
+            <a href="{{ url_for("checkout.confirm_purchase") }}">
               <button class="finalize-purchase personalized accent-color-a-normal">
                 {{ R.string.finalize_purchase }}
               </button>

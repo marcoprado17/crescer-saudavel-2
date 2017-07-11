@@ -106,8 +106,8 @@ def create_app():
     app.register_blueprint(blog_blueprint, url_prefix="/blog")
     from routes.cart import cart_blueprint
     app.register_blueprint(cart_blueprint, url_prefix="/carrinho")
-    from routes.client_checkout import client_checkout_blueprint
-    app.register_blueprint(client_checkout_blueprint, url_prefix="/finalizacao-de-compra")
+    from routes.checkout import checkout_blueprint
+    app.register_blueprint(checkout_blueprint, url_prefix="/finalizacao-de-compra")
     from routes.home import home_blueprint
     app.register_blueprint(home_blueprint, url_prefix="/home")
     from routes.products import products_blueprint

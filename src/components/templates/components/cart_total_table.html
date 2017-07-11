@@ -1,18 +1,19 @@
 <table id="shopping-cart-totals-table" class="table">
-    <tr>
-        <td>{{ R.string.products }}</td>
-        <td><span class="price products-total" data-products-total="{{ products_total }}">{{ R.string.format_price(products_total) }}</span></td>
-    </tr>
-    <tr>
-        <td>{{ R.string.freight }}</td>
-        <td><span class="price freight" data-freight="{{ freight }}">{{ R.string.format_price(freight) }}</span></td>
-    </tr>
-    <tr>
-        <td>
-            <strong>{{ R.string.total }}</strong>
-        </td>
-        <td>
-            <strong><span class="price total" data-total="{{ total }}">{{ R.string.format_price(total) }}</span></strong>
-        </td>
-    </tr>
+  <tr>
+    <td>{{ R.string.products }}</td>
+    <td><span class="price products-total"
+              data-products-total="{{ products_total }}">{{ R.string.format_price(products_total) }}</span></td>
+  </tr>
+  <tr>
+    <td>{{ R.string.freight }}</td>
+    <td><span class="price freight" data-freight="{{ freight }}">{{ R.string.format_price(freight) }}</span></td>
+  </tr>
+  <tr>
+    <td>
+      <strong>{{ R.string.total }}</strong>
+    </td>
+    <td>
+      <strong><span class="price total" data-total="{{ total }}">{{ R.string.format_price(total) }}</span></strong>
+    </td>
+  </tr>
 </table>

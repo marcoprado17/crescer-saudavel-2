@@ -1,0 +1,11 @@
+.__checkout_blueprint__.__confirm_purchase__ {
+  #shopping-cart-totals-table {
+    width: auto;
+  }
+
+  .buttons-container {
+    a:not(:first-child) {
+      margin-left: $sm-b-spacing;
+    }
+  }
+}

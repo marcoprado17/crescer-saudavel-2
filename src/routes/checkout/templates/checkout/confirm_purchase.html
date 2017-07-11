@@ -1,0 +1,27 @@
+{% extends "checkout/base.html" %}
+{% set step=R.id.CONFIRM_PURCHASE_STEP %}
+{% block step_title %}
+  {{ R.string.step_1_confirm_purchase }}
+{% endblock %}
+{% block main_content %}
+  <div class="__checkout_blueprint__ __confirm_purchase__">
+    {% if cart_data and cart_data|length > 0 %}
+      {% with cart_data=cart_data, edit=False %}
+        {% include "components/cart_table.html" %}
+      {% endwith %}
+      {% with products_total=products_total, freight=freight, total=total %}
+        {% include "components/cart_total_table.html" %}
+      {% endwith %}
+      <div class="buttons-container">
+        <a class="personalized accent-color-a-normal" href="{{ url_for("cart.cart") }}">
+          {{ R.string.edit_items }}
+        </a>
+        <a class="personalized accent-color-a-normal" href="{{ url_for("checkout.confirm_address") }}">
+          {{ R.string.next_step }}
+        </a>
+      </div>
+    {% else %}
+      {{ R.string.cart_empty }}
+    {% endif %}
+  </div>
+{% endblock %}

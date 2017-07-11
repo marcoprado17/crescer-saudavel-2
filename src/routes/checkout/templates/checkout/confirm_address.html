@@ -1,0 +1,13 @@
+{% extends "checkout/base.html" %}
+{% set step=R.id.CONFIRM_ADDRESS_STEP %}
+{% block step_title %}
+  {{ R.string.step_2_confirm_address }}
+{% endblock %}
+{% block main_content %}
+  <p>TODO!</p>
+  <div class="buttons-container">
+    <a href="{{ url_for("checkout.payment") }}">
+      {{ R.string.next_step }}
+    </a>
+  </div>
+{% endblock %}

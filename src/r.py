@@ -817,6 +817,12 @@ class Resources(object):
         error_500 = "Erro 500 !"
         page_removed_inactive_410 = "410 - Página removida/inativa"
         error_410 = "Erro 410 !"
+        steps = "Etapas"
+        step_1_confirm_purchase = "1. Confirmar compra"
+        step_2_confirm_address = "2. Confirmar endereço"
+        step_3_payment = "3. Pagamento"
+        next_step = "Próximo"
+
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"
@@ -1680,6 +1686,10 @@ There's actually a lot more to Markdown than this. See the official [introductio
 
         ADD_TO_CART_EXCEEDED_STOCK =            500
         ADD_TO_CART_NOT_EXCEEDED_STOCK =        501
+
+        CONFIRM_PURCHASE_STEP =                 600
+        CONFIRM_ADDRESS_STEP =                  601
+        PAYMENT_STEP =                          602
 
 
     # noinspection PyPep8Naming

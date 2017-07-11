@@ -13,8 +13,7 @@ from flask_bombril.url_args import get_boolean_url_arg
 from flask_bombril.url_args import get_valid_integer
 from flask_bombril.url_args import get_valid_model_id
 from models.product.product import Product
-from proj_decorators import login_or_anonymous, valid_form, protect_against_csrf
-from proj_forms import SubmitForm
+from proj_decorators import login_or_anonymous, protect_against_csrf
 from r import R
 from routes.cart import cart_blueprint
 from flask_bombril.r import R as bombril_R

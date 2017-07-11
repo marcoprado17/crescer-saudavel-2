@@ -5,6 +5,6 @@
 # ======================================================================================================================
 from flask import Blueprint
 
-client_checkout_blueprint = Blueprint("client_checkout", __name__, static_folder="static", template_folder="templates")
+checkout_blueprint = Blueprint("checkout", __name__, static_folder="static", template_folder="templates")
 
-import views
+import controller

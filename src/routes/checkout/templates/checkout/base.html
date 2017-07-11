@@ -1,0 +1,167 @@
+{% extends "base/base.html" %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block title %}
+  {{ R.string.purchase_finalization }}
+{% endblock %}
+{% block content %}
+  <div class="__checkout_blueprint__ __base__">
+    <div class="container">
+      {% with breadcumb=[(R.string.home, url_for("home.home")), R.string.finalize_purchase] %}
+        {% include "components/striked_content.html" %}
+      {% endwith %}
+
+      <div class="row">
+        <div class="col-md-9">
+          <div class="cardview main">
+            <div class="title-container">
+              <b>{% block step_title %}{% endblock %}</b>
+            </div>
+            {% block main_content %}
+            {% endblock %}
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cardview steps">
+            <div class="title-container">
+              <b>{{ R.string.steps }}</b>
+            </div>
+            <div class="step">
+              {{ R.string.step_1_confirm_purchase }}
+              {% if step == R.id.CONFIRM_PURCHASE_STEP %}
+                <span class="glyphicon glyphicon-arrow-left"></span>
+              {% endif %}
+              {% if step == R.id.CONFIRM_ADDRESS_STEP or step == R.id.PAYMENT_STEP %}
+                <span class="glyphicon glyphicon-ok"></span>
+              {% endif %}
+            </div>
+            <div class="step">
+              {{ R.string.step_2_confirm_address }}
+              {% if step == R.id.CONFIRM_ADDRESS_STEP %}
+                <span class="glyphicon glyphicon-arrow-left"></span>
+              {% endif %}
+              {% if step == R.id.PAYMENT_STEP %}
+                <span class="glyphicon glyphicon-ok"></span>
+              {% endif %}
+            </div>
+            <div class="step">
+              {{ R.string.step_3_payment }}
+              {% if step == R.id.PAYMENT_STEP %}
+                <span class="glyphicon glyphicon-arrow-left"></span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {#        {% with data=data.page_heading_data %}#}
+    {#            {% include "components/client_page_heading.html" %}#}
+    {#        {% endwith %}#}
+    {##}
+    {#        <div class="main-container col2-right-layout">#}
+    {#            <div class="main container">#}
+    {#                <div class="row">#}
+    {#                    <section class="col-main wow bounceInUp animated animated" style="visibility: visible;">#}
+    {#                        <ol class="one-page-checkout" id="checkoutSteps">#}
+    {#                            {% if data.step == 1 %}#}
+    {#                                <li id="opc-billing" class="section allow active">#}
+    {#                                    {% else %}#}
+    {#                                <li id="opc-billing" class="section allow">#}
+    {#                            {% endif %}#}
+    {#                            <a href="{{ url_for('client_checkout.checkout', **{R.string.step_arg_name: 1}) }}">#}
+    {#                                <div class="step-title"><span class="number">{{ R.string.step_1_title }}</span>#}
+    {#                                    <h3 class="one_page_heading">{{ R.string.delivery_address }}</h3>#}
+    {#                                </div>#}
+    {#                            </a>#}
+    {#                            {% if data.step == 1 %}#}
+    {#                                <div id="checkout-step-billing" class="step a-item">#}
+    {#                                    {{ messages.flash_static() }}#}
+    {#                                    <form id="co-billing-form" method="post">#}
+    {#                                        <fieldset class="group-select">#}
+    {#                                            <ul class="">#}
+    {#                                                <li id="billing-new-address-form">#}
+    {#                                                    {% with client_form=data.user_form, edit=True, include_email_confirmed=False %}#}
+    {#                                                        {% include "components/client_info_form_fields.html" %}#}
+    {#                                                    {% endwith %}#}
+    {#                                                </li>#}
+    {#                                            </ul>#}
+    {#                                            <div class="buttons-set checkout-user-info-buttons-container account-info-buttons-container">#}
+    {#                                                <a href="{{ url_for('client_checkout.checkout', **{R.string.step_arg_name: 2}) }}">#}
+    {#                                                    <button type="submit" class="button continue first">#}
+    {#                                                        <span>{{ R.string.continue_text }}</span>#}
+    {#                                                    </button>#}
+    {#                                                </a>#}
+    {#                                            </div>#}
+    {#                                        </fieldset>#}
+    {#                                    </form>#}
+    {#                            {% else %}#}
+    {#                                <div id="checkout-step-billing" class="step a-item" style="display:none;">#}
+    {#                            {% endif %}#}
+    {#                            </div>#}
+    {#                            </li>#}
+    {#                            {% if data.step == 2 %}#}
+    {#                                <li id="opc-shipping" class="section active">#}
+    {#                                    {% else %}#}
+    {#                                <li id="opc-shipping" class="section">#}
+    {#                            {% endif %}#}
+    {#                            <a href="{{ url_for('client_checkout.checkout', **{R.string.step_arg_name: 2}) }}">#}
+    {#                                <div class="step-title"><span class="number">{{ R.string.step_2_title }}</span>#}
+    {#                                    <h3 class="one_page_heading">{{ R.string.confirm_purchase }}</h3>#}
+    {#                                </div>#}
+    {#                            </a>#}
+    {#                            {% if data.step == 2 %}#}
+    {#                                <div id="checkout-step-shipping" class="step a-item">#}
+    {#                                    {{ messages.flash_static() }}#}
+    {#                                    {% with cart_data=data.cart_data, edit=False %}#}
+    {#                                        {% include "components/cart_table.html" %}#}
+    {#                                    {% endwith %}#}
+    {#                                    <a href="{{ url_for('cart.cart') }}">#}
+    {#                                        <button type="button" class="button btn-edit-items">#}
+    {#                                            <span>{{ R.string.edit_items }}</span>#}
+    {#                                        </button>#}
+    {#                                    </a>#}
+    {#                                    <div class="total">#}
+    {#                                        {% with data=data.cart_total_table_data %}#}
+    {#                                            {% include "components/cart_total_table.html" %}#}
+    {#                                        {% endwith %}#}
+    {#                                    </div>#}
+    {#                                    <a href="{{ url_for('client_checkout.checkout', **{R.string.step_arg_name: 3}) }}">#}
+    {#                                        <button type="button" class="button continue"><span>{{ R.string.continue_text }}</span>#}
+    {#                                        </button>#}
+    {#                                    </a>#}
+    {#                            {% else %}#}
+    {#                                <div id="checkout-step-shipping" class="step a-item" style="display: none;">#}
+    {#                            {% endif %}#}
+    {#                            </div>#}
+    {#                            </li>#}
+    {#                            {% if data.step == 3 %}#}
+    {#                                <li id="opc-shipping_method" class="section active">#}
+    {#                                    {% else %}#}
+    {#                                <li id="opc-shipping_method" class="section">#}
+    {#                            {% endif %}#}
+    {#                            <a href="{{ url_for('client_checkout.checkout', **{R.string.step_arg_name: 3}) }}">#}
+    {#                                <div class="step-title"><span class="number">{{ R.string.step_3_title }}</span>#}
+    {#                                    <h3 class="one_page_heading">{{ R.string.payment }}</h3>#}
+    {#                                </div>#}
+    {#                            </a>#}
+    {#                            {% if data.step == 3 %}#}
+    {#                                <div id="checkout-step-shipping_method" class="step a-item">#}
+    {#                            {% else %}#}
+    {#                                <div id="checkout-step-shipping_method" class="step a-item" style="display:none;">#}
+    {#                            {% endif %}#}
+    {#                            <p>...</p>#}
+    {#                            </div>#}
+    {#                            </li>#}
+    {#                        </ol>#}
+    {#                    </section>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+  </div>
+{% endblock %}
+{% block script %}
+  <script>
+      initDynamicSelects();
+      initAllTelInput();
+      initAllCepInput();
+  </script>
+{% endblock %}

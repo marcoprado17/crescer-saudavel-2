@@ -1,0 +1,26 @@
+.__checkout_blueprint__.__base__ {
+  .__striked_content__ {
+    margin-bottom: $md-a-spacing;
+  }
+
+  .cardview {
+    padding: $cardview-padding;
+    margin-bottom: $md-a-spacing;
+  }
+
+  .cardview.main {
+    .title-container {
+      font-family: "HappyBirthdayBaby";
+      font-size: $lg-a-font-size;
+      margin-bottom: $sm-c-spacing;
+    }
+  }
+
+  .cardview.steps {
+    .title-container {
+      font-family: "HappyBirthdayBaby";
+      font-size: $lg-a-font-size;
+      margin-bottom: $sm-c-spacing;
+    }
+  }
+}
