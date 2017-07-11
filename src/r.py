@@ -383,6 +383,8 @@ class Resources(object):
         search_query_arg_name = "q"
         tag_id_arg_name = "tag_id"
         datetime_arg_name = "data"
+        csrf_token_arg_name = "csrf_token"
+        csrf_token_session_arg_name = "_csrf_token"
 
         name = "Nome"
         section_name = "Nome de seção"
@@ -1497,6 +1499,8 @@ There's actually a lot more to Markdown than this. See the official [introductio
 
         @staticmethod
         def format_price(price, include_rs=True):
+            if price is None:
+                return "-"
             s = ""
             if include_rs:
                 s += "R$ "

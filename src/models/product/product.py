@@ -124,6 +124,9 @@ class Product(BaseModel):
     def get_price(self, n_units=1):
         return n_units * self.price
 
+    def get_price_with_discount(self, n_units=1):
+        return n_units * self.price_with_discount
+
     def get_href(self):
         return url_for("products.product", **{R.string.product_id_arg_name: self.id})
 

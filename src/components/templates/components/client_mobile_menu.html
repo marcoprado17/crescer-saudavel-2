@@ -9,7 +9,7 @@
                 <a href="{{ url_for('home.home') }}">{{ R.string.home }}</a>
             </li>
             <li>
-                <a href="{{ url_for('client_cart.cart') }}">{{ R.string.my_cart }}</a>
+                <a href="{{ url_for('cart.cart') }}">{{ R.string.my_cart }}</a>
             </li>
             {% if data and data|length > 0 %}
                 {% for menu_item in data %}

@@ -22,7 +22,7 @@
     <a href="{{ url_for("my_account.my_account") }}">
       <img class="my-account" src="{{ url_for('static', filename='imgs/baby-3.png') }}">
     </a>
-    <a href="{{ url_for("client_cart.cart") }}">
+    <a href="{{ url_for("cart.cart") }}">
       <img class="cart" src="{{ url_for('static', filename='imgs/stroller.png') }}">
     </a>
   </div>
@@ -75,8 +75,8 @@
               </a>
             </li>
           {% endif %}
-          <li class="{{ 'active'|if(request.path == url_for('client_cart.cart')) }}">
-            <a href="{{ url_for('client_cart.cart') }}">
+          <li class="{{ 'active'|if(request.path == url_for('cart.cart')) }}">
+            <a href="{{ url_for('cart.cart') }}">
               {{ R.string.cart }}
             </a>
           </li>

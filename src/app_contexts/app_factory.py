@@ -104,8 +104,8 @@ def create_app():
     app.register_blueprint(my_account_blueprint, url_prefix="/minha-conta")
     from routes.blog import blog_blueprint
     app.register_blueprint(blog_blueprint, url_prefix="/blog")
-    from routes.client_cart import client_cart_blueprint
-    app.register_blueprint(client_cart_blueprint, url_prefix="/carrinho")
+    from routes.cart import cart_blueprint
+    app.register_blueprint(cart_blueprint, url_prefix="/carrinho")
     from routes.client_checkout import client_checkout_blueprint
     app.register_blueprint(client_checkout_blueprint, url_prefix="/finalizacao-de-compra")
     from routes.home import home_blueprint
@@ -175,10 +175,10 @@ def create_app():
     from components.data_providers.header import header_data_provider
     from flask_bombril.utils.utils import current_url
 
-    def _generate_csrf_token():
-        if '_csrf_token' not in session:
-            session['_csrf_token'] = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(R.dimen.csrf_length))
-        return session['_csrf_token']
+    def _generate_csrf_input():
+        if R.string.csrf_token_session_arg_name not in session:
+            session[R.string.csrf_token_session_arg_name] = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(R.dimen.csrf_length))
+        return "<input type='hidden' name='%s' value='%s'/>" % (R.string.csrf_token_arg_name, session[R.string.csrf_token_session_arg_name])
 
     @app.context_processor
     def _():
@@ -191,7 +191,7 @@ def create_app():
             submit_form=SubmitForm(),
             get_header_data=lambda: header_data_provider.get_data(),
             get_header_content=lambda: HeaderContent.get(),
-            csrf_token=_generate_csrf_token,
+            csrf_input=_generate_csrf_input,
             current_url=current_url,
         )
 

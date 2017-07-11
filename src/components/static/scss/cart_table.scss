@@ -1,3 +1,39 @@
 .__components__.__cart_table__ {
+  table {
+    width: 100%;
+  }
 
+  img {
+    width: 75px;
+  }
+
+  th {
+    padding-left: $sm-b-spacing;
+  }
+
+  td {
+    padding-bottom: $sm-a-spacing;
+    padding-left: $sm-b-spacing;
+  }
+
+  .quantity-container {
+    display: flex;
+    align-items: center;
+  }
+
+  button.change-quantity {
+    width: 36px;
+    height: 36px;
+    border-radius: 36px;
+    outline: none;
+  }
+
+  input.quantity {
+    width: 42px;
+    height: 42px;
+    border-radius: 42px;
+    border: 1px solid $text-color-dark;
+    margin: 0 $sm-a-spacing;
+    text-align: center;
+  }
 }

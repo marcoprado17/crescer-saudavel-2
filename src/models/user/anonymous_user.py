@@ -41,7 +41,13 @@ class AnonymousUser(BaseModel):
 
     # noinspection PyMethodMayBeStatic
     def get_freight(self):
-        return Decimal("0.00")
+        return None
+
+    def get_total(self):
+        if self.get_freight() is None:
+            return self.get_cart_products_total()
+        else:
+            return self.get_freight() + self.get_cart_products_total()
 
     def add_product_to_cart(self, product_id, amount=1):
         return_value, delta_n_units = self.add_product_to_cart_without_commit(product_id=product_id, amount=amount)
@@ -66,8 +72,8 @@ class AnonymousUser(BaseModel):
             self._cart_amount_by_product_id[str(product_id)] = amount
 
         return_value = R.id.ADD_TO_CART_NOT_EXCEEDED_STOCK
-        if self._cart_amount_by_product_id[str(product_id)] > product.available - product.min_available:
-            self._cart_amount_by_product_id[str(product_id)] = product.available - product.min_available
+        if self._cart_amount_by_product_id[str(product_id)] > product.n_units_available - product.min_available:
+            self._cart_amount_by_product_id[str(product_id)] = product.n_units_available - product.min_available
             return_value = R.id.ADD_TO_CART_EXCEEDED_STOCK
 
         final_n_units = self._cart_amount_by_product_id[str(product_id)]
@@ -122,8 +128,8 @@ class AnonymousUser(BaseModel):
             product = Product.get(key)
             if product is None:
                 remove_keys.append(key)
-            elif val > product.available - product.min_available:
-                self._cart_amount_by_product_id[key] = product.available - product.min_available
+            elif val > product.n_units_available - product.min_available:
+                self._cart_amount_by_product_id[key] = product.n_units_available - product.min_available
                 if self._cart_amount_by_product_id[key] > 0:
                     self._add_cart_update_message(R.string.amount_of_product_changed(product_title=product.title))
                 else:
@@ -155,7 +161,7 @@ class AnonymousUser(BaseModel):
         cart_data = self.get_cart_data()
         products_total = Decimal("0.00")
         for product, amount in cart_data:
-            products_total += product.get_price(n_units=amount)
+            products_total += product.get_price_with_discount(n_units=amount)
         return products_total
 
     def get_cart_products_total_as_string(self, include_rs=False):

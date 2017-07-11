@@ -1,22 +1,18 @@
-<table id="shopping-cart-totals-table" class="table shopping-cart-table-total">
-    <tfoot>
+<table id="shopping-cart-totals-table" class="table">
     <tr>
-        <td style="" class="a-left" colspan="1">
+        <td>{{ R.string.products }}</td>
+        <td><span class="price products-total" data-products-total="{{ products_total }}">{{ R.string.format_price(products_total) }}</span></td>
+    </tr>
+    <tr>
+        <td>{{ R.string.freight }}</td>
+        <td><span class="price freight" data-freight="{{ freight }}">{{ R.string.format_price(freight) }}</span></td>
+    </tr>
+    <tr>
+        <td>
             <strong>{{ R.string.total }}</strong>
         </td>
-        <td style="" class="a-right">
-            <strong><span class="price total" data-total="{{ data.total }}">{{ data.total_formatted }}</span></strong>
+        <td>
+            <strong><span class="price total" data-total="{{ total }}">{{ R.string.format_price(total) }}</span></strong>
         </td>
     </tr>
-    </tfoot>
-    <tbody>
-    <tr>
-        <td style="" class="a-left" colspan="1">{{ R.string.products }}</td>
-        <td style="" class="a-right"><span class="price products-total" data-products-total="{{ data.products_total }}">{{ data.products_total_formatted }}</span></td>
-    </tr>
-    <tr>
-        <td style="" class="a-left" colspan="1">{{ R.string.freight }}</td>
-        <td style="" class="a-right"><span class="price freight" data-freight="{{ data.freight }}">{{ data.freight_formatted }}</span></td>
-    </tr>
-    </tbody>
 </table>

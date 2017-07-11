@@ -1,0 +1,155 @@
+{% extends "base/base.html" %}
+{% import "flask_bombril_macros/messages.html" as messages with context %}
+{% block title %}
+  {{ R.string.my_cart }}
+{% endblock %}
+{% block content %}
+  <div class="__cart_blueprint__ __cart__">
+    <div class="container">
+      {% with breadcumb=breadcumb %}
+        {% include "components/striked_content.html" %}
+      {% endwith %}
+
+      <div class="row">
+        <div class="col-md-8">
+          <div class="cardview">
+            <div class="title-container">
+              {{ R.string.my_cart }}
+            </div>
+
+            {{ messages.flash_static() }}
+
+            {% if cart_data and cart_data|length > 0 %}
+              {% with cart_data=cart_data, edit=True %}
+                {% include "components/cart_table.html" %}
+              {% endwith %}
+
+              <div class="clear-cart-container">
+                <form action="{{ url_for('cart.clear_cart') }}" method="post">
+                  {{ csrf_input()|safe }}
+                  <button type="submit"
+                          class="button personalized accent-color-a-normal">{{ R.string.clean_cart }}</button>
+                </form>
+              </div>
+            {% else %}
+              {{ R.string.cart_empty }}
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="cardview">
+            <div class="title-container">
+              {{ R.string.total }}
+            </div>
+
+            {% with products_total=products_total, freight=freight, total=total %}
+              {% include "components/cart_total_table.html" %}
+            {% endwith %}
+
+            <a href="{{ url_for("client_checkout.checkout") }}">
+              <button class="finalize-purchase personalized accent-color-a-normal">
+                {{ R.string.finalize_purchase }}
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+  <script>
+      initChangeProductAmountForms();
+
+      function initChangeProductAmountForms() {
+          $("form.change-product-amount").each(function () {
+              var form = $(this);
+              var quantity_input_id = form.attr("data-quantity-input-id");
+              var quantity_input = $("#{0}".f(quantity_input_id));
+              var stockLimit = parseInt(quantity_input.attr("data-product-stock-limit"));
+
+              setAjaxFormHandlers({
+                  form: form,
+                  minResponseTime: 0,
+                  onSubmit: function () {
+                      var productPrice = quantity_input.attr("data-product-price");
+                      var subtotal = quantity_input.attr("data-subtotal");
+                      var productsTotalContainer = $("span.price.products-total");
+                      var productsTotal = productsTotalContainer.attr("data-products-total");
+                      var productsTotalBN = new BigNumber(productsTotal);
+                      var totalContainer = $("span.price.total");
+                      var total = totalContainer.attr("data-total");
+                      var totalBN = new BigNumber(total);
+                      var product_id = quantity_input.attr("data-product-id");
+                      var subTotalContainer = $("#subtotal-{0}".f(product_id));
+
+                      var oldValue = parseInt(quantity_input.val());
+                      var productPriceBN = new BigNumber(productPrice);
+                      var subtotalBN = new BigNumber(subtotal);
+
+                      var cartNItemsBadge = $(".cart-n-items-badge");
+                      var cartNItemsOldValue = parseInt(cartNItemsBadge.html());
+
+                      if (form.hasClass("increase")) {
+                          try {
+                              if (oldValue == stockLimit) {
+                                  throwErrorOpToast("{{ R.string.product_stock_limit_reached }}");
+                                  return false;
+                              }
+                              quantity_input.val(oldValue + 1);
+
+                              newSubtotalBN = subtotalBN.plus(productPriceBN);
+                              quantity_input.attr("data-subtotal", newSubtotalBN.toFixed(2));
+                              subTotalContainer.html(bigNumberToFormattedPrice(newSubtotalBN));
+
+                              newProductsTotalBN = productsTotalBN.plus(productPriceBN);
+                              productsTotalContainer.attr("data-products-total", newProductsTotalBN.toFixed(2));
+                              productsTotalContainer.html(bigNumberToFormattedPrice(newProductsTotalBN));
+
+                              newTotalBN = totalBN.plus(productPriceBN);
+                              totalContainer.attr("data-total", newTotalBN.toFixed(2));
+                              totalContainer.html(bigNumberToFormattedPrice(newTotalBN));
+
+                              cartNItemsBadge.html(cartNItemsOldValue + 1);
+                          }
+                          catch (err) {
+                              location.reload();
+                          }
+                      }
+                      else if (form.hasClass("decrease")) {
+                          try {
+                              if (oldValue == 0) {
+                                  return false;
+                              }
+                              quantity_input.val(oldValue - 1);
+
+                              newSubtotalBN = subtotalBN.minus(productPriceBN);
+                              quantity_input.attr("data-subtotal", newSubtotalBN.toFixed(2));
+                              subTotalContainer.html(bigNumberToFormattedPrice(newSubtotalBN));
+
+                              newProductsTotalBN = productsTotalBN.minus(productPriceBN);
+                              productsTotalContainer.attr("data-products-total", newProductsTotalBN.toFixed(2));
+                              productsTotalContainer.html(bigNumberToFormattedPrice(newProductsTotalBN));
+
+                              newTotalBN = totalBN.minus(productPriceBN);
+                              totalContainer.attr("data-total", newTotalBN.toFixed(2));
+                              totalContainer.html(bigNumberToFormattedPrice(newTotalBN))
+
+                              cartNItemsBadge.html(cartNItemsOldValue - 1);
+                          }
+                          catch (err) {
+                              location.reload();
+                          }
+                      }
+                  },
+                  success: function () {
+                  },
+                  error: function () {
+                  },
+                  complete: function () {
+                  }
+              });
+          });
+      }
+  </script>
+{% endblock %}

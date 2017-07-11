@@ -30,7 +30,7 @@ from flask_bombril.r import R as bombril_R
 
 @user_management_blueprint.route("/entrar", methods=["GET", "POST"])
 @login_or_anonymous
-def login(base_user):
+def login(user):
     if request.method == "GET":
         email = get_url_arg(R.string.email_arg_name)
         return render_template("user_management/login.html", login_form=LoginForm(email))
@@ -54,7 +54,7 @@ def login(base_user):
 
         try:
             logout_user()
-            user.login_danger_danger(base_user)
+            user.login_danger_danger(user)
         except Exception as e:
             db.session.rollback()
             flash(R.string.login_error, "static-error")

@@ -1,5 +1,3 @@
-{% from "flask_bombril_macros/utils.html" import csrf_input with context %}
-
 {% extends "base/base.html" %}
 
 {% block title %}
@@ -44,7 +42,7 @@
             </div>
           {% endif %}
           <hr>
-          <form method="post" action="{{ url_for("client_cart.add_to_cart") }}">
+          <form method="post" action="{{ url_for("cart.add_to_cart") }}">
             <div class="quantity-container">
               <button
                   onClick="var result = document.getElementById('{{ R.string.amount_arg_name }}'); var qty = result.value; if( !isNaN( qty ) && qty < 99) result.value++;return false;"
@@ -62,7 +60,7 @@
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
               </button>
             </div>
-            {{ csrf_input() }}
+            {{ csrf_input()|safe }}
             {% if product.is_available_to_client %}
               <button class="button buy personalized accent-color-b-normal" type="submit"
                       title="{{ R.string.add_to_cart }}">{{ R.string.buy }}</button>

@@ -29,7 +29,7 @@ class ClientCheckoutDataProvider(object):
                     ),
                     dict(
                         name=R.string.cart,
-                        href=url_for("client_cart.cart")
+                        href=url_for("cart.cart")
                     ),
                     dict(
                         name=R.string.purchase_finalization,

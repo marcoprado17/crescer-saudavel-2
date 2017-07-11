@@ -75,7 +75,7 @@ def login_or_anonymous(func):
             user = AnonymousUser.get(session[R.string.anonymous_user_id])
             if user is None:
                 user = current_user
-        returned_value = func(base_user=user, *args, **kwargs)
+        returned_value = func(user=user, *args, **kwargs)
         if user.is_anonymous:
             session[R.string.anonymous_user_id] = user.id
         return returned_value
@@ -84,8 +84,8 @@ def login_or_anonymous(func):
 def protect_against_csrf(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
-        token = session.pop('_csrf_token', None)
-        if not token or (token != request.args.get(R.string.csrf_token) and token != request.form.get(R.string.csrf_token)):
+        token = session.get(R.string.csrf_token_session_arg_name, None)
+        if not token or (token != request.args.get(R.string.csrf_token_arg_name) and token != request.form.get(R.string.csrf_token_arg_name)):
             abort(403)
         return func(*args, **kwargs)
     return decorated_function
