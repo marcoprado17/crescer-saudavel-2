@@ -10,7 +10,7 @@
                                     button_text=R.string.enter_with_facebook,
                                     loading_text=R.string.entering,
                                     error_msg=R.string.facebook_login_error_msg,
-                                    connect_url=url_for("user_management.facebook_login", **{R.string.csrf_token: csrf_token()}) %}
+                                    connect_url=url_for("user_management.facebook_login", **{R.string.csrf_token_arg_name: csrf_token()}) %}
         {% include "components/facebook_button.html" %}
       {% endwith %}
       {% with text=R.string.or_text %}

@@ -1,13 +1,38 @@
 {% extends "checkout/base.html" %}
+{% from "flask_bombril_macros/messages.html" import flash_static %}
 {% set step=R.id.CONFIRM_ADDRESS_STEP %}
 {% block step_title %}
   {{ R.string.step_2_confirm_address }}
 {% endblock %}
 {% block main_content %}
-  <p>TODO!</p>
+  {{ flash_static() }}
+  <form method="post">
+    <div class="group-select">
+      {% with client_form=user_form, edit=edit, include_email_confirmed=False %}
+        {% include "components/client_info_form_fields.html" %}
+      {% endwith %}
+      <div class="buttons-container">
+        {% if edit %}
+          <button type="submit" class="button save personalized accent-color-a-normal">
+            <span>{{ R.string.save }}</span>
+          </button>
+          <a href="{{ url_for('checkout.confirm_address') }}">
+            <button type="button" class="button cancel personalized accent-color-a-normal">
+              <span>{{ R.string.cancel }}</span></button>
+          </a>
+        {% else %}
+          <a href="{{ url_for('checkout.confirm_address', **{R.string.edit_arg_name: True}) }}">
+            <button type="button" class="button edit personalized accent-color-a-normal">
+              <span>{{ R.string.edit }}</span></button>
+          </a>
+          <button type="submit" class="personalized accent-color-a-normal">
+            {{ R.string.next_step }}
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </form>
   <div class="buttons-container">
-    <a href="{{ url_for("checkout.payment") }}">
-      {{ R.string.next_step }}
-    </a>
+
   </div>
 {% endblock %}

@@ -166,7 +166,7 @@
             </div>
         {% endif %}
         {% if readonly %}
-            {{ field(class_="form-control" + " " + classes + " " + field.classes|if(field.classes) + " " + field.name, disabled="disabled")}}
+            {{ field(class_="form-control" + " " + classes + " " + field.classes|if(field.classes) + " " + field.name, readonly=True)}}
         {% else %}
             {{ field(class_="form-control" + " " + classes + " " + field.classes|if(field.classes) + " " + field.name)}}
         {% endif %}

@@ -822,7 +822,7 @@ class Resources(object):
         step_2_confirm_address = "2. Confirmar endereço"
         step_3_payment = "3. Pagamento"
         next_step = "Próximo"
-
+        there_is_some_data_missing = "Há alguns dados faltando."
 
         facebook_link_example = "https://www.facebook.com/crescersaudavelni/"
         youtube_link_example = "https://www.youtube.com/"

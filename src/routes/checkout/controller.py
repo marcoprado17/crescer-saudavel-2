@@ -34,11 +34,29 @@ def confirm_purchase():
 @checkout_blueprint.route("/confirmar-endereco", methods=["GET", "POST"])
 @login_required
 def confirm_address():
+    user = current_user
     edit = get_boolean_url_arg(R.string.edit_arg_name, default=False)
-    return render_template(
-        "checkout/confirm_address.html",
-    )
-
+    if request.method == "GET":
+        return render_template(
+            "checkout/confirm_address.html",
+            edit=edit,
+            user_form=user.get_form(edit=edit)
+        )
+    else:
+        user_form = UserForm(edit=True)
+        if not user_form.validate_on_submit():
+            flash(R.string.there_is_some_data_missing, "static-error")
+            return render_template(
+                "checkout/confirm_address.html",
+                edit=True,
+                user_form=user_form
+            )
+        else:
+            user.update_from_form(form=user_form)
+            if edit:
+                return redirect(url_for("checkout.confirm_address"))
+            else:
+                return redirect(url_for("checkout.payment"))
 
 @checkout_blueprint.route("/pagamento", methods=["GET", "POST"])
 @login_required

@@ -175,10 +175,13 @@ def create_app():
     from components.data_providers.header import header_data_provider
     from flask_bombril.utils.utils import current_url
 
-    def _generate_csrf_input():
+    def _generate_csrf_token():
         if R.string.csrf_token_session_arg_name not in session:
             session[R.string.csrf_token_session_arg_name] = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(R.dimen.csrf_length))
-        return "<input type='hidden' name='%s' value='%s'/>" % (R.string.csrf_token_arg_name, session[R.string.csrf_token_session_arg_name])
+        return session[R.string.csrf_token_session_arg_name]
+
+    def _generate_csrf_input():
+        return "<input type='hidden' name='%s' value='%s'/>" % (R.string.csrf_token_arg_name, _generate_csrf_token())
 
     @app.context_processor
     def _():
@@ -192,6 +195,7 @@ def create_app():
             get_header_data=lambda: header_data_provider.get_data(),
             get_header_content=lambda: HeaderContent.get(),
             csrf_input=_generate_csrf_input,
+            csrf_token=_generate_csrf_token,
             current_url=current_url,
         )
 

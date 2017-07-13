@@ -9,15 +9,15 @@
 
 {% macro alert(message, level=None, dismissible=False) %}
     {% if level == None %}
-        {% set level=bombril_R.string.info %}
+        {% set level="info" %}
     {% endif %}
-    {% if level == bombril_R.string.success %}
+    {% if level == "success" %}
         {{ specific_alert(message=message, bootstrap_level="success", dismissible=dismissible) }}
-    {% elif level == bombril_R.string.info %}
+    {% elif level == "info" %}
         {{ specific_alert(message=message, bootstrap_level="info", dismissible=dismissible) }}
-    {% elif level == bombril_R.string.warning %}
+    {% elif level == "warning" %}
         {{ specific_alert(message=message, bootstrap_level="warning", dismissible=dismissible) }}
-    {% elif level == bombril_R.string.error %}
+    {% elif level == "error" %}
         {{ specific_alert(message=message, bootstrap_level="danger", dismissible=dismissible) }}
     {% endif %}
 {%- endmacro %}
